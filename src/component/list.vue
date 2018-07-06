@@ -80,7 +80,7 @@
           </el-form-item>
           <div style="width:485px;margin:0 auto 25px;border-top:1px solid #222222;"></div>
           <el-form-item style="margin-bottom: 20px;">
-            <el-button type="primary" @click="onSubmit" icon="el-icon-search" class="primary">保存并提交</el-button>
+            <el-button type="primary"  icon="el-icon-search" class="primary">保存并提交</el-button>
             <el-button class="back">返回</el-button>
           </el-form-item>
         </el-form>
@@ -108,6 +108,18 @@
             resource: ''
           }
         }
+      },
+      mounted(){
+        $('.el-scrollbar').css({
+            'background':'#000'
+        });
+        $('.el-select-dropdown').css('border-color','#333');
+        $('.el-select-dropdown__item').css('color','#999');
+        $(' .el-select-dropdown__item').mouseover(function(){
+          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+        })
+
+
       }
     }
 </script>
@@ -122,6 +134,7 @@
     margin: 0;
     padding: 0;
   }
+
   @media (min-width: 768px) and (max-width:1600px){
 
   }

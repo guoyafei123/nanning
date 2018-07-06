@@ -25,6 +25,7 @@
   import Set_leftVue from './set_left.vue';
   import MainVue from './main.vue';
   import Set_rightVue from './set_right.vue';
+  import '../assets/css/setting.scss';
   export default {
     components:{
       'header-vue':HeaderVue,

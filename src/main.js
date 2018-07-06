@@ -31,7 +31,6 @@ import './assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.min'
 import './assets/map/map.js'
 // 首页
 import './assets/css/index.css'
-require('./assets/css/setting.scss')
 new Vue({
   el: '#app',
   router,
