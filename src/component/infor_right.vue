@@ -18,7 +18,7 @@
           </div>
         </section>
         <section>
-          <div class="input-group btn-group date-picker input-daterange datatime margin-top30" data-date="today" data-date-format="yyyy-mm-dd"
+          <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top30" data-date="today" data-date-format="yyyy-mm-dd"
                data-original-title="" title="">
             <span class="input-group-btn" data-original-title="" title="">
                 <i class="fa fa-th-large"></i> 时间 </span>
@@ -449,8 +449,39 @@
               }
             ]
           };
+          var pie = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    selectedMode: 'single',
+                    radius: [0, '70%'],
+                    label: {
+                        normal: {
+                            position: 'inner'
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    color: ['#bad616', '#333'],
+                    data: [
+                        { value: 335, name: '50%', selected: true },
+                        { value: 679, name: '' }
+                    ]
+                }
+            ]
+          };
           let myChart2 = this.$echarts.init(document.getElementById('axis1'));
           myChart2.setOption(option1)
+          let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
+          mypie1.setOption(pie);
         }
       }
     }
