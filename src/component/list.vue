@@ -7,14 +7,15 @@
           <h2 class="float-left font-white size-16">新增设备</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/setting/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-          <router-link to="/setting/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
-          <router-link to="/setting/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
+          <router-link to="/Equipment_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Equipment_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+          <router-link to="/Equipment_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
         </div>
       </div>
       <div class="main_content">
         <el-form ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="设备名称">
+            <span class="font-red" style="position: absolute;top:-45px;right:20px;">设备名称有误或重复</span>
             <el-input v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="选择类别">
@@ -58,6 +59,7 @@
           </el-form-item>
           <div style="clear: both;"></div>
           <el-form-item label="设备物理地址">
+            <span class="font-red" style="position: absolute;top:-45px;right:20px;">设备物理地址有误</span>
             <el-input v-model="form.PhysicalAddress"></el-input>
           </el-form-item>
 
@@ -72,6 +74,7 @@
           </el-form-item>
           <div style="clear: both;"></div>
           <el-form-item label="是否生成图形码" style="margin-top:55px;">
+            <span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>
             <el-radio-group v-model="form.resource">
               <el-radio label="是"></el-radio>
               <el-radio label="否"></el-radio>

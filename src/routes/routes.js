@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // header
-import SettingVue from '../component/setting';
+import Equipment_managementVue from '../component/setting';
 // footer
 import IndexVue from '../component/index';
 import CallpoliceVue from '../component/callpolice';
@@ -13,19 +13,7 @@ import RiskVue from '../component/risk';
 import ListVue from '../component/list';
 import AllVue from '../component/all';
 import MapsVue from '../component/maps';
-
 const routes = [
-  // setting 设置
-  {
-    path:'/setting',
-    component:SettingVue,
-    children:[
-      { path:'/setting/list',component:ListVue},
-      { path:'/setting/all',component:AllVue},
-      { path:'/setting/maps',component:MapsVue},
-      { path:'/setting',redirect:'/setting/all'}
-    ]
-  },
   // footer 导航
   {
     path:'/index',component:IndexVue
@@ -47,6 +35,17 @@ const routes = [
   },
   {
     path:'*',redirect:'/index'
+  },
+  // 管理端路由
+  {
+    path:'/Equipment_management',
+    component:Equipment_managementVue,
+    children:[
+      { path:'/Equipment_management/list',component:ListVue},
+      { path:'/Equipment_management/all',component:AllVue},
+      { path:'/Equipment_management/maps',component:MapsVue},
+      { path:'/Equipment_management',redirect:'/Equipment_management/all'}
+    ]
   }
 ];
 const router = new VueRouter({
