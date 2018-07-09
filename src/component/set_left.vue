@@ -1,5 +1,5 @@
 <template>
-  <div class="margin-top120 margin-left37 margin-right20">
+  <div class="margin-top120 margin-right20" style="margin-left:37px;">
       <div class="clearFix">
         <span class="guanli size-66 font-white float-left">管理</span>
         <div class="float-right">

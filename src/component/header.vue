@@ -41,8 +41,8 @@
                 </li>
             </ul>
         </div>
-        
-        
+
+
 
 
 
@@ -145,9 +145,9 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="tooltip-test" data-toggle="tooltip" title="设置">
+                <router-link to="/setting" class="tooltip-test" data-toggle="tooltip" title="设置">
                     <i class="fa fa-th-large font-gray-666"></i>
-                </a>
+                </router-link>
             </li>
             <li>
                 <a href="#" class="tooltip-test" data-toggle="tooltip" title="公告">
