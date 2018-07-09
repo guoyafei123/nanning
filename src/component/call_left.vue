@@ -39,19 +39,19 @@
               <p class="size-10  set-scaleright">Hidden Danger Number</p>
             </li>
             <li>
-              <p class="size-18 font-blue">隐患数</p>
+              <p class="size-18 font-blue">故障数</p>
             </li>
             <li>
-              <p class="set-width-50 size-12">设备占比</p>
-              <p class="display-inline-block font-italic">76%</p>
+              <p class="set-width-50 size-12">室内设备</p>
+              <p class="display-inline-block font-italic">76</p>
             </li>
             <li>
-              <p class="set-width-50 size-12">隐患发现率</p>
-              <p class="display-inline-block  font-italic">41.3%</p>
+              <p class="set-width-50 size-12">室外设备</p>
+              <p class="display-inline-block  font-italic">13</p>
             </li>
             <li>
-              <p class="set-width-50 size-12">隐患解决率</p>
-              <p class="display-inline-block font-italic">30.3%</p>
+              <p class="set-width-50 size-12">主机复位</p>
+              <p class="display-inline-block font-italic">48</p>
             </li>
           </ul>
         </div>

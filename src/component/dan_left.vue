@@ -21,7 +21,7 @@
             <p class="font-gray-666 size-12">中心小学</p>
           </li>
           <li>
-            <p class="font-blue size-16">巡检路线
+            <p class="font-blue size-16">隐患信息
               <span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
                             <i class="fa fa-th-large"></i>
                         </span>
@@ -66,10 +66,10 @@
               <table class="table size-12 table-condensed toolroute-table margin-top10">
                 <tr>
                   <th>序号</th>
-                  <th>路线名称</th>
-                  <th>巡检统计</th>
+                  <th>类型</th>
+                  <th>隐患源</th>
+                  <th>发现时间</th>
                   <th>状态</th>
-                  <th>更新时间</th>
                   <th>操作</th>
                 </tr>
                 <tr>
@@ -270,11 +270,11 @@
 
 					cxt.fillStyle = "#b7d216";
 					cxt.font = "normal 20px 黑体";
-					cxt.fillText("安全评分", 0, 0);
+					cxt.fillText("隐患数", 0, 0);
 
 					cxt.fillStyle = "#f4f4f4";
 					cxt.font = "normal 10px 黑体";
-					cxt.fillText("风险系数:" + num + '%', 0, 20);
+					cxt.fillText("当前发现总数", 0, 20);
 
 					//右上角字体说明
 					cxt.fillStyle = "#999";

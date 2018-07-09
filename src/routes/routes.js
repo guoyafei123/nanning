@@ -10,6 +10,8 @@ import InspectionVue from '../component/inspection';
 import InformationVue from '../component/information';
 import PersonnelVue from '../component/personnel';
 import RiskVue from '../component/risk';
+import DangerVue from '../component/danger';
+import BulidVue from '../component/buliding';
 import ListVue from '../component/list';
 import AllVue from '../component/all';
 import MapsVue from '../component/maps';
@@ -44,6 +46,12 @@ const routes = [
   },
   {
     path:'/risk',component:RiskVue
+  },
+  {
+    path:'/buliding',component:BulidVue
+  },
+  {
+    path:'/danger',component:DangerVue
   },
   {
     path:'*',redirect:'/index'

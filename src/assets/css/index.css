@@ -120,6 +120,9 @@
     margin-top: 139px;
     padding-left:37px;
 }
+.toolcountp1{
+    margin-left: 16px;
+}
 .toolcount-left li:nth-child(1) p, .big-font97{
     font-size: 97px;
     line-height: 85px;
@@ -265,7 +268,7 @@
     margin: 5px 5px 2px 5px;
 }
 .toolcompanyrate,.toolregionrate{
-    margin-top: 100px;
+    margin-top: 30px;
 }
 .tablist-item{
     border-left: 1px dashed #bad616;
@@ -636,6 +639,9 @@
 .set-padding10{
     padding: 0px 20px;
 }
+.set-padding30{
+    padding: 0px 30px;
+}
 
 
 /* 时间插件 */
@@ -748,7 +754,7 @@
 .tool-charmaxvalue>p{
     position: absolute;
     right: 18px;
-    bottom: 30px;
+    bottom: 56px;
 }
 
 

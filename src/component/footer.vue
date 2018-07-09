@@ -15,10 +15,10 @@
           <router-link to="/callpolice">报警</router-link>
         </li>
         <li>
-          <router-link to="">隐患</router-link>
+          <router-link to="/danger">隐患</router-link>
         </li>
         <li>
-          <router-link to="">建筑</router-link>
+          <router-link to="/buliding">建筑</router-link>
         </li>
         <li>
           <router-link to="/information">设备</router-link>

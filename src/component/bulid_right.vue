@@ -2,218 +2,176 @@
   <div class="">
     <div class="toolright font-white  margin-top20">
 
-      <section class="risk-iteminfo display-none" >
+        <section class="bulid-iteminfo display-none">
+            <section>
+                <div class="personinfo">
+                    <p>
+                    <span class="size-20">实验教学楼</span>
+                    <span class="float-right">
+                            <span class="bgbox-max bg-gray-333 font-gray-999">灭火设备</span>
+                        </span>
+                    </p>
+                    <p class="col-sm-5 text-left padding0">
+                        <span class="size-12 font-gray-666">
+                            <i class="fa fa-th-large"></i> 良庆区中心小学</span>
+                    </p>
+                    <P class="col-sm-7 text-right padding0">
+                        <span class="text-right font-gray-666 size-12">
+                        录入时间<span>2018.07.09 08:00:00</span>
+                        </span>
+                    </P>
+                    
+                </div>
+            </section>
+            <section>
+                <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top10" data-date="today" data-date-format="yyyy-mm-dd"
+                    data-original-title="" title="">
+                    <span class="input-group-btn" data-original-title="" title="">
+                        <i class="fa fa-th-large"></i> 时间 </span>
+                    <input type="text" class="form-control" name="from" id="troubleStartTime">
+                    <span class="input-group-btn" data-original-title="" title=""> 至 </span>
+                    <input type="text" class="form-control" name="to" id="troubleEndTime">
+                    <span class="input-group-btn" data-original-title="" title="">
+                        确定
+                    </span>
+                    <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
+                </div>
+            </section>
+            <section>
+                <div class="row toolcount margin-top40">
+                    <div class="col-sm-4  font-gray-999 padding-right0">
+                    <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
+                        <li>
+                        <p class="font-blue size-50 line-height118">
+                            112
+                        </p>
+                        </li>
+                        <li>
+                        <p class="size-10">Running State</p>
+                        </li>
+                        <li>
+                        <p class="size-16 font-blue">总房间数量</p>
+                        </li>
+                    </ul>
+                    </div>
+                    <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
+                    <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
+                        <li>
+                        <p class="size-18 font-white">信息统计</p>
+                        </li>
+                        <li>
+                        <p class="size-10 set-scaleright">Pepair Statistics</p>
+                        </li>
+                        <li>
+                        <p class="set-width-50 size-12">楼层数量 <span class="font-gray-ccc">14 </span> 预案 <span class="font-gray-ccc">6 </span> </p>
+                        <p>使用 <span class="font-gray-ccc">10</span>年<span class="font-gray-ccc">12</span>月</p>
+                        </li>
+                        <li class="row text-center">
+                        <div class="col-sm-4 container-padding0 personnel-borderright">
+                            <p class="size-16 font-white">42</p>
+                            <p class="size-12 margin-bottom0">设备总数</p>
+                        </div>
+                        <div class="col-sm-4 container-padding0 personnel-borderright">
+                            <p class="size-16 font-white">25</p>
+                            <p class="size-12 margin-bottom0">警报总数</p>
+                        </div>
+                        <div class="col-sm-4 container-padding0">
+                            <p class="size-16 font-white">25</p>
+                            <p class="size-12 margin-bottom0">隐患总数</p>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="textandimg">
+                    <h2 class="size-16 font-gray-ccc margin-bottom20 margin-top10">
+                    <span class="tool-rect bg-blue"></span>建筑信息
+                    </h2>
+                    <div class="row textandimg-main">
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">建筑用途 </span>
+                            <span class="size-12 font-gray-999">公共 </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">建筑类型 </span>
+                            <span class="size-12 font-gray-999">超高层</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">建筑年份 </span>
+                            <span class="size-12 font-gray-999">2014年 </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">结构类型 </span>
+                            <span class="size-12 font-gray-999">钢混</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">楼层数量 </span>
+                            <span class="size-12 font-gray-999">14层</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">房间数量 </span>
+                            <span class="size-12 font-gray-999">112个</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">占地面积 </span>
+                            <span class="size-12 font-gray-999">2354 m² </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">建筑高度 </span>
+                            <span class="size-12 font-gray-999">545m</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">建筑经度 </span>
+                            <span class="size-12 font-gray-999">12.54951 </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">建筑维度 </span>
+                            <span class="size-12 font-gray-999">26.6659</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">管理单位 </span>
+                            <span class="size-12 font-gray-999">中心小学 </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">负责人 </span>
+                            <span class="size-12 font-gray-999">赵堆船</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">平面图 </span>
+                            <span class="size-12 font-gray-999">按钮 </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="size-12 font-gray-666">建筑标码 </span>
+                            <span class="size-12 font-gray-999">按钮</span>
+                        </div>
+                    
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row toolcount margin-top10">
+                    <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top10">
+                    <span class="tool-rect bg-blue"></span>历史趋势
+                    <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">
+                            <i class="fa fa-th-large"></i>
+                        </span>
+                    </h2>
+                    <div id="myChart1" style="width: 400px;height:180px;margin: 0 auto;"></div>
+                </div>
+            </section>
+        </section>
+
+      <section class="bulid-lineinfo">
         <section>
           <div class="personinfo">
             <p>
-              <span class="size-20 font-blue">实验教学楼</span>
-            </p>
-            <p>
-              <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> 良庆区中心小学</span>
-            </p>
-          </div>
-        </section>
-        <section>
-            <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top20" data-date="today" data-date-format="yyyy-mm-dd"
-                data-original-title="" title="">
-              <span class="input-group-btn" data-original-title="" title="">
-                  <i class="fa fa-th-large"></i> 时间 </span>
-              <input type="text" class="form-control" name="from" id="troubleStartTime">
-              <span class="input-group-btn" data-original-title="" title=""> 至 </span>
-              <input type="text" class="form-control" name="to" id="troubleEndTime">
-              <span class="input-group-btn" data-original-title="" title="">
-                  确定
-              </span>
-              <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
-            </div>
-        </section>
-        <section>
-          <div class="row toolcount margin-top40">
-            <div class="col-sm-4  font-gray-999 padding-right0">
-              <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
-                <li>
-                  <p class="line-height86 size-60 font-red"><span class="size-100">1</span>.7</p>
-                </li>
-                <li>
-                  <div id="riskchar1" style="width: 130%;height:50px;margin: 0 auto;"></div>
-                </li>
-              </ul>
-            </div>
-            <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
-              <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
-                <li>
-                  <!-- <p class="size-18 font-gray-ccc">路线统计</p>s -->
-                  <div id="riskchar2" style="width: 230px;height:150px;margin: 0 auto;"></div>
-                </li>
-              </ul>
-              
-            </div>
-          </div>
-        </section>
-
-        <section id="inspectbtn-company">
-          <div class="toolcompanyrate">
-            <h2 class="size-16 font-gray-ccc">
-              <span class="tool-rect bg-blue"></span>单项风险</h2>
-            <ul class="row padding0 margin0 size-12 font-gray-999">
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                      <span class="toolcompanyrate-char-bg">
-                          <span class="toolcompanyrate-char-qg" style="width:50%;"></span>
-                      </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:79%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:15%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:67%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:34%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:22%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:97%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:37%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:82%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <section>
-          <div class="row toolcount margin-top30">
-            <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-              <span class="tool-rect bg-blue"></span>历史评估
-              <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">
-                      <i class="fa fa-th-large"></i>
-                  </span>
-            </h2>
-            <div id="riskchar3" style="width: 380px;height:180px;margin: 0 auto;"></div>
-          </div>
-        </section>
-
-        
-      </section>
-
-      <section class="risk-lineinfo">
-        <section>
-          <div class="personinfo">
-            <p>
-              <span class="size-20 font-blue">南宁市良庆区</span>
+              <span class="size-20 font-blue">中心小学</span>
               <span class="float-right">
                         <span class="font-blue">
                             <i class="fa fa-th-large"></i> 评分2.6</span>
@@ -241,23 +199,23 @@
         <section>
           <div class="row toolcount">
             <h2 class="size-16 font-gray-ccc margin-top0 margin-bottom0">
-              <span class="tool-rect bg-blue"></span>安全评分
+              <span class="tool-rect bg-blue"></span>建筑数量
             </h2>
             <div class="col-sm-7  font-gray-999 padding-right0">
                 
               <div class="row text-center margin-top50">
-                <p class="text-left toolcountp1">单位评分 <span class="font-blue">2处 </span> <span>高于 </span> <span>6.0</span></p>
+                <p class="text-left toolcountp1">总数 <span class="font-blue">270</span></p>
                 <div class="col-sm-4 container-padding0 personnel-borderright">
                   <p class="size-16 font-red">42</p>
-                  <p class="size-12 margin-bottom0">红色预警</p>
+                  <p class="size-12 margin-bottom0">建筑总数</p>
                 </div>
                 <div class="col-sm-4 container-padding0 personnel-borderright">
                   <p class="size-16 font-orange">无</p>
-                  <p class="size-12 margin-bottom0">橙色预警</p>
+                  <p class="size-12 margin-bottom0">室外设备</p>
                 </div>
                 <div class="col-sm-4 container-padding0">
                   <p class="size-16 font-yellow">25</p>
-                  <p class="size-12 margin-bottom0">黄色预警</p>
+                  <p class="size-12 margin-bottom0">室内设备</p>
                 </div>
               </div>
             </div>
@@ -269,29 +227,29 @@
         <section>
           <div class="row toolcount">
             <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-              <span class="tool-rect bg-blue "></span>风险系数
+              <span class="tool-rect bg-blue "></span>建筑信息
             </h2>
             <div class="font-gray-999 padding-right0 margin-top10 ">
                 <div class="row text-left set-padding30">
                   <div class="col-sm-4 container-padding0">
                     <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 建筑防火</p>
+                      <i class="fa fa-th-large"></i> 房间 380</p>
                   </div>
                   <div class="col-sm-4 container-padding0">
                     <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 消防设施</p>
+                      <i class="fa fa-th-large"></i> 设备 247</p>
                   </div>
                   <div class="col-sm-4 container-padding0">
                     <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 火灾危险源</p>
+                      <i class="fa fa-th-large"></i> 警报 89</p>
                   </div>
                   <div class="col-sm-4 container-padding0">
                     <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 消防安全管理</p>
+                      <i class="fa fa-th-large"></i> 隐患 16</p>
                   </div>
                    <div class="col-sm-4 container-padding0">
                     <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 灭火救援</p>
+                      <i class="fa fa-th-large"></i> 预案 28</p>
                   </div>
                 </div>
               </div>
@@ -326,18 +284,18 @@ export default {
   },
   methods: {
     moren() {
-      $(".risk-iteminfo")
+      $(".bulid-iteminfo")
         .addClass("display-block")
         .removeClass("display-none");
-      $(".risk-lineinfo")
+      $(".bulid-lineinfo")
         .addClass("display-none")
         .removeClass("display-block");
     },
     jianzhu() {
-      $(".risk-lineinfo")
+      $(".bulid-lineinfo")
         .addClass("display-block")
         .removeClass("display-none");
-      $(".risk-iteminfo")
+      $(".bulid-iteminfo")
         .addClass("display-none")
         .removeClass("display-block");
     },
@@ -594,14 +552,10 @@ export default {
                     }
                 ]
             };
-            let riskchar1b = this.$echarts.init(document.getElementById("riskchar1"));
-            riskchar1b.setOption(riskchar1f);
-            let riskchar2b = this.$echarts.init(document.getElementById("riskchar2"));
-            riskchar2b.setOption(option1);
-            let riskchar3b = this.$echarts.init(document.getElementById("riskchar3"));
-            riskchar3b.setOption(option);
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       myChart.setOption(option);
+      let myChart2 = this.$echarts.init(document.getElementById("myChart1"));
+      myChart2.setOption(option);
       let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
       mypie1.setOption(pie);
       let myChart1 = this.$echarts.init(document.getElementById("axis1"));
@@ -615,8 +569,8 @@ export default {
 </script>
 
 <style scoped>
-.line-height86 {
-  line-height: 86px !important;
+.line-height118 {
+  line-height: 118px !important;
 }
 .padding-right16 {
   padding-right: 16px;

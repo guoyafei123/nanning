@@ -214,9 +214,9 @@
             </div>
           </section>
           <section>
-            <div class="row toolcount margin-top30">
-              <h2 class="size-16 font-gray-ccc margin-bottom20 ">
-                <span class="tool-rect bg-blue"></span>设备数量
+            <div class="row toolcount">
+              <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
+                <span class="tool-rect bg-blue "></span>设备数量
               </h2>
               <div class="col-sm-7  font-gray-999 padding-right0">
                 <div class="row text-center margin-top70">
@@ -240,7 +240,7 @@
             </div>
           </section>
           <section>
-            <div class="row toolcount margin-top10">
+            <div class="row toolcount">
               <h2 class="size-16 font-gray-ccc margin-bottom20 ">
                 <span class="tool-rect bg-blue"></span>设备类型
               </h2>
@@ -268,7 +268,7 @@
             </div>
           </section>
           <section>
-            <div class="toolregionrate margin-top30">
+            <div class="toolregionrate margin-top20">
               <h2 class="size-16 font-gray-ccc">
                 <span class="tool-rect bg-blue"></span>数量变化
                 <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">

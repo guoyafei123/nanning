@@ -6,13 +6,13 @@
     <!-- #左边 -->
     <section id="left" class="position-fixed-left container-padding5 z-index-20">
       <div class="overlay"></div>
-      <risk_left-vue></risk_left-vue>
+      <bulid_left-vue></bulid_left-vue>
     </section>
     <!-- #左边 End-->
     <!-- #右边 -->
     <section id="right" class="position-fixed-right container-padding5 z-index-20">
       <div class="overlay"></div>
-      <risk_right-vue></risk_right-vue>
+      <bulid_right-vue></bulid_right-vue>
     </section>
 
     <!-- #右边 End-->
@@ -21,13 +21,13 @@
 
 <script>
   import HeaderVue from './header.vue';
-  import Risk_leftVue from './risk_left.vue';
-  import Risk_rightVue from './risk_right.vue';
+  import Bulid_leftVue from './bulid_left.vue';
+  import Bulid_rightVue from './bulid_right.vue';
   export default {
     components:{
       'header-vue':HeaderVue,
-      'risk_left-vue':Risk_leftVue,
-      'risk_right-vue':Risk_rightVue
+      'bulid_left-vue':Bulid_leftVue,
+      'bulid_right-vue':Bulid_rightVue
     }
   }
 </script>
