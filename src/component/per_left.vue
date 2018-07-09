@@ -52,7 +52,7 @@
     </section>
     <section>
       <div class="toolcompanyrate margin-top50">
-        <ul class="row padding0 margin0 size-12 font-gray-999 margin-left30">
+        <ul class="row padding0 margin0 size-12 font-gray-999">
           <li class="col-sm-6">
             <div class="row margin0 padding0">
               <div class="toolcompanyrate-char col-sm-6 padding0">

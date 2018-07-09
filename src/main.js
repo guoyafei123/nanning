@@ -25,12 +25,19 @@ require('./assets/ionicons/css/ionicons.min.css');
 // public
 require('./assets/css/common.css');
 // bootstrap 时间插件
-require('./assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.min.css');
-import './assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.min'
+// require('./assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.min.css');
+// import './assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.min'
+//
+// require('./assets/datetime/bootstrap-datetimepicker.min.css');
+// require('./assets/datetime/layout.min.css');
+// import './assets/datetime/bootstrap-datepicker'
+// import './assets/datetime/app.min'
+// import './assets/datetime/components-date-time-pickers'
 //百度相关
 import './assets/map/map.js'
 // 首页
 import './assets/css/index.css'
+require('./assets/css/setting.scss')
 new Vue({
   el: '#app',
   router,

@@ -1,109 +1,107 @@
 <template>
   <header id="header" class="position-fixed-top z-index-30">
     <div class="header-main">
-      <div class="header-left margin-top40 position-left37">
+    <div class="header-left margin-top40 position-left37">
         <p class="font-white size-16 version-title">数雨如歌智慧消防大数据监控平台 政府版
-          <span class="size-10 version-num">BETA3.0</span>
+            <span class="size-10 version-num">BETA3.0</span>
         </p>
         <i class="fa fa-th-large font-gray-666"></i>
         <div class="dropdown public-dropdown display-inline-block">
-          <button class="btn btn-default dropdown-toggle size-12 dropdown-btnstyle" type="button" id="aaaa" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            南宁市良庆区
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu xunjian-left-main-bottom-pan bg-gray-99" aria-labelledby="aaaa">
-            <li>
-              <a href="#">南宁市良庆区</a>
-            </li>
-            <li>
-              <a href="#">南宁市良庆区</a>
-            </li>
-            <li>
-              <a href="#">南宁市良庆区</a>
-            </li>
-          </ul>
+            <button class="btn btn-default dropdown-toggle size-12 dropdown-btnstyle" type="button" id="aaaa" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                南宁市良庆区
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu xunjian-left-main-bottom-pan bg-gray-99" aria-labelledby="aaaa">
+                <li>
+                    <a href="#">南宁市良庆区</a>
+                </li>
+                <li>
+                    <a href="#">南宁市良庆区</a>
+                </li>
+                <li>
+                    <a href="#">南宁市良庆区</a>
+                </li>
+            </ul>
         </div>
         <i class="fa fa-th-large font-gray-666"></i>
         <div class="dropdown public-dropdown display-inline-block">
-          <button class="btn btn-default dropdown-toggle size-12 font-blue dropdown-btnstyle" type="button" id="bbbb" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            中心小学
-            <span class="caret font-blue"></span>
-          </button>
-          <ul class="dropdown-menu xunjian-left-main-bottom-pan bg-gray-99" aria-labelledby="aaaa">
-            <li>
-              <a href="#">中心小学</a>
-            </li>
-            <li>
-              <a href="#">中心小学</a>
-            </li>
-            <li>
-              <a href="#">中心小学</a>
-            </li>
-          </ul>
+            <button class="btn btn-default dropdown-toggle size-12 font-blue dropdown-btnstyle" type="button" id="aaaa" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                中心小学
+                <span class="caret font-blue"></span>
+            </button>
+            <ul class="dropdown-menu xunjian-left-main-bottom-pan bg-gray-99" aria-labelledby="aaaa">
+                <li>
+                    <a href="#">中心小学</a>
+                </li>
+                <li>
+                    <a href="#">中心小学</a>
+                </li>
+                <li>
+                    <a href="#">中心小学</a>
+                </li>
+            </ul>
         </div>
-
-        <input size="16" type="text" value="2012-06-15" readonly class="public-main-tieme font-blue">
-        <i class="fa fa-th-large font-blue"></i>
-        <i class="fa fa-th-large font-blue"></i>
-        <span class="font-blue size-12">晴朗</span>
+        
+        
 
 
 
-      </div>
-      <div class="header-middle font-gray-ccc">
+    </div>
+    <div class="header-middle font-gray-ccc">
         <ul>
-          <li>
-            <canvas class="bg-none" id="header-canvas-people" width="50" height="50"></canvas>
-            <div class="display-inline-block">
-              <p>
-                <span class="font-blue">131</span>/
-                <span>203</span>
-              </p>
-              <p class="size-12">人员在线</p>
-            </div>
-          </li>
-          <li>
-            <canvas class="bg-none" id="header-canvas-host" width="50" height="50"></canvas>
-            <div class="display-inline-block">
-              <p>
-                <span class="font-blue">88</span>/
-                <span>106</span>
-              </p>
-              <p class="size-12">主机在线</p>
-            </div>
-          </li>
-          <li class="header-time">
-            <p class="size-36">09:50:55</p>
-          </li>
-          <li>
-            <canvas class="bg-none" id="header-canvas-cpu" width="50" height="50"></canvas>
-            <div class="display-inline-block">
-              <p>
-                <span>75.5%</span>
-              </p>
-              <p class="size-12">CPU占用</p>
-            </div>
-          </li>
-          <li>
-            <canvas class="bg-none" id="header-canvas-memory" width="50" height="50"></canvas>
-            <div class="display-inline-block">
-              <p>
-                <span>26.1%</span>
-              </p>
-              <p class="size-12">内存占用</p>
-            </div>
-          </li>
+            <li>
+                <canvas class="bg-none" id="header-canvas-people" width="50" height="50"></canvas>
+                <div class="display-inline-block">
+                    <p>
+                        <span class="font-blue">131</span>/
+                        <span>203</span>
+                    </p>
+                    <p class="size-12">人员在线</p>
+                </div>
+            </li>
+            <li>
+                <canvas class="bg-none" id="header-canvas-host" width="50" height="50"></canvas>
+                <div class="display-inline-block">
+                    <p>
+                        <span class="font-blue">88</span>/
+                        <span>106</span>
+                    </p>
+                    <p class="size-12">主机在线</p>
+                </div>
+            </li>
+            <li class="header-time">
+                <p> <i class="fa fa-th-large font-blue"></i><span class="font-blue size-12"> 晴朗</span></p>
+                <p class="size-36">09:50:55</p>
+            </li>
+            <li>
+                <canvas class="bg-none" id="header-canvas-cpu" width="50" height="50"></canvas>
+                <div class="display-inline-block">
+                    <p>
+                        <span>75.5%</span>
+                    </p>
+                    <p class="size-12">CPU占用</p>
+                </div>
+            </li>
+            <li>
+                <canvas class="bg-none" id="header-canvas-memory" width="50" height="50"></canvas>
+                <div class="display-inline-block">
+                    <p>
+                        <span>26.1%</span>
+                    </p>
+                    <p class="size-12">内存占用</p>
+                </div>
+            </li>
         </ul>
-      </div>
-      <div class="header-right  margin-top40 position-right37">
+    </div>
+    <div class="header-right  margin-top40 position-right37">
         <div>
             <span class="header-head-portrait">
-                <img src="../assets/images/icon/logo.png">
+                <img src="/src/assets/images/icon/logo.png">
             </span>
-          <span class="font-gray-666">
+            <span class="font-gray-666">
                 <div class="display-inline-block">
                     <button class="btn btn-default dropdown-toggle dropdown-btnstyle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="true" >
+                        aria-expanded="true" >
                         段亚伟
                         <span style="color: #fff;" class="caret"></span>
                     </button>
@@ -131,39 +129,39 @@
             </span>
         </div>
         <ul>
-          <li>
-            <a href="#" class="tooltip-test" data-toggle="tooltip" title="消息提示">
-              <i class="fa fa-th-large font-gray-666 active-header-right-tool"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="tooltip-test" data-toggle="tooltip" title="搜索">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="tooltip-test" data-toggle="tooltip" title="九屏监控">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </a>
-          </li>
-          <li>
-            <router-link to="/setting" class="tooltip-test" data-toggle="tooltip" title="设置">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </router-link>
-          </li>
-          <li>
-            <a href="#" class="tooltip-test" data-toggle="tooltip" title="公告">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="tooltip-test" data-toggle="tooltip" title="帮助">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </a>
-          </li>
+            <li>
+                <a href="#" class="tooltip-test" data-toggle="tooltip" title="消息提示">
+                    <i class="fa fa-th-large font-gray-666 active-header-right-tool"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="tooltip-test" data-toggle="tooltip" title="搜索">
+                    <i class="fa fa-th-large font-gray-666"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="tooltip-test" data-toggle="tooltip" title="九屏监控">
+                    <i class="fa fa-th-large font-gray-666"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="tooltip-test" data-toggle="tooltip" title="设置">
+                    <i class="fa fa-th-large font-gray-666"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="tooltip-test" data-toggle="tooltip" title="公告">
+                    <i class="fa fa-th-large font-gray-666"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="tooltip-test" data-toggle="tooltip" title="帮助">
+                    <i class="fa fa-th-large font-gray-666"></i>
+                </a>
+            </li>
         </ul>
-      </div>
     </div>
+</div>
   </header>
 </template>
 

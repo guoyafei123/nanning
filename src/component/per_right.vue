@@ -29,7 +29,7 @@
         <div class="col-sm-4  font-gray-999 padding-right0">
           <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
             <li>
-              <p>
+              <p class="line-height70">
                 8.<span class="size-36">7</span>
               </p>
             </li>
@@ -291,5 +291,7 @@
 </script>
 
 <style scoped>
-
+  .line-height70{
+    line-height: 70px !important;
+  }
 </style>

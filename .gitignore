@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .DS_Store
 node_modules/
 dist/
@@ -10,3 +11,29 @@ yarn-error.log
 *.ntvs*
 *.njsproj
 *.sln
+=======
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+nbdist/
+.nb-gradle/
+node_module/
+>>>>>>> ef39693de800206a9623a24a9b5a13d3c6ea70bc

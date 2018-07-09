@@ -11,7 +11,7 @@
               <p class="size-10">On-site Inspection</p>
             </li>
             <li>
-              <p class="size-18 font-blue">巡检完成总数</p>
+              <p class="size-18 font-blue">今日巡检完成</p>
             </li>
             <li>
               <p class="set-width-50 size-12">巡检路线</p>
@@ -22,16 +22,13 @@
               <p class="display-inline-block font-blue font-italic">2</p>
             </li>
             <li>
-              <p class="set-width-50 size-12">隐患发现率</p>
-              <p class="display-inline-block ">
-                <span class="font-yellow font-italic margin-bottom0">3 </span>/
-                <span class="margin-bottom0">30.2%</span>
-              </p>
+              <p class="set-width-50 size-12">巡检人数</p>
+              <p class="display-inline-block font-blue font-italic">22</p>
             </li>
           </ul>
         </div>
         <div class="col-sm-6 font-gray-999 padding-left0 padding-right0">
-          <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
+          <ul class="toolcount-right padding-left15 margin-bottom0">
             <li class="toolcount-right-title">
               <p class="size-30 font-blue">巡检统计</p>
             </li>
@@ -43,11 +40,11 @@
               <p class="display-inline-block font-italic">89.7%</p>
             </li>
             <li>
-              <p class="set-width-50 size-12">本周统计</p>
+              <p class="set-width-50 size-12">近7日</p>
               <p class="display-inline-block font-italic">88.6%</p>
             </li>
             <li>
-              <p class="set-width-50 size-12">本月统计</p>
+              <p class="set-width-50 size-12">近30日</p>
               <p class="display-inline-block font-italic">76.9%</p>
             </li>
             <li>
@@ -55,8 +52,8 @@
               <p class="display-inline-block font-italic">63.7%</p>
             </li>
             <li>
-              <p class="set-width-50 size-12 margin-bottom0">危险物品</p>
-              <p class="display-inline-block font-orange font-italic margin-bottom0">1</p>
+              <p class="set-width-50 size-12 margin-bottom0">隐患发现率</p>
+              <p class="display-inline-block font-orange font-italic margin-bottom0">1%</p>
             </li>
           </ul>
         </div>
@@ -115,7 +112,7 @@
               <table class="table size-12 table-condensed toolroute-table margin-top10">
                 <tr>
                   <th>序号</th>
-                  <th>名称</th>
+                  <th>路线名称</th>
                   <th>巡检统计</th>
                   <th>状态</th>
                   <th>更新时间</th>
