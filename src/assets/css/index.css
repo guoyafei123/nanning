@@ -407,7 +407,7 @@
     padding: 0px 5px;
     font-size: 12px;
     position: relative;
-    bottom: 7px;
+    bottom: 4px;
 }
 .bgbox-max{
     display: inline-block;
@@ -734,6 +734,21 @@
 
 .datepicker span.month {
     padding: 0 5px;
+}
+
+/* 风险 */
+.tool-charmax{
+    position: relative;
+}
+.tool-charmaxvalue{
+    position: absolute;
+    bottom: 0px;
+    right:0px;
+}
+.tool-charmaxvalue>p{
+    position: absolute;
+    right: 18px;
+    bottom: 30px;
 }
 
 

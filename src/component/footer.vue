@@ -2,37 +2,43 @@
   <footer id="footer"  class="col-sm-12 position-fixed-bottom z-index-10">
     <div class="footer">
       <ul class="list-inline">
-        <li>
+        <li class="footer-nav-active">
           <router-link to="/index">综合</router-link>
         </li>
         <li>
-          <a href="">风险</a>
+          <router-link to="/risk">风险</router-link>
         </li>
         <li>
           <router-link to="/inspection">巡查</router-link>
         </li>
         <li>
-          <router-link to="/callpolice">警报</router-link>
+          <router-link to="/callpolice">报警</router-link>
+        </li>
+        <li>
+          <router-link to="">隐患</router-link>
+        </li>
+        <li>
+          <router-link to="">建筑</router-link>
+        </li>
+        <li>
+          <router-link to="/information">设备</router-link>
         </li>
         <li>
           <router-link to="/personnel">人员</router-link>
         </li>
         <li>
-          <router-link to="/information">信息</router-link>
-        </li>
-        <li>
           <router-link to="">预案</router-link>
         </li>
         <li>
-          <router-link to="">调度</router-link>
+          <router-link to="">联控</router-link>
         </li>
-        <li>
+        <!-- <li>
           <router-link to="">
             <i class="fa fa-th-large"></i>
           </router-link>
-        </li>
+        </li> -->
       </ul>
-      <abbr class="size-12 font-gray-999">数雨如歌智慧消防大数据监控平台 政府版
+      <abbr class="size-12 font-gray-666">数雨如歌智慧消防大数据监控平台 政府版
         <span>BETA3.0</span>
       </abbr>
     </div>
@@ -40,9 +46,22 @@
 </template>
 
 <script>
-
-    export default {
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    
+    chart_one() {
+      $('.list-inline').on('click','li',function(){
+        $(this).addClass("footer-nav-active").siblings().removeClass('footer-nav-active');
+      })
     }
+  },
+  mounted() {
+    this.chart_one();
+  }
+};
 </script>
 
 <style scoped>

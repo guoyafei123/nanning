@@ -9,6 +9,7 @@ import CallpoliceVue from '../component/callpolice';
 import InspectionVue from '../component/inspection';
 import InformationVue from '../component/information';
 import PersonnelVue from '../component/personnel';
+import RiskVue from '../component/risk';
 import ListVue from '../component/list';
 import AllVue from '../component/all';
 import MapsVue from '../component/maps';
@@ -40,6 +41,9 @@ const routes = [
   },
   {
     path:'/personnel',component:PersonnelVue
+  },
+  {
+    path:'/risk',component:RiskVue
   },
   {
     path:'*',redirect:'/index'

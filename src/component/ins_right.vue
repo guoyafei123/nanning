@@ -533,8 +533,8 @@
       <button @click="luxian">路线</button>
     </div> -->
     <div class="ceshi-btn">
-      <button @click="moren">统计</button>
-      <button @click="jianzhu">详情</button>
+      <button @click="moren">详情</button>
+      <button @click="jianzhu">统计</button>
     </div>
   </div>
 
@@ -547,23 +547,23 @@ export default {
   },
   methods: {
     moren() {
-      $("#inspectbtn-iteminfo")
+      $(".inspection-iteminfo")
         .addClass("display-block")
         .removeClass("display-none");
-      $("#inspectbtn-itemitem")
+      $(".inspection-lineinfo")
         .addClass("display-none")
         .removeClass("display-block");
-    //   $("#inspectbtn-linepeople")
-    //     .addClass("display-none")
-    //     .removeClass("display-block");
+      //   $("#inspectbtn-linepeople")
+      //     .addClass("display-none")
+      //     .removeClass("display-block");
     },
     jianzhu() {
-      $("#inspectbtn-iteminfo")
+      $(".inspection-lineinfo")
         .addClass("display-block")
         .removeClass("display-none");
-      $("#inspectbtn-itemitem")
-        .addClass("display-block")
-        .removeClass("display-none");
+      $(".inspection-iteminfo")
+        .addClass("display-none")
+        .removeClass("display-block");
       // $("#inspectbtn-linepeople")
       //   .addClass("display-none")
       //   .removeClass("display-block");
@@ -665,120 +665,121 @@ export default {
       };
       var pie = {
         tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
         series: [
-            {
-                name: '访问来源',
-                type: 'pie',
-                selectedMode: 'single',
-                radius: [0, '70%'],
-                label: {
-                    normal: {
-                        position: 'inner'
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: false
-                    }
-                },
-                color: ['#bad616', '#333'],
-                data: [
-                    { value: 335, name: '50%', selected: true },
-                    { value: 679, name: '' }
-                ]
-            }
+          {
+            name: "访问来源",
+            type: "pie",
+            selectedMode: "single",
+            radius: [0, "70%"],
+            label: {
+              normal: {
+                position: "inner"
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            color: ["#bad616", "#333"],
+            data: [
+              { value: 335, name: "50%", selected: true },
+              { value: 679, name: "" }
+            ]
+          }
         ]
       };
 
       // 根据值判断柱子颜色的柱状图
       var option1 = {
-          color: ['#3398DB'],
-          tooltip: {
-              trigger: 'axis',
-              axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                  type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-              }
-          },
-          grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true
-          },
-          xAxis: [
-              {
-                  type: 'category',
-                  show:true,
-                  data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '12'],
-                  axisTick: {
-                      alignWithLabel: true
-                  }
-              }
-          ],
-          yAxis: [
-              {
-                  type: 'value',
-                  show:false,
-              }
-          ],
-          grid: {
-              y: 40,
-              x2: 0,
-              y2: 20,
-              x: 0,
-              borderWidth: 1
-          },
-          series: [
-              {
-                  name: '直接访问',
-                  type: 'bar',
-                  barWidth: '60%',
-                  data: [10, 52, 200, 334, 390, 330, 220, 192],
-                  itemStyle: {
-                      normal: {
-                          // 值显示在柱子顶部
-                          label: {
-                              show: true,
-                              position: 'top',
-                              textStyle: {
-                                  color: function (params) {
-                                      if (params.value > 0 && params.value < 100) {
-                                          return "#333333";
-                                      } else if (params.value >= 100 && params.value <= 200) {
-                                          return "#666666";
-                                      } else if (params.value >= 200 && params.value <= 300) {
-                                          return "#999999";
-                                      }
-                                      return "#bad616";
-                                  }
-                              },
-                              formatter: function (params) {
-                                  if (params.value == 0) {
-                                      return '';
-                                  } else {
-                                      return params.value;
-                                  }
-                              }
-                          },
-                          color: function (params) {
-                              if (params.value > 0 && params.value < 100) {
-                                  return "#333333";
-                              } else if (params.value >= 100 && params.value <= 200) {
-                                  return "#666666";
-                              } else if (params.value >= 200 && params.value <= 300) {
-                                  return "#999999";
-                              }
-                              return "#bad616";
-                          }
+        color: ["#3398DB"],
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: "category",
+            show: true,
+            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "12"],
+            axisTick: {
+              alignWithLabel: true
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: "value",
+            show: false
+          }
+        ],
+        grid: {
+          y: 40,
+          x2: 0,
+          y2: 20,
+          x: 0,
+          borderWidth: 1
+        },
+        series: [
+          {
+            name: "直接访问",
+            type: "bar",
+            barWidth: "60%",
+            data: [10, 52, 200, 334, 390, 330, 220, 192],
+            itemStyle: {
+              normal: {
+                // 值显示在柱子顶部
+                label: {
+                  show: true,
+                  position: "top",
+                  textStyle: {
+                    color: function(params) {
+                      if (params.value > 0 && params.value < 100) {
+                        return "#333333";
+                      } else if (params.value >= 100 && params.value <= 200) {
+                        return "#666666";
+                      } else if (params.value >= 200 && params.value <= 300) {
+                        return "#999999";
                       }
+                      return "#bad616";
+                    }
+                  },
+                  formatter: function(params) {
+                    if (params.value == 0) {
+                      return "";
+                    } else {
+                      return params.value;
+                    }
                   }
+                },
+                color: function(params) {
+                  if (params.value > 0 && params.value < 100) {
+                    return "#333333";
+                  } else if (params.value >= 100 && params.value <= 200) {
+                    return "#666666";
+                  } else if (params.value >= 200 && params.value <= 300) {
+                    return "#999999";
+                  }
+                  return "#bad616";
+                }
               }
-          ]
+            }
+          }
+        ]
       };
-      
+
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       myChart.setOption(option);
       let mypie1 = this.$echarts.init(document.getElementById("pieb1"));

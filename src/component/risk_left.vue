@@ -1,84 +1,17 @@
 <template>
   <div class="toolleft margin-right0">
     <section>
-      <div class="row toolcount">
-        <div class="col-sm-6  font-gray-999 padding-right0">
-          <ul class="toolcount-left margin-bottom0 padding-left37" id="toolcount">
-            <li>
-              <p>26</p>
-            </li>
-            <li>
-              <p class="size-10">Worker On line</p>
-            </li>
-            <li>
-              <p class="size-18 font-blue">人员在线数量</p>
-            </li>
-            <!-- <li v-for="todo in todos">
-                        {{ todo.text }}lg
-                    </li> -->
-          </ul>
-        </div>
-        <div class="col-sm-6 font-gray-999 padding-left0 padding-right0">
-          <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
-            <li>
-              <p class="set-width-50 size-12">人员总数</p>
-              <p class="display-inline-block font-italic">452</p>
-            </li>
-            <li>
-              <p class="set-width-50 size-12">巡检人员</p>
-              <p class="display-inline-block font-italic">
-                <span class="font-blue font-italic margin-bottom0">3 </span>/
-                <span class="margin-bottom0">120</span>
-              </p>
-            </li>
-            <li>
-              <p class="set-width-50 size-12">监控人员</p>
-              <p class="display-inline-block font-italic">
-                <span class="font-yellow font-italic margin-bottom0">4 </span>/
-                <span class="margin-bottom0">8</span>
-              </p>
-            </li>
-            <li>
-              <p class="set-width-50 size-12">管理人员</p>
-              <p class="display-inline-block font-italic">63.7%</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <section>
-      <div class="toolcompanyrate margin-top50">
-        <ul class="row padding0 margin0 size-12 font-gray-999">
-          <li class="col-sm-6">
-            <div class="row margin0 padding0">
-              <div class="toolcompanyrate-char col-sm-6 padding0">
-                <p class="font-blue">
-                  执行任务
-                </p>
-                <p class="size-16">段亚伟</p>
-              </div>
-              <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                <span class="size-22">36</span>
-                <span class="position-absolute size-10 companyrateci">次</span>
-              </div>
+        <div class="tool-charmax">
+            <div>
+                <!--需要按照  1.16/1 的宽高比例进行创建 可自适应布局-->
+                <canvas id="canvas-big" width="260" height="200"></canvas>
             </div>
-          </li>
-          <li class="col-sm-6">
-            <div class="row margin0 padding0">
-              <div class="toolcompanyrate-char col-sm-6 padding0">
-                <p class="font-blue">
-                  隐患解决
-                </p>
-                <p class="size-16">赵堆船</p>
-              </div>
-              <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                <span class="size-22">24</span>
-                <span class="position-absolute size-10 companyrateci">次</span>
-              </div>
+            <div class="tool-charmaxvalue">
+                <p class="font-blue size-66">8.7</p>
+                
             </div>
-          </li>
-        </ul>
-      </div>
+        </div>
+        <div id="myChart" style="width: 100%;height:50px;margin: 0 auto;"></div>
     </section>
     <section>
       <div class="toolroute font-gray-ccc margin-left37">
@@ -133,7 +66,7 @@
               <table class="table size-12 table-condensed toolroute-table margin-top10">
                 <tr>
                   <th>序号</th>
-                  <th>名称</th>
+                  <th>路线名称</th>
                   <th>巡检统计</th>
                   <th>状态</th>
                   <th>更新时间</th>
@@ -303,6 +236,227 @@
 
 <script>
     export default {
+      mounted(){
+        this.chart_one()
+      },
+      methods:{
+        chart_one(){
+          function go(num) {
+					//清除画布,每次重绘
+					var canvas_big = document.getElementById("canvas-big");
+					var cxt = canvas_big.getContext("2d");
+					canvas_big.width = canvas_big.width;
+					canvas_big.height = canvas_big.height;
+                    cxt.fillStyle='rgba(0,0,0,0)';
+					//适配处理
+					var width = canvas_big.height * 0.8;
+					var height = canvas_big.height * 0.8;
+					var r = width / 2;
+					var arclineWidth = width / 16.666666;
+					var arclen = width / 33.333333;
+					var arclen3 = width / 20;
+					var radi2 = r * 0.855;
+					var radi3 = r * 1
+					var bacColor = '#333';
+					var forColor = '#b7d216';
+					cxt.translate(width / 2, height / 2 + height * 0.2);
+
+					//中间文字说明
+					cxt.textAlign = "center";
+					cxt.textBaseline = "middle";
+					cxt.fillStyle = "#666666";
+					cxt.font = "normal 10px 黑体";
+					cxt.fillText("当日综合评估", 0, -20);
+
+					cxt.fillStyle = "#b7d216";
+					cxt.font = "normal 20px 黑体";
+					cxt.fillText("安全评分", 0, 0);
+
+					cxt.fillStyle = "#f4f4f4";
+					cxt.font = "normal 10px 黑体";
+					cxt.fillText("风险系数:" + num + '%', 0, 20);
+
+					//右上角字体说明
+					cxt.fillStyle = "#999";
+					cxt.textAlign = "left";
+					cxt.font = "normal 10px 黑体";
+					cxt.fillText("报警 ", radi2 * 0.2 * 1.5, 0 - radi2 - r * 0.38);
+
+					cxt.fillStyle = "#f13131";
+					cxt.textAlign = "left";
+					cxt.font = "normal 10px 黑体";
+					cxt.fontWeight = '900';
+					cxt.fillText(num, radi2 * 0.2 * 3, 0 - radi2 - r * 0.38);
+
+					cxt.fillStyle = "#999";
+					cxt.font = "normal 10px 黑体";
+					cxt.fontWeight = '900';
+					cxt.fillText("隐患", radi2 * 0.2 * 5.1, 0 - radi2 - r * 0.38);
+
+					cxt.fillStyle = "#ffcc00";
+					cxt.textAlign = "left";
+					cxt.font = "normal 10px 黑体";
+					cxt.fontWeight = '900';
+					cxt.fillText(num, radi2 * 0.2 * 6.6, 0 - radi2 - r * 0.38);
+
+					cxt.fillStyle = "#999";
+					cxt.font = "normal 10px 黑体";
+					cxt.fontWeight = '900';
+					cxt.fillText("危险品", radi2 * 0.2 * 8.5, 0 - radi2 - r * 0.38);
+
+					cxt.fillStyle = "#ff7800";
+					cxt.textAlign = "left";
+					cxt.font = "normal 10px 黑体";
+					cxt.fontWeight = '900';
+					cxt.fillText(num, radi2 * 0.2 * 10.7, 0 - radi2 - r * 0.38);
+
+					//画底格
+					for(var i = 0, angle = Math.PI, tmp, len; i < 30; i++) {
+						cxt.beginPath();
+						cxt.lineWidth = arclineWidth;
+						len = arclen;
+						cxt.strokeStyle = bacColor;
+						//					cxt.fillStyle　=　'#0099FF';
+						tmp = radi2;
+						cxt.moveTo(
+							tmp * Math.sin(angle),
+							tmp * Math.cos(angle),
+						);
+						tmp -= len;
+						cxt.lineTo(tmp * Math.sin(angle), tmp * Math.cos(angle));
+						cxt.stroke();
+						cxt.closePath();
+						angle += Math.PI / 15;
+					}
+
+					// 画内圆
+					cxt.beginPath();
+					cxt.lineWidth = 1;
+					cxt.arc(0, 0, r * 0.75, 0, 2 * Math.PI);
+					cxt.stroke();
+					cxt.closePath();
+
+					// 画外圆
+					cxt.beginPath();
+					cxt.lineWidth = 1;
+					cxt.arc(0, 0, r * 0.9, 0, 2 * Math.PI);
+					cxt.stroke();
+					cxt.closePath();
+
+					//画右上角装饰中心实体圆
+					cxt.beginPath();
+					cxt.lineWidth = 1;
+					cxt.arc(radi2 * 0.2, 0 - radi2, r * 0.02, 0, 2 * Math.PI);
+					cxt.fillStyle = bacColor
+					cxt.fill();
+					cxt.stroke();
+					cxt.closePath();
+
+					//画右上角装饰小小圆
+					cxt.beginPath();
+					cxt.strokeStyle = bacColor;
+					cxt.lineWidth = 1;
+					cxt.arc(radi2 * 0.2, 0 - radi2, r * 0.25, 0, 2 * Math.PI);
+					cxt.stroke();
+					cxt.closePath();
+
+					//画右上角折线条
+					cxt.beginPath();
+					cxt.lineWidth = 1;
+					cxt.strokeStyle = '#999';
+					cxt.moveTo(radi2 * 0.2, 0 - radi2);
+					cxt.lineTo(radi2 * 0.2, 0 - radi2 - r * 0.17);
+					cxt.lineTo(radi2 * 0.2 * 1.8, 0 - radi2 - r * 0.28);
+					cxt.lineTo(radi2 * 0.2 * 13, 0 - radi2 - r * 0.28);
+					cxt.stroke();
+					cxt.closePath();
+
+					//画最外圈装饰
+					for(var i = 0, angle = Math.PI, tmp, len; i < 160; i++) {
+						cxt.beginPath();
+						cxt.lineWidth = 1;
+						len = arclen3;
+						cxt.strokeStyle = bacColor;
+						tmp = radi3;
+						cxt.moveTo(
+							tmp * Math.sin(angle),
+							tmp * Math.cos(angle),
+						);
+						tmp -= len;
+						cxt.lineTo(tmp * Math.sin(angle), tmp * Math.cos(angle));
+						cxt.stroke();
+						cxt.closePath();
+						angle += Math.PI / 80;
+					}
+
+					//计算要画的前景色块比例
+					var n = Math.round(num / 100 * 360 * 0.0833333);
+					//再次绘制比例圆
+					for(var i = 0, angle = Math.PI, tmp, len; i < n; i++) {
+						cxt.beginPath();
+						cxt.lineWidth = arclineWidth;
+						len = arclen;
+						cxt.strokeStyle = forColor;
+						tmp = radi2;
+						cxt.moveTo(
+							tmp * Math.sin(angle),
+							tmp * Math.cos(angle)
+						);
+						tmp -= len;
+						cxt.lineTo(tmp * Math.sin(angle), tmp * Math.cos(angle));
+						cxt.stroke();
+						cxt.closePath();
+						angle += Math.PI / 15;
+					}
+					//齐活儿
+				}
+            setInterval(function() {
+					var a = (99 * Math.random()).toFixed(2);
+					go(a);
+				}, 1000)
+            go(30.33);
+            
+            // 根据值判断柱子颜色的柱状图
+            var option1 = {
+                tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '0',
+        right: '0',
+        bottom: '0',
+        top:'0'
+    },
+    xAxis:  {
+        type: 'value',
+        show:false
+    },
+    yAxis: {
+        type: 'category',
+        show:false
+    },
+    series: [
+        {
+            name: '搜索引擎',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [320, 532, 901]
+        }
+    ]
+            };
+            let myChart1 = this.$echarts.init(document.getElementById("myChart"));
+            myChart1.setOption(option1);
+        },
+      }
     }
 </script>
 

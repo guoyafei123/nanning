@@ -2,36 +2,37 @@
     <div style="height:100%;overflow-y: auto">
       <div class="toolright font-white  margin-top-20" >
 
-        <section>
-          <div class="personinfo">
-            <p>
-              <span class="size-24">A365 F57D 的设备详情</span>
-              <!-- <span class="bgbox-min bg-gray-666 font-black">灭火设备</span> -->
-              <span class="float-right">
-                    <span class="bgbox-max bg-gray-333 font-gray-999">灭火设备</span>
-                </span>
-            </p>
-            <p>
-                <span class="size-12 font-gray-666">
-                    <i class="fa fa-th-large"></i> 良庆区中心小学</span>
-            </p>
-          </div>
-        </section>
-        <section>
-          <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top30" data-date="today" data-date-format="yyyy-mm-dd"
-               data-original-title="" title="">
-            <span class="input-group-btn" data-original-title="" title="">
-                <i class="fa fa-th-large"></i> 时间 </span>
-            <input type="text" class="form-control" name="from" id="troubleStartTime">
-            <span class="input-group-btn" data-original-title="" title=""> 至 </span>
-            <input type="text" class="form-control" name="to" id="troubleEndTime">
-            <span class="input-group-btn" data-original-title="" title="">
-                确定
-            </span>
-            <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
-          </div>
-        </section>
+        
         <section id="information-info" class="display-none">
+          <section>
+            <div class="personinfo">
+              <p>
+                <span class="size-20">A365 F57D 的设备详情</span>
+                <span class="bgbox-min bg-gray-666 font-black">消防栓报警按钮</span>
+                <span class="float-right">
+                      <span class="bgbox-max bg-gray-333 font-gray-999">灭火设备</span>
+                  </span>
+              </p>
+              <p>
+                  <span class="size-12 font-gray-666">
+                      <i class="fa fa-th-large"></i> 良庆区中心小学</span>
+              </p>
+            </div>
+          </section>
+          <section>
+            <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top30" data-date="today" data-date-format="yyyy-mm-dd"
+                data-original-title="" title="">
+              <span class="input-group-btn" data-original-title="" title="">
+                  <i class="fa fa-th-large"></i> 时间 </span>
+              <input type="text" class="form-control" name="from" id="troubleStartTime">
+              <span class="input-group-btn" data-original-title="" title=""> 至 </span>
+              <input type="text" class="form-control" name="to" id="troubleEndTime">
+              <span class="input-group-btn" data-original-title="" title="">
+                  确定
+              </span>
+              <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
+            </div>
+          </section>
           <section>
             <div class="row toolcount margin-top40">
               <div class="col-sm-4  font-gray-999 padding-right0">
@@ -59,7 +60,7 @@
                   </li>
                   <li>
                     <p class="set-width-50 size-12">运行时长</p>
-                    <p class="display-inline-block font-blue">3229分钟
+                    <p class="display-inline-block font-blue">3229天
                     </p>
                   </li>
                   <li class="row text-center">
@@ -94,9 +95,28 @@
                   <span class="size-12 font-gray-666">设备类型 </span>
                   <span class="size-12 font-gray-999">灭火设备</span>
                 </div>
+                <div class="col-sm-7">
+                  <span class="size-12 font-gray-666">投入时间 </span>
+                  <span class="size-12 font-gray-999">2016.06.06 </span>
+                </div>
+                <div class="col-sm-5">
+                  <span class="size-12 font-gray-666">设备标码 </span>
+                  <span class="size-12 font-gray-999">
+                            <span class="font-blue">查看 </span>
+                            <span class="font-blue"> 下载 </span>
+                        </span>
+                </div>
                 <div class="col-sm-12">
                   <span class="size-12 font-gray-666">设备位置 </span>
                   <span class="size-12 font-gray-999">良庆区中心小学01号楼301室</span>
+                </div>
+                <div class="col-sm-7">
+                  <span class="size-12 font-gray-666">离地高度 </span>
+                  <span class="size-12 font-gray-999">2.23m</span>
+                </div>
+                <div class="col-sm-5">
+                  <span class="size-12 font-gray-666">距离顶部 </span>
+                  <span class="size-12 font-gray-999">2.1m</span>
                 </div>
                 <div class="col-sm-7">
                   <span class="size-12 font-gray-666">发生厂商 </span>
@@ -107,21 +127,6 @@
                 <div class="col-sm-5">
                   <span class="size-12 font-gray-666">生产日期 </span>
                   <span class="size-12 font-gray-999">2015.03.06</span>
-                </div>
-                <div class="col-sm-7">
-                  <span class="size-12 font-gray-666">离地高度 </span>
-                  <span class="size-12 font-gray-999">2.23m</span>
-                </div>
-                <div class="col-sm-5">
-                  <span class="size-12 font-gray-666">距离顶部 </span>
-                  <span class="size-12 font-gray-999">2.1m</span>
-                </div>
-                <div class="col-sm-12">
-                  <span class="size-12 font-gray-666">设备标码 </span>
-                  <span class="size-12 font-gray-999">
-                            <span class="font-blue">查看 </span>
-                            <span class="font-blue"> 下载 </span>
-                        </span>
                 </div>
               </div>
             </div>
@@ -150,14 +155,10 @@
                   <span class="size-12 font-gray-666">更换周期 </span>
                   <span class="size-12 font-blue">360 天</span>
                 </div>
-                <div class="col-sm-12">
-                  <span class="size-12 font-gray-666">维保历史 </span>
-                  <span class="size-12 font-gray-999">2条 </span>
-                </div>
               </div>
             </div>
           </section>
-          <section>
+          <!-- <section>
             <div class="tooltable">
               <div class="table-responsive">
                 <table class="table size-12 table-condensed toolroute-table margin-top10">
@@ -184,9 +185,34 @@
                 </table>
               </div>
             </div>
-          </section>
+          </section> -->
         </section>
         <section id="information-char" >
+          <section>
+            <div class="personinfo">
+              <p>
+                <span class="size-24">中心小学</span>
+              </p>
+              <p>
+                  <span class="size-12 font-gray-666">
+                      <i class="fa fa-th-large"></i> 南宁市良庆区</span>
+              </p>
+            </div>
+          </section>
+          <section>
+            <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top30" data-date="today" data-date-format="yyyy-mm-dd"
+                data-original-title="" title="">
+              <span class="input-group-btn" data-original-title="" title="">
+                  <i class="fa fa-th-large"></i> 时间 </span>
+              <input type="text" class="form-control" name="from" id="troubleStartTime">
+              <span class="input-group-btn" data-original-title="" title=""> 至 </span>
+              <input type="text" class="form-control" name="to" id="troubleEndTime">
+              <span class="input-group-btn" data-original-title="" title="">
+                  确定
+              </span>
+              <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
+            </div>
+          </section>
           <section>
             <div class="row toolcount margin-top30">
               <h2 class="size-16 font-gray-ccc margin-bottom20 ">
@@ -230,11 +256,11 @@
                   </div>
                   <div class="col-sm-3 container-padding0">
                     <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 监控设备 124</p>
+                      <i class="fa fa-th-large"></i> 安防设备 124</p>
                   </div>
                   <div class="col-sm-3 container-padding0">
                     <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 感应设备 123</p>
+                      <i class="fa fa-th-large"></i> 疏散设备 123</p>
                   </div>
                 </div>
               </div>
@@ -244,7 +270,7 @@
           <section>
             <div class="toolregionrate margin-top30">
               <h2 class="size-16 font-gray-ccc">
-                <span class="tool-rect bg-blue"></span>历史趋势
+                <span class="tool-rect bg-blue"></span>数量变化
                 <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">
                         <i class="fa fa-th-large"></i>
                     </span>
