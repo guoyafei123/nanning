@@ -1,6 +1,6 @@
 <template>
-  <div class="margin-top120 margin-left37 margin-right20">
-      <div class="clearFix">
+  <div class="margin-top120" style="margin-left:37px;">
+      <div class="clearFix" style="padding-right:20px;">
         <span class="guanli size-66 font-white float-left">管理</span>
         <div class="float-right">
           <i class="fa fa-th-large font-gray-666 margin-top20" style="display: block;float:right;"></i>
@@ -10,68 +10,92 @@
       <div class="main_aside">
         <ul class="margin-top30">
           <li class="system_title">系统管理</li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>单位管理</h2>
-            <span>2</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>建筑管理</h2>
-            <span>37</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>设备管理</h2>
-            <span>2074</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>危险品管理</h2>
-            <span>19</span>
-          </li>
+          <router-link to="/Unit_management">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>单位管理</h2>
+              <span>2</span>
+            </li>
+          </router-link>
+          <router-link to="/Building_management">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>建筑管理</h2>
+              <span>37</span>
+            </li>
+          </router-link>
+          <router-link to="/Equipment_management">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>设备管理</h2>
+              <span>2074</span>
+            </li>
+          </router-link>
+          <router-link to="/Dangerous_goods_management">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>危险品管理</h2>
+              <span>19</span>
+            </li>
+          </router-link>
           <li class="system_title">风险防控</li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>风险分析</h2>
-            <span>27</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>巡检规划</h2>
-            <span>168</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>报警管理</h2>
-            <span>42</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>隐患管理</h2>
-            <span>34</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>故障管理</h2>
-            <span></span>
-          </li>
+          <router-link to="/Risk_Analysis">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>风险分析</h2>
+              <span>27</span>
+            </li>
+          </router-link>
+          <router-link to="/Inspection_plan">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>巡检规划</h2>
+              <span>168</span>
+            </li>
+          </router-link>
+          <router-link to="/Alarm_management">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>报警管理</h2>
+              <span>42</span>
+            </li>
+          </router-link>
+          <router-link to="/Hidden_danger_management">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>隐患管理</h2>
+              <span>34</span>
+            </li>
+          </router-link>
+          <router-link to="/Fault_management">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>故障管理</h2>
+              <span></span>
+            </li>
+          </router-link>
           <li class="system_title">人员管理</li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>人员列表</h2>
-            <span>118</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>人员审核</h2>
-            <span>24</span>
-          </li>
-          <li>
-            <i class="fa fa-th-large font-gray-666"></i>
-            <h2>权限分配</h2>
-            <span>6</span>
-          </li>
+          <router-link to="/List_of_people">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>人员列表</h2>
+              <span>118</span>
+            </li>
+          </router-link>
+          <router-link to="/Personnel_review">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>人员审核</h2>
+              <span>24</span>
+            </li>
+          </router-link>
+          <router-link to="/Authority_allocation">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>权限分配</h2>
+              <span>6</span>
+            </li>
+          </router-link>
         </ul>
       </div>
   </div>
@@ -115,6 +139,7 @@
     align-items: center;
     justify-content:space-between;
     color:#999;
+    padding-right:20px;
   }
   li>i{
     float: left; flex: 1;
@@ -129,5 +154,21 @@
     text-align: right;
     flex: 1;
     color:#999;
+  }
+  a{
+    text-decoration: none;
+  }
+  .router-link-active{
+    display: block;
+    background-color: #111111;
+  }
+  .router-link-active i{
+    color:#bad616;
+  }
+  .router-link-active h2{
+    color:#bad616;
+  }
+  .router-link-active span{
+    color:#e9e9e9;
   }
 </style>

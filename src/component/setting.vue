@@ -46,7 +46,6 @@
   }
   #header{
     height: 110px;
-    overflow: hidden;
     /*background:rgba(0,0,0,1)*/
   }
 </style>

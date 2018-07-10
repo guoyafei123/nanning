@@ -7,9 +7,9 @@
           <h2 class="float-left font-white size-16">设备管理</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/setting/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-          <router-link to="/setting/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
-          <router-link to="/setting/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+          <router-link to="/Equipment_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Equipment_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+          <router-link to="/Equipment_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
         </div>
       </div>
       <div class="main_all_content">
@@ -226,7 +226,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  .main_header button:nth-child(2){
+  .main_header a:nth-child(2) button{
     border-left:none;
   }
   .main_header button i{
@@ -258,5 +258,13 @@
       padding-top:10px;
       border-top:1px solid #222222;
     }
+  }
+  .router-link-active button{
+    color: #b8b8b8;
+    background-color: #333333;
+  }
+  .router-link-active i{
+    color: #b8b8b8;
+    background-color: #333333;
   }
 </style>
