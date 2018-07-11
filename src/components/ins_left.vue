@@ -298,15 +298,19 @@ export default {
       //     .removeClass("display-block");
     },
     getData() {
-      this.$ajax.post('http://api.nanning.com/unit/queryUnit').then(function(response){
+      this.$http.post('/api/unit/queryUnit').then(function(response){
         console.log(response);
       })
+      // this.$post('/api/unit/queryUnit')
+      //   .then((response) => {
+      //     console.log(response)
+      //   })
       //   this.$ajax({
       // method: 'post',
       // url: 'http://api.nanning.com/unit/queryUnit',
       // data: {
       // },
-      
+
     }
   },
   mounted() {
@@ -317,4 +321,3 @@ export default {
 
 <style scoped>
 </style>
-g

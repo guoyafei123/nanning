@@ -48,20 +48,22 @@
 <script>
 export default {
   data() {
-    return {};
+    return{
+
+    }
   },
   methods: {
-    
-    chart_one() {
-      $('.list-inline').on('click','li',function(){
-        $(this).addClass("footer-nav-active").siblings().removeClass('footer-nav-active');
+
+    chart_one () {
+      $ ('.list-inline').on('click','li',function(){
+        $ (this).addClass("footer-nav-active").siblings().removeClass('footer-nav-active')
       })
     }
   },
-  mounted() {
-    this.chart_one();
+  mounted () {
+    this.chart_one()
   }
-};
+}
 </script>
 
 <style scoped>

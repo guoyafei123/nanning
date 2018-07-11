@@ -12,18 +12,17 @@
 </template>
 
 <script>
-  import MapVue from './component/map'
-  import FooterVue from './component/footer'
+  import MapVue from './components/map';
+  import FooterVue from './components/footer';
+
   export default {
     name: 'app',
     data () {
-      return {
-
-      }
+      return {}
     },
-    components:{
-      'map-vue':MapVue,
-      'footer-vue':FooterVue
+    components: {
+      'map-vue': MapVue,
+      'footer-vue': FooterVue
     }
   }
 </script>
