@@ -167,6 +167,12 @@
   .el-pager li.active{
     color:#fff;
   }
+  .el-table td, .el-table th.is-leaf{
+    border:none;
+  }
+  .el-table__fixed-right::before, .el-table__fixed::before{
+    background-color: transparent;
+  }
 }
 
 

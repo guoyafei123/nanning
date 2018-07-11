@@ -9,6 +9,7 @@ import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 // Element-UI
 import ElementUI from 'element-ui';
+Vue.use(ElementUI);
 import 'element-ui/lib/theme-chalk/index.css';
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -28,10 +29,10 @@ import './assets/css/index.css'
 require('./assets/css/setting.scss');
 
 // axios请求
-import {post} from './assets/js/http';
+import {post,fetch} from './assets/js/http';
 //定义全局变量
 Vue.prototype.$post=post;
-
+Vue.prototype.$fetch=fetch;
 // this.$post('/api/').then((response) => {console.log(response)})
 
 

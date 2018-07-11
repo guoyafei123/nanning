@@ -298,7 +298,7 @@ export default {
       //     .removeClass("display-block");
     },
     getData() {
-      this.$post('/api/unit/queryUnit')
+      this.$fetch('/api/inspection/planInspectionCount')
         .then((response) => {
           console.log(response)
         })
