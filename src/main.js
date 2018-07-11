@@ -26,9 +26,13 @@ import './assets/map/map.js'
 // 首页
 import './assets/css/index.css'
 require('./assets/css/setting.scss');
-// 请求
-import Axios from 'axios';
-Vue.prototype.$http = Axios;
+
+// axios请求
+import {post} from './assets/js/http';
+//定义全局变量
+Vue.prototype.$post=post;
+
+// this.$post('/api/').then((response) => {console.log(response)})
 
 
 Vue.config.productionTip = false
