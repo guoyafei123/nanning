@@ -13,6 +13,12 @@ Vue.use(Button);
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import router from './routes/routes'
+// 请求
+import VueResource from 'vue-resource'
+Vue.use(VueResource);
+
+import axios from 'axios'
+Vue.prototype.$ajax = axios;
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'

@@ -281,10 +281,40 @@
 </template>
 
 <script>
-    export default {
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    moren() {
+      $(".inspection-iteminfo")
+        .addClass("display-block")
+        .removeClass("display-none");
+      $(".inspection-lineinfo")
+        .addClass("display-none")
+        .removeClass("display-block");
+      //   $("#inspectbtn-linepeople")
+      //     .addClass("display-none")
+      //     .removeClass("display-block");
+    },
+    getData() {
+      this.$ajax.post('unit/queryUnit').then(function(response){
+        console.log(response);
+      })
+      //   this.$ajax({
+      // method: 'post',
+      // url: 'http://api.nanning.com/unit/queryUnit',
+      // data: {
+      // },
+      
     }
+  },
+  mounted() {
+    this.getData();
+  }
+};
 </script>
 
 <style scoped>
-
 </style>
+g
