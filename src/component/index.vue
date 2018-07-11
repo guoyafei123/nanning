@@ -84,7 +84,6 @@
         }
         var landmark_html = `
         <div class="legend-alarm" style="top:` + top + `px;left:` + left + `px;width:` + size + `px;height:` + size + `px">
-            
             <span class="alarm-ani alarm-item ` + style_shadow + `"></span>
             <span class="alarm-ani alarm-item1 ` + style_shadow + `"></span>
             <span class="alarm-ani alarm-item2 ` + style_shadow + `"></span>

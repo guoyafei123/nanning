@@ -298,7 +298,7 @@ export default {
       //     .removeClass("display-block");
     },
     getData() {
-      this.$ajax.post('unit/queryUnit').then(function(response){
+      this.$ajax.post('http://api.nanning.com/unit/queryUnit').then(function(response){
         console.log(response);
       })
       //   this.$ajax({
