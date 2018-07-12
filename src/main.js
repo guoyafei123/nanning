@@ -29,7 +29,7 @@ import './assets/css/index.css'
 require('./assets/css/setting.scss');
 
 // axios请求
-import {post,fetch} from './assets/js/http';
+import { post,fetch } from './assets/js/http';
 //定义全局变量
 Vue.prototype.$post=post;
 Vue.prototype.$fetch=fetch;

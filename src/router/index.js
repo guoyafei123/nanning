@@ -25,6 +25,10 @@ import Building_managementVue from '../management/Building_management/Build_mana
 import Build_listVue from '../management/Building_management/list';
 import Build_AllVue from '../management/Building_management/all';
 import Build_MapsVue from '../management/Building_management/maps';
+import Inspection_planVue from '../management/Inspection_plan/Inspection_plan';
+import Plan_listVue from '../management/Inspection_plan/list';
+import Plan_AllVue from '../management/Inspection_plan/all';
+import Plan_MapsVue from '../management/Inspection_plan/maps';
 export default new Router({
   routes: [
     // footer 导航
@@ -84,6 +88,16 @@ export default new Router({
         { path:'/Building_management/all',component:Build_AllVue},
         { path:'/Building_management/maps',component:Build_MapsVue},
         { path:'/Building_management',redirect:'/Building_management/all'}
+      ]
+    },
+    {
+      path:'/Inspection_plan',
+      component:Inspection_planVue,
+      children:[
+        { path:'/Inspection_plan/list',component:Plan_listVue},
+        { path:'/Inspection_plan/all',component:Plan_AllVue},
+        { path:'/Inspection_plan/maps',component:Plan_MapsVue},
+        { path:'/Inspection_plan',redirect:'/Inspection_plan/all'}
       ]
     }
   ]
