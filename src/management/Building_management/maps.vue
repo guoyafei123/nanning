@@ -7,12 +7,12 @@
           <h2 class="float-left font-white size-16">建筑管理</h2>
         </div>
         <div class="main_nav float-right">
-          <a href="javascript:;"><button @click="show()"><i class="fa fa-th-large font-gray-666 float-left"></i>查看
+          <a href="javascript:;"><button @click="show"><i class="fa fa-th-large font-gray-666 float-left"></i>查看
             <div class="main_nav_show" style="display: none;">
               <ul>
-                <li><router-link to=""><button><i class="fa fa-th-large font-gray-666 float-left"></i>建筑</button></router-link></li>
-                <li><router-link to=""><button><i class="fa fa-th-large font-gray-666 float-left"></i>楼层</button></router-link></li>
-                <li><router-link to=""><button><i class="fa fa-th-large font-gray-666 float-left"></i>房间</button></router-link></li>
+                <li><router-link to="/Building_management/maps/a"><button><i class="fa fa-th-large font-gray-666 float-left"></i>建筑</button></router-link></li>
+                <li><router-link to="/Building_management/maps/b"><button><i class="fa fa-th-large font-gray-666 float-left"></i>楼层</button></router-link></li>
+                <li><router-link to="/Building_management/maps/c"><button><i class="fa fa-th-large font-gray-666 float-left"></i>房间</button></router-link></li>
               </ul>
             </div>
           </button>
@@ -175,9 +175,11 @@
       this.SetColor('.el-pager li','background','transparent');
       this.SetColor('.el-pager li.active','color','#fff');
       this.SetColor('.el-form-item__content','margin-left','10px');
-      $('.main_nav_show ul').on('click','li',function(){
+      $('.main_nav_show ul').on('mousedown','li',function(){
         $(this).addClass('btn_active').siblings().removeClass('btn_active');
-        $('.main_nav_show').hide()
+        setTimeout(()=>{
+          $('.main_nav_show').hide()
+        },500)
       })
     }
   };
@@ -306,16 +308,17 @@
           }
         }
       }
+      .btn_active a button{
+        background-color: #333333;
+        color: #adadad;
+      }
+      .btn_active a i{
+        color: #adadad;
+        background-color: transparent;
+      }
     }
   }
-  .btn_active button{
-    background-color: #333333;
-    color: #adadad;
-  }
-  .btn_active i{
-    color: #adadad;
-    background-color: transparent;
-  }
+
   .main_nav_show a:nth-child(1) button{
     border-right:2px solid #333333;
   }

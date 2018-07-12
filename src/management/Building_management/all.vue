@@ -147,16 +147,11 @@
       </div>
       <div class="main_content_bottom">
         <div class="bottom_con">
-          <el-pagination style="float: left;"
-                         @size-change="handleSizeChange"
-                         @current-change="handleCurrentChange"
-                         :current-page="currentPage4"
-                         :page-sizes="[100, 200, 300, 400]"
-                         :page-size="100"
-                         layout="total"
-                         :total="400">
-          </el-pagination>
-          <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{page}}页</span>
+          <div class="float-left">
+            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
+            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
+            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出标码</a>
+          </div>
           <el-pagination style="float: right;background: transparent"
                          @size-change="handleSizeChange"
                          @current-change="handleCurrentChange"
@@ -166,6 +161,17 @@
                          layout="prev, pager, next"
                          :total="400">
           </el-pagination>
+          <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
+          <el-pagination style="float: right;"
+                         @size-change="handleSizeChange"
+                         @current-change="handleCurrentChange"
+                         :current-page="currentPage4"
+                         :page-sizes="[100, 200, 300, 400]"
+                         :page-size="100"
+                         layout="total"
+                         :total="400">
+          </el-pagination>
+
         </div>
       </div>
     </div>

@@ -30,45 +30,45 @@
   }
 }
 .wzzb{
-  width:286px;
+  width:286px !important;
 }
 .wzzb_btn{
   width:83px;
-  height:25px;
-  font-size: 10px;
+  height:25px !important;
+  font-size: 10px !important;
   padding:0 !important;
-  line-height: 25px;
+  line-height: 25px !important;
   float: right;
-  margin-top: 8px;
-  background: #020202;
-  border:none;
+  margin-top: 8px !important;
+  background: #020202 !important;
+  border:none !important;
 }
 .resource_btn{
   width:230px;
   height:25px;
-  font-size: 10px;
+  font-size: 10px !important;
   padding:0 !important;
-  line-height: 25px;
+  line-height: 25px !important;
   float: right;
-  margin-top: 8px;
-  background: #020202;
-  border:none;
+  margin-top: 8px !important;
+  background: #020202 !important;
+  border:none !important;
 }
 .primary{
   width:132px;
   height:32px;
-  line-height: 32px;
-  padding:0;
-  background: #bad616;
-  color: #0c0e01;
+  line-height: 32px !important;
+  padding:0 !important;
+  background: #bad616 !important;
+  color: #0c0e01 !important;
 }
 .back{
   width:64px;
   height:32px;
-  line-height: 32px;
-  padding:0;
-  background: #111111;
-  border-color: #666666;
+  line-height: 32px !important;
+  padding:0 !important;
+  background: #111111 !important;
+  border-color: #666666 !important;
 }
 
 .el-radio__input.is-checked+.el-radio__label{
@@ -79,8 +79,8 @@
   background: #bad616;
 }
 .el-popper[x-placement^=bottom] .popper__arrow::after{
-  border-bottom-color: #333;
-  top:0;
+  border-bottom-color: #333 !important;
+  top:0 !important;
 }
 
 
