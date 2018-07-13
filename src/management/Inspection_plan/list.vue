@@ -50,31 +50,31 @@
               <el-option label="区域二" value="beijing"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="有效期至">
-            <el-col :span="11">
-              <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-            </el-col>
-          </el-form-item>
-          <div style="clear: both;"></div>
-          <el-form-item size="small" style="width:190px;"
-                    label="每日额定完成次数"
-                    prop="age"
-                    :rules="[
-              { required: true, message: '年龄不能为空'},
-              { type: 'number', message: '年龄必须为数字值'}
-            ]"
-                  >
-            <el-input type="age" v-model.number="form.age" auto-complete="off"></el-input>
-          </el-form-item>
-          <div style="clear: both;"></div>
-          <el-form-item label="是否开启扫描打卡" style="margin-top:10px;">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>
-            <el-radio-group v-model="form.resource">
-              <el-radio label="是"></el-radio>
-              <el-radio label="否"></el-radio>
-            </el-radio-group>
-            <el-button type="primary" round icon="el-icon-search" class="resource_btn">巡检节点是否开启扫码打卡，不可修改</el-button>
-          </el-form-item>
+          <!--<el-form-item label="有效期至">-->
+            <!--<el-col :span="11">-->
+              <!--<el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>-->
+            <!--</el-col>-->
+          <!--</el-form-item>-->
+          <!--<div style="clear: both;"></div>-->
+          <!--<el-form-item size="small" style="width:190px;"-->
+                    <!--label="每日额定完成次数"-->
+                    <!--prop="age"-->
+                    <!--:rules="[-->
+              <!--{ required: true, message: '年龄不能为空'},-->
+              <!--{ type: 'number', message: '年龄必须为数字值'}-->
+            <!--]"-->
+                  <!--&gt;-->
+            <!--<el-input type="age" v-model.number="form.age" auto-complete="off"></el-input>-->
+          <!--</el-form-item>-->
+          <!--<div style="clear: both;"></div>-->
+          <!--<el-form-item label="是否开启扫描打卡" style="margin-top:10px;">-->
+            <!--<span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>-->
+            <!--<el-radio-group v-model="form.resource">-->
+              <!--<el-radio label="是"></el-radio>-->
+              <!--<el-radio label="否"></el-radio>-->
+            <!--</el-radio-group>-->
+            <!--<el-button type="primary" round icon="el-icon-search" class="resource_btn">巡检节点是否开启扫码打卡，不可修改</el-button>-->
+          <!--</el-form-item>-->
           <div style="width:485px;margin:0 auto 25px;border-top:1px solid #222222;"></div>
           <el-form-item style="margin-bottom: 20px;">
             <el-button type="primary"  icon="el-icon-search" class="primary">保存并提交</el-button>
@@ -139,7 +139,20 @@
   }
 
   @media (min-width: 768px) and (max-width:1600px){
+    aside{
+      width:525px;
+      max-height:740px;
+      background:#111111;
+      overflow: hidden;
+    }
+    .main_content{
+      width:500px;
+      height:672px;
+      margin:0 auto;
+      overflow-y: scroll;
+      border-top:1px solid #222222;
 
+    }
   }
   @media (min-width: 1600px){
     aside{
@@ -206,5 +219,28 @@
     margin-left: 6px;
     margin-right: 20px;
   }
+  //模态框
+  .modal-content{
+    background-color: #111111 !important;
+  }
+  .modal-title{
+    font-size:24px;
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: 15px;
+    text-indent: 15px;
+  }
+  .modal-p{
+    color: #666666;
+    text-align: center;
+    font-size: 12px;
+  }
+  .modal-header{
+    border-bottom:1px solid #222222;
+  }
+  .modal-footer{
+    border-top:1px solid #222222;
+  }
+
 
 </style>

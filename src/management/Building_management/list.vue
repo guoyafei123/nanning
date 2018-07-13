@@ -56,24 +56,29 @@
               </el-date-picker>
             </div>
           </el-form-item>
-          <el-form-item label="建筑">
-            <el-select v-model="form.region" placeholder="建成结构">
-              <el-option label="砖木" value="shanghai"></el-option>
-              <el-option label="砖混" value="beijing"></el-option>
-              <el-option label="钢结构混凝土" value="beijing"></el-option>
-              <el-option label="钢结构" value="beijing"></el-option>
+          <el-form-item label="建筑性质">
+            <el-select v-model="form.region" placeholder="建筑性质">
+              <el-option label="居住" value="shanghai"></el-option>
+              <el-option label="公共" value="beijing"></el-option>
+              <el-option label="工业" value="beijing"></el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item label="消防负责人">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+          <el-form-item label="消防负责人电话">
+            <el-input v-model="form.name"></el-input>
           </el-form-item>
 
 
           <div style="clear: both;"></div>
-          <el-form-item label="是否生成二维码" style="margin-top:55px;">
+          <el-form-item label="是否生成二维码" style="margin-top:20px;">
             <span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>
             <el-radio-group v-model="form.resource">
               <el-radio label="是"></el-radio>
               <el-radio label="否"></el-radio>
             </el-radio-group>
-            <el-button type="primary" round icon="el-icon-search" class="resource_btn">用于巡检打卡功能，设备信息快速查看等</el-button>
+            <!--<el-button type="primary" round icon="el-icon-search" class="resource_btn">用于巡检打卡功能，设备信息快速查看等</el-button>-->
           </el-form-item>
           <div style="width:485px;margin:0 auto 25px;border-top:1px solid #222222;"></div>
           <el-form-item style="margin-bottom: 20px;">
@@ -137,7 +142,20 @@
   }
 
   @media (min-width: 768px) and (max-width:1600px){
+    aside{
+      width:525px;
+      max-height:740px;
+      background:#111111;
+      overflow: hidden;
+    }
+    .main_content{
+      width:500px;
+      height:672px;
+      margin:0 auto;
+      overflow-y: scroll;
+      border-top:1px solid #222222;
 
+    }
   }
   @media (min-width: 1600px){
     aside{

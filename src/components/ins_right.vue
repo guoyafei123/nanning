@@ -107,7 +107,7 @@
         <section>
             <div class="toolbuildrate margin-top30">
             <h2 class="size-14 font-gray-ccc">
-              <span class="tool-rect bg-blue"></span>巡检人员 
+              <span class="tool-rect bg-blue"></span>巡检人员
               <span class="float-right popup-inspectbtn font-blue">
                         2人
                     </span></h2>
@@ -152,33 +152,33 @@
                     <div class="panel-body padding3">
                       <ul class="size-12 font-gray-999 tablist-itemul">
                         <li>
-                          <span>国西中天大厦1层 
+                          <span>国西中天大厦1层
                             <span class="float-right">
-                              <i class="fa fa-th-large font-yellow"></i> 
+                              <i class="fa fa-th-large font-yellow"></i>
                               <span class="font-blue">23</span>/<span class="font-yellow">14</span>
                             </span>
                           </span>
                         </li>
                         <li>
-                          <span>国西中天大厦1层 
+                          <span>国西中天大厦1层
                             <span class="float-right">
-                              <i class="fa fa-th-large font-yellow"></i> 
+                              <i class="fa fa-th-large font-yellow"></i>
                               <span class="font-blue">23</span>/<span class="font-yellow">14</span>
                             </span>
                           </span>
                         </li>
                         <li>
-                          <span>国西中天大厦1层 
+                          <span>国西中天大厦1层
                             <span class="float-right">
-                              <i class="fa fa-th-large font-yellow"></i> 
+                              <i class="fa fa-th-large font-yellow"></i>
                               <span class="font-blue">23</span>/<span class="font-yellow">14</span>
                             </span>
                           </span>
                         </li>
                         <li>
-                          <span>国西中天大厦1层 
+                          <span>国西中天大厦1层
                             <span class="float-right">
-                              <i class="fa fa-th-large font-yellow"></i> 
+                              <i class="fa fa-th-large font-yellow"></i>
                               <span class="font-blue">23</span>/<span class="font-yellow">14</span>
                             </span>
                           </span>
@@ -187,14 +187,14 @@
                     </div>
                   </div>
                 </div>
-                
+
               </div>
           </div>
         </section>
       </section>
 
       <section class="inspection-lineinfo">
-        
+
         <section>
           <div class="row toolcount">
             <h2 class="size-16 font-gray-ccc margin-top0 margin-bottom0">
@@ -315,7 +315,7 @@ export default {
           name: "完成率 "
         },
         {
-          value: data.amount, 
+          value: data.amount,
           name: "额定任务次数 "
         }
       ];

@@ -196,6 +196,56 @@
     border-radius: 0;
   }
 }
+
+.el-picker-panel{
+  border-color: #222222 !important;
+  background: #111111 !important;
+  .el-date-table th{
+    border-color: #222222 !important;
+  }
+  .el-date-picker__time-header{
+    border-color: #222222 !important;
+  }
+  .el-input__inner{
+    border-color: #222222 !important;
+    background-color: #111111 !important;
+  }
+  .el-picker-panel__footer{
+    border-color: #222222 !important;
+    background-color: #111111 !important;
+  }
+  .el-button.is-plain:focus, .el-button.is-plain:hover{
+    background-color: #000;
+    color: #fff;
+  }
+  .el-button.is-plain, .el-button.is-plain{
+    border-color: #222222 !important;
+    background-color: #111111;
+  }
+  .el-time-panel{
+    border-color: #222222 !important;
+    background-color: #111111;
+    .el-time-panel__btn.confirm{
+      color: #888;
+    }
+    .el-time-panel__btn{
+      color: #888888;
+    }
+    .el-time-spinner__item:hover:not(.disabled):not(.active){
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .el-time-panel__content::after, .el-time-panel__content::before{
+      border-color: #222222 !important;
+    }
+    .el-time-panel__footer{
+      border-color: #222222 !important;
+    }
+    ::-webkit-scrollbar-thumb{
+      border-color: #222222 !important;
+    }
+  }
+}
 // maps
 
 .el-form-item__content{

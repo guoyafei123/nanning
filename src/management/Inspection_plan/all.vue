@@ -141,6 +141,13 @@
           </div>
           <div class="modal-body">
             <el-form ref="form" :label-position="labelPosition" :model="form">
+              <el-form-item label="发布日期">
+                <el-date-picker
+                  v-model="value1"
+                  type="datetime"
+                  placeholder="选择日期时间">
+                </el-date-picker>
+              </el-form-item>
               <el-form-item size="small"
                             label="每日额定完成次数"
                             prop="age"
@@ -161,6 +168,9 @@
                 </el-radio-group>
                 <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
               </el-form-item>
+              <el-form-item label="发布人" >
+                <el-input v-model="form.name" style="width:190px;"></el-input>
+              </el-form-item>
             </el-form>
           </div>
           <div class="modal-footer">
@@ -178,6 +188,7 @@
   export default {
     data() {
       return {
+        value1:'',
         labelPosition: 'top',
         form: {
           name:'',
@@ -438,5 +449,7 @@
   .modal-footer{
     border-top:1px solid #222222;
   }
-
+  .el-picker-panel{
+    background-color: #111111 !important;
+  }
 </style>
