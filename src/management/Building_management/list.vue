@@ -35,10 +35,35 @@
             <el-select v-model="form.region" placeholder="建筑类型">
               <el-option label="低层（1~3）" value="shanghai"></el-option>
               <el-option label="多层（4~6）" value="beijing"></el-option>
+              <el-option label="中高层（7~9）" value="beijing"></el-option>
+              <el-option label="高层（10~）" value="beijing"></el-option>
             </el-select>
           </el-form-item>
-
-
+          <el-form-item label="建成结构">
+            <el-select v-model="form.region" placeholder="建成结构">
+              <el-option label="砖木" value="shanghai"></el-option>
+              <el-option label="砖混" value="beijing"></el-option>
+              <el-option label="钢结构混凝土" value="beijing"></el-option>
+              <el-option label="钢结构" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="建成年份">
+            <div class="block">
+              <el-date-picker
+                v-model="value5"
+                type="year"
+                placeholder="选择年">
+              </el-date-picker>
+            </div>
+          </el-form-item>
+          <el-form-item label="建筑">
+            <el-select v-model="form.region" placeholder="建成结构">
+              <el-option label="砖木" value="shanghai"></el-option>
+              <el-option label="砖混" value="beijing"></el-option>
+              <el-option label="钢结构混凝土" value="beijing"></el-option>
+              <el-option label="钢结构" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
 
 
           <div style="clear: both;"></div>
@@ -65,6 +90,7 @@
     export default {
       data() {
         return {
+          value5:'2018',
           labelPosition: 'top',
           form: {
             name: '',
