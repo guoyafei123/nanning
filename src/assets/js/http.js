@@ -25,21 +25,18 @@ axios.interceptors.request.use(
 
 
 /**
- * 封装get方法
+ * 封装get请求
  * @param url
  * @param data
  * @returns {Promise}
  */
 
-export function fetch(url,params={}){
+export function fetch(url,params = {}){
   return new Promise((resolve,reject) => {
-    axios.get(url,{
-      params:params
-    })
+    axios.get(url,{params:params})
       .then(response => {
         resolve(response.data);
-      })
-      .catch(err => {
+      },err => {
         reject(err)
       })
   })

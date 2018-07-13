@@ -33,6 +33,9 @@ import { post,fetch } from './assets/js/http';
 //定义全局变量
 Vue.prototype.$post=post;
 Vue.prototype.$fetch=fetch;
+
+import qs from 'qs';
+Vue.prototype.$qs=qs;
 // this.$post('/api/').then((response) => {console.log(response)})
 
 

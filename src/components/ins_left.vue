@@ -5,7 +5,7 @@
         <div class="col-sm-6  font-gray-999 padding-right0">
           <ul class="toolcount-left margin-bottom0 padding-left37" id="toolcount">
             <li>
-              <p>52</p>
+              <p class="font-white size-66">0</p>
             </li>
             <li>
               <p class="size-10">On-site Inspection</p>
@@ -15,15 +15,15 @@
             </li>
             <li>
               <p class="set-width-50 size-12">巡检路线</p>
-              <p class="display-inline-block font-italic">76</p>
+              <p class="display-inline-block font-italic">{{ins_planInspectionCount.amount}}</p>
             </li>
             <li>
               <p class="set-width-50 size-12">巡检中</p>
-              <p class="display-inline-block font-blue font-italic">2</p>
+              <p class="display-inline-block font-blue font-italic">{{ins_planInspectionCount.planing}}</p>
             </li>
             <li>
               <p class="set-width-50 size-12">巡检人数</p>
-              <p class="display-inline-block font-blue font-italic">22</p>
+              <p class="display-inline-block font-blue font-italic">{{ins_planInspectionCount.plansum}}</p>
             </li>
           </ul>
         </div>
@@ -37,23 +37,23 @@
             </li>
             <li>
               <p class="set-width-50 size-12">今日完成率</p>
-              <p class="display-inline-block font-italic">89.7%</p>
+              <p class="display-inline-block font-italic">{{ins_planInspectionCount.dayRate}}</p>
             </li>
             <li>
               <p class="set-width-50 size-12">近7日</p>
-              <p class="display-inline-block font-italic">88.6%</p>
+              <p class="display-inline-block font-italic">{{ins_planInspectionCount.weekRate}}</p>
             </li>
             <li>
               <p class="set-width-50 size-12">近30日</p>
-              <p class="display-inline-block font-italic">76.9%</p>
+              <p class="display-inline-block font-italic">{{ins_planInspectionCount.monthRate}}</p>
             </li>
             <li>
               <p class="set-width-50 size-12">历史统计</p>
-              <p class="display-inline-block font-italic">63.7%</p>
+              <p class="display-inline-block font-italic">{{ins_planInspectionCount.historyRate}}</p>
             </li>
             <li>
               <p class="set-width-50 size-12 margin-bottom0">隐患发现率</p>
-              <p class="display-inline-block font-orange font-italic margin-bottom0">1%</p>
+              <p class="display-inline-block font-orange font-italic margin-bottom0">{{ins_planInspectionCount.troubleRate}}</p>
             </li>
           </ul>
         </div>
@@ -282,8 +282,11 @@
 
 <script>
 export default {
-  data() {
-    return {};
+  props: {
+      ins_planInspectionCount: {
+        type:Object,
+        required:true
+      }
   },
   methods: {
     moren() {
@@ -293,19 +296,9 @@ export default {
       $(".inspection-lineinfo")
         .addClass("display-none")
         .removeClass("display-block");
-      //   $("#inspectbtn-linepeople")
-      //     .addClass("display-none")
-      //     .removeClass("display-block");
     },
-    getData() {
-      this.$fetch('/api/inspection/planInspectionCount')
-        .then((response) => {
-          console.log(response)
-        })
-    }
   },
   mounted() {
-    this.getData();
   }
 };
 </script>

@@ -1,294 +1,31 @@
 <template>
   <div class="">
     <div class="toolright font-white  margin-top20">
-      <section style="display:none">
-        <section id="inspectbtn-build">
-          <div class="toolbuildrate">
-            <h2 class="size-30 font-blue">实验教学楼</h2>
-            <p class="size-12 font-gray-999">最后更新:
-              <span>2018.6.20 10:00:00</span>
+      <section>
+          <div class="personinfo">
+            <p>
+              <span class="size-20">南宁市良庆区</span>
             </p>
-            <ul class="row padding-left0 size-12 font-gray-999">
-              <li class="col-sm-4">今日完成率:
-                <span class="">97.6%</span>
-              </li>
-              <li class="col-sm-4">本月完成率:
-                <span class="">97.6%</span>
-              </li>
-              <li class="col-sm-4">历史完成率:
-                <span class="">97.6%</span>
-              </li>
-              <li class="col-sm-4">隐患发现率:
-                <span class="">97.6%</span>
-              </li>
-              <li class="col-sm-4">危险品数量:
-                <span class="">97.6%</span>
-              </li>
-            </ul>
+            <p>
+              <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> 良庆区中心小学</span>
+            </p>
           </div>
-        </section>
-
-        <section id="inspectbtn-company">
-          <div class="toolcompanyrate">
-            <h2 class="size-16 font-gray-ccc">
-              <span class="tool-rect bg-blue"></span>各单位巡检完成率</h2>
-            <ul class="row padding0 margin0 size-12 font-gray-999">
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                      <span class="toolcompanyrate-char-bg">
-                          <span class="toolcompanyrate-char-qg" style="width:50%;"></span>
-                      </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:79%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:15%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:67%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:34%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:22%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:97%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:37%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-              <li class="col-sm-4">
-                <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
-                    <p>
-                                  <span class="toolcompanyrate-char-bg">
-                                      <span class="toolcompanyrate-char-qg" style="width:82%;"></span>
-                                  </span>
-                    </p>
-                    <p>单位A</p>
-                  </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="inspectbtn-bulidinfo" class="display-none">
-          <div class="toolbuildrate margin-top100 ">
-            <h2 class="size-16 font-gray-ccc">
-              <span class="tool-rect bg-blue"></span>建筑巡检信息</h2>
-            <ul class="row padding-left0 size-12 font-gray-999">
-              <li class="col-sm-4">巡检路线:
-                <span class="">2</span>
-              </li>
-              <li class="col-sm-4">巡检任务数:
-                <span class="">0</span>
-              </li>
-              <li class="col-sm-4">总巡检人数:
-                <span class="">25</span>
-              </li>
-              <li class="col-sm-4">正在巡检人数:
-                <span class="">5</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="inspectbtn-linepeople" class="display-none">
-          <div class="toolbuildrate margin-top100">
-          <h2 class="size-16 font-gray-ccc">
-            <span class="tool-rect bg-blue"></span>各单位巡检完成率</h2>
-          <ul class="row padding-left0 size-12 font-gray-999 text-center">
-            <li class="col-sm-3">
-              <div class="toolbuildrate-people">
-                <img src="../assets/images/people.png">
-                <br/>
-              </div>
-              <span class="margin-top10 display-inline-block">段亚伟</span>
-              <br/>
-              <span>93%</span>
-            </li>
-            <li class="col-sm-3">
-              <div class="toolbuildrate-people">
-                <img src="../assets/images/people.png">
-                <br/>
-              </div>
-              <span class="margin-top10 display-inline-block">段亚伟</span>
-              <br/>
-              <span>93%</span>
-            </li>
-            <li class="col-sm-3">
-              <div class="toolbuildrate-people">
-                <img src="../assets/images/people.png">
-                <br/>
-              </div>
-              <span class="margin-top10 display-inline-block">段亚伟</span>
-              <br/>
-              <span>93%</span>
-            </li>
-            <li class="col-sm-3">
-              <div class="toolbuildrate-people">
-                <img src="../assets/images/people.png">
-                <br/>
-              </div>
-              <span class="margin-top10 display-inline-block">段亚伟</span>
-              <br/>
-              <span>93%</span>
-            </li>
-            <li class="col-sm-3">
-              <div class="toolbuildrate-people">
-                <img src="../assets/images/people.png">
-                <br/>
-              </div>
-              <span class="margin-top10 display-inline-block">段亚伟</span>
-              <br/>
-              <span>93%</span>
-            </li>
-            <li class="col-sm-3">
-              <div class="toolbuildrate-people">
-                <img src="../assets/images/people.png">
-                <br/>
-              </div>
-              <span class="margin-top10 display-inline-block">段亚伟</span>
-              <br/>
-              <span>93%</span>
-            </li>
-            <li class="col-sm-3">
-              <div class="toolbuildrate-people">
-                <img src="../assets/images/people.png">
-                <br/>
-              </div>
-              <span class="margin-top10 display-inline-block">段亚伟</span>
-              <br/>
-              <span>93%</span>
-            </li>
-
-          </ul>
-          </div>
-        </section>
-
-        <section id="inspectbtn-regionrate">
-          <div class="toolregionrate">
-            <h2 class="size-16 font-gray-ccc">
-              <span class="tool-rect bg-blue"></span>区域巡检完成率
-              <span class="float-right popup-inspectbtn font-gray-666">
-                      <i class="fa fa-th-large"></i>
-                  </span>
-            </h2>
-            <ul class="row padding0 margin0 size-12 font-gray-999">
-              <li class="col-sm-6 padding0">任务完成总数:
-                <span>325</span>
-              </li>
-              <li class="col-sm-6 padding0">完成任务数:
-                <span>211</span>
-              </li>
-            </ul>
-            <div id="echar1" style="width: 100%;height:180px;margin: 0 auto;"></div>
-          </div>
-        </section>
       </section>
-
-      <section class="inspection-iteminfo display-none" >
-        <section>
+      <section>
+          <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top20" data-date="today" data-date-format="yyyy-mm-dd"
+              data-original-title="" title="">
+            <span class="input-group-btn" data-original-title="" title="">
+                <i class="fa fa-th-large"></i> 时间 </span>
+            <input type="text" class="form-control" name="from" id="troubleStartTime">
+            <span class="input-group-btn" data-original-title="" title=""> 至 </span>
+            <input type="text" class="form-control" name="to" id="troubleEndTime">
+            <span class="input-group-btn" data-original-title="" title="">
+                确定
+            </span>
+            <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
+          </div>
+      </section>
+      <!-- <section>
           <div class="personinfo">
             <p>
               <span class="size-20">控烟严格巡查</span>
@@ -318,7 +55,8 @@
               </span>
               <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
             </div>
-        </section>
+        </section> -->
+      <section class="inspection-iteminfo display-none" >
         <section>
           <div class="row toolcount margin-top40">
             <div class="col-sm-4  font-gray-999 padding-right0">
@@ -456,82 +194,60 @@
       </section>
 
       <section class="inspection-lineinfo">
-        <section>
-          <div class="personinfo">
-            <p>
-              <span class="size-20">南宁市良庆区</span>
-            </p>
-            <p>
-              <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> 良庆区中心小学</span>
-            </p>
-          </div>
-        </section>
-        <section>
-            <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top20" data-date="today" data-date-format="yyyy-mm-dd"
-                data-original-title="" title="">
-              <span class="input-group-btn" data-original-title="" title="">
-                  <i class="fa fa-th-large"></i> 时间 </span>
-              <input type="text" class="form-control" name="from" id="troubleStartTime">
-              <span class="input-group-btn" data-original-title="" title=""> 至 </span>
-              <input type="text" class="form-control" name="to" id="troubleEndTime">
-              <span class="input-group-btn" data-original-title="" title="">
-                  确定
-              </span>
-              <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
-            </div>
-        </section>
+        
         <section>
           <div class="row toolcount">
             <h2 class="size-16 font-gray-ccc margin-top0 margin-bottom0">
-              <span class="tool-rect bg-blue"></span>设备数量
+              <span class="tool-rect bg-blue"></span>巡检统计
             </h2>
+
             <div class="col-sm-7  font-gray-999 padding-right0">
-              <div class="row text-center margin-top70">
-                <div class="col-sm-4 container-padding0 personnel-borderright">
-                  <p class="size-16 font-white">42</p>
-                  <p class="size-12 margin-bottom0">故障次数</p>
+              <div class="row text-center margin-top50">
+                <div class="col-sm-12 text-left">
+                  <p class="size-12">巡检路线 <span class="font-white">{{ins_planInspectionCount.plancount}} </span>&nbsp; 巡检人员 <span class="font-white">{{ins_planInspectionCount.planing}} </span></p>
                 </div>
                 <div class="col-sm-4 container-padding0 personnel-borderright">
-                  <p class="size-16 font-white">25</p>
-                  <p class="size-12 margin-bottom0">维保次数</p>
+                  <p class="size-16 font-white">{{ins_planInspectionCount.amount}}</p>
+                  <p class="size-12 margin-bottom0">次数统计</p>
+                </div>
+                <div class="col-sm-4 container-padding0 personnel-borderright">
+                  <p class="size-16 font-white">{{ins_planInspectionCount.finish}}</p>
+                  <p class="size-12 margin-bottom0">已完成</p>
                 </div>
                 <div class="col-sm-4 container-padding0">
-                  <p class="size-16 font-white">25</p>
-                  <p class="size-12 margin-bottom0">更换周期</p>
+                  <p class="size-16 font-white">{{ins_planInspectionCount.nofinish}}</p>
+                  <p class="size-12 margin-bottom0">未完成</p>
                 </div>
               </div>
             </div>
             <div class="col-sm-5 font-gray-999 padding-left0 padding-right0">
-              <div id="pieb1" style="width: 100%;height:150px;margin: 0 auto;"></div>
+              <div id="ins_charCount" style="width: 100%;height:150px;margin: 0 auto;"></div>
             </div>
           </div>
         </section>
         <section>
           <div class="row toolcount">
             <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-              <span class="tool-rect bg-blue "></span>巡检类型
+              <span class="tool-rect bg-blue "></span>路线巡检任务完成
             </h2>
-            <div id="axis1" style="width: 100%;height:200px;margin: 0 auto;"></div>
+            <div id="ins_charCompletion" style="width: 100%;height:200px;margin: 0 auto;"></div>
           </div>
         </section>
         <section>
           <div class="row toolcount margin-top30">
             <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-              <span class="tool-rect bg-blue"></span>巡检完成率
+              <span class="tool-rect bg-blue"></span>巡检完成率历史趋势
               <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">
                       <i class="fa fa-th-large"></i>
                   </span>
             </h2>
-            <div id="myChart" style="width: 100%;height:180px;margin: 0 auto;"></div>
+            {{ins_queryTrendPieGraph.amount}}
+            {{ins_queryTrendPieGraph.finishedAmount}}
+            <div id="ins_charHistoricaltrend" style="width: 100%;height:180px;margin: 0 auto;"></div>
           </div>
         </section>
       </section>
     </div>
-    <!-- <div class="ceshi-btn">
-      <button @click="moren">默认</button>
-      <button @click="jianzhu">建筑</button>
-      <button @click="luxian">路线</button>
-    </div> -->
     <div class="ceshi-btn">
       <button @click="moren">详情</button>
       <button @click="jianzhu">统计</button>
@@ -542,8 +258,34 @@
 
 <script>
 export default {
+  props: {
+    ins_planInspectionCount: {
+      type: Object,
+      required: true
+    }
+  },
+  // 加入 watch 监听数据变化
+  watch: {
+    // ins_queryTrendPieGraph(val){
+    //   this.ins_queryTrendPieGraphs = this.ins_queryTrendPieGraph;
+    // },
+    // currentValue(val){
+    //   this.$emit('input',val)
+    // }
+  },
   data() {
-    return {};
+    return {
+      // 饼状图参数-请求
+      queryTrendPieGraph_parameter: {
+        unitId: 4,
+        planId: 486
+      },
+      // 饼状图参数-返回
+      ins_queryTrendPieGraph: {
+        amount: "",
+        finishedAmount: ""
+      }
+    };
   },
   methods: {
     moren() {
@@ -553,9 +295,6 @@ export default {
       $(".inspection-lineinfo")
         .addClass("display-none")
         .removeClass("display-block");
-      //   $("#inspectbtn-linepeople")
-      //     .addClass("display-none")
-      //     .removeClass("display-block");
     },
     jianzhu() {
       $(".inspection-lineinfo")
@@ -564,23 +303,54 @@ export default {
       $(".inspection-iteminfo")
         .addClass("display-none")
         .removeClass("display-block");
-      // $("#inspectbtn-linepeople")
-      //   .addClass("display-none")
-      //   .removeClass("display-block");
     },
-    // luxian() {
-    //   $("#inspectbtn-company")
-    //     .addClass("display-none")
-    //     .removeClass("display-block");
-    //   $("#inspectbtn-bulidinfo")
-    //     .addClass("display-none")
-    //     .removeClass("display-block");
-    //   $("#inspectbtn-linepeople")
-    //     .addClass("display-block")
-    //     .removeClass("display-none");
-    // },
+    draw_pie(id,data) {
+      console.log(this.ins_queryTrendPieGraph);
+      var fin_per=data.finishedAmount/(data.finishedAmount+data.amount)*100;
+      var amo_per=data.amount/(data.finishedAmount+data.amount)*100;
+      console.log();
+      let d = [
+        {
+          value: data.finishedAmount,
+          name: "完成率 "
+        },
+        {
+          value: data.amount, 
+          name: "额定任务次数 "
+        }
+      ];
+      var char = {
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        series: [
+          {
+            name: "说明:",
+            type: "pie",
+            // selectedMode: "single",
+            radius: [0, "70%"],
+            label: {
+              normal: {
+                position: "inner"
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            color: ["#bad616", "#333"],
+            data: d
+          }
+        ]
+      };
+      let chars = this.$echarts.init(document.getElementById(id));
+      chars.setOption(char);
+    },
     chart_one() {
-      var option = {
+      // 巡检完成率历史趋势曲线图
+      var ins_charHistoricaltrend = {
         xAxis: {
           type: "category",
           boundaryGap: false,
@@ -663,38 +433,9 @@ export default {
           }
         }
       };
-      var pie = {
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            selectedMode: "single",
-            radius: [0, "70%"],
-            label: {
-              normal: {
-                position: "inner"
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            color: ["#bad616", "#333"],
-            data: [
-              { value: 335, name: "50%", selected: true },
-              { value: 679, name: "" }
-            ]
-          }
-        ]
-      };
 
-      // 根据值判断柱子颜色的柱状图
-      var option1 = {
+      // 区域相关路线巡检任务完成数量
+      var ins_charCompletion = {
         color: ["#3398DB"],
         tooltip: {
           trigger: "axis",
@@ -780,16 +521,42 @@ export default {
         ]
       };
 
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
-      myChart.setOption(option);
-      let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
-      mypie1.setOption(pie);
-      let myChart1 = this.$echarts.init(document.getElementById("axis1"));
-      myChart1.setOption(option1);
+      let ins_charHistoricaltrendf = this.$echarts.init(
+        document.getElementById("ins_charHistoricaltrend")
+      );
+      // ins_charHistoricaltrendf.setOption(ins_charHistoricaltrend);
+      // let ins_charCompletionf = this.$echarts.init(
+      //   document.getElementById("ins_charCompletion")
+      // );
+      // ins_charCompletionf.setOption(ins_charCompletion);
+    },
+
+    getData() {
+      // 请求饼状图
+      this.$fetch(
+        "/api/inspection/queryTrendPieGraph",
+        this.queryTrendPieGraph_parameter
+      )
+        .then(response => {
+          console.log(response.data);
+          let data = response.data;
+          if (response.data) {
+            this.ins_queryTrendPieGraph.amount = data.result[0].amount;
+            this.ins_queryTrendPieGraph.finishedAmount =
+              data.result[0].finishedAmount;
+            if (this.ins_queryTrendPieGraph) {
+              this.draw_pie('ins_charCompletion',this.ins_queryTrendPieGraph);
+            }
+          }
+        })
+        .then(err => {
+          console.log(err);
+        });
     }
   },
   mounted() {
     this.chart_one();
+    this.getData();
   }
 };
 </script>
