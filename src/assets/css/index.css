@@ -282,7 +282,7 @@
     margin-top: 8px !important;
     margin-bottom: 0px;
     padding-left: 10px !important;
-    
+
 }
 .itemtitle-rect{
     display: inline-block;
@@ -296,7 +296,7 @@
 }
 .itemtitle-value{
     padding:0 5px !important;
-    
+
 }
 .tablist-itemul li{
     border-bottom: 1px solid #333;
@@ -766,7 +766,9 @@
     bottom: 56px;
 }
 
-
+.row{
+  z-index: auto !important;
+}
 
 
 

@@ -55,7 +55,6 @@
               <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
             </el-col>
           </el-form-item>
-
           <div style="clear: both;"></div>
           <el-form-item size="small" style="width:190px;"
                     label="每日额定完成次数"
@@ -67,8 +66,6 @@
                   >
             <el-input type="age" v-model.number="form.age" auto-complete="off"></el-input>
           </el-form-item>
-
-
           <div style="clear: both;"></div>
           <el-form-item label="是否开启扫描打卡" style="margin-top:10px;">
             <span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>
@@ -86,6 +83,7 @@
         </el-form>
       </div>
     </aside>
+
   </div>
 </template>
 
@@ -123,7 +121,7 @@
         $(' .el-select-dropdown__item').mouseover(function(){
           $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
         });
-
+        $('.modal-body .el-input__inner').css({'background-color':'#111','border-color':'#282828','border-radius':'0'});
 
       }
     }

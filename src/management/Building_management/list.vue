@@ -14,66 +14,35 @@
       </div>
       <div class="main_content">
         <el-form ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="设备名称">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">设备名称有误或重复</span>
+          <el-form-item label="建筑名称">
+            <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span>
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="选择类别">
-            <el-select v-model="form.region" placeholder="消防灭火设施">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-            <el-select v-model="form.region1" placeholder="手提式干粉灭火器">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
+          <el-form-item label="所属单位">
+            <span class="font-red" style="position: absolute;top:-45px;right:20px;">所属单位有误或重复</span>
+            <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="设备位置">
-            <el-select v-model="form.region2" placeholder="良庆区中心小学" class="sbwz_138_32">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-            <el-select v-model="form.region3" placeholder="实验教学楼22号" class="sbwz_138_32">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-            <el-select v-model="form.region4" placeholder="十二层" class="sbwz_90_32">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-            <el-select v-model="form.region5" placeholder="1203房间" class="sbwz_90_32">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
+          <el-form-item label="建筑地址">
+            <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="位置坐标">
-            <el-input v-model="form.address" class="wzzb"></el-input>
-            <el-button type="primary" round icon="el-icon-search" class="wzzb_btn">地图选点</el-button>
+          <el-form-item label="占地面积">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+          <el-form-item label="总楼层">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+          <el-form-item label="建筑类型">
+            <el-select v-model="form.region" placeholder="建筑类型">
+              <el-option label="低层（1~3）" value="shanghai"></el-option>
+              <el-option label="多层（4~6）" value="beijing"></el-option>
+            </el-select>
           </el-form-item>
 
-          <el-form-item label="离地高度（m）" style="float: left;">
-            <el-input v-model="form.Height"></el-input>
-          </el-form-item>
-          <el-form-item label="距离顶部（m）" style="float: left;margin-left:10px;">
-            <el-input v-model="form.Top"></el-input>
-          </el-form-item>
-          <div style="clear: both;"></div>
-          <el-form-item label="设备物理地址">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">设备物理地址有误</span>
-            <el-input v-model="form.PhysicalAddress"></el-input>
-          </el-form-item>
 
-          <el-form-item label="维保单位" class="sbwz_138_32" style="float: left;">
-            <el-input v-model="form.Maintenance_unit"></el-input>
-          </el-form-item>
-          <el-form-item label="维保电话" class="sbwz_138_32" style="float: left;margin-left:10px;">
-            <el-input v-model="form.Maintenance_phone"></el-input>
-          </el-form-item>
-          <el-form-item label="更换周期" class="sbwz_138_32" style="float: left;margin-left:10px;">
-            <el-input v-model="form.Replacement_cycle"></el-input>
-          </el-form-item>
+
+
           <div style="clear: both;"></div>
-          <el-form-item label="是否生成图形码" style="margin-top:55px;">
+          <el-form-item label="是否生成二维码" style="margin-top:55px;">
             <span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>
             <el-radio-group v-model="form.resource">
               <el-radio label="是"></el-radio>

@@ -60,7 +60,7 @@
               label="操作"
               width="120">
               <template slot-scope="scope">
-                <button style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">激活</button>
+                <button @click="show" data-toggle="modal" data-target="#myModal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">激活</button>
                 <i class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
                 <i class="fa fa-th-large font-gray-666"></i>
               </template>
@@ -92,7 +92,46 @@
         </div>
       </div>
     </aside>
-
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">激活</h4>
+            <h5 class="modal-p">巡检装修施工现场A</h5>
+          </div>
+          <div class="modal-body">
+            <el-form ref="form" :label-position="labelPosition" :model="form">
+              <el-form-item size="small"
+                            label="每日额定完成次数"
+                            prop="age"
+                            :rules="[
+              { required: true, message: '年龄不能为空'},
+              { type: 'number', message: '年龄必须为数字值'}
+            ]"
+              >
+                <el-input type="age" v-model.number="form.age" auto-complete="off" style="width:190px;"></el-input>
+                <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
+              </el-form-item>
+              <div style="clear: both;"></div>
+              <el-form-item label="是否开启扫描打卡" style="margin-top:10px;">
+                <span class="font-red" style="position: absolute;top:-54px;right:20px;">未选择是否生成图形码</span>
+                <el-radio-group v-model="form.resource">
+                  <el-radio label="是"></el-radio>
+                  <el-radio label="否"></el-radio>
+                </el-radio-group>
+                <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
+              </el-form-item>
+            </el-form>
+          </div>
+          <div class="modal-footer">
+            <el-button type="primary"  icon="el-icon-search" class="primary">激活</el-button>
+            <el-button class="back" data-dismiss="modal">取消</el-button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -101,6 +140,7 @@
   export default {
     data() {
       return {
+        labelPosition: 'top',
         form: {
           name:'',
           region1:'',
@@ -140,6 +180,11 @@
       },
       SetColor(ele,key,value){
         $(ele).css(key,value);
+      },
+      show(){
+        $('.modal').css({
+          "display":"flex","justify-content":"center" ,"align-items": "center"
+        })
       }
     },
     mounted(){
@@ -162,6 +207,7 @@
       this.SetColor('.el-pager li','background','transparent');
       this.SetColor('.el-pager li.active','color','#fff');
       this.SetColor('.el-form-item__content','margin-left','10px');
+      $('.modal-body .el-input__inner').css({'background-color':'#111','border-color':'#282828','border-radius':'0'});
     }
   };
 </script>
@@ -284,6 +330,28 @@
   }
   .select{
     background-color: #111111;
+  }
+  //模态框
+  .modal-content{
+    background-color: #111111 !important;
+  }
+  .modal-title{
+    font-size:24px;
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: 15px;
+    text-indent: 15px;
+  }
+  .modal-p{
+    color: #666666;
+    text-align: center;
+    font-size: 12px;
+  }
+  .modal-header{
+    border-bottom:1px solid #222222;
+  }
+  .modal-footer{
+    border-top:1px solid #222222;
   }
 
 </style>

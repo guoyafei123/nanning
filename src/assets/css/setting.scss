@@ -7,6 +7,7 @@
     border-color: #333333;
     font-size:12px;
     color: #ccc;
+    border-radius:0;
   }
   .el-form-item {
     margin-bottom: 10px;
@@ -72,11 +73,11 @@
 }
 
 .el-radio__input.is-checked+.el-radio__label{
-  color: #bad616;
+  color: #bad616 !important;
 }
 .el-radio__input.is-checked .el-radio__inner {
-  border-color: #bad616;
-  background: #bad616;
+  border-color: #bad616 !important;
+  background: #bad616 !important;
 }
 .el-popper[x-placement^=bottom] .popper__arrow::after{
   border-bottom-color: #333 !important;
@@ -108,7 +109,7 @@
     font-size: 12px;
     color: #999999;
     background-color:#000;
-    border:none;
+    border:none !important;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -125,7 +126,7 @@
       padding:0;
       border-radius: 0;
       background-color:#000000;
-      border:none;
+      border:none !important;
       margin-left:6px;
     }
 
@@ -137,7 +138,13 @@
 }
 .main_content_table{
   ::-webkit-scrollbar{
-    height:10px;
+    height:13px;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: #222222;
+  }
+  ::-webkit-scrollbar-track-piece{
+    background-color: #000000;
   }
   .el-table{
     background-color: #111111;
@@ -175,8 +182,20 @@
   }
 }
 
-
-
+.el-form-item{
+  .el-button{
+    border-radius: 0;
+  }
+}
+.modal-footer{
+  text-align: left !important;
+  .el-button{
+    border-radius: 0;
+  }
+  button{
+    border-radius: 0;
+  }
+}
 // maps
 
 .el-form-item__content{
@@ -184,4 +203,13 @@
 }
 
 
+
+
+.el-table th:nth-child(1) div, .el-table--border th:first-child .cell{
+  padding-left:20px !important;
+}
+
+.el-table--border td:first-child .cell {
+  padding-left: 20px !important;
+}
 

@@ -36,7 +36,11 @@
             <el-option label="区域一" value="wq"></el-option>
             <el-option label="区域二" value="ww"></el-option>
           </el-select>
-          <el-select v-model="form.region3" placeholder="灭火设备" class="select">
+          <el-select v-model="form.region3" placeholder="全部楼层" class="select">
+            <el-option label="区域一" value="ss"></el-option>
+            <el-option label="区域二" value="gf"></el-option>
+          </el-select>
+          <el-select v-model="form.region3" placeholder="全部房间" class="select">
             <el-option label="区域一" value="ss"></el-option>
             <el-option label="区域二" value="gf"></el-option>
           </el-select>
@@ -61,83 +65,59 @@
           </el-table-column>
           <el-table-column
             prop="Device_name"
-            label="设备名称"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Equipment_type"
-            label="设备类型"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Architectural_name"
             label="建筑名称"
             width="120">
           </el-table-column>
           <el-table-column
+            prop="Equipment_type"
+            label="所属单位"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="Architectural_name"
+            label="地址"
+            width="120">
+          </el-table-column>
+          <el-table-column
             prop="Unit_name"
-            label="单位名称"
+            label="占地面积（m^2）"
             width="300">
           </el-table-column>
           <el-table-column
             prop="Off_ground"
-            label="离地"
+            label="总楼层"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Apex"
-            label="距顶"
+            label="建筑结构"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Call_the_police"
-            label="报警"
+            label="建成年份"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Fault"
-            label="故障"
+            label="建筑性质"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Maintenance_unit"
-            label="维保单位"
+            label="消防负责人"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Invest_time"
-            label="投入时间"
+            label="消防负责人电话"
             width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Replacement_period"
-            label="更换周期"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Add_time"
-            label="添加时间"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="State"
-            label="状态"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Position"
-            label="位置"
-            width="120">
-            <template slot-scope="scope">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </template>
           </el-table-column>
           <el-table-column
             fixed="right"
             label="操作"
             width="100">
             <template slot-scope="scope">
-              <i class="fa fa-th-large font-gray-666"></i>
               <i class="fa fa-th-large font-gray-666"></i>
               <i class="fa fa-th-large font-gray-666"></i>
               <i class="fa fa-th-large font-gray-666"></i>
@@ -150,7 +130,7 @@
           <div class="float-left">
             <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
             <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出标码</a>
+            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
           </div>
           <el-pagination style="float: right;background: transparent"
                          @size-change="handleSizeChange"
@@ -186,7 +166,11 @@
             <el-option label="区域一" value="wq"></el-option>
             <el-option label="区域二" value="ww"></el-option>
           </el-select>
-          <el-select v-model="form.region3" placeholder="灭火设备" class="select">
+          <el-select v-model="form.region3" placeholder="全部楼层" class="select">
+            <el-option label="区域一" value="ss"></el-option>
+            <el-option label="区域二" value="gf"></el-option>
+          </el-select>
+          <el-select v-model="form.region3" placeholder="全部房间" class="select">
             <el-option label="区域一" value="ss"></el-option>
             <el-option label="区域二" value="gf"></el-option>
           </el-select>
@@ -211,76 +195,53 @@
           </el-table-column>
           <el-table-column
             prop="Device_name"
-            label="设备名称"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Equipment_type"
-            label="设备类型"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Architectural_name"
             label="建筑名称"
             width="120">
           </el-table-column>
           <el-table-column
+            prop="Equipment_type"
+            label="所属单位"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="Architectural_name"
+            label="地址"
+            width="120">
+          </el-table-column>
+          <el-table-column
             prop="Unit_name"
-            label="单位名称"
+            label="占地面积（m^2）"
             width="300">
           </el-table-column>
           <el-table-column
             prop="Off_ground"
-            label="离地"
+            label="总楼层"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Apex"
-            label="距顶"
+            label="建筑结构"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Call_the_police"
-            label="报警"
+            label="建成年份"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Fault"
-            label="故障"
+            label="建筑性质"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Maintenance_unit"
-            label="维保单位"
+            label="消防负责人"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Invest_time"
-            label="投入时间"
+            label="消防负责人电话"
             width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Replacement_period"
-            label="更换周期"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Add_time"
-            label="添加时间"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="State"
-            label="状态"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Position"
-            label="位置"
-            width="120">
-            <template slot-scope="scope">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </template>
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -290,23 +251,17 @@
               <i class="fa fa-th-large font-gray-666"></i>
               <i class="fa fa-th-large font-gray-666"></i>
               <i class="fa fa-th-large font-gray-666"></i>
-              <i class="fa fa-th-large font-gray-666"></i>
             </template>
           </el-table-column>
         </el-table>
       </div>
       <div class="main_content_bottom">
         <div class="bottom_con">
-          <el-pagination style="float: left;"
-                         @size-change="handleSizeChange"
-                         @current-change="handleCurrentChange"
-                         :current-page="currentPage4"
-                         :page-sizes="[100, 200, 300, 400]"
-                         :page-size="100"
-                         layout="total"
-                         :total="400">
-          </el-pagination>
-          <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{page}}页</span>
+          <div class="float-left">
+            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
+            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
+            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
+          </div>
           <el-pagination style="float: right;background: transparent"
                          @size-change="handleSizeChange"
                          @current-change="handleCurrentChange"
@@ -316,6 +271,17 @@
                          layout="prev, pager, next"
                          :total="400">
           </el-pagination>
+          <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
+          <el-pagination style="float: right;"
+                         @size-change="handleSizeChange"
+                         @current-change="handleCurrentChange"
+                         :current-page="currentPage4"
+                         :page-sizes="[100, 200, 300, 400]"
+                         :page-size="100"
+                         layout="total"
+                         :total="400">
+          </el-pagination>
+
         </div>
       </div>
     </div>
@@ -330,7 +296,11 @@
             <el-option label="区域一" value="wq"></el-option>
             <el-option label="区域二" value="ww"></el-option>
           </el-select>
-          <el-select v-model="form.region3" placeholder="灭火设备" class="select">
+          <el-select v-model="form.region3" placeholder="全部楼层" class="select">
+            <el-option label="区域一" value="ss"></el-option>
+            <el-option label="区域二" value="gf"></el-option>
+          </el-select>
+          <el-select v-model="form.region3" placeholder="全部房间" class="select">
             <el-option label="区域一" value="ss"></el-option>
             <el-option label="区域二" value="gf"></el-option>
           </el-select>
@@ -355,76 +325,53 @@
           </el-table-column>
           <el-table-column
             prop="Device_name"
-            label="设备名称"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Equipment_type"
-            label="设备类型"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Architectural_name"
             label="建筑名称"
             width="120">
           </el-table-column>
           <el-table-column
+            prop="Equipment_type"
+            label="所属单位"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="Architectural_name"
+            label="地址"
+            width="120">
+          </el-table-column>
+          <el-table-column
             prop="Unit_name"
-            label="单位名称"
+            label="占地面积（m^2）"
             width="300">
           </el-table-column>
           <el-table-column
             prop="Off_ground"
-            label="离地"
+            label="总楼层"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Apex"
-            label="距顶"
+            label="建筑结构"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Call_the_police"
-            label="报警"
+            label="建成年份"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Fault"
-            label="故障"
+            label="建筑性质"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Maintenance_unit"
-            label="维保单位"
+            label="消防负责人"
             width="120">
           </el-table-column>
           <el-table-column
             prop="Invest_time"
-            label="投入时间"
+            label="消防负责人电话"
             width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Replacement_period"
-            label="更换周期"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Add_time"
-            label="添加时间"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="State"
-            label="状态"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Position"
-            label="位置"
-            width="120">
-            <template slot-scope="scope">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </template>
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -434,23 +381,17 @@
               <i class="fa fa-th-large font-gray-666"></i>
               <i class="fa fa-th-large font-gray-666"></i>
               <i class="fa fa-th-large font-gray-666"></i>
-              <i class="fa fa-th-large font-gray-666"></i>
             </template>
           </el-table-column>
         </el-table>
       </div>
       <div class="main_content_bottom">
         <div class="bottom_con">
-          <el-pagination style="float: left;"
-                         @size-change="handleSizeChange"
-                         @current-change="handleCurrentChange"
-                         :current-page="currentPage4"
-                         :page-sizes="[100, 200, 300, 400]"
-                         :page-size="100"
-                         layout="total"
-                         :total="400">
-          </el-pagination>
-          <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{page}}页</span>
+          <div class="float-left">
+            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
+            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
+            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
+          </div>
           <el-pagination style="float: right;background: transparent"
                          @size-change="handleSizeChange"
                          @current-change="handleCurrentChange"
@@ -460,6 +401,17 @@
                          layout="prev, pager, next"
                          :total="400">
           </el-pagination>
+          <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
+          <el-pagination style="float: right;"
+                         @size-change="handleSizeChange"
+                         @current-change="handleCurrentChange"
+                         :current-page="currentPage4"
+                         :page-sizes="[100, 200, 300, 400]"
+                         :page-size="100"
+                         layout="total"
+                         :total="400">
+          </el-pagination>
+
         </div>
       </div>
     </div>
@@ -474,8 +426,8 @@
         form: {
           name:'',
           region1:'',
-          region2:'22',
-          region3:'33'
+          region2:'',
+          region3:''
         },
         tableData: [{
           Serial_number: '1',
