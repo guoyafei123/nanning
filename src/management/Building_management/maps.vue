@@ -258,6 +258,11 @@
     background: #bad616;
     margin-left: 6px;
     margin-right: 20px;
+    color:#000000;
+  }
+  .main_header button.btn_add i{
+    color: #000;
+    background-color: transparent;
   }
   .main_content_top{
     height:40px;

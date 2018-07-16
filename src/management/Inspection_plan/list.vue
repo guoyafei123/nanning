@@ -7,6 +7,8 @@
           <h2 class="float-left font-white size-16">路线规划</h2>
         </div>
         <div class="main_nav float-right">
+          <router-link to="/Inspection_plan/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Inspection_plan/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
           <router-link to="/Inspection_plan/list"><button style="margin-right:20px;border-right:2px solid #333333;"><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
         </div>
       </div>

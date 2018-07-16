@@ -34,26 +34,20 @@
             :default-sort = "{prop: 'Serial_number', order: 'descending'}"
             style="width: 100%;height:570px;">
             <el-table-column
-              fixed
-              sortable
               prop="Serial_number"
-              label="序号"
-              width="70">
+              label="序号">
             </el-table-column>
             <el-table-column
               prop="Device_name"
-              label="路线名称"
-              width="120">
+              label="路线名称">
             </el-table-column>
             <el-table-column
               prop="Call_the_police"
-              label="扫码打卡"
-              width="70">
+              label="扫码打卡">
             </el-table-column>
             <el-table-column
               prop="Fault"
-              label="路线状态"
-              width="120">
+              label="路线状态">
             </el-table-column>
             <el-table-column
               fixed="right"
@@ -137,6 +131,7 @@
 </template>
 
 <script>
+  import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
@@ -188,26 +183,14 @@
       }
     },
     mounted(){
-      $('.el-table__body-wrapper').css('height','520px');
-      $('.el-scrollbar').css({
-        'background':'#000'
-      });
-      $('.el-select-dropdown').css({'border-color':'#333','border-radius':'0px'});
-      $('.el-select-dropdown__item').css('color','#999');
-      $(' .el-select-dropdown__item').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-      });
-      $('.el-table__row').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#000'})
-      }).mouseout(function(){
-        $(this).css({'color':'#999','background':'#111'})
-      });
+      realconsole();
+
       this.SetColor('.btn-prev','background','transparent');
       this.SetColor('.btn-next','background','transparent');
       this.SetColor('.el-pager li','background','transparent');
       this.SetColor('.el-pager li.active','color','#fff');
       this.SetColor('.el-form-item__content','margin-left','10px');
-      $('.modal-body .el-input__inner').css({'background-color':'#111','border-color':'#282828','border-radius':'0'});
+
     }
   };
 </script>
@@ -237,7 +220,8 @@
     }
   }
   aside{
-    width:390px;
+    width:50%;
+    min-width: 450px;
   }
   .main_header{
     width:100%;
@@ -256,14 +240,14 @@
     line-height: 68px;
   }
   .main_header button,.main_nav_two button{
-    width:64px;
+    width:64px !important;
     height:28px;
     float: left;
     outline:none;
     display: flex;
     align-items: center;
     justify-content: center;
-    border:2px solid #333333;
+    border:2px solid transparent;
     background: #111111;
     font-size: 12px;
     color: #999;
@@ -322,7 +306,7 @@
   }
   .router-link-active button{
     color: #b8b8b8;
-    background-color: #333333;
+    background-color: #000000;
   }
   .router-link-active i{
     color: #b8b8b8;

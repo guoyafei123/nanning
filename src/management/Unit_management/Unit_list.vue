@@ -7,9 +7,9 @@
           <h2 class="float-left font-white size-16">新增设备</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Equipment_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-          <router-link to="/Equipment_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
-          <router-link to="/Equipment_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
+          <router-link to="/Unit_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Unit_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+          <router-link to="/Unit_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
         </div>
       </div>
       <div class="main_content">
