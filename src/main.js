@@ -9,11 +9,14 @@ import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 // Element-UI
 import ElementUI from 'element-ui';
+
+
 Vue.use(ElementUI);
 import 'element-ui/lib/theme-chalk/index.css';
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
+
 // 跨浏览器兼容
 require('./assets/css/normalize.css');
 // Font Icon
@@ -26,6 +29,7 @@ require('./assets/css/common.css');
 import './assets/map/map.js'
 // 首页
 import './assets/css/index.css'
+import './assets/css/upd-element.css'
 require('./assets/css/setting.scss');
 
 // axios请求

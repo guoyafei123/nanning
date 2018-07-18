@@ -14,7 +14,6 @@
 <script>
   import MapVue from './components/map';
   import FooterVue from './components/footer';
-
   export default {
     name: 'app',
     data () {

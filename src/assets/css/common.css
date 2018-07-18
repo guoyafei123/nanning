@@ -80,18 +80,18 @@ table {
 
 
 /* 公用字体颜色 */
-.font-black{color:#000000}
-.font-white{color:#ffffff}
-.font-blue{color: #bad616}
-.font-yellow{color:#c69e00}
-.font-orange{color:#ff7800}
-.font-red{color:#f13131}
-.font-gray-111{color: #111111}
-.font-gray-222{color: #222222}
-.font-gray-333{color: #333333}
-.font-gray-666{color: #666666}
-.font-gray-999{color: #999999}
-.font-gray-ccc{color: #cccccc}
+.font-black{color:#000000!important}
+.font-white{color:#ffffff!important}
+.font-blue{color: #bad616!important}
+.font-yellow{color:#c69e00!important}
+.font-orange{color:#ff7800!important}
+.font-red{color:#f13131!important}
+.font-gray-111{color: #111111!important}
+.font-gray-222{color: #222222!important}
+.font-gray-333{color: #333333!important}
+.font-gray-666{color: #666666!important}
+.font-gray-999{color: #999999!important}
+.font-gray-ccc{color: #cccccc!important}
 
 
 /* table专用 */
@@ -548,6 +548,14 @@ header,
 /* map */
 .anchorBL{
     display: none;
+}
+
+table{
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    cursor: pointer;
+}
+.mini-table td{
+    max-width: 20px; overflow:hidden; text-overflow:ellipsis;
 }
 
 
