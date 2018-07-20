@@ -22,15 +22,15 @@
 
 <script>
   import HeaderVue from '../../components/header.vue';
-  import Set_leftVue from './Unit_left.vue';
+  import Unit_leftVue from './Unit_left.vue';
   import MainVue from './Unit_main.vue';
-  import Set_rightVue from './Unit_right.vue';
+  import Unit_rightVue from './Unit_right.vue';
   import '../../assets/css/setting.scss';
   export default {
     components:{
       'header-vue':HeaderVue,
-      'set_left-vue':Set_leftVue,
-      'set_right-vue':Set_rightVue,
+      'set_left-vue':Unit_leftVue,
+      'set_right-vue':Unit_rightVue,
       'main-vue':MainVue
     }
   }

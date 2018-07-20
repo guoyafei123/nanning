@@ -4,7 +4,7 @@
     <header-vue></header-vue>
     <!-- #头部 End-->
     <!-- #左边 -->
-    <section id="left" class="position-fixed-left container-padding5 z-index-20"  style="width:295px;padding:0;">
+    <section id="left" class="position-fixed-left container-padding5 z-index-20" style="width:295px;padding:0;">
       <div class="overlay"></div>
       <set_left-vue></set_left-vue>
     </section>
@@ -27,11 +27,25 @@
   import Set_rightVue from './right.vue';
   import '../../assets/css/setting.scss';
   export default {
+    data(){
+      return{
+        // see:false
+      }
+    },
     components:{
       'header-vue':HeaderVue,
       'set_left-vue':Set_leftVue,
       'set_right-vue':Set_rightVue,
       'main-vue':MainVue
+    },
+    watch:{
+      // if(this.see == false){
+      //   this.see = true
+      // }
+      see(val,oldval){
+
+        console.log($('.show_left')[0].style.display)
+      }
     }
   }
 </script>

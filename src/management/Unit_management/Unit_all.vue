@@ -6,14 +6,12 @@
         <h2 class="float-left font-white size-16">设备管理</h2>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Equipment_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-        <router-link to="/Equipment_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
-        <router-link to="/Equipment_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+        <router-link to="/Unit_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
       </div>
     </div>
     <div class="main_all_content">
       <div class="main_content_top">
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="form" :model="form" label-width="80px" class="float-left">
           <el-select v-model="form.region1" @change="" placeholder="全部单位" class="select" style="margin-left:20px;">
             <el-option label="区域一" value="ssd"></el-option>
             <el-option label="区域二" value="www2"></el-option>
@@ -31,6 +29,10 @@
           </el-form-item>
           <el-button  icon="el-icon-search">搜索</el-button>
         </el-form>
+        <div class="main_nav_two float-right">
+          <router-link to="/Unit_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Unit_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+        </div>
       </div>
       <div class="main_content_table">
         <el-table
@@ -39,84 +41,41 @@
           :default-sort = "{prop: 'Serial_number', order: 'descending'}"
           style="width: 100%;height:570px;">
           <el-table-column
-            fixed
             sortable
             prop="Serial_number"
-            label="序号"
-            width="100">
+            label="序号">
           </el-table-column>
           <el-table-column
             prop="Device_name"
-            label="设备名称"
-            width="120">
+            label="单位名称">
           </el-table-column>
           <el-table-column
             prop="Equipment_type"
-            label="设备类型"
-            width="120">
+            label="单位人数">
           </el-table-column>
           <el-table-column
             prop="Architectural_name"
-            label="建筑名称"
-            width="120">
+            label="单位性质">
           </el-table-column>
           <el-table-column
             prop="Unit_name"
-            label="单位名称"
-            width="300">
+            label="单位地址">
           </el-table-column>
           <el-table-column
             prop="Off_ground"
-            label="离地"
-            width="120">
+            label="部门电话">
           </el-table-column>
           <el-table-column
             prop="Apex"
-            label="距顶"
-            width="120">
+            label="消防负责人">
           </el-table-column>
           <el-table-column
             prop="Call_the_police"
-            label="报警"
-            width="120">
+            label="消防负责人电话">
           </el-table-column>
           <el-table-column
             prop="Fault"
-            label="故障"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Maintenance_unit"
-            label="维保单位"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Invest_time"
-            label="投入时间"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Replacement_period"
-            label="更换周期"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Add_time"
-            label="添加时间"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="State"
-            label="状态"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Position"
-            label="位置"
-            width="120">
-            <template slot-scope="scope">
-              <i class="fa fa-th-large font-gray-666"></i>
-            </template>
+            label="法人代表">
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -160,6 +119,7 @@
 </template>
 
 <script>
+  import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
@@ -224,21 +184,7 @@
       }
     },
     mounted(){
-      // console.log($('.el-form > div:nth-child(1) >div  > input').attr('value'))
-      $('.el-table__body-wrapper').css('height','520px');
-      $('.el-scrollbar').css({
-        'background':'#000'
-      });
-      $('.el-select-dropdown').css({'border-color':'#333','border-radius':'0px'});
-      $('.el-select-dropdown__item').css('color','#999');
-      $(' .el-select-dropdown__item').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-      });
-      $('.el-table__row').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#000'})
-      }).mouseout(function(){
-        $(this).css({'color':'#999','background':'#111'})
-      });
+      realconsole();
       this.SetColor('.btn-prev','background','transparent');
       this.SetColor('.btn-next','background','transparent');
       this.SetColor('.el-pager li','background','transparent');
@@ -287,7 +233,7 @@
   .main_title h2{
     line-height: 68px;
   }
-  .main_header button{
+  .main_header button,.main_nav_two button{
     width:64px;
     height:28px;
     float: left;
@@ -295,7 +241,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border:2px solid #333333;
+    border:2px solid transparent;
     background: #111111;
     font-size: 12px;
     color: #999;
@@ -317,6 +263,20 @@
     background: #bad616;
     margin-left: 6px;
     margin-right: 20px;
+    color:#000000;
+  }
+  .main_header button.btn_add i{
+    color: #000;
+  }
+  .main_nav_two{
+    margin-top:6px;
+    margin-right:20px;
+  }
+  .main_nav_two button{
+    margin-top:0;
+  }
+  .main_nav_two i{
+    margin-right: 3px;
   }
   .main_content_top{
     height:40px;

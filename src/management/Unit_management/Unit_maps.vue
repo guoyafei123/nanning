@@ -7,9 +7,9 @@
           <h2 class="float-left font-white size-16">设备管理</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Equipment_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-          <router-link to="/Equipment_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
-          <router-link to="/Equipment_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+          <router-link to="/Unit_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Unit_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+          <router-link to="/Unit_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
         </div>
       </div>
       <div class="main_all_content">
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+  import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
@@ -143,20 +144,7 @@
       }
     },
     mounted(){
-      $('.el-table__body-wrapper').css('height','520px');
-      $('.el-scrollbar').css({
-        'background':'#000'
-      });
-      $('.el-select-dropdown').css({'border-color':'#333','border-radius':'0px'});
-      $('.el-select-dropdown__item').css('color','#999');
-      $(' .el-select-dropdown__item').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-      });
-      $('.el-table__row').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#000'})
-      }).mouseout(function(){
-        $(this).css({'color':'#999','background':'#111'})
-      });
+      realconsole();
       this.SetColor('.btn-prev','background','transparent');
       this.SetColor('.btn-next','background','transparent');
       this.SetColor('.el-pager li','background','transparent');
@@ -239,6 +227,11 @@
     background: #bad616;
     margin-left: 6px;
     margin-right: 20px;
+    color:#000000;
+  }
+  .main_header button.btn_add i{
+    color: #000;
+    background-color: transparent;
   }
   .main_content_top{
     height:40px;

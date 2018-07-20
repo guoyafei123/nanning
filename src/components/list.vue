@@ -139,7 +139,20 @@
   }
 
   @media (min-width: 768px) and (max-width:1600px){
+    aside{
+      width:525px;
+      max-height:740px;
+      background:#111111;
+      overflow: hidden;
+    }
+    .main_content{
+      width:500px;
+      height:672px;
+      margin:0 auto;
+      overflow-y: scroll;
+      border-top:1px solid #222222;
 
+    }
   }
   @media (min-width: 1600px){
     aside{

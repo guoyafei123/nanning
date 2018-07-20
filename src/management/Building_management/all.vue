@@ -11,9 +11,7 @@
         <a href="javascript:;"><button><i class="fa fa-th-large font-gray-666 float-left"></i>房间</button></a>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Building_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-        <router-link to="/Building_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
-        <a href="javascript:;"><button class="btn_add" @click="show()"><i class="fa fa-th-large font-gray-666 float-left"></i>新增
+       <a href="javascript:;"><button class="btn_add" @click="show()"><i class="fa fa-th-large font-gray-666 float-left"></i>新增
           <div class="main_nav_show" style="display: none;">
             <ul>
               <li><router-link to="/Building_management/list"><button><i class="fa fa-th-large font-gray-666 float-left"></i>建筑</button></router-link></li>
@@ -27,7 +25,7 @@
     </div>
     <div class="main_all_content" style="display: block;">
       <div class="main_content_top">
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="form" :model="form" label-width="80px" class="float-left">
           <el-select v-model="form.region1" @change="" placeholder="全部单位" class="select" style="margin-left:20px;">
             <el-option label="区域一" value="ssd"></el-option>
             <el-option label="区域二" value="www2"></el-option>
@@ -49,6 +47,10 @@
           </el-form-item>
           <el-button  icon="el-icon-search">搜索</el-button>
         </el-form>
+        <div class="main_nav_two float-right">
+          <router-link to="/Building_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Building_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+        </div>
       </div>
       <div class="main_content_table">
         <el-table
@@ -60,53 +62,43 @@
             fixed
             sortable
             prop="Serial_number"
-            label="序号"
-            width="100">
+            label="序号">
           </el-table-column>
           <el-table-column
             prop="Device_name"
-            label="建筑名称"
-            width="120">
+            label="建筑名称">
           </el-table-column>
           <el-table-column
             prop="Equipment_type"
-            label="所属单位"
-            width="120">
+            label="所属单位">
           </el-table-column>
           <el-table-column
             prop="Architectural_name"
-            label="地址"
-            width="120">
+            label="地址">
           </el-table-column>
           <el-table-column
             prop="Unit_name"
-            label="占地面积（m^2）"
-            width="300">
+            label="占地面积（m^2）">
           </el-table-column>
           <el-table-column
             prop="Off_ground"
-            label="总楼层"
-            width="120">
+            label="总楼层">
           </el-table-column>
           <el-table-column
             prop="Apex"
-            label="建筑结构"
-            width="120">
+            label="建筑结构">
           </el-table-column>
           <el-table-column
             prop="Call_the_police"
-            label="建成年份"
-            width="120">
+            label="建成年份">
           </el-table-column>
           <el-table-column
             prop="Fault"
-            label="建筑性质"
-            width="120">
+            label="建筑性质">
           </el-table-column>
           <el-table-column
             prop="Maintenance_unit"
-            label="消防负责人"
-            width="120">
+            label="消防负责人">
           </el-table-column>
           <el-table-column
             prop="Invest_time"
@@ -157,7 +149,7 @@
     </div>
     <div class="main_all_content">
       <div class="main_content_top">
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="form" :model="form" label-width="80px" class="float-left">
           <el-select v-model="form.region1" @change="" placeholder="全部单位" class="select" style="margin-left:20px;">
             <el-option label="区域一" value="ssd"></el-option>
             <el-option label="区域二" value="www2"></el-option>
@@ -179,6 +171,10 @@
           </el-form-item>
           <el-button  icon="el-icon-search">搜索</el-button>
         </el-form>
+        <div class="main_nav_two float-right">
+          <router-link to="/Building_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Building_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+        </div>
       </div>
       <div class="main_content_table">
         <el-table
@@ -190,53 +186,43 @@
             fixed
             sortable
             prop="Serial_number"
-            label="序号"
-            width="100">
+            label="序号">
           </el-table-column>
           <el-table-column
             prop="Device_name"
-            label="建筑名称"
-            width="120">
+            label="建筑名称">
           </el-table-column>
           <el-table-column
             prop="Equipment_type"
-            label="所属单位"
-            width="120">
+            label="所属单位">
           </el-table-column>
           <el-table-column
             prop="Architectural_name"
-            label="地址"
-            width="120">
+            label="地址">
           </el-table-column>
           <el-table-column
             prop="Unit_name"
-            label="占地面积（m^2）"
-            width="300">
+            label="占地面积（m^2）">
           </el-table-column>
           <el-table-column
             prop="Off_ground"
-            label="总楼层"
-            width="120">
+            label="总楼层">
           </el-table-column>
           <el-table-column
             prop="Apex"
-            label="建筑结构"
-            width="120">
+            label="建筑结构">
           </el-table-column>
           <el-table-column
             prop="Call_the_police"
-            label="建成年份"
-            width="120">
+            label="建成年份">
           </el-table-column>
           <el-table-column
             prop="Fault"
-            label="建筑性质"
-            width="120">
+            label="建筑性质">
           </el-table-column>
           <el-table-column
             prop="Maintenance_unit"
-            label="消防负责人"
-            width="120">
+            label="消防负责人">
           </el-table-column>
           <el-table-column
             prop="Invest_time"
@@ -287,7 +273,7 @@
     </div>
     <div class="main_all_content">
       <div class="main_content_top">
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="form" :model="form" label-width="80px" class="float-left">
           <el-select v-model="form.region1" @change="" placeholder="全部单位" class="select" style="margin-left:20px;">
             <el-option label="区域一" value="ssd"></el-option>
             <el-option label="区域二" value="www2"></el-option>
@@ -309,6 +295,10 @@
           </el-form-item>
           <el-button  icon="el-icon-search">搜索</el-button>
         </el-form>
+        <div class="main_nav_two float-right">
+          <router-link to="/Building_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Building_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+        </div>
       </div>
       <div class="main_content_table">
         <el-table
@@ -320,53 +310,43 @@
             fixed
             sortable
             prop="Serial_number"
-            label="序号"
-            width="100">
+            label="序号">
           </el-table-column>
           <el-table-column
             prop="Device_name"
-            label="建筑名称"
-            width="120">
+            label="建筑名称">
           </el-table-column>
           <el-table-column
             prop="Equipment_type"
-            label="所属单位"
-            width="120">
+            label="所属单位">
           </el-table-column>
           <el-table-column
             prop="Architectural_name"
-            label="地址"
-            width="120">
+            label="地址">
           </el-table-column>
           <el-table-column
             prop="Unit_name"
-            label="占地面积（m^2）"
-            width="300">
+            label="占地面积（m^2）">
           </el-table-column>
           <el-table-column
             prop="Off_ground"
-            label="总楼层"
-            width="120">
+            label="总楼层">
           </el-table-column>
           <el-table-column
             prop="Apex"
-            label="建筑结构"
-            width="120">
+            label="建筑结构">
           </el-table-column>
           <el-table-column
             prop="Call_the_police"
-            label="建成年份"
-            width="120">
+            label="建成年份">
           </el-table-column>
           <el-table-column
             prop="Fault"
-            label="建筑性质"
-            width="120">
+            label="建筑性质">
           </el-table-column>
           <el-table-column
             prop="Maintenance_unit"
-            label="消防负责人"
-            width="120">
+            label="消防负责人">
           </el-table-column>
           <el-table-column
             prop="Invest_time"
@@ -420,6 +400,7 @@
 </template>
 
 <script>
+  import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
@@ -484,21 +465,7 @@
       }
     },
     mounted(){
-      // console.log($('.el-form > div:nth-child(1) >div  > input').attr('value'))
-      $('.el-table__body-wrapper').css('height','520px');
-      $('.el-scrollbar').css({
-        'background':'#000'
-      });
-      $('.el-select-dropdown').css({'border-color':'#333','border-radius':'0px'});
-      $('.el-select-dropdown__item').css('color','#999');
-      $(' .el-select-dropdown__item').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-      });
-      $('.el-table__row').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#000'})
-      }).mouseout(function(){
-        $(this).css({'color':'#999','background':'#111'})
-      });
+      realconsole();
       this.SetColor('.btn-prev','background','transparent');
       this.SetColor('.btn-next','background','transparent');
       this.SetColor('.el-pager li','background','transparent');
@@ -563,7 +530,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border:2px solid #333333;
+    border:2px solid transparent;
+    background: #222222;
+    font-size: 12px;
+    color: #999;
+    margin-top: 21px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .main_nav_two button{
+    width:64px;
+    height:28px;
+    float: left;
+    outline:none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:2px solid transparent;
     background: #111111;
     font-size: 12px;
     color: #999;
@@ -585,6 +569,20 @@
     background: #bad616;
     margin-left: 6px;
     margin-right: 20px;
+    color:#000000;
+  }
+  .main_header button.btn_add i{
+    color: #000;
+  }
+  .main_nav_two{
+    margin-top:6px;
+    margin-right:20px;
+  }
+  .main_nav_two button{
+    margin-top:0;
+  }
+  .main_nav_two i{
+    margin-right: 3px;
   }
   .main_content_top{
     height:40px;
@@ -612,12 +610,12 @@
       border-left:none;
     }
     .link-active button{
-      color: #b8b8b8;
-      background-color: #333333;
+      color: #000;
+      background-color: #bad616;
     }
     .link-active i{
-      color: #b8b8b8;
-      background-color: #333333;
+      color: #000;
+      background-color: #bad616;
     }
   }
   .router-link-active button{

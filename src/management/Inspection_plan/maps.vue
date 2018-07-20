@@ -13,17 +13,23 @@
       <div class="main_all_content">
         <div class="main_content_top">
           <el-form ref="form" :model="form" label-width="80px"  class="float-left">
-            <el-select v-model="form.region1" placeholder="全部单位" class="select" style="margin-left:20px;">
-              <el-option label="区域一" value="ssd"></el-option>
-              <el-option label="区域二" value="www2"></el-option>
+            <el-select v-model="form.region1" @change="" placeholder="全部单位" class="select" style="margin-left:20px;">
+              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
-            <el-select v-model="form.region1" placeholder="全部类型" class="select" style="margin-left:10px;">
-              <el-option label="区域一" value="ssd"></el-option>
-              <el-option label="区域二" value="www2"></el-option>
+            <el-select v-model="form.region2" placeholder="巡检类型" class="select">
+              <el-option label="全部" value="0"></el-option>
+              <el-option label="举报检查" value="1"></el-option>
+              <el-option label="活动检查" value="2"></el-option>
+              <el-option label="例行检查" value="3"></el-option>
+              <el-option label="复查" value="4"></el-option>
+              <el-option label="施工检查" value="5"></el-option>
+              <el-option label="解除临时查封" value="6"></el-option>
+              <el-option label="恢复工作检查" value="7"></el-option>
+              <el-option label="其他检查" value="8"></el-option>
             </el-select>
           </el-form>
           <div class="main_nav_two float-right">
-            <router-link to="/Inspection_plan/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+            <router-link to="/Inspection_plan/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
             <router-link to="/Inspection_plan/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
           </div>
         </div>
@@ -34,26 +40,21 @@
             :default-sort = "{prop: 'Serial_number', order: 'descending'}"
             style="width: 100%;height:570px;">
             <el-table-column
-              fixed
-              sortable
               prop="Serial_number"
-              label="序号"
-              width="70">
+              type="index"
+              label="序号">
             </el-table-column>
             <el-table-column
-              prop="Device_name"
-              label="路线名称"
-              width="120">
+              prop="name"
+              label="路线名称">
             </el-table-column>
             <el-table-column
-              prop="Call_the_police"
-              label="扫码打卡"
-              width="70">
+              prop="isScan"
+              label="扫码打卡">
             </el-table-column>
             <el-table-column
-              prop="Fault"
-              label="路线状态"
-              width="120">
+              prop="status"
+              label="路线状态">
             </el-table-column>
             <el-table-column
               fixed="right"
@@ -73,20 +74,18 @@
                            @size-change="handleSizeChange"
                            @current-change="handleCurrentChange"
                            :current-page="currentPage4"
-                           :page-sizes="[100, 200, 300, 400]"
-                           :page-size="100"
+                           :page-size="10"
                            layout="total"
-                           :total="400">
+                           :total="totalList">
             </el-pagination>
             <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{page}}页</span>
             <el-pagination style="float: right;background: transparent"
                            @size-change="handleSizeChange"
                            @current-change="handleCurrentChange"
                            :current-page="currentPage4"
-                           :page-sizes="[100, 200, 300, 400]"
-                           :page-size="100"
+                           :page-size="10"
                            layout="prev, pager, next"
-                           :total="400">
+                           :total="totalList">
             </el-pagination>
           </div>
         </div>
@@ -137,6 +136,7 @@
 </template>
 
 <script>
+  import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
@@ -147,25 +147,11 @@
           region2:'',
           region3:''
         },
-        tableData: [{
-          Serial_number: '1',
-          Device_name: '王小虎',
-          Equipment_type: '上海',
-          Architectural_name: '普陀区',
-          Unit_name: '上海市普陀区金沙江路 1518 弄',
-          Off_ground: 200333,
-          Apex:'',
-          Call_the_police:'',
-          Fault:'',
-          Maintenance_unit:'',
-          Invest_time:'',
-          Replacement_period:'',
-          Add_time:'',
-          State:'',
-          Position:''
-        }],
-        page:4,
-        currentPage4: 1
+        tableData: [],
+        page:null,
+        totalList:null,
+        currentPage4: 1,
+        optionList:[]
       }
     },
     methods: {
@@ -176,6 +162,7 @@
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+        this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       SetColor(ele,key,value){
@@ -185,29 +172,76 @@
         $('.modal').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
+      },
+      tableList(){
+        this.$fetch(
+          "/api/inspection/queryInspectionPlanList",{
+            currentPage:this.currentPage4,
+            pageSize:10,
+            unitId:this.form.region1,
+            type:this.form.region2,
+            planName:'',
+            status:this.form.region3
+          }
+        )
+          .then(response => {
+            console.log(response);
+            if (response) {
+              // console.log(response.data.inspectionPlanList);
+              this.totalList = response.data.total;
+              this.tableData = response.data.inspectionPlanList;
+              if(this.totalList % 10 == 0){
+                this.page = parseInt( this.totalList / 10 )
+              }else{
+                this.page = parseInt( this.totalList / 10 ) + 1
+              }
+            }
+          })
+          .then(err => {
+            // console.log(err);
+          });
       }
     },
+    watch:{
+      currentPage4(val, oldVal){
+        this.currentPage4 = val;
+        console.log(this.currentPage4);
+        this.tableList();
+      },
+      form:{
+        //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
+        handler(curVal,oldVal){
+          // console.log(curVal);
+          this.form = curVal;
+          console.log(this.form);
+          this.tableList();
+        },
+        deep:true
+      }
+    },
+    updated(){
+      // console.log(this.form.region2)
+      // console.log(this.form.region3)
+    },
     mounted(){
-      $('.el-table__body-wrapper').css('height','520px');
-      $('.el-scrollbar').css({
-        'background':'#000'
-      });
-      $('.el-select-dropdown').css({'border-color':'#333','border-radius':'0px'});
-      $('.el-select-dropdown__item').css('color','#999');
-      $(' .el-select-dropdown__item').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-      });
-      $('.el-table__row').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#000'})
-      }).mouseout(function(){
-        $(this).css({'color':'#999','background':'#111'})
-      });
+      realconsole();
+
       this.SetColor('.btn-prev','background','transparent');
       this.SetColor('.btn-next','background','transparent');
       this.SetColor('.el-pager li','background','transparent');
       this.SetColor('.el-pager li.active','color','#fff');
       this.SetColor('.el-form-item__content','margin-left','10px');
-      $('.modal-body .el-input__inner').css({'background-color':'#111','border-color':'#282828','border-radius':'0'});
+      this.tableList();
+      this.$fetch("/api/unit/queryUnit").then(response=>{
+        console.log(response);
+        if (response) {
+          this.optionList = response.data.unitList;
+          console.log(this.optionList);
+          $(' .el-select-dropdown__item').mouseover(function(){
+            $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+          });
+        }
+      })
     }
   };
 </script>
@@ -237,7 +271,8 @@
     }
   }
   aside{
-    width:390px;
+    width:50%;
+    min-width: 450px;
   }
   .main_header{
     width:100%;
@@ -256,14 +291,14 @@
     line-height: 68px;
   }
   .main_header button,.main_nav_two button{
-    width:64px;
+    width:64px !important;
     height:28px;
     float: left;
     outline:none;
     display: flex;
     align-items: center;
     justify-content: center;
-    border:2px solid #333333;
+    border:2px solid transparent;
     background: #111111;
     font-size: 12px;
     color: #999;
@@ -322,7 +357,7 @@
   }
   .router-link-active button{
     color: #b8b8b8;
-    background-color: #333333;
+    background-color: #000000;
   }
   .router-link-active i{
     color: #b8b8b8;
