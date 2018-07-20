@@ -25,12 +25,54 @@
             </el-select>
           </el-form-item>
           <el-form-item label="选择单位">
-            <el-select v-model="form.region1" placeholder="选择单位">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+            <el-select v-model="form.region1" @change="" placeholder="选择单位" class="select">
+              <el-option label="全部单位" value=""></el-option>
+              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="添加节点">
+
+          <el-form-item label="起点">
+            <el-select
+              v-model="building"
+            placeholder="选择建筑"  class="sbwz_138_32">
+            <el-option
+              v-for="item in buildList"
+              :label="item.value"
+              :value="item.id">
+            </el-option>
+            </el-select>
+            <el-select
+              v-model="floor"
+              placeholder="选择楼层" class="sbwz_90_32">
+              <el-option
+                v-for="item in floorList"
+                :label="item.value"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-select
+              v-model="room"
+              placeholder="选择房间" class="sbwz_90_32">
+              <el-option
+                v-for="item in roomList"
+                :label="item.value"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-select
+              v-model="equipment"
+              placeholder="选择设备" class="sbwz_120_32">
+              <el-option
+                v-for="item in equipmentList"
+                :label="item.value"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <div class="float-right" style="width:32px;height:32px;border:1px solid #333333;margin-top:5px;margin-right:5px;display:flex;justify-content: center;align-items: center;">
+              <i class="fa fa-th-large font-gray-666 float-right"></i>
+            </div>
+          </el-form-item>
+          <el-form-item label="节点">
             <el-select v-model="form.region2" placeholder="良庆区中心小学" class="sbwz_138_32">
               <el-option label="区域一" value="shanghai"></el-option>
               <el-option label="区域二" value="beijing"></el-option>
@@ -52,31 +94,6 @@
               <el-option label="区域二" value="beijing"></el-option>
             </el-select>
           </el-form-item>
-          <!--<el-form-item label="有效期至">-->
-            <!--<el-col :span="11">-->
-              <!--<el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>-->
-            <!--</el-col>-->
-          <!--</el-form-item>-->
-          <!--<div style="clear: both;"></div>-->
-          <!--<el-form-item size="small" style="width:190px;"-->
-                    <!--label="每日额定完成次数"-->
-                    <!--prop="age"-->
-                    <!--:rules="[-->
-              <!--{ required: true, message: '年龄不能为空'},-->
-              <!--{ type: 'number', message: '年龄必须为数字值'}-->
-            <!--]"-->
-                  <!--&gt;-->
-            <!--<el-input type="age" v-model.number="form.age" auto-complete="off"></el-input>-->
-          <!--</el-form-item>-->
-          <!--<div style="clear: both;"></div>-->
-          <!--<el-form-item label="是否开启扫描打卡" style="margin-top:10px;">-->
-            <!--<span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>-->
-            <!--<el-radio-group v-model="form.resource">-->
-              <!--<el-radio label="是"></el-radio>-->
-              <!--<el-radio label="否"></el-radio>-->
-            <!--</el-radio-group>-->
-            <!--<el-button type="primary" round icon="el-icon-search" class="resource_btn">巡检节点是否开启扫码打卡，不可修改</el-button>-->
-          <!--</el-form-item>-->
           <div style="width:485px;margin:0 auto 25px;border-top:1px solid #222222;"></div>
           <el-form-item style="margin-bottom: 20px;">
             <el-button type="primary"  icon="el-icon-search" class="primary">保存并提交</el-button>
@@ -95,24 +112,90 @@
         return {
           labelPosition: 'top',
           form: {
-            name: '',
-            address:'',
-            region: '',
-            region1: '',
-            Height: '',
-            Top: '',
-            PhysicalAddress: '',
-            Maintenance_unit:'',
-            Maintenance_phone:'',
-            Replacement_cycle:'',
-            resource: '',
-            date1:'',
-            age:''
-          }
+            name: '',//路线名称
+            region: '',//巡检类型
+            region1: ''//选择单位
+          },
+          building:'',//选择建筑
+          floor:'',//选择楼层
+          room:'',//选择房间
+          equipment:'',//选择设备
+          optionList:[],//选择单位列表
+          buildList:[],//选择建筑列表
+          floorList:[],//选择楼层列表
+          roomList:[],//选择房间列表
+          equipmentList:[]//选择设备列表
         }
       },
       methods:{
-
+        unitSearch(){
+          this.$fetch('/api/unit/queryUnit').then(response=>{
+            console.log('unitSearch:'+response);
+            if (response) {
+              this.optionList = response.data.unitList;
+              console.log(this.optionList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+        },
+        buildSearch(unitId){
+          this.$fetch('/api/building/selectNode',{
+            unitId:unitId
+          }).then(response=>{
+            console.log('buildSearch:'+response);
+            if (response) {
+              // this.buildList = response.data.list;
+              // console.log(this.buildList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+        },
+        floorSearch(buildIngId){
+          this.$fetch('/api/building/selectNode',{
+            buildIngId:buildIngId
+          }).then(response=>{
+            console.log('floorSearch:'+response);
+            if (response) {
+              // this.floorList = response.data.list;
+              // console.log(this.floorList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+        },
+        roomSearch(floorId){
+          this.$fetch('/api/building/selectNode',{
+            floorId:floorId
+          }).then(response=>{
+            console.log('roomSearch:'+response);
+            if (response) {
+              // this.roomList = response.data.list;
+              // console.log(this.roomList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+        },
+        equipmentSearch(roomId){
+          this.$fetch('/api/building/selectNode',{
+            roomId:roomId
+          }).then(response=>{
+            console.log('equipmentSearch:'+response);
+            if (response) {
+              // this.equipmentList = response.data.list;
+              // console.log(this.equipmentList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+        }
       },
       mounted(){
         $('.el-scrollbar').css({
@@ -125,6 +208,18 @@
         });
         $('.modal-body .el-input__inner').css({'background-color':'#111','border-color':'#282828','border-radius':'0'});
 
+      },
+      watch:{
+        form:{
+          //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
+          handler(curVal,oldVal){
+            // console.log(curVal);
+            this.form = curVal;
+            console.log(this.form);
+            this.buildSearch(this.form.region1);
+          },
+          deep:true
+        }
       }
     }
 </script>

@@ -1,10 +1,10 @@
 <template>
-  <div class="margin-top120" style="margin-left:37px;">
+  <div class="show_left margin-top120" style="margin-left:37px;">
       <div class="clearFix" style="padding-right:20px;">
         <span class="guanli size-66 font-white float-left">管理</span>
         <div class="float-right">
           <i class="fa fa-th-large font-gray-666 margin-top20" style="display: block;float:right;"></i>
-          <span style="display: block;margin-top:60px;"><i class="fa fa-th-large font-gray-666"  ></i>收起</span>
+          <span style="display: block;margin-top:60px;" @click="show_left"><i class="fa fa-th-large font-gray-666" ></i>收起</span>
         </div>
       </div>
       <div class="main_aside">
@@ -103,11 +103,21 @@
 
 <script>
     export default {
+      methods:{
+        show_left(){
+          $('.show_left').slideToggle(1000);
+          $('.show_left').parent().css('width','0 !important')
+          setTimeout(function(){
 
+            $('main').css('margin-left','0');
+          },1000)
+        }
+      }
     }
 </script>
 
 <style scoped>
+
   .clearFix:after{
     clear:both;
     content:'';

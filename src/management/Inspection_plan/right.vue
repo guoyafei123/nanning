@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="Inspection_plan">
     <div class="toolright font-white  margin-top20">
       <section>
           <div class="personinfo">
