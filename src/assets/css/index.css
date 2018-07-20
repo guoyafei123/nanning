@@ -114,7 +114,7 @@
 /* 左边 */
 .set-width-50{
     display: inline-block;
-    width: 50%;
+    width: 47%;
 }
 .toolleft {
     margin-top: 139px;
@@ -123,12 +123,12 @@
 .toolcountp1{
     margin-left: 16px;
 }
-.toolcount-left li:nth-child(1) p, .big-font97{
+.toolcount-p1, .big-font97{
     font-size: 66px;
     line-height: 85px;
     margin-bottom: 0px;
 }
-.toolcount-left li:nth-child(2) p,.set-scaleright{
+.toolcount-p2,.set-scaleright{
     position: relative;
     right: 6px;
     margin-bottom: 4px;
@@ -149,6 +149,9 @@
     position: absolute;
     right: 10px;
     bottom: 10px;
+}
+.toolcount ul li p{
+    display: inline-block
 }
 .toolroute{
     border-left: 1px solid #999;
@@ -225,7 +228,7 @@
     padding: 120px 37px 0px 37px;
 }
 .toolbuildrate{
-    padding-left: 10px;
+    padding-left: 0px;
 }
 .toolbuildrate>ul>li{
     padding: 5px 15px !important;
@@ -690,6 +693,19 @@
 
 .row{
   z-index: auto !important;
+}
+
+.imgs-nthof>div:nth-of-type(4)~div{
+    display: none;
+    transition: all 1s;
+}
+
+.imgs-nthof-block:hover .imgs-nthof>div:nth-of-type(4)~div{
+    display: inline-block;
+}
+
+video:hover{
+    display: inline-block;
 }
 
 

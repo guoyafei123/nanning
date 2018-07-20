@@ -541,10 +541,6 @@ export default {
       };
       let riskchar1b = this.$echarts.init(document.getElementById("axis1"));
       riskchar1b.setOption(riskchar1f);
-    //   let riskchar2b = this.$echarts.init(document.getElementById("riskchar2"));
-    //   riskchar2b.setOption(option1);
-    //   let riskchar3b = this.$echarts.init(document.getElementById("riskchar3"));
-    //   riskchar3b.setOption(option);
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       myChart.setOption(option);
       let mypie1 = this.$echarts.init(document.getElementById("pieb1"));

@@ -10,59 +10,59 @@
       <template>
         <div class="toolleft margin-right0">
           <section>
-            <div class="row toolcount">
-              <div class="col-sm-6  font-gray-999 padding-right0">
-                <ul class="toolcount-left margin-bottom0 padding-left37" id="toolcount">
+            <div class="toolcount">
+              <div class="set-width-50  font-gray-999 padding-right0">
+                <ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
                   <li>
-                    <p class="font-white size-66">0</p>
+                    <p class="font-white size-66 toolcount-p1">0</p>
                   </li>
-                  <li>
-                    <p class="size-10">On-site Inspection</p>
+                  <li> 
+                    <p class="size-10 toolcount-p2">On-site Inspection</p>
                   </li>
                   <li>
                     <p class="size-18 font-blue">今日巡检完成</p>
                   </li>
                   <li>
-                    <p class="set-width-50 size-12">巡检路线</p>
-                    <p class="display-inline-block font-italic">{{ins_planInspectionCount.amount}}</p>
+                    <p class=" size-12">巡检路线</p>
+                    <p class=" font-italic float-right">{{ins_planInspectionCount.amount}}</p>
                   </li>
                   <li>
-                    <p class="set-width-50 size-12">巡检中</p>
-                    <p class="display-inline-block font-blue font-italic">{{ins_planInspectionCount.planing}}</p>
+                    <p class=" size-12">巡检中</p>
+                    <p class=" font-blue font-italic float-right">{{ins_planInspectionCount.planing}}</p>
                   </li>
                   <li>
-                    <p class="set-width-50 size-12">巡检人数</p>
-                    <p class="display-inline-block font-blue font-italic">{{ins_planInspectionCount.plansum}}</p>
+                    <p class=" size-12">巡检人数</p>
+                    <p class=" font-blue font-italic float-right">{{ins_planInspectionCount.plansum}}</p>
                   </li>
                 </ul>
               </div>
-              <div class="col-sm-6 font-gray-999 padding-left0 padding-right0">
-                <ul class="toolcount-right padding-left15 margin-bottom0">
+              <div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
+                <ul class="padding-left0 margin-bottom0">
                   <li class="toolcount-right-title">
-                    <p class="size-30 font-blue">巡检统计</p>
+                    <p class="size-26 font-blue">巡检统计</p>
                   </li>
                   <li class="toolcount-right-explain">
                     <p class="size-10">Inspection Statistics</p>
                   </li>
                   <li>
-                    <p class="set-width-50 size-12">今日完成率</p>
-                    <p class="display-inline-block font-italic">{{ins_planInspectionCount.dayRate}}</p>
+                    <p class="size-12">今日完成率</p>
+                    <p class=" font-italic float-right">{{ins_planInspectionCount.dayRate}}</p>
                   </li>
                   <li>
-                    <p class="set-width-50 size-12">近7日</p>
-                    <p class="display-inline-block font-italic">{{ins_planInspectionCount.weekRate}}</p>
+                    <p class="size-12">近7日</p>
+                    <p class=" font-italic float-right">{{ins_planInspectionCount.weekRate}}</p>
                   </li>
                   <li>
-                    <p class="set-width-50 size-12">近30日</p>
-                    <p class="display-inline-block font-italic">{{ins_planInspectionCount.monthRate}}</p>
+                    <p class="size-12">近30日</p>
+                    <p class=" font-italic float-right">{{ins_planInspectionCount.monthRate}}</p>
                   </li>
                   <li>
-                    <p class="set-width-50 size-12">历史统计</p>
-                    <p class="display-inline-block font-italic">{{ins_planInspectionCount.historyRate}}</p>
+                    <p class="size-12">历史统计</p>
+                    <p class=" font-italic float-right">{{ins_planInspectionCount.historyRate}}</p>
                   </li>
                   <li>
-                    <p class="set-width-50 size-12 margin-bottom0">隐患发现率</p>
-                    <p class="display-inline-block font-orange font-italic margin-bottom0">{{ins_planInspectionCount.troubleRate}}</p>
+                    <p class="size-12 margin-bottom0">隐患发现率</p>
+                    <p class=" font-orange font-italic margin-bottom0 float-right">{{ins_planInspectionCount.troubleRate}}</p>
                   </li>
                 </ul>
               </div>
@@ -83,32 +83,21 @@
                   </p>
                 </li>
                 <li>
-                  <!-- <div class="input-group bg-none toolroute-padding8"> -->
                     <el-select class="upd-elselect upd-elselect-bordernone upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择"  @change="tolineitem">
                       <el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
                       </el-option>
                     </el-select>
                     <div class="float-right">
                       <a class="upd-btn upd-btn-dis" id="lookroute"  @click="lookroute">查看路线</a>
-                      <a class="upd-btn">展开表单</a>
+                      <!-- <a class="upd-btn">展开表单</a> -->
                     </div>
-                    <!-- /btn-group -->
-                    <!-- <input type="text" class="form-control bg-none toolroute-sec " aria-label="hellow"> -->
-                    <!-- <span class="input-group-btn">
-                                  <button class="btn btn-default dropdown-btnstyle bg-black02 glyphicon-searchdiv" type="button">
-                                      <span class="glyphicon glyphicon-search"></span>
-                                  </button>
-                              </span> -->
-
-                  <!-- </div> -->
-                  <!-- /input-group -->
                 </li>
                 <li>
                   <div class="table-responsive">
                     <table class="table size-12 table-condensed toolroute-table margin-top10 mini-table">
                       <thead>
                         <tr>
-                          <th>序号</th>
+                          <!-- <th>序号</th> -->
                           <th>巡检单号</th>
                           <th>巡检人</th>
                           <th>状态</th>
@@ -117,8 +106,8 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item,index) in tableData.result">
-                          <td>{{index+1}}</td>
+                        <tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
+                          <!-- <td>{{(queryPlanUserList_parameter.currentPage-1)*queryPlanUserList_parameter.pageSize+index+1}}</td> -->
                           <td>{{item.idCode}}</td>
                           <td>{{item.userName}}</td>
                           <td>{{item.status}}</td>
@@ -144,6 +133,7 @@
                     <el-pagination style="float: right;background: transparent"
                       small
                       layout="prev, pager, next"
+                      :page-size="this.queryPlanUserList_parameter.pageSize"
                       :total="tableData.totalRow" 
                       current-page.sync="tableData.currentPage"
                       @current-change="handleCurrentChange">
@@ -168,7 +158,7 @@
             <section>
                 <div class="personinfo">
                   <p>
-                    <span class="size-20">南宁市良庆区</span>
+                    <span class="size-20 font-blue">南宁市良庆区</span>
                   </p>
                   <p>
                     <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> 良庆区中心小学</span>
@@ -176,18 +166,6 @@
                 </div>
             </section>
             <section>
-                <!-- <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top20" data-date="today" data-date-format="yyyy-mm-dd"
-                    data-original-title="" title="">
-                  <span class="input-group-btn" data-original-title="" title="">
-                      <i class="fa fa-th-large"></i> 时间 </span>
-                  <input type="text" class="form-control" name="from" id="troubleStartTime">
-                  <span class="input-group-btn" data-original-title="" title=""> 至 </span>
-                  <input type="text" class="form-control" name="to" id="troubleEndTime">
-                  <span class="input-group-btn" data-original-title="" title="">
-                      确定
-                  </span>
-                  <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
-                </div> -->
                 <div  class="upd-elmdate">
                   <el-date-picker
                     v-model="value7"
@@ -225,7 +203,7 @@
                   <div class="col-sm-4  font-gray-999 padding-right0">
                     <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
-                        <p class="line-height90 size-60">360</p>
+                        <p class="toolcount-p1 line-height60 size-50 ">360</p>
                       </li>
                       <li>
                         <p class="size-10">Running State</p>
@@ -272,14 +250,11 @@
                 </div>
               </section>
               <section>
-                  <div class="toolbuildrate margin-top30">
-                  <h2 class="size-14 font-gray-ccc">
-                    <span class="tool-rect bg-blue"></span>巡检人员 
-                    <!-- <span class="float-right popup-inspectbtn font-blue">
-                              2人
-                          </span> -->
-                          </h2>
-                  <ul class="row padding-left0 size-12 font-gray-999 text-center">
+                  <div class="toolbuildrate margin-top30 row">
+                  <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0 ">
+                    <span class="tool-rect bg-blue"></span>巡检人员
+                  </h2>
+                  <ul class="row padding-left0 size-12 font-gray-999 text-center padding-left10">
                     <li class="col-sm-3">
                       <div class="toolbuildrate-people">
                         <img src="../assets/images/people.png">
@@ -296,11 +271,13 @@
                 </div>
               </section>
               <section>
-                  <div class="toolbuildrate margin-top30">
-                  <h2 class="size-14 font-gray-ccc">
-                    <span class="tool-rect bg-blue"></span>路线详情 </h2>
+                <div class="toolbuildrate margin-top30 row">
+                  <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0 ">
+                    <span class="tool-rect bg-blue"></span>路线详情
+                  </h2>
+                  <div class="row margin-top10" style="padding-left:39px;padding-right:30px;">
                     <div class="panel-group tablist-item" id="accordion" role="tablist" aria-multiselectable="true">
-                      <div class="panel panel-default bg-none border-none border-radiusnone">
+                      <div class="panel panel-default bg-none border-none border-radiusnone ">
                         <div class="panel-heading bg-gray-222 font-gray-999 tablist-itemtitle" role="tab" id="headingOne">
                           <span class="itemtitle-rect"><i class="fa fa-th-large font-gray-333"></i></span>
                           <h4 class="panel-title">
@@ -333,6 +310,7 @@
                           </h4>
                       </span>
                     </div>
+                  </div>
                 </div>
               </section>
             </section>
@@ -389,9 +367,6 @@
                 <div class="row toolcount margin-top10">
                   <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
                     <span class="tool-rect bg-blue"></span>巡检完成率历史趋势
-                    <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">
-                            <i class="fa fa-th-large"></i>
-                    </span>
                   </h2>
                   <div id="ins_charHistoricaltrend" style="width: 100%;height:180px;margin: 0 auto;"></div>
                   
@@ -409,7 +384,6 @@
                           <template v-if="ins_queryPlanDetails.planDetails!=null">
                             {{ins_queryPlanDetails.planDetails.amount}}/{{ins_queryPlanDetails.planDetails.finishAmount}}
                           </template>
-                          
                         </p>
                       </li>
                       <li>
@@ -452,11 +426,11 @@
                 </div>
               </section>
               <section>
-                <div class="textandimg">
+                <div class="textandimg row">
                   <h2 class="size-16 font-gray-ccc">
                     <span class="tool-rect bg-blue"></span>设备信息
                   </h2>
-                  <div class="row textandimg-main">
+                  <div class="row textandimg-main padding-left15">
                     <template v-if="ins_queryPlanDetails.inspectionPlan">
                         <div class="col-sm-12">
                         <span class="size-12 font-gray-666">路线最新激活时间 </span>
@@ -479,7 +453,7 @@
                 </div>
               </section>
               <section>
-                  <div class="toolbuildrate">
+                  <div class="toolbuildrate padding-left10">
                   <h2 class="size-14 font-gray-ccc"></h2>
                     <template v-if="ins_queryPlanDetails.nodeList">
                       <div class="panel-group tablist-item" id="accordion" role="tablist" aria-multiselectable="true">
@@ -492,20 +466,6 @@
                               </a>
                             </h4>
                           </div>
-                          <!-- <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body padding3">
-                              <ul class="size-12 font-gray-999 tablist-itemul">
-                                <li v-for="item in ins_queryPlanUserDetails.listNode">
-                                  <span>{{item.buildingName}} 
-                                    <span class="float-right">
-                                      <i class="fa fa-th-large font-yellow"></i>
-                                      <span class="font-blue">{{item.inspectionPlanUserId}} </span>/<span class="font-yellow">{{item.buildingId}}</span>
-                                    </span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div> -->
                         </div>
                         <span class="toolbuildrate-forter">
                           <span class="itemtitle-rect"><i class="fa fa-th-large font-gray-333"></i></span>
@@ -523,9 +483,6 @@
                 <div class="row toolcount margin-top10">
                   <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
                     <span class="tool-rect bg-blue"></span>巡检完成率历史趋势
-                    <!-- <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">
-                            <i class="fa fa-th-large"></i>
-                    </span> -->
                   </h2>
                   <div id="ins_charlookline" style="width: 100%;height:180px;margin: 0 auto;"></div>
                 </div>
@@ -579,8 +536,8 @@ export default {
               picker.$emit('pick', [start, end]);
             }
           }]
-        },
-        value7: '',
+      },
+      value7: '',
       //巡检统计参数
       planInspectionCount_parameter:{},
       //巡检统计参数-返回
@@ -815,6 +772,7 @@ export default {
         .addClass("display-none")
         .removeClass("display-block");  
       // 请求详情
+      this.queryPlanUserDetails_parameter.id=data.id;
       this.$fetch(
         "api/inspection/queryPlanUserDetails",
         this.queryPlanUserDetails_parameter
@@ -849,7 +807,7 @@ export default {
           .then(response => {
             if (response) {
               this.ins_queryPlanDetails= response.data;
-              console.log(this.ins_queryPlanDetails);
+              console.log(this.ins_queryPlanDetails);bfvmhjb
               // draw_piemin()
 
               // let data = response.data.result.dateMap;
@@ -869,14 +827,6 @@ export default {
       }
       
     },
-    // moren() {
-    //   $(".inspection-iteminfo")
-    //     .addClass("display-block")
-    //     .removeClass("display-none");
-    //   $(".inspection-lineinfo")
-    //     .addClass("display-none")
-    //     .removeClass("display-block");
-    // },
     jianzhu() {
       $(".inspection-lineinfo")
         .addClass("display-block")
@@ -942,7 +892,7 @@ export default {
       chars.setOption(char);
     },
     draw_piemax(id, data) {
-      console.log(this.ins_queryTrendPieGraph);
+      // console.log(this.ins_queryTrendPieGraph);
       var fin_per = data.finishedAmount / data.amount * 100;
       console.log();
       let d = [
@@ -1079,8 +1029,8 @@ export default {
   position: relative;
   z-index: 22;
 }
-.line-height90 {
-  line-height: 90px !important;
+.line-height60 {
+  line-height: 60px !important;
 }
 .padding-right16 {
   padding-right: 16px;

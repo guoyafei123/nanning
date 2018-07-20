@@ -41,11 +41,6 @@
                 </li>
             </ul>
         </div>
-
-
-
-
-
     </div>
     <div class="header-middle font-gray-ccc">
         <ul>
