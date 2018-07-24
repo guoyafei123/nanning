@@ -256,7 +256,7 @@
       },
       tableList(){
         this.$fetch(
-          "/api/inspection/queryInspectionPlanList",{
+          "/api/admin/inspection/queryInspectionPlanList",{
             currentPage:this.currentPage4,
             pageSize:10,
             unitId:this.form.region1,
@@ -347,6 +347,7 @@
     }
   }
   @media (min-width: 1600px){
+
     main {
       margin-left:17.58%;
       margin-right: 24%;

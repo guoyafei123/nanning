@@ -4,7 +4,7 @@
         <span class="guanli size-66 font-white float-left">管理</span>
         <div class="float-right">
           <i class="fa fa-th-large font-gray-666 margin-top20" style="display: block;float:right;"></i>
-          <span style="display: block;margin-top:60px;" @click="show_left"><i class="fa fa-th-large font-gray-666" ></i>收起</span>
+          <span class="span_show" style="display: block;margin-top:60px;" ><i class="fa fa-th-large font-gray-666" ></i>收起</span>
         </div>
       </div>
       <div class="main_aside">
@@ -102,16 +102,27 @@
 </template>
 
 <script>
+
     export default {
       methods:{
-        show_left(){
-          $('.show_left').slideToggle(1000);
-          $('.show_left').parent().css('width','0 !important')
-          setTimeout(function(){
-
+// 收起左侧列表
+        moreSetupMenuRemove () {
+          $('.show_left').slideToggle(1000,function(){
+            $('#left').css('width','0');
             $('main').css('margin-left','0');
-          },1000)
+            $('.fix').show();
+          });
+
+        },
+        globalClick(callback) {
+          document.getElementsByClassName('span_show')[0].onclick = function () {
+            callback();
+          };
         }
+
+      },
+      mounted(){
+        this.globalClick(this.moreSetupMenuRemove);
       }
     }
 </script>

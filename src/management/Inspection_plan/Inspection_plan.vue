@@ -4,7 +4,7 @@
     <header-vue></header-vue>
     <!-- #头部 End-->
     <!-- #左边 -->
-    <section id="left" class="position-fixed-left container-padding5 z-index-20" style="width:295px;padding:0;">
+    <section id="left" class="position-fixed-left container-padding5 z-index-20" style="padding:0;">
       <div class="overlay"></div>
       <set_left-vue></set_left-vue>
     </section>
@@ -15,7 +15,12 @@
       <div class="overlay"></div>
       <set_right-vue></set_right-vue>
     </section>
-
+    <div class="fix" @click="show" style="display:none;width:20px;height:60px;position: fixed;top:35%;left:0;background:#333;text-align:center;line-height: 60px;">
+      <span style="font-size: 23px;
+    display: block;
+    font-weight: normal;
+    transform: scale(1, 2.5);color: #fff;">&gt;</span>
+    </div>
     <!-- #右边 End-->
   </div>
 </template>
@@ -29,7 +34,18 @@
   export default {
     data(){
       return{
-        // see:false
+
+      }
+    },
+    methods:{
+      show(){
+
+
+        $('main').css('margin-left','17.58%');
+        $("#left").css('width','17.58%');
+        $('.show_left').slideToggle(1000,function(){
+          $('.fix').hide();
+        });
       }
     },
     components:{
@@ -39,13 +55,7 @@
       'main-vue':MainVue
     },
     watch:{
-      // if(this.see == false){
-      //   this.see = true
-      // }
-      see(val,oldval){
 
-        console.log($('.show_left')[0].style.display)
-      }
     }
   }
 </script>
@@ -61,5 +71,18 @@
   #header{
     height: 110px;
     /*background:rgba(0,0,0,1)*/
+  }
+  @media (min-width: 768px) and (max-width:1600px){
+    #left{
+      width:295px;
+    }
+  }
+  @media (min-width: 1600px){
+    #left{
+      width:17.58%;
+    }
+    #right{
+      width:24%;
+    }
   }
 </style>
