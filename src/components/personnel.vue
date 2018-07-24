@@ -28,7 +28,8 @@
       'header-vue':HeaderVue,
       'per_left-vue':Per_leftVue,
       'per_right-vue':Per_rightVue
-    }
+    },
+    
   }
 </script>
 

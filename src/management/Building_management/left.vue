@@ -21,7 +21,7 @@
             <li>
               <i class="fa fa-th-large font-gray-666"></i>
               <h2>建筑管理</h2>
-              <span>37</span>
+              <span>17</span>
             </li>
           </router-link>
           <router-link to="/Equipment_management">

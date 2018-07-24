@@ -318,7 +318,7 @@
               <div class="row text-center margin-top50">
                 <p class="text-left toolcountp1">总数 <span class="font-blue">89 </span></p>
                 <div class="col-sm-4 container-padding0 personnel-borderright">
-                  <p class="size-16 font-red">42</p>
+                  <p class="size-16 font-red" >123</p>
                   <p class="size-12 margin-bottom0">巡检人员</p>
                 </div>
                 <div class="col-sm-4 container-padding0 personnel-borderright">
@@ -339,7 +339,7 @@
         <section>
           <div class="row toolcount">
             <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-              <span class="tool-rect bg-blue "></span>评分统计
+              <span class="tool-rect bg-blue "></span>{{setvuextest}}
             </h2>
             <div class="font-gray-999 padding-right0 margin-top10 ">
                 <div class="row text-left set-padding30">
@@ -441,9 +441,12 @@
 </template>
 
 <script>
-    export default {
+  import{mapState} from "vuex"
+  export default {
   data() {
-    return {};
+    return {
+      vuexone:'123'
+    };
   },
   methods: {
     moren() {
@@ -670,10 +673,21 @@
       let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
       mypie1.setOption(pie);
     }
+
   },
   mounted() {
     this.chart_one();
-  }
+  },
+
+  computed:mapState([
+    'setvuextest'
+  ]),
+  watch:{
+    setvuextest(){
+      console.log(this.vuexone);
+      // this.vuexone=this.setvuextest;
+    }
+  },
 };
 </script>
 

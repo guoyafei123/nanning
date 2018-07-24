@@ -31,7 +31,7 @@
                 </li>
                 <li>
                   <p class="size-16 font-blue">路线总完成数</p>
-                </li>
+                </li>lo';.lfff
               </ul>
             </div>
             <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
