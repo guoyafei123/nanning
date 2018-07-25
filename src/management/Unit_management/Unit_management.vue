@@ -22,7 +22,7 @@
 
 <script>
   import HeaderVue from '../../components/header.vue';
-  import Unit_leftVue from './Unit_left.vue';
+  import Unit_leftVue from '../left.vue';
   import MainVue from './Unit_main.vue';
   import Unit_rightVue from './Unit_right.vue';
   import '../../assets/css/setting.scss';

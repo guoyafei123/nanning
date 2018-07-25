@@ -27,7 +27,7 @@
 
 <script>
   import HeaderVue from '../../components/header.vue';
-  import Set_leftVue from './left.vue';
+  import Set_leftVue from '../left.vue';
   import MainVue from './main.vue';
   import Set_rightVue from './right.vue';
   import '../../assets/css/setting.scss';
@@ -39,8 +39,6 @@
     },
     methods:{
       show(){
-
-
         $('main').css('margin-left','17.58%');
         $("#left").css('width','17.58%');
         $('.show_left').slideToggle(1000,function(){

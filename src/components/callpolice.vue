@@ -218,9 +218,12 @@
                             </h2>
                             <template>
                               <div class="padding-left15 margin-top10">
-                                <el-radio v-model="radiovalue" label="1">报警率</el-radio>
-                                <el-radio v-model="radiovalue" label="2">火情发生率</el-radio>
+                                <el-radio-group @change="callradio" v-model="radiovalue">
+                                  <el-radio  label="1">报警率</el-radio>
+                                  <el-radio  label="2">火情发生率</el-radio>
+                                </el-radio-group>
                               </div>
+                              
                             </template>
                             <div id="call_charpiemax" style="width: 100%;height:180px;margin: 0 auto;padding-left:15px;margin-top:10px;"></div>
                         </div>
@@ -230,7 +233,7 @@
                             <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
                             <span class="tool-rect bg-blue"></span>单位报警率历史趋势
                             </h2>
-                            <div id="dan_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
+                            <div id="call_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
                         </div>
                     </section>
                 </section>
@@ -251,72 +254,100 @@
                             </p>
                         </div>
                     </section>-->
-                  <section>
-                    <div class="textandimg row imgs-nthof-block">
-                      <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
-                        <span class="tool-rect bg-blue"></span>隐患信息
-                      </h2>
-                      <div class="row textandimg-main padding-left15">
-                        <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">隐患类型 </span>
-                          <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
+                  
+                    <section>
+                      <div class="textandimg row imgs-nthof-block">
+                        <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
+                          <span class="tool-rect bg-blue"></span>报警信息
+                        </h2>
+                        <div class="row textandimg-main padding-left15">
+                          <div class="col-sm-12">
+                            <span class="size-12 font-gray-666">报警源 </span>
+                            <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
+                          </div>
+                          <div class="col-sm-12">
+                            <span class="size-12 font-gray-666">报警地点 </span>
+                            <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
+                          </div>
+                          <div class="col-sm-12">
+                            <!-- <span class="size-12 font-gray-666">描述 </span> -->
+                            <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                          </div>
+                          <div class="textandimg-img imgs-nthof">
+                            <template v-for="item in ins_troubleDetail.imgUrl">
+                              <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
+                                <video :src="item" width="100%"  controls="controls"></video>
+                              </div>
+                            </template>
+                            <template v-for="item in ins_troubleDetail.imgUrl">
+                              <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
+                                <img :src="item">
+                              </div>
+                            </template>
+                          </div>
                         </div>
-                        <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">发现隐患时间 </span>
-                          <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                        <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
+                          <span class="tool-rect bg-blue"></span>报警确认
+                        </h2>
+                        <div class="row textandimg-main padding-left15">
+                          <div class="col-sm-12">
+                            <span class="size-12 font-gray-666">确认人 </span>
+                            <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
+                          </div>
+                          <div class="col-sm-12">
+                            <span class="size-12 font-gray-666">确认时间 </span>
+                            <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                          </div>
+                          <div class="col-sm-12">
+                            <!-- <span class="size-12 font-gray-666">描述 </span> -->
+                            <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                          </div>
+                          <div class="textandimg-img imgs-nthof">
+                            <template v-for="item in ins_troubleDetail.imgUrl">
+                              <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
+                                <video :src="item" width="100%"  controls="controls"></video>
+                              </div>
+                            </template>
+                            <template v-for="item in ins_troubleDetail.imgUrl">
+                              <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
+                                <img :src="item">
+                              </div>
+                            </template>
+                          </div>
                         </div>
-                        <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">隐患地点 </span>
-                          <span class="size-12 font-gray-999">{{ins_troubleDetail.unitName}}</span>
-                        </div>
-                        <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">隐患描述 </span>
-                          <span class="size-12 font-gray-999">{{ins_troubleDetail.cont}}</span>
-                        </div>
-                        <div class="textandimg-img imgs-nthof">
-                          <template v-for="item in ins_troubleDetail.imgUrl">
-                            <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-                              <video :src="item" width="100%"  controls="controls"></video>
+                        <template v-if="infoShow"> 
+                          <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
+                            <span class="tool-rect bg-blue"></span>报警关闭
+                          </h2>
+                          <div class="row textandimg-main padding-left15">
+                            <div class="col-sm-12">
+                              <span class="size-12 font-gray-666">关闭 </span>
+                              <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
                             </div>
-                          </template>
-                          <template v-for="item in ins_troubleDetail.imgUrl">
-                            <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-                              <img :src="item">
+                            <div class="col-sm-12">
+                              <span class="size-12 font-gray-666">关闭时间 </span>
+                              <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
                             </div>
-                          </template>
-                        </div>
+                            <div class="col-sm-12">
+                              <!-- <span class="size-12 font-gray-666">描述 </span> -->
+                              <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                            </div>
+                            <div class="textandimg-img imgs-nthof">
+                              <template v-for="item in ins_troubleDetail.imgUrl">
+                                <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
+                                  <video :src="item" width="100%"  controls="controls"></video>
+                                </div>
+                              </template>
+                              <template v-for="item in ins_troubleDetail.imgUrl">
+                                <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
+                                  <img :src="item">
+                                </div>
+                              </template>
+                            </div>
+                          </div>
+                        </template>
                       </div>
-                    </div>
-                  </section>
-                  <section>
-                    <div class="textandimg row imgs-nthof-block ">
-                      <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
-                        <span class="tool-rect bg-blue"></span>隐患解决
-                      </h2>
-                      <div class="row textandimg-main padding-left15">
-                        <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">解决人 </span>
-                          <span class="size-12 font-gray-999">{{ins_troubleDetail.nickName}}</span>
-                        </div>
-                        <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">隐患解决时间 </span>
-                          <span class="size-12 font-gray-999">{{ins_troubleDetail.reviewTime}}</span>
-                        </div>
-                        <div class="textandimg-img imgs-nthof">
-                          <template v-for="item in ins_troubleDetail.confirmUrls">
-                            <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-                              <video :src="item" width="100%"  controls="controls"></video>
-                            </div>
-                          </template>
-                          <template v-for="item in ins_troubleDetail.confirmUrls">
-                            <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-                              <img :src="item">
-                            </div>
-                          </template>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
+                    </section>
                 </section>
             </div>
             <div class="ceshi-btn">
@@ -344,18 +375,6 @@ export default {
   },
   data() {
     return {
-      // 表格-请求
-      // getAlarmList_parameter: {
-      //   id: null,
-      //   unitId: 4,
-      //   type: null,
-      //   inspectionName: null,
-      //   status: null,
-      //   currentPage: "1",
-      //   pageSize: 10
-      // },
-      // // 表格返回
-      // tableData: Object,
       // 时间配置
       pickerOptions2: {
         shortcuts: [
@@ -394,7 +413,7 @@ export default {
       ins_queryInspectionNameListvalue: "全部状态",
       // 表格-请求
       getAlarmList_parameter: {
-        unitId: "4",
+        unitId: "5",
         currentPage: 1,
         pageSize: 10
       },
@@ -422,18 +441,19 @@ export default {
       },
       ins_getAlarmRate: Object,
       // 折线图数据
-      troubleRate_parameter: {
+      getHistoryAlarmRate_parameter: {
         unitId: "4",
         beginTime: "2018-06-21",
         endTime: "2018-07-30",
         type: 1
       },
-      ins_troubleRate: Object,
+      ins_getHistoryAlarmRate: Object,
       // 隐患详情
       troubleDetail_parameter: {
         troubleId: 156
       },
-      ins_troubleDetail: Object
+      ins_troubleDetail: Object,
+      infoShow:true
     };
   },
   methods: {
@@ -452,18 +472,25 @@ export default {
       $(".dan-lineinfo")
         .addClass("display-none")
         .removeClass("display-block");
-      // 请求隐患详情
-      this.troubleDetail_parameter.troubleId = item.id;
-      this.$fetch("/api/trouble/troubleDetail", this.troubleDetail_parameter)
-        .then(response => {
-          if (response) {
-            console.log(response);
-            this.ins_troubleDetail = response.data.trouble;
-          }
-        })
-        .then(err => {
-          console.log(err);
-        });
+      // 请求报警详情
+      let eventLevel=item.eventLevel;
+      console.log(item)
+      if(eventLevel==0 ||eventLevel==2){
+        this.infoShow=true;
+      }else{
+        this.infoShow=false;
+      }
+      // this.troubleDetail_parameter.troubleId = item.id;
+      // this.$fetch("/api/trouble/troubleDetail", this.troubleDetail_parameter)
+      //   .then(response => {
+      //     if (response) {
+      //       console.log(response);
+      //       this.ins_troubleDetail = response.data.trouble;
+      //     }
+      //   })
+      //   .then(err => {
+      //     console.log(err);
+      //   });
     },
     handleCurrentChange(val) {
       console.log(`当前页:` + val);
@@ -473,6 +500,11 @@ export default {
     tolineitem() {
       console.log(this.ins_queryInspectionNameListvalue);
       $("#lookroute").removeClass("upd-btn-dis");
+    },
+    callradio(){
+      console.log(this.radiovalue);
+      this.getAlarmRate_parameter.type=this.radiovalue;
+      this.get_Pie();
     },
     getTable() {
       // 请求报警列表
@@ -522,33 +554,37 @@ export default {
         console.log(err);
       });
 
-      // 请求报警饼图数据
-      this.$fetch("/api/alarm/getAlarmRate", this.getAlarmRate_parameter)
-        .then(response => {
-          if (response) {
-            this.ins_getAlarmRate = response.data.alarmRate[0] 
-            this.draw_piemax(
-              "call_charpiemax",
-              this.ins_getAlarmRate
-            );
-          }
-        })
-        .then(err => {
-          console.log(err);
-        });
+      
 
       // 请求折线图数据
-      this.$fetch("/api/trouble/troubleRate", this.troubleRate_parameter)
+      this.$fetch("/api/alarm/getHistoryAlarmRate", this.getHistoryAlarmRate_parameter)
         .then(response => {
           if (response) {
-            this.ins_troubleRate = response.data;
-            console.log(this.ins_troubleRate);
-            this.draw_line("dan_charline", response.data.troubleRate);
+            this.ins_getHistoryAlarmRate = response.data;
+            console.log(this.ins_getHistoryAlarmRate);
+            this.draw_line("call_charline", response.data.historyAlarmRate);
           }
         })
         .then(err => {
           console.log(err);
         });
+    },
+    get_Pie(){
+      // 请求报警饼图数据
+      this.$fetch("/api/alarm/getAlarmRate", this.getAlarmRate_parameter)
+      .then(response => {
+        if (response) {
+          this.ins_getAlarmRate = response.data.alarmRate[0] 
+          this.draw_piemax(
+            "call_charpiemax",
+            this.ins_getAlarmRate,
+            this.getAlarmRate_parameter.type
+          );
+        }
+      })
+      .then(err => {
+        console.log(err);
+      });
     },
     draw_piemin(id, data) {
       let a = data.peopleAlarm / data.alarmSum * 100;
@@ -629,38 +665,49 @@ export default {
       chars.setOption(char);
     },
     draw_piemax(id, data,type) {
-      let d ;
+      let name;
       if(type==1){
-        d = [
-        {
-          value: data.unitAlarm,
-          // value: 2,
-          name: "损坏" + (data.damageCount / count * 100).toFixed(2) + "%"
-        },
-        {
-          value: data.sumAlarm-data.unitAlarm,
-          // value: 4,
-          name: "缺失" + (data.lackCount / count * 100).toFixed(2) + "%"
-        },
-      ];
+        name="单位报警率" + data.alarmRate+"%"
+      }else{
+        name="火情发生率" + data.alarmRate+"%"
       }
+      let d = [
+          {
+            value: data.unitAlarm,
+            // value: 2,
+            name: name,
+          },
+          {
+            value: data.sumAlarm-data.unitAlarm,
+            // value: 4,
+            name: "未完成",
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            label: {
+              normal: {
+                position: "inner",
+                show: false
+              }
+            }
+          },
+        ];
       var char = {
         tooltip: {
           trigger: "item",
           // formatter: "{a} <br/>{b} {c}次"
           formatter: function(data) {
             var name = "";
-            if (data.name.substring(0, 2) == "损坏") {
-              name = "损坏";
-            } else if (data.name.substring(0, 2) == "缺失") {
-              name = "缺失";
-            } else if (data.name.substring(0, 2) == "人为") {
-              name = "人为因素";
-            } else if (data.name.substring(0, 2) == "非人") {
-              name = "非人为因素";
-            } else if (data.name.substring(0, 2) == "危险") {
-              name = "危险品";
+            if (data.name.substring(0, 2) == "单位") {
+              name = "单位报警数";
+            } else if (data.name.substring(0, 2) == "火情") {
+              name = "火情发生数";
+            }else{
+              name=data.name
             }
+
             return name + ":" + data.value + "个";
           }
         },
@@ -675,6 +722,7 @@ export default {
         ]
       };
       let chars = this.$echarts.init(document.getElementById(id));
+      // chars.setOption({});
       chars.setOption(char);
     },
     draw_line(id, data) {
@@ -686,8 +734,8 @@ export default {
         a.push(value);
         b.push(data[value]);
       }
-      console.log(a);
-      console.log(b);
+      // console.log(a);
+      // console.log(b);
       var char = {
         xAxis: {
           type: "category",
@@ -757,6 +805,7 @@ export default {
   mounted() {
     this.getTable();
     this.getData();
+    this.get_Pie();
   }
 };
 </script>

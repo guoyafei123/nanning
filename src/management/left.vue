@@ -1,5 +1,5 @@
 <template>
-  <div class="show_left margin-top120" style="margin-left:37px;">
+  <div class="show_left margin-top120" style="margin-left:37px;position: relative;">
       <div class="clearFix" style="padding-right:20px;">
         <span class="guanli size-66 font-white float-left">管理</span>
         <div class="float-right">
@@ -107,9 +107,14 @@
       methods:{
 // 收起左侧列表
         moreSetupMenuRemove () {
+          // $('.show_left').css({
+          //     'animation':'move 1s',
+          //     'animation-fill-mode': 'forwards'
+          // })
+          // console.log(1)
           $('.show_left').slideToggle(1000,function(){
             $('#left').css('width','0');
-            $('main').css('margin-left','0');
+          $('main').css('margin-left','0');
             $('.fix').show();
           });
 
@@ -127,7 +132,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
   .clearFix:after{
     clear:both;
@@ -192,4 +197,7 @@
   .router-link-active span{
     color:#e9e9e9;
   }
+
+
+
 </style>

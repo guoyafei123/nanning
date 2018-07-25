@@ -10,17 +10,17 @@
         <!--<a href="javascript:;"><button><i class="fa fa-th-large font-gray-666 float-left"></i>巡检任务</button></a>-->
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Inspection_plan/list"><button  class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>规划</button></router-link>
+        <router-link to="/Inspection_plan/list"><button  class="btn_add" @click="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>规划</button></router-link>
       </div>
     </div>
     <div class="main_all_content" style="display: block;">
       <div class="main_content_top">
         <el-form ref="form" :model="form" label-width="80px" class="float-left">
-          <el-select v-model="form.region1" @change="" placeholder="全部单位" class="select" style="margin-left:20px;">
+          <el-select v-model="form.region1" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
-            <el-option v-for="item in optionList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
-          <el-select v-model="form.region2" placeholder="巡检类型" class="select">
+          <el-select v-model="form.region2" placeholder="巡检类型" class="select" style="width:150px;">
             <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
           </el-select>
           <el-select v-model="form.region3" placeholder="路线状态" class="select">
@@ -39,44 +39,54 @@
         <el-table
           :data="tableData"
           border
+          fit
           :default-sort = "{prop: 'Serial_number', order: 'descending'}"
           style="width: 100%;height:570px;">
           <el-table-column
             sortable
             prop="Serial_number"
             type="index"
+            width="60"
             label="序号">
           </el-table-column>
           <el-table-column
             prop="name"
+            width="120"
             label="路线名称">
           </el-table-column>
           <el-table-column
             prop="unitName"
+            width="120"
             label="巡检单位">
           </el-table-column>
           <el-table-column
-            prop="type"
+            prop="type" :formatter="formatType"
+            width="120"
             label="巡检类型">
           </el-table-column>
           <el-table-column
-            prop="activeName"
+            prop="createUserName"
+            width="120"
             label="发布者">
           </el-table-column>
           <el-table-column
-            prop="activeTime"
+            prop="createTime"
+            width="140"
             label="发布日期">
           </el-table-column>
           <el-table-column
             prop="amount"
+            width="120"
             label="每次额定次数">
           </el-table-column>
           <el-table-column
-            prop="isScan"
+            prop="isScan" :formatter="formatScan"
+            width="120"
             label="是否扫码打卡">
           </el-table-column>
           <el-table-column
-            prop="status"
+            prop="status" :formatter="formatStatus"
+            width="120"
             label="路线状态">
           </el-table-column>
           <el-table-column
@@ -230,6 +240,19 @@
       }
     },
     methods: {
+      btn_add(){
+        // console.log($('#right'));
+        $('#right').css('display','none');
+      },
+      formatType(row){
+        return row.type == 1 ? '举报检查': row.type == 2 ? '活动检查':row.type == 3 ? '例行检查':row.type == 4 ? '复查':row.type == 5 ? '施工检查':row.type == 6 ? '解除临时查封':row.type == 7 ? '恢复工作检查':row.type == 8 ? '其他检查':'全部';
+      },
+      formatScan(row){
+        return row.isScan == 1 ?  '是' : '否';
+      },
+      formatStatus(row){
+        return row.status == 1 ? '已激活' : '未激活';
+      },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },
@@ -237,9 +260,6 @@
         // console.log(val);
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
-      },
-      SetColor(ele,key,value){
-        $(ele).css(key,value);
       },
       show(){
         $('#mymodal').css({
@@ -253,6 +273,24 @@
       },
       show3(index,row){
         console.log(index,row)       // $('.Inspection_plan').css('display','none')
+      },
+      unitSearch(){
+        this.$fetch(
+          "/api/unit/queryUnit"
+        )
+          .then(response => {
+            if (response) {
+              console.log(response);
+              this.optionList = response.data.unitList;
+              console.log(this.optionList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+          .then(err => {
+            console.log(err);
+          });
       },
       tableList(){
         this.$fetch(
@@ -301,29 +339,10 @@
         deep:true
       }
     },
-    updated(){
-      // console.log(this.form.region2)
-      // console.log(this.form.region3)
-      // console.log(this.totalList/10)
-    },
     mounted(){
       realconsole();
-      this.SetColor('.btn-prev','background','transparent');
-      this.SetColor('.btn-next','background','transparent');
-      this.SetColor('.el-pager li','background','transparent');
-      this.SetColor('.el-pager li','color','#666');
-
       this.tableList();
-      this.$fetch("/api/unit/queryUnit").then(response=>{
-        console.log(response);
-        if (response) {
-          // this.optionList = response.data.unitList;
-          // console.log(this.optionList);
-          $(' .el-select-dropdown__item').mouseover(function(){
-            $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-          });
-        }
-      })
+      this.unitSearch();
     }
   };
 </script>

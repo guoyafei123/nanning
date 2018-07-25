@@ -15,6 +15,7 @@
   .el-form--label-top .el-form-item__label{
     padding:0;
   }
+
   //禁用选项按钮
   .el-input.is-disabled .el-input__inner{
     background-color:#111111;
@@ -317,4 +318,53 @@
   }
 
 }
+.main_content_bottom  .btn-prev{
+  background:transparent !important;
+}
+.main_content_bottom .btn-next{
+  background:transparent !important;
+}
+.main_content_bottom .el-pager li{
+  background: transparent ;
+  color:#666;
+}
+table th, table td{
+  text-align: left !important;
+}
 
+@media (min-width: 768px) and (max-width:1600px){
+  @keyframes move {
+    0%{
+      left:0;
+    }
+    100%{
+      left:-295px;
+    }
+  }
+  @keyframes moveto {
+    0%{
+      left:-295px;
+    }
+    100%{
+      left:0;
+    }
+  }
+}
+@media (min-width: 1600px){
+  @keyframes move {
+    0%{
+      left:0;
+    }
+    100%{
+      left:-17.58%;
+    }
+  }
+  @keyframes moveto {
+    0%{
+      left:-17.58%;
+    }
+    100%{
+      left:0;
+    }
+  }
+}

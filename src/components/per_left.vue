@@ -22,7 +22,7 @@
           <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
             <li>
               <p class="set-width-50 size-12">人员总数</p>
-              <p class="display-inline-block font-italic">452</p>
+              <p class="display-inline-block font-italic" @click="tovuex">123</p>
             </li>
             <li>
               <p class="set-width-50 size-12">巡检人员</p>
@@ -302,7 +302,25 @@
 </template>
 
 <script>
+    import{mapState} from "vuex"
     export default {
+      data(){
+        return{
+          vuextest:'兄弟组件传参'
+        }
+        
+      },
+      methods: {
+        tovuex(){
+          console.log(1);
+          this.$store.commit('tovuex',this.vuextest);
+        },
+      },
+      
+      computed:mapState([
+        'setvuextest',
+      ])
+      
     }
 </script>
 
