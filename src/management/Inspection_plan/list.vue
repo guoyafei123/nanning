@@ -175,7 +175,7 @@
           <div style="width:485px;margin:0 auto 25px;border-top:1px solid #222222;"></div>
           <el-form-item style="margin-bottom: 20px;">
             <el-button type="primary"  icon="el-icon-search" class="primary" @click="btn">保存并提交</el-button>
-            <el-button class="back">返回</el-button>
+            <el-button class="back" @click="back">返回</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -266,7 +266,11 @@
           this.inspectionListNode.splice(index,1)
         },
         btn(){//保存、提交
-          this.inspectionNode()
+          this.inspectionNode();
+          this.$router.push({path:'/Inspection_plan/all'})
+        },
+        back(){
+          this.$router.push({path:'/Inspection_plan/all'})
         },
         Add(){//点击添加节点
 

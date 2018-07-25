@@ -210,7 +210,7 @@
           <li>
             扫码打卡<span>2</span>
           </li>
-          <li>{{ inspectionPlanId }}</li>
+          <li>{{ inspectionId }}</li>
         </ul>
       </div>
       <section style="display: none;">
@@ -276,7 +276,7 @@
 </template>
 
 <script>
-  import{mapState} from "vuex"
+  import{ mapState } from "vuex"
   export default {
     data() {
       return {
@@ -331,10 +331,13 @@
         this.currentPage4 = val;
         console.log(this.currentPage4);
         this.tableList();
+      },
+      inspectionId(){
+        console.log(this.inspectionId)
       }
     },
     computed:mapState([
-      'inspectionPlanId'
+      'inspectionId'
     ])
   };
 </script>
