@@ -210,6 +210,7 @@
           <li>
             扫码打卡<span>2</span>
           </li>
+          <li>{{ inspectionPlanId }}</li>
         </ul>
       </div>
       <section style="display: none;">
@@ -265,7 +266,6 @@
                              layout="total"
                              :total="totalList">
               </el-pagination>
-
             </div>
           </div>
         </div>
@@ -276,6 +276,7 @@
 </template>
 
 <script>
+  import{mapState} from "vuex"
   export default {
     data() {
       return {
@@ -331,7 +332,10 @@
         console.log(this.currentPage4);
         this.tableList();
       }
-    }
+    },
+    computed:mapState([
+      'inspectionPlanId'
+    ])
   };
 </script>
 

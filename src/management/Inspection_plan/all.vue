@@ -357,8 +357,9 @@
           }
         })
       },
-      show3(){//跳转
-        // this.$store.commit('tovuex',this.vuextest);
+      show3(index,row){//跳转
+        console.log(row.id);
+        this.$store.commit('inspectionPlanId',row.id);
       },
       stop_plan(index){//停用
         $('#mymodal3').css({
@@ -387,7 +388,6 @@
         })
       },
       deleteRow(){
-        this.tableData.splice(this.deleteIndex,1);       // $('.Inspection_plan').css('display','none')
         this.tableData.forEach((item,index)=>{
           if(index == this.deleteIndex){
             console.log(item.id);
@@ -396,9 +396,12 @@
             }).then(response=>{
               if(response){
                 console.log('删除线路成功...'+ JSON.stringify(response));
+                this.tableData.splice(this.deleteIndex,1);
                 this.tableList();
               }
-            })
+            }).then(err => {
+              console.log(err);
+            });
           }
         })
       },

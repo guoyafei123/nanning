@@ -1,19 +1,15 @@
-
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import { Store } from 'vuex';
-// import personnel from './modules/personnel';
 Vue.use(Vuex);
 
-
 var state={
-    setvuextest:''
+  inspectionId:''
 }
 
 var mutations={
-    tovuex(state,data){
-        state.setvuextest=data;
-    }
+  inspectionPlanId(state,data){
+    state.inspectionId = data;
+  }
 }
 
 export default new Vuex.Store({

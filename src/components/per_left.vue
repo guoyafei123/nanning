@@ -302,13 +302,13 @@
 </template>
 
 <script>
-    import{mapState} from "vuex"
+    // import{mapState} from "vuex"
     export default {
       data(){
         return{
           vuextest:'兄弟组件传参'
         }
-        
+
       },
       methods: {
         tovuex(){
@@ -316,11 +316,11 @@
           this.$store.commit('tovuex',this.vuextest);
         },
       },
-      
-      computed:mapState([
-        'setvuextest',
-      ])
-      
+
+      // computed:mapState([
+      //   'setvuextest',
+      // ])
+
     }
 </script>
 
