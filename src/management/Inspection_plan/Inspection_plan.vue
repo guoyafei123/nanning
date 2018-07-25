@@ -31,6 +31,7 @@
   import MainVue from './main.vue';
   import Set_rightVue from './right.vue';
   import '../../assets/css/setting.scss';
+  import '../../assets/css/upd-element.css';
   export default {
     data(){
       return{

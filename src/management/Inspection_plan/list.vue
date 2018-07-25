@@ -401,9 +401,6 @@
                 console.log(response);
                 this.optionList = response.data.unitList;
                 console.log(this.optionList);
-                $(' .el-select-dropdown__item').mouseover(function(){
-                  $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-                });
               }
             })
             .then(err => {
@@ -418,9 +415,6 @@
             if (response) {
               this.buildList = response.data.list;
               console.log(this.buildList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -432,9 +426,6 @@
             if (response) {
               this.floorList = response.data.list;
               console.log(this.floorList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -446,9 +437,6 @@
             if (response) {
               this.roomList = response.data.list;
               console.log(this.roomList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -460,9 +448,6 @@
             if (response) {
               this.equipmentList = response.data.list;
               console.log(this.equipmentList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -474,9 +459,6 @@
             if (response) {
               this.buildLists = response.data.list;
               console.log(this.buildLists);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -488,9 +470,6 @@
             if (response) {
               this.floorLists = response.data.list;
               console.log(this.floorLists);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -502,9 +481,6 @@
             if (response) {
               this.roomLists = response.data.list;
               console.log(this.roomLists);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -516,9 +492,6 @@
             if (response) {
               this.equipmentLists = response.data.list;
               console.log(this.equipmentLists);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -530,9 +503,6 @@
             if (response) {
               this.buildListNode = response.data.list;
               console.log(this.buildListNode);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -544,9 +514,6 @@
             if (response) {
               this.floorListNode= response.data.list;
               console.log(this.floorListNode);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -558,9 +525,6 @@
             if (response) {
               this.roomListNode = response.data.list;
               console.log(this.roomListNode);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -572,9 +536,6 @@
             if (response) {
               this.equipmentListNode = response.data.list;
               console.log(this.equipmentListNode);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
             }
           })
         },
@@ -604,9 +565,6 @@
         });
         $('.el-select-dropdown').css('border-color','#333');
         $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
         $('.modal-body .el-input__inner').css({'background-color':'#111','border-color':'#282828','border-radius':'0'});
         this.unitSearch();
       },
