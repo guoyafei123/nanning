@@ -116,11 +116,11 @@
             label="操作"
             width="120">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.$index)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==2">开启</button>
-              <button @click="stop_plan(scope.$index)" data-toggle="modal" data-target="#mymodal3" style="width:40px;height:22px;border:2px solid #999999;color: #999;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==1">关闭</button>
-              <i @click="delete_plan(scope.$index)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
+              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==2">开启</button>
+              <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" style="width:40px;height:22px;border:2px solid #999999;color: #999;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==1">关闭</button>
+              <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
               <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
-              <i @click="show3(scope.$index, scope.row)" class="fa fa-th-large font-gray-666"></i>
+              <i @click="show3(scope.$index,scope.row)" class="fa fa-th-large font-gray-666"></i>
             </template>
           </el-table-column>
         </el-table>
@@ -160,7 +160,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">激活</h4>
-            <h5 class="modal-p">{{ deleteName }}</h5>
+            <h5 class="modal-p">{{ inspectionName }}</h5>
           </div>
           <div class="modal-body">
             <el-form ref="form" :label-position="labelPosition" :model="form">
@@ -200,7 +200,7 @@
           </div>
           <div class="modal-body" style="height:217px;">
             <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
-            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ deleteName }}</p>
+            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ inspectionName }}</p>
           </div>
           <div class="modal-footer">
             <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
@@ -219,7 +219,7 @@
           </div>
           <div class="modal-body" style="height:217px;">
             <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否关闭</h2>
-            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ deleteName }}</p>
+            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ inspectionName }}</p>
           </div>
           <div class="modal-footer">
             <el-button type="danger" @click.native.prevent="StopRow()" icon="el-icon-search" class="danger" data-dismiss="modal">关闭</el-button>
@@ -297,8 +297,8 @@
         //   }]
         // },
         // pickerTime: '',
-        deleteIndex:'',
-        deleteName:''
+        inspectionIndex:'',
+        inspectionName:''
       }
     },
     methods: {
@@ -323,87 +323,67 @@
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
-      start_plan(index){//启用
+      start_plan(row){//启用
         $('#mymodal').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
-        this.deleteIndex = index;
+        this.inspectionIndex = row.id ;
       },
       startRow(){
-        this.tableData.forEach((item,index)=>{
-          if(index == this.deleteIndex){
-            console.log(item.id);
-            this.$fetch("/api/inspection/start_plan",{
-              id:item.id,
-              amount:this.amountNumber,
-              isScan:this.isScan
-            }).then(response=>{
-              if(response){
-                console.log('开启线路成功...'+ JSON.stringify(response));
-                this.tableList();
-              }
-            })
-          }
-        })
+          this.$fetch("/api/inspection/start_plan",{
+            id:this.inspectionIndex,
+            amount:this.amountNumber,
+            isScan:this.isScan
+          }).then(response=>{
+            if(response){
+              console.log('开启线路成功...'+ JSON.stringify(response));
+              this.tableList();
+            }
+          })
+
       },
-      delete_plan(index){//删除
+      delete_plan(row){//删除
         $('#mymodal2').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
-        this.deleteIndex = index;
-        this.tableData.forEach((item,index)=>{
-          if(index == this.deleteIndex){
-            this.deleteName = item.name;
-          }
-        })
+        this.inspectionName = row.name;
       },
       show3(index,row){//跳转
         console.log(row.id);
         this.$store.commit('inspectionPlanId',row.id);
       },
-      stop_plan(index){//停用
+      stop_plan(row){//停用
         $('#mymodal3').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
-        this.deleteIndex = index;
-        this.tableData.forEach((item,index)=>{
-          if(index == this.deleteIndex){
-            this.deleteName = item.name;
-          }
-        })
+        this.inspectionName = row.name;
+        this.inspectionIndex = row.id ;
       },
       StopRow(){//停用的接口
-        this.tableData.forEach((item,index)=>{
-          if(index == this.deleteIndex){
-            console.log(item.id);
-            this.$fetch("/api/inspection/stop_plan",{
-              id:item.id
-            }).then(response=>{
-              if(response){
-                console.log('关闭线路成功...'+ JSON.stringify(response));
-                this.tableList();
-              }
-            })
-          }
-        })
+          console.log(this.inspectionIndex);
+          this.$fetch("/api/inspection/stop_plan",{
+            id:this.inspectionIndex
+          }).then(response=>{
+            if(response){
+              console.log('关闭线路成功...'+ JSON.stringify(response));
+              this.tableList();
+            }
+          })
+
       },
       deleteRow(){
-        this.tableData.forEach((item,index)=>{
-          if(index == this.deleteIndex){
-            console.log(item.id);
-            this.$fetch("/api/admin/inspection/deleteInspectiopnPlan",{
-              inspectionPlanId:item.id
-            }).then(response=>{
-              if(response){
-                console.log('删除线路成功...'+ JSON.stringify(response));
-                this.tableData.splice(this.deleteIndex,1);
-                this.tableList();
-              }
-            }).then(err => {
-              console.log(err);
-            });
-          }
-        })
+          console.log(this.inspectionIndex);
+          this.$fetch("/api/admin/inspection/deleteInspectiopnPlan",{
+            inspectionPlanId:this.inspectionIndex
+          }).then(response=>{
+            if(response){
+              console.log('删除线路成功...'+ JSON.stringify(response));
+              this.tableData.splice(this.deleteIndex,1);
+              this.tableList();
+            }
+          }).then(err => {
+            console.log(err);
+          });
       },
       unitSearch(){
         this.$fetch(
