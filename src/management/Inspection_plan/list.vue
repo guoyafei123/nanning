@@ -34,15 +34,16 @@
             <el-select
               v-model="building"
             placeholder="选择建筑"  class="sbwz_138_32 start" :disabled="isdisabled">
-            <el-option
-              v-for="item in buildList"
-              :label="item.name"
-              :value="item.id">
-            </el-option>
+              <el-option label="室外" value="0"></el-option>
+              <el-option
+                v-for="item in buildList"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
             </el-select>
             <el-select
               v-model="floor"
-              placeholder="选择楼层" class="sbwz_90_32 start" :disabled="isdisabled">
+              placeholder="选择楼层" class="sbwz_90_32 start startFloor" style="display: none;" :disabled="isdisabled">
               <el-option
                 v-for="item in floorList"
                 :label="item.floor+'层'"
@@ -51,7 +52,7 @@
             </el-select>
             <el-select
               v-model="room"
-              placeholder="选择房间" class="sbwz_90_32 start" :disabled="isdisabled">
+              placeholder="选择房间" class="sbwz_90_32 start startRoom"  style="display: none;" :disabled="isdisabled">
               <el-option
                 v-for="item in roomList"
                 :label="item.roomNumber+'房间'"
@@ -60,7 +61,7 @@
             </el-select>
             <el-select
               v-model="equipment"
-              placeholder="选择设备" class="sbwz_120_32 start" :disabled="isdisabled">
+              placeholder="选择设备" class="sbwz_120_32 start startDevice" style="display: none;" :disabled="isdisabled">
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
@@ -78,6 +79,7 @@
             <el-select
               v-model="buildings"
               placeholder="选择建筑" class="sbwz_138_32 end" :disabled="isdisableds">
+              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildLists"
                 :label="item.name"
@@ -86,7 +88,7 @@
             </el-select>
             <el-select
               v-model="floors"
-              placeholder="选择楼层" class="sbwz_90_32 end" :disabled="isdisableds">
+              placeholder="选择楼层" class="sbwz_90_32 end endFloor" style="display: none;" :disabled="isdisableds">
               <el-option
                 v-for="item in floorLists"
                 :label="item.floor+'层'"
@@ -95,7 +97,7 @@
             </el-select>
             <el-select
               v-model="rooms"
-              placeholder="选择房间" class="sbwz_90_32 end" :disabled="isdisableds">
+              placeholder="选择房间" class="sbwz_90_32 end endRoom" style="display: none;" :disabled="isdisableds">
               <el-option
                 v-for="item in roomLists"
                 :label="item.roomNumber+'房间'"
@@ -104,7 +106,7 @@
             </el-select>
             <el-select
               v-model="equipments"
-              placeholder="选择设备" class="sbwz_120_32 end" :disabled="isdisableds">
+              placeholder="选择设备" class="sbwz_120_32 end endDevice" style="display: none;" :disabled="isdisableds">
               <el-option
                 v-for="item in equipmentLists"
                 :label="item.name"
@@ -135,6 +137,7 @@
             <el-select
               v-model="buildingNode"
               placeholder="选择建筑" class="sbwz_138_32 Node">
+              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildListNode"
                 :label="item.name"
@@ -143,7 +146,7 @@
             </el-select>
             <el-select
               v-model="floorNode"
-              placeholder="选择楼层" class="sbwz_90_32 Node">
+              placeholder="选择楼层" style="display: none;"  class="sbwz_90_32 Node NodeFloor">
               <el-option
                 v-for="item in floorListNode"
                 :label="item.floor+'层'"
@@ -152,7 +155,7 @@
             </el-select>
             <el-select
               v-model="roomNode"
-              placeholder="选择房间" class="sbwz_90_32 Node">
+              placeholder="选择房间" style="display: none;" class="sbwz_90_32 Node NodeRoom">
               <el-option
                 v-for="item in roomListNode"
                 :label="item.roomNumber+'房间'"
@@ -161,7 +164,7 @@
             </el-select>
             <el-select
               v-model="equipmentNode"
-              placeholder="选择设备" class="sbwz_120_32 end">
+              placeholder="选择设备" style="display: none;" class="sbwz_120_32 Node NodeDevice">
               <el-option
                 v-for="item in equipmentListNode"
                 :label="item.name"
@@ -267,22 +270,8 @@
         },
         btn(){//保存、提交
           this.inspectionNode();
-          this.$router.push({path:'/Inspection_plan/all'})
-        },
-        back(){
-          this.$router.push({path:'/Inspection_plan/all'})
-        },
-        Add(){//点击添加节点
 
-          //声明所有展示的节点
-          var buildName = '';
-          var buildId = '';
-          var floorName = '';
-          var floorId = 0;
-          var roomName = '';
-          var roomId = 0;
-          var equipmentName = '';
-          var deviceId = 0;
+          //循环得出需要的id、name值
           var buildListName = '';
           var floorListName = '';
           var roomListName = '';
@@ -291,14 +280,7 @@
           var floorListsName = '';
           var roomListsName = '';
           var equipmentListsName = '';
-
-          //给所有添加的节点一个下标值
-          this.inspectionListIndex++;
-
-
-
-          //循环得出需要的id、name值
-            //起点
+          //起点
           this.buildList.forEach((item,index)=>{
             // console.log(item.id)
             if(item.id == this.building){
@@ -322,6 +304,65 @@
             }
           });
 
+          //终点
+          this.buildLists.forEach((item,index)=>{
+            // console.log(item.id)
+            if(item.id == this.buildings){
+              // console.log(item.name);
+              buildListsName = item.name;
+            }
+          });
+          this.floorLists.forEach((item,index)=>{
+            if(item.id == this.floors){
+              floorListsName = item.floorName;
+            }
+          });
+          this.roomLists.forEach((item,index)=>{
+            if(item.id == this.rooms){
+              roomListsName = item.roomNumber;
+            }
+          });
+          this.equipmentLists.forEach((item,index)=>{
+            if(item.id == this.equipments){
+              equipmentListsName = item.name;
+            }
+          });
+
+
+          if(this.building !== 0 && this.building !== '0'){//起点
+            this.startNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
+          }else{
+            this.startNodes.push({sorting:0,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipment,deviceName:equipmentListName});
+          }
+          if(this.buildings !== 0 && this.buildings !== '0'){//终点
+            this.endNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
+          }else{
+            this.endNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
+          }
+          console.log(this.endNodes);
+
+
+          this.$router.push({path:'/Inspection_plan/all'});
+        },
+        back(){
+          this.$router.push({path:'/Inspection_plan/all'})
+        },
+        Add(){//点击添加节点
+
+          //声明所有展示的节点
+          var buildName = '';
+          var buildId = '';
+          var floorName = '';
+          var floorId = 0;
+          var roomName = '';
+          var roomId = 0;
+          var equipmentName = '';
+          var deviceId = 0;
+
+          //给所有添加的节点一个下标值
+          this.inspectionListIndex++;
+
+          //循环得出需要的id、name值
 
           //中间节点
           this.buildListNode.forEach((item,index)=>{
@@ -356,42 +397,19 @@
           });
           // console.log(equipmentName);
           // console.log(this.inspectionNodes);
-          //终点
-          this.buildLists.forEach((item,index)=>{
-            // console.log(item.id)
-            if(item.id == this.buildings){
-              // console.log(item.name);
-              buildListsName = item.name;
-            }
-          });
-          this.floorLists.forEach((item,index)=>{
-            if(item.id == this.floors){
-              floorListsName = item.floorName;
-            }
-          });
-          this.roomLists.forEach((item,index)=>{
-            if(item.id == this.rooms){
-              roomListsName = item.roomNumber;
-            }
-          });
-          this.equipmentLists.forEach((item,index)=>{
-            if(item.id == this.equipments){
-              equipmentListsName = item.name;
-            }
-          });
+
 
           //添加节点数组的内容
-          if(buildListName!==''){//起点
-            this.startNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
-          }
-          if(buildName!==''){//节点
+
+          if(this.buildingNode !== 0 && this.buildingNode !== '0'){//节点
             this.inspectionNodes.push({sorting:this.inspectionListIndex,buildingId:buildId,buildingName:buildName,floorId:floorId,floorNumber:floorName,roomId:roomId,roomNumber:roomName,deviceId:deviceId,deviceName:equipmentName});
             this.inspectionListNode.push({build:buildName,floor:floorName,room:roomName,equipment:equipmentName})
+          }else{
+            this.inspectionNodes.push({sorting:this.inspectionListIndex,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:deviceId,deviceName:equipmentName});
+            this.inspectionListNode.push({build:'室外',floor:'',room:'',equipment:equipmentName})
           }
-          if(buildListsName!==''){//终点
-            this.endNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
-          }
-          console.log(this.endNodes)
+          this.buildingNode = '';
+
           //获取数组长度   inspectionNodes
           console.log(this.inspectionNodes.length+1);
 
@@ -560,6 +578,9 @@
             inspectionNodes:this.inspectionNodes
           }).then(response=>{
             console.log(response);
+            console.log(this.startNodes);
+            console.log(this.endNodes);
+            console.log(this.inspectionNodes)
           })
         }
       },
@@ -587,48 +608,106 @@
         },
         building(curVal,oldVal){
           this.building = curVal ;
-          // console.log(this.building);
-          this.floorSearch(this.building);
+          console.log(this.building);
+          console.log(typeof this.building)
+          if(this.building !== 0 && this.building !== '0'){
+            $('.startFloor').show();
+            $('.startDevice').hide();
+            this.floor = '';
+            this.room = '';
+            this.equipment = '';
+            this.floorSearch(this.building);
+          }else{
+            $('.startFloor').hide();
+            $('.startRoom').hide();
+            $('.startDevice').show();
+            this.equipment = '';
+            this.equipmentSearch(this.building);
+          }
         },
         floor(curVal,oldVal){
           this.floor = curVal ;
-          // console.log(this.floor);
-          this.roomSearch(this.floor);
+          console.log(this.floor);
+          if(this.floor !== 0){
+            this.roomSearch(this.floor);
+            $('.startRoom').show();
+          }
         },
         room(curVal,oldVal){
           this.room = curVal ;
           console.log(this.room);
-          this.equipmentSearch(this.room);
+          if(this.room !== 0){
+            this.equipmentSearch(this.room);
+            $('.startDevice').show();
+          }
         },
         buildings(curVal,oldVal){
           this.buildings = curVal ;
           // console.log(this.building);
-          this.floorSearchs(this.buildings);
+          if(this.buildings !== 0 && this.buildings !== '0'){
+            $('.endFloor').show();
+            $('.endDevice').hide();
+            this.floors = '';
+            this.rooms = '';
+            this.equipments = '';
+            this.floorSearchs(this.buildings);
+          }else{
+            $('.endFloor').hide();
+            $('.endRoom').hide();
+            $('.endDevice').show();
+            this.equipments = '';
+            this.equipmentSearchs(this.buildings);
+          }
         },
         floors(curVal,oldVal){
           this.floors = curVal ;
           // console.log(this.floor);
-          this.roomSearchs(this.floors);
+          if(this.floors !== 0){
+            this.roomSearchs(this.floors);
+            $('.endRoom').show();
+          }
         },
         rooms(curVal,oldVal){
           this.rooms = curVal ;
           // console.log(this.rooms);
-          this.equipmentSearchs(this.rooms);
+          if(this.rooms !== 0){
+            this.equipmentSearchs(this.rooms);
+            $('.endDevice').show();
+          }
         },
         buildingNode(curVal,oldVal){
           this.buildingNode = curVal ;
           // console.log(this.building);
-          this.floorSearchNode(this.buildingNode);
+          if(this.buildingNode !== 0 && this.buildingNode !== '0'){
+            $('.NodeFloor').show();
+            $('.NodeDevice').hide();
+            this.floorNode = '';
+            this.roomNode = '';
+            this.equipmentNode = '';
+            this.floorSearchNode(this.buildingNode);
+          }else{
+            $('.NodeFloor').hide();
+            $('.NodeRoom').hide();
+            $('.NodeDevice').show();
+            this.equipmentNode = '';
+            this.equipmentSearchNode(this.buildingNode);
+          }
         },
         floorNode(curVal,oldVal){
           this.floorNode = curVal ;
           // console.log(this.floor);
-          this.roomSearchNode(this.floorNode);
+          if(this.floorNode !== 0){
+            this.roomSearchNode(this.floorNode);
+            $('.NodeRoom').show();
+          }
         },
         roomNode(curVal,oldVal){
           this.roomNode = curVal ;
           // console.log(this.roomNode);
-          this.equipmentSearchNode(this.roomNode);
+          if(this.roomNode !== 0){
+            this.equipmentSearchNode(this.roomNode);
+            $('.NodeDevice').show();
+          }
         }
       }
     }
