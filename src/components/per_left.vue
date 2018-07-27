@@ -306,6 +306,10 @@
     export default {
       data(){
         return{
+          jsonp:{
+            a:1,b:2
+          },
+          arrays:[1,2,3,4,5,6,7,8,9,10],
           vuextest:'兄弟组件传参'
         }
         
@@ -313,7 +317,7 @@
       methods: {
         tovuex(){
           console.log(1);
-          this.$store.commit('tovuex',this.vuextest);
+          this.$store.commit('tovuex',this.arrays);
         },
       },
       

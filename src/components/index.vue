@@ -30,7 +30,7 @@
         } else {
           style = 'bg-red';
         }
-
+        
         var landmark_html = `
         <div class="legend-landmark font-block" style="top:` + top + `px;left:` + left + `px">
             <span class="landmark-rect ` + style + `"></span>

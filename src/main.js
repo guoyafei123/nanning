@@ -30,6 +30,7 @@ require('./assets/css/common.css');
 import './assets/map/map.js'
 // 首页
 import './assets/css/index.css'
+import './assets/css/map.css'
 import './assets/css/upd-element.css'
 require('./assets/css/setting.scss');
 
