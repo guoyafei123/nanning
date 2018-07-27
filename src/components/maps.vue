@@ -4,164 +4,121 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-th-large font-gray-666 float-left"></i>
-          <h2 class="float-left font-white size-16">设备管理</h2>
+          <h2 class="float-left font-white size-16">巡检管理</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Equipment_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-          <router-link to="/Equipment_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
-          <router-link to="/Equipment_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+          <router-link to="/Equipment_management/list"><button @click="btn_add" class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>规划</button></router-link>
         </div>
       </div>
       <div class="main_all_content">
         <div class="main_content_top">
-          <el-form ref="form" :model="form" label-width="80px">
-            <el-select v-model="form.region1" placeholder="全部类型" class="select" style="margin-left:20px;">
-              <el-option label="区域一" value="ssd"></el-option>
-              <el-option label="区域二" value="www2"></el-option>
+          <el-form label-width="80px"  class="float-left">
+            <el-select v-model="unit" placeholder="选择单位" class="select">
+              <el-option label="全部单位" value=""></el-option>
+              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
-            <el-form-item label="" class="float-left">
-              <el-input v-model="form.name" placeholder="设备名称、设备编号"></el-input>
-            </el-form-item>
-            <el-button  icon="el-icon-search">搜索</el-button>
+            <el-select
+              v-model="building"
+            placeholder="选择建筑"  class="sbwz_138_32 start float-left">
+              <el-option label="室外" value="0"></el-option>
+              <el-option
+                v-for="item in buildList"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-select
+              v-model="floor"
+              placeholder="选择楼层" class="sbwz_90_32 start startFloor">
+              <el-option
+                v-for="item in floorList"
+                :label="item.floor+'层'"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-select
+              v-model="room"
+              placeholder="选择房间" class="sbwz_90_32 start startRoom">
+              <el-option
+                v-for="item in roomList"
+                :label="item.roomNumber+'房间'"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-select
+              v-model="equipment"
+              placeholder="选择设备" class="sbwz_120_32 start startDevice">
+              <el-option
+                v-for="item in equipmentList"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
           </el-form>
-        </div>
-        <div class="main_content_table">
-          <el-table
-            :data="tableData"
-            border
-            style="width: 100%;height:570px;">
-            <el-table-column
-              fixed
-              prop="Serial_number"
-              label="序号"
-              width="50">
-            </el-table-column>
-            <el-table-column
-              prop="Device_name"
-              label="设备名称"
-              width="80">
-            </el-table-column>
-            <el-table-column
-              prop="Architectural_name"
-              label="建筑名称"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="Position"
-              label="位置"
-              width="50">
-              <template slot-scope="scope">
-                <i class="fa fa-th-large font-gray-666"></i>
-              </template>
-            </el-table-column>
-            <el-table-column
-              fixed="right"
-              label="操作"
-              width="90">
-              <template slot-scope="scope">
-                <i class="fa fa-th-large font-gray-666"></i>
-                <i class="fa fa-th-large font-gray-666"></i>
-                <i class="fa fa-th-large font-gray-666"></i>
-                <i class="fa fa-th-large font-gray-666"></i>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-        <div class="main_content_bottom">
-          <div class="bottom_con">
-            <el-pagination style="float: left;"
-                           @size-change="handleSizeChange"
-                           @current-change="handleCurrentChange"
-                           :current-page="currentPage4"
-                           :page-sizes="[100, 200, 300, 400]"
-                           :page-size="100"
-                           layout="total"
-                           :total="400">
-            </el-pagination>
-            <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{page}}页</span>
-            <el-pagination style="float: right;background: transparent"
-                           @size-change="handleSizeChange"
-                           @current-change="handleCurrentChange"
-                           :current-page="currentPage4"
-                           :page-sizes="[100, 200, 300, 400]"
-                           :page-size="100"
-                           layout="prev, pager, next"
-                           :total="400">
-            </el-pagination>
+          <div class="main_nav_two float-right">
+            <router-link to="/Equipment_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
+            <router-link to="/Equipment_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
           </div>
         </div>
       </div>
     </aside>
-
   </div>
 
 </template>
 
 <script>
+  import { realconsole } from '../assets/js/management.js'
   export default {
     data() {
       return {
-        form: {
-          name:'',
-          region1:'',
-          region2:'',
-          region3:''
-        },
-        tableData: [{
-          Serial_number: '1',
-          Device_name: '王小虎',
-          Equipment_type: '上海',
-          Architectural_name: '普陀区',
-          Unit_name: '上海市普陀区金沙江路 1518 弄',
-          Off_ground: 200333,
-          Apex:'',
-          Call_the_police:'',
-          Fault:'',
-          Maintenance_unit:'',
-          Invest_time:'',
-          Replacement_period:'',
-          Add_time:'',
-          State:'',
-          Position:''
-        }],
-        page:4,
-        currentPage4: 1
+      
+        unit:null,//选择单位
+        building:'',//选择建筑
+        floor:'',
+        room:'',
+        equipment:'',
+        roomList:[],
+        floorList:[],
+        buildList:[],
+        equipmentList:[],
+        optionList:[]//全部单位列表
+      
       }
     },
     methods: {
-      handleClick(row) {
-        console.log(row);
+      btn_add(){
+        // console.log($('#right'));
+        $('#right').hide();
       },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
-      },
-      SetColor(ele,key,value){
-        $(ele).css(key,value);
+      unitSearch(){
+        this.$fetch(
+          "/api/unit/queryUnit"
+        )
+          .then(response => {
+            if (response) {
+              console.log(response);
+              this.optionList = response.data.unitList;
+              console.log(this.optionList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+          .then(err => {
+            // console.log(err);
+          });
+      }
+    },
+    watch:{
+      unit(curVal,oldVal){
+        this.unit = curVal;
+        console.log(this.unit);
+        this.$store.commit('Unit',this.unit);
       }
     },
     mounted(){
-      $('.el-table__body-wrapper').css('height','520px');
-      $('.el-scrollbar').css({
-        'background':'#000'
-      });
-      $('.el-select-dropdown').css({'border-color':'#333','border-radius':'0px'});
-      $('.el-select-dropdown__item').css('color','#999');
-      $(' .el-select-dropdown__item').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-      });
-      $('.el-table__row').mouseover(function(){
-        $(this).css({'color':'#fff','background':'#000'})
-      }).mouseout(function(){
-        $(this).css({'color':'#999','background':'#111'})
-      });
-      this.SetColor('.btn-prev','background','transparent');
-      this.SetColor('.btn-next','background','transparent');
-      this.SetColor('.el-pager li','background','transparent');
-      this.SetColor('.el-pager li.active','color','#fff');
-      this.SetColor('.el-form-item__content','margin-left','10px')
+      realconsole();
+      this.unitSearch();
     }
   };
 </script>
@@ -190,9 +147,10 @@
       margin-right: 24%;
     }
   }
-  aside{
-    width:390px;
-  }
+  /* aside{
+    width:50%;
+    min-width: 450px;
+  } */
   .main_header{
     width:100%;
     height:68px;
@@ -209,15 +167,15 @@
   .main_title h2{
     line-height: 68px;
   }
-  .main_header button{
-    width:64px;
+  .main_header button,.main_nav_two button{
+    width:64px !important;
     height:28px;
     float: left;
     outline:none;
     display: flex;
     align-items: center;
     justify-content: center;
-    border:2px solid #333333;
+    border:2px solid transparent;
     background: #111111;
     font-size: 12px;
     color: #999;
@@ -239,6 +197,21 @@
     background: #bad616;
     margin-left: 6px;
     margin-right: 20px;
+    color:#000000;
+  }
+  .main_header button.btn_add i{
+    color: #000;
+    background-color: transparent;
+  }
+  .main_nav_two{
+    margin-top:6px;
+    margin-right:20px;
+  }
+  .main_nav_two button{
+    margin-top:0;
+  }
+  .main_nav_two i{
+    margin-right: 3px;
   }
   .main_content_top{
     height:40px;
@@ -261,10 +234,39 @@
   }
   .router-link-active button{
     color: #b8b8b8;
-    background-color: #333333;
+    background-color: #000000;
   }
   .router-link-active i{
     color: #b8b8b8;
     background-color: #333333;
+  }
+  .select{
+    background-color: #111111;
+  }
+  //模态框
+  .modal-content{
+    background-color: #111111 !important;
+  }
+  .modal-title{
+    font-size:24px;
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: 15px;
+    text-indent: 15px;
+  }
+  .modal-p{
+    color: #666666;
+    text-align: center;
+    font-size: 12px;
+  }
+  .modal-header{
+    border-bottom:1px solid #222222;
+  }
+  .modal-footer{
+    border-top:1px solid #222222;
+  }
+ .start{
+    margin-top:4px;
+    margin-left:10px;
   }
 </style>

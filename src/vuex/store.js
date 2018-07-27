@@ -5,7 +5,9 @@ Vue.use(Vuex);
 var state={
   region:'',
   inspectionId:'',
-  form:{}
+  form:{},
+  deviceId:'',
+  Unit:''
 }
 
 var mutations={
@@ -17,6 +19,12 @@ var mutations={
   },
   form(state,data){
     state.form= data;
+  },
+  deviceId(state,data){
+    state.deviceId = data;
+  },
+  Unit(state,data){
+    state.Unit = data;
   }
 }
 

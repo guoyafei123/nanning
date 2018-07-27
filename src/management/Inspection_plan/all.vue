@@ -96,11 +96,11 @@
             width="120"
             label="是否扫码打卡">
           </el-table-column>
-          <el-table-column :formatter="formatStatus"
+          <el-table-column 
             prop="status"
             width="120"
             label="路线状态">
-            <template slot-scope="scope" :formatter="formatStatus">
+            <template slot-scope="scope" >
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
                 disable-transitions v-if='scope.row.status==1'>已激活<i class="fa fa-th-large font-gray-666"></i></el-tag>
@@ -132,7 +132,6 @@
             <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出标码</a>
           </div>
           <el-pagination style="float: right;background: transparent"
-                         @size-change="handleSizeChange"
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
@@ -141,14 +140,12 @@
           </el-pagination>
           <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
           <el-pagination style="float: right;"
-                         @size-change="handleSizeChange"
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
                          layout="total"
                          :total="totalList">
           </el-pagination>
-
         </div>
       </div>
     </div>
@@ -317,12 +314,6 @@
       },
       formatScan(row){
         return row.isScan == 1 ?  '是' : '否';
-      },
-      formatStatus(row){
-        return row.status == 1 ? '已激活' : '未激活';
-      },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         // console.log(val);
