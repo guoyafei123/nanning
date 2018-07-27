@@ -12,18 +12,47 @@
     <div class="main_all_content">
       <div class="main_content_top">
         <el-form ref="form" :model="form" label-width="80px" class="float-left">
-          <el-select v-model="form.region1" @change="" placeholder="全部单位" class="select" style="margin-left:20px;">
-            <el-option label="区域一" value="ssd"></el-option>
-            <el-option label="区域二" value="www2"></el-option>
+          <el-select v-model="form.unit" placeholder="选择单位" class="select">
+            <el-option label="全部单位" value=""></el-option>
+            <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
-          <el-select v-model="form.region2" placeholder="全部建筑" class="select">
-            <el-option label="区域一" value="wq"></el-option>
-            <el-option label="区域二" value="ww"></el-option>
-          </el-select>
-          <el-select v-model="form.region3" placeholder="灭火设备" class="select">
-            <el-option label="区域一" value="ss"></el-option>
-            <el-option label="区域二" value="gf"></el-option>
-          </el-select>
+          <el-select
+              v-model="building"
+            placeholder="选择建筑"  class="sbwz_138_32 start" :disabled="isdisabled">
+              <el-option label="室外" value="0"></el-option>
+              <el-option
+                v-for="item in buildList"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-select
+              v-model="floor"
+              placeholder="选择楼层" class="sbwz_90_32 start startFloor" style="display: none;" :disabled="isdisabled">
+              <el-option
+                v-for="item in floorList"
+                :label="item.floor+'层'"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-select
+              v-model="room"
+              placeholder="选择房间" class="sbwz_90_32 start startRoom"  style="display: none;" :disabled="isdisabled">
+              <el-option
+                v-for="item in roomList"
+                :label="item.roomNumber+'房间'"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-select
+              v-model="equipment"
+              placeholder="选择设备" class="sbwz_120_32 start startDevice" style="display: none;" :disabled="isdisabled">
+              <el-option
+                v-for="item in equipmentList"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
           <el-form-item label="" class="float-left">
             <el-input v-model="form.name" placeholder="设备名称、设备编号"></el-input>
           </el-form-item>
@@ -150,45 +179,21 @@
   export default {
     data() {
       return {
-        form: {
-          name:'',
-          region1:'',
-          region2:'22',
-          region3:'33'
+        form: {//筛选项
+          unit:null,//选择单位
+          region2:null,//设备类型
+          region3:null//路线状态
         },
-        tableData: [{
-          Serial_number: '1',
-          Device_name: '王小虎',
-          Equipment_type: '上海',
-          Architectural_name: '普陀区',
-          Unit_name: '上海市普陀区金沙江路 1518 弄',
-          Off_ground: 200333,
-          Apex:'',
-          Call_the_police:'',
-          Fault:'',
-          Maintenance_unit:'',
-          Invest_time:'',
-          Replacement_period:'',
-          Add_time:'',
-          State:'',
-          Position:''
-        },{
-          Serial_number: '2',
-          Device_name: '王小虎',
-          Equipment_type: '上海',
-          Architectural_name: '普陀区',
-          Unit_name: '上海市普陀区金沙江路 1518 弄',
-          Off_ground: 200333,
-          Apex:'',
-          Call_the_police:'',
-          Fault:'',
-          Maintenance_unit:'',
-          Invest_time:'',
-          Replacement_period:'',
-          Add_time:'',
-          State:'',
-          Position:''
-        }],
+        building:'',//选择建筑
+        floor:'',
+        room:'',
+        equipment:'',
+        roomList:[],
+        floorList:[],
+        buildingList:[],
+        equipmentList:[],
+        optionList:[],//全部单位列表
+        tableData: [],//设备列表
         page:4,
         currentPage4: 1
       }

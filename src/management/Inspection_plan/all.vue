@@ -26,7 +26,7 @@
           <el-select v-model="form.region3" placeholder="路线状态" class="select">
             <el-option label="全部" value=""></el-option>
             <el-option label="已激活" value="1"></el-option>
-            <el-option label="未激活" value="0"></el-option>
+            <el-option label="未激活" value="2"></el-option>
           </el-select>
           <!--<div class="upd-elmdate float-left" style="margin-bottom:0;background-color: #111;margin-left:10px;">-->
             <!--<el-date-picker-->
@@ -45,14 +45,13 @@
         </el-form>
         <div class="main_nav_two float-right">
           <router-link to="/Inspection_plan/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
-          <router-link to="/Inspection_plan/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Inspection_plan/maps"><button @click="btn_map"><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
         </div>
       </div>
       <div class="main_content_table">
         <el-table
           :data="tableData"
           border
-          fit
           :default-sort = "{prop: 'Serial_number', order: 'descending'}"
           style="width: 100%;height:570px;">
           <el-table-column
@@ -120,7 +119,7 @@
               <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" style="width:40px;height:22px;border:2px solid #999999;color: #999;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==1">关闭</button>
               <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
               <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
-              <i @click="show3(scope.$index,scope.row)" class="fa fa-th-large font-gray-666"></i>
+              <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
             </template>
           </el-table-column>
         </el-table>
@@ -154,7 +153,7 @@
       </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="">
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -233,6 +232,8 @@
 </template>
 
 <script>
+  import FileSaver from 'file-saver'
+  import XLSX from 'xlsx'
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
@@ -251,7 +252,7 @@
         currentPage4: 1,//当前页
         optionList:[],//全部单位列表
         inspectionTypeList:[{//巡检类型列表
-          name:'全部',id:0
+          name:'全部',id:''
         },{
           name:'举报检查',id:1
         },{
@@ -302,6 +303,11 @@
       }
     },
     methods: {
+      btn_map(){
+        $('.plan').hide();
+        $('.mapTable').show();
+        $('.total').show();
+      },
       btn_add(){
         // console.log($('#right'));
         $('#right').css('display','none');
@@ -348,9 +354,12 @@
         })
         this.inspectionName = row.name;
       },
-      show3(index,row){//跳转
+      show3(row){//跳转
         console.log(row.id);
         this.$store.commit('inspectionPlanId',row.id);
+        $('.plan').show();
+        $('.mapTable').hide();
+        $('.total').hide();
       },
       stop_plan(row){//停用
         $('#mymodal3').css({
@@ -378,7 +387,7 @@
           }).then(response=>{
             if(response){
               console.log('删除线路成功...'+ JSON.stringify(response));
-              this.tableData.splice(this.deleteIndex,1);
+              this.tableData.splice(this.inspectionIndex,1);
               this.tableList();
             }
           }).then(err => {
@@ -446,6 +455,7 @@
           this.form = curVal;
           console.log(this.form);
           this.tableList();
+          this.$store.commit('region',this.form.region1);
         },
         deep:true
       }
@@ -454,15 +464,16 @@
       realconsole();
       this.tableList();
       this.unitSearch();
+      $('#right').show();
+      this.$store.commit('region',this.form.region1);
+      if(this.$route.path == '/Inspection_plan/all'){
+        $('.mapTable').hide();
+      }
+      
     }
   };
 </script>
 <style lang="scss" scoped>
-  .clearFix:after{
-    clear:both;
-    content:'';
-    display:block;
-  }
   h2{
     margin: 0;
     padding: 0;
@@ -657,6 +668,8 @@
   }
   .el-tag--red{
     color: red !important;
+    padding:0 !important;
+    border:none;
   }
   .el-tag--green{
     color: #fff !important;

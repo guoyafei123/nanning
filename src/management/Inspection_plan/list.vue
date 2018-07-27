@@ -343,9 +343,11 @@
 
 
           this.$router.push({path:'/Inspection_plan/all'});
+          $('#right').show();
         },
         back(){
-          this.$router.push({path:'/Inspection_plan/all'})
+          this.$router.push({path:'/Inspection_plan/all'});
+          $('#right').show();
         },
         Add(){//点击添加节点
 

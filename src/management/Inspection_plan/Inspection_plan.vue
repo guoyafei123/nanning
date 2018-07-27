@@ -11,7 +11,7 @@
     <!-- #左边 End-->
     <main-vue></main-vue>
     <!-- #右边 -->
-    <section id="right" class="position-fixed-right container-padding5 z-index-20" style="">
+    <section id="right" class="position-fixed-right container-padding5 z-index-20" style="padding:0;">
       <div class="overlay"></div>
       <set_right-vue></set_right-vue>
     </section>
@@ -62,7 +62,6 @@
 <style scoped>
   .row{
     position: relative;
-    z-index: 22;
   }
   .position-fixed-right{
     top:0;

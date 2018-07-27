@@ -1,3 +1,8 @@
+.clearFix:after{
+  clear:both;
+  content:'';
+  display:block;
+}
 
 .main_content{
   .el-input__inner{
@@ -196,7 +201,10 @@
     background-color: transparent;
   }
 }
-
+.el-table--enable-row-hover .el-table__body tr:hover>td{
+  background-color: #000 !important;
+  color: #fff !important;
+}
 .el-form-item{
   .el-button{
     border-radius: 0;
@@ -412,3 +420,7 @@ table th, table td{
   background-color:#222 !important;
 }
 
+
+.modal-backdrop{
+  z-index: 2 !important;
+}
