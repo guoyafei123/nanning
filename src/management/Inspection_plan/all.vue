@@ -10,29 +10,42 @@
         <!--<a href="javascript:;"><button><i class="fa fa-th-large font-gray-666 float-left"></i>巡检任务</button></a>-->
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Inspection_plan/list"><button  class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>规划</button></router-link>
+        <router-link to="/Inspection_plan/list"><button  class="btn_add" @click="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>规划</button></router-link>
       </div>
     </div>
     <div class="main_all_content" style="display: block;">
       <div class="main_content_top">
         <el-form ref="form" :model="form" label-width="80px" class="float-left">
-          <el-select v-model="form.region1" @change="" placeholder="全部单位" class="select" style="margin-left:20px;">
+          <el-select v-model="form.region1" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
-            <el-option v-for="item in optionList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
-          <el-select v-model="form.region2" placeholder="巡检类型" class="select">
+          <el-select v-model="form.region2" placeholder="巡检类型" class="select" style="width:150px;">
             <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
           </el-select>
           <el-select v-model="form.region3" placeholder="路线状态" class="select">
             <el-option label="全部" value=""></el-option>
             <el-option label="已激活" value="1"></el-option>
-            <el-option label="未激活" value="0"></el-option>
+            <el-option label="未激活" value="2"></el-option>
           </el-select>
-          <el-button>确定</el-button>
+          <!--<div class="upd-elmdate float-left" style="margin-bottom:0;background-color: #111;margin-left:10px;">-->
+            <!--<el-date-picker-->
+              <!--v-model="pickerTime"-->
+              <!--size="mini"-->
+              <!--type="daterange"-->
+              <!--align="right"-->
+              <!--unlink-panels-->
+              <!--range-separator="至"-->
+              <!--start-placeholder="开始日期"-->
+              <!--end-placeholder="结束日期"-->
+              <!--:picker-options="pickerOptions2">-->
+            <!--</el-date-picker>-->
+          <!--</div>-->
+          <!--<el-button>确定</el-button>-->
         </el-form>
         <div class="main_nav_two float-right">
           <router-link to="/Inspection_plan/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
-          <router-link to="/Inspection_plan/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Inspection_plan/maps"><button @click="btn_map"><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
         </div>
       </div>
       <div class="main_content_table">
@@ -45,48 +58,68 @@
             sortable
             prop="Serial_number"
             type="index"
+            width="60"
             label="序号">
           </el-table-column>
           <el-table-column
             prop="name"
+            width="120"
             label="路线名称">
           </el-table-column>
           <el-table-column
             prop="unitName"
+            width="120"
             label="巡检单位">
           </el-table-column>
           <el-table-column
-            prop="type"
+            prop="type" :formatter="formatType"
+            width="120"
             label="巡检类型">
           </el-table-column>
           <el-table-column
-            prop="activeName"
+            prop="createUserName"
+            width="120"
             label="发布者">
           </el-table-column>
           <el-table-column
-            prop="activeTime"
+            prop="createTime"
+            width="140"
             label="发布日期">
           </el-table-column>
           <el-table-column
             prop="amount"
+            width="120"
             label="每次额定次数">
           </el-table-column>
           <el-table-column
-            prop="isScan"
+            prop="isScan" :formatter="formatScan"
+            width="120"
             label="是否扫码打卡">
           </el-table-column>
-          <el-table-column
+          <el-table-column :formatter="formatStatus"
             prop="status"
+            width="120"
             label="路线状态">
+            <template slot-scope="scope" :formatter="formatStatus">
+              <el-tag
+                :type="scope.row.status === 1 ? 'green' : 'red'"
+                disable-transitions v-if='scope.row.status==1'>已激活<i class="fa fa-th-large font-gray-666"></i></el-tag>
+              <el-tag
+                :type="scope.row.status === 2 ? 'red' : 'green'"
+                disable-transitions v-if='scope.row.status==2'>未激活</el-tag>
+            </template>
+
           </el-table-column>
           <el-table-column
             fixed="right"
             label="操作"
             width="120">
             <template slot-scope="scope">
-              <button @click="show" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">开启</button>
-              <i @click="show2" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
-              <i @click="show3(scope.$index, scope.row)" class="fa fa-th-large font-gray-666"></i>
+              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==2">开启</button>
+              <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" style="width:40px;height:22px;border:2px solid #999999;color: #999;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==1">关闭</button>
+              <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
+              <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
+              <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
             </template>
           </el-table-column>
         </el-table>
@@ -120,48 +153,37 @@
       </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="">
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">激活</h4>
-            <h5 class="modal-p">巡检装修施工现场A</h5>
+            <h5 class="modal-p">{{ inspectionName }}</h5>
           </div>
           <div class="modal-body">
             <el-form ref="form" :label-position="labelPosition" :model="form">
-              <el-form-item label="发布日期">
-                <el-date-picker
-                  v-model="value1"
-                  type="datetime"
-                  placeholder="选择日期时间">
-                </el-date-picker>
-              </el-form-item>
+
               <el-form-item size="small"
-                            label="每日额定完成次数"
-                            prop="age"
-                            :rules="[
-              { required: true, message: '年龄不能为空'},
-              { type: 'number', message: '年龄必须为数字值'}
-            ]"
-              >
-                <el-input type="age" v-model.number="form.age" auto-complete="off" style="width:190px;"></el-input>
+                  label="每日额定完成次数"
+                  prop="age">
+                <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:190px;"></el-input>
                 <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
               </el-form-item>
               <div style="clear: both;"></div>
               <el-form-item label="是否开启扫描打卡" style="margin-top:10px;">
                 <span class="font-red" style="position: absolute;top:-54px;right:20px;">未选择是否生成图形码</span>
-                  <span class='span_show'>是</span>
-                  <span class='span_hide' style="margin-left:10px;">否</span>
+                <el-radio-group v-model="isScan">
+                  <el-radio-button label="1">是</el-radio-button>
+                  <el-radio-button label="0">否</el-radio-button>
+                </el-radio-group>
                 <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
-              </el-form-item>
-              <el-form-item label="发布人" >
-                <el-input v-model="form.name" style="width:190px;"></el-input>
+
               </el-form-item>
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary"  icon="el-icon-search" class="primary">激活</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">激活</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -177,10 +199,29 @@
           </div>
           <div class="modal-body" style="height:217px;">
             <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
-            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">巡检装修施工现场A</p>
+            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ inspectionName }}</p>
           </div>
           <div class="modal-footer">
-            <el-button type="danger"  icon="el-icon-search" class="danger">激活</el-button>
+            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
+            <el-button class="back" data-dismiss="modal">取消</el-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="mymodal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" style="">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel3">提示</h4>
+            <h5 class="modal-p">关闭操作并不影响之前的统计数据</h5>
+          </div>
+          <div class="modal-body" style="height:217px;">
+            <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否关闭</h2>
+            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ inspectionName }}</p>
+          </div>
+          <div class="modal-footer">
+            <el-button type="danger" @click.native.prevent="StopRow()" icon="el-icon-search" class="danger" data-dismiss="modal">关闭</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -191,17 +232,19 @@
 </template>
 
 <script>
+  import FileSaver from 'file-saver'
+  import XLSX from 'xlsx'
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
-        value1:'',
+        isScan:'',//是否扫码打卡
+        amountNumber:'',//每日额定次数
         labelPosition: 'top',
         form: {//筛选项
-          name:'',
-          region1:null,
-          region2:null,
-          region3:null
+          region1:null,//选择单位
+          region2:null,//巡检类型
+          region3:null//路线状态
         },
         tableData: [],//路线列表
         page:null,//总页数
@@ -209,7 +252,7 @@
         currentPage4: 1,//当前页
         optionList:[],//全部单位列表
         inspectionTypeList:[{//巡检类型列表
-          name:'全部',id:0
+          name:'全部',id:''
         },{
           name:'举报检查',id:1
         },{
@@ -226,10 +269,58 @@
           name:'恢复工作检查',id:7
         }, {
           name: '其他检查', id: 8
-        }]
+        }],
+        // pickerOptions2: {
+        //   shortcuts: [{
+        //     text: '最近一周',
+        //     onClick(picker) {
+        //       const end = new Date();
+        //       const start = new Date();
+        //       start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+        //       picker.$emit('pick', [start, end]);
+        //     }
+        //   }, {
+        //     text: '最近一个月',
+        //     onClick(picker) {
+        //       const end = new Date();
+        //       const start = new Date();
+        //       start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+        //       picker.$emit('pick', [start, end]);
+        //     }
+        //   }, {
+        //     text: '最近三个月',
+        //     onClick(picker) {
+        //       const end = new Date();
+        //       const start = new Date();
+        //       start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+        //       picker.$emit('pick', [start, end]);
+        //     }
+        //   }]
+        // },
+        // pickerTime: '',
+        inspectionIndex:'',
+        inspectionName:''
       }
     },
     methods: {
+      btn_map(){
+        $('.plan').hide();
+        $('.mapTable').show();
+        $('.total').show();
+      },
+      btn_add(){
+        // console.log($('#right'));
+        $('#right').css('display','none');
+      },
+      formatType(row){
+        return row.type == 1 ? '举报检查': row.type == 2 ? '活动检查':row.type == 3 ? '例行检查':row.type == 4 ? '复查':row.type == 5 ? '施工检查':row.type == 6 ? '解除临时查封':row.type == 7 ? '恢复工作检查':row.type == 8 ? '其他检查':'全部';
+      },
+      formatScan(row){
+        return row.isScan == 1 ?  '是' : '否';
+      },
+      formatStatus(row){
+        return row.status == 1 ? '已激活' : '未激活';
+      },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },
@@ -238,25 +329,92 @@
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
-      SetColor(ele,key,value){
-        $(ele).css(key,value);
-      },
-      show(){
+      start_plan(row){//启用
         $('#mymodal').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
+        this.inspectionIndex = row.id ;
       },
-      show2(){
+      startRow(){
+          this.$fetch("/api/inspection/start_plan",{
+            id:this.inspectionIndex,
+            amount:this.amountNumber,
+            isScan:this.isScan
+          }).then(response=>{
+            if(response){
+              console.log('开启线路成功...'+ JSON.stringify(response));
+              this.tableList();
+            }
+          })
+
+      },
+      delete_plan(row){//删除
         $('#mymodal2').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
+        this.inspectionName = row.name;
       },
-      show3(index,row){
-        console.log(index,row)       // $('.Inspection_plan').css('display','none')
+      show3(row){//跳转
+        console.log(row.id);
+        this.$store.commit('inspectionPlanId',row.id);
+        $('.plan').show();
+        $('.mapTable').hide();
+        $('.total').hide();
+      },
+      stop_plan(row){//停用
+        $('#mymodal3').css({
+          "display":"flex","justify-content":"center" ,"align-items": "center"
+        })
+        this.inspectionName = row.name;
+        this.inspectionIndex = row.id ;
+      },
+      StopRow(){//停用的接口
+          console.log(this.inspectionIndex);
+          this.$fetch("/api/inspection/stop_plan",{
+            id:this.inspectionIndex
+          }).then(response=>{
+            if(response){
+              console.log('关闭线路成功...'+ JSON.stringify(response));
+              this.tableList();
+            }
+          })
+
+      },
+      deleteRow(){
+          console.log(this.inspectionIndex);
+          this.$fetch("/api/admin/inspection/deleteInspectiopnPlan",{
+            inspectionPlanId:this.inspectionIndex
+          }).then(response=>{
+            if(response){
+              console.log('删除线路成功...'+ JSON.stringify(response));
+              this.tableData.splice(this.inspectionIndex,1);
+              this.tableList();
+            }
+          }).then(err => {
+            console.log(err);
+          });
+      },
+      unitSearch(){
+        this.$fetch(
+          "/api/unit/queryUnit"
+        )
+          .then(response => {
+            if (response) {
+              console.log(response);
+              this.optionList = response.data.unitList;
+              console.log(this.optionList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+          .then(err => {
+            console.log(err);
+          });
       },
       tableList(){
         this.$fetch(
-          "/api/inspection/queryInspectionPlanList",{
+          "/api/admin/inspection/queryInspectionPlanList",{
             currentPage:this.currentPage4,
             pageSize:10,
             unitId:this.form.region1,
@@ -297,42 +455,25 @@
           this.form = curVal;
           console.log(this.form);
           this.tableList();
+          this.$store.commit('region',this.form.region1);
         },
         deep:true
       }
     },
-    updated(){
-      // console.log(this.form.region2)
-      // console.log(this.form.region3)
-      // console.log(this.totalList/10)
-    },
     mounted(){
       realconsole();
-      this.SetColor('.btn-prev','background','transparent');
-      this.SetColor('.btn-next','background','transparent');
-      this.SetColor('.el-pager li','background','transparent');
-      this.SetColor('.el-pager li','color','#666');
-
       this.tableList();
-      this.$fetch("/api/unit/queryUnit").then(response=>{
-        console.log(response);
-        if (response) {
-          // this.optionList = response.data.unitList;
-          // console.log(this.optionList);
-          $(' .el-select-dropdown__item').mouseover(function(){
-            $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-          });
-        }
-      })
+      this.unitSearch();
+      $('#right').show();
+      this.$store.commit('region',this.form.region1);
+      if(this.$route.path == '/Inspection_plan/all'){
+        $('.mapTable').hide();
+      }
+      
     }
   };
 </script>
 <style lang="scss" scoped>
-  .clearFix:after{
-    clear:both;
-    content:'';
-    display:block;
-  }
   h2{
     margin: 0;
     padding: 0;
@@ -347,6 +488,7 @@
     }
   }
   @media (min-width: 1600px){
+
     main {
       margin-left:17.58%;
       margin-right: 24%;
@@ -524,4 +666,18 @@
     line-height: 32px;
     padding:0;
   }
+  .el-tag--red{
+    color: red !important;
+    padding:0 !important;
+    border:none;
+  }
+  .el-tag--green{
+    color: #fff !important;
+    padding:0 !important;
+    border:none;
+    i{
+      margin-left:7px;
+    }
+  }
+
 </style>

@@ -1,8 +1,13 @@
+.clearFix:after{
+  clear:both;
+  content:'';
+  display:block;
+}
 
 .main_content{
   .el-input__inner{
-    height:32px;
-    line-height:32px;
+    height:32px !important;
+    line-height:32px !important;
     background: #111111;
     border-color: #333333;
     font-size:12px;
@@ -15,7 +20,15 @@
   .el-form--label-top .el-form-item__label{
     padding:0;
   }
+
+  //禁用选项按钮
+  .el-input.is-disabled .el-input__inner{
+    background-color:#111111;
+    border-color:#333333;
+    color:#4a4a4a;
+  }
 }
+//设置选项框的样式
 .sbwz_138_32{
   width:138px;
   height:32px;
@@ -188,7 +201,10 @@
     background-color: transparent;
   }
 }
-
+.el-table--enable-row-hover .el-table__body tr:hover>td{
+  background-color: #000 !important;
+  color: #fff !important;
+}
 .el-form-item{
   .el-button{
     border-radius: 0;
@@ -259,7 +275,8 @@
 .el-pagination button:hover{
   color: #bad616 !important;
 }
-// maps
+
+
 
 .el-form-item__content{
   margin-left: 0;
@@ -311,3 +328,99 @@
 
 }
 
+//列表分页的样式
+.main_content_bottom  .btn-prev{
+  background:transparent !important;
+}
+.main_content_bottom .btn-next{
+  background:transparent !important;
+}
+.main_content_bottom .el-pager li{
+  background: transparent ;
+  color:#666;
+}
+table th, table td{
+  text-align: left !important;
+}
+
+//
+@media (min-width: 768px) and (max-width:1600px){
+  @keyframes move {
+    0%{
+      left:0;
+    }
+    100%{
+      left:-295px;
+    }
+  }
+  @keyframes moveto {
+    0%{
+      left:-295px;
+    }
+    100%{
+      left:0;
+    }
+  }
+}
+@media (min-width: 1600px){
+  @keyframes move {
+    0%{
+      left:0;
+    }
+    100%{
+      left:-17.58%;
+    }
+  }
+  @keyframes moveto {
+    0%{
+      left:-17.58%;
+    }
+    100%{
+      left:0;
+    }
+  }
+}
+
+
+//修改弹窗 单选按钮（是、否）的样式
+.el-radio-button{
+  margin-right:10px;
+
+}
+.el-radio-button>.el-radio-button__inner{
+      width:40px !important;
+      height:32px !important;
+      border:2px solid #333333 !important;
+      box-sizing: border-box !important;
+      display: inline-block !important;
+      line-height: 31px !important;
+      text-align:center !important;
+      color: #5e5e5e ;
+      background-color: #111111 !important;
+      padding:0 !important;
+      border-radius:0 !important;
+    }
+.el-radio-button__orig-radio:checked+.el-radio-button__inner{
+  background-color: #111111 !important;
+  color: #bad616 !important;
+  border:2px solid #bad616 !important;
+  box-shadow:none !important;
+}
+.el-radio-button__inner:hover{
+  color: #bad616 !important;
+}
+.el-tag{
+  background-color: transparent !important;
+}
+
+
+//修改表单下拉框的hover效果
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+  color:#fff !important;
+  background-color:#222 !important;
+}
+
+
+.modal-backdrop{
+  z-index: 2 !important;
+}

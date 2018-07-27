@@ -302,7 +302,7 @@
 </template>
 
 <script>
-    import{mapState} from "vuex"
+    // import{mapState} from "vuex"
     export default {
       data(){
         return{
@@ -312,7 +312,7 @@
           arrays:[1,2,3,4,5,6,7,8,9,10],
           vuextest:'兄弟组件传参'
         }
-        
+
       },
       methods: {
         tovuex(){
@@ -320,11 +320,11 @@
           this.$store.commit('tovuex',this.arrays);
         },
       },
-      
-      computed:mapState([
-        'setvuextest',
-      ])
-      
+
+      // computed:mapState([
+      //   'setvuextest',
+      // ])
+
     }
 </script>
 

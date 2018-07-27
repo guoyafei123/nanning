@@ -32,7 +32,6 @@ import './assets/map/map.js'
 import './assets/css/index.css'
 import './assets/css/map.css'
 import './assets/css/upd-element.css'
-require('./assets/css/setting.scss');
 
 // axios请求
 import { post,fetch } from './assets/js/http';
