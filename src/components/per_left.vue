@@ -21,13 +21,13 @@
         <div class="col-sm-6 font-gray-999 padding-left0 padding-right0">
           <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
             <li>
-              <p class="set-width-50 size-12">人员总数</p>
-              <p class="display-inline-block font-italic" @click="tovuex">123</p>
+              <p class="set-width-50 size-12" @click="tovuex">人员总数</p>
+              <p class="display-inline-block font-italic" >123</p>
             </li>
             <li>
-              <p class="set-width-50 size-12">巡检人员</p>
+              <p class="set-width-50 size-12" @click="tovuex1">巡检人员</p>
               <p class="display-inline-block font-italic">
-                <span class="font-blue font-italic margin-bottom0">3 </span>/
+                <span class="font-blue font-italic margin-bottom0" >3 </span>/
                 <span class="margin-bottom0">120</span>
               </p>
             </li>
@@ -317,14 +317,13 @@
       methods: {
         tovuex(){
           console.log(1);
-          this.$store.commit('tovuex',this.arrays);
+          this.$store.commit('setvuextest',this.arrays);
         },
-      },
-
-      // computed:mapState([
-      //   'setvuextest',
-      // ])
-
+        tovuex1(){
+          console.log(1);
+          this.$store.commit('setvuextest',this.vuextest);
+        },
+      }
     }
 </script>
 

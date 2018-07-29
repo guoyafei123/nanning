@@ -3,20 +3,12 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 var state={
-  region:'',
-  inspectionId:'',
-  form:{}
+  setvuextest:'',
 }
 
 var mutations={
-  region(state,data){
-    state.region = data;
-  },
-  inspectionPlanId(state,data){
-    state.inspectionId = data;
-  },
-  form(state,data){
-    state.form= data;
+  setvuextest(state,data){
+    state.setvuextest = data;
   }
 }
 

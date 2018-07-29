@@ -5,18 +5,18 @@
 <script>
   export default {
     mounted() {
-      this.legend_landmark('实验教学楼1号', '1.7', '300', '400');
-      this.legend_landmark('实验教学楼2号', '4.5', '500', '600');
-      this.legend_landmark('实验教学楼3号', '8.1', '700', '200');
-      this.legend_landmark('实验教学楼4号', '12.8', '1000', '800');
+      // this.legend_landmark('实验教学楼1号', '1.7', '300', '400');
+      // this.legend_landmark('实验教学楼2号', '4.5', '500', '600');
+      // this.legend_landmark('实验教学楼3号', '8.1', '700', '200');
+      // this.legend_landmark('实验教学楼4号', '12.8', '1000', '800');
 
-      this.legend_people('src/assets/images/people.png', '2', '500', '200');
-      this.legend_people('src/assets/images/people.png', '1', '1200', '700');
+      // this.legend_people('src/assets/images/people.png', '2', '500', '200');
+      // this.legend_people('src/assets/images/people.png', '1', '1200', '700');
 
-      this.legend_alarm('实验教学楼1号', '1.7', '700', '400', 400);
-      this.legend_alarm('实验教学楼2号', '4.5', '1360', '200', 500);
-      this.legend_alarm('实验教学楼3号', '8.1', '100', '100', 300);
-      this.legend_alarm('实验教学楼4号', '12.8', '1200', '700', 200);
+      // this.legend_alarm('实验教学楼1号', '1.7', '700', '400', 400);
+      // this.legend_alarm('实验教学楼2号', '4.5', '1360', '200', 500);
+      // this.legend_alarm('实验教学楼3号', '8.1', '100', '100', 300);
+      // this.legend_alarm('实验教学楼4号', '12.8', '1200', '700', 200);
     },
     methods: {
       legend_landmark(name, value, left, top) {

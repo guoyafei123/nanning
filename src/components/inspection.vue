@@ -624,29 +624,10 @@ export default {
         endTime:'2018-07-05'
       },
       ins_queryPlanDetails:Object,
-      // options: [
-      //   {
-      //     value: "选项1",
-      //     label: "路线名称"
-      //   },
-      //   {
-      //     value: "选项2",
-      //     label: "路线名称"
-      //   },
-      //   {
-      //     value: "选项3",
-      //     label: "路线名称"
-      //   },
-      //   {
-      //     value: "选项4",
-      //     label: "路线名称"
-      //   },
-      //   {
-      //     value: "选项5",
-      //     label: "路线名1称"
-      //   }
-      // ],
-      // optionsvalue: "路线名称"
+      queryUnitBuildList_parameter:{
+        unitId:4
+      },
+      ins_queryUnitBuildList:Object,
     };
   },
   components: {
@@ -1015,6 +996,22 @@ export default {
       };
       let charf = this.$echarts.init(document.getElementById(id));
       charf.setOption(char);
+    },
+    getmapBuildList(){
+      // 请求路线列表
+      this.$fetch(
+        "/api/building/queryUnitBuildList",
+        this.queryUnitBuildList_parameter
+      )
+        .then(response => {
+          if (response) {
+            this.ins_queryUnitBuildList = response.data;
+            
+          }
+        })
+        .then(err => {
+          console.log(err);
+        });
     }
   },
   mounted() {
