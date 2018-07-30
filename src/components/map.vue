@@ -3,13 +3,18 @@
 </template>
 
 <script>
-    var maxroom=19;
-    var minroom=15;
-    var zoom=16;
+    
+    import{mapState} from "vuex"
     export default {
-      // data(){
-
-      // },
+      data(){
+        return{
+          maxroom:19,
+          minroom:15,
+          zoom:16,
+          point:[108.363609,22.815612],
+          mp:Object
+        }
+      },
 
       methods:{
         getMapToDiv(divId) {
@@ -190,7 +195,7 @@
               }
             }
           ];  
-          var MAP_CENTER_POINT = new BMap.Point(108.379257,22.801501);
+          var MAP_CENTER_POINT = new BMap.Point(this.point[0],this.point[1]);
           var mapArr = {};
           var map_id = ['right_top_map', 'allmap'];
           var map = mapArr[divId];
@@ -198,9 +203,9 @@
               return map;
           }
           map = new BMap.Map(divId,{enableMapClick:false});
-          map.centerAndZoom(MAP_CENTER_POINT, zoom);  // 初始化地图,设置中心点坐标和地图级别
-          map.setMinZoom(minroom);
-          map.setMaxZoom(maxroom);
+          map.centerAndZoom(MAP_CENTER_POINT, this.zoom);  // 初始化地图,设置中心点坐标和地图级别
+          map.setMinZoom(this.minroom);
+          map.setMaxZoom(this.maxroom);
           map.disableDoubleClickZoom();
           map.enableScrollWheelZoom();
           map.setMapStyle({ styleJson: MAP_STYLE_SMALL });
@@ -323,7 +328,6 @@
         addline(array){
           var pois=[];
           for(var i=0;i<array.length;i++){
-            console.log(array[i]);
             pois.push(new BMap.Point(array[i][0],array[i][1]))
           }
           
@@ -340,9 +344,9 @@
         // 创建自定义marker-建筑标志和值
         legend_landmark(name, value) {
           var style;
-          if (value <= 3) {
+          if (value <= 1) {
             style = 'bg-blue';
-          } else if (value <= 6) {
+          } else if (value <= 2) {
             style = 'bg-yellow';
           } else if (value <= 9) {
             style = 'bg-orange';
@@ -419,8 +423,40 @@
 
 
       },
+      computed:mapState([
+        'queryUnitBuildList',
+        'queryInspectionLineList'
+      ]),
+      watch:{
+        // 所有巡检单位
+        queryUnitBuildList(){
+          this.queryUnitBuildList.unitBuildList.forEach(element => {
+            this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
+          });
+        },
+
+        // 正在巡检的路线
+        queryInspectionLineList(){
+          this.queryInspectionLineList.inspectionLineList.forEach(element => {
+            if(element.inspectionNodeUserList!=0){
+              let array=[]
+              element.inspectionNodeUserList.forEach(item=>{
+                if(item.xRate!=null || item.xRate!='' ||item.xRate!=0 ||item.xRate!=1){
+                  this.mp.addOverlay(this.addlandmark(item.buildingName,item.status,[item.xRate,item.yRate]))
+                  array.push([item.xRate,item.yRate]);
+                  this.mp.addOverlay(this.addline(array));
+                  
+                }
+              })
+            }
+            // this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
+            console.log(element.buildingName);
+          });
+        }
+      },
       mounted(){
         var map=this.getMapToDiv('allmap');
+        this.mp=map;
         var alarmsize=500;
         var alarmsize1=1000;
         var that=this;
@@ -445,12 +481,12 @@
         map.addOverlay(alarm1[1])
 
         map.addEventListener("zoomend", function(evt){
-          var listenerScale = scale[zoom] / scale[map.getZoom()] * alarmsize ;
+          var listenerScale = scale[that.zoom] / scale[map.getZoom()] * alarmsize ;
           map.removeOverlay(alarm[0])
           alarm=that.addalarm("银湖海岸城1",'6',listenerScale,[108.385000,22.795000])
           map.addOverlay(alarm[0])
           
-          var listenerScale1 = scale[zoom] / scale[map.getZoom()] * alarmsize1 ;
+          var listenerScale1 = scale[that.zoom] / scale[map.getZoom()] * alarmsize1 ;
           map.removeOverlay(alarm1[0])
           alarm1=that.addalarm("银湖海岸城1",'12',listenerScale1,[108.385257,22.805501])
           map.addOverlay(alarm1[0])

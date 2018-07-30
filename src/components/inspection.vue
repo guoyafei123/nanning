@@ -627,7 +627,11 @@ export default {
       queryUnitBuildList_parameter:{
         unitId:4
       },
-      ins_queryUnitBuildList:Object,
+      queryUnitBuildList:Object,
+      queryInspectionLineList_parameter:{
+        unitId:4
+      },
+      queryInspectionLineList:Object,
     };
   },
   components: {
@@ -997,26 +1001,44 @@ export default {
       let charf = this.$echarts.init(document.getElementById(id));
       charf.setOption(char);
     },
-    getmapBuildList(){
+    getmap_queryUnitBuildList(){
       // 请求路线列表
       this.$fetch(
         "/api/building/queryUnitBuildList",
         this.queryUnitBuildList_parameter
       )
-        .then(response => {
-          if (response) {
-            this.ins_queryUnitBuildList = response.data;
-            
-          }
-        })
-        .then(err => {
-          console.log(err);
-        });
-    }
+      .then(response => {
+        if (response) {
+          this.queryUnitBuildList = response.data;
+          this.$store.commit('queryUnitBuildList',this.queryUnitBuildList);
+        }
+      })
+      .then(err => {
+        console.log(err);
+      });
+    },
+    getmap_queryInspectionLineList(){
+      // 请求路线列表
+      this.$fetch(
+        "/api/inspection/queryInspectionLineList",
+        this.queryInspectionLineList_parameter
+      )
+      .then(response => {
+        if (response) {
+          this.queryInspectionLineList = response.data;
+          this.$store.commit('queryInspectionLineList',this.queryInspectionLineList);
+        }
+      })
+      .then(err => {
+        console.log(err);
+      });
+    },
   },
   mounted() {
     this.getData();
     this.getTable();
+    this.getmap_queryUnitBuildList();
+    this.getmap_queryInspectionLineList();
   }
 };
 </script>
