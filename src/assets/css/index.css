@@ -198,25 +198,21 @@
     text-align: center;
     /* z-index: 999; */
 }
-.footer ul li{
-    padding: 9px 22px;
+.footer ul li{   
+    padding: 9px 22px; 
     margin: 2px;
     border: 1px solid #666;
 }
-.footer ul li:hover{
-    background: rgba(255,255,255,.1);
-}
-.footer ul li:hover a{
-    color: #ccc !important;
-}
 .footer ul li a{
     color: #ccc;
+    display: block;
 }
-.footer-nav-active{
+.footer ul li:hover,.footer-nav-active{
     background: rgba(186,214,22,1);
+    border-color: transparent!important;
 }
-.footer-nav-active a{
-    color:#333 !important;
+.footer ul li:hover a,.footer-nav-active a{
+    color: #000 !important;
 }
 .footer abbr{
     position: relative;
