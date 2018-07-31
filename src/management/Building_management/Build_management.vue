@@ -48,4 +48,12 @@
     height: 110px;
     /*background:rgba(0,0,0,1)*/
   }
+  @media (min-width: 1600px){
+    #left{
+      width:17.58% !important;
+    }
+    #right{
+      width:24%;
+    }
+  }
 </style>

@@ -437,16 +437,6 @@
         })
       }
     },
-    mounted(){
-      realconsole();
-      this.tableList();
-      this.unitSearch();
-      $('#right').show();
-      this.$store.commit('Unit',this.unit);
-      if(this.$route.path == '/Equipment_management/all'){
-        $('.mapTable').hide();
-      }
-    },
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;

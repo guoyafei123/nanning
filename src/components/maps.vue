@@ -4,7 +4,7 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-th-large font-gray-666 float-left"></i>
-          <h2 class="float-left font-white size-16">巡检管理</h2>
+          <h2 class="float-left font-white size-16">设备管理</h2>
         </div>
         <div class="main_nav float-right">
           <router-link to="/Equipment_management/list"><button @click="btn_add" class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>规划</button></router-link>

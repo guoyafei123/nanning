@@ -343,6 +343,7 @@
         $('#mymodal2').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
+        this.inspectionIndex = row.id ;
         this.inspectionName = row.name;
       },
       show3(row){//跳转

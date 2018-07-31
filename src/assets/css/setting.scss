@@ -103,7 +103,9 @@
   border-bottom-color: #333 !important;
   top:0 !important;
 }
-
+.el-popper[x-placement^=top] .popper__arrow::after{
+  border-top-color: #333 !important;
+}
 
 // all
 .main_all_content{
@@ -423,4 +425,21 @@ table th, table td{
 
 .modal-backdrop{
   z-index: 2 !important;
+}
+
+
+
+
+.modal_form{
+  .el-form-item__label{
+    width:130px;
+  }
+  .el-form-item__content{
+    width: 300px;
+    margin-left:10px;
+  }
+  
+}
+.el-date-picker__header--bordered{
+  border-bottom-color:rgb(40, 40, 40) !important;
 }

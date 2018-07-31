@@ -7,83 +7,68 @@
           <h2 class="float-left font-white size-16">建筑管理</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Building_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-          <router-link to="/Building_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
+          <!-- <router-link to="/Building_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link> -->
+          <!-- <router-link to="/Building_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link> -->
           <router-link to="/Building_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
         </div>
       </div>
       <div class="main_content">
         <el-form ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="建筑名称">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span>
-            <el-input v-model="form.name"></el-input>
+            <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
+            <el-input v-model="form.BuildName"></el-input>
           </el-form-item>
           <el-form-item label="所属单位">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">所属单位有误或重复</span>
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="建筑地址">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="占地面积">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="总楼层">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="建筑类型">
-            <el-select v-model="form.region" placeholder="建筑类型">
-              <el-option label="低层（1~3）" value="shanghai"></el-option>
-              <el-option label="多层（4~6）" value="beijing"></el-option>
-              <el-option label="中高层（7~9）" value="beijing"></el-option>
-              <el-option label="高层（10~）" value="beijing"></el-option>
+            <el-select v-model="form.unitId" placeholder="选择单位" class="select" style="width:200px;">
+              <el-option label="全部单位" value=""></el-option>
+              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
+          <el-form-item label="建筑地址">
+            <el-input v-model="form.address"></el-input>
+          </el-form-item>
+          <el-form-item label="占地面积（m^2）">
+            <el-input v-model="form.area"></el-input>
+          </el-form-item>
+          <el-form-item label="高度">
+            <el-input v-model="form.height"></el-input>
+          </el-form-item>
+          <el-form-item label="总楼层">
+            <el-input v-model="form.floor"></el-input>
+          </el-form-item>
           <el-form-item label="建成结构">
-            <el-select v-model="form.region" placeholder="建成结构">
-              <el-option label="砖木" value="shanghai"></el-option>
-              <el-option label="砖混" value="beijing"></el-option>
-              <el-option label="钢结构混凝土" value="beijing"></el-option>
-              <el-option label="钢结构" value="beijing"></el-option>
+            <el-select name="" v-model="form.structure" placeholder="请选择结构">
+              <el-option label="砖混" value="砖混"></el-option>
+              <el-option label="钢结构" value="钢结构"></el-option>
+              <el-option label="玻璃" value="玻璃"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="建成年份">
             <div class="block">
               <el-date-picker
-                v-model="value5"
+                v-model="form.timeYear"
                 type="year"
                 placeholder="选择年">
               </el-date-picker>
             </div>
           </el-form-item>
           <el-form-item label="建筑性质">
-            <el-select v-model="form.region" placeholder="建筑性质">
-              <el-option label="居住" value="shanghai"></el-option>
-              <el-option label="公共" value="beijing"></el-option>
-              <el-option label="工业" value="beijing"></el-option>
+            <el-select v-model="form.property" placeholder="建筑性质">
+              <el-option label="居住" value="居住"></el-option>
+              <el-option label="公共" value="公共"></el-option>
+              <el-option label="工业" value="工业"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="消防负责人">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="消防负责人电话">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-
-
-          <div style="clear: both;"></div>
-          <el-form-item label="是否生成二维码" style="margin-top:20px;">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>
-            <el-radio-group v-model="form.resource">
-              <el-radio label="是"></el-radio>
-              <el-radio label="否"></el-radio>
-            </el-radio-group>
-            <!--<el-button type="primary" round icon="el-icon-search" class="resource_btn">用于巡检打卡功能，设备信息快速查看等</el-button>-->
+            <el-input v-model="form.phone"></el-input>
           </el-form-item>
           <div style="width:485px;margin:0 auto 25px;border-top:1px solid #222222;"></div>
           <el-form-item style="margin-bottom: 20px;">
-            <el-button type="primary"  icon="el-icon-search" class="primary">保存并提交</el-button>
-            <el-button class="back">返回</el-button>
+            <el-button type="primary"  icon="el-icon-search" class="primary" @click="btn">保存并提交</el-button>
+            <el-button class="back" @click="back">返回</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -98,22 +83,76 @@
           value5:'2018',
           labelPosition: 'top',
           form: {
-            name: '',
-            address:'',
-            region: '',
-            region1: '',
-            Height: '',
-            Top: '',
-            PhysicalAddress: '',
-            Maintenance_unit:'',
-            Maintenance_phone:'',
-            Replacement_cycle:'',
-            resource: ''
-          }
+            unitId:'',
+            UnitName:'',
+            BuildName:'',
+            height:'',
+            floor:'',
+            structure:'',
+            property:'',          
+            timeYear:'',
+            name:'',
+            phone:''
+          },
+          unit:null,//选择单位
+          optionList:[],//全部单位列表
         }
       },
       methods:{
-
+        btn(){
+          this.optionList.forEach((item,index)=>{
+            if(item.id == this.form.unitId){
+              console.log(item.name);
+              this.form.UnitName = item.name;
+            }
+          })
+          this.$fetch("/api/building/addBuilding",{
+            'name':this.form.BuildName,
+            'unitId':this.form.unitId,
+            'unitName':this.form.UnitName,
+            'location':this.form.address,
+            'area':this.form.area,
+            'heightOfBuilding':this.form.height,
+            'floors':this.form.floor,
+            'structure':this.form.structure,
+            'buildYear':this.form.timeYear,
+            'property':this.form.property,
+            'linkname':this.form.name,
+            'phone':this.form.phone,
+            'pointX':105.12,
+            'pointY':35.12,
+            headers: {'Content-Type': 'application/json'}
+          },
+        
+          ).then(response=>{
+            if(response){
+              console.log('新增建筑成功...'+ JSON.stringify(response));
+            }
+          })
+          this.$router.push({path:'/Building_management/all'});
+        },
+        back(){
+          this.$router.push({path:'/Building_management/all'});
+          $('#right').show();
+        },
+        unitSearch(){
+          this.$fetch(
+            "/api/unit/queryUnit"
+          )
+            .then(response => {
+              if (response) {
+                console.log(response);
+                this.optionList = response.data.unitList;
+                console.log(this.optionList);
+                $(' .el-select-dropdown__item').mouseover(function(){
+                  $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+                });
+              }
+            })
+            .then(err => {
+              // console.log(err);
+            });
+        }
       },
       mounted(){
         $('.el-scrollbar').css({
@@ -125,7 +164,7 @@
           $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
         });
 
-
+        this.unitSearch();
       }
     }
 </script>
