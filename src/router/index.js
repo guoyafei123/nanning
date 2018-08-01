@@ -5,6 +5,8 @@ Vue.use(Router)
 // header
 import Equipment_managementVue from '../components/setting';
 // footer
+import LoginVue from '../components/login';
+import RegisterVue from '../components/register';
 import IndexVue from '../components/index';
 import CallpoliceVue from '../components/callpolice';
 import InspectionVue from '../components/inspection';
@@ -29,11 +31,15 @@ import Inspection_planVue from '../management/Inspection_plan/Inspection_plan';
 import Plan_listVue from '../management/Inspection_plan/list';
 import Plan_AllVue from '../management/Inspection_plan/all';
 import Plan_MapsVue from '../management/Inspection_plan/maps';
+import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
     // footer 导航
     {
-      path:'/index',component:IndexVue
+      path:'/login',component:LoginVue
+    },
+    {
+      path:'/register',component:RegisterVue
     },
     {
       path:'/callpolice',component:CallpoliceVue

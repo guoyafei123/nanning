@@ -28,6 +28,12 @@
       'header-vue':HeaderVue,
       'bulid_left-vue':Bulid_leftVue,
       'bulid_right-vue':Bulid_rightVue
+    },
+    mounted() {
+      this.$store.commit('route_path',this.$route.path);
+      // console.log(this.$route.path);
+      // this.$router.path
+      
     }
   }
 </script>

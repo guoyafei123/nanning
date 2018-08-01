@@ -83,6 +83,14 @@
     color: #333 ;
     cursor: not-allowed;
 }
+.el-select-dropdown{
+    background: #000;
+    border: 1px solid #606266 !important;
+    border-radius: 0px !important;
+}
+.el-select-dropdown__empty{
+    background: #000;
+}
 
 /* 修改饿了么时间样式 */
 .upd-elmdate *{
@@ -134,4 +142,42 @@
 }
 .el-picker-panel__icon-btn{
     color: #666;
+}
+
+/* 修改登录 */
+.loginbtn{
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    background: #bad616;
+    border:none;
+    color: #333;
+    margin-top: 20PX;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.loginbtn:active{
+    background: #d9ff00;
+    border:none;
+    color: #333;
+}
+
+.el-input__inner{
+    background: rgba(0,0,0,0) !important;
+}
+.el-form-item.is-success .el-input__inner{
+    border-color:#bad616 !important;
+}
+.el-form-item.is-success .el-input__validateIcon{
+    color:#bad616 !important;
+}
+
+.el-input__inner{
+    border: 1px solid #666
+}
+
+.el-input__inner:active,.el-input__inner:visited,.el-input__inner:hover{
+    border: 1px solid #666 !important;
 }

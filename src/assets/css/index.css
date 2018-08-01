@@ -198,10 +198,16 @@
     text-align: center;
     /* z-index: 999; */
 }
-.footer ul li{   
-    padding: 9px 22px; 
+.footer ul li{
+    padding: 9px 22px;
     margin: 2px;
     border: 1px solid #666;
+}
+.footer ul li:hover{
+    background: rgba(255,255,255,.1);
+}
+.footer ul li:hover a{
+    color: #ccc !important;
 }
 .footer ul li a{
     color: #ccc;
@@ -530,6 +536,46 @@ video:hover{
     display: inline-block;
 }
 
+.login{
+  width: 100vw;
+  height: 100vh;
+}
+.login>div{
+  height: 100%;
+}
+.login-left{
+  background: #0d0d0d;
+  overflow: hidden;
+}
+.login p{
+  letter-spacing:1px;
+}
+.login-left>div{
+  width: 440px;
+  float:right;
+  margin:200px 100px 0px 0px;
+}
+
+.login-right{
+  background: #000;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.login-right>div{
+  width: 440px;
+  margin: 200px auto 0px;
+}
+
+.loginbac{
+  position: absolute;
+  top: 20%;
+  left: 0px;
+  width: 70%;
+  height: auto;
+}
+
 
 /* 综合 */
 /*左侧公用统计*/
@@ -602,12 +648,12 @@ video:hover{
     /* 今日巡检 */
     .common-top-statistics ul li:first-child  {
         color: #fff;
-    }    
+    }
     .common-top-statistics ul li:last-child h5 {
         background-color: #222;
         color: #ccc;
         height: 32px;
-        line-height: 32px; 
+        line-height: 32px;
         text-align: center;
         width: 31%;
         margin-right: 3.5%;
@@ -631,7 +677,7 @@ video:hover{
         right: 0;
         min-width: 110px;
         min-height: 110px;
-        max-height: 120px;        
+        max-height: 120px;
     }
 /* 综合右侧 */
 
@@ -692,7 +738,7 @@ video:hover{
     background: -ms-linear-gradient(top,rgba(0, 0, 0, 0),rgba(0, 0, 0, .9));
     background: -webkit-linear-gradient(top,rgba(0, 0, 0, 0),rgba(0, 0, 0, .9));
 }
-.unit-info img {    
+.unit-info img {
     min-height: 160px;
 }
 .unit-info ul {
@@ -745,7 +791,7 @@ video:hover{
 }
 .unit-info li:last-child {
 }
-.unit-info li:last-child article {    
+.unit-info li:last-child article {
     width: 25%;
     float: left;
     line-height: 26px;
@@ -800,9 +846,9 @@ video:hover{
 .early-list li article h5 {
     margin-top: -2px;
     width: 70%;
-    float: left; 
-    overflow:hidden; 
-    text-overflow:ellipsis; 
+    float: left;
+    overflow:hidden;
+    text-overflow:ellipsis;
     white-space:nowrap;
 }
 .early-list li article h5 i:first-child {
@@ -869,7 +915,7 @@ video:hover{
     position: relative;
     top: 2px;
 }
-/*聚合*/ 
+/*聚合*/
 .early-single var p i:first-child {
     min-width: 120px;
     max-width: 140px;
@@ -885,7 +931,7 @@ video:hover{
         content: "\e699"!important;
 }
     /*火灾*/
-    
+
     .fire-list article h5 i:first-child,
     .fire-list h5 span {
         color: #ff0000;

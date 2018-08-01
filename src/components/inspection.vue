@@ -84,7 +84,7 @@
                 </li>
                 <li>
                     <el-select class="upd-elselect upd-elselect-bordernone upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择"  @change="tolineitem">
-                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
+                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
                       </el-option>
                     </el-select>
                     <div class="float-right">
@@ -568,7 +568,7 @@ export default {
       tableData: Object,
       // 路线名称下拉框请求参数
       queryInspectionNameList_parameter:{
-        unitId:'4'
+        unitId:''
       },
       ins_queryInspectionNameList:Object,
       // 下拉框
@@ -674,7 +674,6 @@ export default {
             let data = response.data;
             console.log(data);
             this.ins_queryInspectionNameList=data.listInspectionName;
-            
           }
         })
         .then(err => {
@@ -755,7 +754,8 @@ export default {
         .removeClass("display-block");
       $(".inspection-lineitem")
         .addClass("display-none")
-        .removeClass("display-block");  
+        .removeClass("display-block"); 
+      
       // 请求详情
       this.queryPlanUserDetails_parameter.id=data.id;
       this.$fetch(
@@ -771,6 +771,8 @@ export default {
         .then(err => {
           console.log(err);
         });
+
+      
     },
     lookroute(data){
       console.log(this.lookroutebool);
@@ -827,7 +829,9 @@ export default {
       console.log(this.ins_queryInspectionNameListvalue);
       this.lookroutebool=true;
       $('#lookroute').removeClass('upd-btn-dis');
-      $('#lookroute')
+      this.queryPlanUserList_parameter.inspectionName=this.ins_queryInspectionNameListvalue;
+      // console.log(data.name)
+      this.getTable();
     },
     draw_piemin(id, data) {
       let value;
@@ -1035,6 +1039,7 @@ export default {
     },
   },
   mounted() {
+    this.$store.commit('route_path',this.$route.path);
     this.getData();
     this.getTable();
     this.getmap_queryUnitBuildList();

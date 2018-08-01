@@ -29,7 +29,9 @@
       'per_left-vue':Per_leftVue,
       'per_right-vue':Per_rightVue
     },
-    
+    mounted(){
+      this.$store.commit('route_path',this.$route.path);
+    }
   }
 </script>
 

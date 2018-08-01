@@ -55,11 +55,14 @@ export default {
   methods: {
 
     chart_one () {
+      let that=this;
       $ ('.list-inline').on('click','li',function(){
-        $ (this).addClass("footer-nav-active").siblings().removeClass('footer-nav-active')
+        $ (this).addClass("footer-nav-active").siblings().removeClass('footer-nav-active');
+        // that.$store.commit('route_path',that.$route.path);
       })
     }
   },
+  
   mounted () {
     this.chart_one()
   }
