@@ -36,6 +36,9 @@ export default new Router({
   routes: [
     // footer 导航
     {
+      path:'/index',component:IndexVue
+    },
+    {
       path:'/login',component:LoginVue
     },
     {
