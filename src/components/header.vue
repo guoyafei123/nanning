@@ -65,25 +65,25 @@
                 </div>
             </li>
             <li class="header-time">
-                <p> <i class="fa fa-th-large font-blue"></i><span class="font-blue size-12"> 晴朗</span></p>
-                <p class="size-36">09:50:55</p>
+                <p class="font-blue size-12"> <i class="icon iconfont icon-qinglang-mian- size-14"></i><span>晴朗</span></p>
+                <p class="size-36 font-white">09:50:55</p>
             </li>
             <li>
                 <canvas class="bg-none" id="header-canvas-cpu" width="50" height="50"></canvas>
                 <div class="display-inline-block">
                     <p>
-                        <span>75.5%</span>
+                        <span>173</span>
                     </p>
-                    <p class="size-12">CPU占用</p>
+                    <p class="size-12">建筑数量</p>
                 </div>
             </li>
             <li>
                 <canvas class="bg-none" id="header-canvas-memory" width="50" height="50"></canvas>
                 <div class="display-inline-block">
                     <p>
-                        <span>26.1%</span>
+                        <span>3649</span>
                     </p>
-                    <p class="size-12">内存占用</p>
+                    <p class="size-12">设备数量</p>
                 </div>
             </li>
         </ul>
@@ -91,7 +91,7 @@
     <div class="header-right  margin-top40 position-right37">
         <div>
             <span class="header-head-portrait">
-                <img src="/src/assets/images/icon/logo.png">
+                <img src="/src/assets/images/people.png">
             </span>
             <span class="font-gray-666">
                 <div class="display-inline-block">
