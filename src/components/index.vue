@@ -28,6 +28,9 @@
       'index_left-vue':index_leftVue,
       'index_right-vue':index_rightVue
     },
+    mounted(){
+      this.$store.commit('route_path',this.$route.path);
+    }
     
   }
 </script>
