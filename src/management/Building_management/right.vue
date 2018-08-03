@@ -373,20 +373,28 @@
       </div>
       <div class="room_title">
         <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}{{ this.floorName }}层</h3>
-        <button class="btn_add" @click="add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
+        <button class="btn_add" @click="addUnit"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
       </div>
       <table class="table table-bordered ">
-        <thead>
-          <tr>
-            <td>序号</td>
-            <td>楼层</td>
-            <td>操作</td>
-          </tr>
-        </thead>
         <tbody>
-            
+            <tr v-for="(item,index) in floorRoomList">
+              <td style="min-width:100px;" class="col-md-4">
+                <input type="text" v-model="item.unitBuilding" style="width:100px;height:30px;text-align:center;" maxlength="3"/>
+              </td>
+              <td class="col-md-8">
+                <ul class="table_ul">
+                  <li v-for="(key,indexs) in item.roomList">
+                    <i class="fa fa-th-large font-gray-666 float-left"></i>
+                    <input type="text" v-model="key.room"/>
+                    <button @click="deleteRoom(floorRoomList[index].roomList, indexs)" style="width:30px;height:30px;">X</button>
+                  </li>
+                  <li><button @click="addRoom(item,index)">添加房间</button></li>
+                </ul>
+              </td>
+            </tr>
         </tbody>
       </table>
+      <button @click="submitFloorRoomList">提交</button>
     </div>
   </div>
 
@@ -429,11 +437,14 @@
         table_list:[],
         number:0,
         floor_index:0,
-        floorName:''
+        floorName:'',
+        floorRoomList:[],
+        roomList:[]
       };
     },
     
     methods: {
+//楼层
       add(){
         $('.add').show();
         this.index = this.table_list.length;
@@ -554,6 +565,7 @@
         this.floorName = item.floorName ;
         this.$store.commit('floorAdd',3);
         this.$store.commit('floorId',item.id);
+        console.log(item.id)
       },
       findPageBuildIngFloor(){
         // console.log(this.buildingId)
@@ -567,6 +579,32 @@
         })
       },
 
+// 房间
+      addUnit(){
+        this.floorRoomList.push({unitBuilding:'',roomList:[]})
+      },
+      addRoom(item,index){
+        item.roomList.push({room:'',roomId:''})
+      },
+      deleteRoom(key, index){
+        console.info(key);
+        this.$fetch("/api/building/deleteBuildingFloorRoom",{
+          roomId:key.roomId
+        }).then(response=>{
+          console.log(response);
+          key.splice(index,1);
+        })
+      },
+      submitFloorRoomList(){
+        console.log(this.floorRoomList);
+        
+        var floorRoomList = JSON.stringify( this.floorRoomList );
+        this.$fetch("/api/building/addBuildingFloorRoom",{
+          floorRoomList:floorRoomList
+        }).then(response=>{
+          console.log(response);
+        })
+      },
 
       back_first(){
         $('.plan').hide();
@@ -899,8 +937,18 @@
             $('.total').hide();
             $('.floor_wrap').hide();
             $('.room-wrap').show();
-            
           }
+          // console.log(this.floorId);
+          this.$fetch("/api/building/findPageBuildIngFloorRoom",{
+            pageIndex:1,
+            pageSize:1000,
+            floorId:this.floorId
+          }).then(response=>{
+            if(response.data){
+              console.log(response.data.pageBuildIng.result);
+              this.floorRoomList = response.data.pageBuildIng.result;
+            }
+          })
         }
       }
     },
@@ -1003,8 +1051,9 @@
     .floor_header{
       h2{
         color: #fff;
-        font-size:18px;
-        float:left;
+        font-size: 20px;
+        float: left;
+        margin-top: 17px;
       }
       span{
         display: inline-block;
@@ -1020,6 +1069,7 @@
         color: #cccccc;
         font-size:14px;
         float:left;
+        margin-top:16px;
       }
       button{
         float: right;
@@ -1066,9 +1116,10 @@
             vertical-align: middle!important;
             input{
               width:60px;
-              background: #fff;
+              background: #111;
               border:1px solid #222;
               outline:none;
+              color:#ccc;
               display:inline-block;
             }
             img{
@@ -1100,8 +1151,9 @@
     .room_header{
       h2{
         color: #fff;
-        font-size:18px;
-        float:left;
+        font-size: 20px;
+        float: left;
+        margin-top: 17px;
       }
       span{
         display: inline-block;
@@ -1117,6 +1169,7 @@
         color: #cccccc;
         font-size:14px;
         float:left;
+        margin-top:16px;
       }
       button{
         float: right;
@@ -1163,9 +1216,10 @@
             vertical-align: middle!important;
             input{
               width:60px;
-              background: #fff;
+              background: #111;
               border:1px solid #222;
               outline:none;
+              color: #ccc;
               display:inline-block;
             }
             img{
@@ -1187,5 +1241,29 @@
        border-color: #999999;
     }
   }
-
+.table_ul{
+  width:100%;
+  height:100%;
+  margin:0;padding:0;
+  li{
+    height:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i{
+      margin-right:10px;
+    }
+    input{
+      width:100px !important;
+      height:30px;
+      text-align: center;
+    }
+    button{
+      outline:none;
+      background:#222;
+      font-size: 15px;
+      border:1px solid #999999
+    }
+  }
+}
 </style>
