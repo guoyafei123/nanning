@@ -19,7 +19,7 @@ module.exports = {
         }
       },
       '/api': {
-        target: 'http://api.nanning.com/',//设置你调用的接口域名和端口号
+        target: 'http://api.nanninglq.51play.com/',//设置你调用的接口域名和端口号
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
