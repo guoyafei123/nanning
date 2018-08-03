@@ -9,83 +9,38 @@
     </div>
     <div class="col-sm-4 login-right">
       <div class="loginbox">
-        <P class="font-white size-18">数雨如歌智慧消防大数据监控平台 政府版 <span class="size-10">beta3.0</span></P>
-        <!-- <p class="font-white size-18"></p> -->
+        <P class="font-white size-18">数雨如歌智慧消防大数据监控平台</P>
+        <p class="font-white size-18">政府版 <span class="size-10">beta3.0</span></p>
         <p class="font-white size-50">登 录</p>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" :label-position="labelPosition">
-          <el-form-item label="手机号" prop="username">
-            <el-input class="autofocus" type="Input" v-model="ruleForm.username" auto-complete="off"></el-input>
+          <el-form-item label="手机号" prop="tel">
+            <el-input type="Input" v-model="ruleForm.tel" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="验证码" prop="code" class="vercode">
-            <el-input type="Input" v-model="ruleForm.code" auto-complete="off" ></el-input>
-            <span class="getvercode" :class="varphoneb==false || vercodeb==false ? 'getvercodenone' :''"  @click="getvercode()">{{vercodetext}}</span>
+          <el-form-item label="验证码" prop="vercode1">
+            <el-input type="Input" v-model="ruleForm.vercode" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
             <!-- <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button> -->
             <span class="loginbtn" type="primary" @click="submitForm('ruleForm')">登录</span>
           </el-form-item>
         </el-form>
-        <router-link to="/register"><span class="toregister font-white">您还没有账号?点我注册</span></router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import{mapState} from "vuex"
   export default {
-    directives: {
-      focus: {
-        // 指令的定义
-        inserted: function (el) {
-          el.focus()
-        }
-      }
-    },
     data() {
       var validateTel = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入手机号'));
-        } else if(value.length==11){
-          this.phone_parameter.cellPhone=this.ruleForm.username;
-          this.$fetch(
-            "/cas/reg/check/phone",
-            this.phone_parameter
-          )
-          .then(response => {
-            if (response) {
-              if(response.field=='11'){
-                this.varphoneb=false;
-                return callback(new Error('该手机号未注册,等前往注册'));
-              }else if(response.field=='13'){
-                this.varphoneb=false;
-                return callback(new Error('此账号已被删除,如有问题请联系管理员!'));
-              }else if(response.field=='14'){
-                this.varphoneb=false;
-                return callback(new Error('此账号审核未通过,如有问题请联系管理员!'));
-              }else if(response.field=='15'){
-                this.varphoneb=false;
-                return callback(new Error('此账号审核中,请稍后再试!'));
-              }else if(response.field=='16'){
-                this.varphoneb=false;
-                return callback(new Error('此账号被禁用'));
-              }else if(response.field=='12'){
-                this.varphoneb=true;
-                callback();
-              }
-            }
-          })
-          .then(err => {
-            console.log(err);
-          });
-        }else {
+        } else {
           const reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/
           console.log(reg.test(value));
           if (reg.test(value)) {
-            this.varphoneb=true;
             callback();
           } else {
-            this.varphoneb=false;
             return callback(new Error('请输入正确的手机号'));
           }
         }
@@ -93,27 +48,6 @@
       var validateVercode = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入验证码'));
-        } else if(value.length==6){
-          this.phone_parameter.cellPhone=this.ruleForm.username;
-          this.$fetch(
-            "/cas/reg/check/code",
-            this.ruleForm
-          )
-          .then(response => {
-            if (response) {
-              console.log(response);
-              if(response.field=='3'){
-                return callback(new Error('验证码错误,请重新输入'));
-              }else if(response.field=='2'){
-                return callback(new Error('验证码已过期,请重新获取'));
-              }else if(response.field=='ok'){
-                callback();
-              }
-            }
-          })
-          .then(err => {
-            console.log(err);
-          });
         }else {
           const reg = /^\d{6}$/
           console.log(reg.test(value));
@@ -126,98 +60,34 @@
       };
       return {
         labelPosition:'top',
-        vercodetext:'获取验证码',
-        vercodeb:true,
-        varphoneb:false,
-        autofocus:true,
         ruleForm: {
-          username: '',
-          code: '',
+          tel: '',
+          vercode: '',
         },
         rules: {
-          username: [
+          tel: [
             { validator: validateTel, trigger: 'blur' }
           ],
-          code:[
+          vercode:[
             { validator:validateVercode,trigger:'blur'}
           ]
-        },
-        phone_parameter:{
-          cellPhone:''
-        },
-        
+        }
       };
-    },
-    computed:mapState([
-      'loginusername',
-    ]),
-    watch:{
-      // 监听注册过来的手机号
-      loginusername(){
-        this.ruleForm.username=this.loginusername;
-      },
     },
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // alert(this.ruleForm.username);
+            alert('submit!');
           } else {
             console.log('error submit!!');
             return false;
           }
         });
-      },
-      getvercode(){
-        if(this.vercodeb==true && this.varphoneb==true){
-            this.$fetch(
-              "/cas/login/code",
-              this.ruleForm
-            )
-            .then(response => {
-              if (response) {
-                let num=60;
-                let intver=setInterval(()=>{
-                  num--;
-                  this.vercodetext=num+'秒后重新获取';
-                  this.vercodeb=false;
-                  if(num==0){
-                    clearInterval(intver);
-                    this.vercodetext='获取验证码';
-                    this.vercodeb=true;
-                  }
-                },1000)
-              }
-            })
-            .then(err => {
-              console.log(err);
-            });
-          
-        }
-      },
-      login(){
-        this.$fetch(
-            "/cas/login/phone",
-            this.ruleForm
-          )
-        .then(response => {
-          if (response) {
-            console.log(response);
-            if(response.status==1){
-              this.$router.push("/index");
-            }else{
-              this.tologin='登录失败!请联系管理员'
-            }
-          }
-        })
-        .then(err => {
-          console.log(err);
-        });
-      },
+      }
     },
     mounted() {
-      // this.ruleForm.username=this.loginusername;
-      this.$store.commit('route_path',this.$route.path);
+        this.$store.commit('route_path',this.$route.path);
     }
   }
 </script>
