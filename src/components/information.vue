@@ -949,6 +949,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit('route_path',this.$route.path);
     this.getTable();
     this.getData();
     this.get_axis();

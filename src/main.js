@@ -23,7 +23,7 @@ import 'bootstrap/dist/js/bootstrap.min'
 require('./assets/css/normalize.css');
 // Font Icon
 require('./assets/font-awesome/css/fontawesome-all.min.css');
-require('./assets/font-alibaba/iconfont.css');
+require('./assets/font-software/font-web/iconfont.css');
 require('./assets/ionicons/css/ionicons.min.css');
 // public
 require('./assets/css/common.css');
@@ -32,9 +32,12 @@ require('./assets/css/common.css');
 // import './assets/map/.js'
 // 首页
 import './assets/css/index.css'
-import './assets/css/map.css'
+import './assets/css/main.css'
+import './assets/css/messages.css';
+import './assets/css/early.css';
+import './assets/css/map.css';
+import './assets/css/element.css';
 import './assets/css/upd-element.css'
-
 // axios请求
 import { post,fetch } from './assets/js/http';
 //定义全局变量

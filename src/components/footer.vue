@@ -3,7 +3,10 @@
     <div class="footer">
       <ul class="list-inline">
         <li class="footer-nav-active">
-          <router-link to="/index">综合</router-link>
+          <router-link to="/index">
+            <el-badge :value="200" :max="99" class="item">
+              <el-button size="small">综合</el-button>
+            </el-badge></router-link>
         </li>
         <li>
           <router-link to="/risk">风险</router-link>
@@ -32,6 +35,9 @@
         <li>
           <router-link to="">联控</router-link>
         </li>
+        <li>
+          <router-link to="/earlyinfo">详情</router-link>
+        </li>
         <!-- <li>
           <router-link to="">
             <i class="fa fa-th-large"></i>
@@ -55,11 +61,14 @@ export default {
   methods: {
 
     chart_one () {
+      let that=this;
       $ ('.list-inline').on('click','li',function(){
-        $ (this).addClass("footer-nav-active").siblings().removeClass('footer-nav-active')
+        $ (this).addClass("footer-nav-active").siblings().removeClass('footer-nav-active');
+        // that.$store.commit('route_path',that.$route.path);
       })
     }
   },
+  
   mounted () {
     this.chart_one()
   }
@@ -67,5 +76,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

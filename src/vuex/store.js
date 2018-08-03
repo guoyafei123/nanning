@@ -19,7 +19,8 @@ var state={
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
-  queryInspectionLineList:Object
+  queryInspectionLineList:Object,
+  route_path:''
 }
 
 var mutations={
@@ -64,7 +65,11 @@ var mutations={
   },
   queryInspectionLineList(state,data){
     state.queryInspectionLineList = data;
+  },
+  route_path(state,data){
+    state.route_path=data;
   }
+
   
 
   

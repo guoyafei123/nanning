@@ -5,6 +5,8 @@ Vue.use(Router)
 // header
 import Equipment_managementVue from '../components/setting';
 // footer
+import LoginVue from '../components/login';
+import RegisterVue from '../components/register';
 import IndexVue from '../components/index';
 import CallpoliceVue from '../components/callpolice';
 import InspectionVue from '../components/inspection';
@@ -16,6 +18,7 @@ import BulidVue from '../components/buliding';
 import ListVue from '../components/list';
 import AllVue from '../components/all';
 import MapsVue from '../components/maps';
+import earlyinfoVue from '../components/earlyinfo';
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
@@ -29,11 +32,18 @@ import Inspection_planVue from '../management/Inspection_plan/Inspection_plan';
 import Plan_listVue from '../management/Inspection_plan/list';
 import Plan_AllVue from '../management/Inspection_plan/all';
 import Plan_MapsVue from '../management/Inspection_plan/maps';
+import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
     // footer 导航
     {
       path:'/index',component:IndexVue
+    },
+    {
+      path:'/login',component:LoginVue
+    },
+    {
+      path:'/register',component:RegisterVue
     },
     {
       path:'/callpolice',component:CallpoliceVue
@@ -57,7 +67,10 @@ export default new Router({
       path:'/danger',component:DangerVue
     },
     {
-      path:'*',redirect:'/index'
+      path:'*',redirect:'/login'
+    },
+    {
+      path:'/earlyinfo',component:earlyinfoVue
     },
     // 管理端路由
     {

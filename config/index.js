@@ -11,6 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+      '/cas': {
+        target: 'http://cas.nanninglq.51play.com/',//设置你调用的接口域名和端口号
+        changeOrigin: true,
+        pathRewrite: {
+          '^/cas': '/'
+        }
+      },
       '/api': {
         target: 'http://api.nanning.com/',//设置你调用的接口域名和端口号
         changeOrigin: true,
@@ -18,11 +25,12 @@ module.exports = {
           '^/api': '/'
         }
       }
+     
     },
 
     // Various Dev Server settings
     host: '127.0.0.1', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 9100, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
