@@ -174,7 +174,8 @@
           value: '选项4',
           label: '南宁市横县'
         }],
-        areavalue: "选项2"
+        areavalue: "选项2",
+        unitvalue:'全部单位'
       }
     },
     //其他

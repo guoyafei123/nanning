@@ -230,7 +230,7 @@
   	showTab(){
       let that=this;
     		$('#myTab a').click(function (e) {
-          e.preventDefault()
+          // e.preventDefault()
           $(this).tab('show');
           // $("#myTabContent").removeClass("hide");
           that.showTablist();
