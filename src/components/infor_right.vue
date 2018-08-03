@@ -158,34 +158,6 @@
               </div>
             </div>
           </section>
-          <!-- <section>
-            <div class="tooltable">
-              <div class="table-responsive">
-                <table class="table size-12 table-condensed toolroute-table margin-top10">
-                  <thead>
-                  <tr>
-                    <th>维保日期</th>
-                    <th>维保人</th>
-                    <th>结果</th>
-                    <th>备注</th>
-                  </tr>
-                  </thead>
-                  <tr>
-                    <td>2.17.1.23 12:26:54</td>
-                    <td>赵堆船</td>
-                    <td class="font-yellow">维修</td>
-                    <td>设备质量不行,乱报警...</td>
-                  </tr>
-                  <tr>
-                    <td>2.17.1.23 12:26:54</td>
-                    <td>赵堆船</td>
-                    <td class="font-blue">更换</td>
-                    <td>电池没电...</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </section> -->
         </section>
         <section id="information-char" >
           <section>

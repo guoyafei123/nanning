@@ -624,29 +624,14 @@ export default {
         endTime:'2018-07-05'
       },
       ins_queryPlanDetails:Object,
-      // options: [
-      //   {
-      //     value: "选项1",
-      //     label: "路线名称"
-      //   },
-      //   {
-      //     value: "选项2",
-      //     label: "路线名称"
-      //   },
-      //   {
-      //     value: "选项3",
-      //     label: "路线名称"
-      //   },
-      //   {
-      //     value: "选项4",
-      //     label: "路线名称"
-      //   },
-      //   {
-      //     value: "选项5",
-      //     label: "路线名1称"
-      //   }
-      // ],
-      // optionsvalue: "路线名称"
+      queryUnitBuildList_parameter:{
+        unitId:4
+      },
+      queryUnitBuildList:Object,
+      queryInspectionLineList_parameter:{
+        unitId:4
+      },
+      queryInspectionLineList:Object,
     };
   },
   components: {
@@ -1015,11 +1000,45 @@ export default {
       };
       let charf = this.$echarts.init(document.getElementById(id));
       charf.setOption(char);
-    }
+    },
+    getmap_queryUnitBuildList(){
+      // 请求路线列表
+      this.$fetch(
+        "/api/building/queryUnitBuildList",
+        this.queryUnitBuildList_parameter
+      )
+      .then(response => {
+        if (response) {
+          this.queryUnitBuildList = response.data;
+          this.$store.commit('queryUnitBuildList',this.queryUnitBuildList);
+        }
+      })
+      .then(err => {
+        console.log(err);
+      });
+    },
+    getmap_queryInspectionLineList(){
+      // 请求路线列表
+      this.$fetch(
+        "/api/inspection/queryInspectionLineList",
+        this.queryInspectionLineList_parameter
+      )
+      .then(response => {
+        if (response) {
+          this.queryInspectionLineList = response.data;
+          this.$store.commit('queryInspectionLineList',this.queryInspectionLineList);
+        }
+      })
+      .then(err => {
+        console.log(err);
+      });
+    },
   },
   mounted() {
     this.getData();
     this.getTable();
+    this.getmap_queryUnitBuildList();
+    this.getmap_queryInspectionLineList();
   }
 };
 </script>

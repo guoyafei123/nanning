@@ -684,8 +684,8 @@
   ]),
   watch:{
     setvuextest(){
-      console.log(this.vuexone);
-      // this.vuexone=this.setvuextest;
+      this.vuexone=this.setvuextest;
+      console.log(this.setvuextest)
     }
   },
 };

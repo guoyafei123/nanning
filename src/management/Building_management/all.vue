@@ -12,9 +12,14 @@
     <div class="main_all_content">
       <div class="main_content_top">
         <el-form label-width="80px" class="float-left">
-          <el-select v-model="unit" placeholder="选择单位" class="select" style="width:150px;">
+          <el-select v-model="buildUnit" placeholder="选择单位" class="select build" style="width:150px;">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+           <!-- 楼层管理 -->
+           <el-select v-model="buildUnit" placeholder="选择楼层" class="select floor" style="width:150px;display:none;">
+            <el-option label="全部楼层" value=""></el-option>
+            <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form>
         <div class="main_nav_two float-right">
@@ -93,10 +98,11 @@
           <el-table-column
             fixed="right"
             label="操作"
-            width="120">
+            width="180">
             <template slot-scope="scope">
               <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">编辑</button>
               <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
+              <button @click="floor_build(scope.row)" style="width:50px;height:22px;border:1px solid transparent;border-radius:5px;color: #ffffff;background-color: #0798db;line-height: 19px;margin:0;padding:0;font-size: 11px;text-align: center;margin-right:10px;">楼层管理</button>
               <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
             </template>
           </el-table-column>
@@ -217,6 +223,7 @@
         </div>
       </div>
     </div>
+   
   </div>
 
 </template>
@@ -242,8 +249,9 @@
           name:'',
           phone:''
         },
-        unit:null,//选择单位
+        buildUnit:null,//选择单位
         optionList:[],//全部单位列表
+        floorList:[],//楼层列表
         tableData: [],//设备列表
         page:4,//总页数
         currentPage4: 1,//当前页
@@ -315,6 +323,7 @@
           if(response){
             if(response.status == 1){
               console.log('修改建筑成功...'+ JSON.stringify(response));
+              this.tableBuildList();
             }else{
               console.log('修改建筑失败...'+ JSON.stringify(response));
             }
@@ -328,8 +337,25 @@
         this.deviceIndex = row.id;
         this.deviceName = row.name;
       },
+      floor_build(row){
+        $('.build').hide();
+        $('.floor').show();
+        $('.main_content_table').hide();
+        $('.main_content_bottom').hide();
+        $('.plan').hide();
+        $('.total').hide();
+        $('.floor_wrap').show();
+        $('room_wrap').hide();
+        this.$store.commit('floorAdd',1);
+        this.$store.commit('buildingId',row.id);
+      },
       show3(row){//跳转
-        // console.log(row.id);
+        console.log(row.id);
+        this.$store.commit('floorAdd',2)
+        this.$store.commit('buildingId',row.id);
+        $('.plan').show();
+        $('.mapTable').hide();
+        $('.total').hide();
       },
       deleteRow(){
         console.log(this.deviceIndex);
@@ -343,7 +369,7 @@
               console.log('删除建筑失败...'+ JSON.stringify(response));
             }
             this.tableData.splice(this.deviceIndex,1);
-            this.tableList();
+            this.tableBuildList();
           }
         }).then(err => {
           console.log(err);
@@ -367,12 +393,12 @@
             // console.log(err);
           });
       },
-      tableList(){
+      tableBuildList(){
         this.$fetch(
           "/api/building/queryPageBuildingList",{
             currentPage:this.currentPage4,
             pageSize:10,
-            unitId:this.unit
+            unitId:this.buildUnit
           }
         )
           .then(response => {
@@ -381,6 +407,12 @@
               // console.log(response.data.inspectionPlanList);
               this.totalList = response.data.pageBuildIng.totalRow;
               this.tableData = response.data.pageBuildIng.result;
+              this.tableData.forEach((item,index)=>{
+                console.log(111)
+                if(index == 0){
+                  this.$store.commit('buildingId',item.id);
+                }
+              })
               if(this.totalList % 10 == 0){
                 this.page = parseInt( this.totalList / 10 )
               }else{
@@ -395,22 +427,31 @@
     },
     mounted(){
       realconsole();
-      this.tableList();
       this.unitSearch();
+      this.tableBuildList();
       $('#right').show();
-      if(this.$route.path == '/Building_management/all'){
-        $('.mapTable').hide();
-      }
     },
     watch:{
+      $route: {
+        handler: function(val, oldVal){
+          console.log(val);
+          if(this.$route.path == '/Building_management/all'){
+            $('.mapTable').hide();
+            $('.plan').show();
+            $('.floor_wrap').hide();
+          }
+        },
+        // 深度观察监听
+        deep: true
+      },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
         console.log(this.currentPage4);
-        this.tableList();
+        this.tableBuildList();
       },
-      unit(val,oldVal){
-        this.unit = val;
-        this.tableList();
+      buildUnit(val,oldVal){
+        this.buildUnit = val;
+        this.tableBuildList();
       }
     }
   };

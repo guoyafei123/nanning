@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import $ from 'jquery'
+import axios from 'axios';
 import store from './vuex/store';
 // echarts
 import echarts from 'echarts'
@@ -27,9 +28,11 @@ require('./assets/ionicons/css/ionicons.min.css');
 // public
 require('./assets/css/common.css');
 //百度相关
-import './assets/map/map.js'
+// import './assets/map/map.js';
+// import './assets/map/.js'
 // 首页
 import './assets/css/index.css'
+import './assets/css/map.css'
 import './assets/css/upd-element.css'
 
 // axios请求
@@ -37,12 +40,12 @@ import { post,fetch } from './assets/js/http';
 //定义全局变量
 Vue.prototype.$post=post;
 Vue.prototype.$fetch=fetch;
-
+Vue.prototype.$http = axios;
 import qs from 'qs';
 Vue.prototype.$qs=qs;
 // this.$post('/api/').then((response) => {console.log(response)})
 
-
+import './assets/js/ajaxfileupload'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

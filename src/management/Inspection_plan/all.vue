@@ -432,8 +432,6 @@
           });
       }
     },
-    created(){
-    },
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;

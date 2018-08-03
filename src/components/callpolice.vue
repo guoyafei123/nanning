@@ -263,28 +263,35 @@
                         <div class="row textandimg-main padding-left15">
                           <div class="col-sm-12">
                             <span class="size-12 font-gray-666">报警源 </span>
-                            <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
+                            <!-- <td v-if="ins_getAlarmDetail.isUser==0">{{ins_getAlarmDetail.deviceTypeName}}</td>
+                            <td v-if="ins_getAlarmDetail.isUser==1">{{ins_getAlarmDetail.nickName}}</td> -->
+                            <span class="size-12 font-gray-999" v-if="ins_getAlarmDetail.userId==0">{{ins_getAlarmDetail.deviceTypeName}}</span>
+                            <span class="size-12 font-gray-999" v-if="ins_getAlarmDetail.userId==1">{{ins_getAlarmDetail.nickName}}</span>
                           </div>
                           <div class="col-sm-12">
                             <span class="size-12 font-gray-666">报警地点 </span>
-                            <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
+                            <span class="size-12 font-gray-999">{{ins_getAlarmDetail.unitName}}&nbsp;{{ins_getAlarmDetail.buildingName}}&nbsp;{{ins_getAlarmDetail.floorNumber}}&nbsp;{{ins_getAlarmDetail.roomNumber}}</span>
+                          </div>
+                          <div class="col-sm-12">
+                            <span class="size-12 font-gray-666">报警时间 </span>
+                            <span class="size-12 font-gray-999">{{ins_getAlarmDetail.startTime}}</span>
                           </div>
                           <div class="col-sm-12">
                             <!-- <span class="size-12 font-gray-666">描述 </span> -->
-                            <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                            <span class="size-12 font-gray-999">{{ins_getAlarmDetail.remark}}</span>
                           </div>
-                          <div class="textandimg-img imgs-nthof">
-                            <template v-for="item in ins_troubleDetail.imgUrl">
+                          <!-- <div class="textandimg-img imgs-nthof">
+                            <template v-for="item in ins_getAlarmDetail.imgUrl">
                               <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
                                 <video :src="item" width="100%"  controls="controls"></video>
                               </div>
                             </template>
-                            <template v-for="item in ins_troubleDetail.imgUrl">
+                            <template v-for="item in ins_getAlarmDetail.imgUrl">
                               <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
                                 <img :src="item">
                               </div>
                             </template>
-                          </div>
+                          </div> -->
                         </div>
                         <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
                           <span class="tool-rect bg-blue"></span>报警确认
@@ -292,23 +299,23 @@
                         <div class="row textandimg-main padding-left15">
                           <div class="col-sm-12">
                             <span class="size-12 font-gray-666">确认人 </span>
-                            <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
+                            <span class="size-12 font-gray-999">{{ins_getAlarmDetail.confirmNickName}}</span>
                           </div>
                           <div class="col-sm-12">
                             <span class="size-12 font-gray-666">确认时间 </span>
-                            <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                            <span class="size-12 font-gray-999">{{ins_getAlarmDetail.confirmTime}}</span>
                           </div>
                           <div class="col-sm-12">
                             <!-- <span class="size-12 font-gray-666">描述 </span> -->
-                            <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                            <span class="size-12 font-gray-999">{{ins_getAlarmDetail.confirmReason}}</span>
                           </div>
                           <div class="textandimg-img imgs-nthof">
-                            <template v-for="item in ins_troubleDetail.imgUrl">
+                            <template v-for="item in ins_getAlarmDetail.imgUrl">
                               <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
                                 <video :src="item" width="100%"  controls="controls"></video>
                               </div>
                             </template>
-                            <template v-for="item in ins_troubleDetail.imgUrl">
+                            <template v-for="item in ins_getAlarmDetail.imgUrl">
                               <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
                                 <img :src="item">
                               </div>
@@ -322,28 +329,24 @@
                           <div class="row textandimg-main padding-left15">
                             <div class="col-sm-12">
                               <span class="size-12 font-gray-666">关闭 </span>
-                              <span class="size-12 font-gray-999">{{ins_troubleDetail.type}}</span>
+                              <span class="size-12 font-gray-999">{{ins_getAlarmDetail.cancelNickName}}</span>
                             </div>
                             <div class="col-sm-12">
                               <span class="size-12 font-gray-666">关闭时间 </span>
-                              <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
+                              <span class="size-12 font-gray-999">{{ins_getAlarmDetail.cancelTime}}</span>
                             </div>
-                            <div class="col-sm-12">
-                              <!-- <span class="size-12 font-gray-666">描述 </span> -->
-                              <span class="size-12 font-gray-999">{{ins_troubleDetail.createTime}}</span>
-                            </div>
-                            <div class="textandimg-img imgs-nthof">
-                              <template v-for="item in ins_troubleDetail.imgUrl">
+                            <!-- <div class="textandimg-img imgs-nthof">
+                              <template v-for="item in ins_getAlarmDetail.imgUrl">
                                 <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
                                   <video :src="item" width="100%"  controls="controls"></video>
                                 </div>
                               </template>
-                              <template v-for="item in ins_troubleDetail.imgUrl">
+                              <template v-for="item in ins_getAlarmDetail.imgUrl">
                                 <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
                                   <img :src="item">
                                 </div>
                               </template>
-                            </div>
+                            </div> -->
                           </div>
                         </template>
                       </div>
@@ -448,11 +451,11 @@ export default {
         type: 1
       },
       ins_getHistoryAlarmRate: Object,
-      // 隐患详情
-      troubleDetail_parameter: {
-        troubleId: 156
+      // 报警详情
+      getAlarmDetail_parameter: {
+        alarmId: 555
       },
-      ins_troubleDetail: Object,
+      ins_getAlarmDetail: Object,
       infoShow:true
     };
   },
@@ -480,17 +483,17 @@ export default {
       }else{
         this.infoShow=false;
       }
-      // this.troubleDetail_parameter.troubleId = item.id;
-      // this.$fetch("/api/trouble/troubleDetail", this.troubleDetail_parameter)
-      //   .then(response => {
-      //     if (response) {
-      //       console.log(response);
-      //       this.ins_troubleDetail = response.data.trouble;
-      //     }
-      //   })
-      //   .then(err => {
-      //     console.log(err);
-      //   });
+      this.getAlarmDetail_parameter.alarmId = item.id;
+      this.$fetch("/api/alarm/getAlarmDetail", this.getAlarmDetail_parameter)
+        .then(response => {
+          if (response) {
+            console.log(response);
+            this.ins_getAlarmDetail = response.data.alarm;
+          }
+        })
+        .then(err => {
+          console.log(err);
+        });
     },
     handleCurrentChange(val) {
       console.log(`当前页:` + val);

@@ -2,76 +2,142 @@
   <div class="Inspection_plan z-index-20  ">
     <div class="font-white margin-left15 margin-right20 plan" style="margin-top:110px;display: none;">
       <section>
-          <span @click="back_first" class="font-gray-666" style="cursor:pointer;">&lt;返回</span>
-          <div class="personinfo">
+          <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Building_management/maps'">&lt;返回</span>
+          <!-- <div class="personinfo">
             <p>
-              <span class="size-20 font-blue" v-html="this.inspectionPlan.name"></span>
-              <span class="bgbox-min bg-gray-666 font-black">{{ this.inspectionPlan.type == 1 ? '举报检查': this.inspectionPlan.type == 2 ? '活动检查':this.inspectionPlan.type == 3 ? '例行检查':this.inspectionPlan.type == 4 ? '复查':this.inspectionPlan.type == 5 ? '施工检查':this.inspectionPlan.type == 6 ? '解除临时查封':this.inspectionPlan.type == 7 ? '恢复工作检查':this.inspectionPlan.type == 8 ? '其他检查':'全部'}}</span>
+              <span class="size-20 font-blue" v-html="">名称</span>
+              <span class="bgbox-min bg-gray-666 font-black"></span>
               <span class="float-right">
-                        <span class="font-black size-12 bg-blue" style="padding:2px 5px;" v-if="this.inspectionPlan.status == 1">激活</span>
-                        <span class="font-black size-12 bg-red" style="padding:2px 5px;" v-if="this.inspectionPlan.status == 2">未激活</span>
+                        <span class="font-black size-12 bg-blue" style="padding:2px 5px;">激活</span>
                     </span>
             </p>
             <p>
-              <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> {{ this.inspectionPlan.unitName }}</span>
-              <span class="size-12 font-gray-666 float-right set-positiontop2">激活时间<span class="font-gray-999 margin-left5" v-html="this.inspectionPlan.createTime"></span></span>
+              <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i>单位名称</span>
+              <span class="size-12 font-gray-666 float-right set-positiontop2">录入时间<span class="font-gray-999 margin-left5" v-html="">2018.01.10 20:02:10</span></span>
             </p>
-          </div>
+          </div> -->
         </section>
-      <section class="inspection-iteminfo " >
-        <section>
+      <section class="inspection-iteminfo" >
+        <!-- <section>
           <div class="row toolcount margin-top40">
             <div class="col-sm-4  font-gray-999 padding-right0">
               <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                 <li>
-                  <p class="size-70 font-blue" style="line-height:90px;" v-html="this.inspectionPlan.amount"></p>
+                  <p class="size-70 font-blue" style="line-height:90px;" v-html="">0</p>
                 </li>
                 <li>
-                  <p class="size-10 text-center">Running Counts</p>
+                  <p class="size-10 text-center">Running State</p>
                 </li>
                 <li>
-                  <p class="size-16 font-blue">每日额定完成数</p>
+                  <p class="size-16 font-blue">总房间</p>
                 </li>
               </ul>
             </div>
             <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
               <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
                 <li>
-                  <p class="size-16 font-gray-ccc">路线信息</p>
+                  <p class="size-16 font-gray-ccc">信息统计</p>
                 </li>
                 <li>
-                  <p class="size-10 set-scaleright">Inspection Info</p>
+                  <p class="size-10 set-scaleright">Pepair Statistics</p>
                 </li>
                 <li>
-                  <p class="size-12">添加人&#x3000;&#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createUserName"></span></p>
+                  <p class="size-12">楼层数量&#x3000;&#x3000;<span class="font-gray-ccc" v-html=""></span></p>
+                  <p class="size-12">预案&#x3000;&#x3000;<span class="font-gray-ccc" v-html=""></span></p>
                 </li>
                 <li>
-                  <p class="size-12">添加时间 &#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createTime"></span></p>
+                  <p class="size-12">使用 &#x3000;<span class="font-gray-ccc" v-html=""></span></p>
                 </li>
                 <li class="row text-center padding-right16 margin-top5">
                   <div class="col-sm-4 container-padding0 personnel-borderright">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;" v-html="this.inspectionPlan.isScan == 1 ? '是':'否'"></p>
-                    <p class="size-12 margin-bottom0">扫码打卡</p>
+                    <p class="size-16 font-white" style="width:100%;line-height: 10px;" v-html=""></p>
+                    <p class="size-12 margin-bottom0">设备总数</p>
                   </div>
                   <div class="col-sm-4 container-padding0 personnel-borderright">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;" v-html="this.inspectionPlan.nodeCount == null ? 0 : this.inspectionPlan.nodeCount"></p>
-                    <p class="size-12 margin-bottom0">节点总数</p>
+                    <p class="size-16 font-white" style="width:100%;line-height: 10px;" v-html=""></p>
+                    <p class="size-12 margin-bottom0">警报总数</p>
                   </div>
                   <div class="col-sm-4 container-padding0">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;">-</p>
-                    <p class="size-12 margin-bottom0">巡检人数</p>
+                    <p class="size-16 font-white" style="width:100%;line-height: 10px;"></p>
+                    <p class="size-12 margin-bottom0">隐患总数</p>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
-        </section>  
+        </section>   -->
+        <section>
+          <div class="textandimg">
+              <h2 class="size-18 font-gray-ccc margin-bottom20 margin-top10">
+                 xxx建筑信息详情
+              </h2>
+              <div class="row textandimg-main">
+                  <div class="col-sm-12">
+                      <span class="size-16 font-gray-666 span_name">建筑名称 </span>
+                      <span class="size-14 font-gray-999 span_con" v-html="this.form.BuildName"></span>
+                  </div>
+                  <div class="col-sm-12">
+                      <span class="size-16 font-gray-666 span_name">所属单位 </span>
+                      <span class="size-14 font-gray-999 span_con" v-html="this.form.UnitName"></span>
+                  </div>
+
+                  <div class="col-sm-12">
+                      <span class="size-16 font-gray-666 span_name">建筑地址 </span>
+                      <span class="size-14 font-gray-999 span_con" v-html="this.form.address"></span>
+                  </div>
+                  <div class="col-sm-12">
+                      <span class="size-16  font-gray-666 span_name">经纬度 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html=""></span>
+                  </div>
+
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">占地面积 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.area"></span>
+                  </div>
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">高度 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.height"></span>
+                  </div>
+
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">总楼层 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.floor"></span>
+                  </div>
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">建筑年份 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.timeYear"></span>
+                  </div>
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">建筑结构 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.structure"></span>
+                  </div>
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">建筑性质 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.property"></span>
+                  </div>
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">消防负责人 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.name"> </span>
+                  </div>
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">消防负责人电话 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.phone"></span>
+                  </div>
+
+                  <div class="col-sm-12">
+                      <span class="size-12 font-gray-666 span_name">建筑二维码 </span>
+                      <span class="size-12 font-gray-999 span_con">按钮 </span>
+                      <span class="size-12 font-gray-999 span_con">按钮 </span>
+                  </div>
+              </div>
+          </div>
+        </section>
       </section>
     </div>
     <div class="font-white margin-left15 margin-right20 total" style="margin-top:120px;">
-      <h2 style="font-size: 12px;line-height:10px;margin-bottom:-10px;" class="font-gray-999">Inspection Total</h2>
-      <h3 style="font-size:18px;" class="font-blue">当前线路总数</h3>
-      <div style="width:100%;overflow: hidden;">
+      <!-- <h2 style="font-size: 12px;line-height:10px;margin-bottom:-10px;" class="font-gray-999">Inspection Total</h2>
+      <h3 style="font-size:18px;" class="font-blue">当前线路总数</h3> -->
+      <!-- <div style="width:100%;overflow: hidden;">
         <p style="width:15%;font-size: 70px;margin-left:20px;float: left" v-html="this.countInspectionPlanRelevant.countTotal"></p>
         <ul class="inspection_ul">
           <li>
@@ -87,7 +153,7 @@
             扫码打卡<span v-html="this.countInspectionPlanRelevant.countIssanCount"></span>
           </li>
         </ul>
-      </div>
+      </div> -->
       <section style="display: none;" class="mapTable">
         <div class="toolbuildrate margin-top30">
           <div class="main_content_table">
@@ -109,54 +175,9 @@
                 label="建筑名称">
               </el-table-column>
               <el-table-column
-                prop="unitName"
-                width="130"
-                label="所属单位">
-              </el-table-column>
-              <el-table-column
                 prop="location"
                 width="130"
                 label="地址">
-              </el-table-column>
-              <el-table-column
-                prop="area"
-                width="130"
-                label="占地面积（m^2）">
-              </el-table-column>
-              <el-table-column
-                prop="heightOfBuilding"
-                width="100"
-                label="高度（m）">
-              </el-table-column>
-              <el-table-column
-                prop="floors"
-                width="100"
-                label="楼层数">
-              </el-table-column>
-              <el-table-column
-                prop="structure"
-                width="100"
-                label="建筑结构">
-              </el-table-column>
-              <el-table-column
-                prop="buildYear"
-                width="140"
-                label="建成年份">
-              </el-table-column>
-              <el-table-column
-                prop="property"
-                width="120"
-                label="建筑性质">
-              </el-table-column>
-              <el-table-column 
-                prop="linkname"
-                width="120"
-                label="消防负责人">
-              </el-table-column>
-              <el-table-column 
-                prop="phone"
-                width="120"
-                label="消防负责人电话">
               </el-table-column>
               <el-table-column
                 fixed="right"
@@ -172,7 +193,7 @@
           </div>
           <div class="main_content_bottom">
             <div class="bottom_con">
-              <div class="float-left">
+              <div class="float-left" style="margin-top:6px;">
                 <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
                 <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
                 <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
@@ -287,6 +308,86 @@
         </div>
       </section>
     </div>
+
+    <!-- 楼层管理 -->
+
+    <div class="floor_wrap" style="display:none;">
+      <div class="floor_header clearFix">
+        <h2>楼层管理</h2>
+        <span @click="floor_back">返回</span>
+      </div>
+      <div class="floor_title">
+        <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}</h3>
+        <button class="btn_add" @click="add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
+      </div>
+      <table class="table table-bordered ">
+        <thead>
+          <tr>
+            <td>序号</td>
+            <td>楼层</td>
+            <td>操作</td>
+          </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(item,index) in table_list">
+              <td>{{ index+1 }}</td>
+
+              <td class="weixiugai">{{ item.floorName }}</td>
+              <td class="xiugai" style="display:none;">
+                <input type="number" v-model="item.floorName"/>
+              </td>
+              <td class="weixiugai_edit">
+                <img src="../../assets/images/u237.png"/>
+                <i @click="xiugai(index)" class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
+                <i @click="floor_delete(item,index)" class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
+                <button @click="room_build(item)" style="width:50px;height:22px;border:1px solid transparent;border-radius:5px;color: #ffffff;background-color: #0798db;line-height: 19px;margin:0;padding:0;font-size: 11px;text-align: center;margin-right:10px;">房间管理</button>
+              </td>
+              <td class="xiugai_edit" style="display:none;">
+                <input id="file" name="file" type="file"/>
+                <button @click="xiugai_sure(index)" style="margin-left:15px;">确定</button>
+                <button @click="xiugai_cancel(index)">取消</button>
+              </td>
+              
+            </tr>
+            <tr class="add"  style="display:none;">
+              <td>{{ this.index+1 }}</td>
+              <td>
+                <input type="number" v-model="number"/>
+              </td>
+              <td>
+                <input id="file" name="file"  type="file"/>
+                <button @click="sure" style="margin-left:15px;">确定</button>
+                <button @click="cancel">取消</button>
+              </td>
+            </tr>          
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 房间管理 -->
+
+    <div class="room_wrap" style="display:none;">
+      <div class="room_header clearFix">
+        <h2>房间管理</h2>
+        <span @click="room_back">返回</span>
+      </div>
+      <div class="room_title">
+        <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}{{ this.floorName }}层</h3>
+        <button class="btn_add" @click="add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
+      </div>
+      <table class="table table-bordered ">
+        <thead>
+          <tr>
+            <td>序号</td>
+            <td>楼层</td>
+            <td>操作</td>
+          </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </template>
@@ -296,13 +397,13 @@
   export default {
     data() {
       return {
-        countInspectionPlanRelevant:{
-          countTotal:0,
-          countDelete:0,
-          countDisableTotal:0,
-          countEnableTotal:0,
-          countIssanCount:0
-        },
+        // countInspectionPlanRelevant:{
+        //   countTotal:0,
+        //   countDelete:0,
+        //   countDisableTotal:0,
+        //   countEnableTotal:0,
+        //   countIssanCount:0
+        // },
         labelPosition: 'left',
         form: {
           unitId:'',
@@ -323,10 +424,150 @@
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
-        deviceName:''
+        deviceName:'',
+        index:1,
+        table_list:[],
+        number:0,
+        floor_index:0,
+        floorName:''
       };
     },
+    
     methods: {
+      add(){
+        $('.add').show();
+        this.index = this.table_list.length;
+      },
+      sure(){
+        this.index++;
+        $('.add').hide();
+        this.floor_index = this.index;
+        console.log(this.floor_index)
+        var file = "file";
+        let array={ 'buildingId': this.buildingId, 'floor': this.floor_index, 'floorName': this.number}
+              
+              this.table_list.push(array);
+              console.log(this.table_list);
+        $.ajaxFileUpload({
+            url: '/api/building/addBuildingFloor', //用于文件上传的服务器端请求地址
+            /* secureuri : false, */ //一般设置为false
+            fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+            data : {
+              'buildingId':this.buildingId,
+              'floor':this.floor_index,
+              'floorName':this.number
+            },
+            type: 'POST',
+            dataType: "plain",
+            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+            },
+            error: function (e) { //服务器响应失败处理函数
+              $.messager.alert('警告', "系统错误", "warning");
+            },
+            complete: function (e) {//只要完成即执行，最后执行
+              console.log(e) 
+            }
+        });
+        this.number = '' ;
+        var file = document.getElementById('file');
+        file.outerHTML = file.outerHTML;
+        
+      },
+      cancel(){
+        $('.add').hide();
+        this.number = '' ;
+      },
+      xiugai(indexs){
+        this.table_list.forEach((item,index)=>{
+          if(indexs == index){
+            $('.weixiugai:eq('+indexs+')').hide();
+            $('.xiugai:eq('+indexs+')').show();
+            $('.weixiugai_edit:eq('+indexs+')').hide();
+            $('.xiugai_edit:eq('+indexs+')').show();
+          }
+        })
+      },
+      xiugai_sure(indexs){
+        // console.log(indexs);
+        this.table_list.forEach((item,index)=>{
+          // console.log(item.floorName)
+          if(indexs == index){
+            console.log(item.buildingId)
+            $('.weixiugai:eq('+indexs+')').show();
+            $('.xiugai:eq('+indexs+')').hide();
+            $('.weixiugai_edit:eq('+indexs+')').show();
+            $('.xiugai_edit:eq('+indexs+')').hide();
+            var file = "file";
+            $.ajaxFileUpload({
+                url: '/api/building/updateBuildingFloor', //用于文件上传的服务器端请求地址
+                /* secureuri : false, */ //一般设置为false
+                fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+                data : {
+                  'id' : item.id,
+                  'buildingId':item.buildingId,
+                  'floor':item.floor,
+                  'floorName':item.floorName,
+                  'svgUrl':item.svgUrl
+                },
+                type: 'POST',
+                dataType: "plain",
+                success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+                  // alert(2);
+                },
+                error: function (e) { //服务器响应失败处理函数
+                  $.messager.alert('警告', "系统错误", "warning");
+                },
+                complete: function () {//只要完成即执行，最后执行
+                }
+            });
+          }
+        })
+      },
+      xiugai_cancel(indexs){
+        this.table_list.forEach((item,index)=>{
+          if(indexs == index){
+            $('.weixiugai:eq('+indexs+')').show();
+            $('.xiugai:eq('+indexs+')').hide();
+            $('.weixiugai_edit:eq('+indexs+')').show();
+            $('.xiugai_edit:eq('+indexs+')').hide();
+          }
+        })
+      },
+      floor_delete(item,indexs){
+        this.$fetch("/api/building/deleteBuildingFloor",{
+          floorId:item.id
+        }).then(response=>{
+          // console.log(response.data);
+          this.table_list.splice(indexs,1);
+          this.findPageBuildIngFloor();
+        })
+      },
+      room_build(item){
+        $('.build').hide();
+        $('.floor').hide();
+        $('.main_content_table').hide();
+        $('.main_content_bottom').hide();
+        $('.plan').hide();
+        $('.total').hide();
+        $('.floor_wrap').hide();
+        $('.room_wrap').show();
+        this.floorName = item.floorName ;
+        this.$store.commit('floorAdd',3);
+        this.$store.commit('floorId',item.id);
+      },
+      findPageBuildIngFloor(){
+        // console.log(this.buildingId)
+        this.$fetch("/api/building/findPageBuildIngFloor",{
+          pageIndex:1,
+          pageSize:1000,
+          buildingId:this.buildingId
+        }).then(response=>{
+          console.log(response.data.pageBuildIng.result);
+          this.table_list = response.data.pageBuildIng.result;
+        })
+      },
+
+
       back_first(){
         $('.plan').hide();
         $('.mapTable').show();
@@ -338,7 +579,35 @@
         if(this.$route.path == '/Building_management/all'){
           $('.mapTable').hide();
           $('.total').show();
+          // if(this.floorAdd == 1){
+          //   $('.plan').hide();
+          //   $('.total').hide();
+          //   $('.floor_wrap').show();
+          // }else if(this.floorAdd ==2){
+          //   $('.plan').show();
+          //   $('.total').hide();
+          // }
         }
+      },
+      floor_back(){
+        $('.build').show();
+        $('.floor').hide();
+        $('.main_content_table').show();
+        $('.main_content_bottom').show();
+        $('.plan').show();
+        $('.total').hide();
+        $('.floor_wrap').hide();
+        $('.room_wrap').hide();
+      },
+      room_back(){
+        $('.build').hide();
+        $('.floor').hide();
+        $('.main_content_table').hide();
+        $('.main_content_bottom').hide();
+        $('.plan').hide();
+        $('.total').hide();
+        $('.floor_wrap').show();
+        $('.room_wrap').hide();
       },
       handleCurrentChange(val) {
         this.currentPage4 = val;
@@ -351,7 +620,7 @@
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
-            console.log(item);
+            // console.log(item);
             this.form.BuildName = item.name ;
             this.form.unitId = item.unitId ;
             this.form.UnitName = item.unitName ;
@@ -370,7 +639,7 @@
       startRow(){
         this.optionList.forEach((item,index)=>{
           if(item.id == this.form.unitId){
-            console.log(item.name);
+            // console.log(item.name);
             this.form.UnitName = item.name;
           }
         })
@@ -394,6 +663,7 @@
           if(response){
             if(response.status == 1){
               console.log('修改建筑成功...'+ JSON.stringify(response));
+              this.tableList();
             }else{
               console.log('修改建筑失败...'+ JSON.stringify(response));
             }
@@ -409,7 +679,7 @@
       },
       show3(row){//跳转
         console.log(row.id);
-        // this.$store.commit('inspectionPlanId',row.id);
+        this.$store.commit('buildingId',row.id);
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
@@ -459,10 +729,30 @@
           }
         )
           .then(response => {
-            console.log(response);
+            // console.log(response);
             if (response.data.pageBuildIng) {
               this.totalList = response.data.pageBuildIng.totalRow;
               this.tableData = response.data.pageBuildIng.result;
+              if(this.$route.path == '/Building_management/all'){
+                this.tableData.forEach((item,index)=>{
+                  if(index == this.tableData.length-1){
+                    console.log(item);
+                    this.form.BuildName = item.name ;
+                    this.form.unitId = item.unitId ;
+                    this.form.UnitName = item.unitName ;
+                    this.form.address = item.location ;
+                    this.form.area = item.area ;
+                    this.form.height = item.heightOfBuilding ;
+                    this.form.floor = item.floors ;
+                    this.form.structure = item.structure ;
+                    this.form.timeYear = item.buildYear ;
+                    this.form.property = item.property ;
+                    this.form.name = item.linkname ;
+                    this.form.phone = item.phone ;
+                  }
+                })
+              }
+              
               if(this.totalList % 10 == 0){
                 this.page = parseInt( this.totalList / 10 )
               }else{
@@ -476,31 +766,43 @@
       }
     },
     mounted() {
+      this.tableList();
       if(this.$route.path == '/Building_management/maps'){
         $('.mapTable').show();
         $('.total').show();
+        this.tableList();
       }
-      this.$fetch("/api/admin/inspection/countInspectionPlanRelevant",{
-        unitId:''
-      }).then(response=>{
-        if(response.data.map){
-          console.log(response.data.map);
-          this.countInspectionPlanRelevant.countTotal = response.data.map.TOTAL;
-          this.countInspectionPlanRelevant.countDisableTotal = response.data.map.DISABLETOTAL;
-          this.countInspectionPlanRelevant.countEnableTotal = response.data.map.ENABLETOTAL;
-          this.countInspectionPlanRelevant.countDelete = response.data.map.DELETED;
-          this.countInspectionPlanRelevant.countIssanCount = response.data.map.ISSANCOUNT;
-        }
-      }).then(err=>{
-        console.log(err)
-      })
+      if(this.$route.path == '/Building_management/all'){
+        // $('.floor_wrap').show();
+        $('.plan').show();
+        $('.total').hide();
+      }
+      // this.$fetch("/api/admin/inspection/countInspectionPlanRelevant",{
+      //   unitId:''
+      // }).then(response=>{
+      //   if(response.data.map){
+      //     console.log(response.data.map);
+      //     this.countInspectionPlanRelevant.countTotal = response.data.map.TOTAL;
+      //     this.countInspectionPlanRelevant.countDisableTotal = response.data.map.DISABLETOTAL;
+      //     this.countInspectionPlanRelevant.countEnableTotal = response.data.map.ENABLETOTAL;
+      //     this.countInspectionPlanRelevant.countDelete = response.data.map.DELETED;
+      //     this.countInspectionPlanRelevant.countIssanCount = response.data.map.ISSANCOUNT;
+      //   }
+      // }).then(err=>{
+      //   console.log(err)
+      // })
     },
     watch:{
       $route: {
         handler: function(val, oldVal){
-          console.log(val);
+          // console.log(val);
           if(this.$route.path == '/Building_management/maps'){
-            
+            this.tableList();
+            this.$store.commit('tableData',this.tableData);
+          }
+          if(this.$route.path == '/Building_management/all'){
+            $('.total').hide();
+            $('.plan').show();
           }
         },
         // 深度观察监听
@@ -508,49 +810,115 @@
       },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        // console.log(this.currentPage4);
         this.tableList();
       },
-      Unit(){
-        console.log(this.Unit);
-        this.$fetch("/api/admin/inspection/countInspectionPlanRelevant",{
-          unitId:this.Unit
-        }).then(response=>{
-          if(response.data.map){
-            console.log(response.data.map);
-            this.countInspectionPlanRelevant.countTotal = response.data.map.TOTAL;
-            this.countInspectionPlanRelevant.countDisableTotal = response.data.map.DISABLETOTAL;
-            this.countInspectionPlanRelevant.countEnableTotal = response.data.map.ENABLETOTAL;
-            this.countInspectionPlanRelevant.countDelete = response.data.map.DELETED;
-            this.countInspectionPlanRelevant.countIssanCount = response.data.map.ISSANCOUNT;
+      buildUnit(){
+        // console.log(this.buildUnit);
+         this.tableList();
+        // this.$fetch("/api/admin/inspection/countInspectionPlanRelevant",{
+        //   unitId:this.Unit
+        // }).then(response=>{
+        //   if(response.data.map){
+        //     console.log(response.data.map);
+        //     this.countInspectionPlanRelevant.countTotal = response.data.map.TOTAL;
+        //     this.countInspectionPlanRelevant.countDisableTotal = response.data.map.DISABLETOTAL;
+        //     this.countInspectionPlanRelevant.countEnableTotal = response.data.map.ENABLETOTAL;
+        //     this.countInspectionPlanRelevant.countDelete = response.data.map.DELETED;
+        //     this.countInspectionPlanRelevant.countIssanCount = response.data.map.ISSANCOUNT;
+        //   }
+        // }).then(err=>{
+        //   // console.log(err)
+        // })
+      },
+      buildingId(){
+        if(this.$route.path == '/Building_management/maps'){
+          $('.mapTable').show();
+          $('.total').show();
+          this.tableData.forEach((item,index)=>{
+            if(item.id == this.buildingId){
+              console.log(item);
+              this.form.BuildName = item.name ;
+              this.form.unitId = item.unitId ;
+              this.form.UnitName = item.unitName ;
+              this.form.address = item.location ;
+              this.form.area = item.area ;
+              this.form.height = item.heightOfBuilding ;
+              this.form.floor = item.floors ;
+              this.form.structure = item.structure ;
+              this.form.timeYear = item.buildYear ;
+              this.form.property = item.property ;
+              this.form.name = item.linkname ;
+              this.form.phone = item.phone ;
+            }
+          })
+        }
+        if(this.$route.path == '/Building_management/all'){
+          if(this.floorAdd == 1){
+            // console.log(this.buildingId)
+            this.findPageBuildIngFloor();
+            $('.plan').hide();
+            $('.total').hide();
+            $('.floor_wrap').show();
+            this.tableData.forEach((item,index)=>{
+              if(item.id == this.buildingId){
+                // console.log(item);
+                this.form.BuildName = item.name ;
+                this.form.unitId = item.unitId ;
+                this.form.UnitName = item.unitName ;
+              }
+            })
+          }else if(this.floorAdd ==2){
+            $('.plan').show();
+            $('.total').hide();
+            this.tableData.forEach((item,index)=>{
+              if(item.id == this.buildingId){
+                // console.log(item);
+                this.form.BuildName = item.name ;
+                this.form.unitId = item.unitId ;
+                this.form.UnitName = item.unitName ;
+                this.form.address = item.location ;
+                this.form.area = item.area ;
+                this.form.height = item.heightOfBuilding ;
+                this.form.floor = item.floors ;
+                this.form.structure = item.structure ;
+                this.form.timeYear = item.buildYear ;
+                this.form.property = item.property ;
+                this.form.name = item.linkname ;
+                this.form.phone = item.phone ;
+              }
+            })
           }
-        }).then(err=>{
-          // console.log(err)
-        })
+        }
+        // console.log(this.buildingId);
+      },
+      floorId(){
+        if(this.$route.path == '/Building_management/all'){
+          if(this.floorAdd == 3){
+            $('.plan').hide();
+            $('.total').hide();
+            $('.floor_wrap').hide();
+            $('.room-wrap').show();
+            
+          }
+        }
       }
-      // deviceId(){
-      //   $('.plan').show();
-      //   $('.total').hide();
-      //   if(this.$route.path == '/Building_management/maps'){
-      //     $('.mapTable').show();
-      //     $('.total').show();
-      //   }
-      //   if(this.$route.path == '/Building_management/all'){
-      //     $('.plan').show();
-      //     $('.total').hide();
-      //     $('.mapTable').hide();
-      //   }
-      //   console.log(this.deviceId);
-      // }
     },
     computed:mapState([
-      'Unit',
-      'deviceId'
+      'buildUnit',
+      'buildingId',
+      'floorAdd',
+      'floorId'
     ])
   }
 </script>
 
 <style lang="scss" scoped>
+  .clearFix:after{
+    clear:both;
+    content:'';
+    display: block;
+  }
   .padding-right16 {
     padding-right: 16px;
   }
@@ -603,6 +971,221 @@
       height: 32px;
       line-height: 32px;
       padding: 0;
+  }
+
+
+  .textandimg{
+    // margin-top:150px;
+    
+    margin-left:90px;
+  }
+
+  .span_name{
+    font-size: 16px !important;
+    width:160px;
+    display:inline-block;
+    margin-left:-20px;
+    line-height: 40px;
+  }
+  .span_con{
+    font-size: 14px !important;
+    display:inline-block;
+    line-height: 40px;
+  }
+  
+
+
+  // floor 
+  .floor_wrap{
+    width:100%;
+    margin-top:150px;
+    padding:0 15px;
+    .floor_header{
+      h2{
+        color: #fff;
+        font-size:18px;
+        float:left;
+      }
+      span{
+        display: inline-block;
+        float: right;
+        line-height: 35px;
+        color: #999999;
+        padding:0;
+        margin:10px 30px 0 0 ;
+      }
+    }
+    .floor_title{
+      h3{
+        color: #cccccc;
+        font-size:14px;
+        float:left;
+      }
+      button{
+        float: right;
+        width:64px;
+        height:28px;
+        border:none;
+        background: #bad616;
+        margin-left: 6px;
+        margin-right: 20px;
+        margin-top:10px;
+        display: flex;
+        font-size:13px;
+        align-items: center;
+        justify-content: center;
+        border:2px solid transparent;
+        color: #000;
+        i{
+          color: #000;
+          margin-right:2px;
+        }
+      }
+    }
+    table{
+      margin-top:70px;
+      border-color: #999999;
+      background: #222;
+      thead{
+        tr{
+          td{
+            color:#999;
+            text-align: center!important;
+            vertical-align: middle!important;
+          }
+        }
+      }
+      tbody{
+        
+        tr{
+          height:40px!important;
+          td{
+            height:40px!important;
+            color: #cccccc;
+            text-align: center!important;
+            vertical-align: middle!important;
+            input{
+              width:60px;
+              background: #fff;
+              border:1px solid #222;
+              outline:none;
+              display:inline-block;
+            }
+            img{
+              // float: left;
+              width:23px;
+              margin-right:10px;
+            }
+            i{
+              // float: left;
+            }
+            button{
+              // float: left;
+            }
+          }
+        }
+      }
+    }
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+       border-color: #999999;
+    }
+  }
+
+
+  // room 
+  .room_wrap{
+    width:100%;
+    margin-top:150px;
+    padding:0 15px;
+    .room_header{
+      h2{
+        color: #fff;
+        font-size:18px;
+        float:left;
+      }
+      span{
+        display: inline-block;
+        float: right;
+        line-height: 35px;
+        color: #999999;
+        padding:0;
+        margin:10px 30px 0 0 ;
+      }
+    }
+    .room_title{
+      h3{
+        color: #cccccc;
+        font-size:14px;
+        float:left;
+      }
+      button{
+        float: right;
+        width:64px;
+        height:28px;
+        border:none;
+        background: #bad616;
+        margin-left: 6px;
+        margin-right: 20px;
+        margin-top:10px;
+        display: flex;
+        font-size:13px;
+        align-items: center;
+        justify-content: center;
+        border:2px solid transparent;
+        color: #000;
+        i{
+          color: #000;
+          margin-right:2px;
+        }
+      }
+    }
+    table{
+      margin-top:70px;
+      border-color: #999999;
+      background: #222;
+      thead{
+        tr{
+          td{
+            color:#999;
+            text-align: center!important;
+            vertical-align: middle!important;
+          }
+        }
+      }
+      tbody{
+        
+        tr{
+          height:40px!important;
+          td{
+            height:40px!important;
+            color: #cccccc;
+            text-align: center!important;
+            vertical-align: middle!important;
+            input{
+              width:60px;
+              background: #fff;
+              border:1px solid #222;
+              outline:none;
+              display:inline-block;
+            }
+            img{
+              // float: left;
+              width:23px;
+              margin-right:10px;
+            }
+            i{
+              // float: left;
+            }
+            button{
+              // float: left;
+            }
+          }
+        }
+      }
+    }
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+       border-color: #999999;
+    }
   }
 
 </style>

@@ -13,7 +13,7 @@
       <div class="main_all_content">
         <div class="main_content_top">
           <el-form label-width="80px"  class="float-left">
-            <el-select v-model="unit" placeholder="选择单位" class="select">
+            <el-select v-model="buildUnit" placeholder="选择单位" class="select">
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -25,20 +25,25 @@
         </div>
       </div>
     </aside>
+    <div class="maps">
+        <managementMap-vue></managementMap-vue>
+    </div>
   </div>
 
 </template>
 
-<script>
+<script>  
+  import managementMapVue from '../../components/managementMap';
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
-      
-        unit:null,//选择单位
+        buildUnit:null,//选择单位
         optionList:[]//全部单位列表
-      
       }
+    },
+    components:{
+      'managementMap-vue': managementMapVue,
     },
     methods: {
       btn_add(){
@@ -64,10 +69,10 @@
       }
     },
     watch:{
-      unit(curVal,oldVal){
-        this.unit = curVal;
-        console.log(this.unit);
-        this.$store.commit('Unit',this.unit);
+      buildUnit(curVal,oldVal){
+        this.buildUnit = curVal;
+        console.log(this.buildUnit);
+        this.$store.commit('buildUnit',this.buildUnit);
       }
     },
     mounted(){
@@ -101,6 +106,11 @@
       margin-right: 24%;
     }
   }
+.maps{
+  width:100%;
+  height:500px;
+  position: relative;
+}
   /* aside{
     width:50%;
     min-width: 450px;

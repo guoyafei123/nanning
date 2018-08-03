@@ -15,7 +15,12 @@
       <div class="overlay"></div>
       <set_right-vue></set_right-vue>
     </section>
-
+    <div class="fix" @click="show" style="display:none;width:20px;height:60px;position: fixed;top:35%;left:0;background:#333;text-align:center;line-height: 60px;">
+        <span style="font-size: 23px;
+      display: block;
+      font-weight: normal;
+      transform: scale(1, 2.5);color: #fff;">&gt;</span>
+    </div>
     <!-- #右边 End-->
   </div>
 </template>
@@ -26,7 +31,17 @@
   import MainVue from './main.vue';
   import Set_rightVue from './right.vue';
   import '../../assets/css/setting.scss';
+  import '../../assets/css/upd-element.css';
   export default {
+    methods:{
+      show(){
+        $('main').css('margin-left','17.58%');
+        $("#left").css('width','17.58%');
+        $('.show_left').slideToggle(1000,function(){
+          $('.fix').hide();
+        });
+      }
+    },
     components:{
       'header-vue':HeaderVue,
       'set_left-vue':Set_leftVue,
@@ -48,9 +63,14 @@
     height: 110px;
     /*background:rgba(0,0,0,1)*/
   }
+  @media (min-width: 768px) and (max-width:1600px){
+    #left{
+      width:295px;
+    }
+  }
   @media (min-width: 1600px){
     #left{
-      width:17.58% !important;
+      width:17.58%;
     }
     #right{
       width:24%;
