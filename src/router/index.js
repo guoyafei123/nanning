@@ -67,7 +67,7 @@ export default new Router({
       path:'/danger',component:DangerVue
     },
     {
-      path:'*',redirect:'/index'
+      path:'*',redirect:'/login'
     },
     {
       path:'/earlyinfo',component:earlyinfoVue

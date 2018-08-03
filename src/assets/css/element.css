@@ -94,22 +94,22 @@
     border: 1px solid #222!important;
     border-radius: 0px !important;
 }
-.el-input__inner {
+header .el-input__inner {
     color: #999;
     padding: 0;
     border-radius: 0;
     border: none!important;
     padding-right: 0!important;
 }
-.el-input__inner:active,
-.el-input__inner:visited,
-.el-input__inner:hover {
+header .el-input__inner:active,
+header .el-input__inner:visited,
+header .el-input__inner:hover {
     border: none!important;
 }
-.el-icon-arrow-up:before {
+header .el-icon-arrow-up:before {
     content: "\E60C";
 }
-.el-select-dropdown__item.selected {
+header .el-select-dropdown__item.selected {
     color: #bad616;
     font-weight: normal;
 }

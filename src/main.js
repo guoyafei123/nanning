@@ -33,9 +33,9 @@ import './assets/css/index.css'
 import './assets/css/main.css'
 import './assets/css/messages.css';
 import './assets/css/early.css';
-import './assets/css/map.css'
-import './assets/css/upd-element.css'
+import './assets/css/map.css';
 import './assets/css/element.css';
+import './assets/css/upd-element.css'
 // axios请求
 import { post,fetch } from './assets/js/http';
 //定义全局变量
