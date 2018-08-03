@@ -10,6 +10,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+      '/cas': {
+        target: 'http://cas.nanninglq.51play.com/',//设置你调用的接口域名和端口号
+        changeOrigin: true,
+        pathRewrite: {
+          '^/cas': '/'
+        }
+      },
       '/api': {
         target: 'http://api.nanninglq.51play.com/',//设置你调用的接口域名和端口号
         changeOrigin: true,
@@ -17,6 +24,7 @@ module.exports = {
           '^/api': '/'
         }
       }
+     
     },
 
     // Various Dev Server settings
