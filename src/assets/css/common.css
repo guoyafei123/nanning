@@ -20,6 +20,8 @@
 }
 
 body {
+  width: 100%;
+  height: 100%;
 	/* font: 12px/1.5 tahoma, arial, 'Hiragino Sans GB', \5b8b\4f53, sans-serif */
 }
 
@@ -73,15 +75,15 @@ table {
 }
 
 /*滚动条*/
-::-webkit-scrollbar {width: 5px;height:5px;}
+::-webkit-scrollbar {width: 2px;height:2px;}
 ::-webkit-scrollbar-track-piece {background-color: #3c3c3c;margin: -2px;}
-::-webkit-scrollbar-thumb {background: #777;min-height: 150px;min-width: 150px;border-radius: 10px;}
+::-webkit-scrollbar-thumb {background: #666;min-height: 150px;min-width: 150px;border-radius: 10px;}
 ::-webkit-scrollbar-thumb:vertical:hover{background: #555555}
 ::-webkit-scrollbar-thumb:horizontal:hover{background: #555555}
 
-::-moz-scrollbar {width: 5px;height:5px;}
+::-moz-scrollbar {width: 2px;height:2px;}
 ::-moz-scrollbar-track-piece {background-color: #3c3c3c;margin: -2px;}
-::-moz-scrollbar-thumb {background: #777;min-height: 150px;min-width: 150px;border-radius: 10px;}
+::-moz-scrollbar-thumb {background: #666;min-height: 150px;min-width: 150px;border-radius: 10px;}
 ::-moz-scrollbar-thumb:vertical:hover{background: #555555}
 ::-moz-scrollbar-thumb:horizontal:hover{background: #555555}
 
@@ -154,7 +156,9 @@ table {
 
 /* 斜体 */
 .font-italic{font-style:italic}
-
+.border-radius {
+  border-radius: 0;
+}
 /* 边框 实际中注意颜色替换*/
 .border-none{border: none}
 .border-solid-333{border:1px solid #333}
@@ -165,7 +169,6 @@ table {
 .border-solid-right{border-right:1px solid #999}
 .border-solid-top{border-top:1px solid #999}
 .border-solid-bottom{border-bottom:1px solid #999}
-
 .border-dashed-left{border-left:1px solid #999}
 .border-dashed-right{border-right:1px solid #999}
 .border-dashed-top{border-top:1px solid #999}
@@ -519,12 +522,6 @@ table {
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     /*IE4-IE9*/
     filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
- /*    filter: url(blur.svg#blur); FireFox, Chrome, Opera
- -webkit-filter: blur(30px); Chrome, Opera
-    -moz-filter: blur(30px);
-     -ms-filter: blur(30px);
-         filter: blur(30px);
- filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=30, MakeShadow=false); IE6~IE9 */
 
 }
 
@@ -589,16 +586,6 @@ table th,table td{
 .mini-table td{
     overflow:hidden; text-overflow:ellipsis;
 }
-
-.white-space{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.iconfont {
-  font-size: 12px;
-}
-
 
 
 

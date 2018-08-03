@@ -1,11 +1,12 @@
+
 #left{
     width: 20%;
     padding-right: 10px;
-    height: 100vh;
+    height: 100%;
 }
 #right{
     width:24%;
-    height: 100vh;
+    height: 100%;
 }
 /* 头部 */
 #header{
@@ -73,6 +74,7 @@
 /* 头部右边 */
 .header-right{
     position: absolute;
+    z-index: 9999;
 }
 .header-right>ul li{
     float: left;
@@ -86,14 +88,10 @@
 }
 .header-head-portrait{
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    overflow: none;
-    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     overflow: hidden;
-    position: relative;
-    top: 4px;
-    left: 10px;
 }
 .header-head-portrait img{
     width: 100%;
@@ -102,11 +100,7 @@
 .header-right>div ,.header-right>ul{
     display: inline-block;
 }
-.header-right>div{
-    position: relative;
-    bottom: 15px;
-    left: 25px;
-}
+
 .header-head-portrait-people{
     display: inline-block;
 }
@@ -119,6 +113,7 @@
 .toolleft {
     margin-top: 139px;
     padding-left:37px;
+    height: auto;
 }
 .toolcountp1{
     margin-left: 16px;
@@ -199,7 +194,6 @@
     /* z-index: 999; */
 }
 .footer ul li{
-    padding: 9px 22px;
     margin: 2px;
     border: 1px solid #666;
 }
@@ -210,8 +204,12 @@
     color: #ccc !important;
 }
 .footer ul li a{
+    width: 100%;
+    height: 100%;
+    padding: 9px 22px;
     color: #ccc;
     display: block;
+    text-decoration: none;
 }
 .footer ul li:hover,.footer-nav-active{
     background: rgba(186,214,22,1);
@@ -228,6 +226,7 @@
 /* 右边 */
 .toolright{
     padding: 120px 37px 0px 20px;
+    height: 100%;
 }
 .toolbuildrate{
     padding-left: 0px;
@@ -391,11 +390,18 @@
 .glyphicon-searchdiv{padding-right: 10px!important;}
 
 /* 媒体查询 */
-@media (min-width: 768px) {
-    #left{
-        width: 360px;
+@media (max-width: 768px) {
+    #early #common-cont{
+        width: 52%;
+    } 
+    #early #right{
+        min-width: 48%;
     }
-    #right{
+
+    #left{
+        width: 300px;
+    }
+    #right {
         width: 400px;
     }
     .header-middle{
@@ -403,6 +409,9 @@
     }
 }
 @media (min-width: 1600px) {
+    #common-cont{
+        width: 76%;
+    }
     #left{
         width: 20%;
     }
@@ -414,6 +423,9 @@
     }
 }
 @media (min-width: 2300px) {
+    #common-cont{
+        width: 80%;
+    }
     #left{
         width: 17%;
     }
@@ -537,6 +549,7 @@ video:hover{
 }
 
 
+<<<<<<< HEAD
 
 
 /* 综合 */
@@ -1053,3 +1066,12 @@ video:hover{
     }
 
     
+=======
+.loginbac{
+  position: absolute;
+  top: 20%;
+  left: 0px;
+  width: 70%;
+  height: auto;
+}
+>>>>>>> 932e61e8bbe9aa465cc09928d5877529f6e2f771

@@ -5,31 +5,29 @@
         <p class="font-white size-16 version-title">数雨如歌智慧消防大数据监控平台 政府版
             <span class="size-10 version-num">BETA3.0</span>
         </p>
-        <i class="fa fa-th-large font-gray-666"></i>
-        <div class="dropdown public-dropdown display-inline-block">
-            <button class="btn btn-default dropdown-toggle size-12 dropdown-btnstyle" type="button" id="aaaa" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                南宁市良庆区
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu xunjian-left-main-bottom-pan bg-gray-99" aria-labelledby="aaaa">
-                <li>
-                    <a href="#">南宁市良庆区</a>
-                </li>
-                <li>
-                    <a href="#">南宁市良庆区</a>
-                </li>
-                <li>
-                    <a href="#">南宁市良庆区</a>
-                </li>
-            </ul>
-        </div>
-        <i class="fa fa-th-large font-gray-666"></i>
+        <el-select v-model="areavalue" placeholder="全部区域" size="mini" class="el-sel">
+            <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+            </el-option>
+        </el-select>
+        <el-select v-model="unitvalue" placeholder="全部单位" size="mini" class="el-sel">
+            <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+            </el-option>
+        </el-select>
+        <!-- <i class="fa fa-th-large font-gray-666"></i>
         <div class="dropdown public-dropdown display-inline-block">
             <button class="btn btn-default dropdown-toggle size-12 font-blue dropdown-btnstyle" type="button" id="aaaa" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 中心小学
                 <span class="caret font-blue"></span>
             </button>
-            <ul class="dropdown-menu xunjian-left-main-bottom-pan bg-gray-99" aria-labelledby="aaaa">
+            <ul class="dropdown-menu" aria-labelledby="aaaa">
                 <li>
                     <a href="#">中心小学</a>
                 </li>
@@ -40,7 +38,7 @@
                     <a href="#">中心小学</a>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
     <div class="header-middle font-gray-ccc">
         <ul>
@@ -88,89 +86,119 @@
             </li>
         </ul>
     </div>
-    <div class="header-right  margin-top40 position-right37">
-        <div>
-            <span class="header-head-portrait">
-                <img src="/src/assets/images/people.png">
-            </span>
-            <span class="font-gray-666">
+    <div class="header-right margin-top40 font-gray-666">
+        <div class="header-head">            
+            <span class="">
                 <div class="display-inline-block">
-                    <button class="btn btn-default dropdown-toggle dropdown-btnstyle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true" >
-                        段亚伟
-                        <span style="color: #fff;" class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu xunjian-left-main-bottom-pan bg-gray-999" aria-labelledby="dropdownMenu1">
-                        <li>
-                            <a href="#">段亚伟</a>
-                        </li>
-                        <li>
-                            <a href="#">段亚伟</a>
-                        </li>
-                        <li>
-                            <a href="#">段亚伟</a>
-                        </li>
-                        <li>
-                            <a href="#">段亚伟</a>
-                        </li>
-                        <li>
-                            <a href="#">段亚伟</a>
-                        </li>
-                        <li>
-                            <a href="#">段亚伟</a>
-                        </li>
-                    </ul>
+                    <el-dropdown trigger="click">
+                      <span class="el-dropdown-link">
+                        <span class="header-head-portrait">
+                            <img src="../assets/images/people.png">
+                        </span>
+                        <span class="user-name">段亚伟</span>
+                        <span class="caret"></span>
+                      </span>
+                      <el-dropdown-menu slot="dropdown">                        
+                        <el-dropdown-item>签到</el-dropdown-item>
+                        <el-dropdown-item>操作记录</el-dropdown-item>
+                        <el-dropdown-item disabled>个人资料</el-dropdown-item>
+                        <el-dropdown-item disabled>修改密码</el-dropdown-item>
+                      </el-dropdown-menu>
+                    </el-dropdown>
                 </div>
             </span>
         </div>
-        <ul>
+        <ul class="top-btn">
             <li>
-                <a href="#" class="tooltip-test" data-toggle="tooltip" title="消息提示">
-                    <i class="fa fa-th-large font-gray-666 active-header-right-tool"></i>
+                <span class="point"></span>
+                <a @click="showMessages()">
+                    <i class="icon iconfont icon-xiaoxi-mian--" data-toggle="tooltip" title="消息"></i>
                 </a>
             </li>
             <li>
-                <a href="#" class="tooltip-test" data-toggle="tooltip" title="搜索">
-                    <i class="fa fa-th-large font-gray-666"></i>
+                <a href="#" data-toggle="tooltip" title="搜索">
+                    <i class="icon iconfont icon-sousuo-mian-"></i>
                 </a>
-            </li>
+            </li>            
             <li>
-                <a href="#" class="tooltip-test" data-toggle="tooltip" title="九屏监控">
-                    <i class="fa fa-th-large font-gray-666"></i>
-                </a>
-            </li>
-            <li>
-                <router-link to="/Equipment_management" class="tooltip-test" data-toggle="tooltip" title="设置">
-                    <i class="fa fa-th-large font-gray-666"></i>
+                <router-link to="/Equipment_management" data-toggle="tooltip" title="管理">
+                    <i class="icon iconfont icon-shezhi-mian-"></i>
                 </router-link>
             </li>
             <li>
-                <a href="#" class="tooltip-test" data-toggle="tooltip" title="公告">
-                    <i class="fa fa-th-large font-gray-666"></i>
+                <a href="#" data-toggle="tooltip" title="九屏监控">
+                    <i class="icon iconfont icon-jiuping-mian-"></i>
                 </a>
             </li>
             <li>
-                <a href="#" class="tooltip-test" data-toggle="tooltip" title="帮助">
-                    <i class="fa fa-th-large font-gray-666"></i>
+                <a @click="voice()" class="voice" data-toggle="tooltip" title="声音">
+                    <i class="icon iconfont icon-tongzhi-mian-"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-toggle="tooltip" title="帮助">
+                    <i class="icon iconfont icon-bangzhu-mian-"></i>
                 </a>
             </li>
         </ul>
     </div>
 </div>
-  </header>
+<!-- 模态窗 -->
+<div class="modal fade" id="showmessages" aria-labelledby="messagesLabel" aria-hidden="true">
+    <!-- 消息中心 -->
+    <messages-vue></messages-vue>
+</div>
+</header>
+
 </template>
 
 <script>
-  export default{
+  import messagesVue from './messages.vue';
+  export default {
+    components:{
+      'messages-vue':messagesVue
+    },
+    // 选择器
+    data() {
+      return {
+        options: [{
+          value: '选项1',
+          label: '全部区域'
+        }, {
+          value: '选项2',
+          label: '南宁市良庆区'
+        }, {
+          value: '选项3',
+          label: '南宁市兴宁区'
+        }, {
+          value: '选项4',
+          label: '南宁市横县'
+        }],
+        areavalue: "选项2"
+      }
+    },
+    //其他
     mounted(){
 
       this.mini_go('header-canvas-people', 88.88);
       this.mini_go('header-canvas-host', 88.88);
       this.mini_go('header-canvas-cpu', 88.88);
       this.mini_go('header-canvas-memory', 88.88);
-
+      $("[data-toggle='tooltip']").tooltip();
     },
     methods:{
+        // 显示模态窗
+        showMessages(){            
+            $('#showmessages').modal('toggle');
+            $('#showmessages').on('show.bs.modal', function () {
+                  $(".icon-xiaoxi-mian--").addClass("font-white");
+            });
+        },
+        // 开关声音
+        voice(){
+            $(".icon-tongzhi-mian-").toggleClass("font-blue");
+        },
+
       mini_go(id, num) {
         //画底圆
         //mini图配置
