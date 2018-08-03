@@ -558,7 +558,9 @@ video:hover{
       }
       .login-left{
         background: #0d0d0d;
-        overflow: hidden;
+        overflow: hidden;  
+
+        
       }
       .login p{
         letter-spacing:1px;
