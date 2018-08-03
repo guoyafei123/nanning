@@ -11,7 +11,8 @@ var state={
   setvuextest:'',
   queryUnitBuildList:Object,
   queryInspectionLineList:Object,
-  route_path:''
+  route_path:'',
+  loginusername:''
 }
 
 var mutations={
@@ -38,6 +39,9 @@ var mutations={
   },
   route_path(state,data){
     state.route_path=data;
+  },
+  loginusername(state,data){
+    state.loginusername=data;
   }
 
   
