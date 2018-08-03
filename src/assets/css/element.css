@@ -1,3 +1,22 @@
+/*Badge 标记*/
+.el-button--small, .el-button--small.is-round {
+    padding: 0;
+}
+.el-button {
+    background: transparent;
+    border: 0;
+    color:inherit;
+    font-size: inherit;
+}
+.el-badge__content.is-fixed {
+    top: -11px;
+    right: -4px;
+}
+.el-badge__content {
+    background-color: #f13131;
+    border:0;
+    color: #000;
+}
 /*下拉菜单*/
 .el-popper[x-placement^=bottom] .popper__arrow {
     border-bottom-color: #222;
