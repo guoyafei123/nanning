@@ -3,7 +3,10 @@
     <div class="footer">
       <ul class="list-inline">
         <li class="footer-nav-active">
-          <router-link to="/index">综合</router-link>
+          <router-link to="/index">
+            <el-badge :value="200" :max="99" class="item">
+              <el-button size="small">综合</el-button>
+            </el-badge></router-link>
         </li>
         <li>
           <router-link to="/risk">风险</router-link>
@@ -31,6 +34,9 @@
         </li>
         <li>
           <router-link to="">联控</router-link>
+        </li>
+        <li>
+          <router-link to="/earlyinfo">详情</router-link>
         </li>
         <!-- <li>
           <router-link to="">
@@ -70,5 +76,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

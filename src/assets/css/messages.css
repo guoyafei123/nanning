@@ -1,0 +1,256 @@
+@charset "utf-8";
+/*消息弹窗*/
+#messages {
+    position: absolute;
+    right: 48px;
+    top: 60px;
+    padding-left:15px;
+    padding-right: 15px;
+    width: 400px;
+    height: 600px;
+    background-color: #111;
+    box-shadow: 0px 0px 50px rgba(0,0,0,.8);
+
+}
+#messages:before {
+    position: absolute;
+    top: -10px;
+    left: 47%;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #222;
+}
+.messages-title  {
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+}
+.messages-title small {
+    color:#666;
+    display: block;
+}
+.messages-title a {
+    color: #999;
+    position: absolute;
+    right: 20px;
+    top: 0px;
+}
+.messages-title a:hover {
+    color: #bad616;
+}
+#messages .nav-tabs {
+    text-align: center;
+    margin: 40px auto 0;
+    width: 54%;
+    border-bottom: 0;
+}
+#messages .nav-tabs span.point {
+    right: 6px;
+    top: 6px;
+}
+#messages .nav-tabs>li>a {
+    border: 1px solid transparent;
+    border-radius: 0;
+    margin-right: 4px;
+}
+#messages .nav>li>a {
+    position: relative;
+    display: block;
+    font-size: 12px;
+    padding: 6px 20px;
+    color: #999;
+    cursor: pointer;
+    text-indent: 2px;
+}
+#messages .nav>li>a:hover {
+    cursor: pointer!important;
+    color: #ccc;
+}
+#messages .nav>li>a:hover,
+#messages .nav>li>a:focus,
+#messages .nav-tabs>li.active>a,
+#messages .nav-tabs>li.active>a:focus,
+#messages .nav-tabs>li.active>a:hover {
+    color: #fff;
+    cursor: default;
+    background-color: #111;
+    border: 1px solid #111;
+    border-bottom-color: transparent;
+}
+#messages .btn-back {
+    position: absolute;
+    bottom: 15px;
+    display: block;
+    width: 370px;
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    z-index: 2;
+}
+.messages-list {
+    font-size: 12px;
+    color: #999;
+    line-height: 22px;
+    height: 100%;
+    margin-top: 15px;
+}
+
+.messages-list div {
+    position: relative;
+    z-index: 3;
+}
+.messages-list div>ul {
+    list-style: none;
+    padding-left: 0;
+    height: 390px;
+    margin-bottom: 0;
+    overflow-y: auto; 
+}
+.messages-list div>ul::-webkit-scrollbar {
+    width: 0px;
+    height:0px;
+}
+.messages-list ul:before {
+    content: " ";
+    display: block;
+    width: 1px;
+    height: 100%;
+    background-color: #333;
+    position: absolute;
+    left: 4px;
+    top: 8px;
+}
+.messages-list li {
+    margin-bottom: 20px;
+    padding-left: 15px;
+    position: relative;
+    
+}
+.messages-list li:before {
+    content: " ";
+    display: block;
+    width: 9px;
+    height: 9px;
+    background-color: #666;
+    border-radius: 50%;
+    position: absolute;
+    top: 7px;
+    left: 0px;
+    z-index: 5;
+}
+.messages-list li h3 {
+    cursor: pointer;
+}
+.messages-list li h3,.messages-list li small {
+    color: #666;
+    line-height: 24px;
+    display: block;
+}
+.messages-list li  small span{
+    color: #666;
+    float: right;
+    font-size: xx-small;
+}
+.messages-list li  small i {
+    display: inline-block;
+    position: relative;
+    top: -2px;
+}
+.messages-list li  small i:first-child {
+    font-size: 14px;
+    min-width: 140px;
+    max-width: 160px;
+}
+.messages-list li  small i:before {
+    padding-right:4px; 
+}
+.messages-list li  small i span {
+    float: inherit;
+}
+.messages-list li h3:after {
+    font-family:"iconfont" !important;
+    font-size:16px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: right;
+}
+
+/*活动*/
+.messages-list li.activity h3:after {
+    content: "\e673";
+}
+/*系统*/
+.messages-list li.system h3:after {
+    content: "\e615";
+}
+/*火情*/
+.messages-list li.fire h3:after {
+    content: "\e690";
+    color: #ff0000!important;
+}
+.messages-list li.fire h3 span {
+    color: #ff0000!important;
+}
+/*报警*/
+.messages-list li.warning h3:after {
+    content: "\e620";
+    color: #f13131!important;
+}
+.messages-list li.warning h3 span {
+    color: #f13131!important;
+}
+/*故障*/
+.messages-list li.fault h3:after {
+    content: "\e681";
+    color: #ff7800!important;
+}
+.messages-list li.fault h3 span {
+    color: #ff7800!important;
+}
+/*隐患*/
+.messages-list li.dangers h3:after {
+    content: "\e623";
+    color: #ffb709!important;
+}
+.messages-list li.dangers h3 span {
+    color: #ffb709!important;
+}
+/*解除*/
+.messages-list li.ok h3:after {
+    color: #bad616!important;
+}
+.messages-list li.ok h3 span {
+    color: #bad616!important;
+}
+/*已读*/
+.messages-list li.unread:before{
+    background-color: #bad616;
+}
+.messages-list li.unread h3 span,
+.messages-list li.unread h3:after {
+    color: #bad616;
+}
+.messages-list li.unread h3 {
+    color: #fff;
+}
+.messages-list li.unread small span {
+    color: #999;
+}
+
+/*消息内容*/
+.messages-cont li h3 {
+    color: #bad616;
+}
+.messages-cont li:before {
+    background-color: #bad616;
+}
+.messages-cont p {
+    color: #666;
+    margin:0;
+    line-height: inherit;
+}
+.messages-cont p span,.messages-cont small b {
+    color: #ccc!important;
+}

@@ -1,0 +1,323 @@
+@charset "utf-8";
+/*实时报警*/
+.scrollheight {
+    height: 86%!important;
+}
+.early-warning {
+    position: relative;
+    border-left: 1px solid#333;
+    height: 52%;
+    overflow: hidden;
+    transition:height .5s;
+    -webkit-transition:height .5s; 
+}
+.early-warning .toolroute-rect {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.early-warning h3 {
+    font-size: 24px;
+    color: #bad616;
+}
+.early-warning h3 a {
+    line-height: 40px;
+    color: #fff;
+    display: block;
+}
+.early-warning a:hover {
+    color: #bad616;
+}
+.early-warning small {
+    font-size:xx-small;
+}
+.early-title {
+    position: relative;
+    top: -6px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.early-list {
+    margin-bottom: 0;       
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto; 
+}
+.early-list::-webkit-scrollbar {
+    width: 0px;
+    height:0px;
+}
+.early-list li {
+    margin: 0 10px;
+    color: #fff;
+    font-size: 12px;
+    padding-top:12px;
+}
+.early-list li article {
+    height: 26px;
+}
+.early-list li article h5 {
+    margin-top: -2px;
+    width: 68%;
+    float: left;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.early-list li article h5 i:first-child {
+    margin-right: 4px;
+}
+
+.early-list li article h4 a {
+    float: right;
+    color: #ccc;
+    text-align: right;
+    padding-left: 16px;
+    display: block;
+}
+.early-list li article h4 i {
+    font-size: 14px;
+}
+
+.early-list li article h4 a:last-child {
+    display: none;
+}
+.early-list li var {
+    height: 26px;
+    margin-left: 5px;
+    margin-right:-15px;
+    font-style: normal;
+    color: #999;
+    text-align: left;
+    padding:0;
+    display: block;
+}
+.early-list li var p {
+    padding-right: 0;
+}
+.early-list li var p:first-child span {
+    margin-right: 6px;
+}
+.early-list li var p i {
+    color: #666;
+    font-size: 14px;
+}
+.early-list li var p i span{
+    margin-left: 4px;
+    font-weight: normal;
+    color: #ccc;
+    font-size: xx-small;
+}
+.early-list li var p:last-child {
+    text-align: right;
+}
+.early-list li var p span.badge {
+    border-radius: 0;
+    font-weight: normal;
+    padding: 2px 4px;
+    clear: both;
+}
+.early-list li var p span.badge:nth-last-child(2) {
+    background-color: #000;
+    color: #bad616;
+    width: 46px;
+    text-align: right;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+.early-list li var p span.badge:last-child {
+    background-color: #222;
+    color: #ccc;
+}
+.early-list .icon-early {
+    font-size: 18px;
+    position: relative;
+    top: 2px;
+}
+/*聚合*/
+.early-single var p i:first-child {
+    min-width: 140px;
+    max-width: 160px;
+    display: inline-block;
+}
+.early-more i span {
+    color: #fff!important;
+}
+.early-more article h4 a:last-child{
+    display: block!important;
+}
+.early-more .icon-early:before {
+        content: "\e699"!important;
+}
+    /*火灾*/
+
+    .fire-list article h5 i:first-child,
+    .fire-list h5 span {
+        color: #ff0000;
+    }
+    .fire-list article h4 span.badge {
+        background-color: #ff0000;
+        color: #000;
+        padding: 2px 4px;
+    }
+    .fire-list .icon-early:before {
+        content: "\e690";
+    }
+
+    /*报警*/
+    .warning-list article h5 i:first-child,
+    .warning-list h5 span {
+        color: #f13131;
+    }
+    .warning-list article h4 span.badge {
+        background-color: #f13131;
+        color: #000;
+        padding: 2px 4px;
+    }
+    .warning-list .icon-early:before {
+        content: "\E620";
+    }
+    /*故障*/
+    .fault-list article h5 i:first-child,
+    .fault-list h5 span {
+        color: #ff7800;
+    }
+    .fault-list article h4 span.badge {
+        background-color: #ff7800;
+        color: #000;
+        padding: 2px 4px;
+    }
+    .fault-list .icon-early:before {
+        content: "\e681";
+    }
+    /*隐患*/
+    .dangers-list article h5 i:first-child,
+    .dangers-list h5 span {
+        color: #ffb709;
+    }
+    .dangers-list article h4 span.badge {
+        background-color: #ffb709;
+        color: #000;
+        padding: 2px 4px;
+    }
+    .dangers-list .icon-early:before {
+        content: "\e623";
+    }
+    /*已解决/已关闭/已复位*/
+    .ok-list article h5 i:first-child,
+    .ok-list h5 span {
+        color: #bad616;
+    }
+    .ok-list article h4 a:first-child,.ok-list article h4 a:nth-child(3) {
+        color: #333!important;
+        cursor: not-allowed;
+    }
+
+/*报警详情*/
+#common-cont{
+    height: 78%;
+    padding-right: 0;
+    padding-left: 36px;
+    top: 120px;
+    background-color: #111!important;
+}
+#common-cont>section {
+    width: 100%;
+    height: 100%;
+    border:2px solid #333;
+}
+#early .early-list li {
+    margin-right: 5px;
+    margin-left: 0;
+}
+#early .early-list article,
+#early .early-list var {
+    width: 100%;
+}
+.call-iteminfo {
+    height: 42.5%;
+    overflow-y: auto!important;
+    overflow-x: hidden;
+}
+/*切换地图/平面图*/
+.popup-map-min {
+    width: 140px;
+    height: 100px;
+    border: 1px solid #6b6b6b;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    box-shadow: 0px 0px 30px rgba(0,0,0,.6);
+}
+
+.popup-map-min h5{
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    background-color: #000;
+    color: #fff;
+    max-width: 64px;
+    padding: 2px 6px;
+    font-size: 12px;
+    line-height: 16px;    
+    text-align: center;
+}
+.popup-map-min>div {
+    max-width: 100%;
+    height: auto;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+.popup-map-min-point {
+    top: 31px!important;
+    left: 50px!important;
+}
+.popup-map-min-point .map_icon{
+    width: 24px!important;
+    height: 24px!important;
+    background-size: 93%!important;
+}
+
+/*地图图标*/
+/*警报详情*/
+i.icon-shuidi- {
+    width: 30px;
+    font-size: 36px;
+    text-align: center;
+    line-height: 36px;
+    position: relative;
+}
+i.icon-shuidi->i {
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+    position: absolute;
+    top: -3px;
+    left: 10px;
+}
+/*火灾详情*/
+.fire-list i.icon-shuidi- {
+    color:#ff0000 ;
+}
+/*故障详情*/
+.fault-list i.icon-shuidi- {
+    color: #ff7800;
+}
+/*报警详情*/
+.warning-list i.icon-shuidi- {
+    color: #f13131;
+}
+/*隐患详情*/
+.dangers-list i.icon-shuidi- {
+    color: #ffb709;
+}
+/*解除*/
+.ok-list i.icon-shuidi- {
+    color: #bad616;
+}
+

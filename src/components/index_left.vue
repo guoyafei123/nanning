@@ -18,7 +18,7 @@
               <h5>已确认 <span>59</span></h5>
               <h5>复位/关闭 <span>54</span></h5>
             </li>
-            <li class="col-sm-12 margin-top20 mian-chart">
+            <li class="col-sm-12 container-padding20 mian-chart">
               <!-- 警报数量变化趋势（折线图） -->
               <div>警报数量变化趋势（折线图）</div>
             </li>
@@ -42,7 +42,7 @@
               <h5>危险品 <span>59</span></h5>
               <h5>已解决 <span>54</span></h5>
             </li>
-            <li class="col-sm-12 margin-top10 mian-chart">
+            <li class="col-sm-12 container-padding20 mian-chart">
               <!-- 隐患数量变化趋势（折线图） -->
               <div>隐患数量变化趋势（折线图）</div>
             </li>

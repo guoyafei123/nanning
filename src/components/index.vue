@@ -4,13 +4,13 @@
     <header-vue></header-vue>
     <!-- #头部 End-->
     <!-- #左边 -->
-    <section id="left" class="position-fixed-left container-padding5 z-index-20">
+    <section id="left" class="position-fixed-left z-index-20">
       <div class="overlay"></div>
       <index_left-vue></index_left-vue>
     </section>
     <!-- #左边 End-->
     <!-- #右边 -->
-    <section id="right" class="position-fixed-right container-padding5 z-index-20">
+    <section id="right" class="position-fixed-right z-index-20">
       <div class="overlay"></div>
       <index_right-vue></index_right-vue>
     </section>
@@ -33,4 +33,5 @@
     }
     
   }
+
 </script>
