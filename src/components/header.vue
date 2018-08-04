@@ -1,11 +1,11 @@
 <template>
-  <header id="header" class="position-fixed-top z-index-30">
+  <header id="header" class="position-fixed-top z-index-9999">
     <div class="header-main">
     <div class="header-left margin-top40 position-left37">
         <p class="font-white size-16 version-title">数雨如歌智慧消防大数据监控平台 政府版
             <span class="size-10 version-num">BETA3.0</span>
         </p>
-        <el-select v-model="areavalue" placeholder="全部区域" size="mini" class="el-sel">
+        <el-select v-model="areavalue" placeholder="全部区域" size="mini">
             <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -13,7 +13,7 @@
                   :value="item.value">
             </el-option>
         </el-select>
-        <el-select v-model="unitvalue" placeholder="全部单位" size="mini" class="el-sel">
+        <el-select v-model="unitvalue" placeholder="全部单位" size="mini">
             <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -63,8 +63,8 @@
                 </div>
             </li>
             <li class="header-time">
-                <p class="font-blue size-12"> <i class="icon iconfont icon-qinglang-mian- size-14"></i><span>晴朗</span></p>
-                <p class="size-36 font-white">09:50:55</p>
+                <p class="font-blue size-12"> <i class="icon iconfont icon-qinglang-mian- size-14" data-toggle="tooltip" title="晴朗"></i><span>晴朗</span></p>
+                <p class="size-36 font-white" data-toggle="tooltip" title="2018年9月18日">09:50:55</p>
             </li>
             <li>
                 <canvas class="bg-none" id="header-canvas-cpu" width="50" height="50"></canvas>

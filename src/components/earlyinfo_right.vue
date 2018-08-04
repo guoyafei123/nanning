@@ -1,18 +1,5 @@
 <template>
-  <div class="toolright font-white">
-    <button class="btn-back"><i class="fas fa-chevron-left"></i> 返回</button>
-    <section>
-        <div class="personinfo margin-top10">
-          <p>
-            <span class="bgbox-police bg-red font-black size-20">火情</span>&nbsp;
-            <span class="size-24 font-blue">F57D 的报警详情</span>
-            <span class="float-right">
-                      <span class="bgbox-max bg-red font-black">
-                          <i class="fa fa-th-large"></i> 报警中</span>
-                  </span>
-          </p>
-        </div>
-      </section>
+  <div class="toolright font-white margin-top0 padding-top0">       
     <!-- 单位信息 -->
     <section class="unit-info border-solid-333 clearfix bg-black">      
       <ul class="list-unstyled">
@@ -84,6 +71,18 @@
         </li>
       </ul>  
     </section>
+    <!-- <section class="margin-top20">
+        <div class="personinfo">
+          <p>
+            <span class="bgbox-police bg-red font-black size-20">火情</span>&nbsp;
+            <span class="size-20 font-blue">F57D 的报警详情</span>
+            <span class="float-right">
+                      <span class="bgbox-max bg-red font-black">
+                          <i class="icon iconfont icon-tongzhi-xian-"></i> 报警中</span>
+                  </span>
+          </p>
+        </div>
+      </section>  -->  
     <section class="call-iteminfo margin-top10">
       <section>
         <div class="textandimg">
@@ -91,7 +90,7 @@
             <span class="tool-rect bg-blue"></span>报警发起
             <span class="float-right">
                       <span class="bgbox-max bg-blue font-black">
-                          <i class="fa fa-th-large"></i> 监控</span>
+                          <i class="icon iconfont icon-jiankong-mian-"></i> 监控</span>
                   </span>
           </h2>
           <div class="row textandimg-main">
@@ -119,7 +118,7 @@
               <span class="size-12 font-gray-666">报警描述 </span>
               <span class="size-12 font-gray-999">
                           <span class="bgbox-voice bg-blue font-black">
-                              <i class="fa fa-th-large"></i> 32S</span>
+                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span>
                           <span>有事没事报个警震惊一些愚蠢的人类</span>
                       </span>
             </div>
@@ -156,7 +155,7 @@
               <span class="size-12 font-gray-666">反馈信息 </span>
               <span class="size-12 font-gray-999">
                           <span class="bgbox-voice bg-blue font-black">
-                              <i class="fa fa-th-large"></i> 32S</span>
+                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span>
                           <span>设备质量不行,乱报警</span>
                       </span>
             </div>

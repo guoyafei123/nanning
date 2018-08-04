@@ -1,4 +1,86 @@
 @charset "utf-8";
+/*综合切换报警的所有和分类列表*/
+.early-tab {
+    transition: height .2s;
+    -webkit-transition: height .2s;
+}
+.early-menu {
+    width: 102%;
+    margin:0!important;
+    padding-left:5px;
+    padding-right:5px;
+    border: none;
+    position: relative;
+    padding-top: 15px;
+}
+
+.early-menu li {
+
+    font-weight: normal;
+    position: relative;
+    margin-bottom: 10px;
+}
+.early-menu li:first-child>a h4 {
+    color: #f13131;
+}
+.early-menu li:last-child>a h4 {
+    color: #bad616;
+}
+.early-menu li:nth-child(2)>a h4 {
+    color: #ffb709;
+}
+.early-menu li h4 {
+    font-size: 20px;
+    padding: 0;
+}
+
+.early-menu.nav-tabs>li.active>a, .early-menu.nav-tabs>li.active>a:focus, .early-menu.nav-tabs>li.active>a:hover {
+    color: #fff!important;
+    cursor: pointer!important;
+    background-color: #222!important;
+    border:1px solid #222!important;
+}
+.nav-tabs>li a:after{
+    position: absolute;
+    bottom: -10px;
+    left: 40px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #222;
+}
+.early-menu li>a,
+.early-menu li>div {
+    color: #ccc;
+    display: block;
+    background-color: #111;
+    height: inherit;
+    padding: 10px 0;
+    line-height: 1.4;
+    border-radius: 0;
+    text-align: center;
+    margin:0 auto;
+}
+.early-menu.nav>li>a:focus, .early-menu.nav>li>a:hover {
+    text-decoration: none;
+    background-color: #222;
+}
+.early-menu li>a:hover,
+.early-menu li.active>a {
+    color: #fff!important;
+    background-color: #222;
+    border:1px solid #222!important;
+}
+.early-menu li.active>a {
+    cursor: default;
+}
+.early-menu li>a:hover small,
+.early-menu li.active>a small {
+    color: #fff;
+}
+
+.early-menu li small {
+    color: #999;
+}
 /*实时报警*/
 .scrollheight {
     height: 86%!important;
@@ -8,8 +90,8 @@
     border-left: 1px solid#333;
     height: 52%;
     overflow: hidden;
-    transition:height .5s;
-    -webkit-transition:height .5s; 
+    transition:height .2s;
+    -webkit-transition:height .2s; 
 }
 .early-warning .toolroute-rect {
     position: absolute;
@@ -61,6 +143,7 @@
     margin-top: -2px;
     width: 68%;
     float: left;
+    cursor: pointer;
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
@@ -147,8 +230,11 @@
 .early-more article h4 a:last-child{
     display: block!important;
 }
-.early-more .icon-early:before {
+.early-more.warning-list .icon-early:before {
         content: "\e699"!important;
+}
+.early-more.dangers-list .icon-early:before {
+        content: "\e621"!important;
 }
     /*火灾*/
 
@@ -215,17 +301,20 @@
     }
 
 /*报警详情*/
+#early #common-cont {
+    padding-left: 0;
+}
 #common-cont{
     height: 78%;
     padding-right: 0;
     padding-left: 36px;
-    top: 120px;
-    background-color: #111!important;
+    top: 120px;    
 }
 #common-cont>section {
     width: 100%;
     height: 100%;
     border:2px solid #333;
+    background-color: #111!important;
 }
 #early .early-list li {
     margin-right: 5px;
@@ -236,7 +325,7 @@
     width: 100%;
 }
 .call-iteminfo {
-    height: 42.5%;
+    height: 46.6%;
     overflow-y: auto!important;
     overflow-x: hidden;
 }

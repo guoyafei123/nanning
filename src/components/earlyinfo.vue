@@ -1,7 +1,7 @@
 <template>
   <div id="early" class="row early-info warning-list">
     <!-- #头部 -->
-    <header-vue></header-vue>
+    <!-- <header-vue></header-vue> -->
     <!-- #头部 End-->
     <!-- #左边 -->
     <section id="common-cont" class="position-fixed-left z-index-20">

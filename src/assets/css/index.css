@@ -191,7 +191,6 @@
 /* 底部 */
 #footer{
     text-align: center;
-    /* z-index: 999; */
 }
 .footer ul li{
     margin: 2px;
@@ -290,7 +289,7 @@
     width: 5px;
     height: 5px;
     display: inline-block;
-    margin: 5px 5px 2px 5px;
+    margin: 5px 5px 2px 0;
 }
 .toolcompanyrate,.toolregionrate{
     margin-top: 30px;
@@ -393,6 +392,7 @@
 @media (max-width: 768px) {
     #early #common-cont{
         width: 52%;
+        margin-left: 300px;
     } 
     #early #right{
         min-width: 48%;
@@ -409,6 +409,10 @@
     }
 }
 @media (min-width: 1600px) {
+    #early  #common-cont{
+        width: 56%;
+        margin-left: 20%;
+    }
     #common-cont{
         width: 76%;
     }
@@ -423,6 +427,10 @@
     }
 }
 @media (min-width: 2300px) {
+    #early  #common-cont{
+        width: 63%;
+        margin-left: 17%;
+    }
     #common-cont{
         width: 80%;
     }
@@ -468,7 +476,10 @@
     display: inline-block;
     padding: 0px 5px;
     font-size: 12px;
+    height: 16px;
+    line-height: 16px;
     position: relative;
+    top: 2px;
 }
 .set-positiontop2{
     position: relative;

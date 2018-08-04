@@ -12,6 +12,10 @@ a.active {
 .show {
   display: block!important;
 }
+.v-modal {
+    display: none!important;
+}
+
 /*超出隐藏*/
 .white-space{
     overflow: hidden;
@@ -32,6 +36,17 @@ a.active {
   font-size: 12px;
   color: #999;
   border-radius: 0;
+}
+.go-back {
+    position: fixed;
+    top: 86px;
+    right: 37px;
+    color: #ccc;
+    z-index: 99999;
+    display: block;
+}
+.go-back:hover {
+    color:#bad616!important;
 }
 /*.btn-back>i {
     color: #bad616;
@@ -82,6 +97,11 @@ a.active {
     border-top:0; 
 }*/
 /*顶部右侧按钮*/
+.header-middle ul {
+    padding-bottom: 0;
+    height: 70px;
+    margin-bottom: 0;
+}
 .header-right {
     right: 10px;
 }
@@ -199,8 +219,9 @@ span.point {
 .common-left-statistics .badge-statistics {
     font-size: 12px;
     height: 18px;
+    line-height: 18px;
     border-radius: 0;
-    padding: 3px 4px;
+    padding: 0 4px;
     margin-right: 4px;
     margin-bottom: 1px;
 }

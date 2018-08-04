@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer"  class="col-sm-12 position-fixed-bottom z-index-10">
+  <footer id="footer"  class="col-sm-12 position-fixed-bottom z-index-9999">
     <div class="footer">
       <ul class="list-inline">
         <li class="footer-nav-active">
@@ -34,9 +34,6 @@
         </li>
         <li>
           <router-link to="">联控</router-link>
-        </li>
-        <li>
-          <router-link to="/earlyinfo">详情</router-link>
         </li>
         <!-- <li>
           <router-link to="">
