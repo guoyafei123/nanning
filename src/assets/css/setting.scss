@@ -3,7 +3,11 @@
   content:'';
   display:block;
 }
-
+.main_nav_two{
+  a{
+    display: inline!important;
+  }
+}
 .main_content{
   .el-input__inner{
     height:32px !important;
@@ -103,7 +107,9 @@
   border-bottom-color: #333 !important;
   top:0 !important;
 }
-
+.el-popper[x-placement^=top] .popper__arrow::after{
+  border-top-color: #333 !important;
+}
 
 // all
 .main_all_content{
@@ -127,8 +133,8 @@
   .el-input__inner{
     height:28px;
     font-size: 12px;
-    color: #999999;
-    background-color:#111111;
+    color: #999999 !important;
+    background-color:#111111!important;
     border:none !important;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -423,4 +429,21 @@ table th, table td{
 
 .modal-backdrop{
   z-index: 2 !important;
+}
+
+
+
+
+.modal_form{
+  .el-form-item__label{
+    width:130px;
+  }
+  .el-form-item__content{
+    width: 300px;
+    margin-left:10px;
+  }
+  
+}
+.el-date-picker__header--bordered{
+  border-bottom-color:rgb(40, 40, 40) !important;
 }

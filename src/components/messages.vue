@@ -229,8 +229,8 @@
     // tab切换
   	showTab(){
       let that=this;
-    		$('#myTab a').click(function (e) {
-          e.preventDefault()
+    		$('#myTab a').off('click').click(function (e) {
+          // e.preventDefault()
           $(this).tab('show');
           // $("#myTabContent").removeClass("hide");
           that.showTablist();

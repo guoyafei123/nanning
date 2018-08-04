@@ -181,3 +181,40 @@
 .el-input__inner:active,.el-input__inner:visited,.el-input__inner:hover{
     border: 1px solid #666 !important;
 }
+
+/* 修改登录 */
+
+.el-input__inner{
+    background: rgba(0,0,0,0) !important;
+}
+.el-form-item.is-success .el-input__inner{
+    border-color:#bad616 !important;
+}
+.el-form-item.is-success .el-input__validateIcon,.tologinstyle{
+    color:#bad616 !important;
+}
+
+.el-input__inner{
+    border: 1px solid #666 !important;
+    border-radius: 0px !important;
+    color: #949494!important;
+}
+.el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-input__inner:focus, .el-form-item.is-error .el-textarea__inner, .el-form-item.is-error .el-textarea__inner:focus, .el-message-box__input input.invalid, .el-message-box__input input.invalid:focus{
+    border-color: #f56c6c!important;
+}
+.el-input__inner:focus, .el-textarea__inner:focus, .el-message-box__input input.invalid:focus{
+    border-color: #bad616 !important;
+}
+.vercode{
+    position: relative;
+}
+.getvercode{
+    position: absolute;
+    right: 30px;
+    color: #bad616;
+    cursor: pointer;
+    top: 0px;
+}
+.getvercodenone{
+    color: #666;
+}

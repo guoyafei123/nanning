@@ -359,7 +359,9 @@
                   
                   <div id="ins_charCompletion" style="width: 100%;height:200px;margin: 0 auto;"></div>
                   <div class="toolcount-value">
-                    <p class="font-gray-999">额定完成次数:<span class="font-gray-ccc">{{ins_queryTrendPieGraph.amount}}</span>次</p>
+                    <template v-if="ins_queryTrendPieGraph">
+                      <p class="font-gray-999">额定完成次数:<span class="font-gray-ccc">{{ins_queryTrendPieGraph.amount}}</span>次</p>
+                    </template>
                   </div>
                 </div>
               </section>
@@ -687,9 +689,10 @@ export default {
         .then(response => {
           if (response) {
             let data = response.data;
-            this.ins_queryTrendPieGraph.amount = data.result[0].amount;
-            this.ins_queryTrendPieGraph.finishedAmount =
-              data.result[0].finishedAmount;
+            if(data.result[0]){
+              this.ins_queryTrendPieGraph.amount = data.result[0].amount;
+              this.ins_queryTrendPieGraph.finishedAmount =data.result[0].finishedAmount;
+            }
             if (this.ins_queryTrendPieGraph) {
               this.draw_piemax(
                 "ins_charCompletion",

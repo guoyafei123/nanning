@@ -66,7 +66,7 @@ export default new Router({
       path:'/danger',component:DangerVue
     },
     {
-      path:'*',redirect:'/index'
+      path:'*',redirect:'/login'
     },
     // 管理端路由
     {
