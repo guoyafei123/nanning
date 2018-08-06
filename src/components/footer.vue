@@ -33,7 +33,7 @@
           <router-link to="">预案</router-link>
         </li>
         <li>
-          <router-link to="">联控</router-link>
+          <router-link to="punch">联控</router-link>
         </li>
         <!-- <li>
           <router-link to="">

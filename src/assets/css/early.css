@@ -88,7 +88,7 @@
 .early-warning {
     position: relative;
     border-left: 1px solid#333;
-    height: 52%;
+    height: 50%;
     overflow: hidden;
     transition:height .2s;
     -webkit-transition:height .2s; 
