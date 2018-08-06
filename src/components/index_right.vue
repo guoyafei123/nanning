@@ -583,17 +583,7 @@ export default {
   },
   // 调用方法 
   methods: { 
-    // tab切换
-    showTab(){
-      let that=this;
-        $('#myTab a').click(function (e) {
-          e.preventDefault()
-          $(this).tab('show');
-          // $("#myTabContent").removeClass("hide");
-          that.showTablist();
-          // $("#TabCont").removeClass("show");
-        })
-    },    
+    // tab切换  
     // 实时警报列表展开/折叠
     openEarlyList(){
       $(".unit-info").slideToggle(
@@ -613,7 +603,7 @@ export default {
   },
   // 默认加载方法
   mounted() {
-    $("[data-toggle='tooltip']").tooltip();
+    
   }
 };
 

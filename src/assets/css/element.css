@@ -61,7 +61,7 @@ footer .el-button:hover,footer .el-button:focus {
     line-height: 34px;
     font-size: 12px;
     color: #999;
-    border-top: 1px solid #222;
+    border-top: 1px solid #111;
 }
 .el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover {
     color: #fff;
@@ -102,9 +102,10 @@ header .el-select .el-input .el-input__inner:before {
 }
 .el-select-dropdown__item {
   font-size: 12px;
-  font-weight: 700;
-  
+  font-weight: 700; 
+  color:#999!important；  
 }
+
 .el-select-dropdown__item.hover,
 .el-select-dropdown__item:hover {
     background-color: #222 !important;
@@ -122,6 +123,15 @@ header .el-input__inner {
     border: none!important;
     padding-right: 0!important;
 }
+header .el-input__inner:before {
+    width: 4px!important;
+    height: 4px!important;
+    background-color: #999!important;
+    display: block;
+}
+/*header .el-input__inner:hover {
+  background-color: #000;
+}*/
 header .el-input__inner:active,
 header .el-input__inner:visited,
 header .el-input__inner:hover {
@@ -130,7 +140,13 @@ header .el-input__inner:hover {
 header .el-icon-arrow-up:before {
     content: "\E60C";
 }
-header .el-select-dropdown__item.selected {
+header .el-select-dropdown__item {
+  border-bottom:1px solid #111;
+}
+header .el-select-dropdown__item:last-child {
+  border-bottom: none;
+}
+.el-select-dropdown__item.selected {
     color: #bad616;
     font-weight: normal;
 }

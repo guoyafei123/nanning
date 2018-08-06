@@ -15,7 +15,10 @@ a.active {
 .v-modal {
     display: none!important;
 }
-
+/*打卡弹窗*/
+#punch {
+    
+}
 /*超出隐藏*/
 .white-space{
     overflow: hidden;
@@ -117,7 +120,10 @@ a.active {
     top: -10px;
     color: #fff;
 }
-
+.header-time p {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
 .top-btn {
     position: relative;
     top: 0px;
