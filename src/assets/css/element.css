@@ -130,13 +130,8 @@ header .el-input__inner:hover {
 header .el-icon-arrow-up:before {
     content: "\E60C";
 }
-<<<<<<< HEAD
-.el-select-dropdown__item.selected {
-    color: #bad616!important;
-=======
 header .el-select-dropdown__item.selected {
     color: #bad616;
->>>>>>> 7e67820a0d47222de18cbeba01ac714c28223e2c
     font-weight: normal;
 }
 /*火灾详情*/
