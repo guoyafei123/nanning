@@ -9,10 +9,10 @@
         <!-- 标签 -->
         <ul id="myTab" class="nav nav-tabs">
           <li class="active">
-            <a href="#system" @click="showTab()">系统<span class="point"><!-- 新消息提示 --></span></a>
+            <a href="#system">系统<span class="point"><!-- 新消息提示 --></span></a>
           </li>
-          <li><a href="#warning" @click="showTab()">警报</a></li>
-          <li><a href="#dangers" @click="showTab()">隐患</a></li>
+          <li><a href="#warning">警报</a></li>
+          <li><a href="#dangers">隐患</a></li>
         </ul>
       </div>
       <!-- 消息列表 li 标签加class 更换消息类型及状态 
@@ -229,14 +229,12 @@
     // tab切换
   	showTab(){
       let that=this;
-    		$('#myTab a').off('click').click(function (e) {
-          // e.preventDefault()
-          $(this).tab('show');
-          // $("#myTabContent").removeClass("hide");
-          that.showTablist();
-          // $("#TabCont").removeClass("show");
-        })
-  	   },
+      $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show');
+        that.showTablist();
+      })
+  	},
     // 显示内容
     showTabcont(){
         $("#TabCont").addClass("show");
@@ -252,6 +250,7 @@
   // 默认加载方法
   mounted() {
     $("[data-toggle='tooltip']").tooltip();
+    this.showTab();
   }
 };
 

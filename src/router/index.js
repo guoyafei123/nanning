@@ -18,6 +18,7 @@ import BulidVue from '../components/buliding';
 import ListVue from '../components/list';
 import AllVue from '../components/all';
 import MapsVue from '../components/maps';
+import PunchVue from '../components/punch';
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
@@ -65,7 +66,10 @@ export default new Router({
       path:'/danger',component:DangerVue
     },
     {
-      path:'*',redirect:'/login'
+      path:'*',redirect:'/index'
+    },
+    {
+      path:'/punch',component:PunchVue
     },
     // 管理端路由
     {

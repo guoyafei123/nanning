@@ -63,12 +63,12 @@
 }
 .header-time{
     position: relative;
-    bottom: 4px;
+    bottom: 8px;
     margin: 0 20px 0px 6px;
 }
 .header-time p:nth-child(1){
     position: relative;
-    top: 20px;
+    top: 16px;
 }
 
 /* 头部右边 */
@@ -410,7 +410,7 @@
 }
 @media (min-width: 1600px) {
     #early  #common-cont{
-        width: 56%;
+        width: 51%;
         margin-left: 20%;
     }
     #common-cont{
@@ -420,7 +420,7 @@
         width: 20%;
     }
     #right{
-        width: 24%;
+        width: 29%;
     }
     .header-middle{
         margin-top: 18px;

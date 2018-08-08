@@ -42,8 +42,10 @@
     },
 
     mounted() {
+      $("[data-toggle='tooltip']").tooltip();
       // alert(this.$route.path);
       // this.$router.path
+      // 
     }
   }
 </script>
