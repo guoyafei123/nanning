@@ -4,87 +4,63 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-th-large font-gray-666 float-left"></i>
-          <h2 class="float-left font-white size-16">新增设备</h2>
+          <h2 class="float-left font-white size-16">单位管理</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Unit_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
-          <router-link to="/Unit_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>
-          <router-link to="/Unit_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
+          <router-link to="/Unit_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
         </div>
       </div>
       <div class="main_content">
         <el-form ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="设备名称">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">设备名称有误或重复</span>
+          <el-form-item label="单位名称">
+            <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="选择类别">
-            <el-select v-model="form.region" placeholder="消防灭火设施">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-            <el-select v-model="form.region1" placeholder="手提式干粉灭火器">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="设备位置">
-            <el-select v-model="form.region2" placeholder="良庆区中心小学" class="sbwz_138_32">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-            <el-select v-model="form.region3" placeholder="实验教学楼22号" class="sbwz_138_32">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-            <el-select v-model="form.region4" placeholder="十二层" class="sbwz_90_32">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-            <el-select v-model="form.region5" placeholder="1203房间" class="sbwz_90_32">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+          <el-form-item label="单位性质">
+            <el-select name="" v-model="form.property" placeholder="请选择结构">
+              <el-option label="事业单位" value="事业单位"></el-option>
+              <el-option label="国家行政机关" value="国家行政机关"></el-option>
+              <el-option label="政府" value="政府"></el-option>
+              <el-option label="国有企业" value="国有企业"></el-option>
+              <el-option label="国有控股企业" value="国有控股企业"></el-option>
+              <el-option label="外资企业" value="外资企业"></el-option>
+              <el-option label="合资企业" value="合资企业"></el-option>
+              <el-option label="私营企业" value="私营企业"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="位置坐标">
-            <el-input v-model="form.address" class="wzzb"></el-input>
-            <el-button type="primary" round icon="el-icon-search" class="wzzb_btn">地图选点</el-button>
+          <el-form-item label="单位人数">
+            <el-input v-model="form.staffNum"></el-input>
           </el-form-item>
-
-          <el-form-item label="离地高度（m）" style="float: left;">
-            <el-input v-model="form.Height"></el-input>
+          <el-form-item label="单位地址">
+            <el-input v-model="form.location"></el-input>
           </el-form-item>
-          <el-form-item label="距离顶部（m）" style="float: left;margin-left:10px;">
-            <el-input v-model="form.Top"></el-input>
+          <el-form-item label="单位图片">
+            <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
+              <input id="file" name="file" type="file" @change="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
+              <div style="width:80px;height:80px;background:#222;border:1px solid #222;">
+                <span style="display:block;width:50px;height:6px;background:#999;position:absolute;top:50%;left:50%;margin-left:-25px;margin-top:-3px;"></span>
+                <span style="display:block;width:6px;height:50px;background:#999;position:absolute;top:50%;left:50%;margin-left:-3px;margin-top:-25px;"></span>
+              </div>
+            </div>
+            <img v-show="isShow" src="" id="up_img" style="width:80px;height:80px;"/>
+            <!-- <span style="width: 200px;height: 80px;text-align:center;line-height:80px;color:#fff;display:block;float:left;">{{ files }}</span> -->
+          </el-form-item>
+          <el-form-item label="部门电话">
+            <el-input v-model="form.telephone"></el-input>
+          </el-form-item>
+          <el-form-item label="消防负责人">
+            <el-input v-model="form.firemenName"></el-input>
+          </el-form-item>
+          <el-form-item label="消防负责人电话">
+            <el-input v-model="form.firemenTel"></el-input>
+          </el-form-item>
+          <el-form-item label="法人代表">
+            <el-input v-model="form.corporation"></el-input>
           </el-form-item>
           <div style="clear: both;"></div>
-          <el-form-item label="设备物理地址">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">设备物理地址有误</span>
-            <el-input v-model="form.PhysicalAddress"></el-input>
-          </el-form-item>
-
-          <el-form-item label="维保单位" class="sbwz_138_32" style="float: left;">
-            <el-input v-model="form.Maintenance_unit"></el-input>
-          </el-form-item>
-          <el-form-item label="维保电话" class="sbwz_138_32" style="float: left;margin-left:10px;">
-            <el-input v-model="form.Maintenance_phone"></el-input>
-          </el-form-item>
-          <el-form-item label="更换周期" class="sbwz_138_32" style="float: left;margin-left:10px;">
-            <el-input v-model="form.Replacement_cycle"></el-input>
-          </el-form-item>
-          <div style="clear: both;"></div>
-          <el-form-item label="是否生成图形码" style="margin-top:55px;">
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">未选择是否生成图形码</span>
-            <el-radio-group v-model="form.resource">
-              <el-radio label="是"></el-radio>
-              <el-radio label="否"></el-radio>
-            </el-radio-group>
-            <el-button type="primary" round icon="el-icon-search" class="resource_btn">用于巡检打卡功能，设备信息快速查看等</el-button>
-          </el-form-item>
-          <div style="width:485px;margin:0 auto 25px;border-top:1px solid #222222;"></div>
           <el-form-item style="margin-bottom: 20px;">
-            <el-button type="primary"  icon="el-icon-search" class="primary">保存并提交</el-button>
-            <el-button class="back">返回</el-button>
+            <el-button type="primary"  icon="el-icon-search" class="primary" @click="btn">保存并提交</el-button>
+            <el-button class="back" @click="back">返回</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -98,18 +74,95 @@
         return {
           labelPosition: 'top',
           form: {
-            name: '',
-            address:'',
-            region: '',
-            region1: '',
-            Height: '',
-            Top: '',
-            PhysicalAddress: '',
-            Maintenance_unit:'',
-            Maintenance_phone:'',
-            Replacement_cycle:'',
-            resource: ''
-          }
+            name:'',
+            property:'',
+            staffNum:'',
+            location:'',
+            telephone:'',
+            firemenName:'',
+            firemenTel:'',          
+            corporation:'',
+            point:{
+              pointX:'',
+              pointY:''
+            }
+          },
+          isShow:false
+        }
+      },
+      methods:{
+        file(){
+          this.isShow = true ;
+          $("#up_img").attr("src", this.getObjectURL($("#file")[0]));
+        },
+        getObjectURL(node) {
+            var imgURL = "";
+            try {
+                var file = null;
+                if (node.files && node.files[0]) {
+                    file = node.files[0];
+                } else if (node.files && node.files.item(0)) {
+                    file = node.files.item(0);
+                }
+                //Firefox 因安全性问题已无法直接通过input[file].value 获取完整的文件路径
+                try {
+                    //Firefox7.0
+                    imgURL = file.getAsDataURL();
+                    //alert("//Firefox7.0"+imgRUL);
+                } catch (e) {
+                    //Firefox8.0以上
+                    imgURL = window.URL.createObjectURL(file);
+                    //alert("//Firefox8.0以上"+imgRUL);
+                }
+            } catch (e) {      //这里不知道怎么处理了，如果是遨游的话会报这个异常
+                //支持html5的浏览器,比如高版本的firefox、chrome、ie10
+                if (node.files && node.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        imgURL = e.target.result;
+                    };
+                    reader.readAsDataURL(node.files[0]);
+                }
+            }
+            return imgURL;
+        },
+        btn(){
+          var file = "file";
+          $.ajaxFileUpload({
+            url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
+            /* secureuri : false, */ //一般设置为false
+            fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+            data : {
+              'name':this.form.name,
+              'property':this.form.property,
+              'staffNum':this.form.staffNum,
+              'location':this.form.location,
+              'telephone':this.form.telephone,
+              'firemenName':this.form.firemenName,
+              'firemenTel':this.form.firemenTel,
+              'corporation':this.form.corporation,
+              'pointX':this.form.point.pointX,
+              'pointY':this.form.point.pointY
+            },
+            type: 'POST',
+            dataType: "plain",
+            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+            
+        
+            },
+            error: function (e) { //服务器响应失败处理函数
+              $.messager.alert('警告', "系统错误", "warning");
+            },
+            complete: function (e) {//只要完成即执行，最后执行
+              // console.log(e) 
+
+            }
+          });
+          this.$router.push({path:'/Unit_management/all'});
+        },
+        back(){
+          this.$router.push({path:'/Unit_management/all'});
+          $('#right').show();
         }
       },
       mounted(){
@@ -120,14 +173,12 @@
         $('.el-select-dropdown__item').css('color','#999');
         $(' .el-select-dropdown__item').mouseover(function(){
           $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        })
-
-
+        });
       }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .clearFix:after{
     clear:both;
     content:'';
@@ -202,7 +253,10 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  .main_header button:nth-child(2){
+  .main_header a:nth-child(1) button{
+    border-right:none;
+  }
+  .main_header a:nth-child(3) button{
     border-left:none;
   }
   .main_header button i{
@@ -216,6 +270,5 @@
     margin-left: 6px;
     margin-right: 20px;
   }
-
 
 </style>

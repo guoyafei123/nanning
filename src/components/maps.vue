@@ -90,6 +90,50 @@
         // console.log($('#right'));
         $('#right').hide();
       },
+      buildSearch(unitId){
+        this.$fetch("/api/building/selectNode",{
+          unitId:unitId
+        }).then(response=>{
+          console.log('buildSearch:'+JSON.stringify(response));
+          if (response) {
+            this.buildList = response.data.list;
+            console.log(this.buildList);
+          }
+        })
+      },
+      floorSearch(buildIngId){
+        this.$fetch("/api/building/selectNode",{
+          buildIngId:buildIngId
+        }).then(response=>{
+          console.log('floorSearch:'+response);
+          if (response) {
+            this.floorList = response.data.list;
+            console.log(this.floorList);
+          }
+        })
+      },
+      roomSearch(floorId){
+        this.$fetch("/api/building/selectNode",{
+          floorId:floorId
+        }).then(response=>{
+          console.log('roomSearch:'+response);
+          if (response) {
+            this.roomList = response.data.list;
+            console.log(this.roomList);
+          }
+        })
+      },
+      equipmentSearch(roomId){
+        this.$fetch("/api/building/selectNode",{
+          roomId:roomId
+        }).then(response=>{
+          console.log('equipmentSearch:'+response);
+          if (response) {
+            this.equipmentList = response.data.list;
+            console.log(this.equipmentList);
+          }
+        })
+      },
       unitSearch(){
         this.$fetch(
           "/api/unit/queryUnit"
@@ -112,8 +156,47 @@
     watch:{
       unit(curVal,oldVal){
         this.unit = curVal;
-        console.log(this.unit);
+        this.buildSearch(this.unit);
         this.$store.commit('Unit',this.unit);
+      },
+      building(curVal,oldVal){
+        this.building = curVal ;
+        console.log(this.building);
+        if(this.building !== 0 && this.building !== '0'){
+          this.floor = '';
+          this.room = '';
+          this.equipment = '';
+          this.floorSearch(this.building);
+          this.$store.commit('buildDevice',this.building);
+        }else{
+          this.floor = '';
+          this.room = '';
+          this.equipment = '';
+          this.equipmentSearch(this.building);
+          this.$store.commit('buildDevice',this.building);
+        }
+      },
+      floor(curVal,oldVal){
+        this.floor = curVal ;
+        console.log(this.floor);
+        if(this.floor !== 0){
+          this.roomSearch(this.floor);
+          $('.startRoom').show();
+          this.$store.commit('floorDevice',this.floor);
+        }
+      },
+      room(curVal,oldVal){
+        this.room = curVal ;
+        console.log(this.room);
+        if(this.room !== 0){
+          this.equipmentSearch(this.room);
+          $('.startDevice').show();
+          this.$store.commit('roomDevice',this.room);
+        }
+      },
+      equipment(curVal,oldVal){
+        this.equipment = curVal ;
+        this.$store.commit('equipmentDevice',this.equipment);
       }
     },
     mounted(){

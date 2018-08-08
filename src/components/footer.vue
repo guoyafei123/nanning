@@ -67,7 +67,7 @@ export default {
   },
   
   mounted () {
-    this.chart_one()
+    this.chart_one();
   }
 }
 </script>

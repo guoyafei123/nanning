@@ -199,7 +199,7 @@
         voice(){
             $(".icon-tongzhi-mian-").toggleClass("font-blue");
         },
-
+    
       mini_go(id, num) {
         //画底圆
         //mini图配置

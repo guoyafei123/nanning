@@ -22,7 +22,6 @@ import MapsVue from '../components/maps';
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
 import Unit_AllVue from '../management/Unit_management/Unit_all';
-import Unit_MapsVue from '../management/Unit_management/Unit_maps';
 import Building_managementVue from '../management/Building_management/Build_management';
 import Build_listVue from '../management/Building_management/list';
 import Build_AllVue from '../management/Building_management/all';
@@ -75,7 +74,6 @@ export default new Router({
       children:[
         { path:'/Unit_management/list',component:Unit_listVue},
         { path:'/Unit_management/all',component:Unit_AllVue},
-        { path:'/Unit_management/maps',component:Unit_MapsVue},
         { path:'/Unit_management',redirect:'/Unit_management/all'}
       ]
     },

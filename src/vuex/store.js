@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 var state={
+  //单位
+  unitNum:'',
   //巡检
   region:'',
   inspectionId:'',
@@ -10,6 +12,10 @@ var state={
   //设备
   deviceId:'',
   Unit:'',
+  buildDevice:'',
+  floorDevice:'',
+  roomDevice:'',
+  equipmentDevice:'',
   //建筑
   buildUnit:'',
   buildingId:'',
@@ -24,6 +30,10 @@ var state={
 }
 
 var mutations={
+  unitNum(state,data){
+    state.unitNum = data;
+  },
+
   region(state,data){
     state.region = data;
   },
@@ -40,6 +50,19 @@ var mutations={
   Unit(state,data){
     state.Unit = data;
   },
+  buildDevice(state,data){
+    state.buildDevice = data;
+  },
+  floorDevice(state,data){
+    state.floorDevice = data;
+  },
+  roomDevice(state,data){
+    state.roomDevice = data;
+  },
+  equipmentDevice(state,data){
+    state.equipmentDevice = data;
+  },
+
 
   buildUnit(state,data){
     state.buildUnit = data;

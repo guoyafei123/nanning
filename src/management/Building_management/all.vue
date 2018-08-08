@@ -17,14 +17,14 @@
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
            <!-- 楼层管理 -->
-           <el-select v-model="buildUnit" placeholder="选择楼层" class="select floor" style="width:150px;display:none;">
+           <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="width:150px;display:none;">
             <el-option label="全部楼层" value=""></el-option>
             <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form>
         <div class="main_nav_two float-right">
           <router-link to="/Building_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
-          <router-link to="/Building_management/maps"><button @click="btn_map"><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Building_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
         </div>
       </div>
       <div class="main_content_table">
@@ -249,11 +249,12 @@
           name:'',
           phone:''
         },
-        buildUnit:null,//选择单位
+        buildUnit:'',//选择单位
+        floorId:'',
         optionList:[],//全部单位列表
         floorList:[],//楼层列表
         tableData: [],//设备列表
-        page:4,//总页数
+        page:null,//总页数
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
@@ -261,11 +262,6 @@
       }
     },
     methods: {
-      btn_map(){
-        $('.plan').hide();
-        $('.mapTable').show();
-        $('.total').show();
-      },
       btn_add(){
         $('#right').css('display','none');
       },
@@ -408,8 +404,8 @@
               this.totalList = response.data.pageBuildIng.totalRow;
               this.tableData = response.data.pageBuildIng.result;
               this.tableData.forEach((item,index)=>{
-                console.log(111)
-                if(index == 0){
+                // console.log(111)
+                if(index == this.tableData.length-1){
                   this.$store.commit('buildingId',item.id);
                 }
               })
@@ -430,6 +426,7 @@
       this.unitSearch();
       this.tableBuildList();
       $('#right').show();
+      
     },
     watch:{
       $route: {
