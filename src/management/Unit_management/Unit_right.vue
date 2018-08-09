@@ -116,6 +116,7 @@
     watch:{
       unitNum(){
         this.right_list();
+        this.tableList();
       }
     },
     computed:mapState([

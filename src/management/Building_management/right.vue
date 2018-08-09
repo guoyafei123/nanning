@@ -559,6 +559,7 @@
         this.$store.commit('floorAdd',3);
         this.$store.commit('floorId',item.id);
         console.log(item.id);
+        this.floorRoomListShow();
       },
       findPageBuildIngFloor(){
         // console.log(this.buildingId)
@@ -606,12 +607,9 @@
         }).then(response=>{
           console.log(JSON.stringify(response));
           var pageBuildIng = response.data.pageBuildIng.result;
-          // console.log(this.floorRoomList);
+          console.log(this.floorRoomList);
           pageBuildIng.forEach((item,index)=>{
             console.log(item.floorUnit)
-            //  = item[index].floorUnit ;
-            // this.floorRoomList.push({unitBuilding:item.floorUnit,roomList:[]})
-      
           })
         })
       },
