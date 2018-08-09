@@ -95,7 +95,7 @@
                         <span class="header-head-portrait">
                             <img src="../assets/images/people.png" class="img-responsive img-circle">
                         </span>
-                        <span class="user-name">段亚伟</span>
+                        <span class="user-name">姓名</span>
                         <span class="caret"></span>
                       </span>
                       <el-dropdown-menu slot="dropdown">                        

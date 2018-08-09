@@ -103,8 +103,8 @@
                   </p>
                 </li>
                 <li>
-                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位"  @change="tolineitem">
-                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部单位"  @change="tolineitem">
+                      <el-option v-for="item in options" :key="item.name" :label="item.name" :value="item.name">
                       </el-option>
                   </el-select>
                 </li>
@@ -283,7 +283,7 @@
           <section class="my-filter padding5 bg-gray-222 clearfix">
                         <!-- 单位筛选 -->
                         <div class="col-sm-3 padding0">
-                          <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择">
+                          <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="请选择">
                             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                           </el-select>
@@ -704,6 +704,29 @@
           vuextest:'兄弟组件传参',
         // 右侧
         vuexone:'123',
+        value7:'',
+        options: [
+        {
+          value: "选项1",
+          label: "路线名称1"
+        },
+        {
+          value: "选项2",
+          label: "路线名称2"
+        },
+        {
+          value: "选项3",
+          label: "路线名称3"
+        },
+        {
+          value: "选项4",
+          label: "路线名称4"
+        },
+        {
+          value: "选项5",
+          label: "路线名称5"
+        }
+      ],
         // 单选按钮
         workervalue:1,
         // 时间筛选
@@ -769,6 +792,7 @@
             .addClass("display-none")
             .removeClass("display-block");
         },
+        tolineitem(){},
         chart_one() {
           var option = {
             xAxis: {

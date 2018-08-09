@@ -537,7 +537,7 @@ export default {
     };
   },
   methods: {
-    jianzhu() {
+    moren() {
       $(".dan-lineinfo")
         .addClass("display-block")
         .removeClass("display-none");
