@@ -54,7 +54,7 @@
                         <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                       </span>
                     </h4>
-                    <div id="myChart" style="width: 100%;height:180px;margin: 0 auto;"></div>
+                    <div id="myChart" style="width: 100%;height:160px;margin: 0 auto;"></div>
                   </div>
                 </section>
           <!-- <section>
@@ -103,16 +103,16 @@
                   </p>
                 </li>
                 <li>
-                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位"  @change="tolineitem">
-                    <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部单位"  @change="tolineitem">
+                    <el-option v-for="item in option" :key="item.name" :label="item.name" :value="item.name">
                       </el-option>
                   </el-select>
-                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部建筑"  @change="tolineitem">
-                    <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部建筑"  @change="tolineitem">
+                    <el-option v-for="item in option" :key="item.name" :label="item.name" :value="item.name">
                       </el-option>
                   </el-select>
-                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 pull-right" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部类型"  @change="tolineitem">
-                    <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 pull-right" size="mini" v-model="value7" placeholder="全部类型"  @change="tolineitem">
+                    <el-option v-for="item in option" :key="item.name" :label="item.name" :value="item.name">
                       </el-option>
                   </el-select>
                 </li>
@@ -120,134 +120,54 @@
                     <table class="table table-responsive size-12 table-condensed toolroute-table margin-top10">
                       <thead>
                       <tr>
-                        <th>序号</th>
                         <th>预案名称</th>
                         <th>类型</th>
                         <th>所属建筑</th>
                         <th>所属单位</th>
-                        <th>操作</th>
                       </tr>
                       </thead>
                       <tbody id="">
                       <tr>
-                        <td>1</td>
                         <td>火情确认须知</td>
                         <td>火灾预案</td>
-                        <td>实验室教学楼1号</td>
+                        <td>实验室教学楼</td>
                         <td>中心小学</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>2</td>
-                        <td>单位灭火力量分布</td>
+                        <td>单位灭火力量</td>
                         <td>火灾预案</td>
                         <td>-</td>
                         <td>中心小学</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>3</td>
-                        <td>应急路线示意图</td>
+                        <td>应急路线示意</td>
                         <td>疏散示意图</td>
-                        <td>瑞和家园商业楼</td>
+                        <td>瑞和商业楼</td>
                         <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>4</td>
                         <td>消防值班守则</td>
                         <td>管理规定</td>
                         <td>-</td>
                         <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>5</td>
                         <td>火情确认须知</td>
                         <td>火灾预案</td>
-                        <td>实验室教学楼1号</td>
+                        <td>实验室教学楼</td>
                         <td>中心小学</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>6</td>
-                        <td>单位灭火力量分布</td>
+                        <td>单位灭火分布</td>
                         <td>火灾预案</td>
                         <td>-</td>
                         <td>中心小学</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>7</td>
-                        <td>应急路线示意图</td>
+                        <td>应急路线示意</td>
                         <td>疏散示意图</td>
-                        <td>瑞和家园商业楼</td>
+                        <td>瑞和商业楼</td>
                         <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>8</td>
-                        <td>消防值班守则</td>
-                        <td>管理规定</td>
-                        <td>-</td>
-                        <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>9</td>
-                        <td>应急路线示意图</td>
-                        <td>疏散示意图</td>
-                        <td>瑞和家园商业楼</td>
-                        <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>10</td>
-                        <td>消防值班守则</td>
-                        <td>管理规定</td>
-                        <td>-</td>
-                        <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       </tbody>
                     </table>
@@ -271,8 +191,8 @@
             <section class="my-filter padding5 bg-gray-222 clearfix">
                       <!-- 单位筛选 -->
                       <div class="col-sm-3 padding0">
-                        <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位">
-                          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                        <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="全部单位">
+                          <el-option v-for="item in option" :key="item.value" :label="item.label" :value="item.value">
                           </el-option>
                         </el-select>
                       </div>
@@ -597,6 +517,29 @@
     return {
       // 单选按钮
       bulidvalue:1,
+      value7:'',
+      option: [
+        {
+          value: "选项1",
+          label: "路线名称1"
+        },
+        {
+          value: "选项2",
+          label: "路线名称2"
+        },
+        {
+          value: "选项3",
+          label: "路线名称3"
+        },
+        {
+          value: "选项4",
+          label: "路线名称4"
+        },
+        {
+          value: "选项5",
+          label: "路线名称5"
+        }
+      ],
       // 时间筛选
       pickerOptions2: {
         shortcuts: [
@@ -635,6 +578,10 @@
   methods: {
     // tab切换  
     // 实时警报列表展开/折叠
+    
+    tolineitem(){
+      
+    },
     openEarlyList(){
       $(".unit-info").slideToggle(
         function(){
@@ -921,12 +868,12 @@
             };
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       myChart.setOption(option);
-      let myChart2 = this.$echarts.init(document.getElementById("myChart1"));
-      myChart2.setOption(option);
-      let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
-      mypie1.setOption(pie);
-      let myChart1 = this.$echarts.init(document.getElementById("axis1"));
-      myChart1.setOption(option1);
+      // let myChart2 = this.$echarts.init(document.getElementById("myChart1"));
+      // myChart2.setOption(option);
+      // let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
+      // mypie1.setOption(pie);
+      // let myChart1 = this.$echarts.init(document.getElementById("axis1"));
+      // myChart1.setOption(option1);
     }
   },
   mounted() {

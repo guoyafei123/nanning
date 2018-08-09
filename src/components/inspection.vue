@@ -14,7 +14,7 @@
               <div class="set-width-50 font-gray-999 padding-right0 size-12">
                 <ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
                   <li>
-                    <p class="toolcount-p1"></p>
+                    <p class="toolcount-p1">0</p>
                   <li> 
                     <p class="size-10">Complete Statistics</p>
                   </li>
@@ -23,7 +23,7 @@
                   </li>
                   <li class="margin-top20">
                     <p>巡检路线</p>
-                    <p class="font-italic float-right size-14">{{ins_planInspectionCount.amount}}</p>
+                    <p class="font-italic float-right size-14">{{ins_planInspectionCount.plancount}}</p>
                   </li>
                   <li>
                     <p>巡检中</p>
@@ -155,8 +155,8 @@
           <section class="my-filter padding5 bg-gray-222 clearfix">
                   <!-- 单位筛选 -->
                   <div class="col-sm-3 padding0">
-                    <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择">
-                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="请选择">
+                      <el-option v-for="item in ins_queryInspectionNameList"  :key="item.name" :label="item.name" :value="item.name">
                       </el-option>
                     </el-select>
                   </div>
@@ -443,8 +443,8 @@
               <section>
                 <div class="toolcount position-relative">
                   <h4 class="p-title">路线巡检任务完成</h4>
-                  <el-select class="upd-elselect upd-elselect-border upd-widht150 margin-top20 margin-left10" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                  <el-select class="upd-elselect upd-elselect-border upd-widht150 margin-top20 margin-left10" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="请选择">
+                    <el-option v-for="item in ins_queryInspectionNameList"  :key="item.name" :label="item.name" :value="item.name">
                     </el-option>
                   </el-select>
                   
@@ -676,6 +676,7 @@ export default {
         }
       ],
       ins_queryInspectionNameListvalue: "全部路线",
+      ins_queryInspectionNameListvalueTwo:'全部路线',
       lookroutebool:false,
       // 饼状图参数-请求
       queryTrendPieGraph_parameter: {
@@ -688,10 +689,10 @@ export default {
         finishedAmount: ""
       },
       // 曲线图请求数据
-      queryTrendMapGraph_parameter: {
+      queryTrendMapGraph_parameter: {  
         unitId: 4,
         startTime: "2018-06-01",
-        endTime: "2018-06-30"
+        endTime: "2018-08-09"
       },
       ins_queryTrendMapGraph: {},
       // 巡检路线详情参数
@@ -702,7 +703,7 @@ export default {
       queryPlanDetails_parameter:{
         inspectionPlanId:486,
         beginTime:'2018-06-01',
-        endTime:'2018-07-05'
+        endTime:'2018-08-09'
       },
       ins_queryPlanDetails:Object,
       queryUnitBuildList_parameter:{

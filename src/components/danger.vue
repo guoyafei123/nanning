@@ -493,7 +493,7 @@ export default {
       troubleRate_parameter:{
         unitId:'4',
         beginTime:'2018-06-21',
-        endTime:'2018-07-12',
+        endTime:'2018-08-09',
         type:2
       },
       ins_troubleRate:Object,
