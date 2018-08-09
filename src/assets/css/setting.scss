@@ -8,6 +8,11 @@
     display: inline!important;
   }
 }
+.bottom_con{
+  a{
+    display: inline!important;
+  }
+}
 .main_content{
   .el-input__inner{
     height:32px !important;
@@ -446,4 +451,10 @@ table th, table td{
 }
 .el-date-picker__header--bordered{
   border-bottom-color:rgb(40, 40, 40) !important;
+}
+
+
+.Inspection_plan{
+  // overflow: hidden;
+    // background: rgb(17, 17, 17);
 }

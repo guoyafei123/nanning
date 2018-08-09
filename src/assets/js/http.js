@@ -1,7 +1,4 @@
 import axios from 'axios';
-import Vue from 'vue'
-import { Message } from 'element-ui';
-Vue.use(Message);
 //
 axios.defaults.timeout = 50000;
 //http request 拦截器

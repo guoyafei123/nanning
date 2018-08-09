@@ -1,146 +1,151 @@
 <template>
-  <div class="toolright font-white  margin-top-40" style="overflow-y: auto;height: 100%;">
+  <div class="toolright">
+    <!-- 筛选 -->
+    <section class="my-filter padding5 bg-gray-222 clearfix">
+                  <!-- 单位筛选 -->
+                  <div class="col-sm-3 padding0">
+                    <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <!-- 日期筛选 -->
+                  <div class="col-sm-9 padding0">
+                    <div class="upd-elmdate">
+                      <el-date-picker
+                        v-model="value7"
+                        size="mini"
+                        type="daterange"
+                        align="right"
+                        unlink-panels
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions2">
+                      </el-date-picker>
+                    </div>
+                  </div>
+    </section>
+    <!-- 详情 -->
     <section class="per-iteminfo display-none">
-      <section>
+      <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
+      <section class="margin-top20">
         <div class="personinfo">
           <p>
-            <span class="size-24">段亚伟</span>
-            <span class="bgbox-min bg-gray-666 font-black">巡检人员</span>
-            <span class="bgbox-min bg-blue font-black">在线</span>
+            <span class="size-20 font-blue">段亚伟</span>
+            <span class="bgbox-min bg-gray-666 font-black size-10">巡检人员</span>
+            <span class="bgbox-min bg-blue font-black size-10">在线</span>
             <span class="float-right">
-                      <span class="bgbox-max bg-gray-333 font-gray-999">
-                          <i class="fa fa-th-large"></i> 打电话</span>
-                      <span class="bgbox-max bg-gray-333 font-blue">
-                          <i class="fa fa-th-large"></i> 发消息</span>
+                      <span class="bgbox-max bg-blue font-black size-10">
+                          <i class="icon iconfont icon-dianhua-mian- size-12"></i> 打电话</span>
+                      <span class="bgbox-max bg-gray-333 font-gray-999 size-10">
+                          <i class="icon iconfont icon-xiaoxi-mian-- size-12"></i> 发消息</span>
                   </span>
           </p>
-          <p class="col-sm-5 text-left padding0">
-            <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> 良庆区中心小学</span>
+          <p class="col-sm-7 text-left padding0">
+            <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
           </p>
-          <p class="col-sm-7 text-right padding0">
-            <span class="size-12 font-gray-666">男</span>
-            <span class="size-12 font-gray-666">25岁</span>
-            <span class="size-12 font-gray-666">河北邯郸</span>
-            <span class="size-12 font-gray-666">19919852100</span>
+          <p class="col-sm-5 text-right padding0">
+            注册时间:<strong class="font-gray-999">2018-16:23 13:56:37</strong>            
           </p>
         </div>
       </section>
       <section>
-          <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top20" data-date="today" data-date-format="yyyy-mm-dd"
-              data-original-title="" title="">
-            <span class="input-group-btn" data-original-title="" title="">
-                <i class="fa fa-th-large"></i> 时间 </span>
-            <input type="text" class="form-control" name="from" id="troubleStartTime">
-            <span class="input-group-btn" data-original-title="" title=""> 至 </span>
-            <input type="text" class="form-control" name="to" id="troubleEndTime">
-            <span class="input-group-btn" data-original-title="" title="">
-                确定
-            </span>
-            <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
-          </div>
+        <div class="row toolcount margin-top30">
+                  <div class="col-sm-4 font-gray-666 padding-right0">
+                    <ul class="toolcount-left margin-top0 padding-left0" id="toolcount">
+                      <li class="col-xs-offset-1 col-xs-10 margin-bottom15 padding-left5 padding-left5">
+                        <!-- <h1 class="toolcount-p1">8.7</h1> -->
+                        <img src="../assets/images/head.jpg" class="img-responsive img-circle" alt="段亚伟">
+                      </li>
+                      <li class="col-xs-offset-1 col-xs-10 padding-left5 padding-left5 text-center">
+                        <h4 class="size-16 font-blue show">段亚伟</h4>
+                        <span class="size-12 font-gray-ccc">男 25岁 河北邯郸<br>1861596479</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
+                    <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
+                      <li>
+                        <p class="size-18 font-white">个人数据</p>
+                      <li>
+                        <p class="size-10 set-scaleright">Personnel Statistics</p>
+                      </li>
+                      <li class="margin-top20">
+                          <p>在线时长 <strong class="font-white">3229分钟</strong></p>
+                      </li>
+                      <li class="row text-left">
+                        <div class="col-sm-6">
+                          <p>报警响应 <strong class="font-red">23次</strong></p>
+                        </div>
+                        <div class="col-sm-6">
+                          <p>平均响应时长 <strong class="font-blue">1227s</strong></p>
+                        </div>
+                      </li>
+                      <li class="row text-center padding-right16 margin-top10">
+                        <div class="col-sm-4 personnel-borderright">
+                          <p class="size-16 show font-white">269</p>
+                          <p>巡检完成数</p>
+                        </div>
+                        <div class="col-sm-4 personnel-borderright">
+                          <p class="size-16 show font-white">87</p>
+                          <p>隐患发现数</p>
+                        </div>
+                        <div class="col-sm-4">
+                          <p class="size-16 show font-white">63</p>
+                          <p>隐患解决数</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
       </section>
       <section>
-        <div class="row toolcount margin-top40">
-          <div class="col-sm-4  font-gray-999 padding-right0">
-            <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
-              <li>
-                <p class="line-height70">
-                  8.<span class="size-36">7</span>
-                </p>
-              </li>
-              <li>
-                <p class="size-10">Personnel Score</p>
-              </li>
-              <li>
-                <p class="size-16 font-blue">个人综合评分</p>
-              </li>
-            </ul>
-          </div>
-          <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
-            <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
-              <li>
-                <p class="size-18 font-white">个人数据</p>
-              </li>
-              <li>
-                <p class="size-10 set-scaleright">Personnel Statistics</p>
-              </li>
-              <li>
-                <p class="set-width-50 size-12">在线时长</p>
-                <p class="display-inline-block font-blue">3229分钟
-                </p>
-              </li>
-              <li class="row text-left size-12">
-                <div class="col-sm-6">
-                  <p class=" margin-bottom0">报警响应次数 <span class="font-gray-ccc">23次</span></p>
-                </div>
-                <div class="col-sm-6">
-                  <p class=" margin-bottom0">平均响应时 <span class="font-gray-ccc">12.2分</span></p>
-                </div>
-              </li>
-              <li class="row text-center">
-                <div class="col-sm-4 container-padding0 personnel-borderright">
-                  <p class="size-16 font-white">25</p>
-                  <p class="size-12 margin-bottom0">巡检完成数</p>
-                </div>
-                <div class="col-sm-4 container-padding0 personnel-borderright">
-                  <p class="size-16 font-white">25</p>
-                  <p class="size-12 margin-bottom0">隐患发现数</p>
-                </div>
-                <div class="col-sm-4 container-padding0">
-                  <p class="size-16 font-white">25</p>
-                  <p class="size-12 margin-bottom0">隐患解决数</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="toolcompanyrate margin-top40">
+        <div class="toolcompanyrate margin-top30">
           <h2 class="size-16 font-gray-ccc">
             <ul class="row padding0 margin0 size-12 font-gray-999">
               <li class="col-sm-4">
                 <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
+                  <div class="toolcompanyrate-char col-sm-6 padding0 padding-left5 container-padding5">
                     <p>
                                       <span class="toolcompanyrate-char-bg">
                                           <span class="toolcompanyrate-char-qg" style="width:50%;"></span>
                                       </span>
                     </p>
-                    <p>巡检完成</p>
+                    <p class="size-10">巡检完成率</p>
                   </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
+                  <div class="col-sm-6 padding-top7 padding-right5 font-blue size-16 text-center">
+                    <span>97.6%</span>
                   </div>
                 </div>
               </li>
               <li class="col-sm-4">
                 <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
+                  <div class="toolcompanyrate-char col-sm-6 padding0 padding-left5 container-padding5">
                     <p>
                                       <span class="toolcompanyrate-char-bg">
                                           <span class="toolcompanyrate-char-qg" style="width:79%;"></span>
                                       </span>
                     </p>
-                    <p>隐患发现</p>
+                    <p class="size-10">隐患发现率</p>
                   </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
+                  <div class="col-sm-6 padding-top7 padding-right5 font-blue size-16 text-center">
+                    <span>97.6%</span>
                   </div>
                 </div>
               </li>
               <li class="col-sm-4">
                 <div class="row margin0 padding0">
-                  <div class="toolcompanyrate-char col-sm-6 padding0">
+                  <div class="toolcompanyrate-char col-sm-6 padding0 padding-left5 container-padding5">
                     <p>
                                       <span class="toolcompanyrate-char-bg">
                                           <span class="toolcompanyrate-char-qg" style="width:15%;"></span>
                                       </span>
                     </p>
-                    <p>隐患解决</p>
+                    <p class="size-10">隐患解决率</p>
                   </div>
-                  <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                    <span class="">97.6%</span>
+                  <div class="col-sm-6 padding-top7 padding-right5 font-blue size-16 text-center">
+                    <span>97.6%</span>
                   </div>
                 </div>
               </li>
@@ -151,12 +156,10 @@
       </section>
       <section>
         <div class="toolregionrate margin-top40">
-          <h2 class="size-16 font-gray-ccc">
-            <span class="tool-rect bg-blue"></span>历史趋势
-            <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">
-                      <i class="fa fa-th-large"></i>
-                  </span>
-          </h2>
+          <h4 class="p-title">巡检记录
+            <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+                <i class="icon iconfont icon-weibiaoti10 size-12"></i>
+              </span></h4>
           <div class="table-responsive">
                 <table class="table size-12 table-condensed toolroute-table margin-top10">
                   <tr>
@@ -168,166 +171,140 @@
                   </tr>
                   <tr>
                     <td>1</td>
+                    <td>08:26:36 09-23</td>
                     <td>控烟严格巡检</td>
                     <td>
                       <span class="font-blue">10</span>/30</td>
                     <td>
-                      <i class="fa fa-th-large font-blue"></i>
-                    </td>
-                    <td>
                       <a>
-                        <i class="fa fa-th-large font-blue"></i>
+                        <i class="fas fa-flag-checkered font-blue"></i>
                       </a>
                     </td>
                   </tr>
                   <tr>
                     <td>2</td>
+                    <td>08:26:36 09-23</td>
                     <td>控烟严格巡检</td>
                     <td>
                       <span class="font-blue">10</span>/30</td>
                     <td>
-                      <i class="fa fa-th-large font-blue"></i>
-                    </td>
-                    <td>
                       <a>
-                        <i class="fa fa-th-large font-blue"></i>
+                        <i class="fas fa-flag-checkered font-blue"></i>
                       </a>
                     </td>
                   </tr>
                   <tr>
                     <td>3</td>
+                    <td>08:26:36 09-23</td>
                     <td>控烟严格巡检</td>
                     <td>
                       <span class="font-blue">10</span>/30</td>
                     <td>
-                      <i class="fa fa-th-large font-blue"></i>
-                    </td>
-                    <td>
                       <a>
-                        <i class="fa fa-th-large font-blue"></i>
+                        <i class="fas fa-flag-checkered font-blue"></i>
                       </a>
                     </td>
                   </tr>
                   <tr>
                     <td>4</td>
+                    <td>08:26:36 09-23</td>
                     <td>控烟严格巡检</td>
                     <td>
                       <span class="font-blue">10</span>/30</td>
                     <td>
-                      <i class="fa fa-th-large font-gray-666"></i>
-                    </td>
-                    <td>
                       <a>
-                        <i class="fa fa-th-large font-gray-666"></i>
+                        <i class="fas fa-flag-checkered font-blue"></i>
                       </a>
                     </td>
                   </tr>
                   <tr>
                     <td>5</td>
+                    <td>08:26:36 09-23</td>
                     <td>控烟严格巡检</td>
                     <td>
                       <span class="font-blue">10</span>/30</td>
                     <td>
-                      <i class="fa fa-th-large font-gray-666"></i>
-                    </td>
-                    <td>
                       <a>
-                        <i class="fa fa-th-large font-gray-666"></i>
+                        <i class="fas fa-flag-checkered font-blue"></i>
                       </a>
                     </td>
                   </tr>
                   <tr>
                     <td>6</td>
+                    <td>08:26:36 09-23</td>
                     <td>控烟严格巡检</td>
                     <td>
                       <span class="font-blue">10</span>/30</td>
                     <td>
-                      <i class="fa fa-th-large font-gray-666"></i>
-                    </td>
-                    <td>
                       <a>
-                        <i class="fa fa-th-large font-gray-666"></i>
+                        <i class="fas fa-flag-checkered font-blue"></i>
                       </a>
                     </td>
                   </tr>
                   <tr>
                     <td>7</td>
+                    <td>08:26:36 09-23</td>
                     <td>控烟严格巡检</td>
                     <td>
                       <span class="font-blue">10</span>/30</td>
                     <td>
-                      <i class="fa fa-th-large font-gray-666"></i>
-                    </td>
-                    <td>
                       <a>
-                        <i class="fa fa-th-large font-gray-666"></i>
+                        <i class="fas fa-flag-checkered font-blue"></i>
                       </a>
                     </td>
                   </tr>
                   <tr>
                     <td>8</td>
+                    <td>08:26:36 09-23</td>
                     <td>控烟严格巡检</td>
                     <td>
                       <span class="font-blue">10</span>/30</td>
                     <td>
-                      <i class="fa fa-th-large font-gray-666"></i>
-                    </td>
-                    <td>
                       <a>
-                        <i class="fa fa-th-large font-gray-666"></i>
+                        <i class="fas fa-flag-checkered font-blue"></i>
                       </a>
                     </td>
                   </tr>
+                  <tr>
+                    <td colspan="5">分页</td>
+                  </tr>
                 </table>
+                
               </div>
         </div>
       </section>
     </section>
-    <section class="per-lineinfo">
-        <section>
+    <!-- 统计 -->
+    <section class="per-lineinfo">      
+        <section class="margin-top20">
           <div class="personinfo">
             <p>
               <span class="size-20 font-blue">南宁市良庆区</span>
             </p>
             <p>
-              <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> 良庆区中心小学</span>
+              <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
             </p>
           </div>
         </section>
         <section>
-            <div class="input-group datatime btn-group date-picker input-daterange datatime margin-top20" data-date="today" data-date-format="yyyy-mm-dd"
-                data-original-title="" title="">
-              <span class="input-group-btn" data-original-title="" title="">
-                  <i class="fa fa-th-large"></i> 时间 </span>
-              <input type="text" class="form-control" name="from" id="troubleStartTime">
-              <span class="input-group-btn" data-original-title="" title=""> 至 </span>
-              <input type="text" class="form-control" name="to" id="troubleEndTime">
-              <span class="input-group-btn" data-original-title="" title="">
-                  确定
-              </span>
-              <span class="input-group-btn" data-original-title="" title=""> 今 周 月 年 </span>
-            </div>
-        </section>
-        <section>
-          <div class="row toolcount">
-            <h2 class="size-16 font-gray-ccc margin-top0 margin-bottom0">
-              <span class="tool-rect bg-blue"></span>人员数量
-            </h2>
-            <div class="col-sm-7  font-gray-999 padding-right0">
-                
-              <div class="row text-center margin-top50">
-                <p class="text-left toolcountp1">总数 <span class="font-blue">89 </span></p>
-                <div class="col-sm-4 container-padding0 personnel-borderright">
-                  <p class="size-16 font-red" >123</p>
-                  <p class="size-12 margin-bottom0">巡检人员</p>
+          <div class="toolcount margin-top20">
+            <h4 class="p-title">人员数量</h4>
+            <div class="col-sm-7 font-gray-999 padding-right0 size-12">
+              <div class="row text-center margin-top30">
+                <div class="col-sm-12 text-left margin-bottom20">
+                        <p>总数 <span class="font-white">263</span></p>
+                      </div>
+                <div class="col-sm-4 personnel-borderright">
+                  <p class="size-16 font-blue">42</p>
+                  <p>巡检人员</p>
                 </div>
-                <div class="col-sm-4 container-padding0 personnel-borderright">
-                  <p class="size-16 font-blue">13</p>
-                  <p class="size-12 margin-bottom0">管理人员</p>
+                <div class="col-sm-4 personnel-borderright">
+                  <p class="size-16 font-yellow">37</p>
+                  <p>管理人员</p>
                 </div>
-                <div class="col-sm-4 container-padding0">
-                  <p class="size-16 font-gray-999">25</p>
-                  <p class="size-12 margin-bottom0">监控人员</p>
+                <div class="col-sm-4">
+                  <p class="size-16 font-white">25</p>
+                  <p>监控人员</p>
                 </div>
               </div>
             </div>
@@ -337,64 +314,52 @@
           </div>
         </section>
         <section>
-          <div class="row toolcount">
-            <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-              <span class="tool-rect bg-blue "></span>{{setvuextest}}
-            </h2>
-            <div class="font-gray-999 padding-right0 margin-top10 ">
-                <div class="row text-left set-padding30">
-                  <div class="col-sm-4 container-padding0">
-                    <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 巡检人员</p>
-                  </div>
-                  <div class="col-sm-4 container-padding0">
-                    <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 监控人员</p>
-                  </div>
-                  <div class="col-sm-4 container-padding0">
-                    <p class="size-12 margin-bottom0">
-                      <i class="fa fa-th-large"></i> 管理人员</p>
-                  </div>
-                </div>
+          <div class="toolcount">
+            <h4 class="p-title">评分统计{{setvuextest}}</h4>
+            <div class="row margin-top20 padding-left10">
+                  <el-radio-group v-model="workervalue">
+                    <el-radio :label="1" class="col-xs-3">巡检人员</el-radio>
+                    <el-radio :label="2" class="col-xs-3">监控人员</el-radio>
+                    <el-radio :label="3" class="col-xs-3">管理人员</el-radio>
+                  </el-radio-group>
               </div>
-            <div class="row">
-              
-              <div class="col-sm-6" >
+            <div class="row">              
+              <div class="col-sm-6">
                 <div id="axis1" style="width: 100%;height:150px;margin: 0 auto;"></div>
               </div>
-              <div class="col-sm-6" >
+              <div class="col-sm-6">
                 <section>
-                  <div class="toolcompanyrate margin-top40">
-                    <h2 class="size-16 font-gray-ccc">
-                      <ul class="row padding0 margin0 size-12 font-gray-999">
+                  <div class="toolcompanyrate margin-top0">
+                      <ul class="size-12 font-gray-999">
                         <li class="col-sm-12">
                           <div class="row margin0 padding0">
-                            <div class="toolcompanyrate-char col-sm-6 padding0">
-                              <p class="font-blue">
+                            <div class="toolcompanyrate-char col-sm-5 padding-right0 padding-left5 padding-top5">
+                              <small class="font-blue">
                                 评分最高
-                              </p>
+                              </small>
                               <p>段亚伟</p>
                             </div>
-                            <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                              <span class="font-blue">9.9分</span>
+                            <div class="col-sm-7 margin0 padding-left5 padding-right0">
+                              <span class="size-36 font-blue">9.9</span>
+                              <sup class="size-10">分</sup>
                             </div>
                           </div>
                         </li>
                         <li class="col-sm-12">
                           <div class="row margin0 padding0">
-                            <div class="toolcompanyrate-char col-sm-6 padding0">
-                              <p class="font-red">
+                            <div class="toolcompanyrate-char col-sm-5 padding-right0 padding-left5 padding-top5">
+                              <small class="font-red">
                                 评分最低
-                              </p>
+                              </small>
                               <p>段亚伟</p>
                             </div>
-                            <div class="col-sm-6 padding-top7 padding-left5 padding-right5 font-blue size-16 text-center">
-                              <span class="font-red">2.9分</span>
+                            <div class="col-sm-7 margin0 padding-left5 padding-right0">
+                              <span class="size-36 font-red">3.6</span>
+                              <sup class="size-10">分</sup>
                             </div>
                           </div>
                         </li>
                       </ul>
-                    </h2>
                   </div>
                 </section>
               </div>
@@ -402,13 +367,12 @@
           </div>
         </section>
         <section>
-          <div class="row toolcount margin-top30">
-            <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-              <span class="tool-rect bg-blue"></span>人数变化
-              <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666">
-                      <i class="fa fa-th-large"></i>
-                  </span>
-            </h2>
+          <div class="toolcount margin-top30">
+            <h4 class="p-title">人数变化
+              <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+                <i class="icon iconfont icon-weibiaoti10 size-12"></i>
+              </span>
+            </h4>
             <div id="myChart" style="width: 100%;height:180px;margin: 0 auto;"></div>
           </div>
         </section>
@@ -445,7 +409,42 @@
   export default {
   data() {
     return {
-      vuexone:'123'
+      vuexone:'123',
+      // 单选按钮
+      workervalue:1,
+      // 时间筛选
+      pickerOptions2: {
+        shortcuts: [
+          {
+            text: "最近一周",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近三个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
+          }
+        ]
+      },
+      value7: "",
     };
   },
   methods: {

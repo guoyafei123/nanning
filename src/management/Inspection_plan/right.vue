@@ -164,7 +164,7 @@
       </section>
     </div>
     <div class="font-white margin-left15 margin-right20 total" style="margin-top:120px;">
-      <h2 style="font-size: 12px;line-height:10px;margin-bottom:-10px;" class="font-gray-999">Inspection Total</h2>
+      <h2 style="font-size: 12px;line-height:10px;margin-bottom:10px;" class="font-gray-999">Inspection Total</h2>
       <h3 style="font-size:18px;" class="font-blue">当前线路总数</h3>
       <div style="width:100%;overflow: hidden;">
         <p style="width:15%;font-size: 70px;margin-left:20px;float: left" v-html="this.countInspectionPlanRelevant.countTotal"></p>

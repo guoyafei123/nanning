@@ -28,7 +28,9 @@ import 'bootstrap/dist/js/bootstrap.min'
 require('./assets/css/normalize.css');
 // Font Icon
 require('./assets/font-awesome/css/fontawesome-all.min.css');
-require('./assets/font-software/font-web/iconfont.css');
+require('./assets/font-software/font-com/iconfont.css');
+require('./assets/font-software/font-dev/iconfont.css');
+require('./assets/font-software/font-alarm/iconfont.css');
 require('./assets/ionicons/css/ionicons.min.css');
 // public
 require('./assets/css/common.css');

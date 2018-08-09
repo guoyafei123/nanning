@@ -12,10 +12,10 @@
           <router-link to="/risk">风险</router-link>
         </li>
         <li>
-          <router-link to="/inspection">巡查</router-link>
+          <router-link to="/inspection">巡检</router-link>
         </li>
         <li>
-          <router-link to="/callpolice">报警</router-link>
+          <router-link to="/callpolice">警报</router-link>
         </li>
         <li>
           <router-link to="/danger">隐患</router-link>
@@ -30,18 +30,18 @@
           <router-link to="/personnel">人员</router-link>
         </li>
         <li>
-          <router-link to="">预案</router-link>
+          <router-link to="/plan">预案</router-link>
         </li>
-        <li>
-          <router-link to="punch">联控</router-link>
-        </li>
+        <!-- <li>
+          <router-link to="">联控</router-link>
+        </li> -->
         <!-- <li>
           <router-link to="">
             <i class="fa fa-th-large"></i>
           </router-link>
         </li> -->
       </ul>
-      <abbr class="size-12 font-gray-666">数雨如歌智慧消防大数据监控平台 政府版
+      <abbr class="size-12 font-gray-333">数雨如歌智慧消防大数据监控平台 政府版
         <span>BETA3.0</span>
       </abbr>
     </div>
@@ -67,7 +67,7 @@ export default {
   },
   
   mounted () {
-    this.chart_one()
+    this.chart_one();
   }
 }
 </script>

@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 var state={
+  //单位
+  unitNum:'',
   //巡检
   region:'',
   inspectionId:'',
@@ -10,12 +12,18 @@ var state={
   //设备
   deviceId:'',
   Unit:'',
+  buildDevice:'',
+  floorDevice:'',
+  roomDevice:'',
+  equipmentDevice:'',
   //建筑
   buildUnit:'',
   buildingId:'',
   tableData:[],
   floorAdd:'',
   floorId:'',
+  //人员
+  unitNumber:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -27,6 +35,11 @@ var state={
 }
 
 var mutations={
+  //单位
+  unitNum(state,data){
+    state.unitNum = data;
+  },
+  //巡检
   region(state,data){
     state.region = data;
   },
@@ -36,14 +49,27 @@ var mutations={
   form(state,data){
     state.form= data;
   },
-
+  //设备
   deviceId(state,data){
     state.deviceId = data;
   },
   Unit(state,data){
     state.Unit = data;
   },
+  buildDevice(state,data){
+    state.buildDevice = data;
+  },
+  floorDevice(state,data){
+    state.floorDevice = data;
+  },
+  roomDevice(state,data){
+    state.roomDevice = data;
+  },
+  equipmentDevice(state,data){
+    state.equipmentDevice = data;
+  },
 
+  //建筑
   buildUnit(state,data){
     state.buildUnit = data;
   },
@@ -58,6 +84,11 @@ var mutations={
   },
   floorId(state,data){
     state.floorId = data ;
+  },
+
+  //人员
+  unitNumber(state,data){
+    state.unitNumber = data ;
   },
   // 展示端的store
   setvuextest(state,data){

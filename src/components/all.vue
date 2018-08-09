@@ -12,13 +12,13 @@
     <div class="main_all_content">
       <div class="main_content_top">
         <el-form label-width="80px" class="float-left">
-          <el-select v-model="unit" placeholder="选择单位" class="select">
+          <el-select v-model="unit" placeholder="选择单位" class="select" style="width:200px;">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
           <el-select
               v-model="building"
-            placeholder="选择建筑"  class="sbwz_138_32 start float-left">
+            placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="width:200px;">
               <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
@@ -46,17 +46,13 @@
             </el-select>
             <el-select
               v-model="equipment"
-              placeholder="选择设备" class="sbwz_120_32 start startDevice">
+              placeholder="选择设备类型" class="sbwz_120_32 start startDevice" style="width:auto;">
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
                 :value="item.id">
               </el-option>
             </el-select>
-          <!-- <el-form-item label="" class="float-left">
-            <el-input v-model="form.name" placeholder="设备名称、设备编号"></el-input>
-          </el-form-item>
-          <el-button  icon="el-icon-search">搜索</el-button> -->
         </el-form>
         <div class="main_nav_two float-right">
           <router-link to="/Equipment_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
@@ -71,72 +67,78 @@
           style="width: 100%;height:570px;">
           <el-table-column
             prop="Serial_number"
+            type="index"
+            width="60"
             label="序号">
           </el-table-column>
           <el-table-column
-            prop="Device_name"
+            prop="name"
+            width="170"
+            :show-overflow-tooltip="true"
             label="设备名称">
           </el-table-column>
           <el-table-column
-            prop="Equipment_type"
+            prop="location"
+            width="160"
+            :show-overflow-tooltip="true"
             label="设备位置">
           </el-table-column>
           <el-table-column
-            prop="Architectural_name"
-            label="设备分类">
-          </el-table-column>
-          <el-table-column
-            prop="Unit_name"
+            prop="deviceTypeName"
+            width="100"
+            :show-overflow-tooltip="true"
             label="设备类型">
           </el-table-column>
           <el-table-column
-            prop="Off_ground"
+            prop="height"
             width="130"
             label="相对地板高度（m）">
           </el-table-column>
           <el-table-column
-            prop="Apex"
+            prop="fheight"
             width="140"
             label="相对天花板高度（m）">
           </el-table-column>
           <el-table-column
-            prop="Call_the_police"
-            width="120"
+            prop="startDate"
+            width="100"
+            :show-overflow-tooltip="true"
             label="投入使用时间">
           </el-table-column>
           <el-table-column
-            prop="Fault"
-             width="130"
+            prop="startDate"
+            width="130"
+            :formatter="formatter"
             label="运行时长（天）">
           </el-table-column>
           <el-table-column
-            prop="Replacement_period"
+            prop="lifeMonth"
              width="120"
             label="更换周期（天）">
           </el-table-column>
           <el-table-column 
             prop="status"
             width="120"
-            label="路线状态">
+            label="状态">
             <template slot-scope="scope">
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.status==1'>已激活<i class="fa fa-th-large font-gray-666"></i></el-tag>
+                disable-transitions v-if='scope.row.status==1'>正常<i class="fa fa-th-large font-gray-666"></i></el-tag>
               <el-tag
-                :type="scope.row.status === 2 ? 'red' : 'green'"
-                disable-transitions v-if='scope.row.status==2'>未激活</el-tag>
+                :type="scope.row.status === 2 ? 'yellow' : 'green'"
+                disable-transitions v-if='scope.row.status==2'>故障</el-tag>
+              <el-tag
+                :type="scope.row.status === 3 ? 'red' : 'green'"
+                disable-transitions v-if='scope.row.status==3'>警报</el-tag>
             </template>
-
           </el-table-column>
           <el-table-column
             fixed="right"
             label="操作"
-            width="100">
+            width="120">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==2">开启</button>
-              <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" style="width:40px;height:22px;border:2px solid #999999;color: #999;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==1">关闭</button>
-              <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
-              <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
+              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">修改</button>
+              <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
               <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
             </template>
           </el-table-column>
@@ -173,31 +175,121 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">激活</h4>
-            <h5 class="modal-p">{{ deviceName }}</h5>
+            <h4 class="modal-title" id="myModalLabel">修改设备</h4>
           </div>
-          <div class="modal-body">
-            <el-form :label-position="labelPosition">
-              <el-form-item size="small"
-                  label="每日额定完成次数"
-                  prop="age">
-                <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:190px;"></el-input>
-                <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
+          <div class="modal-body" style="height:650px;overflow-y:auto;">
+            <el-form ref="form" :label-position="labelPosition" :model="form">
+              <el-form-item label="设备名称">
+                <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
+                <el-input v-model="form.name"></el-input>
+              </el-form-item>
+              <el-form-item label="所属单位">
+                <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" style="width:auto;">
+                  <el-option label="全部单位" value=""></el-option>
+                  <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="设备类型">
+                <el-select
+                  v-model="form.equipmentId"
+                  placeholder="选择设备类型" class="sbwz_138_32 start" style="margin-left:0px;width:auto;">
+                  <el-option
+                    v-for="item in equipmentList"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="设备位置">
+                <el-select
+                  v-model="form.buildingId"
+                placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="margin-left:0px;width:auto;">
+                  <el-option label="室外" value="0"></el-option>
+                  <el-option
+                    v-for="item in form.buildList"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+                <el-select
+                  v-model="form.floorId"
+                  placeholder="选择楼层" class="sbwz_138_32 start">
+                  <el-option
+                    v-for="item in form.floorList"
+                    :label="item.floorName+'层'"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+                <el-select
+                  v-model="form.roomId"
+                  placeholder="选择房间" class="sbwz_138_32 start">
+                  <el-option
+                    v-for="item in form.roomList"
+                    :label="item.roomNumber+'房间'"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="坐标">
+                <el-input v-model="form.point.pointX" style="display:inline-block;width:200px;"></el-input>
+                <el-input v-model="form.point.pointY" style="display:inline-block;width:200px;"></el-input>
+              </el-form-item>
+
+              <el-form-item label="物理地址">
+                <el-input v-model="form.PhysicalAddress"></el-input>
+              </el-form-item>
+
+              <el-form-item label="投入使用日期">
+                <div class="block">
+                  <el-date-picker
+                    v-model="form.startDate"
+                    type="date"
+                    placeholder="选择年"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+              <el-form-item label="运行时长">
+                <el-input v-model="form.time"></el-input>
+              </el-form-item>
+              <el-form-item label="相对房顶高度（m）">
+                <el-input v-model="form.RoofHeight"></el-input>
+              </el-form-item>
+              <el-form-item label="相对地板高度（m）">
+                <el-input v-model="form.floorHeight"></el-input>
+              </el-form-item>
+              <el-form-item label="更换周期（天）">
+                <el-input v-model="form.Retroperiod"></el-input>
+              </el-form-item>
+              <el-form-item label="生产商">
+                <el-input v-model="form.Bike"></el-input>
+              </el-form-item>
+              <el-form-item label="生产日期">
+                <div class="block">
+                  <el-date-picker
+                    v-model="form.ProductionDay"
+                    type="date"
+                    placeholder="选择年"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+              <el-form-item label="维保单位">
+                <el-input v-model="form.Refundable"></el-input>
+              </el-form-item>
+              <el-form-item label="维保人员">
+                <el-input v-model="form.linkname"></el-input>
+              </el-form-item>
+              <el-form-item label="维保电话">
+                <el-input v-model="form.phone"></el-input>
               </el-form-item>
               <div style="clear: both;"></div>
-              <el-form-item label="是否开启扫描打卡" style="margin-top:10px;">
-                <span class="font-red" style="position: absolute;top:-54px;right:20px;">未选择是否生成图形码</span>
-                <el-radio-group v-model="isScan">
-                  <el-radio-button label="1">是</el-radio-button>
-                  <el-radio-button label="0">否</el-radio-button>
-                </el-radio-group>
-                <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
-
-              </el-form-item>
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">激活</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -250,10 +342,41 @@
   export default {
     data() {
       return {
-        isScan:'',//是否扫码打卡
-        amountNumber:'',//每日额定次数
         labelPosition: 'top',
-
+        form:{
+          id:'',
+          name:'',
+          unitId:null,
+          unitName:'',
+          buildingId:'',
+          buildingName:'',
+          floorId:'',
+          floorNumber:'',
+          roomId:'',
+          roomNumber:'',
+          equipmentId:'',
+          deviceTypeName:'',
+          roomList:[],
+          floorList:[],
+          buildList:[],
+          point:{
+            pointX:'',
+            pointY:'',
+            xRate:'',
+            yRate:''
+          },
+          PhysicalAddress:'',
+          startDate:'',
+          lifeMonth:'',
+          RoofHeight:'',
+          floorHeight:'',
+          Retroperiod:'',
+          Bike:'',
+          ProductionDay:'',
+          Refundable:'',
+          linkname:'',
+          phone:''
+        },
 
 
         
@@ -268,7 +391,7 @@
         equipmentList:[],
         optionList:[],//全部单位列表
         tableData: [],//设备列表
-        page:4,//总页数
+        page:null,//总页数
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
@@ -276,6 +399,9 @@
       }
     },
     methods: {
+      formatter(row, column){
+        return this.dateMinus(row.startDate)
+      },
       btn_map(){
         $('.plan').hide();
         $('.mapTable').show();
@@ -288,18 +414,73 @@
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
-      start_plan(row){//启用
+      start_plan(row){//修改
         $('#mymodal').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
         this.deviceIndex = row.id ;
+        this.tableData.forEach((item,index)=>{
+          if(item.id == row.id){
+            this.form.id = item.id ;
+            this.form.name = item.name ;
+            this.form.unitId = item.unitId ;
+            this.form.unitName = item.unitName ;
+            this.form.buildingId = item.buildingId ;
+            this.form.buildingName = item.buildingName ;
+            this.form.floorId = item.floorId ;
+            this.form.floorNumber = item.floorNumber ;
+            this.form.roomId = item.roomId ;
+            this.form.roomNumber = item.roomNumber
+            this.form.equipmentId = item.deviceTypeId ;
+            this.form.deviceTypeName = item.deviceTypeName;
+            this.form.point.pointX = item.pointX ;
+            this.form.point.pointY = item.pointY ;
+            this.form.point.xRate = item.xRate ;
+            this.form.point.yRate = item.yRate ;
+            this.form.PhysicalAddress = item.mac ;
+            this.form.startDate = item.startDate ;
+            this.form.RoofHeight = item.height ;
+            this.form.floorHeight = item.fheight ;
+            this.form.Retroperiod = item.lifeMonth ;
+            this.form.Bike = item.firm ;
+            this.form.ProductionDay = item.productDate ;
+            this.form.Refundable = item.maintenanceUnit ;
+            this.form.linkname = item.maintenanceUser ;
+            this.form.phone = item.maintenancePhone ;
+          }
+        })
       },
       startRow(){
-        this.$fetch("/api/inspection/start_plan",{
-          
+        this.$fetch("/api/device/updateDevice",{
+          'id':this.form.id,
+          'name':this.form.name,
+          'unitId':this.form.unitId,
+          'unitName':this.form.unitName,
+          'buildingId':this.form.buildingId,
+          'buildingName':this.form.buildingName,
+          'floorId':this.form.floorId,
+          'floorNumber':this.form.floorNumber,
+          'roomId':this.form.roomId,
+          'roomNumber':this.form.roomNumber,
+          'deviceTypeId':this.form.equipmentId,
+          'deviceTypeName':this.form.deviceTypeName,
+          'pointX':this.form.point.pointX,
+          'pointY':this.form.point.pointY,
+          'xRate':this.form.point.xRate,
+          'yRate':this.form.point.yRate,
+          'mac':this.form.PhysicalAddress,
+          'startDate':this.form.startDate,
+          'height':this.form.RoofHeight,
+          'fheight':this.form.floorHeight,
+          'lifeMonth':this.form.Retroperiod,
+          'firm':this.form.Bike,
+          'productDate':this.form.ProductionDay,
+          'maintenanceUnit':this.form.Refundable,
+          'maintenanceUser':this.form.linkname,
+          'maintenancePhone':this.form.phone
         }).then(response=>{
           if(response){
-            console.log('开启线路成功...'+ JSON.stringify(response));
+            console.log('修改成功...'+ JSON.stringify(response));
             this.tableList();
           }
         })
@@ -309,6 +490,7 @@
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
         this.deviceName = row.name;
+        this.deviceIndex = row.id;
       },
       show3(row){//跳转
         console.log(row.id);
@@ -317,37 +499,26 @@
         $('.mapTable').hide();
         $('.total').hide();
       },
-      stop_plan(row){//停用
-        $('#mymodal3').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
-        this.deviceName = row.name;
-        this.deviceIndex = row.id ;
-      },
-      StopRow(){//停用的接口
-        console.log(this.deviceIndex);
-        this.$fetch("/api/inspection/stop_plan",{
-          id:this.deviceIndex
-        }).then(response=>{
-          if(response){
-            console.log('关闭线路成功...'+ JSON.stringify(response));
-            this.tableList();
-          }
-        })
-      },
       deleteRow(){
           console.log(this.deviceIndex);
-          this.$fetch("/api/admin/inspection/deleteInspectiopnPlan",{
-            inspectionPlanId:this.deviceIndex
+          this.$fetch("/api/device/deleteDevice",{
+            'deviceId':this.deviceIndex
           }).then(response=>{
             if(response){
-              console.log('删除线路成功...'+ JSON.stringify(response));
+              console.log('删除成功...'+ JSON.stringify(response));
               this.tableData.splice(this.deviceIndex,1);
               this.tableList();
             }
           }).then(err => {
             console.log(err);
           });
+      },
+      dateMinus(sDate){ 
+    　　var sdate = new Date(sDate.replace(/-/g, "/")); 
+    　　var now = new Date(); 
+    　　var days = now.getTime() - sdate.getTime(); 
+    　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
+    　　return day; 
       },
       unitSearch(){
         this.$fetch(
@@ -369,22 +540,32 @@
       },
       tableList(){
         this.$fetch(
-          "/api/admin/inspection/queryInspectionPlanList",{
+          "/api/device/deviceList",{
+            unitId:this.unit,
+            deviceTypeId:this.equipment,
+            buildingId:this.building,
+            floorId:this.floor,
+            roomId:this.room,
             currentPage:this.currentPage4,
-            pageSize:10
-            
+            pageSize:9
           }
         )
           .then(response => {
-            console.log(response);
+            console.log('设备111111111111111111'+JSON.stringify(response));
             if (response) {
               // console.log(response.data.inspectionPlanList);
-              this.totalList = response.data.total;
-              this.tableData = response.data.inspectionPlanList;
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              this.totalList = response.data.pager.totalRow;
+              this.tableData = response.data.pager.result;
+              this.tableData.forEach((item,index)=>{
+                // console.log(111)
+                if(index == this.tableData.length-1){
+                  this.$store.commit('deviceId',item.id);
+                }
+              })
+              if(this.totalList % 9 == 0){
+                this.page = parseInt( this.totalList / 9 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 9 ) + 1
               }
             }
           })
@@ -425,16 +606,64 @@
           }
         })
       },
-      equipmentSearch(roomId){
-        this.$fetch("/api/building/selectNode",{
-          roomId:roomId
-        }).then(response=>{
+      equipmentSearch(){
+        this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
           console.log('equipmentSearch:'+response);
           if (response) {
-            this.equipmentList = response.data.list;
+            this.equipmentList = response.data.deviceTypeEnum;
             console.log(this.equipmentList);
           }
         })
+      },
+      formBuildSearch(unitId){
+        this.$fetch("/api/building/selectNode",{
+          unitId:unitId
+        }).then(response=>{
+          console.log('formBuildSearch:'+JSON.stringify(response));
+          if (response) {
+            this.form.buildList = response.data.list;
+            console.log(this.form.buildList);
+          }
+        })
+      },
+      formFloorSearch(buildIngId){
+        this.$fetch("/api/building/selectNode",{
+          buildIngId:buildIngId
+        }).then(response=>{
+          console.log('formFloorSearch:'+response);
+          if (response) {
+            this.form.floorList = response.data.list;
+            console.log(this.form.floorList);
+          }
+        })
+      },
+      formRoomSearch(floorId){
+        this.$fetch("/api/building/selectNode",{
+          floorId:floorId
+        }).then(response=>{
+          console.log('formRoomSearch:'+response);
+          if (response) {
+            this.form.roomList = response.data.list;
+            console.log(this.form.roomList);
+          }
+        })
+      }
+    },
+    computed:{
+      unitId(){
+        return this.form.unitId;
+      },
+      buildingId(){
+        return this.form.buildingId;
+      },
+      floorId(){
+        return this.form.floorId;
+      },
+      roomId(){
+        return this.form.roomId;
+      },
+      equipmentId(){
+        return this.form.equipmentId;
       }
     },
     watch:{
@@ -450,51 +679,67 @@
         this.$store.commit('Unit',this.unit);
       },
       building(curVal,oldVal){
-          this.building = curVal ;
-          console.log(this.building);
-          console.log(typeof this.building)
-          if(this.building !== 0 && this.building !== '0'){
-            $('.startFloor').show();
-            $('.startDevice').hide();
-            this.floor = '';
-            this.room = '';
-            this.equipment = '';
-            this.floorSearch(this.building);
-          }else{
-            $('.startFloor').hide();
-            $('.startRoom').hide();
-            $('.startDevice').show();
-            this.equipment = '';
-            this.equipmentSearch(this.building);
-          }
-        },
-        floor(curVal,oldVal){
-          this.floor = curVal ;
-          console.log(this.floor);
-          if(this.floor !== 0){
-            this.roomSearch(this.floor);
-            $('.startRoom').show();
-          }
-        },
-        room(curVal,oldVal){
-          this.room = curVal ;
-          console.log(this.room);
-          if(this.room !== 0){
-            this.equipmentSearch(this.room);
-            $('.startDevice').show();
-          }
+        this.building = curVal ;
+        console.log(this.building);
+        this.floor = '';
+        this.room = '';
+        this.equipment = '';
+        this.floorSearch(this.building);
+        this.tableList();
+      },
+      floor(curVal,oldVal){
+        this.floor = curVal ;
+        console.log(this.floor);
+        if(this.floor !== 0){
+          this.roomSearch(this.floor);
+          this.tableList();
         }
+      },
+      room(curVal,oldVal){
+        this.room = curVal ;
+        console.log(this.room);
+        this.tableList();
+      },
+      equipment(curVal,oldVal){
+        this.equipment = curVal ;
+        console.log(this.equipment);
+        this.tableList();
+      },
+      unitId(curVal,oldVal){
+        this.form.unitId = curVal;
+        this.formBuildSearch(this.form.unitId);
+      },
+      buildingId(curVal,oldVal){
+        this.form.buildingId = curVal;
+        console.log(this.form.buildingId)
+        this.form.floorId = '';
+        this.form.roomId = '';
+        this.form.equipmentId = '';
+        this.formFloorSearch(this.form.buildingId);
+      },
+      floorId(curVal,oldVal){
+        this.form.floorId = curVal;
+        if(this.form.floorId !== 0){
+          this.formRoomSearch(this.form.floorId);
+        }
+      },
+      roomId(curVal,oldVal){
+        this.form.roomId = curVal ;
+      },
+      equipmentId(curVal,oldVal){
+        this.form.equipmentId = curVal;
+      }
     },
     mounted(){
       realconsole();
       this.tableList();
       this.unitSearch();
+      this.equipmentSearch();
       $('#right').show();
-      this.$store.commit('Unit',this.unit);
+      // this.$store.commit('Unit',this.unit);
       if(this.$route.path == '/Equipment_management/all'){
         $('.mapTable').hide();
       }
-      
     }
   };
 </script>
@@ -700,7 +945,14 @@
       margin-left:7px;
     }
   }
-
+  .el-tag--yellow{
+    color: yellow !important;
+    padding:0 !important;
+    border:none;
+    i{
+      margin-left:7px;
+    }
+  }
 
   .start{
     margin-top:4px;
