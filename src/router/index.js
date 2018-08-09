@@ -18,7 +18,7 @@ import BulidVue from '../components/buliding';
 import ListVue from '../components/list';
 import AllVue from '../components/all';
 import MapsVue from '../components/maps';
-import PunchVue from '../components/punch';
+import PlanVue from '../components/plan';
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
@@ -70,7 +70,7 @@ export default new Router({
       path:'*',redirect:'/index'
     },
     {
-      path:'/punch',component:PunchVue
+      path:'/plan',component:PlanVue
     },
     // 管理端路由
     {

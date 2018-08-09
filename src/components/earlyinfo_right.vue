@@ -13,7 +13,7 @@
             </article>
             <!-- 安全评分 -->
             <article class="unit-score">
-              <span class="badge bg-blue position-absolute-right">安全评分</span>
+              <span class="badge bg-blue position-absolute-right size-10">安全评分</span>
               <!-- 分数 -->
               <h1 class="font-red">2.<sub>6</sub></h1>
               <!-- 上升下降标识 -->
@@ -83,44 +83,43 @@
           </p>
         </div>
       </section>  -->  
-    <section class="call-iteminfo margin-top10">
+    <section class="call-iteminfo margin-top10 size-12">
       <section>
-        <div class="textandimg">
-          <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top20">
-            <span class="tool-rect bg-blue"></span>报警发起
+        <div class="textandimg margin-top20">
+          <h4 class="p-title">报警发起
             <span class="float-right">
-                      <span class="bgbox-max bg-blue font-black">
-                          <i class="icon iconfont icon-jiankong-mian-"></i> 监控</span>
-                  </span>
-          </h2>
-          <div class="row textandimg-main">
+                <span class="bgbox-min bg-blue font-black size-10">
+                <i class="icon iconfont icon-jiankong-mian-"></i> 监控</span>
+            </span>
+          </h4>
+          <div class="row textandimg-main margin-top20 size-12">
             <div class="col-sm-7">
-              <span class="size-12 font-gray-666">警报源 </span>
-              <span class="size-12 font-gray-999">A365F57D (烟雾感应器)</span>
+              <span>警 报 源 </span>
+              <strong>A365F57D (烟雾感应器)</strong>
             </div>
             <div class="col-sm-5">
-              <span class="size-12 font-gray-666">报警类型 </span>
-              <span class="size-12 font-gray-999">设备</span>
+              <span>报警类型 </span>
+              <strong>设备</strong>
             </div>
             <div class="col-sm-12">
-              <span class="size-12 font-gray-666">发生地点 </span>
-              <span class="size-12 font-gray-999">良庆区中心小学01号楼301室</span>
+              <span>发生地点 </span>
+              <strong>良庆区中心小学01号楼301室</strong>
             </div>
             <div class="col-sm-7">
-              <span class="size-12 font-gray-666">确认人 </span>
-              <span class="size-12 font-gray-999">段亚伟</span>
+              <span>确 认 人 </span>
+              <strong>段亚伟</strong>
             </div>
             <div class="col-sm-5">
-              <span class="size-12 font-gray-666">响应时间 </span>
-              <span class="size-12 font-blue">10小时32分</span>
+              <span>响应时间 </span>
+              <strong class="font-blue">10小时32分</strong>
             </div>
             <div class="col-sm-12">
-              <span class="size-12 font-gray-666">报警描述 </span>
-              <span class="size-12 font-gray-999">
+              <span>报警描述 </span>
+              <strong>
                           <span class="bgbox-voice bg-blue font-black">
                               <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span>
                           <span>有事没事报个警震惊一些愚蠢的人类</span>
-                      </span>
+                      </strong>
             </div>
             <div class="textandimg-img">
               <div class="col-sm-3">
@@ -134,30 +133,28 @@
         </div>
       </section>
       <section>
-        <div class="textandimg">
-          <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top20">
-            <span class="tool-rect bg-blue"></span>报警确认
-          </h2>
-          <div class="row textandimg-main">
+        <div class="textandimg margin-top20">
+          <h4 class="p-title">报警确认</h4>
+          <div class="row textandimg-main margin-top20 size-12">
             <div class="col-sm-7">
-              <span class="size-12 font-gray-666">确认人 </span>
-              <span class="size-12 font-gray-999">段亚伟(巡检员)</span>
+              <span>确认人 </span>
+              <strong>段亚伟(巡检员)</strong>
             </div>
             <div class="col-sm-5">
-              <span class="size-12 font-gray-666">指派给 </span>
-              <span class="size-12 font-gray-999">赵堆船(无响应)</span>
+              <span>指派给 </span>
+              <strong>赵堆船(无响应)</strong>
             </div>
             <div class="col-sm-12">
-              <span class="size-12 font-gray-666">解除时长 </span>
-              <span class="size-12 font-blue">1小时32分</span>
+              <span>解除时长 </span>
+              <strong class="font-blue">1小时32分</strong>
             </div>
             <div class="col-sm-12">
-              <span class="size-12 font-gray-666">反馈信息 </span>
-              <span class="size-12 font-gray-999">
+              <span>反馈信息 </span>
+              <strong>
                           <span class="bgbox-voice bg-blue font-black">
                               <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span>
                           <span>设备质量不行,乱报警</span>
-                      </span>
+                      </strong>
             </div>
             <div class="textandimg-img">
               <div class="col-sm-3">
@@ -168,18 +165,16 @@
         </div>
       </section>
       <section>
-        <div class="textandimg">
-          <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top20">
-            <span class="tool-rect bg-blue"></span>报警关闭
-          </h2>
-          <div class="row textandimg-main">
+        <div class="textandimg margin-top20">
+          <h4 class="p-title">报警关闭</h4>
+          <div class="row textandimg-main margin-top20 size-12">
             <div class="col-sm-12">
-              <span class="size-12 font-gray-666">确认人 </span>
-              <span class="size-12 font-gray-999">段亚伟(管理员)</span>
+              <span>确 认 人 </span>
+              <strong>段亚伟(管理员)</strong>
             </div>
             <div class="col-sm-12">
-              <span class="size-12 font-gray-666">关闭说明 </span>
-              <span class="size-12 font-gray-999">设备质量不行,乱报警</span>
+              <span>关闭说明 </span>
+              <strong>设备质量不行,乱报警</strong>
             </div>
           </div>
         </div>

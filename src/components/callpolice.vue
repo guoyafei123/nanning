@@ -1,265 +1,476 @@
 <template>
-    <div class="row">
+    <div class="row" id="alarm">
       <!-- #头部 -->
       <header-vue></header-vue>
       <!-- #头部 End-->
       <!-- #左边 -->
-      <section id="left" class="position-fixed-left container-padding5 z-index-20">
+      <template>
+      <section id="left" class="position-fixed-left z-index-20">
         <div class="overlay"></div>
-        <!-- <call_left-vue></call_left-vue> -->
-        <template>
-          <div class="toolleft margin-right0">
-            <section>
-              <div class="toolcount">
-                <div class="set-width-50  font-gray-999 padding-right0">
-                  <ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
-                    <li>
-                      <p class="font-white size-66 toolcount-p1">{{ins_queryAlarmStats.countAlarm}}</p>
+          <div class="row toolleft margin-right0 size-12">
+            <!-- 全部警报 -->
+            <section class="common-left-statistics common-top-statistics" id="toolcount">
+                <ul class="list-unstyled">
+                    <li class="col-sm-7 text-left">
+                      <!-- 全部警报发生数量 -->
+                      <div class="size-50 font-red">
+                        <i class="icon iconfont icon-jingshi-mian- size-50"></i><span>174</span> 
+                      </div>
+                      <!-- 全部警报title -->
+                      <div class="margin-top20">
+                        <small>Alarm Number</small>
+                        <h3><span class="badge badge-statistics bg-blue font-black">全部</span>警报</h3>
+                      </div>
                     </li>
-                    <li> 
-                    <p class="size-10 toolcount-p2">On-site Inspection</p>
-                  </li>
-                    <li>
-                      <p class="size-18 font-blue">当前报警数</p>
+                    <li class="col-sm-5 mian-pie-chart">
+                      <!-- 全部警报占比（饼图） -->
+                      <div>全部警报占比（饼图）</div>
                     </li>
-                  </ul>
-                </div>
-                <div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
-                  <ul class="padding-left0 margin-bottom0">
-                    <li>
-                      <p class=" size-12">故障数</p>
-                      <p class=" font-blue font-italic float-right">{{ins_queryAlarmStats.countFault}}</p>
+                    <li class="col-sm-12 margin-top10">
+                      <!-- 历史未解决，已确认，复位/关闭 -->
+                      火情数量 <span class="margin-right20">3</span>
+                      报警数量 <span class="margin-right20 font-blue">69</span>
+                      故障数量 <span class="margin-right20">73</span>
                     </li>
-                    <li>
-                      <p class=" size-12">故障处理</p>
-                      <p class=" font-blue font-italic float-right">{{ins_queryAlarmStats.faultDeal}}</p>
-                    </li>
-                    <li>
-                      <p class=" size-12">发生火情</p>
-                      <p class=" font-blue font-italic float-right">{{ins_queryAlarmStats.occurFire}}</p>
-                    </li>
-                    <li>
-                      <p class=" size-12">报警确认</p>
-                      <p class=" font-blue font-italic float-right">{{ins_queryAlarmStats.alarmAck}}</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                </ul>        
             </section>
-            <section>
-              <div class="toolroute font-gray-ccc margin-left37">
-                <span class="toolroute-rect bg-blue"></span>
-                <ul class="padding-left5 padding-right5">
-                  <li>
-                    <p class="font-gray-666 size-12">中心小学</p>
-                  </li>
-                  <li>
-                    <p class="font-blue size-16">报警信息
-                      <span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
-                          <i class="fa fa-th-large"></i>
-                      </span>
-                    </p>
-                  </li>
-                  <li>
-                      <el-select class="upd-elselect upd-elselect-bordernone upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择"  @change="tolineitem">
-                        <el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
-                        </el-option>
-                      </el-select>
-                      <!-- <div class="float-right">
-                        <a class="upd-btn">展开表单</a>
-                      </div> -->
-                  </li>
-                  <li>
-                    <div class="table-responsive">
-                      
-                      <table class="table size-12 table-condensed toolroute-table margin-top10 mini-table">
-                        <thead>
-                          <tr>
-                            <!-- <th >序号</th> -->
-                            <th >报警源</th>
-                            <th >类型</th>
-                            <th >发生时间</th>
-                            <th >状态</th>
-                            <th>查看</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
-                            <!-- <td>{{(getAlarmList_parameter.currentPage-1)*getAlarmList_parameter.pageSize+index+1}}</td> -->
-                            <td v-if="item.isUser==0">{{item.deviceTypeName}}</td>
-                            <td v-if="item.isUser==1">{{item.nickName}}</td>
-                            <td>{{item.eventLevel}}</td>
-                            <td>{{item.startTime}}</td>
-                            <td>{{item.status}}</td>
-                            <td>
-                              <a v-on:click="toitmeinfo(item)">
-                                <i class="fa fa-th-large font-blue"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+            <!-- 分类警报数量 -->
+            <section class="col-sm-12 card-list margin-top60">
+              <ul class="list-inline">
+                <li>
+                  <h3>未解决</h3>
+                  <h2><i class="icon iconfont icon-icon-test"></i><br><strong>63</strong></h2>
+                </li>                
+                <li>
+                  <h3>已确认</h3>
+                  <h2><i class="icon iconfont icon-huiyuanquerendaodian"></i><br><strong>57</strong></h2>
+                </li>
+                <li>
+                  <h3>复位/关闭</h3>
+                  <h2><i class="icon iconfont icon-guanbi2"></i><br><strong>49</strong></h2>
+                </li>
+              </ul>              
+            </section>
+            <!-- 警报数量变化趋势 -->
+            <section class="col-sm-12 font-gray-999 common-left-statistics margin-top60">
+              <div class="row">
+                <div class="col-sm-6">
+                  <small>Historical Trend</small>
+                  <h3><span class="badge badge-statistics bg-blue font-black">历史</span>趋势</h3>
+                </div>
+                <div class="col-sm-6 text-right">
+                  <h4 class="toolroute-padding8 popup-routebtn font-gray-666 display-block">
+                    <i class="icon iconfont icon-weibiaoti10 size-12" data-toggle="tooltip" title="全屏"></i>
+                  </h4>
+                  <div class="q-date margin-top5">
+                  <el-radio-group v-model="radioDate" size="mini">
+                    <el-radio-button label="日"></el-radio-button>
+                    <el-radio-button label="月"></el-radio-button>
+                    <el-radio-button label="年"></el-radio-button>
+                  </el-radio-group>              
+                    <!-- <a href="" class="active">日</a><a href="">月</a><a href="">年</a> -->
+                  </div>
+                </div>
+                <div class="toolcount">
+                    <div class="clearfix text-center">
+                      <abbr class="point-blush">火情</abbr>
+                      <abbr class="point-red">报警</abbr>
+                      <abbr class="point-orange">故障</abbr>
                     </div>
-                  </li>
-                  <li class="upd-pagin">
-                    <div>
-                      <el-pagination style="float: left;"
-                        small
-                        layout="total"
-                        :total="tableData.totalRow">
-                      </el-pagination>
-                      <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.getAlarmList_parameter.pageSize)}}页</span>
-                      <el-pagination style="float: right;background: transparent"
-                        small
-                        layout="prev, pager, next"
-                        :page-size="this.getAlarmList_parameter.pageSize"
-                        :total="tableData.totalRow" 
-                        current-page.sync="this.getAlarmList_parameter.currentPage"
-                        @current-change="handleCurrentChange">
-                      </el-pagination>
-                    </div>
-                  </li>
-                </ul>
+                    <div id="call_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
+                </div>
               </div>
             </section>
           </div>
-        </template>
       </section>
+    </template>
       <!-- #左边 End-->
       <!-- #右边 -->
-      <section id="right" class="position-fixed-right container-padding5 z-index-20">
+      <section id="right" class="position-fixed-right z-index-20">
         <div class="overlay"></div>
         <!-- <call_right-vue></call_right-vue> -->
-        <template>
-          <div class="">
-            <div class="toolright font-white  margin-top20">
-                <section>
-                    <div class="personinfo">
-                        <p>
-                        <span class="size-20 font-blue">南宁市良庆区</span>
-                        </p>
-                        <p>
-                        <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> 良庆区中心小学</span>
-                        </p>
-                    </div>
-                </section>
-                <section>
-                  <div  class="upd-elmdate">
-                    <el-date-picker
-                      v-model="value7"
-                      size="mini"
-                      type="daterange"
-                      align="right"
-                      unlink-panels
-                      range-separator="至"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
-                      :picker-options="pickerOptions2">
-                    </el-date-picker>
+        <template>          
+            <div class="toolright">
+                <!-- 筛选 -->
+                <section class="my-filter padding5 bg-gray-222 clearfix">
+                  <!-- 单位筛选 -->
+                  <div class="col-sm-3 padding0">
+                    <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
                   </div>
-                </section>
+                  <!-- 日期筛选 -->
+                  <div class="col-sm-9 padding0">
+                    <div class="upd-elmdate">
+                      <el-date-picker
+                        v-model="value7"
+                        size="mini"
+                        type="daterange"
+                        align="right"
+                        unlink-panels
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions2">
+                      </el-date-picker>
+                    </div>
+                  </div>
+                </section>                
                 <section class="dan-lineinfo">
-                    <section>
-                      <div class="row toolcount margin-top0">
-                        <div class="col-sm-4  font-gray-999 padding-right0">
-                          <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
-                            <li>
-                              <p class="font-blue size-18 line-height50">
-                                报警统计
-                              </p>
+                  <!-- 区域/单位统计 -->
+                  <div class="row unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
+                    <!-- 已选择单位 -->                  
+                    <div class="col-sm-7">
+                      <div class="personinfo">
+                        <p>
+                          <span class="size-20 font-blue">中心小学</span>
+                          <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                        </p>
+                        <p>
+                          <span><i class="el-icon-location"></i> 广西省南宁市良庆区银海大道710-2号</span>
+                        </p>
+                      </div>
+                    </div>
+                    <!-- 已选择单位警报总数 -->                  
+                    <div class="col-sm-5 font-white text-right">                      
+                      <i class="icon iconfont icon-jingshi-mian- size-14 font-red"></i> 警报总数<br>
+                      <span class="size-22 font-blue">174</span>
+                    </div>
+                    <!-- 柱形图 -->
+                    <div class="col-sm-12 margin-top20">
+                        <div class="margin-bottom10">
+                          <span class="bg-gray-999 font-black" style="width:100px; line-height: 24px;margin-right:6px;padding-left: 6px;display: inline-block;">报警</span>
+                        </div>
+                        <div class="margin-bottom10">
+                          <span class="bg-blue font-black" style="width:200px; line-height: 24px;margin-right:6px;padding-left: 6px;display: inline-block;">故障</span>
+                          <span>总数 <span class="font-blue">85</span>  占比 <span class="font-blue">63.7%</span></span>
+                        </div>
+                        <div class="margin-bottom10">
+                          <span class="bg-gray-333 font-black" style="width:60px; line-height: 24px;margin-right:6px;padding-left: 6px;display: inline-block;">火情</span>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- 警报列表 -->
+                  <section class="early-warning margin-top20">
+                    <span class="toolroute-rect bg-blue"></span>
+                    <!-- 标题 -->
+                    <div class="early-title">
+                      <small>Alarm-Records</small>
+                            <h3>警报记录
+                              <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
+                          </h3>
+                    </div>      
+                    <!-- 报警时循环li标签class样式调用
+                      火灾 fire-list    聚合li>article>h4>span.badge 
+                      报警 warning-list
+                      故障 fault-list
+                      隐患 dangers-list
+                      复位/解决/关闭  ok-list
+                      锁定 a标签加active
+                     -->
+                     <!-- 列表 -->
+                    <div class="early-tab">
+                      <ul class="col-lg-12 col-md-12 col-sm-12 early-menu list-inline margin-bottom0 nav nav-tabs">
+                        <li class="col-lg-3 col-md-3 col-sm-3 active">
+                          <a href="#fire-list" data-toggle="tab">
+                            <h4><span>2</span></h4>
+                            <small>火情记录</small>            
+                          </a>
+                        </li>
+                        <li class="col-lg-3 col-md-3 col-sm-3">
+                          <a href="#warning-list" data-toggle="tab">
+                            <h4><span>4</span></h4>
+                            <small>报警记录</small>            
+                          </a>
+                        </li>
+                        <li class="col-lg-3 col-md-3 col-sm-3">
+                          <a href="#fault-list" data-toggle="tab">
+                            <h4><span>4</span></h4>
+                            <small>故障记录</small>            
+                          </a>
+                        </li>                        
+                        <li class="col-lg-3 col-md-3 col-sm-3">
+                          <a href="#ok-list" data-toggle="tab">
+                            <h4><span>3</span></h4>
+                            <small>复位/关闭</small>
+                          </a>
+                        </li>
+                      </ul>
+                      <div id="myTabContent" class="tab-content">
+                        <!-- 火情记录 -->
+                        <div class="tab-pane fade" id="fire-list">
+                          <ul class="early-list list-unstyled">
+                            <!-- 单条火灾循环li -->
+                            <li class="early-single fire-list">
+                              <article>
+                                <h5 @click="dialogVisible  = true"><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>火情解决</span></h5>
+                                <h4>              
+                                  <a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-xunjianyuan-mian-"><span>段亚伟</span></i>
+                                  <i class="icon iconfont icon-rengongbaojing-xian-"><span>人工报警</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">98s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
                             </li>
-                            <template v-if="ins_getAlarmCount">
-                              <li>
-                                <p class="size-12 font-gray-999">报警总数 <span class="font-gray-ccc">{{ins_getAlarmCount.alarmSum}}</span></p>
-                              </li>
-                              <li>
-                                <p class="size-12 font-gray-999">人工报警数 <span class="font-gray-ccc">{{ins_getAlarmCount.peopleAlarm}}</span></p>
-                              </li>
-                              <li>
-                                <p class="size-12 font-gray-999">设备报警数 <span class="font-gray-ccc">{{ins_getAlarmCount.deviceAlarm}}</span></p>
-                              </li>
-                            </template>
+                            <!-- 单条火灾循环li -->
+                            <li class="early-single fire-list">
+                              <article>
+                                <h5 @click="dialogVisible  = true"><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>火情解决</span></h5>
+                                <h4>              
+                                  <a><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-huoyan"><span>A365F57A89D</span></i>
+                                  <i class="icon iconfont icon-shebeibaojing-mian-"><span>设备报警</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">98s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li>
+                            <li>
+                              <span class="font-white">导出</span> <span class="font-white">打印</span> <span class="pull-right">分页</span>
+                            </li>
                           </ul>
                         </div>
-                        <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
-                          <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
-                            <div id="call_charpiemin" style="width: 100%;height:150px;margin: 0 auto;"></div>
+                        <!-- 报警记录 -->
+                        <div class="tab-pane fade in active" id="warning-list">
+                          <ul class="early-list list-unstyled">                            
+                            <!-- 单条报警循环li -->
+                            <li class="early-single warning-list">
+                              <article>
+                                <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生报警</span></h5>
+                                <h4>              
+                                  <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-miehuoqi-mian-"><span>A365F57A89D</span></i>
+                                  <i class="icon iconfont icon-shebeibaojing-mian-"><span>设备报警</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">332s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li>
+                            <!-- 单条报警循环li -->
+                            <li class="early-single warning-list">
+                              <article>
+                                <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生报警</span></h5>
+                                <h4>              
+                                  <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-xunjianyuan-mian-"><span>段亚伟</span></i>
+                                  <i class="icon iconfont icon-rengongbaojing-xian-"><span>人工报警</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">332s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li> 
+                            <!-- 单条报警循环li -->
+                            <li class="early-single warning-list">
+                              <article>
+                                <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生报警</span></h5>
+                                <h4>              
+                                  <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-hongwaiyanhuoganying-"><span>A365F57A89D</span></i>
+                                  <i class="icon iconfont icon-shebeibaojing-mian-"><span>设备报警</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">332s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li> 
+                            <!-- 单条报警循环li -->
+                            <li class="early-single warning-list">
+                              <article>
+                                <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生报警</span></h5>
+                                <h4>              
+                                  <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-xunjianyuan-mian-"><span>段亚伟</span></i>
+                                  <i class="icon iconfont icon-rengongbaojing-xian-"><span>人工报警</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">332s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li>
+                            <li>
+                              <span class="font-white">导出</span> <span class="font-white">打印</span> <span class="pull-right">分页</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- 故障记录 -->
+                        <div class="tab-pane fade" id="fault-list">
+                          <ul class="early-list list-unstyled">
+                            <!-- 单条故障循环li -->
+                            <li class="early-single fault-list">
+                              <article>
+                                <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生故障</span></h5>
+                                <h4>              
+                                  <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-gaoweiqiti-"><span>A365F57A89D</span></i>
+                                  <i class="icon iconfont icon-guzhang-gai-xian-"><span>故障</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">332s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li>
+                            <!-- 单条故障循环li -->
+                            <li class="early-single fault-list">
+                              <article>
+                                <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生故障</span></h5>
+                                <h4>              
+                                  <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-hongwaiyanhuoganying-"><span>A365F57A89D</span></i>
+                                  <i class="icon iconfont icon-guzhang-gai-xian-"><span>故障</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">332s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li>
+                            <li>
+                              <span class="font-white">导出</span> <span class="font-white">打印</span> <span class="pull-right">分页</span>
+                            </li>
+                          </ul>
+                        </div>                        
+                        <!-- 复位/关闭 -->
+                        <div class="tab-pane fade" id="ok-list">
+                          <ul class="early-list list-unstyled">
+                            <!-- 单条火灾已解决循环li -->
+                            <li class="early-single fire-list ok-list">
+                              <article>
+                                <h5 @click="dialogVisible  = true"><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>火情已解决</span></h5>
+                                <h4>              
+                                  <a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-gaoweiqiti-"><span>A365F57A89D</span></i>
+                                  <i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">98s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li>
+                            <!-- 单条报警已复位循环li -->
+                            <li class="early-single warning-list ok-list">
+                              <article>
+                                <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>报警复位</span></h5>
+                                <h4>              
+                                  <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
+                                  <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">332s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li>
+                            <!-- 单条故障已复位循环li -->
+                            <li class="early-single fault-list ok-list">
+                              <article>
+                                <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>故障复位</span></h5>
+                                <h4>              
+                                  <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+                                  <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+                                  <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+                                  <a href=""><span class="badge">1</span></a>
+                                </h4>
+                              </article>
+                              <var>
+                                <p class="col-sm-8">
+                                  <i class="icon iconfont icon-hongwaiyanhuoganying-"><span>A365F57A89D</span></i>
+                                  <i class="icon iconfont icon-guzhang-gai-xian-"><span>故障</span></i>
+                                </p>
+                                <p class="col-sm-4">              
+                                  <span class="badge">332s</span><span class="badge">12:36:47</span>
+                                </p>
+                              </var>
+                            </li>
+                            <li>
+                              <span class="font-white">导出</span> <span class="font-white">打印</span> <span class="pull-right">分页</span>
+                            </li>
                           </ul>
                         </div>
                       </div>
-                    </section>
-                    <section>
-                        <div class="row toolcount">
-                            <div class="col-sm-12  font-gray-999 padding-right0">
-                              <div class="row text-center">
-                                  <template v-if="ins_getAlarmCount">
-                                    <div class="col-sm-4 container-padding0 personnel-borderright">
-                                    <p class="size-16 font-blue">{{ins_getAlarmCount.troubleSum}}</p>
-                                    <p class="size-12 margin-bottom0">故障总数</p>
-                                    </div>
-                                    <div class="col-sm-4 container-padding0 personnel-borderright">
-                                    <p class="size-16 font-gray-ccc">{{ins_getAlarmCount.actiomAlarm}}</p>
-                                    <p class="size-12 margin-bottom0">故障处理</p>
-                                    </div>
-                                    <div class="col-sm-4 container-padding0">
-                                    <p class="size-16 font-gray-ccc">{{ins_getAlarmCount.fireALarm}}</p>
-                                    <p class="size-12 margin-bottom0">火情总数</p>
-                                    </div>
-                                  </template>
-                              </div>
-                            </div>
-                        </div>
-                        
-                    </section>
-                    <section>
-                        <div class="row toolcount">
-                            <h2 class="size-16 font-gray-ccc margin-bottom0 ">
-                            <span class="tool-rect bg-blue"></span>单位报警情况
-                            </h2>
-                            <template>
-                              <div class="padding-left15 margin-top10">
-                                <el-radio-group @change="callradio" v-model="radiovalue">
-                                  <el-radio  label="1">报警率</el-radio>
-                                  <el-radio  label="2">火情发生率</el-radio>
-                                </el-radio-group>
-                              </div>
-                              
-                            </template>
-                            <div id="call_charpiemax" style="width: 100%;height:180px;margin: 0 auto;padding-left:15px;margin-top:10px;"></div>
-                        </div>
-                    </section>
-                    <section>
-                        <div class="row toolcount margin-top0">
-                            <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-                            <span class="tool-rect bg-blue"></span>单位报警率历史趋势
-                            </h2>
-                            <div id="call_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
-                        </div>
-                    </section>
+                    </div>
+                  </section>
                 </section>
-
+                <!-- 警报详情 -->
                 <section class="dan-iteminfo display-none overflow-scr">
-                    <!-- <section>
-                        <div class="personinfo">
-                            <p>
-                            <span class="size-20">A365 F57D 的设备详情</span>
-                            <span class="bgbox-min bg-gray-666 font-black">消防栓报警按钮</span>
-                            <span class="float-right">
-                                    <span class="bgbox-max bg-gray-333 font-gray-999">灭火设备</span>
-                                </span>
-                            </p>
-                            <p>
-                                <span class="size-12 font-gray-666">
-                                    <i class="fa fa-th-large"></i> 良庆区中心小学</span>
-                            </p>
-                        </div>
-                    </section>-->
-                  
+                  <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
                     <section>
                       <div class="textandimg row imgs-nthof-block">
-                        <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
-                          <span class="tool-rect bg-blue"></span>报警信息
-                        </h2>
+                        <h4 class="p-title">报警信息</h4>
                         <div class="row textandimg-main padding-left15">
                           <div class="col-sm-12">
                             <span class="size-12 font-gray-666">报警源 </span>
@@ -293,9 +504,7 @@
                             </template>
                           </div> -->
                         </div>
-                        <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
-                          <span class="tool-rect bg-blue"></span>报警确认
-                        </h2>
+                        <h4 class="p-title">报警确认</h4>
                         <div class="row textandimg-main padding-left15">
                           <div class="col-sm-12">
                             <span class="size-12 font-gray-666">确认人 </span>
@@ -323,9 +532,7 @@
                           </div>
                         </div>
                         <template v-if="infoShow"> 
-                          <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
-                            <span class="tool-rect bg-blue"></span>报警关闭
-                          </h2>
+                          <h4 class="p-title">报警关闭</h4>
                           <div class="row textandimg-main padding-left15">
                             <div class="col-sm-12">
                               <span class="size-12 font-gray-666">关闭 </span>
@@ -353,31 +560,55 @@
                     </section>
                 </section>
             </div>
-            <div class="ceshi-btn">
-              <!-- <button @click="moren">详情</button> -->
-              <button @click="jianzhu">统计</button>
-            </div>
-          </div>
-
         </template>
       </section>
-
       <!-- #右边 End-->
+    <!-- 弹窗 -->
+    <el-dialog title="":visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+      <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
+      <earlyinfo-vue></earlyinfo-vue>
+    </el-dialog>
     </div>
 </template>
 
 <script>
 import HeaderVue from "./header.vue";
+import earlyinfoVue from './earlyinfo.vue';
 // import Call_leftVue from './call_left.vue';
 // import Call_rightVue from './call_right.vue';
 export default {
   components: {
-    "header-vue": HeaderVue
+    "header-vue": HeaderVue,
+    'earlyinfo-vue':earlyinfoVue
     // 'call_left-vue':Call_leftVue,
     // 'call_right-vue':Call_rightVue
   },
   data() {
     return {
+      // 单位筛选下拉框
+      options: [
+        {
+          value: "选项1",
+          label: "全部单位"
+        },
+        {
+          value: "选项2",
+          label: "中心小学"
+        },
+        {
+          value: "选项3",
+          label: "瑞和家园"
+        },
+        {
+          value: "选项4",
+          label: "国中大厦"
+        }
+      ],
+      ins_queryInspectionNameListvalue: "全部单位",
+      // 弹报警详情
+      dialogVisible: false,
+      // 日,月,年
+        radioDate: '日',
       // 时间配置
       pickerOptions2: {
         shortcuts: [
@@ -413,7 +644,7 @@ export default {
       value7: "",
 
       ins_queryInspectionNameList: Object,
-      ins_queryInspectionNameListvalue: "全部状态",
+      ins_queryInspectionNameListvalue: "全部单位",
       // 表格-请求
       getAlarmList_parameter: {
         unitId: "5",
@@ -460,6 +691,22 @@ export default {
     };
   },
   methods: {
+    // tab切换  
+    // 实时警报列表展开/折叠
+    openEarlyList(){
+      $(".unit-info").slideToggle(
+        function(){
+        $(".unit-btn-close").toggle();
+        $(".unit-btn-open").toggle();
+        $(".early-warning").toggleClass("scrollheight");
+      });
+      
+    },
+    // 锁定/关闭
+     earlyTool(){
+            $(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
+    },
+    // 返回
     jianzhu() {
       $(".dan-lineinfo")
         .addClass("display-block")

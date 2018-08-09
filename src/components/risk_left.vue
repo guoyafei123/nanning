@@ -16,217 +16,177 @@
     <section>
       <div class="toolroute font-gray-ccc margin-left37">
         <span class="toolroute-rect bg-blue"></span>
-        <ul class="padding-left5 padding-right5">
+        <ul class="padding-left10 padding-right5 clearfix">
           <li>
             <p class="font-gray-666 size-12">中心小学</p>
           </li>
           <li>
-            <p class="font-blue size-16">巡检路线
-              <span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
-                            <i class="fa fa-th-large"></i>
-                        </span>
+            <p class="font-blue size-16">风险评估
+              <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+                <i class="icon iconfont icon-weibiaoti10 size-12"></i>
+              </span>
             </p>
-          </li>
-          <li>
-            <div class="input-group bg-none toolroute-padding8">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle dropdown-btnstyle bg-black02" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">全部类型
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu toolroute-pan font-gray-666">
-                  <li>
-                    <a href="#">1</a>
-                  </li>
-                  <li>
-                    <a href="#">2</a>
-                  </li>
-                  <li>
-                    <a href="#">3</a>
-                  </li>
-                  <li>
-                    <a href="#">4</a>
-                  </li>
-
-                </ul>
-              </div>
-              <!-- /btn-group -->
-              <input type="text" class="form-control bg-none toolroute-sec " aria-label="hellow">
-              <span class="input-group-btn">
-                            <button class="btn btn-default dropdown-btnstyle bg-black02 glyphicon-searchdiv" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-
-            </div>
-            <!-- /input-group -->
           </li>
           <li>
             <div class="table-responsive">
               <table class="table size-12 table-condensed toolroute-table margin-top10">
+              <thead>
                 <tr>
                   <th>序号</th>
-                  <th>路线名称</th>
-                  <th>巡检统计</th>
-                  <th>状态</th>
-                  <th>更新时间</th>
+                  <th>建筑名称</th>
+                  <th>所属单位</th>
+                  <th class="safe">安全评分</th>
+                  <th class="risk">风险系数</th>
                   <th>操作</th>
                 </tr>
+              </thead>
+              <tbody>
                 <tr>
                   <td>1</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-blue"></i>
+                  <td>瑞和家园3号楼</td>
+                  <td>瑞和家园</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-red font-black" data-toggle="tooltip" title="安全评分">1.9</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">91.86%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-blue"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-blue"></i>
+                  <td>实验教学楼7号</td>
+                  <td>实验小学</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-orange font-black" data-toggle="tooltip" title="安全评分">2.7</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">73.14%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-blue"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>3</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-blue"></i>
+                  <td>三年级教学楼</td>
+                  <td>实验小学</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-orange font-black" data-toggle="tooltip" title="安全评分">3.3</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">65.89%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-blue"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>4</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-gray-666"></i>
+                  <td>二年级教学楼</td>
+                  <td>实验小学</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-yellow font-black" data-toggle="tooltip" title="安全评分">4.3</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">56.92%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-gray-666"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>5</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-gray-666"></i>
+                  <td>瑞和家园8号</td>
+                  <td>瑞和家园</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-yellow font-black" data-toggle="tooltip" title="安全评分">4.8</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">54.73%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-gray-666"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>6</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-gray-666"></i>
+                  <td>三年级教学楼</td>
+                  <td>实验小学</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">7.7</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">31.74%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-gray-666"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>7</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-gray-666"></i>
+                  <td>瑞和家园7号</td>
+                  <td>瑞和家园</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">8.4</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">23.86%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-gray-666"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>8</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-gray-666"></i>
+                  <td>瑞和家园12号</td>
+                  <td>瑞和家园</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">8.7</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">20.47%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-gray-666"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>9</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-gray-666"></i>
+                  <td>五年级教学楼</td>
+                  <td>实验小学</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">9.0</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">13.07%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-gray-666"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>10</td>
-                  <td>控烟严格巡检</td>
-                  <td>
-                    <span class="font-blue">10</span>/30</td>
-                  <td>
-                    <i class="fa fa-th-large font-gray-666"></i>
+                  <td>一年级教学楼</td>
+                  <td>实验小学</td>
+                  <td class="safe">
+                   <span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">9.2</span> 
                   </td>
-                  <td>08:08:08</td>
+                  <td class="risk">10.35%</td>
                   <td>
-                    <a>
-                      <i class="fa fa-th-large font-gray-666"></i>
+                    <a v-on:click="toitmeinfo(item)">
+                      <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
                     </a>
                   </td>
                 </tr>
+                </tbody>
               </table>
             </div>
           </li>
           <li>
-            分页
+            <span class="size-12">分页</span>
           </li>
         </ul>
       </div>
@@ -236,11 +196,12 @@
 
 <script>
     export default {
-      mounted(){
-        this.chart_one()
+      // 表格
+      mounted(){        
+        this.chart_two()
       },
       methods:{
-        chart_one(){
+        chart_two(){
           function go(num) {
 					//清除画布,每次重绘
 					var canvas_big = document.getElementById("canvas-big");

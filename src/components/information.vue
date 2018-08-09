@@ -1,50 +1,50 @@
 <template>
-  <div class="row">
+  <div class="row" id="device">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->
     <!-- #左边 -->
-    <section id="left" class="position-fixed-left container-padding5 z-index-20">
+    <section id="left" class="position-fixed-left z-index-20">
       <div class="overlay"></div>
       <!-- <infor_left-vue></infor_left-vue> -->
       <template>
         <div class="toolleft margin-right0">
           <section>
-            <div class="toolcount">
-              <div class="set-width-50  font-gray-999 padding-right0">
-                <ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
+            <div class="row toolcount">
+              <div class="col-sm-6 font-gray-999 padding-right0">
+                <ul class="toolcount-left margin-bottom0 padding-left37" id="toolcount">
                   <li>
-                    <p class="font-white size-66 toolcount-p1">{{ins_deviceCountByUnit.deviceTotal}}</p>
+                    <h1 class="toolcount-p1">569{{ins_deviceCountByUnit.deviceTotal}}</h1>
                   </li>
-                  <li> 
-                  <p class="size-10 toolcount-p2">On-site Inspection</p>
-                </li>
+                  <li>
+                    <p class="size-10">Device Number</p>
+                  </li>
                   <li>
                     <p class="size-18 font-blue">当前设备总数</p>
                   </li>
                 </ul>
               </div>
-              <div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
-                <ul class="padding-left0 margin-bottom0">
+              <div class="col-sm-6 font-gray-999 padding-left0 padding-right0 size-12">
+                <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
                   <li>
-                    <p class=" size-12">室内设备</p>
-                    <p class=" font-blue font-italic float-right">{{ins_deviceCountByUnit.innerCount}}</p>
+                    <p class="set-width-50">室内设备</p>
+                    <p class="display-inline-block font-gray-ccc font-italic size-14">637{{ins_deviceCountByUnit.innerCount}}</p>
                   </li>
                   <li>
-                    <p class=" size-12">室外设备</p>
-                    <p class=" font-blue font-italic float-right">{{ins_deviceCountByUnit.outsideCount}}</p>
+                    <p class="set-width-50">室外设备</p>
+                    <p class="display-inline-block font-gray-ccc font-italic size-14">136{{ins_deviceCountByUnit.outsideCount}}</p>
                   </li>
                   <li>
-                    <p class=" size-12">灭火设备</p>
-                    <p class=" font-blue font-italic float-right">{{ins_deviceCountByUnit.outfireCount}}</p>
+                    <p class="set-width-50">灭火设备</p>
+                    <p class="display-inline-block font-red font-italic size-14">167{{ins_deviceCountByUnit.outfireCount}}</p>
                   </li>
                   <li>
-                    <p class=" size-12">预警设备</p>
-                    <p class=" font-blue font-italic float-right">{{ins_deviceCountByUnit.inductionCount}}</p>
+                    <p class="set-width-50">预警设备</p>
+                    <p class="display-inline-block font-yellow font-italic size-14">124{{ins_deviceCountByUnit.inductionCount}}</p>
                   </li>
                   <li>
-                    <p class=" size-12">安防设备</p>
-                    <p class=" font-blue font-italic float-right">{{ins_deviceCountByUnit.safetyCount}}</p>
+                    <p class="set-width-50">安防设备</p>
+                    <p class="display-inline-block font-blue font-italic size-14">36{{ins_deviceCountByUnit.safetyCount}}</p>
                   </li>
                 </ul>
               </div>
@@ -53,41 +53,81 @@
           <section>
             <div class="toolroute font-gray-ccc margin-left37">
               <span class="toolroute-rect bg-blue"></span>
-              <ul class="padding-left5 padding-right5">
+              <ul class="padding-left10 padding-right5 clearfix">
                 <li>
                   <p class="font-gray-666 size-12">中心小学</p>
                 </li>
                 <li>
                   <p class="font-blue size-16">设备信息
-                    <span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
-                        <i class="fa fa-th-large"></i>
+                    <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
                     </span>
                   </p>
                 </li>
                 <li>
-                    <el-select class="upd-elselect upd-elselect-bordernone upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择"  @change="tolineitem">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位"  @change="tolineitem">
                       <el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
                       </el-option>
                     </el-select>
-                    <!-- <div class="float-right">
-                      <a class="upd-btn">展开表单</a>
-                    </div> -->
+                    <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部建筑"  @change="tolineitem">
+                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
+                      </el-option>
+                    </el-select>
+                    <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 pull-right" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部类别"  @change="tolineitem">
+                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
+                      </el-option>
+                    </el-select>
                 </li>
-                <li>
-                  <div class="table-responsive">
-                    
-                    <table class="table size-12 table-condensed toolroute-table margin-top10 mini-table">
+                <li>                  
+                    <table class="table table-responsive size-12 table-condensed toolroute-table margin-top10 mini-table">
                       <thead>
                         <tr>
                           <!-- <th >序号</th> -->
-                          <th >设备名称</th>
-                          <th >归属建筑</th>
-                          <th >设备分类</th>
-                          <th >状态</th>
+                          <th>设备名称</th>
+                          <th>所属建筑</th>
+                          <th>所属单位</th>
+                          <th>设备类型</th>
+                          <th>状态</th>
                           <th>查看</th>
                         </tr>
                       </thead>
                       <tbody>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和家园2号楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-qitimiehuoxitong-" data-toggle="tooltip" title="气体灭火系统"></i></td>
+                          <td class="font-blue">正常</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>实验教学楼</td>
+                          <td>中心小学</td>
+                          <td class="dec-type"><i class="icon iconfont icon-ganyanqi-" data-toggle="tooltip" title="烟雾感应器"></i></td>
+                          <td class="font-orange">故障</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和写字楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-hongwaiyanhuoganying-" data-toggle="tooltip" title="声光报警器"></i></td>
+                          <td class="font-yellow">隐患</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
                         <tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
                           <!-- <td>{{(deviceList_parameter.currentPage-1)*deviceList_parameter.pageSize+index+1}}</td> -->
                           <td>{{item.name}}</td>
@@ -96,13 +136,12 @@
                           <td>{{item.status}}</td>
                           <td>
                             <a v-on:click="toitmeinfo(item)">
-                              <i class="fa fa-th-large font-blue"></i>
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
                             </a>
                           </td>
                         </tr>
                       </tbody>
                     </table>
-                  </div>
                 </li>
                 <li class="upd-pagin">
                   <div>
@@ -130,56 +169,71 @@
     </section>
     <!-- #左边 End-->
     <!-- #右边 -->
-    <section id="right" class="position-fixed-right container-padding5 z-index-20">
+    <section id="right" class="position-fixed-right z-index-20">
       <div class="overlay"></div>
       <!-- <infor_right-vue></infor_right-vue> -->
       <template>
-        <div class="">
-          <div class="toolright font-white  margin-top20">
-              <section>
-                  <div class="personinfo">
-                      <p>
-                      <span class="size-20 font-blue">南宁市良庆区</span>
-                      </p>
-                      <p>
-                      <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> 良庆区中心小学</span>
-                      </p>
+        <div class="toolright">
+              <!-- 筛选 -->
+              <section class="my-filter padding5 bg-gray-222 clearfix">
+                  <!-- 单位筛选 -->
+                  <div class="col-sm-3 padding0">
+                    <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
                   </div>
-              </section>
-              <section>
-                <div  class="upd-elmdate">
-                  <el-date-picker
-                    v-model="value7"
-                    size="mini"
-                    type="daterange"
-                    align="right"
-                    unlink-panels
-                    range-separator="至"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
-                    :picker-options="pickerOptions2">
-                  </el-date-picker>
-                </div>
-              </section>
+                  <!-- 日期筛选 -->
+                  <div class="col-sm-9 padding0">
+                    <div class="upd-elmdate">
+                      <el-date-picker
+                        v-model="value7"
+                        size="mini"
+                        type="daterange"
+                        align="right"
+                        unlink-panels
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions2">
+                      </el-date-picker>
+                    </div>
+                  </div>
+             </section>
               <section class="dan-lineinfo">
+                <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
+                    <!-- 已选择 -->
+                    <div class="personinfo">
+                        <p>
+                        <span class="size-20 font-blue">中心小学</span>
+                        <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                        </p>
+                        <p class="col-sm-7 text-left padding0">
+                            <span><i class="el-icon-location"></i> 广西省南宁市良庆区银海大道710-2号</span>
+                        </p>
+                        <P class="col-sm-5 text-right padding0">
+                            <span class="text-right">
+                            录入时间：<span class="font-gray-999">2018.07.09 08:00:00</span>
+                            </span>
+                        </P>                        
+                    </div>
+                </div>
                   <!-- <section>
-                    <div class="row toolcount">
-                      <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-                        <span class="tool-rect bg-blue "></span>设备统计
-                      </h2>
+                    <div class="toolcount">
+                      <h4 class="p-title">设备统计</h4>
                       <div class="col-sm-7  font-gray-999 padding-right0">
                         <div class="row text-center margin-top70">
                           <div class="col-sm-4 container-padding0 personnel-borderright">
                             <p class="size-16 font-white">{{ins_alarmAndMalfunctionDeviceCount.deviceTotal}}</p>
-                            <p class="size-12 margin-bottom0">设备总数</p>
+                            <p>设备总数</p>
                           </div>
                           <div class="col-sm-4 container-padding0 personnel-borderright">
                             <p class="size-16 font-white">{{ins_alarmAndMalfunctionDeviceCount.malfunctionCount}}</p>
-                            <p class="size-12 margin-bottom0">故障设备</p>
+                            <p>故障设备</p>
                           </div>
                           <div class="col-sm-4 container-padding0">
                             <p class="size-16 font-white">{{ins_alarmAndMalfunctionDeviceCount.alaramCount}}</p>
-                            <p class="size-12 margin-bottom0">报警设备</p>
+                            <p>报警设备</p>
                           </div>
                         </div>
                       </div>
@@ -189,28 +243,24 @@
                     </div>
                   </section> -->
                   <section>
-                        <div class="row toolcount">
-                            <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-                            <span class="tool-rect bg-blue"></span>设备统计
-                            </h2>
+                        <div class="toolcount margin-top20">
+                            <h4 class="p-title">设备统计</h4>
                             <template>
-                              <div class="padding-left15 margin-top10">
+                              <div class="padding-left15 margin-top20">
                                 <el-radio-group @change="callradiopie" v-model="radiovaluepie">
                                   <el-radio  label="1">故障设备 {{ins_alarmAndMalfunctionDeviceCount.malfunctionCount}}</el-radio>
                                   <el-radio  label="2">报警设备 {{ins_alarmAndMalfunctionDeviceCount.alaramCount}}</el-radio>
                                 </el-radio-group>
                               </div>
                             </template>
-                            <div id="call_charpiemax" style="width: 100%;height:130px;margin: 0 auto;padding-left:15px;margin-top:10px;"></div>
+                            <div id="call_charpiemax" style="width: 100%;height:130px;margin: 0 auto;"></div>
                         </div>
                     </section>
                   <section>
-                        <div class="row toolcount">
-                            <h2 class="size-16 font-gray-ccc margin-bottom0 ">
-                            <span class="tool-rect bg-blue"></span>各类型设备概况
-                            </h2>
+                        <div class="toolcount margin-top10">
+                            <h4 class="p-title">各类型设备概况</h4>
                             <template>
-                              <div class="padding-left15 margin-top10">
+                              <div class="padding-left15 margin-top20">
                                 <el-radio-group @change="callradio" v-model="radiovalue">
                                   <el-radio  label="1">故障率</el-radio>
                                   <el-radio  label="2">报警率</el-radio>
@@ -218,15 +268,13 @@
                               </div>
                               
                             </template>
-                            <div id="call_charaxis" style="width: 100%;height:170px;margin: 0 auto;padding-left:15px;margin-top:10px;"></div>
+                            <div id="call_charaxis" style="width: 100%;height:170px;margin: 0 auto;"></div>
                         </div>
                     </section>
                     <section>
-                        <div class="row toolcount margin-top0">
-                            <h2 class="size-16 font-gray-ccc margin-bottom0 margin-top0">
-                            <span class="tool-rect bg-blue"></span>历史趋势
-                            </h2>
-                            <div class="padding-left15 margin-top10">
+                        <div class="toolcount margin-top10">
+                            <h4 class="p-title">历史趋势</h4>
+                            <div class="padding-left15 margin-top20">
                               <el-radio-group @change="callradiohis" v-model="radiovaluehis">
                                 <el-radio  label="1">故障率</el-radio>
                                 <el-radio  label="2">报警率</el-radio>
@@ -236,48 +284,57 @@
                         </div>
                     </section>
               </section>
-
               <section class="dan-iteminfo display-none overflow-scr">
+                <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
                   <!-- <section>
-                      <div class="personinfo">
-                          <p>
-                          <span class="size-20">A365 F57D 的设备详情</span>
-                          <span class="bgbox-min bg-gray-666 font-black">消防栓报警按钮</span>
-                          <span class="float-right">
-                                  <span class="bgbox-max bg-gray-333 font-gray-999">灭火设备</span>
-                              </span>
-                          </p>
-                          <p>
-                              <span class="size-12 font-gray-666">
-                                  <i class="fa fa-th-large"></i> 良庆区中心小学</span>
-                          </p>
-                      </div>
+                      <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
+                    <div class="personinfo">
+                        <p>
+                        <span class="size-20 font-blue">实验教学楼</span>
+                        <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                        <span class="float-right">
+                                <span class="bgbox-max bg-gray-333 font-gray-999 size-10">灭火设备</span>
+                            </span>
+                        </p>
+                        <p class="col-sm-5 text-left padding0">
+                            <span>
+                                <i class="fas fa-industry"></i> 良庆区中心小学</span>
+                        </p>
+                        <P class="col-sm-7 text-right padding0">
+                            <span class="text-right">
+                            录入时间：<span class="font-gray-999">2018.07.09 08:00:00</span>
+                            </span>
+                        </P>                        
+                    </div>
+                </div>
                   </section>-->
                 
                   <section>
-                    <div class="textandimg row imgs-nthof-block">
-                      <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
-                        <span class="tool-rect bg-blue"></span>报警信息
-                      </h2>
+                    <div class="textandimg row imgs-nthof-block size-12">
+                      <h4 class="p-title">警报信息</h4>
                       <div class="row textandimg-main padding-left15">
                         <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">报警源 </span>
+                          <span>警 报 源 </span>
                           <!-- <td v-if="ins_getAlarmDetail.isUser==0">{{ins_getAlarmDetail.deviceTypeName}}</td>
                           <td v-if="ins_getAlarmDetail.isUser==1">{{ins_getAlarmDetail.nickName}}</td> -->
-                          <span class="size-12 font-gray-999" v-if="ins_getAlarmDetail.userId==0">{{ins_getAlarmDetail.deviceTypeName}}</span>
-                          <span class="size-12 font-gray-999" v-if="ins_getAlarmDetail.userId==1">{{ins_getAlarmDetail.nickName}}</span>
+                          <strong class="font-blue" v-if="ins_getAlarmDetail.userId==0">{{ins_getAlarmDetail.deviceTypeName}}</strong>
+                          <strong class="font-blue" v-if="ins_getAlarmDetail.userId==1">{{ins_getAlarmDetail.nickName}}</strong>
                         </div>
                         <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">报警地点 </span>
-                          <span class="size-12 font-gray-999">{{ins_getAlarmDetail.unitName}}&nbsp;{{ins_getAlarmDetail.buildingName}}&nbsp;{{ins_getAlarmDetail.floorNumber}}&nbsp;{{ins_getAlarmDetail.roomNumber}}</span>
+                          <span>警报地点 </span>
+                          <strong>{{ins_getAlarmDetail.unitName}}&nbsp;{{ins_getAlarmDetail.buildingName}}&nbsp;{{ins_getAlarmDetail.floorNumber}}&nbsp;{{ins_getAlarmDetail.roomNumber}}</strong>
                         </div>
                         <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">报警时间 </span>
-                          <span class="size-12 font-gray-999">{{ins_getAlarmDetail.startTime}}</span>
+                          <span>警报时间 </span>
+                          <strong class="font-white">{{ins_getAlarmDetail.startTime}}</strong>
                         </div>
                         <div class="col-sm-12">
-                          <!-- <span class="size-12 font-gray-666">描述 </span> -->
-                          <span class="size-12 font-gray-999">{{ins_getAlarmDetail.remark}}</span>
+                          <span>响应时间 </span>
+                          <strong class="font-blue">1小时32分</strong>
+                        </div>
+                        <div class="col-sm-12">
+                          <!-- <span>描述 </span> -->
+                          <strong>{{ins_getAlarmDetail.remark}}</strong>
                         </div>
                         <!-- <div class="textandimg-img imgs-nthof">
                           <template v-for="item in ins_getAlarmDetail.imgUrl">
@@ -292,21 +349,19 @@
                           </template>
                         </div> -->
                       </div>
-                      <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
-                        <span class="tool-rect bg-blue"></span>报警确认
-                      </h2>
+                      <h4 class="p-title">警报确认</h4>
                       <div class="row textandimg-main padding-left15">
                         <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">确认人 </span>
-                          <span class="size-12 font-gray-999">{{ins_getAlarmDetail.confirmNickName}}</span>
+                          <span>确 认 人 </span>
+                          <strong>{{ins_getAlarmDetail.confirmNickName}}</strong>
                         </div>
                         <div class="col-sm-12">
-                          <span class="size-12 font-gray-666">确认时间 </span>
-                          <span class="size-12 font-gray-999">{{ins_getAlarmDetail.confirmTime}}</span>
+                          <span>确认时间 </span>
+                          <strong class="font-white">{{ins_getAlarmDetail.confirmTime}}</strong>
                         </div>
                         <div class="col-sm-12">
-                          <!-- <span class="size-12 font-gray-666">描述 </span> -->
-                          <span class="size-12 font-gray-999">{{ins_getAlarmDetail.confirmReason}}</span>
+                          <!-- <span>描述 </span> -->
+                          <strong>{{ins_getAlarmDetail.confirmReason}}</strong>
                         </div>
                         <div class="textandimg-img imgs-nthof">
                           <template v-for="item in ins_getAlarmDetail.imgUrl">
@@ -321,18 +376,16 @@
                           </template>
                         </div>
                       </div>
-                      <template v-if="infoShow"> 
-                        <h2 class="size-16 font-gray-ccc margin-bottom10 margin-top0">
-                          <span class="tool-rect bg-blue"></span>报警关闭
-                        </h2>
+                      <template v-if="infoShow">
+                        <h4 class="p-title">警报关闭</h4>
                         <div class="row textandimg-main padding-left15">
                           <div class="col-sm-12">
-                            <span class="size-12 font-gray-666">关闭 </span>
-                            <span class="size-12 font-gray-999">{{ins_getAlarmDetail.cancelNickName}}</span>
+                            <span>关闭 </span>
+                            <strong>{{ins_getAlarmDetail.cancelNickName}}</strong>
                           </div>
                           <div class="col-sm-12">
-                            <span class="size-12 font-gray-666">关闭时间 </span>
-                            <span class="size-12 font-gray-999">{{ins_getAlarmDetail.cancelTime}}</span>
+                            <span>关闭时间 </span>
+                            <strong class="font-white">{{ins_getAlarmDetail.cancelTime}}</strong>
                           </div>
                           <!-- <div class="textandimg-img imgs-nthof">
                             <template v-for="item in ins_getAlarmDetail.imgUrl">
@@ -351,16 +404,9 @@
                     </div>
                   </section>
               </section>
-          </div>
-          <div class="ceshi-btn">
-            <!-- <button @click="moren">详情</button> -->
-            <button @click="jianzhu">统计</button>
-          </div>
         </div>
-
       </template>
     </section>
-
     <!-- #右边 End-->
   </div>
 </template>
