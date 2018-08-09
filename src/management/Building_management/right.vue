@@ -56,8 +56,8 @@
         </section>   -->
         <section>
           <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10">
-                 xxx建筑信息详情
+              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10" style="letter-spacing:5px;">
+                 {{ this.form.BuildName }}建筑详情
               </h2>
               <div class="row textandimg-main">
                   <div class="col-sm-12">

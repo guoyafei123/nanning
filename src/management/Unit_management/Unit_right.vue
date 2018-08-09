@@ -4,7 +4,7 @@
       <section class="inspection-iteminfo" >
         <section>
           <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10">
+              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10" style="margin-left:45px;">
                  单位详情
               </h2>
               <div class="row textandimg-main">
@@ -27,7 +27,7 @@
                   </div>
                   <div class="col-sm-12">
                       <span class="size-12 font-gray-666 span_name">单位图片</span>
-                      <img src="" id="up_img" style="width:80px;height:80px;"/>
+                      <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg'" :id="'up_img'+ this.id" style="width:80px;height:80px;"/>
                   </div>
                   <div class="col-sm-12">
                       <span class="size-12 font-gray-666 span_name">部门电话 </span>
@@ -58,6 +58,7 @@
   export default {
     data() {
       return {
+        id:'',
         name:'',
         property:'',
         staffNum:'',
@@ -74,6 +75,7 @@
       right_list(){
         this.tableData.forEach((item,index)=>{
           if(item.id == this.unitNum){
+            this.id = item.id ;
             this.name = item.name ;
             this.property = item.property ;
             this.staffNum = item.staffNum ;
@@ -82,11 +84,9 @@
             this.firemenName = item.firemenName ;
             this.firemenTel = item.firemenTel ;
             this.corporation = item.corporation ;
-            var url = "http://img.nanninglq.51play.com/xf/api/unit_img/"+ item.id+".jpg";
-            $("#up_img").attr("src",url);
-            // console.log(item)
           }
         })
+
       },
       tableList(){
         this.$fetch(

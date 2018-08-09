@@ -4,37 +4,21 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-th-large font-gray-666 float-left"></i>
-          <h2 class="float-left font-white size-16">单位管理</h2>
+          <h2 class="float-left font-white size-16">人员管理</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Unit_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+          <router-link to="/List_of_people/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
         </div>
       </div>
       <div class="main_content">
         <el-form ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="单位名称">
-            <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-            <el-input v-model="form.name"></el-input>
+          <el-form-item label="姓名">
+            <el-input v-model="form.nickName"></el-input>
           </el-form-item>
-          <el-form-item label="单位性质">
-            <el-select name="" v-model="form.property" placeholder="请选择结构">
-              <el-option label="事业单位" value="事业单位"></el-option>
-              <el-option label="国家行政机关" value="国家行政机关"></el-option>
-              <el-option label="政府" value="政府"></el-option>
-              <el-option label="国有企业" value="国有企业"></el-option>
-              <el-option label="国有控股企业" value="国有控股企业"></el-option>
-              <el-option label="外资企业" value="外资企业"></el-option>
-              <el-option label="合资企业" value="合资企业"></el-option>
-              <el-option label="私营企业" value="私营企业"></el-option>
-            </el-select>
+          <el-form-item label="账号">
+            <el-input v-model="form.username"></el-input>
           </el-form-item>
-          <el-form-item label="单位人数">
-            <el-input v-model="form.staffNum"></el-input>
-          </el-form-item>
-          <el-form-item label="单位地址">
-            <el-input v-model="form.location"></el-input>
-          </el-form-item>
-          <el-form-item label="单位图片">
+          <el-form-item label="头像">
             <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
               <input id="file" name="file" type="file" @change="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
               <div style="width:80px;height:80px;background:#222;border:1px solid #222;">
@@ -43,21 +27,26 @@
               </div>
             </div>
             <img v-show="isShow" src="" id="up_img" style="width:80px;height:80px;"/>
-            <!-- <span style="width: 200px;height: 80px;text-align:center;line-height:80px;color:#fff;display:block;float:left;">{{ files }}</span> -->
           </el-form-item>
-          <el-form-item label="部门电话">
-            <el-input v-model="form.telephone"></el-input>
+          <el-form-item label="职位">
+            <el-input v-model="form.position"></el-input>
           </el-form-item>
-          <el-form-item label="消防负责人">
-            <el-input v-model="form.firemenName"></el-input>
+          <el-form-item label="所属单位">
+            <el-select v-model="form.unitId" placeholder="选择单位" class="select">
+              <el-option label="全部单位" value=""></el-option>
+              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="消防负责人电话">
-            <el-input v-model="form.firemenTel"></el-input>
+          <el-form-item label="联系电话">
+            <el-input v-model="form.cellPhone"></el-input>
           </el-form-item>
-          <el-form-item label="法人代表">
-            <el-input v-model="form.corporation"></el-input>
+          <el-form-item label="角色">
+            <el-select v-model="form.roleId" placeholder="选择角色" class="select">
+              <el-option label="全部角色" value=""></el-option>
+              <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+            </el-select>
           </el-form-item>
-          <div style="clear: both;"></div>
+          <div style="clear: both;margin-top:50px;"></div>
           <el-form-item style="margin-bottom: 20px;">
             <el-button type="primary"  icon="el-icon-search" class="primary" @click="btn">保存并提交</el-button>
             <el-button class="back" @click="back">返回</el-button>
@@ -74,26 +63,22 @@
         return {
           labelPosition: 'top',
           form: {
-            name:'',
-            property:'',
-            staffNum:'',
-            location:'',
-            telephone:'',
-            firemenName:'',
-            firemenTel:'',          
-            corporation:'',
-            point:{
-              pointX:'',
-              pointY:''
-            }
+            nickName:'',
+            username:'',
+            position:'',
+            unitId:'',
+            cellPhone:'',
+            roleId:''
           },
+          optionList:[],//单位列表
+          roleList:[],//角色列表
           isShow:false
         }
       },
       methods:{
         file(){
           this.isShow = true ;
-          $("#up_img").attr("src", this.getObjectURL($("#file")[0]));
+          $("#up_img").attr("src",this.getObjectURL(document.getElementById('file')));
         },
         getObjectURL(node) {
             var imgURL = "";
@@ -128,44 +113,79 @@
         },
         btn(){
           var file = "file";
+          var that = this;
           $.ajaxFileUpload({
-            url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
-            /* secureuri : false, */ //一般设置为false
-            fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
-            data : {
-              'name':this.form.name,
-              'property':this.form.property,
-              'staffNum':this.form.staffNum,
-              'location':this.form.location,
-              'telephone':this.form.telephone,
-              'firemenName':this.form.firemenName,
-              'firemenTel':this.form.firemenTel,
-              'corporation':this.form.corporation,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY
-            },
-            type: 'POST',
-            dataType: "plain",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-            
-        
-            },
-            error: function (e) { //服务器响应失败处理函数
-              $.messager.alert('警告', "系统错误", "warning");
-            },
-            complete: function (e) {//只要完成即执行，最后执行
-              // console.log(e) 
-
-            }
+              url: '/api/user/addOrUpdateUser', //用于文件上传的服务器端请求地址
+              /* secureuri : false, */ //一般设置为false
+              fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+              data : {
+                'nickName':this.form.nickName,
+                'username':this.form.username,
+                'position':this.form.position,
+                'unitId':this.form.unitId,
+                'cellPhone':this.form.cellPhone,
+                'roleId':this.form.roleId
+              },
+              type: 'POST',
+              dataType: "plain",
+              success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+              
+          
+              },
+              error: function (e) { //服务器响应失败处理函数
+                $.messager.alert('警告', "系统错误", "warning");
+              },
+              complete: function (e) {//只要完成即执行，最后执行
+                // console.log(e) 
+                that.tableList()
+              }
           });
-          this.$router.push({path:'/Unit_management/all'});
+          this.$router.push({path:'/List_of_people/all'});
         },
         back(){
-          this.$router.push({path:'/Unit_management/all'});
+          this.$router.push({path:'/List_of_people/all'});
           $('#right').show();
-        }
+        },
+        unitSearch(){
+          this.$fetch(
+            "/api/unit/queryUnit"
+          )
+          .then(response => {
+            if (response) {
+              console.log(response);
+              this.optionList = response.data.unitList;
+              console.log(this.optionList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+          .then(err => {
+            // console.log(err);
+          });
+        },
+        roleSearch(){
+          this.$fetch(
+            "/api/user/queryRoleListByUser"
+          )
+          .then(response => {
+            if (response) {
+              console.log(response);
+              this.roleList = response.data.roleList;
+              console.log(this.roleList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+          .then(err => {
+            // console.log(err);
+          });
+        },
       },
       mounted(){
+        this.unitSearch();
+        this.roleSearch();
         $('.el-scrollbar').css({
             'background':'#000'
         });
