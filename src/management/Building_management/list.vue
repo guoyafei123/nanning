@@ -27,6 +27,10 @@
           <el-form-item label="建筑地址">
             <el-input v-model="form.address"></el-input>
           </el-form-item>
+          <el-form-item label="经纬度">
+            <el-input v-model="form.point.pointX"></el-input>
+            <el-input v-model="form.point.pointY"></el-input>
+          </el-form-item>
           <el-form-item label="占地面积（m^2）">
             <el-input v-model="form.area"></el-input>
           </el-form-item>
@@ -92,7 +96,11 @@
             property:'',          
             timeYear:'',
             name:'',
-            phone:''
+            phone:'',
+            point:{
+              pointX:'',
+              pointY:''
+            }
           },
           unit:null,//选择单位
           optionList:[],//全部单位列表
@@ -119,8 +127,8 @@
             'property':this.form.property,
             'linkname':this.form.name,
             'phone':this.form.phone,
-            'pointX':105.12,
-            'pointY':35.12,
+            'pointX':this.form.point.pointX,
+            'pointY':this.form.point.pointY,
             headers: {'Content-Type': 'application/json'}
           },
         

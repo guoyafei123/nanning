@@ -16,7 +16,7 @@
     <div class="main_all_content" style="display: block;">
       <div class="main_content_top">
         <el-form ref="form" :model="form" label-width="80px" class="float-left">
-          <el-select v-model="form.region1" placeholder="选择单位" class="select">
+          <el-select v-model="form.region1" placeholder="选择单位" class="select" style="width:auto;">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>

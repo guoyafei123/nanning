@@ -1,22 +1,10 @@
 <template>
   <div class="Inspection_plan z-index-20  ">
-    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:110px;display: none;">
+    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:130px;display: none;">
       <section>
           <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Building_management/maps'">&lt;返回</span>
-          <!-- <div class="personinfo">
-            <p>
-              <span class="size-20 font-blue" v-html="">名称</span>
-              <span class="bgbox-min bg-gray-666 font-black"></span>
-              <span class="float-right">
-                        <span class="font-black size-12 bg-blue" style="padding:2px 5px;">激活</span>
-                    </span>
-            </p>
-            <p>
-              <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i>单位名称</span>
-              <span class="size-12 font-gray-666 float-right set-positiontop2">录入时间<span class="font-gray-999 margin-left5" v-html="">2018.01.10 20:02:10</span></span>
-            </p>
-          </div> -->
-        </section>
+
+      </section>
       <section class="inspection-iteminfo" >
         <!-- <section>
           <div class="row toolcount margin-top40">
@@ -68,7 +56,7 @@
         </section>   -->
         <section>
           <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom20 margin-top10">
+              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10">
                  xxx建筑信息详情
               </h2>
               <div class="row textandimg-main">
@@ -86,8 +74,9 @@
                       <span class="size-14 font-gray-999 span_con" v-html="this.form.address"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16  font-gray-666 span_name">经纬度 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html=""></span>
+                      <span class="size-16  font-gray-666 span_name" style="width:120px;">经纬度 </span>
+                      <span class="size-12 font-gray-999 span_con" style="margin-right:10px;" v-html="this.form.point.pointX"></span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.point.pointY"></span>
                   </div>
 
                   <div class="col-sm-12">
@@ -134,8 +123,8 @@
         </section>
       </section>
     </div>
-    <div class="font-white margin-left15 margin-right20 total" style="margin-top:120px;">
-      <!-- <h2 style="font-size: 12px;line-height:10px;margin-bottom:-10px;" class="font-gray-999">Inspection Total</h2>
+    <div class="font-white total" style="margin-top:120px;margin-right:10px;">
+      <!-- <h2 style="font-size: 12px;line-height:10px;margin-bottom:10px;" class="font-gray-999">Inspection Total</h2>
       <h3 style="font-size:18px;" class="font-blue">当前线路总数</h3> -->
       <!-- <div style="width:100%;overflow: hidden;">
         <p style="width:15%;font-size: 70px;margin-left:20px;float: left" v-html="this.countInspectionPlanRelevant.countTotal"></p>
@@ -166,23 +155,25 @@
                 prop="Serial_number"
                 type="index"
                 sortable  
-                width="80"
+                width="60"
                 label="序号">
               </el-table-column>
               <el-table-column
                 prop="name"
-                width="130"
+                width="110"
+                :show-overflow-tooltip="true"
                 label="建筑名称">
               </el-table-column>
               <el-table-column
                 prop="location"
-                width="130"
+                width="100"
+                :show-overflow-tooltip="true"
                 label="地址">
               </el-table-column>
               <el-table-column
                 fixed="right"
                 label="操作"
-                width="120">
+                width="115">
                 <template slot-scope="scope">
                   <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">编辑</button>
                   <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
@@ -224,7 +215,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">修改建筑</h4>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="height:550px;overflow-y:auto;">
                 <el-form ref="form" :label-position="labelPosition" :inline="true" :model="form">
                   <el-form-item label="建筑名称">
                     <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
@@ -331,10 +322,9 @@
         <tbody>
             <tr v-for="(item,index) in table_list">
               <td>{{ index+1 }}</td>
-
               <td class="weixiugai">{{ item.floorName }}</td>
               <td class="xiugai" style="display:none;">
-                <input type="number" v-model="item.floorName"/>
+                <input type="number" v-model="item.floorName" style="text-align:center;"/>
               </td>
               <td class="weixiugai_edit">
                 <img src="../../assets/images/u237.png"/>
@@ -343,21 +333,20 @@
                 <button @click="room_build(item)" style="width:50px;height:22px;border:1px solid transparent;border-radius:5px;color: #ffffff;background-color: #0798db;line-height: 19px;margin:0;padding:0;font-size: 11px;text-align: center;margin-right:10px;">房间管理</button>
               </td>
               <td class="xiugai_edit" style="display:none;">
-                <input id="file" name="file" type="file"/>
-                <button @click="xiugai_sure(index)" style="margin-left:15px;">确定</button>
-                <button @click="xiugai_cancel(index)">取消</button>
+                <input id="file" name="file" type="file" />
+                <button @click="xiugai_sure(index)" style="margin-left:15px;background: #6dff02d1;border-color: #6dff02d1;color: #000;" >确定</button>
+                <button @click="xiugai_cancel(index)" style="background: #f13131;border-color: #f13131;color: #ffffff;margin-left: 2px;">取消</button>
               </td>
-              
             </tr>
             <tr class="add"  style="display:none;">
               <td>{{ this.index+1 }}</td>
-              <td>
-                <input type="number" v-model="number"/>
+              <td style="width:120px;">
+                <input type="number" v-model="number" style="text-align:center;"/>
               </td>
               <td>
                 <input id="file" name="file"  type="file"/>
-                <button @click="sure" style="margin-left:15px;">确定</button>
-                <button @click="cancel">取消</button>
+                <button @click="sure" style="margin-left:15px;background: #6dff02d1;border-color: #6dff02d1;color: #000;">确定</button>
+                <button @click="cancel" style="background: #f13131;border-color: #f13131;color: #ffffff;margin-left: 2px;">取消</button>
               </td>
             </tr>          
         </tbody>
@@ -376,16 +365,16 @@
         <button class="btn_add" @click="addUnit"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
       </div>
       <table class="table table-bordered ">
-        <tbody>
+        <tbody style="height:500px!important;overflow-y:auto;">
             <tr v-for="(item,index) in floorRoomList">
               <td style="min-width:100px;" class="col-md-4">
-                <input type="text" v-model="item.unitBuilding" style="width:100px;height:30px;text-align:center;" maxlength="3"/>
+                <input type="text" v-model="item.unitBuilding" style="width:100px;height:30px;text-align:center;" maxlength="6"/>
               </td>
               <td class="col-md-8">
                 <ul class="table_ul">
                   <li v-for="(key,indexs) in item.roomList">
                     <i class="fa fa-th-large font-gray-666 float-left"></i>
-                    <input type="text" v-model="key.room"/>
+                    <input type="text" v-model="key.roomNumber"/>
                     <button @click="deleteRoom(floorRoomList[index].roomList, indexs)" style="width:30px;height:30px;">X</button>
                   </li>
                   <li><button @click="addRoom(item,index)">添加房间</button></li>
@@ -394,7 +383,7 @@
             </tr>
         </tbody>
       </table>
-      <button @click="submitFloorRoomList">提交</button>
+      <el-button @click="submitFloorRoomList" type="success" style="width:120px;margin:0 auto;display: flex;justify-content: center;font-size:16px;height:35px;line-height:35px;padding:0;">提交</el-button>
     </div>
   </div>
 
@@ -423,12 +412,16 @@
           property:'',          
           timeYear:'',
           name:'',
-          phone:''
+          phone:'',
+          point:{
+            pointX:'',
+            pointY:''
+          }
         },
         unit:null,//选择单位
         optionList:[],//全部单位列表
         tableData: [],//设备列表
-        page:4,//总页数
+        page:null,//总页数
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
@@ -565,7 +558,7 @@
         this.floorName = item.floorName ;
         this.$store.commit('floorAdd',3);
         this.$store.commit('floorId',item.id);
-        console.log(item.id)
+        console.log(item.id);
       },
       findPageBuildIngFloor(){
         // console.log(this.buildingId)
@@ -584,7 +577,7 @@
         this.floorRoomList.push({unitBuilding:'',roomList:[]})
       },
       addRoom(item,index){
-        item.roomList.push({room:'',roomId:''})
+        item.roomList.push({floorId:this.floorId,roomNumber:'',roomId:'',imgKey:''})
       },
       deleteRoom(key, index){
         console.info(key);
@@ -597,14 +590,32 @@
       },
       submitFloorRoomList(){
         console.log(this.floorRoomList);
-        
         var floorRoomList = JSON.stringify( this.floorRoomList );
         this.$fetch("/api/building/addBuildingFloorRoom",{
           floorRoomList:floorRoomList
         }).then(response=>{
           console.log(response);
+          this.room_back()
         })
       },
+      floorRoomListShow(){
+        this.$fetch("/api/building/findPageBuildIngFloorRoom",{
+          pageIndex:1,
+          pageSize:1000,
+          floorId:this.floorId
+        }).then(response=>{
+          console.log(JSON.stringify(response));
+          var pageBuildIng = response.data.pageBuildIng.result;
+          // console.log(this.floorRoomList);
+          pageBuildIng.forEach((item,index)=>{
+            console.log(item.floorUnit)
+            //  = item[index].floorUnit ;
+            // this.floorRoomList.push({unitBuilding:item.floorUnit,roomList:[]})
+      
+          })
+        })
+      },
+
 
       back_first(){
         $('.plan').hide();
@@ -659,6 +670,8 @@
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
             // console.log(item);
+            this.form.point.pointX = item.pointX;
+            this.form.point.pointY = item.pointY;
             this.form.BuildName = item.name ;
             this.form.unitId = item.unitId ;
             this.form.UnitName = item.unitName ;
@@ -771,10 +784,13 @@
             if (response.data.pageBuildIng) {
               this.totalList = response.data.pageBuildIng.totalRow;
               this.tableData = response.data.pageBuildIng.result;
+              console.log(this.tableData)
               if(this.$route.path == '/Building_management/all'){
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
                     console.log(item);
+                    this.form.point.pointX = item.pointX;
+                    this.form.point.pointY = item.pointY;
                     this.form.BuildName = item.name ;
                     this.form.unitId = item.unitId ;
                     this.form.UnitName = item.unitName ;
@@ -835,6 +851,9 @@
         handler: function(val, oldVal){
           // console.log(val);
           if(this.$route.path == '/Building_management/maps'){
+            $('.plan').hide();
+            $('.mapTable').show();
+            $('.total').show();
             this.tableList();
             this.$store.commit('tableData',this.tableData);
           }
@@ -939,16 +958,7 @@
             $('.room-wrap').show();
           }
           // console.log(this.floorId);
-          this.$fetch("/api/building/findPageBuildIngFloorRoom",{
-            pageIndex:1,
-            pageSize:1000,
-            floorId:this.floorId
-          }).then(response=>{
-            if(response.data){
-              console.log(response.data.pageBuildIng.result);
-              this.floorRoomList = response.data.pageBuildIng.result;
-            }
-          })
+          this.floorRoomListShow()
         }
       }
     },
@@ -1265,5 +1275,23 @@
       border:1px solid #999999
     }
   }
+}
+.floor_wrap table tbody {
+    display: block;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.floor_wrap table thead,
+.floor_wrap tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.floor_wrap table thead td:nth-child(1),tbody tr td:nth-child(1){
+  width:50px;
+}
+.floor_wrap table thead td:nth-child(2),tbody tr td:nth-child(2){
+  width:120px;
 }
 </style>
