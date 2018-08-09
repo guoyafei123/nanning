@@ -22,6 +22,8 @@ var state={
   tableData:[],
   floorAdd:'',
   floorId:'',
+  //人员
+  unitNumber:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -30,10 +32,11 @@ var state={
 }
 
 var mutations={
+  //单位
   unitNum(state,data){
     state.unitNum = data;
   },
-
+  //巡检
   region(state,data){
     state.region = data;
   },
@@ -43,7 +46,7 @@ var mutations={
   form(state,data){
     state.form= data;
   },
-
+  //设备
   deviceId(state,data){
     state.deviceId = data;
   },
@@ -63,7 +66,7 @@ var mutations={
     state.equipmentDevice = data;
   },
 
-
+  //建筑
   buildUnit(state,data){
     state.buildUnit = data;
   },
@@ -78,6 +81,11 @@ var mutations={
   },
   floorId(state,data){
     state.floorId = data ;
+  },
+
+  //人员
+  unitNumber(state,data){
+    state.unitNumber = data ;
   },
   // 展示端的store
   setvuextest(state,data){

@@ -46,7 +46,7 @@
             </el-select>
             <el-select
               v-model="equipment"
-              placeholder="选择设备类型" class="sbwz_120_32 start startDevice">
+              placeholder="选择设备类型" class="sbwz_120_32 start startDevice" style="width:auto;">
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
@@ -125,10 +125,10 @@
                 :type="scope.row.status === 1 ? 'green' : 'red'"
                 disable-transitions v-if='scope.row.status==1'>正常<i class="fa fa-th-large font-gray-666"></i></el-tag>
               <el-tag
-                :type="scope.row.status === 2 ? 'red' : 'green'"
+                :type="scope.row.status === 2 ? 'yellow' : 'green'"
                 disable-transitions v-if='scope.row.status==2'>故障</el-tag>
               <el-tag
-                :type="scope.row.status === 2 ? 'red' : 'green'"
+                :type="scope.row.status === 3 ? 'red' : 'green'"
                 disable-transitions v-if='scope.row.status==3'>警报</el-tag>
             </template>
           </el-table-column>
@@ -184,7 +184,7 @@
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
               <el-form-item label="所属单位">
-                <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" style="width:170px;">
+                <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" style="width:auto;">
                   <el-option label="全部单位" value=""></el-option>
                   <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                 </el-select>
@@ -192,7 +192,7 @@
               <el-form-item label="设备类型">
                 <el-select
                   v-model="form.equipmentId"
-                  placeholder="选择设备类型" class="sbwz_138_32 start" style="margin-left:0px;">
+                  placeholder="选择设备类型" class="sbwz_138_32 start" style="margin-left:0px;width:auto;">
                   <el-option
                     v-for="item in equipmentList"
                     :label="item.name"
@@ -203,7 +203,7 @@
               <el-form-item label="设备位置">
                 <el-select
                   v-model="form.buildingId"
-                placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="margin-left:0px;">
+                placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="margin-left:0px;width:auto;">
                   <el-option label="室外" value="0"></el-option>
                   <el-option
                     v-for="item in form.buildList"
@@ -945,7 +945,14 @@
       margin-left:7px;
     }
   }
-
+  .el-tag--yellow{
+    color: yellow !important;
+    padding:0 !important;
+    border:none;
+    i{
+      margin-left:7px;
+    }
+  }
 
   .start{
     margin-top:4px;

@@ -140,10 +140,6 @@ header .el-input__inner:hover {
 header .el-icon-arrow-up:before {
     content: "\E60C";
 }
-<<<<<<< HEAD
-.el-select-dropdown__item.selected {
-    color: #bad616!important;
-=======
 header .el-select-dropdown__item {
   border-bottom:1px solid #111;
 }
@@ -152,7 +148,6 @@ header .el-select-dropdown__item:last-child {
 }
 .el-select-dropdown__item.selected {
     color: #bad616;
->>>>>>> 83f0376565411d6cd05d41d40af9a9a39036722e
     font-weight: normal;
 }
 /*火灾详情*/

@@ -31,6 +31,9 @@ import Inspection_planVue from '../management/Inspection_plan/Inspection_plan';
 import Plan_listVue from '../management/Inspection_plan/list';
 import Plan_AllVue from '../management/Inspection_plan/all';
 import Plan_MapsVue from '../management/Inspection_plan/maps';
+import List_of_peopleVue from '../management/List_of_people/List_of_people';
+import List_of_people_AllVue from '../management/List_of_people/all';
+import List_of_people_listVue from '../management/List_of_people/list';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -109,6 +112,15 @@ export default new Router({
         { path:'/Inspection_plan/all',component:Plan_AllVue},
         { path:'/Inspection_plan/maps',component:Plan_MapsVue},
         { path:'/Inspection_plan',redirect:'/Inspection_plan/all'}
+      ]
+    },
+    {
+      path:'/List_of_people',
+      component:List_of_peopleVue,
+      children:[
+        { path:'/List_of_people/list',component:List_of_people_listVue},
+        { path:'/List_of_people/all',component:List_of_people_AllVue},
+        { path:'/List_of_people',redirect:'/List_of_people/all'}
       ]
     }
   ]

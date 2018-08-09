@@ -12,7 +12,7 @@
     <div class="main_all_content">
       <div class="main_content_top">
         <el-form label-width="80px" class="float-left">
-          <el-select v-model="buildUnit" placeholder="选择单位" class="select build" style="width:150px;">
+          <el-select v-model="buildUnit" placeholder="选择单位" class="select build" style="width:auto;">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
@@ -43,16 +43,19 @@
           <el-table-column
             prop="name"
             width="130"
+            :show-overflow-tooltip="true"
             label="建筑名称">
           </el-table-column>
           <el-table-column
             prop="unitName"
             width="130"
+            :show-overflow-tooltip="true"
             label="所属单位">
           </el-table-column>
           <el-table-column
             prop="location"
             width="130"
+            :show-overflow-tooltip="true"
             label="地址">
           </el-table-column>
           <el-table-column
@@ -145,10 +148,10 @@
             <el-form ref="form" :label-position="labelPosition" :inline="true" :model="form">
               <el-form-item label="建筑名称">
                 <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-                <el-input v-model="form.BuildName"></el-input>
+                <el-input v-model="form.buildName"></el-input>
               </el-form-item>
               <el-form-item label="所属单位">
-                <el-select v-model="form.unitId" placeholder="选择单位" class="select" style="width:150px;">
+                <el-select v-model="form.unitId" placeholder="选择单位" class="select" style="width:auto;">
                   <el-option label="全部单位" value=""></el-option>
                   <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                 </el-select>
@@ -239,8 +242,8 @@
 
         form: {
           unitId:'',
-          UnitName:'',
-          BuildName:'',
+          unitName:'',
+          buildName:'',
           height:'',
           floor:'',
           structure:'',
@@ -277,9 +280,9 @@
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
             console.log(item);
-            this.form.BuildName = item.name ;
+            this.form.buildName = item.name ;
             this.form.unitId = item.unitId ;
-            this.form.UnitName = item.unitName ;
+            this.form.unitName = item.unitName ;
             this.form.address = item.location ;
             this.form.area = item.area ;
             this.form.height = item.heightOfBuilding ;
@@ -296,13 +299,13 @@
         this.optionList.forEach((item,index)=>{
           if(item.id == this.form.unitId){
             console.log(item.name);
-            this.form.UnitName = item.name;
+            this.form.unitName = item.name;
           }
         })
         this.$fetch("/api/building/addBuilding",{
-          'name':this.form.BuildName,
+          'name':this.form.buildName,
           'unitId':this.form.unitId,
-          'unitName':this.form.UnitName,
+          'unitName':this.form.unitName,
           'location':this.form.address,
           'area':this.form.area,
           'heightOfBuilding':this.form.height,
@@ -375,19 +378,19 @@
         this.$fetch(
           "/api/unit/queryUnit"
         )
-          .then(response => {
-            if (response) {
-              console.log(response);
-              this.optionList = response.data.unitList;
-              console.log(this.optionList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
-            }
-          })
-          .then(err => {
-            // console.log(err);
-          });
+        .then(response => {
+          if (response) {
+            console.log(response);
+            this.optionList = response.data.unitList;
+            console.log(this.optionList);
+            $(' .el-select-dropdown__item').mouseover(function(){
+              $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+            });
+          }
+        })
+        .then(err => {
+          // console.log(err);
+        });
       },
       tableBuildList(){
         this.$fetch(

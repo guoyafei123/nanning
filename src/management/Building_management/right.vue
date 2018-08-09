@@ -123,7 +123,7 @@
         </section>
       </section>
     </div>
-    <div class="font-white margin-left15 margin-right20 total" style="margin-top:120px;">
+    <div class="font-white total" style="margin-top:120px;margin-right:10px;">
       <!-- <h2 style="font-size: 12px;line-height:10px;margin-bottom:10px;" class="font-gray-999">Inspection Total</h2>
       <h3 style="font-size:18px;" class="font-blue">当前线路总数</h3> -->
       <!-- <div style="width:100%;overflow: hidden;">
@@ -155,23 +155,25 @@
                 prop="Serial_number"
                 type="index"
                 sortable  
-                width="80"
+                width="60"
                 label="序号">
               </el-table-column>
               <el-table-column
                 prop="name"
-                width="130"
+                width="110"
+                :show-overflow-tooltip="true"
                 label="建筑名称">
               </el-table-column>
               <el-table-column
                 prop="location"
-                width="130"
+                width="100"
+                :show-overflow-tooltip="true"
                 label="地址">
               </el-table-column>
               <el-table-column
                 fixed="right"
                 label="操作"
-                width="120">
+                width="115">
                 <template slot-scope="scope">
                   <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">编辑</button>
                   <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>

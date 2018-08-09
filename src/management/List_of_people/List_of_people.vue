@@ -11,7 +11,7 @@
     <!-- #左边 End-->
     <main-vue></main-vue>
     <!-- #右边 -->
-    <section id="right" class="position-fixed-right container-padding5 z-index-20" style="">
+    <section id="right" class="position-fixed-right container-padding5 z-index-20">
       <div class="overlay"></div>
       <set_right-vue></set_right-vue>
     </section>
@@ -22,15 +22,15 @@
 
 <script>
   import HeaderVue from '../../components/header.vue';
-  import Unit_leftVue from '../left.vue';
-  import MainVue from './Unit_main.vue';
-  import Unit_rightVue from './Unit_right.vue';
+  import leftVue from '../left.vue';
+  import MainVue from './main.vue';
+  import rightVue from './right.vue';
   import '../../assets/css/setting.scss';
   export default {
     components:{
       'header-vue':HeaderVue,
-      'set_left-vue':Unit_leftVue,
-      'set_right-vue':Unit_rightVue,
+      'set_left-vue':leftVue,
+      'set_right-vue':rightVue,
       'main-vue':MainVue
     }
   }
