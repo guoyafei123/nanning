@@ -112,7 +112,7 @@
                           <td>{{item.finishedTime}}</td>
                           <td>
                             <a v-on:click="toitmeinfo(item)">
-                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
                             </a>
                           </td>
                         </tr>

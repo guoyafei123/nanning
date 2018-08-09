@@ -332,18 +332,18 @@
             <section>
               <div class="row toolcount margin-top30">
                         <div class="col-sm-4 font-gray-666 padding-right0">
-                          <ul class="toolcount-left margin-top0 padding-left0" id="toolcount">
-                            <li class="col-xs-offset-1 col-xs-10 margin-bottom15 padding-left5 padding-left5">
+                          <ul class="toolcount-left padding-left0" id="toolcount">
+                            <li class="col-xs-offset-1 col-xs-10 margin-bottom10 padding-left5">
                               <!-- <h1 class="toolcount-p1">8.7</h1> -->
                               <img src="../assets/images/head.jpg" class="img-responsive img-circle" alt="段亚伟">
                             </li>
-                            <li class="col-xs-offset-1 col-xs-10 padding-left5 padding-left5 text-center">
+                            <li class="col-xs-offset-1 col-xs-10 padding-left5 text-center">
                               <h4 class="size-16 font-blue show">段亚伟</h4>
-                              <span class="size-12 font-gray-ccc">男 25岁 河北邯郸<br>1861596479</span>
+                              <span class="size-12 font-gray-999">男 25岁 河北邯郸<br>1861596479</span>
                             </li>
                           </ul>
                         </div>
-                        <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
+                        <div class="col-sm-8 font-gray-999 padding0">
                           <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
                             <li>
                               <p class="size-18 font-white">个人数据</p>
@@ -361,7 +361,7 @@
                                 <p>平均响应时长 <strong class="font-blue">1227s</strong></p>
                               </div>
                             </li>
-                            <li class="row text-center padding-right16 margin-top10">
+                            <li class="row text-center padding-right16 margin-top20">
                               <div class="col-sm-4 personnel-borderright">
                                 <p class="size-16 show font-white">269</p>
                                 <p>巡检完成数</p>

@@ -509,7 +509,11 @@ span.point {
     display: block;
 }
 
-.toolcompanyrate-char p.size-10 {
+.toolcompanyrate-char p.size-10,
+#inspection p.size-10,
+#building p.size-10,
+#personnel p.size-10,
+#plan p.size-10{
     margin-left: -4px;
 }
 /*设备*/
@@ -520,4 +524,7 @@ span.point {
 }
 #device td.dec-type i {
     font-size: 14px;
+}
+#device .size-10 {
+    margin-left: -4px;
 }
