@@ -749,7 +749,7 @@ video:hover{
     .common-top-statistics ul li:nth-child(3) h5:last-child span {
         color: #fff;
     }
-    .common-top-statistics .mian-pie-chart div{
+    .common-top-statistics .mian-pie-chart>div{
         position: absolute;
         top: 4px;
         right: 0;
@@ -1166,6 +1166,15 @@ video:hover{
         padding: 25px 20px 0px 20px;
         border-top:1px solid #333; 
         border-bottom:1px solid #333; 
+    }
+
+    /* 综合页面css */
+    .indexdateabox{
+        float:right;
+        cursor: pointer;
+    }
+    .indexdateactive{
+        color: #bad616;
     }
 
     

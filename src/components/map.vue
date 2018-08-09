@@ -9,10 +9,13 @@
       data(){
         return{
           maxroom:19,
-          minroom:15,
+          minroom:14,
           zoom:16,
-          point:[108.363609,22.815612],
-          mp:Object
+          point:[108.27564664565489,22.84248179256856],
+          mp:Object,
+          alarms:Object,
+          listenerScale:500,
+          alarmsArray:[],
         }
       },
 
@@ -299,7 +302,7 @@
           }
           var l=size*0.54;
           var marker= new alarm(new BMap.Point(p[0],p[1]), img,value,l);
-          var circle = new BMap.Circle(new BMap.Point(p[0],p[1]),size,{});
+          var circle = new BMap.Circle(new BMap.Point(p[0],p[1]),500,{});
           var fillcolor='#bad616';
           if (value <= 3) {
             fillcolor='#bad616';
@@ -425,7 +428,8 @@
       },
       computed:mapState([
         'queryUnitBuildList',
-        'queryInspectionLineList'
+        'queryInspectionLineList',
+        'indexToAlarmTroubel'
       ]),
       watch:{
         // 所有巡检单位
@@ -452,6 +456,48 @@
             // this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
             console.log(element.buildingName);
           });
+        },
+
+        // type:  
+        // =1 正常请求画图
+        // =2 只请求报警和火情
+        // =3 确认报警
+        // =4 关闭火情
+        // 实时报警
+        indexToAlarmTroubel(){
+          console.log(this.indexToAlarmTroubel[1]);
+          let type=this.indexToAlarmTroubel[1];
+          if(type==1){
+            this.indexToAlarmTroubel[0].alarms.forEach(element=>{
+              let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
+              this.mp.addOverlay(alarms[0])
+              this.mp.addOverlay(alarms[1])
+              this.alarmsArray.push([alarms[0],element,alarms[1]]);
+            })
+          }else if(type==2){
+            let element=this.indexToAlarmTroubel[0].alarms[0];
+            let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
+            this.mp.addOverlay(alarms[0])
+            this.mp.addOverlay(alarms[1])
+            this.alarmsArray.push([alarms[0],element,alarms[1]]);
+            this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
+          }else if(type==3){
+            let element=this.indexToAlarmTroubel[0].alarms[0];
+            this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
+          }else if(type==4){
+            for(var i=0;i<this.alarmsArray.length;i++){
+              this.mp.removeOverlay(this.alarmsArray[i][0]);
+              this.mp.removeOverlay(this.alarmsArray[i][2]);
+            }
+            this.alarmsArray=[];
+            this.indexToAlarmTroubel[0].alarms.forEach(element=>{
+              let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
+              this.mp.addOverlay(alarms[0])
+              this.mp.addOverlay(alarms[1])
+              this.alarmsArray.push([alarms[0],element,alarms[1]]);
+            })
+          }
+          
         }
       },
       mounted(){
@@ -465,7 +511,19 @@
           18: 50,
           17: 100,
           16: 200,
-          15: 400
+          15: 400,
+          14: 1000,
+          13: 2000,
+          12: 5000,
+          11: 10000,
+          10: 20000,
+          9: 25000,
+          8: 50000,
+          7: 100000,
+          6: 200000,
+          5: 500000,
+          4: 1000000,
+          3: 2000000,
         }
         map.addOverlay(this.addlandmark("银湖",'3',[108.378000,22.795000]))
         map.addOverlay(this.addlandmark("银湖海",'6',[108.385000,22.795000]))
@@ -476,19 +534,29 @@
         map.addOverlay(alarm[0])
         map.addOverlay(alarm[1])
 
-        var alarm1=this.addalarm("银湖海岸城1",'12',alarmsize1,[108.385257,22.805501]);
+        var alarm1=this.addalarm("银湖海岸城1",'12',alarmsize,[108.385257,22.805501]);
         map.addOverlay(alarm1[0])
         map.addOverlay(alarm1[1])
 
         map.addEventListener("zoomend", function(evt){
-          var listenerScale = scale[that.zoom] / scale[map.getZoom()] * alarmsize ;
+          that.listenerScale = scale[that.zoom] / scale[map.getZoom()] * alarmsize ;
           map.removeOverlay(alarm[0])
-          alarm=that.addalarm("银湖海岸城1",'6',listenerScale,[108.385000,22.795000])
+          alarm=that.addalarm("银湖海岸城1",'6',that.listenerScale,[108.385000,22.795000])
           map.addOverlay(alarm[0])
+          // that.alarmsArray.
           
-          var listenerScale1 = scale[that.zoom] / scale[map.getZoom()] * alarmsize1 ;
+          for(var i=0;i<that.alarmsArray.length;i++){
+            // console.log(that.alarmsArray[i][1].pointX+','+that.alarmsArray[i][1].pointY);
+            map.removeOverlay(that.alarmsArray[i][0]);
+            map.removeOverlay(that.alarmsArray[i][2]);
+            that.alarmsArray[i][0]=that.addalarm("银湖海岸城1",'12',that.listenerScale,[that.alarmsArray[i][1].pointX,that.alarmsArray[i][1].pointY])[0];
+            // console.log(newalarm);
+            map.addOverlay(that.alarmsArray[i][0]);
+            map.addOverlay(that.alarmsArray[i][2]);
+          }
+
           map.removeOverlay(alarm1[0])
-          alarm1=that.addalarm("银湖海岸城1",'12',listenerScale1,[108.385257,22.805501])
+          alarm1=that.addalarm("银湖海岸城1",'12',that.listenerScale,[108.385257,22.805501])
           map.addOverlay(alarm1[0])
         });
         var linearray = [
@@ -499,6 +567,9 @@
         ];
         map.addOverlay(this.addline(linearray));
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
+        // setTimeout(() => {
+        //   map.setCenter(new BMap.Point(108.363609,22.815612))
+        // }, 5000);
       }
     }
 </script>

@@ -218,3 +218,49 @@
 .getvercodenone{
     color: #666;
 }
+
+/* 消息提示 */
+.el-notification{
+    border-radius: 0px !important;
+    padding: 0px !important;
+    border:none !important;
+    /* width:40% !important; */
+    min-width: 650px !important;
+}
+.el-notification.right{
+    margin: 110px auto !important;
+    left: 0px;
+    right: 0px;
+}
+.notify-left{
+    margin-top: 10px;
+    
+}
+.notify-right{
+    border-left: 1px solid black;
+}
+.notify-left>span{
+    position: relative;
+    bottom: 6px;
+}
+.el-notification-fade-enter{
+    left: 2000px !important;
+}
+.el-notification__content>p{
+    display: inline-block !important;
+}
+.panlset-red{
+    background: rgb(218,44,45) !important;
+}
+.panlset-yellow{
+    background: #ffb709 !important;
+}
+.panlset-orange{
+    background: #ff7800 !important;
+}
+.panlset-blue{
+    background: #bad616 !important;
+}
+.el-notification__closeBtn{
+    color: #000!important;
+}

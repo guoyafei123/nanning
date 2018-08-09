@@ -31,15 +31,15 @@
           </div>
           <div class="pull-right">
             <article>
-              <h4>367</h4>
+              <h4>{{getUnitsSynthesis.ALLALARM}}</h4>
               <small>今日警报</small>
             </article>
             <article>
-              <h4>214</h4>
+              <h4>{{getUnitsSynthesis.ALLTROUBLE}}</h4>
               <small>今日隐患</small>
             </article>
             <article>
-              <h4>12</h4>
+              <h4>{{getUnitsSynthesis.ALLINSPECTION}}</h4>
               <small>巡检完成</small>
             </article>
           </div>
@@ -47,25 +47,22 @@
         <!-- 统计2 -->
         <li>
           <article>
-            单位总数<span>4</span>
+            单位总数<span>{{getUnitsSynthesis.UNITCOUNT}}</span>
           </article>
           <article>
-            建筑总数<span>36</span>
+            建筑总数<span>{{getUnitsSynthesis.BUILDINGCOUNT}}</span>
           </article>
           <article>
-            主机总数<span>24</span>
+            设备总数<span>{{getUnitsSynthesis.DEVICECOUNT}}</span>
           </article>
           <article>
-            设备总数<span>3647</span>
+            预案总数<span>{{getUnitsSynthesis.PREARRANGECOUNT}}</span>
           </article>
           <article>
-            预案总数<span>60</span>
+            人员总数<span>{{getUnitsSynthesis.STAFFNUM}}</span>
           </article>
           <article>
-            人员总数<span>306</span>
-          </article>
-          <article>
-            巡检路线<span>24</span>
+            巡检路线<span>{{getUnitsSynthesis.INSPECTIONPLANCOUNT}}</span>
           </article>
         </li>
       </ul>
@@ -75,7 +72,7 @@
           <span class="toolroute-rect bg-blue"></span>
       <div class="early-title">
         <small>Early-Warning</small>
-              <h3>实时报警
+              <h3 @click="openpanl()">实时报警
                 <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
             </h3>
       </div>      
@@ -113,7 +110,7 @@
           <div class="tab-pane fade in active" id="warning-list">
             <ul class="early-list list-unstyled">
               <!-- 单条火灾循环li -->
-              <li class="early-single fire-list">
+              <li class="early-single fault-list">
                 <article>
                   <h5 @click="dialogVisible  = true"><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生火情</span></h5>
                   <h4>              
@@ -279,310 +276,213 @@
       </div>
       <ul id="early-all" class="early-list list-unstyled">
         <!-- 单条火灾循环li -->
-        <li class="early-single fire-list">
+
+        <li v-for="(item,index) in queryAlarmIng.alarms" 
+        :class="[item.alarmsum!=null ? 'early-more' :'early-single',
+        item.eventLevel==0 ? 'fault-list' :'',
+        item.eventLevel==1 ? 'warning-list' :'',
+        item.eventLevel==2 ? 'fire-list' :'',
+        ]" >
           <article>
-            <h5 @click="dialogVisible  = true"><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生火情</span></h5>
-            <h4>              
+            <h5 @click="dialogVisible  = true"><i class="icon iconfont icon-early"></i>
+            <!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
+            {{item.unitName==null ? '' :item.unitName}}
+            {{item.buildingName==null ? '' :item.buildingName}}
+            {{item.floorNumber==null ? '' :item.floorNumber+'层'}}
+            {{item.roomNumber==null ? '' :item.roomNumber}}
+            <span>
+              {{item.alarmsum!=null ? '多处' :''}}
+              {{item.eventLevel==0 ? '发生故障' :''}}
+              {{item.eventLevel==1 ? '发生报警' :''}}
+              {{item.eventLevel==2 ? '发生火情' :''}}
+            </span></h5>
+            <h4>
               <a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
               <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
               <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
+              <a href=""><span class="badge">
+                {{item.alarmsum!=null ? item.alarmsum :''}}
+              </span></a>
             </h4>
           </article>
           <var>
             <p class="col-sm-8">
-              <i class="icon iconfont icon-xunjianyuan-mian-"><span>段亚伟</span></i>
-              <i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>
+              <template v-if="item.userId!=0 || item.userId!=null">
+                <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.confirmNickName}}</span></i>
+                <i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>
+              </template>
+              <template v-if="item.userId==0 || item.userId==null">
+                <i class="icon iconfont icon-shebei-mian-"><span>{{item.deviceMac}}</span></i>
+                <i class="icon iconfont icon-miehuoqi-mian-"><span>{{item.deviceTypeName}}</span></i>
+              </template>
             </p>
-            <p class="col-sm-4">              
-              <span class="badge">98s</span><span class="badge">12:36:47</span>
+            <p class="col-sm-4">
+              <!-- <span class="badge">98s</span> -->
+              <span class="badge">{{(item.startTime).split(' ')[1]}}</span>
             </p>
           </var>
         </li>
-        <!-- 单条报警循环li -->
-        <li class="early-single warning-list">
+
+        <li v-for="(item,index) in queryAlarmIng.troubles" 
+        :class="item.allCount!=null ? 'early-more' :'early-single'" class="dangers-list">
           <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生警报</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+            <h5 @click="dialogVisible  = true"><i class="icon iconfont icon-early"></i>
+            <!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
+            {{item.unitName==null ? '' :item.unitName}}
+            {{item.buildingName==null ? '' :item.buildingName}}
+            {{item.floorNumber==null ? '' :item.floorNumber+'层'}}
+            {{item.roomNumber==null ? '' :item.roomNumber}}
+            <span>
+              {{item.allCount!=null ? '多处' :''}} 发生隐患
+            </span></h5>
+            <h4>
+              <a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
               <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
               <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
+              <a href=""><span class="badge">
+                {{item.allCount!=null ? item.allCount :''}}
+              </span></a>
             </h4>
           </article>
           <var>
             <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
+                <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
+                <template v-if="item.type==1">
+                  <i class="icon iconfont icon-sunhuai-mian-"><span>损坏</span></i>
+                </template>
+                <template v-if="item.type==2">
+                  <i class="icon iconfont icon-feirenweiyinsuyinhuan-mian-"><span>人为风险</span></i>
+                </template>
+                <template v-if="item.type==3">
+                  <i class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1"><span>非人为风险</span></i>
+                </template>
+                <template v-if="item.type==4">
+                  <i class="icon iconfont icon-queshi-mian-"><span>缺失</span></i>
+                </template>
+                <template v-if="item.type==5">
+                  <i class="icon iconfont icon-weixianpin-mian-"><span>危险品</span></i>
+                </template>
             </p>
-            <p class="col-sm-4">              
-              <span class="badge">332s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 聚合报警循环li -->
-        <li class="early-more warning-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>多处发生报警</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">14</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-xiaofangshuan-xian-" data-toggle="tooltip" title="消防栓5个"><span>5</span></i>
-              <i class="icon iconfont icon-jiankong-mian-" data-toggle="tooltip" title="监控摄像头4个"><span>4</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-" data-toggle="tooltip" title="灭火器2个"><span>2</span></i>
-              <i class="icon iconfont icon-xiaofangshuan-xian-" data-toggle="tooltip" title="消防栓5个"><span>5</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">2769s</span><span class="badge">12:36:47</span>
+            <p class="col-sm-4">
+              <!-- <span class="badge">98s</span> -->
+              <span class="badge">{{(item.createTime).split(' ')[1]}}</span>
             </p>
           </var>
         </li>
-        <!-- 聚合隐患循环li -->
-        <li class="early-more dangers-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>多处发生隐患</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">14</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-xiaofangshuan-xian-" data-toggle="tooltip" title="消防栓5个"><span>5</span></i>
-              <i class="icon iconfont icon-jiankong-mian-" data-toggle="tooltip" title="监控摄像头4个"><span>4</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-" data-toggle="tooltip" title="灭火器2个"><span>2</span></i>
-              <i class="icon iconfont icon-xiaofangshuan-xian-" data-toggle="tooltip" title="消防栓5个"><span>5</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">2769s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 单条故障循环li -->
-        <li class="early-single fault-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生故障</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">332s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 单条隐患循环li -->
-        <li class="early-single dangers-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生隐患</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">36s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 已解决单条隐患循环li -->
-        <li class="early-single dangers-list ok-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生隐患</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">36s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 聚合隐患循环li -->
-        <li class="early-more dangers-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>多处发生隐患</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">14</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-xiaofangshuan-xian-" data-toggle="tooltip" title="消防栓5个"><span>5</span></i>
-              <i class="icon iconfont icon-jiankong-mian-" data-toggle="tooltip" title="监控摄像头4个"><span>4</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-" data-toggle="tooltip" title="灭火器2个"><span>2</span></i>
-              <i class="icon iconfont icon-xiaofangshuan-xian-" data-toggle="tooltip" title="消防栓5个"><span>5</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">2769s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 单条故障循环li -->
-        <li class="early-single fault-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生故障</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">332s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 单条隐患循环li -->
-        <li class="early-single dangers-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生隐患</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">36s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 已解决单条隐患循环li -->
-        <li class="early-single dangers-list ok-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生隐患</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">36s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 单条隐患循环li -->
-        <li class="early-single dangers-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生隐患</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">36s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
-        <!-- 已解决单条隐患循环li -->
-        <li class="early-single dangers-list ok-list">
-          <article>
-            <h5><i class="icon iconfont icon-early"></i>实验教学1号楼3层1203室<span>发生隐患</span></h5>
-            <h4>              
-              <a href=""><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisible  = true"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">1</span></a>
-            </h4>
-          </article>
-          <var>
-            <p class="col-sm-8">
-              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
-              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>
-            </p>
-            <p class="col-sm-4">              
-              <span class="badge">36s</span><span class="badge">12:36:47</span>
-            </p>
-          </var>
-        </li>
+        
       </ul>
     </section>
+    <template>
+
+    </template>
     <!-- 弹窗 -->
-    <el-dialog title="":visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+    <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
       <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
       <earlyinfo-vue></earlyinfo-vue>
     </el-dialog>
   </div>
 
 </template>
-
+tfg
 <script>  
 import earlyinfoVue from './earlyinfo.vue';
+import{mapState} from "vuex";
+import sockjs from 'sockjs-client';
+import moment from 'moment';
+var Stomp = require('@stomp/stompjs');
 export default {
+  
   components:{
       'earlyinfo-vue':earlyinfoVue
   },
   // 数据接入
+  
   data() {
     return {
       // 弹报警详情
-      dialogVisible: false
+      dialogVisible: false,
+      torightdatas:Object,
+      getUnitsSynthesis_parmar:{
+        unitId:null
+      },
+      getUnitsSynthesis:Object,
+      queryAlarmIng_parmar:{
+        unitid:null,
+        type:1
+      },
+      queryAlarmIng:Object,
+      // socketid:''
+      websock: null,
+      tounpdateIndex:1
     }
   },
+  // sockets:{
+  //   connect: function(){  //这里是监听connect事件
+  //     this.socketid=this.$socket.id
+  //   },
+  //   customEmit: function(val){
+  //     console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+  //   }
+  // },
+  computed:mapState([
+    'torightdata',
+  ]),
+  watch:{
+      torightdata(){
+        this.torightdatas=this.torightdata;
+      },
+    },
   // 调用方法 
-  methods: { 
+  methods: {
+
+    connect() {
+      var that=this;
+      console.log("去链接。。。");
+      var socket = new sockjs('http://api.nanninglq.51play.com/socket');
+      var stompClient = Stomp.over(socket);
+      stompClient.connect({}, function (frame) {
+          console.log('Connected: ' + frame);
+          //广播消息
+          stompClient.subscribe('/topic/broadcast', function (data) {
+              // console.info("receive a broadcast message");
+              // that.runCallback(data);
+              // console.log(data);
+          });
+          //点对点
+          stompClient.subscribe('/user/topic/p2p', function (data) {
+              // console.info("receive a p2p message");
+              that.runCallback(data,that);
+              that.$store.commit('toIndexLeftAlarmChar', '更新'+that.tounpdateIndex++);
+              that.getgetUnitsSynthesis();
+              // console.log(data);
+          });
+          console.log("创建链接完成。。。");
+      },function (e) {
+          console.error("connection closed, retry in 5 seconds");
+          setTimeout('connect()', 5000);
+          console.log("创建链接失败。。。");
+      });
+    },
+    runCallback(data,that) {
+      var message = JSON.parse(data.body);
+      var opt = message.data.opt;
+      // 人工报警和设备报警
+      if(opt.type==1 || opt.type==2){
+        that.getqueryAlarmIng(2,opt.type);
+        this.openpanl(opt.type,opt)
+      }
+      // 确认火情
+      if(opt.type==5){
+        that.getqueryAlarmIng(3,opt.type);
+        this.openpanl(opt.type,opt)
+      }
+      // 关闭火情
+      if(opt.type==6){
+        that.getqueryAlarmIng(4,opt.type);
+        this.openpanl(opt.type,opt)
+      }
+      
+    },
     // tab切换  
     // 实时警报列表展开/折叠
     openEarlyList(){
@@ -597,13 +497,100 @@ export default {
       
     },
     // 锁定/关闭
-     earlyTool(){
-            $(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
-     }
+    earlyTool(){
+      $(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
+    },
+    getgetUnitsSynthesis(){
+      this.$fetch(
+        "/api/unit/getUnitsSynthesis",
+        this.getUnitsSynthesis_parmar
+      ).then(response => {
+        if (response.data) {
+          this.getUnitsSynthesis=response.data.result;
+        }
+      });
+    },
+
+    // type:  
+    // =1 正常请求画图
+    // =2 只请求报警和火情
+    // =3 确认报警
+    // =4 关闭火情
+
+    getqueryAlarmIng(type,opttype){
+      this.queryAlarmIng=Object;
+      this.$fetch(
+        "/api/alarm/queryAlarmIng",
+        this.queryAlarmIng_parmar
+      ).then(response => {
+        if (response.data) {
+          this.queryAlarmIng=response.data;
+          console.log(this.queryAlarmIng);
+          this.$store.commit('indexToAlarmTroubel',[this.queryAlarmIng,type]);
+          // if(type!=1){
+            
+          // }
+        }
+      });
+    },
+    openpanl(type,item){
+      // 报警
+      var icon='icon-baojing-xian-';
+      var title='报警';
+      var position='经典大厦';
+      var people='段亚伟';
+      var time='';
+      var style='panlset-red';
+      if(type==1 || type==2){
+        icon='icon-baojing-xian-';
+        title='报警';
+        style='panlset-red';
+      }
+      // 确认火情
+      if(type==5){
+        icon='icon-baojing-xian-';
+        title='火情';
+        style='panlset-red';
+      }
+      // 关闭火情
+      if(type==6){
+        icon='icon-baojing-xian-';
+        title='关闭';
+        style='panlset-blue';
+      }
+      
+      var html=`
+        <div class='row font-black' style='width:600px;'>
+          <div class='col-sm-3 notify-left'>
+            <i class='icon iconfont `+icon+` size-36'></i>
+            <span class='size-20'>`+title+`</span>
+          </div>
+          <div class='col-sm-9 notify-right'>
+            <P>`+item.title+`</p>
+            <P class='size-12'>
+            <i class="icon iconfont icon-xunjianyuan-mian-"><span>`+item.time+`</span></i>
+            </p>
+          </div>
+        </div>
+      `
+      this.$notify({
+      // title: '提示',
+      dangerouslyUseHTMLString: true,
+      customClass:style,
+      message: html,
+      duration: 0
+    });
+    }
+
   },
   // 默认加载方法
   mounted() {
+    this.getgetUnitsSynthesis();
+    this.getqueryAlarmIng(1);
+    // this.initWebpack();
+    this.connect();
     
+    // this.$socket.emit('connect', '123'); //在这里触发connect事件
   }
 };
 

@@ -6,14 +6,19 @@ import router from './router'
 import $ from 'jquery'
 import axios from 'axios';
 import store from './vuex/store';
+import sockjs from 'sockjs-client';
+import moment from 'moment';
+
+
 // echarts
-import echarts from 'echarts'
-Vue.prototype.$echarts = echarts
+import echarts from 'echarts';
+Vue.prototype.$echarts = echarts;
+
 // Element-UI
 import ElementUI from 'element-ui';
-
-
 Vue.use(ElementUI);
+
+
 import 'element-ui/lib/theme-chalk/index.css';
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -56,6 +61,8 @@ new Vue({
   el: '#app',
   router,
   store,
+  sockjs,
+  moment,
   components: { App },
   template: '<App/>'
 })

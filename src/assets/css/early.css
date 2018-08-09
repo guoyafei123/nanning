@@ -220,9 +220,9 @@
 }
 /*聚合*/
 .early-single var p i:first-child {
-    min-width: 140px;
+    /* min-width: 140px;
     max-width: 160px;
-    display: inline-block;
+    display: inline-block; */
 }
 .early-more i span {
     color: #fff!important;

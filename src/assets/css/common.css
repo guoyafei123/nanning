@@ -116,7 +116,7 @@ table {
 .font-gray-666{color: #666666!important}
 .font-gray-999{color: #999999!important}
 .font-gray-ccc{color: #cccccc!important}
-
+.font-weight{font-weight: bold !important}
 
 /* table专用 */
 .toolroute-table td.font-black{color:#000000}

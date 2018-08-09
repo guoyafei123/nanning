@@ -23,6 +23,11 @@
   import index_leftVue from './index_left.vue';
   import index_rightVue from './index_right.vue';
   export default {
+    data(){
+      return{
+        
+      }
+    },
     components:{
       'header-vue':HeaderVue,
       'index_left-vue':index_leftVue,
