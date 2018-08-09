@@ -476,8 +476,12 @@ export default {
         that.getqueryAlarmIng(3,opt.type);
         this.openpanl(opt.type,opt)
       }
+      if(opt.type==20){
+        that.getqueryAlarmIng(20,opt.type);
+        this.openpanl(opt.type,opt)
+      }
       // 关闭火情
-      if(opt.type==6){
+      if(opt.type==6 || opt.type==3){
         that.getqueryAlarmIng(4,opt.type);
         this.openpanl(opt.type,opt)
       }
@@ -553,7 +557,7 @@ export default {
         style='panlset-red';
       }
       // 关闭火情
-      if(type==6){
+      if(type==6 || type==3 || type==20){
         icon='icon-baojing-xian-';
         title='关闭';
         style='panlset-blue';

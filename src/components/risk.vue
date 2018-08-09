@@ -527,23 +527,15 @@
       options: [
         {
           value: "选项1",
-          label: "路线名称1"
+          label: "南宁市良庆区"
         },
         {
           value: "选项2",
-          label: "路线名称2"
+          label: "南宁市兴宁区"
         },
         {
           value: "选项3",
-          label: "路线名称3"
-        },
-        {
-          value: "选项4",
-          label: "路线名称4"
-        },
-        {
-          value: "选项5",
-          label: "路线名称5"
+          label: "南宁市横县"
         }
       ],
     };

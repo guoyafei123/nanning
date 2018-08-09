@@ -484,6 +484,9 @@
           }else if(type==3){
             let element=this.indexToAlarmTroubel[0].alarms[0];
             this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
+          }else if(type==20){
+            let element=this.indexToAlarmTroubel[0].alarms[0];
+            this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
           }else if(type==4){
             for(var i=0;i<this.alarmsArray.length;i++){
               this.mp.removeOverlay(this.alarmsArray[i][0]);

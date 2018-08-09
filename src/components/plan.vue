@@ -104,15 +104,15 @@
                 </li>
                 <li>
                   <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部单位"  @change="tolineitem">
-                    <el-option v-for="item in option" :key="item.name" :label="item.name" :value="item.name">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                   </el-select>
                   <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部建筑"  @change="tolineitem">
-                    <el-option v-for="item in option" :key="item.name" :label="item.name" :value="item.name">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                   </el-select>
                   <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 pull-right" size="mini" v-model="value7" placeholder="全部类型"  @change="tolineitem">
-                    <el-option v-for="item in option" :key="item.name" :label="item.name" :value="item.name">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                   </el-select>
                 </li>
@@ -192,7 +192,7 @@
                       <!-- 单位筛选 -->
                       <div class="col-sm-3 padding0">
                         <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="全部单位">
-                          <el-option v-for="item in option" :key="item.value" :label="item.label" :value="item.value">
+                          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                           </el-option>
                         </el-select>
                       </div>
@@ -518,26 +518,18 @@
       // 单选按钮
       bulidvalue:1,
       value7:'',
-      option: [
+      options: [
         {
           value: "选项1",
-          label: "路线名称1"
+          label: "南宁市良庆区"
         },
         {
           value: "选项2",
-          label: "路线名称2"
+          label: "南宁市兴宁区"
         },
         {
           value: "选项3",
-          label: "路线名称3"
-        },
-        {
-          value: "选项4",
-          label: "路线名称4"
-        },
-        {
-          value: "选项5",
-          label: "路线名称5"
+          label: "南宁市横县"
         }
       ],
       // 时间筛选

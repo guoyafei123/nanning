@@ -287,7 +287,7 @@
               </section>
               <!-- 详情 -->
               <section class="dan-iteminfo overflow-scr">
-                <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>                
+                <!-- <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>                 -->
                 <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
                   <!-- 已选择 -->
                   <div class="personinfo">
@@ -485,7 +485,20 @@ export default {
         ]
       },
       value7: "",
-
+      options: [
+        {
+          value: "选项1",
+          label: "南宁市良庆区"
+        },
+        {
+          value: "选项2",
+          label: "南宁市兴宁区"
+        },
+        {
+          value: "选项3",
+          label: "南宁市横县"
+        }
+      ],
       ins_queryInspectionNameList: Object,
       ins_queryInspectionNameListvalue: "全部建筑",
       // 表格-请求
@@ -537,6 +550,7 @@ export default {
     };
   },
   methods: {
+    
     moren() {
       $(".dan-lineinfo")
         .addClass("display-block")
@@ -1025,11 +1039,11 @@ export default {
   },
   mounted() {
     this.$store.commit('route_path',this.$route.path);
-    this.getTable();
-    this.getData();
-    this.get_axis();
-    this.get_line();
-    this.get_pie();
+    // this.getTable();
+    // this.getData();
+    // this.get_axis();
+    // this.get_line();
+    // this.get_pie();
   }
 };
 </script>

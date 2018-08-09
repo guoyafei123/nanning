@@ -162,9 +162,6 @@
     data() {
       return {
         options: [{
-          value: '选项1',
-          label: '全部区域'
-        }, {
           value: '选项2',
           label: '南宁市良庆区'
         }, {

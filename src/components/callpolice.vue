@@ -589,19 +589,15 @@ export default {
       options: [
         {
           value: "选项1",
-          label: "全部单位"
+          label: "南宁市良庆区"
         },
         {
           value: "选项2",
-          label: "中心小学"
+          label: "南宁市兴宁区"
         },
         {
           value: "选项3",
-          label: "瑞和家园"
-        },
-        {
-          value: "选项4",
-          label: "国中大厦"
+          label: "南宁市横县"
         }
       ],
       ins_queryInspectionNameListvalue: "全部单位",
@@ -794,10 +790,10 @@ export default {
         if (response) {
           console.log(response);
           this.ins_getAlarmCount = response.data.alarmCount;
-          this.draw_piemin(
-              "call_charpiemin",
-              response.data.alarmCount
-            );
+          // this.draw_piemin(
+          //     "call_charpiemin",
+          //     response.data.alarmCount
+          //   );
         }
       })
       .then(err => {
@@ -825,11 +821,11 @@ export default {
       .then(response => {
         if (response) {
           this.ins_getAlarmRate = response.data.alarmRate[0] 
-          this.draw_piemax(
-            "call_charpiemax",
-            this.ins_getAlarmRate,
-            this.getAlarmRate_parameter.type
-          );
+          // this.draw_piemax(
+          //   "call_charpiemax",
+          //   this.ins_getAlarmRate,
+          //   this.getAlarmRate_parameter.type
+          // );
         }
       })
       .then(err => {
