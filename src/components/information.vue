@@ -51,7 +51,7 @@
             </div>
           </section>
           <section>
-            <div class="toolroute font-gray-ccc margin-left37">
+            <div class="toolroute font-gray-ccc margin-left37 margin-top100">
               <span class="toolroute-rect bg-blue"></span>
               <ul class="padding-left10 padding-right5 clearfix">
                 <li>
@@ -92,6 +92,78 @@
                         </tr>
                       </thead>
                       <tbody>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和家园2号楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-qitimiehuoxitong-" data-toggle="tooltip" title="气体灭火系统"></i></td>
+                          <td class="font-blue">正常</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>实验教学楼</td>
+                          <td>中心小学</td>
+                          <td class="dec-type"><i class="icon iconfont icon-ganyanqi-" data-toggle="tooltip" title="烟雾感应器"></i></td>
+                          <td class="font-orange">故障</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和写字楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-hongwaiyanhuoganying-" data-toggle="tooltip" title="声光报警器"></i></td>
+                          <td class="font-yellow">隐患</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和家园2号楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-qitimiehuoxitong-" data-toggle="tooltip" title="气体灭火系统"></i></td>
+                          <td class="font-blue">正常</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>实验教学楼</td>
+                          <td>中心小学</td>
+                          <td class="dec-type"><i class="icon iconfont icon-ganyanqi-" data-toggle="tooltip" title="烟雾感应器"></i></td>
+                          <td class="font-orange">故障</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和写字楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-hongwaiyanhuoganying-" data-toggle="tooltip" title="声光报警器"></i></td>
+                          <td class="font-yellow">隐患</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
                         <tr>
                           <td>AE12WD56W</td>
                           <td>瑞和家园2号楼</td>
@@ -201,7 +273,7 @@
                   </div>
               </section>
               <!-- 统计 -->
-              <section class="dan-lineinfo display-none">
+              <section class="dan-lineinfo ">
                 <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
                     <!-- 已选择 -->
                     <div class="personinfo">
@@ -286,7 +358,7 @@
                     </section>
               </section>
               <!-- 详情 -->
-              <section class="dan-iteminfo overflow-scr">
+              <section class="dan-iteminfo overflow-scr display-none">
                 <!-- <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>                 -->
                 <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
                   <!-- 已选择 -->
@@ -527,7 +599,7 @@ export default {
       ins_alarmAndMalfunctionDeviceCount: Object,
       // 饼图数据
       queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter: {
-        unitId: "4",
+        unitId: '',
         startTime: "",
         endTime: "",
         type: 1
@@ -552,12 +624,13 @@ export default {
   methods: {
     
     moren() {
-      $(".dan-lineinfo")
+      $(".dan-iteminfo")
         .addClass("display-block")
         .removeClass("display-none");
-      $(".dan-iteminfo")
+      $(".dan-lineinfo")
         .addClass("display-none")
         .removeClass("display-block");
+      
     },
     toitmeinfo(item) {
       $(".dan-iteminfo")
@@ -1041,9 +1114,9 @@ export default {
     this.$store.commit('route_path',this.$route.path);
     // this.getTable();
     // this.getData();
-    // this.get_axis();
-    // this.get_line();
-    // this.get_pie();
+    this.get_axis();
+      this.get_line();
+      this.get_pie();
   }
 };
 </script>

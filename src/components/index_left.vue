@@ -191,8 +191,8 @@ export default {
     draw_piemin(id, data) {
       let value;
       let name;
-      if (data.amount == 0) {
-        value = 100;
+      if (data.amount != 0) {
+        value = 0;
         name = "暂无统计";
       } else {
         value = data.finish / data.amount * 100;

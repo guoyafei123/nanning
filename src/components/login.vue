@@ -171,23 +171,26 @@
       },
       getvercode(){
         if(this.vercodeb==true && this.varphoneb==true){
-            this.$fetch(
-              "/cas/login/code",
-              this.ruleForm
-            )
-            .then(response => {
-              if (response) {
-                let num=60;
+          let num=59;
+          this.vercodeb=false;
+          this.vercodetext=num+'秒后重新获取';
                 let intver=setInterval(()=>{
                   num--;
                   this.vercodetext=num+'秒后重新获取';
-                  this.vercodeb=false;
+                  
                   if(num==0){
                     clearInterval(intver);
                     this.vercodetext='获取验证码';
                     this.vercodeb=true;
                   }
                 },1000)
+            this.$fetch(
+              "/cas/login/code",
+              this.ruleForm
+            )
+            .then(response => {
+              if (response) {
+                
               }
             })
             .then(err => {

@@ -184,23 +184,26 @@
       },
       getvercode(){
         if(this.vercodeb==true && this.varphoneb==true){
+            let num=59;
+            this.vercodetext=num+'秒后重新获取';
+            this.vercodeb=false;
+            let intver=setInterval(()=>{
+              num--;
+              this.vercodetext=num+'秒后重新获取';
+              this.vercodeb=false;
+              if(num==0){
+                clearInterval(intver);
+                this.vercodetext='获取验证码';
+                this.vercodeb=true;
+              }
+            },1000)
             this.$fetch(
               "/cas/reg/code",
               this.ruleForm
             )
             .then(response => {
               if (response) {
-                let num=60;
-                let intver=setInterval(()=>{
-                  num--;
-                  this.vercodetext=num+'秒后重新获取';
-                  this.vercodeb=false;
-                  if(num==0){
-                    clearInterval(intver);
-                    this.vercodetext='获取验证码';
-                    this.vercodeb=true;
-                  }
-                },1000)
+                
               }
             })
             .then(err => {

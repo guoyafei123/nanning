@@ -163,7 +163,7 @@
             </li>         
           </ul> 
         </div>
-        <a href="" class="btn-back">查看更多</a>
+        <a class="btn-back">查看更多</a>
       </div>
       <!-- 消息内容 -->
       <div id="TabCont" class="messages-list hide">

@@ -77,8 +77,8 @@
                 <li>
                   <p class="font-blue size-16">巡检路线
                     <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                                  <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                              </span>
+                        <i class="icon iconfont icon-weibiaoti10 size-12"></i>
+                    </span>
                   </p>
                 </li>
                 <li>
@@ -87,7 +87,7 @@
                       </el-option>
                     </el-select>
                     <div class="float-right margin-top5">
-                      <a class="upd-btn upd-btn-dis" id="lookroute"  @click="lookroute">查看路线</a>
+                      <!-- <a class="upd-btn upd-btn-dis" id="lookroute"  @click="lookroute">查看路线</a> -->
                       <!-- <a class="upd-btn">展开表单</a> -->
                     </div>
                 </li>
@@ -475,9 +475,10 @@
                     <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                         <p class="font-blue size-50">
-                          <template v-if="ins_queryPlanDetails.planDetails!=null">
+                          <!-- <template v-if="ins_queryPlanDetails.planDetails!=null">
                             {{ins_queryPlanDetails.planDetails.amount}}/{{ins_queryPlanDetails.planDetails.finishAmount}}
-                          </template>
+                          </template> -->
+                          3/30
                         </p>
                       </li>
                       <li>
@@ -491,7 +492,7 @@
                   <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
                     <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
                       <div class="col-sm-7 font-gray-999 padding-left0 padding-right0">
-                        <div id="ins_charlooklinepie" style="width: 100%;height:150px;margin: 0 auto;"></div>
+                        <div id="ins_charlookline2" style="width: 100%;height:150px;margin: 0 auto;"></div>
                       </div>
                     </ul>
                   </div>
@@ -501,29 +502,29 @@
                 <div class="toolcount">
                   <div class="col-sm-12  font-gray-999 padding-right0">
                     <div class="row text-center">
-                      <template v-if="ins_queryPlanDetails.planDetails">
+                      <!-- <template v-if="ins_queryPlanDetails.planDetails"> -->
                         <div class="col-sm-4 personnel-borderright">
-                          <p class="size-16 font-white">{{ins_queryPlanDetails.planDetails.troubleCount}}</p>
+                          <p class="size-16 font-white">12</p>
                           <p>隐患发现数</p>
                         </div>
                         <div class="col-sm-4 personnel-borderright">
-                          <p class="size-16 font-white">{{ins_queryPlanDetails.planDetails.userCount}}</p>
+                          <p class="size-16 font-white">56</p>
                           <p>巡检人数</p>
                         </div>
                         <div class="col-sm-4">
-                          <p class="size-16 font-white">{{ins_queryPlanDetails.nodeCount}}</p>
+                          <p class="size-16 font-white">8</p>
                           <p>节点数量</p>
                         </div>
-                      </template>
+                      <!-- </template> -->
                     </div>
                   </div>
                 </div>
               </section>
               <section>
                 <div class="textandimg row">
-                  <h4 class="p-title">设备信息</h4>
+                  <h4 class="p-title">路线信息</h4>
                   <div class="row textandimg-main padding-left15 size-12">
-                    <template v-if="ins_queryPlanDetails.inspectionPlan">
+                    <!-- <template v-if="ins_queryPlanDetails.inspectionPlan">
                         <div class="col-sm-12">
                         <span>路线最新激活时间 </span>
                         <strong>{{ins_queryPlanDetails.inspectionPlan.activeTime}}</strong>
@@ -540,7 +541,25 @@
                         <span>路线删除人 </span>
                         <strong>{{ins_queryPlanDetails.inspectionPlan.delName}}</strong>
                       </div>
-                    </template>
+                    </template> -->
+                    <!-- <template v-if="ins_queryPlanDetails.inspectionPlan"> -->
+                      <div class="col-sm-12">
+                        <span>路线最新激活时间 </span>
+                        <strong>2018-08-09 08:00:00</strong>
+                      </div>
+                      <div class="col-sm-12">
+                        <span>路线激活人 </span>
+                        <strong>段亚伟</strong>
+                      </div>
+                      <div class="col-sm-12">
+                        <span>路线删除时间 </span>
+                        <strong>2018-08-09 09:00:00</strong>
+                      </div>
+                      <div class="col-sm-12">
+                        <span>路线删除人 </span>
+                        <strong>段亚伟</strong>
+                      </div>
+                    <!-- </template> -->
                   </div>
                 </div>
               </section>
@@ -870,30 +889,31 @@ export default {
           .addClass("display-block")
           .removeClass("display-none");
         // 查看路线详情
-        this.$fetch(
-          "api/inspection/queryPlanDetails",
-          this.queryPlanDetails_parameter
-        )
-          .then(response => {
-            if (response) {
-              this.ins_queryPlanDetails= response.data;
-              console.log(this.ins_queryPlanDetails);bfvmhjb
-              // draw_piemin()
+        // this.$fetch(
+        //   "api/inspection/queryPlanDetails",
+        //   this.queryPlanDetails_parameter
+        // )
+        //   .then(response => {
+        //     if (response) {
+        //       this.ins_queryPlanDetails= response.data;
+        //       console.log(this.ins_queryPlanDetails);bfvmhjb
+        //       // draw_piemin()
 
-              // let data = response.data.result.dateMap;
-              // let a=[],b=[];
-              // for (var value in data) {			
-              //   a.push(value);
-              //   b.push(data[value]);
-              // }
-              this.draw_line(
-                "ins_charlookline",response.data.planDetails.planMap
-              );
-            }
-          })
-          .then(err => {
-            console.log(err);
-          });
+        //       // let data = response.data.result.dateMap;
+        //       // let a=[],b=[];
+        //       // for (var value in data) {			
+        //       //   a.push(value);
+        //       //   b.push(data[value]);
+        //       // }
+        //       // this.draw_line(
+        //       //   "ins_charlookline",response.data.planDetails.planMap
+        //       // );
+        //     }
+        //   })
+        //   .then(err => {
+        //     console.log(err);
+        //   });
+          this.getceshi();
       }
       
     },
@@ -1124,7 +1144,43 @@ export default {
     // 锁定/关闭
      goBack(){
             $(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
+     },
+     getceshi(){
+       var pie = {
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        series: [
+          {
+            name: "访问来源",
+            type: "pie",
+            selectedMode: "single",
+            radius: [0, "70%"],
+            label: {
+              normal: {
+                position: "inner"
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            color: ["#bad616", "#333"],
+            data: [
+              { value: 335, name: "50%", selected: true },
+              { value: 679, name: "" }
+            ]
+          }
+        ]
+      };
+       let mypie1 = this.$echarts.init(document.getElementById("ins_charlookline"));
+      mypie1.setOption(pie);
+      let mypie2 = this.$echarts.init(document.getElementById("ins_charlookline2"));
+      mypie2.setOption(pie)
      }
+     
   },
   mounted() {
     this.$store.commit('route_path',this.$route.path);
