@@ -515,9 +515,9 @@ span.point {
 /*设备*/
 #device td.dec-type {
     text-align: center!important;
-    color: #fff;
+    color: #ccc;
     vertical-align: middle;
 }
 #device td.dec-type i {
-    font-size: 16px;
+    font-size: 14px;
 }

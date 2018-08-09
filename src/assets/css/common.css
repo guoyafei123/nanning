@@ -161,6 +161,20 @@ p {
 .toolroute-table td.font-gray-666{color: #666666}
 .toolroute-table td.font-gray-999{color: #999999}
 .toolroute-table td.font-gray-ccc{color: #cccccc}
+.table>tbody>tr.active>td,
+.table>tbody>tr.active>th,
+.table>tbody>tr>td.active,
+.table>tbody>tr>th.active,
+.table>tfoot>tr.active>td,
+.table>tfoot>tr.active>th,
+.table>tfoot>tr>td.active,
+.table>tfoot>tr>th.active,
+.table>thead>tr.active>td,
+.table>thead>tr.active>th,
+.table>thead>tr>td.active,
+.table>thead>tr>th.active {
+    background: rgba(255,255,255,.1);
+}
 /* 公用字体大小 */
 .size-10 {
     font-size: 12px;
@@ -187,6 +201,7 @@ p {
 .size-66{font-size:66px!important}
 .size-70{font-size:70px!important}
 .size-80{font-size:80px!important}
+.size-90{font-size:90px!important}
 .size-100{font-size:100px!important}
 
 /* 斜体 */

@@ -127,7 +127,7 @@
                         <td>18601246987</td>
                         <td>瑞和家园</td>
                         <td>
-                          <i class="fas fa-link font-blue"></i>
+                          <i class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -141,7 +141,7 @@
                         <td>18601246987</td>
                         <td>中心小学</td>
                         <td>
-                          <i class="fas fa-link font-blue"></i>
+                          <i class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -155,7 +155,7 @@
                         <td>18601246987</td>
                         <td>中心小学</td>
                         <td>
-                          <i class="fas fa-link font-blue"></i>
+                          <i class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -169,7 +169,7 @@
                         <td>18601246987</td>
                         <td>瑞和家园</td>
                         <td>
-                          <i class="fas fa-link font-blue"></i>
+                          <i class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -183,7 +183,7 @@
                         <td>18601246987</td>
                         <td>中心小学</td>
                         <td>
-                          <i class="fas fa-link font-blue"></i>
+                          <i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -197,7 +197,7 @@
                         <td>18601246987</td>
                         <td>瑞和家园</td>
                         <td>
-                          <i class="fas fa-link font-blue"></i>
+                          <i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -211,7 +211,7 @@
                         <td>18601246987</td>
                         <td>实验小学</td>
                         <td>
-                          <i class="fas fa-link font-gray-333"></i>
+                          <i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -225,7 +225,7 @@
                         <td>18601246987</td>
                         <td>实验小学</td>
                         <td>
-                          <i class="fas fa-link font-gray-333"></i>
+                          <i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -239,7 +239,7 @@
                         <td>18601246987</td>
                         <td>瑞和家园</td>
                         <td>
-                          <i class="fas fa-link font-gray-333"></i>
+                          <i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -253,7 +253,7 @@
                         <td>18601246987</td>
                         <td>瑞和家园</td>
                         <td>
-                          <i class="fas fa-link font-gray-333"></i>
+                          <i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
                         </td>
                         <td>
                           <a @click="moren">
@@ -456,7 +456,7 @@
                             <span class="font-blue">10</span>/30</td>
                           <td>
                             <a>
-                              <i class="fas fa-flag-checkered font-blue"></i>
+                              <i class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="正在巡检"></i>
                             </a>
                           </td>
                         </tr>
@@ -468,7 +468,7 @@
                             <span class="font-blue">10</span>/30</td>
                           <td>
                             <a>
-                              <i class="fas fa-flag-checkered font-blue"></i>
+                              <i class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="正在巡检"></i>
                             </a>
                           </td>
                         </tr>
@@ -480,7 +480,7 @@
                             <span class="font-blue">10</span>/30</td>
                           <td>
                             <a>
-                              <i class="fas fa-flag-checkered font-blue"></i>
+                              <i class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="正在巡检"></i>
                             </a>
                           </td>
                         </tr>
@@ -492,7 +492,7 @@
                             <span class="font-blue">10</span>/30</td>
                           <td>
                             <a>
-                              <i class="fas fa-flag-checkered font-blue"></i>
+                              <i class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
                             </a>
                           </td>
                         </tr>
@@ -504,7 +504,7 @@
                             <span class="font-blue">10</span>/30</td>
                           <td>
                             <a>
-                              <i class="fas fa-flag-checkered font-blue"></i>
+                              <i class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
                             </a>
                           </td>
                         </tr>
@@ -516,7 +516,7 @@
                             <span class="font-blue">10</span>/30</td>
                           <td>
                             <a>
-                              <i class="fas fa-flag-checkered font-blue"></i>
+                              <i class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
                             </a>
                           </td>
                         </tr>
@@ -528,7 +528,7 @@
                             <span class="font-blue">10</span>/30</td>
                           <td>
                             <a>
-                              <i class="fas fa-flag-checkered font-blue"></i>
+                              <i class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
                             </a>
                           </td>
                         </tr>
@@ -540,7 +540,7 @@
                             <span class="font-blue">10</span>/30</td>
                           <td>
                             <a>
-                              <i class="fas fa-flag-checkered font-blue"></i>
+                              <i class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
                             </a>
                           </td>
                         </tr>
@@ -774,7 +774,7 @@
             xAxis: {
               type: "category",
               boundaryGap: false,
-              data: ["Mon", "123", "Wed", "Thu", "Fri", "Sat", "Sun"],
+              data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
               show: true,
               axisLine: {
                 lineStyle: {
@@ -903,7 +903,7 @@
               {
                 type: "category",
                 show: true,
-                data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "12"],
+                data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
                 axisTick: {
                   alignWithLabel: true
                 }

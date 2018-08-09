@@ -50,7 +50,7 @@
           <section>
                   <div class="toolcount">
                     <h4>
-                      <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666" data-toggle="tooltip" title="全屏">
+                      <span class="float-right popup-inspectbtn font-gray-666" data-toggle="tooltip" title="全屏">
                         <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                       </span>
                     </h4>
@@ -671,11 +671,11 @@
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["Mon", "123", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
           show: true,
           axisLine: {
             lineStyle: {
-              color: "#999"
+              color: "#666"
             }
           }
         },
@@ -684,13 +684,13 @@
           type: "value",
           axisLine: {
             lineStyle: {
-              color: "#999"
+              color: "#666"
             }
           },
           splitLine: {
             lineStyle: {
               // 使用深浅的间隔色
-              color: ["#333"]
+              color: ["#222"]
             }
           }
         },
@@ -719,7 +719,7 @@
               colorStops: [
                 {
                   offset: 0,
-                  color: "#333"
+                  color: "#666"
                 }
               ]
             }
@@ -735,7 +735,7 @@
               colorStops: [
                 {
                   offset: 0,
-                  color: "rgba(255,255,255,0.3)" // 0% 处的颜色
+                  color: "#ccc"
                 }
               ]
             }
@@ -800,7 +800,7 @@
           {
             type: "category",
             show: true,
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "12"],
+            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
             axisTick: {
               alignWithLabel: true
             }

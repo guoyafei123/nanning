@@ -461,14 +461,14 @@ p.toolcount-p2 {
 }
 @media (min-width: 1600px) {
     #early  #common-cont{
-        width: 51%;
-        margin-left: 20%;
+        width: 47%;
+        margin-left: 24%;
     }
     #common-cont{
         width: 76%;
     }
     #left{
-        width: 20%;
+        width: 24%;
     }
     #right{
         width: 29%;
