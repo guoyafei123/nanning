@@ -19,7 +19,9 @@
           <!-- 提示文字 -->
           <h5>2D</h5>
         </div>
-        <div>地图</div>
+        <div>
+          <mapindex-vue></mapindex-vue>
+        </div>
       </section>
     </section>
     <!-- #左边 End-->
@@ -35,10 +37,12 @@
 <script>
   import HeaderVue from './header.vue';
   import earlyinfo_rightVue from './earlyinfo_right.vue';
+  import MapVue from './mapindex.vue';
   export default {
     components:{
       'header-vue':HeaderVue,
-      'earlyinfo_right-vue':earlyinfo_rightVue
+      'earlyinfo_right-vue':earlyinfo_rightVue,
+      'mapindex-vue': MapVue
     }
     
   }

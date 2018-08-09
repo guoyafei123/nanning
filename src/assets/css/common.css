@@ -45,13 +45,15 @@ ul {
 }
 
 a {
+  color: #666;
 	text-decoration: none
 }
 
-a:hover {
+
+a:focus,a:hover {
+    color: #bad616;
     text-decoration: none!important;
 }
-
 sup {
 	vertical-align: text-top
 }
@@ -73,7 +75,20 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0
 }
-
+table tr>td:last-child,
+table tr>th:last-child{
+  text-align: center!important;
+}
+thead tr {
+    background-color: rgba(0,0,0,.5);
+    cursor: default;
+}
+tfoot tr:hover,thead tr:hover {
+    background-color: transparent!important;
+}
+p {
+  margin:0;
+}
 /*滚动条*/
 ::-webkit-scrollbar {width: 2px;height:2px;}
 ::-webkit-scrollbar-track-piece {background-color: #3c3c3c;margin: -2px;}
@@ -87,6 +102,13 @@ table {
 ::-moz-scrollbar-thumb:vertical:hover{background: #555555}
 ::-moz-scrollbar-thumb:horizontal:hover{background: #555555}
 
+/*超出隐藏*/
+.white-space{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 /* 公用背景颜色 */
 .bg-black{background-color:rgba(0,0,0,1) !important}
 .bg-white{background-color:rgba(255,255,255,1) !important}
@@ -94,6 +116,7 @@ table {
 .bg-blue{background-color: rgba(186,214,22,1) !important}
 .bg-yellow{background-color: rgba(255,204,0,1) !important}
 .bg-orange{background-color: rgba(255,120,0,1) !important}
+.bg-blush{background-color: rgba(255,0,0,1) !important}
 .bg-red{background-color: rgba(241,49,49,1) !important}
 .bg-gray-111{background-color: rgba(17,17,17,1) !important}
 .bg-gray-222{background-color: rgba(34,34,34,1) !important}
@@ -101,7 +124,7 @@ table {
 .bg-gray-666{background-color: rgba(102,102,102,1) !important}
 .bg-gray-999{background-color: rgba(153,153,153,1) !important}
 .bg-gray-ccc{background-color: rgba(204,204,204,1) !important}
-
+.bg-none {background-color: transparent!important;}
 
 /* 公用字体颜色 */
 .font-black{color:#000000!important}
@@ -110,6 +133,7 @@ table {
 .font-yellow{color:#ffb709!important}
 .font-orange{color:#ff7800!important}
 .font-red{color:#f13131!important}
+.font-blush{color:rgba(255,0,0,1)!important}
 .font-gray-111{color: #111111!important}
 .font-gray-222{color: #222222!important}
 .font-gray-333{color: #333333!important}
@@ -117,6 +141,12 @@ table {
 .font-gray-999{color: #999999!important}
 .font-gray-ccc{color: #cccccc!important}
 
+.point-white:before {background-color:#ffffff}
+.point-blue:before {background-color: #bad616}
+.point-yellow:before {background-color:#ffb709}
+.point-orange:before {background-color:#ff7800}
+.point-red:before {background-color:#f13131}
+.point-blush:before {background-color:rgba(255,0,0,1)}
 
 /* table专用 */
 .toolroute-table td.font-black{color:#000000}
@@ -132,10 +162,13 @@ table {
 .toolroute-table td.font-gray-999{color: #999999}
 .toolroute-table td.font-gray-ccc{color: #cccccc}
 /* 公用字体大小 */
-.size-10{
+.size-10 {
     font-size: 12px;
     display: inline-block;
     transform: scale(0.84,0.84);
+    -webkit-transform: scale(0.84,0.84);
+    text-align: left;
+    line-height: 12px!important;
 }
 .size-12{font-size:12px!important}
 .size-14{font-size:14px!important}
@@ -147,6 +180,8 @@ table {
 .size-26{font-size:26px!important}
 .size-30{font-size:30px!important}
 .size-36{font-size:36px!important}
+.size-40{font-size:40px!important}
+.size-48{font-size:48px!important}
 .size-50{font-size:50px!important}
 .size-60{font-size:60px!important}
 .size-66{font-size:66px!important}
@@ -226,6 +261,9 @@ table {
 }
 
 /* margin and padding */
+.padding5 {
+  padding: 5px!important;
+}
 .padding0{padding: 0!important; }
 .padding-top0 { padding-top:0px !important; }
 .padding-right0 { padding-right:0px !important; }

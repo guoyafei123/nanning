@@ -28,7 +28,10 @@ var state={
   setvuextest:'',
   queryUnitBuildList:Object,
   queryInspectionLineList:Object,
-  route_path:''
+  route_path:'',
+  torightdata:Object,
+  indexToAlarmTroubel:Object,
+  toIndexLeftAlarmChar:Object
 }
 
 var mutations={
@@ -99,11 +102,16 @@ var mutations={
   },
   route_path(state,data){
     state.route_path=data;
-  }
-
-  
-
-  
+  },
+  torightdata(state,data){
+    state.torightdata=data;
+  },
+  indexToAlarmTroubel(state,data){
+    state.indexToAlarmTroubel=data;
+  },
+  toIndexLeftAlarmChar(state,data){
+    state.toIndexLeftAlarmChar=data;
+  },
 }
 
 export default new Vuex.Store({
