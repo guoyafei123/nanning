@@ -34,6 +34,8 @@ import Plan_MapsVue from '../management/Inspection_plan/maps';
 import List_of_peopleVue from '../management/List_of_people/List_of_people';
 import List_of_people_AllVue from '../management/List_of_people/all';
 import List_of_people_listVue from '../management/List_of_people/list';
+import Personnel_reviewVue from '../management/Personnel_review/Personnel_review';
+import Personnel_review_AllVue from '../management/Personnel_review/all';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -121,6 +123,14 @@ export default new Router({
         { path:'/List_of_people/list',component:List_of_people_listVue},
         { path:'/List_of_people/all',component:List_of_people_AllVue},
         { path:'/List_of_people',redirect:'/List_of_people/all'}
+      ]
+    },
+    {
+      path:'/Personnel_review',
+      component:Personnel_reviewVue,
+      children:[
+        { path:'/Personnel_review/all',component:Personnel_review_AllVue},
+        { path:'/Personnel_review',redirect:'/Personnel_review/all'}
       ]
     }
   ]
