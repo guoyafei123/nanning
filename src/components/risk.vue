@@ -15,7 +15,7 @@
                       <canvas id="canvas-big" width="260" height="200"></canvas>
                   </div>
                   <div class="tool-charmaxvalue">
-                      <p class="font-blue size-66">8.7</p>
+                      <p class="line-height86 size-60 font-blue"><span class="size-100">8</span>.7</p>
                       <div id="myChart1" style="width: 130%;height:50px;margin: 0 auto;"></div>
                   </div>
               </div>
@@ -535,51 +535,51 @@
           //中间文字说明
           cxt.textAlign = "center";
           cxt.textBaseline = "middle";
-          cxt.fillStyle = "#666666";
-          cxt.font = "normal 10px 黑体";
-          cxt.fillText("当日综合评估", 0, -20);
+          cxt.fillStyle = "#888";
+          cxt.font = "normal 12px 黑体";
+          cxt.fillText("当日综合评估", -8, -20);
 
           cxt.fillStyle = "#b7d216";
-          cxt.font = "normal 20px 黑体";
+          cxt.font = "normal 24px 黑体";
           cxt.fillText("安全评分", 0, 0);
 
           cxt.fillStyle = "#f4f4f4";
-          cxt.font = "normal 10px 黑体";
-          cxt.fillText("风险系数:" + num + '%', 0, 20);
+          cxt.font = "normal 12px 黑体";
+          cxt.fillText("风险系数:" + num + '%', 0, 24);
 
           //右上角字体说明
           cxt.fillStyle = "#999";
           cxt.textAlign = "left";
-          cxt.font = "normal 10px 黑体";
+          cxt.font = "normal 12px 黑体";
           cxt.fillText("报警 ", radi2 * 0.2 * 1.5, 0 - radi2 - r * 0.38);
 
           cxt.fillStyle = "#f13131";
           cxt.textAlign = "left";
-          cxt.font = "normal 10px 黑体";
+          cxt.font = "normal 12px 黑体";
           cxt.fontWeight = '900';
-          cxt.fillText(num, radi2 * 0.2 * 3, 0 - radi2 - r * 0.38);
+          cxt.fillText(num, radi2 * 0.2 * 3.5, 0 - radi2 - r * 0.38);
 
           cxt.fillStyle = "#999";
-          cxt.font = "normal 10px 黑体";
+          cxt.font = "normal 12px 黑体";
           cxt.fontWeight = '900';
-          cxt.fillText("隐患", radi2 * 0.2 * 5.1, 0 - radi2 - r * 0.38);
+          cxt.fillText("隐患", radi2 * 0.2 * 5.6, 0 - radi2 - r * 0.38);
 
           cxt.fillStyle = "#ffcc00";
           cxt.textAlign = "left";
-          cxt.font = "normal 10px 黑体";
+          cxt.font = "normal 12px 黑体";
           cxt.fontWeight = '900';
-          cxt.fillText(num, radi2 * 0.2 * 6.6, 0 - radi2 - r * 0.38);
+          cxt.fillText(num, radi2 * 0.2 * 7.5, 0 - radi2 - r * 0.38);
 
           cxt.fillStyle = "#999";
-          cxt.font = "normal 10px 黑体";
+          cxt.font = "normal 12px 黑体";
           cxt.fontWeight = '900';
-          cxt.fillText("危险品", radi2 * 0.2 * 8.5, 0 - radi2 - r * 0.38);
+          cxt.fillText("危险品", radi2 * 0.2 * 9, 0 - radi2 - r * 0.38);
 
           cxt.fillStyle = "#ff7800";
           cxt.textAlign = "left";
-          cxt.font = "normal 10px 黑体";
+          cxt.font = "normal 12px 黑体";
           cxt.fontWeight = '900';
-          cxt.fillText(num, radi2 * 0.2 * 10.7, 0 - radi2 - r * 0.38);
+          cxt.fillText(num, radi2 * 0.2 * 12.2, 0 - radi2 - r * 0.38);
 
           //画底格
           for(var i = 0, angle = Math.PI, tmp, len; i < 30; i++) {
@@ -638,7 +638,7 @@
           cxt.moveTo(radi2 * 0.2, 0 - radi2);
           cxt.lineTo(radi2 * 0.2, 0 - radi2 - r * 0.17);
           cxt.lineTo(radi2 * 0.2 * 1.8, 0 - radi2 - r * 0.28);
-          cxt.lineTo(radi2 * 0.2 * 13, 0 - radi2 - r * 0.28);
+          cxt.lineTo(radi2 * 0.2 * 20, 0 - radi2 - r * 0.28);
           cxt.stroke();
           cxt.closePath();
 
@@ -686,7 +686,7 @@
         //  var a = (99 * Math.random()).toFixed(2);
         //  go(a);
         // }, 1000)
-            go(30.33);
+            go(23);
             
             // 横向柱子
             var option11 = {
@@ -727,11 +727,11 @@
                             
                             color: function(params) {
                             if (params.value > 0 && params.value < 300) {
-                                return "#333333";
+                                return "#666";
                             } else if (params.value >= 100 && params.value <= 600) {
-                                return "#666666";
+                                return "#999";
                             } else if (params.value >= 200 && params.value <= 900) {
-                                return "#999999";
+                                return "#ccc";
                             }
                             return "#bad616";
                             }
@@ -750,7 +750,7 @@
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["Mon", "123", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
           show: true,
           axisLine: {
             lineStyle: {
@@ -879,7 +879,7 @@
           {
             type: "category",
             show: true,
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "12"],
+            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
             axisTick: {
               alignWithLabel: true
             }

@@ -4,46 +4,37 @@
       <section class="inspection-iteminfo" >
         <section>
           <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10">
-                 单位详情
+              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10" style="letter-spacing:10px;">
+                 {{ this.form.nickName }}的信息
               </h2>
               <div class="row textandimg-main">
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">单位名称 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.name"></span>
+                      <span class="size-16 font-gray-666 span_name">姓名</span>
+                      <span class="size-14 font-gray-999 span_con" v-html="this.form.nickName"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">单位性质 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.property"></span>
-                  </div>
-
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">单位人数 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.staffNum"></span>
+                      <span class="size-16 font-gray-666 span_name">状态 </span>
+                      <span class="size-14 font-gray-999 span_con" v-html="this.form.review"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">单位地址 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.location"></span>
+                      <span class="size-12 font-gray-666 span_name">职位 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.position"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">单位图片</span>
-                      <img src="" id="up_img" style="width:80px;height:80px;"/>
+                      <span class="size-12 font-gray-666 span_name">所属单位</span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.unitName"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">部门电话 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.telephone"></span>
+                      <span class="size-12 font-gray-666 span_name">头像</span>
+                      <img :src="this.form.headImgUrl" id="up_img" style="width:80px;height:80px;"/>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">消防负责人 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.firemenName"></span>
+                      <span class="size-12 font-gray-666 span_name">联系电话 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.cellPhone"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">消防负责人电话 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.firemenTel"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">法人代表 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.corporation"></span>
+                      <span class="size-12 font-gray-666 span_name">角色 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.form.roleName"></span>
                   </div>
               </div>
           </div>
@@ -58,14 +49,15 @@
   export default {
     data() {
       return {
-        name:'',
-        property:'',
-        staffNum:'',
-        location:'',
-        telephone:'',
-        firemenName:'',
-        firemenTel:'',          
-        corporation:'',
+        form:{
+          nickName:'',
+          position:'',
+          unitName:'',
+          cellPhone:'',
+          roleName:'',
+          headImgUrl:'',
+          review:''
+        },
         tableData:[]
       }
     },
@@ -73,24 +65,20 @@
     methods: {
       right_list(){
         this.tableData.forEach((item,index)=>{
-          if(item.id == this.unitNum){
-            this.name = item.name ;
-            this.property = item.property ;
-            this.staffNum = item.staffNum ;
-            this.location = item.location ;
-            this.telephone = item.telephone ;
-            this.firemenName = item.firemenName ;
-            this.firemenTel = item.firemenTel ;
-            this.corporation = item.corporation ;
-            var url = "http://img.nanninglq.51play.com/xf/api/unit_img/"+ item.id+".jpg";
-            $("#up_img").attr("src",url);
-            // console.log(item)
+          if(item.id == this.unitNumber){
+            item.review == 0 ? this.form.review = '非审核账号' : item.review == 1 ? this.form.review = '审核通过' : item.review == 2 ? this.form.review = '审核未通过' : this.form.review = '待审核' ;
+            this.form.nickName = item.nickName ;
+            this.form.position = item.position ;
+            this.form.unitName = item.unitName ;
+            this.form.cellPhone = item.cellPhone ;
+            this.form.roleName = item.roleName ;
+            this.form.headImgUrl = item.headImgUrl ;
           }
         })
       },
       tableList(){
         this.$fetch(
-          "/api/unit/queryPagerUnitList",{
+          "/api/user/queryPagerUserList",{
             currentPager:this.currentPage4,
             pagerSize:10
           }
@@ -110,16 +98,15 @@
     },
     mounted() {
       this.tableList();
-      
       this.right_list();
     },
     watch:{
-      unitNum(){
+      unitNumber(){
         this.right_list();
       }
     },
     computed:mapState([
-      'unitNum'
+      'unitNumber'
     ])
   }
 </script>

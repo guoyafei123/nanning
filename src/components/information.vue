@@ -199,8 +199,9 @@
                       </el-date-picker>
                     </div>
                   </div>
-             </section>
-              <section class="dan-lineinfo">
+              </section>
+              <!-- 统计 -->
+              <section class="dan-lineinfo display-none">
                 <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
                     <!-- 已选择 -->
                     <div class="personinfo">
@@ -284,125 +285,153 @@
                         </div>
                     </section>
               </section>
-              <section class="dan-iteminfo display-none overflow-scr">
-                <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
-                  <!-- <section>
-                      <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
-                    <div class="personinfo">
+              <!-- 详情 -->
+              <section class="dan-iteminfo overflow-scr">
+                <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>                
+                <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
+                  <!-- 已选择 -->
+                  <div class="personinfo">
                         <p>
-                        <span class="size-20 font-blue">实验教学楼</span>
-                        <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                        <span class="size-20 font-blue">
+                          <i class="icon iconfont icon-jiankong-mian- size-20"  data-toggle="tooltip" title="监控摄像头"></i> AE12WD56W
+                        </span>
                         <span class="float-right">
-                                <span class="bgbox-max bg-gray-333 font-gray-999 size-10">灭火设备</span>
+                                <span class="bgbox-max bg-gray-333 font-gray-999 size-10">安防设备</span>
                             </span>
                         </p>
-                        <p class="col-sm-5 text-left padding0">
+                        <p class="col-sm-7 text-left padding0">
                             <span>
-                                <i class="fas fa-industry"></i> 良庆区中心小学</span>
+                                <i class="fas fa-industry"></i> 南宁市良庆区中心小学</span>
                         </p>
-                        <P class="col-sm-7 text-right padding0">
+                        <P class="col-sm-5 text-right padding0">
                             <span class="text-right">
-                            录入时间：<span class="font-gray-999">2018.07.09 08:00:00</span>
+                            最后更新：<span class="font-gray-999">2018.07.09 08:00:00</span>
                             </span>
                         </P>                        
-                    </div>
+                  </div>
                 </div>
-                  </section>-->
-                
-                  <section>
-                    <div class="textandimg row imgs-nthof-block size-12">
-                      <h4 class="p-title">警报信息</h4>
-                      <div class="row textandimg-main padding-left15">
-                        <div class="col-sm-12">
-                          <span>警 报 源 </span>
-                          <!-- <td v-if="ins_getAlarmDetail.isUser==0">{{ins_getAlarmDetail.deviceTypeName}}</td>
-                          <td v-if="ins_getAlarmDetail.isUser==1">{{ins_getAlarmDetail.nickName}}</td> -->
-                          <strong class="font-blue" v-if="ins_getAlarmDetail.userId==0">{{ins_getAlarmDetail.deviceTypeName}}</strong>
-                          <strong class="font-blue" v-if="ins_getAlarmDetail.userId==1">{{ins_getAlarmDetail.nickName}}</strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <span>警报地点 </span>
-                          <strong>{{ins_getAlarmDetail.unitName}}&nbsp;{{ins_getAlarmDetail.buildingName}}&nbsp;{{ins_getAlarmDetail.floorNumber}}&nbsp;{{ins_getAlarmDetail.roomNumber}}</strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <span>警报时间 </span>
-                          <strong class="font-white">{{ins_getAlarmDetail.startTime}}</strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <span>响应时间 </span>
-                          <strong class="font-blue">1小时32分</strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <!-- <span>描述 </span> -->
-                          <strong>{{ins_getAlarmDetail.remark}}</strong>
-                        </div>
-                        <!-- <div class="textandimg-img imgs-nthof">
-                          <template v-for="item in ins_getAlarmDetail.imgUrl">
-                            <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-                              <video :src="item" width="100%"  controls="controls"></video>
-                            </div>
-                          </template>
-                          <template v-for="item in ins_getAlarmDetail.imgUrl">
-                            <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-                              <img :src="item">
-                            </div>
-                          </template>
-                        </div> -->
+                <!-- 设备信息统计 -->
+                <section>
+                  <div class="toolcount margin-top20 clearfix">
+                    <div class="col-sm-4 font-gray-999 padding-right0">
+                        <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
+                          <li>
+                            <h1 class="toolcount-p1"><span class="font-blue"></span>正常</h1>
+                          </li>
+                          <li class="margin-top30">
+                            <p class="size-10 ">Device Status</p>
+                          </li>
+                          <li>
+                            <p class="size-16 font-blue">设备运行状态</p>
+                          </li>
+                        </ul>
                       </div>
-                      <h4 class="p-title">警报确认</h4>
-                      <div class="row textandimg-main padding-left15">
-                        <div class="col-sm-12">
-                          <span>确 认 人 </span>
-                          <strong>{{ins_getAlarmDetail.confirmNickName}}</strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <span>确认时间 </span>
-                          <strong class="font-white">{{ins_getAlarmDetail.confirmTime}}</strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <!-- <span>描述 </span> -->
-                          <strong>{{ins_getAlarmDetail.confirmReason}}</strong>
-                        </div>
-                        <div class="textandimg-img imgs-nthof">
-                          <template v-for="item in ins_getAlarmDetail.imgUrl">
-                            <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-                              <video :src="item" width="100%"  controls="controls"></video>
+                      <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
+                        <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
+                          <li>
+                            <p class="size-18 font-white">信息统计</p>
+                          </li>
+                          <li class="margin-bottom5">
+                            <p class="size-10 set-scaleright">Repair Statistics</p>
+                          </li>
+                          <li class="margin-top10">
+                            <p class="set-width-50">运行时长 <span class="font-blue">639 </span>天</p>
+                            <p class="pull-right">
+                              <a class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="查看监控摄像头">
+                              <i class="icon iconfont icon-jiankong-mian-"></i> 监控</a>
+                            </p>
+                            </li>
+                          <li class="row text-center padding-right16 margin-top10">
+                            <div class="col-sm-4 personnel-borderright">
+                              <p class="size-16 show font-red">18</p>
+                              <p>报警次数</p>
                             </div>
-                          </template>
-                          <template v-for="item in ins_getAlarmDetail.imgUrl">
-                            <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-                              <img :src="item">
+                            <div class="col-sm-4 personnel-borderright">
+                              <p class="size-16 show font-orange">6</p>
+                              <p>故障次数</p>
                             </div>
-                          </template>
-                        </div>
+                            <div class="col-sm-4">
+                              <p class="size-16 show font-white">360</p>
+                              <p>更换周期</p>
+                            </div>
+                          </li>
+                        </ul>
                       </div>
-                      <template v-if="infoShow">
-                        <h4 class="p-title">警报关闭</h4>
-                        <div class="row textandimg-main padding-left15">
-                          <div class="col-sm-12">
-                            <span>关闭 </span>
-                            <strong>{{ins_getAlarmDetail.cancelNickName}}</strong>
-                          </div>
-                          <div class="col-sm-12">
-                            <span>关闭时间 </span>
-                            <strong class="font-white">{{ins_getAlarmDetail.cancelTime}}</strong>
-                          </div>
-                          <!-- <div class="textandimg-img imgs-nthof">
-                            <template v-for="item in ins_getAlarmDetail.imgUrl">
-                              <div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-                                <video :src="item" width="100%"  controls="controls"></video>
-                              </div>
-                            </template>
-                            <template v-for="item in ins_getAlarmDetail.imgUrl">
-                              <div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-                                <img :src="item">
-                              </div>
-                            </template>
-                          </div> -->
+                  </div>
+                </section>
+                <!-- 设备基本信息 -->
+                <section>
+                    <div class="textandimg margin-top30">
+                        <h4 class="p-title">设备信息</h4>
+                        <div class="row textandimg-main margin-top20 size-12">
+                            <div class="col-sm-6">
+                                <span>设备名称 </span>
+                                <strong>AE12WD56W </strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>设备类型 </span>
+                                <strong>监控摄像头</strong>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <span>投入时间 </span>
+                                <strong>2015-10-17 </strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>设备标码 </span>
+                                <strong>
+                                  <a href="" class="font-blue display-inline-block" data-toggle="tooltip" title="预览二维码">预览</a> 
+                                  <a href="" class="font-blue display-inline-block" data-toggle="tooltip" title="下载二维码">下载</a>
+                                </strong>
+                            </div>
+                            <div class="col-sm-12">
+                                <span>设备位置 </span>
+                                <strong>良庆区中心小学实验教学楼6层</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>设备坐标 </span>
+                                <strong>X:236 Y:678</strong>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <span>离地高度 </span>
+                                <strong>223cm</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>距离顶部 </span>
+                                <strong>65cm</strong>
+                            </div>                            
+                            <div class="col-sm-6">
+                                <span>生产日期</span>
+                                <strong>2015-09-27</strong>
+                            </div>
+                            <div class="col-sm-12">
+                                <span>生产厂商 </span>
+                                <strong>南宁市精密仪器有限公司 <a href="tel:0760693575" class="font-blue display-inline-block"  data-toggle="tooltip" title="拨打电话0760693575"><i class="icon iconfont icon-dianhua size-14"></i></a></strong>
+                            </div>                   
                         </div>
-                      </template>
                     </div>
-                  </section>
+                </section>
+                <!-- 维保信息 -->
+                <section>
+                    <div class="textandimg margin-top30">
+                        <h4 class="p-title">维保信息</h4>
+                        <div class="row textandimg-main margin-top20 size-12">
+                            <div class="col-sm-6">
+                                <span>维保单位 </span>
+                                <strong>中心小学 </strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>维保人员 </span>
+                                <strong>赵堆船 <a href="tel:13645678956" class="font-blue display-inline-block"  data-toggle="tooltip" title="拨打电话 13645678956"><i class="icon iconfont icon-dianhua size-14"></i></a></strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>更换周期 </span>
+                                <strong><span class="font-blue">360</span>天</strong>
+                            </div>                   
+                        </div>
+                    </div>
+                </section>
               </section>
         </div>
       </template>

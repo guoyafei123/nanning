@@ -149,7 +149,7 @@
                     <span style="display:block;width:6px;height:50px;background:#999;position:absolute;top:50%;left:50%;margin-left:-3px;margin-top:-25px;"></span>
                   </div>
                 </div>
-                <img src="" class="up_img" style="width:80px;height:80px;"/>
+                <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>
               </el-form-item>
               <el-form-item label="部门电话">
                 <el-input v-model="form.telephone"></el-input>
@@ -183,6 +183,7 @@
       return {
         labelPosition: 'left',
         form: {
+          id:'',
           name:'',
           property:'',
           staffNum:'',
@@ -207,9 +208,8 @@
     },
     methods: {
       file(){
-        console.log(this.deviceIndexs)
-        console.log($("#file")[0].files[0].name)
-        $(".up_img").attr("src", this.getObjectURL($("#file")[0]));
+        console.log(this.form.id)
+        $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
       },
       getObjectURL(node) {
           var imgURL = "";
@@ -257,7 +257,8 @@
         
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
-            // console.log(item);
+            console.log(item.id);
+            this.form.id = item.id ;
             this.form.name = item.name ;
             this.form.property = item.property ;
             this.form.staffNum = item.staffNum ;
@@ -268,11 +269,10 @@
             this.form.corporation = item.corporation ;
             this.form.point.pointX = item.pointX ;
             this.form.point.pointY = item.pointY ;
-            var url = "http://img.nanninglq.51play.com/xf/api/unit_img/"+ item.id+".jpg";
-            $(".up_img").attr("src",url);
           }
-          
         })
+        // $("#up_img"+ this.form.id +"").attr("src","http://img.nanninglq.51play.com/xf/api/unit_img/"+ this.form.id +".jpg");
+        console.log(this.form.id)
       },
       startRow(){
         var file = "file";
@@ -305,7 +305,13 @@
             },
             complete: function (e) {//只要完成即执行，最后执行
               // console.log(e) 
-              that.tableList()
+              that.tableList();
+              $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
+                $("#file").on("change", function(){  
+                  console.log($("#up_img"+that.form.id+""))
+                  $("#up_img"+ that.form.id +"").attr("src", that.getObjectURL(document.getElementById('file')));     
+                  console.log(that.form.id) 
+              });
             }
         });
       },

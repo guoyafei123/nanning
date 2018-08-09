@@ -126,7 +126,7 @@
                     <span style="display:block;width:6px;height:50px;background:#999;position:absolute;top:50%;left:50%;margin-left:-3px;margin-top:-25px;"></span>
                   </div>
                 </div>
-                <img src="" class="up_img" style="width:80px;height:80px;"/>
+                <img :src="this.form.headImgUrl" :id="'up_img'+this.form.id" style="width:80px;height:80px;"/>
               </el-form-item>
               <el-form-item label="职位">
                 <el-input v-model="form.position"></el-input>
@@ -189,12 +189,14 @@
         unitId:'',
         roleId:'',
         form: {
+          id:'',
           nickName:'',
           username:'',
           position:'',
           unitId:'',
           cellPhone:'',
-          roleId:''
+          roleId:'',
+          headImgUrl:''
         },
         optionList:[],//单位列表
         roleList:[],//角色列表
@@ -208,9 +210,8 @@
     },
     methods: {
       file(){
-        console.log(this.deviceIndexs)
-        console.log($("#file")[0].files[0].name)
-        $(".up_img").attr("src", this.getObjectURL($("#file")[0]));
+        // console.log($("#file")[0].files[0].name)
+        $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
       },
       getObjectURL(node) {
           var imgURL = "";
@@ -262,12 +263,21 @@
             this.form.position = item.position ;
             this.form.unitId = item.unitId ;
             this.form.cellPhone = item.cellPhone ;
-            this.form.roleId = item.roleName ;
-            $(".up_img").attr("src",item.headImgUrl);
+            this.form.roleId = item.roleId ;
+            this.form.id = item.id ;
+            this.form.headImgUrl = item.headImgUrl ;
+            // $("#up_img"+this.form.id+"").attr("src",item.headImgUrl);
+            // console.log($("#up_img"+this.form.id+""))
           }
         })
       },
       startRow(){
+        // console.log(this.deviceIndex);
+        // console.log(this.form.nickName);
+        // console.log(this.form.username);
+        // console.log(this.form.position);
+        // console.log(this.form.unitId);
+        // console.log(this.form.cellPhone);
         var file = "file";
         var that = this;
         $.ajaxFileUpload({
@@ -280,7 +290,8 @@
               'username':this.form.username,
               'position':this.form.position,
               'unitId':this.form.unitId,
-              'cellPhone':this.form.cellPhone
+              'cellPhone':this.form.cellPhone,
+              'roleId':this.form.roleId
             },
             type: 'POST',
             dataType: "plain",
@@ -293,7 +304,12 @@
             },
             complete: function (e) {//只要完成即执行，最后执行
               // console.log(e) 
-              that.tableList()
+              that.tableList();
+              $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
+                $("#file").on("change", function(){  
+                  console.log($("#up_img"+that.form.id+""))
+                  $("#up_img"+that.form.id+"").attr("src", that.getObjectURL(document.getElementById('file')));      
+              });  
             }
         });
       },
@@ -302,10 +318,14 @@
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
         this.deviceIndex = row.id;
-        this.deviceName = row.name;
+        this.deviceName = row.nickName;
       },
       deleteRow(){
-
+        this.$fetch("/api/user/deleteUser",{
+          userId:this.deviceIndex
+        }).then(response=>{
+          console.log(response);
+        })
       },
       show3(row){//跳转
         console.log(row.id);
@@ -546,5 +566,13 @@
     color: #0c0e01;
     background-color: transparent;
   }
-
+.danger{
+    width:132px;
+    background-color: #f13131;
+    color: #000;
+    font-size: 14px;
+    height:32px;
+    line-height: 32px;
+    padding:0;
+  }
 </style>

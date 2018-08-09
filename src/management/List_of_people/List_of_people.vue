@@ -52,6 +52,9 @@
     #left{
       width:295px;
     }
+    #right{
+      width:400px;
+    }
   }
   @media (min-width: 1600px){
     #left{
