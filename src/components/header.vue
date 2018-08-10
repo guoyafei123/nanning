@@ -2,7 +2,7 @@
   <header id="header" class="position-fixed-top z-index-9999">
     <div class="header-main">
     <div class="header-left margin-top40 position-left37">
-        <p class="font-white size-18 version-title">数雨如歌智慧消防大数据监控平台 政府版
+        <p class="font-white size-18 version-title"><!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
             <span class="size-10 version-num">BETA3.0</span>
         </p>
         <el-select v-model="areavalue" placeholder="全部区域" size="mini">

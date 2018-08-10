@@ -236,7 +236,32 @@ footer .el-button:hover,footer .el-button:focus {
     border-color: #bad616!important;
 }
 /*Select 选择器*/
-
+#login .el-input__inner,
+#register .el-input__inner{
+  color: #fff!important;
+}
+    #login .el-form-item__error,
+    #register .el-form-item__error,
+    #login .el-form-item.is-error .el-input__validateIcon,
+    #register .el-form-item.is-error .el-input__validateIcon,
+    #login .el-form-item.is-required .el-form-item__label:before,
+    #register .el-form-item.is-required .el-form-item__label:before{
+        color: #f13131!important;
+    }
+    #register .el-form-item.is-error .el-input__inner,
+    #login .el-form-item.is-error .el-input__inner {
+        border-color: #f13131!important;
+    }
+    #login .el-input__inner:active,
+    #login .el-input__inner:visited,
+    #login .el-input__inner:hover,
+    #login .el-input__inner.is-active,
+    #register .el-input__inner:active,
+    #register .el-input__inner:visited,
+    #register .el-input__inner:hover,
+    #register .el-input__inner.is-active {
+        border: 1px solid #333 !important;
+    }
 .my-filter .upd-elmdate {
   margin-bottom: 0;
 }

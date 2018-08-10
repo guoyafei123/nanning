@@ -1,9 +1,9 @@
 <template>
-  <div class="row login register">
+  <div class="row login register" id="register">
     <div class="col-sm-12 login-right">
-      <div class="loginbox registerbox">
-        <P class="font-white size-18">欢迎注册数雨如歌智慧消防系统</P>
-        
+      <div class="loginbox registerbox">           
+        <h1 class="font-white size-50 margin-bottom10">注 册</h1>
+        <P class="font-gray-666 size-18 margin-bottom10">欢迎注册智慧消防大数据监控平台</P>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm registerfrom" :label-position="labelPosition">
           <el-form-item label="单 位" prop="unitId">
             <el-select v-model="ruleForm.unitId" style="width:100%">
