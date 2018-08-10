@@ -1,7 +1,7 @@
 <template>
   <footer id="footer"  class="col-sm-12 position-fixed-bottom z-index-9999">
     <div class="footer">
-      <ul class="list-inline">
+      <ul class="list-inline margin-bottom20">
         <li class="footer-nav-active">
           <router-link to="/index">
             <el-badge :value="200" :max="99" class="item">
@@ -41,9 +41,9 @@
           </router-link>
         </li> -->
       </ul>
-      <abbr class="size-12 font-gray-333">数雨如歌智慧消防大数据监控平台 政府版
+      <!-- <abbr class="size-12 font-gray-333">数雨如歌智慧消防大数据监控平台 政府版
         <span>BETA3.0</span>
-      </abbr>
+      </abbr> -->
     </div>
   </footer>
 </template>
