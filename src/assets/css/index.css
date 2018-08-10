@@ -13,6 +13,7 @@
     width: 100%;
 }
 
+
 .public-dropdown{
     display: inline-block !important;
     position: relative;
@@ -444,11 +445,13 @@ p.toolcount-p2 {
     #early #common-cont{
         width: 52%;
         margin-left: 300px;
-    } 
+    }
     #early #right{
         min-width: 48%;
     }
-
+    #min-map {
+        right: 400px;
+    }
     #left{
         width: 300px;
     }
@@ -467,6 +470,9 @@ p.toolcount-p2 {
     #common-cont{
         width: 76%;
     }
+    #min-map {
+        right: 29%;
+    }
     #left{
         width: 24%;
     }
@@ -484,6 +490,9 @@ p.toolcount-p2 {
     }
     #common-cont{
         width: 80%;
+    }
+    #min-map {
+        right: 20%;
     }
     #left{
         width: 17%;
@@ -603,13 +612,13 @@ p.toolcount-p2 {
 }
 .tool-charmaxvalue{
     position: absolute;
-    bottom: 0px;
-    right:0px;
+    bottom:10px;
+    right:10px;
 }
 .tool-charmaxvalue>p{
     position: absolute;
-    right: 18px;
-    bottom: 56px;
+    right: 20px;
+    bottom: 30px;
 }
 
 .row{
@@ -695,6 +704,7 @@ video:hover{
     #login .getvercodenone,
     #register .getvercodenone {
         color: #ccc!important;
+        font-size: 12px;
     }
     .loginbtn:active{
         background: #d9ff00;

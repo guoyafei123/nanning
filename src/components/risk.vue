@@ -212,7 +212,7 @@
               <section class="my-filter padding5 bg-gray-222 clearfix">
                         <!-- 单位筛选 -->
                         <div class="col-sm-3 padding0">
-                          <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="请选择">
+                          <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
                             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                           </el-select>
@@ -261,7 +261,7 @@
               <section>
                 <div class="toolcount margin-top10 clearfix">
                   <!-- <h4 class="p-title">安全评分</h4> -->
-                  <div class="col-sm-4 font-gray-999 padding-right0 margin-top40">
+                  <div class="col-sm-4 font-gray-999 padding0 margin-top40">
                     <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                         <p class="line-height86 size-60 font-blue"><span class="size-100">8</span>.7</p>

@@ -155,7 +155,7 @@
           <section class="my-filter padding5 bg-gray-222 clearfix">
                   <!-- 单位筛选 -->
                   <div class="col-sm-3 padding0">
-                    <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="请选择">
+                    <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="瑞和家园">
                       <el-option v-for="item in ins_queryInspectionNameList"  :key="item.name" :label="item.name" :value="item.name">
                       </el-option>
                     </el-select>
@@ -220,7 +220,7 @@
             </section>
               <section>
                 <div class="row toolcount margin-top20">
-                  <div class="col-sm-4 font-gray-999 padding-right0">
+                  <div class="col-sm-4 font-gray-999 padding0">
                     <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                         <h1 class="toolcount-p1 font-yellow">17</h1>

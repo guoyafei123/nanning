@@ -19,6 +19,7 @@ import ListVue from '../components/list';
 import AllVue from '../components/all';
 import MapsVue from '../components/maps';
 import PlanVue from '../components/plan';
+import MinmapVue from '../components/min_map';
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';

@@ -359,13 +359,13 @@
               </section>
               <!-- 详情 -->
               <section class="dan-iteminfo overflow-scr display-none">
-                <!-- <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>                 -->
+                <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
                 <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
                   <!-- 已选择 -->
                   <div class="personinfo">
-                        <p>
+                        <p>                       
                         <span class="size-20 font-blue">
-                          <i class="icon iconfont icon-jiankong-mian- size-20"  data-toggle="tooltip" title="监控摄像头"></i> AE12WD56W
+                          <i class="icon iconfont icon-jiankong-mian- size-20" data-toggle="tooltip" title="监控摄像头"></i> <span>AE12WD56W</span>
                         </span>
                         <span class="float-right">
                                 <span class="bgbox-max bg-gray-333 font-gray-999 size-10">安防设备</span>
@@ -385,7 +385,7 @@
                 <!-- 设备信息统计 -->
                 <section>
                   <div class="toolcount margin-top20 clearfix">
-                    <div class="col-sm-4 font-gray-999 padding-right0">
+                    <div class="col-sm-4 font-gray-999 padding0">
                         <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                           <li>
                             <h1 class="toolcount-p1"><span class="font-blue"></span>正常</h1>

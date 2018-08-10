@@ -4,11 +4,11 @@
         <div class="tool-charmax">
             <div>
                 <!--需要按照  1.16/1 的宽高比例进行创建 可自适应布局-->
-                <canvas id="canvas-big" width="260" height="200"></canvas>
+                <canvas id="canvas-big" width="280" height="240"></canvas>
             </div>
             <div class="tool-charmaxvalue">
                 <p class="font-blue size-66">8.7</p>
-                <div id="myChart1" style="width: 130%;height:50px;margin: 0 auto;"></div>
+                <div id="myChart1" style="width: 150%;height:50px;margin: 0 auto;"></div>
             </div>
         </div>
         

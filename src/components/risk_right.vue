@@ -53,7 +53,7 @@
         <section>
           <div class="toolcount margin-top20 clearfix">
             <h4 class="p-title">安全评分</h4>
-            <div class="col-sm-4 font-gray-999 padding-right0 margin-top20">
+            <div class="col-sm-4 font-gray-999 padding0 margin-top20">
               <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                 <li>
                   <p class="line-height86 size-60 font-blue"><span class="size-100">8</span>.7</p>

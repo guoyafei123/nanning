@@ -18,10 +18,10 @@
                 <h5>已确认 <span v-if="queryAlarmData.alarmCount">{{queryAlarmData.alarmCount.CONFIRMED}}</span></h5>
                 <h5>复位/关闭 <span v-if="queryAlarmData.alarmCount">{{queryAlarmData.alarmCount.CLOSED}}</span></h5>
               <span class="indexdateabox alarmdate">
-                  <span class="indexdateactive">日</span>
-                  <span>月</span>
-                  <span>年</span>
-                </span>
+                  <b class="indexdateactive">日</b>
+                  <b>月</b>
+                  <b>年</b>
+              </span>
             </li>
             <li class="col-sm-12 container-padding20 mian-chart">
               <div id="charalarm" style="width: 100%;height:130px;margin: 0 auto;"></div>
@@ -44,11 +44,11 @@
               <!-- 历史未解决，已确认，复位/关闭 -->
                 <h5>未解决 <span v-if="queryTroubleData.troubleCount">{{queryTroubleData.troubleCount.SOLVE}}</span></h5>
                 <h5>已解决 <span v-if="queryTroubleData.troubleCount">{{queryTroubleData.troubleCount.UNSOLVE}}</span></h5>
-                <span class="indexdateabox troubledate">
-                  <span class="indexdateactive">日</span>
-                  <span>月</span>
-                  <span>年</span>
-                </span>
+                <span class="indexdateabox alarmdate">
+                  <b class="indexdateactive">日</b>
+                  <b>月</b>
+                  <b>年</b>
+              </span>
             </li>
             <li class="col-sm-12 container-padding20 mian-chart">
               <div id="chartrouble" style="width: 100%;height:130px;margin: 0 auto;"></div>

@@ -1,5 +1,8 @@
 
 function realconsole(){
+
+
+  //管理端
   $('.el-table__body-wrapper').css('height','520px');
   $('.el-scrollbar').css({
     'background':'#000'
@@ -19,6 +22,17 @@ function realconsole(){
     $(this).css({
       'background-color':'#000'
     })
+  })
+
+
+  //展示端
+  $(".openmenulist").off('click').click(function(){
+    $(".unit-info").slideToggle(
+    function(){
+    $(".unit-btn-close").toggle();
+    $(".unit-btn-open").toggle();
+    $(".early-warning").toggleClass("scrollheight");
+    });
   })
 }
 export {

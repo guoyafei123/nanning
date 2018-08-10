@@ -62,14 +62,11 @@
                   <h4 class="toolroute-padding8 popup-routebtn font-gray-666 display-block">
                     <i class="icon iconfont icon-weibiaoti10 size-12" data-toggle="tooltip" title="全屏"></i>
                   </h4>
-                  <div class="q-date margin-top5">
-                  <el-radio-group v-model="radioDate" size="mini">
-                    <el-radio-button label="日"></el-radio-button>
-                    <el-radio-button label="月"></el-radio-button>
-                    <el-radio-button label="年"></el-radio-button>
-                  </el-radio-group>              
-                    <!-- <a href="" class="active">日</a><a href="">月</a><a href="">年</a> -->
-                  </div>
+                  <span class="indexdateabox alarmdate margin-top5">
+                    <b class="indexdateactive">日</b>
+                    <b>月</b>
+                    <b>年</b>
+                  </span>
                 </div>
                 <div class="toolcount">
                     <div class="clearfix text-center">
@@ -158,7 +155,7 @@
                     <div class="early-title">
                       <small>Alarm-Records</small>
                             <h3>警报记录
-                              <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
+                              <a class="pull-right size-12 openmenulist"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
                           </h3>
                     </div>      
                     <!-- 报警时循环li标签class样式调用
@@ -574,6 +571,7 @@
 <script>
 import HeaderVue from "./header.vue";
 import earlyinfoVue from './earlyinfo.vue';
+import { realconsole } from '../assets/js/management.js'
 // import Call_leftVue from './call_left.vue';
 // import Call_rightVue from './call_right.vue';
 export default {
@@ -687,21 +685,6 @@ export default {
     };
   },
   methods: {
-    // tab切换  
-    // 实时警报列表展开/折叠
-    openEarlyList(){
-      $(".unit-info").slideToggle(
-        function(){
-        $(".unit-btn-close").toggle();
-        $(".unit-btn-open").toggle();
-        $(".early-warning").toggleClass("scrollheight");
-      });
-      
-    },
-    // 锁定/关闭
-     earlyTool(){
-            $(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
-    },
     // 返回
     jianzhu() {
       $(".dan-lineinfo")
@@ -1049,6 +1032,7 @@ export default {
     },
   },
   mounted() {
+    realconsole();
     this.$store.commit('route_path',this.$route.path);
     this.getTable();
     this.getData();
