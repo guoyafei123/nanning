@@ -72,13 +72,8 @@
           <span class="toolroute-rect bg-blue"></span>
       <div class="early-title">
         <small>Early-Warning</small>
-<<<<<<< HEAD
               <h3 @click="getmp3new()">实时报警
                 <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
-=======
-              <h3 @click="openpanl()">实时报警
-                <a class="pull-right size-12 openmenulist"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
->>>>>>> a93261652732316a4d748476b8889ed1540b03c3
             </h3>
       </div>
       <!-- 报警时循环li标签class样式调用
@@ -383,15 +378,9 @@
       <div id="audioBox"></div>
     </template>
     <!-- 弹窗 -->
-<<<<<<< HEAD
     <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
       <!-- <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
       <earlyinfo-vue></earlyinfo-vue> -->
-=======
-    <el-dialog title="":visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
-      <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
-      <earlyinfo-vue></earlyinfo-vue>
->>>>>>> a93261652732316a4d748476b8889ed1540b03c3
     </el-dialog>
   </div>
 
