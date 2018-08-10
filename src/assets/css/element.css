@@ -1,3 +1,7 @@
+/*横幅消息*/
+.el-notification__content .notify-left {
+    line-height: 40px;
+}
 /*按钮*/
 .upd-btn {
     padding: 1px 2px;
@@ -166,28 +170,7 @@ footer .el-button:hover,footer .el-button:focus {
     height: 0;
 }
 /*单选按钮*/
-/*年月日*/
-.q-date .el-radio-button {
-    margin-right: 0;
-}
-.q-date .el-radio-button > .el-radio-button__inner {
-  width: 22px!important;
-  height: 22px!important;
-  border-width: 0px!important;
-  border-color: #222!important;
-  background-color: #111!important;
-  line-height: 22px!important;
-  padding:0 2px!important;
-  color: #999!important;
-}
-.q-date .el-radio-button.is-active > .el-radio-button__inner {
-  color: #fff!important;
-  background-color: #000!important;
-}
-.q-date .el-radio-button > .el-radio-button__inner:hover {
-  color: #fff!important;
-  background-color: #000!important;
-}
+
 .el-radio {
     margin-left: inherit!important;
     margin-bottom: 10px;
@@ -236,10 +219,18 @@ footer .el-button:hover,footer .el-button:focus {
     border-color: #bad616!important;
 }
 /*Select 选择器*/
-#login .el-input__inner,
-#register .el-input__inner{
-  color: #fff!important;
-}
+  #login .el-input__inner,
+  #register .el-input__inner{
+    color: #fff!important;
+  }
+  #login .el-input__inner:focus,
+  #login .el-textarea__inner:focus,
+  #login .el-message-box__input input.invalid:focus,
+  #register .el-input__inner:focus,
+  #register .el-textarea__inner:focus,
+  #register .el-message-box__input input.invalid:focus {
+    border-color: #ccc!important;
+  }
     #login .el-form-item__error,
     #register .el-form-item__error,
     #login .el-form-item.is-error .el-input__validateIcon,
@@ -301,7 +292,7 @@ header .el-input--mini .el-input__inner,header .el-input--mini .el-input__inner:
 }
 .upd-elselect-border .el-input__inner {
   border:1px solid #222!important;
-  background-color: #111!important;
+  background-color: #000!important;
   line-height: 30px;
   height: 30px;
 }

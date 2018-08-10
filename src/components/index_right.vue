@@ -1,7 +1,7 @@
 <template>
   <div class="toolright font-gray-999">
     <!-- 单位信息（地图联动） -->
-    <section class="unit-info border-solid-333 clearfix bg-black">      
+    <section class="unit-info border-solid-333 margin-bottom30 clearfix bg-black">      
       <ul class="list-unstyled">
         <!-- 介绍 -->
         <li class="position-relative">
@@ -68,12 +68,12 @@
       </ul>
     </section>
     <!-- 实时报警 -->
-    <section class="early-warning margin-top30 clearfix">
+    <section class="early-warning clearfix">
           <span class="toolroute-rect bg-blue"></span>
       <div class="early-title">
         <small>Early-Warning</small>
               <h3 @click="openpanl()">实时报警
-                <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
+                <a class="pull-right size-12 openmenulist"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
             </h3>
       </div>      
       <!-- 报警时循环li标签class样式调用
@@ -376,19 +376,21 @@
 
     </template>
     <!-- 弹窗 -->
-    <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+    <el-dialog title="":visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
       <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
       <earlyinfo-vue></earlyinfo-vue>
     </el-dialog>
   </div>
 
 </template>
-tfg
+
 <script>  
-import earlyinfoVue from './earlyinfo.vue';
+// import earlyinfoVue from './earlyinfo.vue';
 import{mapState} from "vuex";
 import sockjs from 'sockjs-client';
 import moment from 'moment';
+import earlyinfoVue from './earlyinfo.vue';
+import { realconsole } from '../assets/js/management.js'
 var Stomp = require('@stomp/stompjs');
 export default {
   
@@ -487,23 +489,7 @@ export default {
       }
       
     },
-    // tab切换  
-    // 实时警报列表展开/折叠
-    openEarlyList(){
-      $(".unit-info").slideToggle(
-        function(){
-        $(".unit-btn-close").toggle();
-        $(".unit-btn-open").toggle();
-        $(".early-warning").toggleClass("scrollheight");
-        // 切换分类和所有
-        $(".early-tab").toggleClass("hide");
-      });
-      
-    },
-    // 锁定/关闭
-    earlyTool(){
-      $(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
-    },
+    
     getgetUnitsSynthesis(){
       this.$fetch(
         "/api/unit/getUnitsSynthesis",
@@ -565,8 +551,8 @@ export default {
       
       var html=`
         <div class='row font-black' style='width:600px;'>
-          <div class='col-sm-3 notify-left'>
-            <i class='icon iconfont `+icon+` size-36'></i>
+          <div class='col-sm-3 notify-left size-26'>
+            <i class='icon iconfont `+icon+` size-48'></i>
             <span class='size-20'>`+title+`</span>
           </div>
           <div class='col-sm-9 notify-right'>
@@ -589,6 +575,7 @@ export default {
   },
   // 默认加载方法
   mounted() {
+    realconsole();
     this.getgetUnitsSynthesis();
     this.getqueryAlarmIng(1);
     // this.initWebpack();
