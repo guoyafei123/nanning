@@ -282,7 +282,7 @@
                         <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
                         </p>
                         <p class="col-sm-7 text-left padding0">
-                            <span><i class="el-icon-location"></i> 广西省南宁市良庆区银海大道710-2号</span>
+                            <span><i class="el-icon-location"></i> 怀化市银海大道710-2号</span>
                         </p>
                         <P class="col-sm-5 text-right padding0">
                             <span class="text-right">
@@ -373,7 +373,7 @@
                         </p>
                         <p class="col-sm-7 text-left padding0">
                             <span>
-                                <i class="fas fa-industry"></i> 南宁市良庆区中心小学</span>
+                                <i class="fas fa-industry"></i> 怀化市中心小学</span>
                         </p>
                         <P class="col-sm-5 text-right padding0">
                             <span class="text-right">
@@ -458,7 +458,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <span>设备位置 </span>
-                                <strong>良庆区中心小学实验教学楼6层</strong>
+                                <strong>中心小学实验教学楼6层</strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>设备坐标 </span>
@@ -479,7 +479,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <span>生产厂商 </span>
-                                <strong>南宁市精密仪器有限公司 <a href="tel:0760693575" class="font-blue display-inline-block"  data-toggle="tooltip" title="拨打电话0760693575"><i class="icon iconfont icon-dianhua size-14"></i></a></strong>
+                                <strong>怀化市精密仪器有限公司 <a href="tel:0760693575" class="font-blue display-inline-block"  data-toggle="tooltip" title="拨打电话0760693575"><i class="icon iconfont icon-dianhua size-14"></i></a></strong>
                             </div>                   
                         </div>
                     </div>
@@ -560,15 +560,15 @@ export default {
       options: [
         {
           value: "选项1",
-          label: "南宁市良庆区"
+          label: "怀化市"
         },
         {
           value: "选项2",
-          label: "南宁市兴宁区"
+          label: "怀化市兴宁区"
         },
         {
           value: "选项3",
-          label: "南宁市横县"
+          label: "怀化市横县"
         }
       ],
       ins_queryInspectionNameList: Object,

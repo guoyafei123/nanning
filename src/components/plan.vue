@@ -228,7 +228,7 @@
                             </p>
                             <p class="text-left padding0">
                                 <span>
-                                    <i class="el-icon-location"></i> </i> 广西省南宁市良庆区银海大道710-2号
+                                    <i class="el-icon-location"></i> 怀化市银海大道710-2号
                                 </span>
                             </p>                       
                     </div>
@@ -290,7 +290,7 @@
                           <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
                         </p>
                         <p>
-                        <span><i class="el-icon-location"></i> 南宁市良庆区</span>
+                        <span><i class="el-icon-location"></i> 怀化市</span>
                         </p>
                       </div>
                     </div>
@@ -521,15 +521,15 @@
       options: [
         {
           value: "选项1",
-          label: "南宁市良庆区"
+          label: "怀化市"
         },
         {
           value: "选项2",
-          label: "南宁市兴宁区"
+          label: "怀化市兴宁区"
         },
         {
           value: "选项3",
-          label: "南宁市横县"
+          label: "怀化市横县"
         }
       ],
       // 时间筛选

@@ -121,7 +121,7 @@
                 </a>
             </li>            
             <li>
-                <router-link to="/Equipment_management" data-toggle="tooltip" title="管理">
+                <router-link data-toggle="tooltip" title="管理">
                     <i class="icon iconfont icon-shezhi-mian-"></i>
                 </router-link>
             </li>
@@ -163,13 +163,13 @@
       return {
         options: [{
           value: '选项2',
-          label: '南宁市良庆区'
+          label: '怀化市'
         }, {
           value: '选项3',
-          label: '南宁市兴宁区'
+          label: '怀化市兴宁区'
         }, {
           value: '选项4',
-          label: '南宁市横县'
+          label: '怀化市横县'
         }],
         areavalue: "选项2",
         unitvalue:'全部单位'

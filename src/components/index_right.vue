@@ -8,8 +8,8 @@
           <div class="position-absolute-bottom clearfix">
             <!-- 单位信息 -->
             <article class="unit-brief white-space col-sm-10">
-              <h3>南宁市良庆区</h3>
-              <small><i class="el-icon-location"></i> 广西省南宁市良庆区银海大道710-2号</small>
+              <h3>怀化市</h3>
+              <small><i class="el-icon-location"></i> 怀化市银海大道710-2号</small>
             </article>
             <!-- 安全评分 -->
             <article class="unit-score">
@@ -72,7 +72,7 @@
           <span class="toolroute-rect bg-blue"></span>
       <div class="early-title">
         <small>Early-Warning</small>
-              <h3 @click="openpanl()">实时报警
+              <h3 @click="getmp3new()">实时报警
                 <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
             </h3>
       </div>      
@@ -372,13 +372,15 @@
         
       </ul>
     </section>
-    <template>
-
+    <template class="audiostyle">
+      <!-- <audio src="/i/song.ogg" controls="controls">
+      </audio> -->
+      <div id="audioBox"></div>
     </template>
     <!-- 弹窗 -->
     <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
-      <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
-      <earlyinfo-vue></earlyinfo-vue>
+      <!-- <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
+      <earlyinfo-vue></earlyinfo-vue> -->
     </el-dialog>
   </div>
 
@@ -413,7 +415,9 @@ export default {
       queryAlarmIng:Object,
       // socketid:''
       websock: null,
-      tounpdateIndex:1
+      tounpdateIndex:1,
+      myAudio:Object,
+      myAudioarr:["http://api.nanninglqys.51play.com/alarm/getAlarmAudio?referenceId=88&per=4&pit=4"]
     }
   },
   // sockets:{
@@ -466,6 +470,7 @@ export default {
     runCallback(data,that) {
       var message = JSON.parse(data.body);
       var opt = message.data.opt;
+
       // 人工报警和设备报警
       if(opt.type==1 || opt.type==2){
         that.getqueryAlarmIng(2,opt.type);
@@ -537,6 +542,29 @@ export default {
         }
       });
     },
+    getmp3new(){
+      // this.myAudioarr.push('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?referenceId=81&per=4&pit=4')
+      // this.myAudio.src = this.myAudioarr.pop(); 
+      // this.myAudio.play();
+    },
+    getmp3(){
+      // let myAudio=this.myAudio;
+      // myAudio = new Audio(); 
+      // myAudio.autoplay=true;
+      // myAudio.preload = true; 
+      // myAudio.controls = true; 
+      // myAudio.src = this.myAudioarr.pop();         
+      // myAudio.addEventListener('ended', playEndedHandler, false); 
+      // myAudio.play(); 
+      // document.getElementById("audioBox").appendChild(myAudio); 
+      // myAudio.loop = false;
+      // function playEndedHandler(){ 
+      //   myAudio.src = this.myAudioarr.pop(); 
+      //   myAudio.play(); 
+      //   console.log(this.myAudioarr.length); 
+      //   !this.myAudioarr.length && myAudio.removeEventListener('ended',playEndedHandler,false);//只有一个元素时解除绑定 
+      // }
+    },
     openpanl(type,item){
       // 报警
       var icon='icon-baojing-xian-';
@@ -593,6 +621,7 @@ export default {
     this.getqueryAlarmIng(1);
     // this.initWebpack();
     this.connect();
+    this.getmp3();
     
     // this.$socket.emit('connect', '123'); //在这里触发connect事件
   }

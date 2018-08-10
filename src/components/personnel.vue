@@ -322,7 +322,7 @@
                         </span>
                 </p>
                 <p class="col-sm-7 text-left padding0">
-                  <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
+                  <span><i class="fas fa-industry"></i> 中心小学</span>
                 </p>
                 <p class="col-sm-5 text-right padding0">
                   注册时间:<strong class="font-gray-999">2018-16:23 13:56:37</strong>            
@@ -558,10 +558,10 @@
               <section class="margin-top20">
                 <div class="personinfo">
                   <p>
-                    <span class="size-20 font-blue">南宁市良庆区</span>
+                    <span class="size-20 font-blue">怀化市</span>
                   </p>
                   <p>
-                    <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
+                    <span><i class="fas fa-industry"></i> 中心小学</span>
                   </p>
                 </div>
               </section>
@@ -708,15 +708,15 @@
         options: [
         {
           value: "选项1",
-          label: "南宁市良庆区"
+          label: "怀化市"
         },
         {
           value: "选项2",
-          label: "南宁市兴宁区"
+          label: "怀化市兴宁区"
         },
         {
           value: "选项3",
-          label: "南宁市横县"
+          label: "怀化市横县"
         }
       ],
         // 单选按钮

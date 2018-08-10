@@ -191,7 +191,7 @@
                           </span>
                   </p>
                   <p>
-                    <span><i class="fa fa-th-large"></i> 良庆区中心小学</span>
+                    <span><i class="fa fa-th-large"></i> 中心小学</span>
                     <span class="float-right set-positiontop2">最新更新 <span class="font-gray-999">2018.7.6 08:00:00</span></span>
                   </p>
                 </div>
@@ -211,7 +211,7 @@
                   </span>
                   </p>
                   <p class="col-sm-7 text-left padding0">
-                    <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
+                    <span><i class="fas fa-industry"></i> 中心小学</span>
                   </p>
                   <p class="col-sm-5 text-right padding0">
                     最新更新:<strong class="font-gray-999">2018-16:23 13:56:37</strong>            
@@ -403,7 +403,7 @@
                       <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
                     </p>
                     <p class="text-left padding0">
-                      <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
+                      <span><i class="fas fa-industry"></i> 中心小学</span>
                     </p>
                   </div>
               </div>

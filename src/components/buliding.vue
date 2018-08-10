@@ -333,7 +333,7 @@
                             </p>
                             <p class="col-sm-7 text-left padding0">
                                 <span>
-                                    <i class="fas fa-industry"></i> 广西省南宁市良庆区银海大道710-2号</span>
+                                    <i class="fas fa-industry"></i> 银海大道710-2号</span>
                             </p>
                             <P class="col-sm-5 text-right padding0">
                                 <span class="text-right">
@@ -479,7 +479,7 @@
                             </p>
                             <p class="col-sm-7 text-left padding0">
                                 <span>
-                                    <i class="fas fa-industry"></i> 良庆区中心小学</span>
+                                    <i class="fas fa-industry"></i> 中心小学</span>
                             </p>
                             <P class="col-sm-5 text-right padding0">
                                 <span class="text-right">
@@ -609,15 +609,15 @@
       options: [
         {
           value: "选项1",
-          label: "南宁市良庆区"
+          label: "怀化市"
         },
         {
           value: "选项2",
-          label: "南宁市兴宁区"
+          label: "怀化市兴宁区"
         },
         {
           value: "选项3",
-          label: "南宁市横县"
+          label: "怀化市横县"
         }
       ],
     };

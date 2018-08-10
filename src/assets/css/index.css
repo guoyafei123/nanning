@@ -656,17 +656,20 @@ video:hover{
         background: #000;
         position: relative;
       }
+    
       .toregister{
-        position: absolute;
-        left: 120px;
-        bottom: 50px;
+        display: block;
         cursor: pointer;
+        text-align: left;
+        width: 440px;
         transition: all 0.3s;
+        margin-left: 0;
+        margin-top: 40px;
       }
       
       .login-right>div{
         width: 440px;
-        margin: 200px 100px 0px;
+        margin: 200px auto 0px;
       }
       
       .loginbac{
@@ -707,15 +710,15 @@ video:hover{
         line-height: 40px;
         width: 300px;
         margin-top: 20px;
-        margin-left: 100px;
+        /* margin-left: 100px; */
     }
     
     .tologin{
-        width: 280px;
-        margin-left: 80px;
+        width: 300px;
+        /* margin-left: 80px; */
         text-align: left;
         display: inline-block;
-        margin-top: 10px;
+        margin-top: 18px;
         /* font-size: 12px; */
         color: #ccc;
         transition: all 0.3s;
@@ -739,4 +742,9 @@ video:hover{
         color: #bad616;
     }
 
+
+    /*音频 */
+    .audiostyle{
+        display: none;
+    }
     

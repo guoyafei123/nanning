@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <!-- #地图主容器 -->
-    <map-vue v-if="mapAndFooter"></map-vue>
+    <template v-if="mapAndFooter">
+      <map-vue ></map-vue>
+    </template>
+    
     <div class="container-fluid">
       <router-view></router-view>
     </div>
