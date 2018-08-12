@@ -9,7 +9,6 @@ import store from './vuex/store';
 import sockjs from 'sockjs-client';
 import moment from 'moment';
 
-
 // echarts
 import echarts from 'echarts';
 Vue.prototype.$echarts = echarts;

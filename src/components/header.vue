@@ -121,7 +121,7 @@
                 </a>
             </li>            
             <li>
-                <router-link data-toggle="tooltip" title="管理">
+                <router-link to="/Unit_management" data-toggle="tooltip" title="管理">
                     <i class="icon iconfont icon-shezhi-mian-"></i>
                 </router-link>
             </li>

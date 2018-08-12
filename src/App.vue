@@ -23,8 +23,8 @@
   import MapVue from './components/map';
   import FooterVue from './components/footer';
   import{mapState} from "vuex";
-  import EarlyinfoVue from './components/earlyinfo';
-  import { realconsole } from './assets/js/management.js'
+  // import EarlyinfoVue from './components/earlyinfo';
+  // import { realconsole } from './assets/js/management.js'
   export default {
     name: 'app',
     data () {
@@ -35,7 +35,7 @@
     components: {
       'map-vue': MapVue,
       'footer-vue': FooterVue,
-      'earlyinfo-vue':EarlyinfoVue
+      // 'earlyinfo-vue':EarlyinfoVue
     },
     computed:mapState([
       'route_path',
@@ -53,7 +53,7 @@
     },
 
     mounted() {     
-      realconsole();
+      // realconsole();
       $("[data-toggle='tooltip']").tooltip();
       // alert(this.$route.path);
       // this.$router.path

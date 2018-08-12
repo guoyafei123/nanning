@@ -440,7 +440,14 @@ export default {
     },
   // 调用方法
   methods: {
-
+    openEarlyList(){
+      $(".unit-info").slideToggle(
+        function(){
+        $(".unit-btn-close").toggle();
+        $(".unit-btn-open").toggle();
+        $(".early-warning").toggleClass("scrollheight");
+      });
+    },
     connect() {
       var that=this;
       console.log("去链接。。。");
@@ -522,9 +529,7 @@ export default {
           this.queryAlarmIng=response.data;
           console.log(this.queryAlarmIng);
           this.$store.commit('indexToAlarmTroubel',[this.queryAlarmIng,type]);
-          // if(type!=1){
 
-          // }
         }
       });
     },
@@ -606,11 +611,8 @@ export default {
     realconsole();
     this.getgetUnitsSynthesis();
     this.getqueryAlarmIng(1);
-    // this.initWebpack();
     this.connect();
     this.getmp3();
-
-    // this.$socket.emit('connect', '123'); //在这里触发connect事件
   }
 };
 
