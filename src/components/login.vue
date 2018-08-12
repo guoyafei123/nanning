@@ -209,6 +209,7 @@
             console.log(response);
             if(response.status==1){
               this.$router.push("/index");
+              // this.$store.commit('route_path',"/index");
             }else{
               this.tologin='登录失败!请联系管理员'
             }
@@ -221,7 +222,7 @@
     },
     mounted() {
       // this.ruleForm.username=this.loginusername;
-      this.$store.commit('route_path',this.$route.path);
+      this.$store.commit('route_path',"/index");
     }
   }
 </script>

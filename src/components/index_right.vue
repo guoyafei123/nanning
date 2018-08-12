@@ -378,10 +378,10 @@
       <div id="audioBox"></div>
     </template>
     <!-- 弹窗 -->
-    <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
-      <!-- <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
-      <earlyinfo-vue></earlyinfo-vue> -->
-    </el-dialog>
+    <!-- <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+      <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
+      <earlyinfo-vue></earlyinfo-vue>
+    </el-dialog> -->
   </div>
 
 </template>

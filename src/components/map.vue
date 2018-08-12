@@ -626,7 +626,7 @@
         this.mp=map;
         var that=this;
         // var 
-        
+        this.path_index();
 
         map.addEventListener("zoomend", function(evt){
         that.listenerScale = that.scale[that.zoom] / that.scale[map.getZoom()] * that.alarmsize ;

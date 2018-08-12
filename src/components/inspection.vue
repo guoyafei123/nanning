@@ -290,7 +290,7 @@
                           <span class="itemtitle-rect"><i class="fas fa-angle-double-down font-black"></i></span>
                           <h4 class="panel-title">
                             <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                              国西中天大厦<span class="badge itemtitle-value display-inline-block margin-left10 bg-red font-black">1.6</span>
+                              -<span class="badge itemtitle-value display-inline-block margin-left10 bg-red font-black">1.6</span>
                             </a>
                           </h4>
                         </div>
@@ -313,7 +313,7 @@
                         <span class="itemtitle-rect"><i class="fas fa-flag-checkered font-black"></i></span>
                         <h4 class="panel-title">
                             <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                              国西中天大厦<span class="badge itemtitle-value display-inline-block margin-left10 bg-orange font-black">1.6</span>
+                              -<span class="badge itemtitle-value display-inline-block margin-left10 bg-orange font-black">1.6</span>
                             </a>
                           </h4>
                       </span>
