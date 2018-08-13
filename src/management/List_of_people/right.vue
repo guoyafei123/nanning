@@ -1,6 +1,6 @@
 <template>
   <div class="Inspection_plan z-index-20  ">
-    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:130px;">
+    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:130px;display:none;">
       <section class="inspection-iteminfo" >
         <section>
           <div class="textandimg">
@@ -12,10 +12,10 @@
                       <span class="size-16 font-gray-666 span_name">姓名</span>
                       <span class="size-14 font-gray-999 span_con" v-html="this.form.nickName"></span>
                   </div>
-                  <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
                       <span class="size-16 font-gray-666 span_name">状态 </span>
                       <span class="size-14 font-gray-999 span_con" v-html="this.form.review"></span>
-                  </div>
+                  </div> -->
                   <div class="col-sm-12">
                       <span class="size-12 font-gray-666 span_name">职位 </span>
                       <span class="size-12 font-gray-999 span_con" v-html="this.form.position"></span>
@@ -88,7 +88,8 @@
           if (response.data.pager) {
             this.tableData = response.data.pager.result;
             console.log(this.tableData);
-            this.right_list()
+            this.right_list();
+            $('.plan').show();
           }
         })
         .then(err => {

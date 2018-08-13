@@ -36,6 +36,10 @@ import List_of_people_AllVue from '../management/List_of_people/all';
 import List_of_people_listVue from '../management/List_of_people/list';
 import Personnel_reviewVue from '../management/Personnel_review/Personnel_review';
 import Personnel_review_AllVue from '../management/Personnel_review/all';
+import Dangerous_goods_managementVue from '../management/Dangerous_goods_management/Dangerous_goods_management';
+import Dangerous_goods_management_listVue from '../management/Dangerous_goods_management/list';
+import Dangerous_goods_management_AllVue from '../management/Dangerous_goods_management/all';
+import Dangerous_goods_management_MapsVue from '../management/Dangerous_goods_management/maps';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -131,6 +135,16 @@ export default new Router({
       children:[
         { path:'/Personnel_review/all',component:Personnel_review_AllVue},
         { path:'/Personnel_review',redirect:'/Personnel_review/all'}
+      ]
+    },
+    {
+      path:'/Dangerous_goods_management',
+      component:Dangerous_goods_managementVue,
+      children:[
+        { path:'/Dangerous_goods_management/list',component:Dangerous_goods_management_listVue},
+        { path:'/Dangerous_goods_management/all',component:Dangerous_goods_management_AllVue},
+        { path:'/Dangerous_goods_management/maps',component:Dangerous_goods_management_MapsVue},
+        { path:'/Dangerous_goods_management',redirect:'/Dangerous_goods_management/all'}
       ]
     }
   ]

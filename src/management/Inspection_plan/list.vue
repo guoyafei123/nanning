@@ -15,7 +15,7 @@
       <div class="main_content">
         <el-form ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="路线名称" >
-            <span class="font-red" style="position: absolute;top:-45px;right:20px;">路线名称重复，请重新输入</span>
+            <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">路线名称重复，请重新输入</span> -->
             <el-input v-model="form.name" style="width:190px;"></el-input>
           </el-form-item>
           <el-form-item label="巡检类型">
@@ -377,7 +377,8 @@
           });
           // console.log(buildName);
           this.floorListNode.forEach((item,index)=>{
-            console.log(item.id)
+            // console.log(item.id)
+
             if(item.id == this.floorNode){
               floorId = item.id;
               floorName = item.floorName;
@@ -422,9 +423,9 @@
           )
             .then(response => {
               if (response) {
-                console.log(response);
+                // console.log(response);
                 this.optionList = response.data.unitList;
-                console.log(this.optionList);
+                // console.log(this.optionList);
               }
             })
             .then(err => {
@@ -438,7 +439,7 @@
             console.log('buildSearch:'+JSON.stringify(response));
             if (response) {
               this.buildList = response.data.list;
-              console.log(this.buildList);
+              // console.log(this.buildList);
             }
           })
         },
@@ -449,7 +450,7 @@
             console.log('floorSearch:'+response);
             if (response) {
               this.floorList = response.data.list;
-              console.log(this.floorList);
+              // console.log(this.floorList);
             }
           })
         },
@@ -460,7 +461,7 @@
             console.log('roomSearch:'+response);
             if (response) {
               this.roomList = response.data.list;
-              console.log(this.roomList);
+              // console.log(this.roomList);
             }
           })
         },
@@ -471,7 +472,7 @@
             console.log('equipmentSearch:'+response);
             if (response) {
               this.equipmentList = response.data.list;
-              console.log(this.equipmentList);
+              // console.log(this.equipmentList);
             }
           })
         },
@@ -482,7 +483,7 @@
             console.log('buildSearchs:'+JSON.stringify(response));
             if (response) {
               this.buildLists = response.data.list;
-              console.log(this.buildLists);
+              // console.log(this.buildLists);
             }
           })
         },
@@ -493,7 +494,7 @@
             console.log('floorSearchs:'+response);
             if (response) {
               this.floorLists = response.data.list;
-              console.log(this.floorLists);
+              // console.log(this.floorLists);
             }
           })
         },
@@ -504,7 +505,7 @@
             console.log('roomSearchs:'+response);
             if (response) {
               this.roomLists = response.data.list;
-              console.log(this.roomLists);
+              // console.log(this.roomLists);
             }
           })
         },
@@ -515,7 +516,7 @@
             console.log('equipmentSearchs:'+response);
             if (response) {
               this.equipmentLists = response.data.list;
-              console.log(this.equipmentLists);
+              // console.log(this.equipmentLists);
             }
           })
         },
@@ -526,7 +527,7 @@
             console.log('buildSearchNode:'+JSON.stringify(response));
             if (response) {
               this.buildListNode = response.data.list;
-              console.log(this.buildListNode);
+              // console.log(this.buildListNode);
             }
           })
         },
@@ -537,7 +538,7 @@
             console.log('floorSearchNode:'+response);
             if (response) {
               this.floorListNode= response.data.list;
-              console.log(this.floorListNode);
+              // console.log(this.floorListNode);
             }
           })
         },
@@ -548,7 +549,7 @@
             console.log('roomSearchNode:'+response);
             if (response) {
               this.roomListNode = response.data.list;
-              console.log(this.roomListNode);
+              // console.log(this.roomListNode);
             }
           })
         },
@@ -559,7 +560,7 @@
             console.log('equipmentSearchNode:'+response);
             if (response) {
               this.equipmentListNode = response.data.list;
-              console.log(this.equipmentListNode);
+              // console.log(this.equipmentListNode);
             }
           })
         },

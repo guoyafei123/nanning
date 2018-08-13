@@ -1,10 +1,10 @@
 <template>
-  <div class="margin-top120" style="margin-left:37px;">
+  <div class="show_left margin-top120" style="margin-left:37px;position: relative;">
       <div class="clearFix" style="padding-right:20px;">
         <span class="guanli size-66 font-white float-left">管理</span>
         <div class="float-right">
           <i class="fa fa-th-large font-gray-666 margin-top20" style="display: block;float:right;"></i>
-          <span style="display: block;margin-top:60px;"><i class="fa fa-th-large font-gray-666"  ></i>收起</span>
+          <span class="span_show" style="display: block;margin-top:60px;" ><i class="fa fa-th-large font-gray-666" ></i>收起</span>
         </div>
       </div>
       <div class="main_aside">
@@ -102,12 +102,38 @@
 </template>
 
 <script>
-    export default {
 
+    export default {
+      methods:{
+// 收起左侧列表
+        moreSetupMenuRemove () {
+          // $('.show_left').css({
+          //     'animation':'move 1s',
+          //     'animation-fill-mode': 'forwards'
+          // })
+          // console.log(1)
+          $('.show_left').slideToggle(1000,function(){
+            $('#left').css('width','0');
+          $('main').css('margin-left','0');
+            $('.fix').show();
+          });
+
+        },
+        globalClick(callback) {
+          document.getElementsByClassName('span_show')[0].onclick = function () {
+            callback();
+          };
+        }
+
+      },
+      mounted(){
+        this.globalClick(this.moreSetupMenuRemove);
+      }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
   .clearFix:after{
     clear:both;
     content:'';
@@ -171,4 +197,7 @@
   .router-link-active span{
     color:#e9e9e9;
   }
+
+
+
 </style>
