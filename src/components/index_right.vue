@@ -474,6 +474,7 @@ export default {
                  that.$store.commit('toIndexLeftAlarmChar', '更新'+that.tounpdateIndex++);
                  that.getgetUnitsSynthesis();
                  that.socketcodes[opt.code] = true ;
+                 console.log(1);
               }
               
               // console.log(data);
