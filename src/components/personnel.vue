@@ -684,7 +684,7 @@
 </template>
 
 <script>
-  import HeaderVue from './header.vue';
+  import HeaderVue from './publick/header.vue';
   import{mapState} from "vuex";
   // import Per_leftVue from './per_left.vue';
   // import Per_rightVue from './per_right.vue';

@@ -7,12 +7,12 @@ import Equipment_managementVue from '../components/setting';
 // footer
 import LoginVue from '../components/login';
 import RegisterVue from '../components/register';
-import IndexVue from '../components/index';
+import IndexVue from '../components/index/index';
 import CallpoliceVue from '../components/callpolice';
 import InspectionVue from '../components/inspection';
 import InformationVue from '../components/information';
 import PersonnelVue from '../components/personnel';
-import RiskVue from '../components/risk';
+import RiskVue from '../components/risk/risk';
 import DangerVue from '../components/danger';
 import BulidVue from '../components/buliding';
 import ListVue from '../components/list';

@@ -494,7 +494,7 @@
 </template>
 
 <script>
-  import HeaderVue from './header.vue';
+  import HeaderVue from './publick/header.vue';
   export default {
     components:{
       'header-vue':HeaderVue
@@ -508,7 +508,7 @@
   }
 </script>
 <script>
-  import HeaderVue from './header.vue';
+  import HeaderVue from './publick/header.vue';
   export default {
   components:{
       'header-vue':HeaderVue

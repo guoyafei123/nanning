@@ -604,7 +604,7 @@
 </template>
 
 <script>
-import HeaderVue from "./header.vue";
+import HeaderVue from "./publick/header.vue";
 // import Ins_leftVue from "./ins_left.vue";
 // import Ins_rightVue from "./ins_right.vue";
 export default {

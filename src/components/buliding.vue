@@ -550,21 +550,7 @@
 </template>
 
 <script>
-  import HeaderVue from './header.vue';
-  export default {
-    components:{
-      'header-vue':HeaderVue
-    },
-    mounted() {
-      this.$store.commit('route_path',this.$route.path);
-      // console.log(this.$route.path);
-      // this.$router.path
-      
-    }
-  }
-</script>
-<script>
-  import HeaderVue from './header.vue';
+  import HeaderVue from './publick/header.vue';
   export default {
   components:{
       'header-vue':HeaderVue
