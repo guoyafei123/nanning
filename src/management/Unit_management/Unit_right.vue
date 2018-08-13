@@ -1,6 +1,6 @@
 <template>
   <div class="Inspection_plan z-index-20  ">
-    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:130px;">
+    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:130px;display:none;">
       <section class="inspection-iteminfo" >
         <section>
           <div class="textandimg">
@@ -100,7 +100,8 @@
           if (response.data.pager) {
             this.tableData = response.data.pager.result;
             console.log(this.tableData);
-            this.right_list()
+            $('.plan').show();
+            this.right_list();
           }
         })
         .then(err => {
