@@ -4,7 +4,7 @@
     <header-vue></header-vue>
     <!-- #头部 End-->
     <!-- #左边 -->
-    <section id="left" class="position-fixed-left z-index-999">
+    <section id="left" class="position-fixed-left z-index-20">
       <div class="overlay"></div>
       <index_left-vue></index_left-vue>
     </section>
