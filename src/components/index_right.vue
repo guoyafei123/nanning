@@ -453,7 +453,7 @@ export default {
     connect() {
       var that=this;
       console.log("去链接。。。");
-      var socket = new sockjs('http://api.nanninglq.51play.com/socket');
+      var socket = new sockjs('http://api.nanninglqys.51play.com/socket');
       var stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame) {
           console.log('Connected: ' + frame);
@@ -518,7 +518,7 @@ export default {
         this.openpanl(opt.type,opt)
       }
       if(opt.title!=null || opt.title!=''){
-        this.getmp3new('http://api.nanninglq.51play.com/alarm/getAlarmAudio?content='+opt.title);
+        this.getmp3new('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?content='+opt.title);
       }
     },
 
