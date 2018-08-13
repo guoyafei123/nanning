@@ -103,8 +103,8 @@
                   </p>
                 </li>
                 <li>
-                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位"  @change="tolineitem">
-                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部单位"  @change="tolineitem">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                   </el-select>
                 </li>
@@ -283,7 +283,7 @@
           <section class="my-filter padding5 bg-gray-222 clearfix">
                         <!-- 单位筛选 -->
                         <div class="col-sm-3 padding0">
-                          <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择">
+                          <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
                             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                           </el-select>
@@ -322,7 +322,7 @@
                         </span>
                 </p>
                 <p class="col-sm-7 text-left padding0">
-                  <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
+                  <span><i class="fas fa-industry"></i> 中心小学</span>
                 </p>
                 <p class="col-sm-5 text-right padding0">
                   注册时间:<strong class="font-gray-999">2018-16:23 13:56:37</strong>            
@@ -330,8 +330,8 @@
               </div>
             </section>
             <section>
-              <div class="row toolcount margin-top30">
-                        <div class="col-sm-4 font-gray-666 padding-right0">
+              <div class="row toolcount margin-top20">
+                        <div class="col-sm-4 font-gray-666 padding0">
                           <ul class="toolcount-left padding-left0" id="toolcount">
                             <li class="col-xs-offset-1 col-xs-10 margin-bottom10 padding-left5">
                               <!-- <h1 class="toolcount-p1">8.7</h1> -->
@@ -380,7 +380,7 @@
                       </div>
             </section>
             <section>
-              <div class="toolcompanyrate margin-top30">
+              <div class="toolcompanyrate margin-top20">
                 <h2 class="size-16 font-gray-ccc">
                   <ul class="row padding0 margin0 size-12 font-gray-999">
                     <li class="col-sm-4">
@@ -434,7 +434,7 @@
               </div>
             </section>
             <section>
-              <div class="toolregionrate margin-top40">
+              <div class="toolregionrate margin-top30">
                 <h4 class="p-title">巡检记录
                   <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
                       <i class="icon iconfont icon-weibiaoti10 size-12"></i>
@@ -558,10 +558,10 @@
               <section class="margin-top20">
                 <div class="personinfo">
                   <p>
-                    <span class="size-20 font-blue">南宁市良庆区</span>
+                    <span class="size-20 font-blue">怀化市</span>
                   </p>
                   <p>
-                    <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
+                    <span><i class="fas fa-industry"></i> 中心小学</span>
                   </p>
                 </div>
               </section>
@@ -704,6 +704,21 @@
           vuextest:'兄弟组件传参',
         // 右侧
         vuexone:'123',
+        value7:'',
+        options: [
+        {
+          value: "选项1",
+          label: "怀化市"
+        },
+        {
+          value: "选项2",
+          label: "怀化市兴宁区"
+        },
+        {
+          value: "选项3",
+          label: "怀化市横县"
+        }
+      ],
         // 单选按钮
         workervalue:1,
         // 时间筛选
@@ -769,6 +784,7 @@
             .addClass("display-none")
             .removeClass("display-block");
         },
+        tolineitem(){},
         chart_one() {
           var option = {
             xAxis: {

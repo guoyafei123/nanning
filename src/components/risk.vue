@@ -212,7 +212,7 @@
               <section class="my-filter padding5 bg-gray-222 clearfix">
                         <!-- 单位筛选 -->
                         <div class="col-sm-3 padding0">
-                          <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择">
+                          <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
                             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                           </el-select>
@@ -248,7 +248,7 @@
                               </p>
                               <p class="col-sm-5 text-left padding0">
                                   <span>
-                                      <i class="fas fa-industry"></i> 良庆区中心小学</span>
+                                      <i class="fas fa-industry"></i> 中心小学</span>
                               </p>
                               <P class="col-sm-7 text-right padding0">
                                   <span class="text-right">
@@ -261,7 +261,7 @@
               <section>
                 <div class="toolcount margin-top10 clearfix">
                   <!-- <h4 class="p-title">安全评分</h4> -->
-                  <div class="col-sm-4 font-gray-999 padding-right0 margin-top40">
+                  <div class="col-sm-4 font-gray-999 padding0 margin-top40">
                     <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                         <p class="line-height86 size-60 font-blue"><span class="size-100">8</span>.7</p>
@@ -381,9 +381,10 @@
               </section>
               <section>
                 <div class="toolcount margin-top30">
-                  <h4 class="p-title">安全评分变化趋势
-                    <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
+                  <h4 class="p-title">
+                    安全评分变化趋势
+                    <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666" data-toggle="tooltip" title="全屏">
+                      <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                     </span>
                   </h4>
                   <div id="riskchar3" style="width: 100%;height:180px;margin: 0 auto;"></div>
@@ -406,7 +407,7 @@
                               </p>
                               <p class="col-sm-5 text-left padding0">
                                   <span>
-                                      <i class="fas fa-industry"></i> 良庆区中心小学</span>
+                                      <i class="fas fa-industry"></i> 中心小学</span>
                               </p>
                               <P class="col-sm-7 text-right padding0">
                                   <span class="text-right">
@@ -491,6 +492,52 @@
     return {
       // 单选按钮
       workervalue:1,
+      pickerOptions2: {
+        shortcuts: [
+          {
+            text: "最近一周",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近三个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
+          }
+        ]
+      },
+      value7: "",
+      options: [
+        {
+          value: "选项1",
+          label: "怀化市"
+        },
+        {
+          value: "选项2",
+          label: "怀化市兴宁区"
+        },
+        {
+          value: "选项3",
+          label: "怀化市横县"
+        }
+      ],
     };
   },
   methods: {
@@ -1013,6 +1060,7 @@
     }
   },
   mounted() {
+    this.$store.commit('route_path',this.$route.path);
     // 右侧图表
     this.chart_right();
     // 左侧图表  

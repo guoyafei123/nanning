@@ -120,6 +120,7 @@
 }
 .early-warning small {
     font-size:xx-small;
+
 }
 .early-title {
     color: #999;
@@ -128,7 +129,15 @@
     margin-bottom: 10px;
     margin-left: 10px;
 }
-
+.early-title small {
+    font-size: 12px;
+    display: inline-block;
+    transform: scale(0.84,0.84);
+    -webkit-transform: scale(0.84,0.84);
+    text-align: left;
+    line-height: 12px;
+    margin-left: -6px;
+}
 .early-list {
     margin-bottom: 0;       
     width: 100%;

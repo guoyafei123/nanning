@@ -2,7 +2,7 @@
   <header id="header" class="position-fixed-top z-index-9999">
     <div class="header-main">
     <div class="header-left margin-top40 position-left37">
-        <p class="font-white size-18 version-title">数雨如歌智慧消防大数据监控平台 政府版
+        <p class="font-white size-18 version-title"><!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
             <span class="size-10 version-num">BETA3.0</span>
         </p>
         <el-select v-model="areavalue" placeholder="全部区域" size="mini">
@@ -95,7 +95,7 @@
                         <span class="header-head-portrait">
                             <img src="../assets/images/people.png" class="img-responsive img-circle">
                         </span>
-                        <span class="user-name">段亚伟</span>
+                        <span class="user-name">姓名</span>
                         <span class="caret"></span>
                       </span>
                       <el-dropdown-menu slot="dropdown">                        
@@ -121,7 +121,7 @@
                 </a>
             </li>            
             <li>
-                <router-link to="/Equipment_management" data-toggle="tooltip" title="管理">
+                <router-link to="/Unit_management" data-toggle="tooltip" title="管理">
                     <i class="icon iconfont icon-shezhi-mian-"></i>
                 </router-link>
             </li>
@@ -162,17 +162,14 @@
     data() {
       return {
         options: [{
-          value: '选项1',
-          label: '全部区域'
-        }, {
           value: '选项2',
-          label: '南宁市良庆区'
+          label: '怀化市'
         }, {
           value: '选项3',
-          label: '南宁市兴宁区'
+          label: '怀化市兴宁区'
         }, {
           value: '选项4',
-          label: '南宁市横县'
+          label: '怀化市横县'
         }],
         areavalue: "选项2",
         unitvalue:'全部单位'

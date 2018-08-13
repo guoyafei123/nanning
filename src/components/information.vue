@@ -51,7 +51,7 @@
             </div>
           </section>
           <section>
-            <div class="toolroute font-gray-ccc margin-left37">
+            <div class="toolroute font-gray-ccc margin-left37 margin-top100">
               <span class="toolroute-rect bg-blue"></span>
               <ul class="padding-left10 padding-right5 clearfix">
                 <li>
@@ -92,6 +92,78 @@
                         </tr>
                       </thead>
                       <tbody>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和家园2号楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-qitimiehuoxitong-" data-toggle="tooltip" title="气体灭火系统"></i></td>
+                          <td class="font-blue">正常</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>实验教学楼</td>
+                          <td>中心小学</td>
+                          <td class="dec-type"><i class="icon iconfont icon-ganyanqi-" data-toggle="tooltip" title="烟雾感应器"></i></td>
+                          <td class="font-orange">故障</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和写字楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-hongwaiyanhuoganying-" data-toggle="tooltip" title="声光报警器"></i></td>
+                          <td class="font-yellow">隐患</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和家园2号楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-qitimiehuoxitong-" data-toggle="tooltip" title="气体灭火系统"></i></td>
+                          <td class="font-blue">正常</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>实验教学楼</td>
+                          <td>中心小学</td>
+                          <td class="dec-type"><i class="icon iconfont icon-ganyanqi-" data-toggle="tooltip" title="烟雾感应器"></i></td>
+                          <td class="font-orange">故障</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>AE12WD56W</td>
+                          <td>瑞和写字楼</td>
+                          <td>瑞和家园</td>
+                          <td class="dec-type"><i class="icon iconfont icon-hongwaiyanhuoganying-" data-toggle="tooltip" title="声光报警器"></i></td>
+                          <td class="font-yellow">隐患</td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+                            </a>
+                          </td>
+                        </tr>
                         <tr>
                           <td>AE12WD56W</td>
                           <td>瑞和家园2号楼</td>
@@ -201,7 +273,7 @@
                   </div>
               </section>
               <!-- 统计 -->
-              <section class="dan-lineinfo display-none">
+              <section class="dan-lineinfo ">
                 <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
                     <!-- 已选择 -->
                     <div class="personinfo">
@@ -210,7 +282,7 @@
                         <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
                         </p>
                         <p class="col-sm-7 text-left padding0">
-                            <span><i class="el-icon-location"></i> 广西省南宁市良庆区银海大道710-2号</span>
+                            <span><i class="el-icon-location"></i> 怀化市银海大道710-2号</span>
                         </p>
                         <P class="col-sm-5 text-right padding0">
                             <span class="text-right">
@@ -286,14 +358,14 @@
                     </section>
               </section>
               <!-- 详情 -->
-              <section class="dan-iteminfo overflow-scr">
-                <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>                
+              <section class="dan-iteminfo overflow-scr display-none">
+                <a class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
                 <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
                   <!-- 已选择 -->
                   <div class="personinfo">
-                        <p>
+                        <p>                       
                         <span class="size-20 font-blue">
-                          <i class="icon iconfont icon-jiankong-mian- size-20"  data-toggle="tooltip" title="监控摄像头"></i> AE12WD56W
+                          <i class="icon iconfont icon-jiankong-mian- size-20" data-toggle="tooltip" title="监控摄像头"></i> <span>AE12WD56W</span>
                         </span>
                         <span class="float-right">
                                 <span class="bgbox-max bg-gray-333 font-gray-999 size-10">安防设备</span>
@@ -301,7 +373,7 @@
                         </p>
                         <p class="col-sm-7 text-left padding0">
                             <span>
-                                <i class="fas fa-industry"></i> 南宁市良庆区中心小学</span>
+                                <i class="fas fa-industry"></i> 怀化市中心小学</span>
                         </p>
                         <P class="col-sm-5 text-right padding0">
                             <span class="text-right">
@@ -313,7 +385,7 @@
                 <!-- 设备信息统计 -->
                 <section>
                   <div class="toolcount margin-top20 clearfix">
-                    <div class="col-sm-4 font-gray-999 padding-right0">
+                    <div class="col-sm-4 font-gray-999 padding0">
                         <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                           <li>
                             <h1 class="toolcount-p1"><span class="font-blue"></span>正常</h1>
@@ -386,7 +458,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <span>设备位置 </span>
-                                <strong>良庆区中心小学实验教学楼6层</strong>
+                                <strong>中心小学实验教学楼6层</strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>设备坐标 </span>
@@ -407,7 +479,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <span>生产厂商 </span>
-                                <strong>南宁市精密仪器有限公司 <a href="tel:0760693575" class="font-blue display-inline-block"  data-toggle="tooltip" title="拨打电话0760693575"><i class="icon iconfont icon-dianhua size-14"></i></a></strong>
+                                <strong>怀化市精密仪器有限公司 <a href="tel:0760693575" class="font-blue display-inline-block"  data-toggle="tooltip" title="拨打电话0760693575"><i class="icon iconfont icon-dianhua size-14"></i></a></strong>
                             </div>                   
                         </div>
                     </div>
@@ -485,7 +557,20 @@ export default {
         ]
       },
       value7: "",
-
+      options: [
+        {
+          value: "选项1",
+          label: "怀化市"
+        },
+        {
+          value: "选项2",
+          label: "怀化市兴宁区"
+        },
+        {
+          value: "选项3",
+          label: "怀化市横县"
+        }
+      ],
       ins_queryInspectionNameList: Object,
       ins_queryInspectionNameListvalue: "全部建筑",
       // 表格-请求
@@ -514,7 +599,7 @@ export default {
       ins_alarmAndMalfunctionDeviceCount: Object,
       // 饼图数据
       queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter: {
-        unitId: "4",
+        unitId: '',
         startTime: "",
         endTime: "",
         type: 1
@@ -537,13 +622,15 @@ export default {
     };
   },
   methods: {
-    jianzhu() {
-      $(".dan-lineinfo")
+    
+    moren() {
+      $(".dan-iteminfo")
         .addClass("display-block")
         .removeClass("display-none");
-      $(".dan-iteminfo")
+      $(".dan-lineinfo")
         .addClass("display-none")
         .removeClass("display-block");
+      
     },
     toitmeinfo(item) {
       $(".dan-iteminfo")
@@ -1025,8 +1112,8 @@ export default {
   },
   mounted() {
     this.$store.commit('route_path',this.$route.path);
-    this.getTable();
-    this.getData();
+    // this.getTable();
+    // this.getData();
     this.get_axis();
     this.get_line();
     this.get_pie();

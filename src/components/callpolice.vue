@@ -62,14 +62,11 @@
                   <h4 class="toolroute-padding8 popup-routebtn font-gray-666 display-block">
                     <i class="icon iconfont icon-weibiaoti10 size-12" data-toggle="tooltip" title="全屏"></i>
                   </h4>
-                  <div class="q-date margin-top5">
-                  <el-radio-group v-model="radioDate" size="mini">
-                    <el-radio-button label="日"></el-radio-button>
-                    <el-radio-button label="月"></el-radio-button>
-                    <el-radio-button label="年"></el-radio-button>
-                  </el-radio-group>              
-                    <!-- <a href="" class="active">日</a><a href="">月</a><a href="">年</a> -->
-                  </div>
+                  <span class="indexdateabox alarmdate margin-top5">
+                    <b class="indexdateactive">日</b>
+                    <b>月</b>
+                    <b>年</b>
+                  </span>
                 </div>
                 <div class="toolcount">
                     <div class="clearfix text-center">
@@ -128,7 +125,7 @@
                           <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
                         </p>
                         <p>
-                          <span><i class="el-icon-location"></i> 广西省南宁市良庆区银海大道710-2号</span>
+                          <span><i class="el-icon-location"></i> 怀化市银海大道710-2号</span>
                         </p>
                       </div>
                     </div>
@@ -158,7 +155,7 @@
                     <div class="early-title">
                       <small>Alarm-Records</small>
                             <h3>警报记录
-                              <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
+                              <a class="pull-right size-12 openmenulist"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
                           </h3>
                     </div>      
                     <!-- 报警时循环li标签class样式调用
@@ -564,7 +561,7 @@
       </section>
       <!-- #右边 End-->
     <!-- 弹窗 -->
-    <el-dialog title="":visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+    <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
       <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
       <earlyinfo-vue></earlyinfo-vue>
     </el-dialog>
@@ -574,6 +571,7 @@
 <script>
 import HeaderVue from "./header.vue";
 import earlyinfoVue from './earlyinfo.vue';
+import { realconsole } from '../assets/js/management.js'
 // import Call_leftVue from './call_left.vue';
 // import Call_rightVue from './call_right.vue';
 export default {
@@ -589,19 +587,15 @@ export default {
       options: [
         {
           value: "选项1",
-          label: "全部单位"
+          label: "怀化市"
         },
         {
           value: "选项2",
-          label: "中心小学"
+          label: "怀化市兴宁区"
         },
         {
           value: "选项3",
-          label: "瑞和家园"
-        },
-        {
-          value: "选项4",
-          label: "国中大厦"
+          label: "怀化市横县"
         }
       ],
       ins_queryInspectionNameListvalue: "全部单位",
@@ -691,21 +685,6 @@ export default {
     };
   },
   methods: {
-    // tab切换  
-    // 实时警报列表展开/折叠
-    openEarlyList(){
-      $(".unit-info").slideToggle(
-        function(){
-        $(".unit-btn-close").toggle();
-        $(".unit-btn-open").toggle();
-        $(".early-warning").toggleClass("scrollheight");
-      });
-      
-    },
-    // 锁定/关闭
-     earlyTool(){
-            $(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
-    },
     // 返回
     jianzhu() {
       $(".dan-lineinfo")
@@ -794,10 +773,10 @@ export default {
         if (response) {
           console.log(response);
           this.ins_getAlarmCount = response.data.alarmCount;
-          this.draw_piemin(
-              "call_charpiemin",
-              response.data.alarmCount
-            );
+          // this.draw_piemin(
+          //     "call_charpiemin",
+          //     response.data.alarmCount
+          //   );
         }
       })
       .then(err => {
@@ -825,11 +804,11 @@ export default {
       .then(response => {
         if (response) {
           this.ins_getAlarmRate = response.data.alarmRate[0] 
-          this.draw_piemax(
-            "call_charpiemax",
-            this.ins_getAlarmRate,
-            this.getAlarmRate_parameter.type
-          );
+          // this.draw_piemax(
+          //   "call_charpiemax",
+          //   this.ins_getAlarmRate,
+          //   this.getAlarmRate_parameter.type
+          // );
         }
       })
       .then(err => {
@@ -1053,6 +1032,7 @@ export default {
     },
   },
   mounted() {
+    realconsole();
     this.$store.commit('route_path',this.$route.path);
     this.getTable();
     this.getData();

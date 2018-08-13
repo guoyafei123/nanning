@@ -11,14 +11,130 @@
           maxroom:19,
           minroom:14,
           zoom:16,
-          point:[108.27564664565489,22.84248179256856],
+          point:[110.574008,27.906355],
           mp:Object,
           alarms:Object,
           listenerScale:500,
           alarmsArray:[],
+          routepath:'',
+          scale:{
+            19: 20,
+            18: 50,
+            17: 100,
+            16: 200,
+            15: 400,
+            14: 1000,
+            13: 2000,
+            12: 5000,
+            11: 10000,
+            10: 20000,
+            9: 25000,
+            8: 50000,
+            7: 100000,
+            6: 200000,
+            5: 500000,
+            4: 1000000,
+            3: 2000000,
+          },
+          alarmsize:500
         }
       },
+      computed:mapState([
+        'queryUnitBuildList',
+        'queryInspectionLineList',
+        'indexToAlarmTroubel',
+        'route_path'
+      ]),
+      watch:{
+        // 所有巡检单位
+        queryUnitBuildList(){
+          this.queryUnitBuildList.unitBuildList.forEach(element => {
+            this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
+          });
+        },
 
+        // 正在巡检的路线
+        queryInspectionLineList(){
+          this.queryInspectionLineList.inspectionLineList.forEach(element => {
+            if(element.inspectionNodeUserList!=0){
+              let array=[]
+              element.inspectionNodeUserList.forEach(item=>{
+                if(item.xRate!=null || item.xRate!='' ||item.xRate!=0 ||item.xRate!=1){
+                  this.mp.addOverlay(this.addlandmark(item.buildingName,item.status,[item.xRate,item.yRate]))
+                  array.push([item.xRate,item.yRate]);
+                  this.mp.addOverlay(this.addline(array));
+                  
+                }
+              })
+            }
+            // this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
+            console.log(element.buildingName);
+          });
+        },
+
+        // type:  
+        // =1 正常请求画图
+        // =2 只请求报警和火情
+        // =3 确认报警
+        // =4 关闭火情
+        // 实时报警
+        indexToAlarmTroubel(){
+          // this.alarmsArray=[];
+          // this.path_index();
+          // if(this.routepath=='/idnex' || this.routepath=='/callpolice'){
+            console.log(this.indexToAlarmTroubel[1]);
+            let type=this.indexToAlarmTroubel[1];
+            if(type==1){
+              this.indexToAlarmTroubel[0].alarms.forEach(element=>{
+                let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
+                this.mp.addOverlay(alarms[0])
+                this.mp.addOverlay(alarms[1])
+                this.alarmsArray.push([alarms[0],element,alarms[1]]);
+              })
+            }else if(type==2){
+              let element=this.indexToAlarmTroubel[0].alarms[0];
+              let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
+              this.mp.addOverlay(alarms[0])
+              this.mp.addOverlay(alarms[1])
+              this.alarmsArray.push([alarms[0],element,alarms[1]]);
+              this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
+            }else if(type==3){
+              let element=this.indexToAlarmTroubel[0].alarms[0];
+              this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
+            }else if(type==20){
+              let element=this.indexToAlarmTroubel[0].alarms[0];
+              this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
+            }else if(type==4){
+              for(var i=0;i<this.alarmsArray.length;i++){
+                this.mp.removeOverlay(this.alarmsArray[i][0]);
+                this.mp.removeOverlay(this.alarmsArray[i][2]);
+              }
+              this.alarmsArray=[];
+              this.indexToAlarmTroubel[0].alarms.forEach(element=>{
+                let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
+                this.mp.addOverlay(alarms[0])
+                this.mp.addOverlay(alarms[1])
+                this.alarmsArray.push([alarms[0],element,alarms[1]]);
+              })
+            }
+          // }
+        },
+
+        route_path(){
+          this.routepath=this.route_path;
+          this.mp.clearOverlays();
+          this.path_index();
+          if(this.routepath=='/idnex'){
+            // this.path_index();
+          }
+          else if(this.routepath=='/inspection'){
+            this.path_inspection();
+          }
+          else if(this.routepath=='/buliding'){
+            // this.path_buliding();
+          }
+        },
+      },
       methods:{
         getMapToDiv(divId) {
           var MAP_STYLE_SMALL = [
@@ -328,19 +444,28 @@
           var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
           map.addOverlay(marker2); 
         },
-        addline(array){
+        addline(array,type){
           var pois=[];
           for(var i=0;i<array.length;i++){
             pois.push(new BMap.Point(array[i][0],array[i][1]))
           }
-          
+          var fillcolor='';
+          if (type == 1) {
+            fillcolor='#bad616';
+          } else if (type == 2) {
+            fillcolor='#c69e00';
+          } else if (type == 3) {
+            fillcolor='#ff7800';
+          } else {
+            fillcolor='#ccc';
+          }
           var polyline =new BMap.Polyline(pois, {
             enableEditing: false,//是否启用线编辑，默认为false
             enableClicking: true,//是否响应点击事件，默认为true
             // icons:[icons],
             strokeWeight:'2',//折线的宽度，以像素为单位
             strokeOpacity: 1,//折线的透明度，取值范围0 - 1
-            strokeColor:"#bad616" //折线颜色
+            strokeColor:fillcolor //折线颜色
           });
           return polyline;
         },
@@ -388,188 +513,137 @@
           return html;
         },
         legend_alarm(img, value, size) {
-        var style_bg;
-        var style_border;
-        var style_shadow;
-        if (value <= 3) {
-          style_bg = 'bg-blue';
-          style_border = 'border-blue';
-          style_shadow='shadow-blue'
-        } else if (value <= 6) {
-          style_bg = 'bg-yellow';
-          style_border = 'border-yellow';
-          style_shadow='shadow-yellow'
-        } else if (value <= 9) {
-          style_bg = 'bg-orange';
-          style_border = 'border-orange';
-          style_shadow='shadow-orange'
-        } else {
-          style_bg = 'bg-red';
-          style_border = 'border-red';
-          style_shadow='shadow-red'
-        }
-        var pointdiv=size/2-size;
-        var html = `
-          <div class="legend-alarm" style="top:`+pointdiv+`px;left:`+pointdiv+`px;width:` + size + `px;height:` + size + `px">
-              <span class="alarm-ani alarm-item ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item1 ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item2 ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item3 ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item4 ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item5 ` + style_shadow + `"></span>
-              <span class="alarm-min ` + style_bg + `"></span>
-              <span class="alarm-max ` + style_border + `"></span>
-          </div>
-        `
-        return html;
-      }
-
-
-      },
-      computed:mapState([
-        'queryUnitBuildList',
-        'queryInspectionLineList',
-        'indexToAlarmTroubel'
-      ]),
-      watch:{
-        // 所有巡检单位
-        queryUnitBuildList(){
-          this.queryUnitBuildList.unitBuildList.forEach(element => {
-            this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
-          });
-        },
-
-        // 正在巡检的路线
-        queryInspectionLineList(){
-          this.queryInspectionLineList.inspectionLineList.forEach(element => {
-            if(element.inspectionNodeUserList!=0){
-              let array=[]
-              element.inspectionNodeUserList.forEach(item=>{
-                if(item.xRate!=null || item.xRate!='' ||item.xRate!=0 ||item.xRate!=1){
-                  this.mp.addOverlay(this.addlandmark(item.buildingName,item.status,[item.xRate,item.yRate]))
-                  array.push([item.xRate,item.yRate]);
-                  this.mp.addOverlay(this.addline(array));
-                  
-                }
-              })
-            }
-            // this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
-            console.log(element.buildingName);
-          });
-        },
-
-        // type:  
-        // =1 正常请求画图
-        // =2 只请求报警和火情
-        // =3 确认报警
-        // =4 关闭火情
-        // 实时报警
-        indexToAlarmTroubel(){
-          console.log(this.indexToAlarmTroubel[1]);
-          let type=this.indexToAlarmTroubel[1];
-          if(type==1){
-            this.indexToAlarmTroubel[0].alarms.forEach(element=>{
-              let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
-              this.mp.addOverlay(alarms[0])
-              this.mp.addOverlay(alarms[1])
-              this.alarmsArray.push([alarms[0],element,alarms[1]]);
-            })
-          }else if(type==2){
-            let element=this.indexToAlarmTroubel[0].alarms[0];
-            let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
-            this.mp.addOverlay(alarms[0])
-            this.mp.addOverlay(alarms[1])
-            this.alarmsArray.push([alarms[0],element,alarms[1]]);
-            this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
-          }else if(type==3){
-            let element=this.indexToAlarmTroubel[0].alarms[0];
-            this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
-          }else if(type==4){
-            for(var i=0;i<this.alarmsArray.length;i++){
-              this.mp.removeOverlay(this.alarmsArray[i][0]);
-              this.mp.removeOverlay(this.alarmsArray[i][2]);
-            }
-            this.alarmsArray=[];
-            this.indexToAlarmTroubel[0].alarms.forEach(element=>{
-              let alarms=this.addalarm("银湖海岸城1",'12',this.listenerScale,[element.pointX,element.pointY]);
-              this.mp.addOverlay(alarms[0])
-              this.mp.addOverlay(alarms[1])
-              this.alarmsArray.push([alarms[0],element,alarms[1]]);
-            })
+          var style_bg;
+          var style_border;
+          var style_shadow;
+          if (value <= 3) {
+            style_bg = 'bg-blue';
+            style_border = 'border-blue';
+            style_shadow='shadow-blue'
+          } else if (value <= 6) {
+            style_bg = 'bg-yellow';
+            style_border = 'border-yellow';
+            style_shadow='shadow-yellow'
+          } else if (value <= 9) {
+            style_bg = 'bg-orange';
+            style_border = 'border-orange';
+            style_shadow='shadow-orange'
+          } else {
+            style_bg = 'bg-red';
+            style_border = 'border-red';
+            style_shadow='shadow-red'
           }
+          var pointdiv=size/2-size;
+          var html = `
+            <div class="legend-alarm" style="top:`+pointdiv+`px;left:`+pointdiv+`px;width:` + size + `px;height:` + size + `px">
+                <span class="alarm-ani alarm-item ` + style_shadow + `"></span>
+                <span class="alarm-ani alarm-item1 ` + style_shadow + `"></span>
+                <span class="alarm-ani alarm-item2 ` + style_shadow + `"></span>
+                <span class="alarm-ani alarm-item3 ` + style_shadow + `"></span>
+                <span class="alarm-ani alarm-item4 ` + style_shadow + `"></span>
+                <span class="alarm-ani alarm-item5 ` + style_shadow + `"></span>
+                <span class="alarm-min ` + style_bg + `"></span>
+                <span class="alarm-max ` + style_border + `"></span>
+            </div>
+          `
+          return html;
+        },
+        path_index(){
+          this.mp.addOverlay(this.addlandmark("红花园工业园1号楼",'3',[110.574494,27.905342]))
+          this.mp.addOverlay(this.addlandmark("红花园工业园2号楼",'3',[110.574907,27.905837]))
+          this.mp.addOverlay(this.addlandmark("五里排",'1',[110.56976,27.909667]))
+          this.mp.addOverlay(this.addlandmark("林翠山公园",'1',[110.584321,27.910753]))
+          this.mp.addOverlay(this.addlandmark("蒋家冲",'1',[110.568709,27.900633]))
+          this.mp.addOverlay(this.addlandmark("溆水外滩",'1',[110.58734,27.90199]))
+          this.mp.addOverlay(this.addlandmark("罗家湾",'1',[110.579686,27.91179]))
+          this.mp.addOverlay(this.addlandmark("三坝塘",'1',[110.571494,27.913881]))
+          this.mp.addOverlay(this.addlandmark("红花园村",'1',[110.562726,27.897616]))
+        },
+        path_inspection(){
+          // this.mp.addOverlay(this.addlandmark("红花园工业园B区",'3',[110.573398,27.904424]))
+          // this.mp.addOverlay(this.addlandmark("红花园工业园A区",'6',[110.57205,27.905429]))
+          // this.mp.addOverlay(this.addlandmark("红花园工业园C区",'9',[110.575571,27.904967]))
+          // this.mp.addOverlay(this.addlandmark("红花园工业园D区",'12',[110.575158,27.906978]))
+          // this.mp.addOverlay(this.addlandmark("红花园工业园E区",'12',[110.572948,27.908334]))
+          // this.mp.addOverlay(this.addlandmark("红花园工业园物业部",'1',[110.571565,27.907441]))
+
+          this.mp.addOverlay(this.addlandmark("红花园工业园1号楼",'3',[110.574494,27.905342]))
+          this.mp.addOverlay(this.addlandmark("红花园工业园2号楼",'3',[110.574907,27.905837]))
+          this.mp.addOverlay(this.addlandmark("五里排",'1',[110.56976,27.909667]))
+          this.mp.addOverlay(this.addlandmark("林翠山公园",'1',[110.584321,27.910753]))
+          this.mp.addOverlay(this.addlandmark("蒋家冲",'1',[110.568709,27.900633]))
+          this.mp.addOverlay(this.addlandmark("溆水外滩",'1',[110.58734,27.90199]))
+          this.mp.addOverlay(this.addlandmark("罗家湾",'1',[110.579686,27.91179]))
+          this.mp.addOverlay(this.addlandmark("三坝塘",'1',[110.571494,27.913881]))
+          this.mp.addOverlay(this.addlandmark("红花园村",'1',[110.562726,27.897616]))
+
+          var linearray = [
+            [110.574494,27.905342],
+            [110.572109,27.905414],
+            [110.572028,27.906698],
+            [110.573398,27.907987],
+            [110.574992,27.906056],
+            [110.575001,27.906248],
+            [110.574907,27.905837]
+          ];
+          this.mp.addOverlay(this.addline(linearray,1));
           
+          // var linearray = [
+          //   [110.574494,27.905342],
+          //   [110.573614,27.904871],
+          //   [110.572751,27.905845],
+          //   [110.573582,27.906471],
+          //   [110.57431,27.906276],
+          //   [110.574907,27.905837]
+          // ];
+          // this.mp.addOverlay(this.addline(linearray,20));
+
+          var linearray = [
+            [110.574494,27.905342],
+            [110.573744,27.904256],
+            [110.575325,27.904145],
+            [110.575738,27.904847],
+            [110.57528,27.905226],
+            [110.574907,27.905837]
+          ];
+          this.mp.addOverlay(this.addline(linearray,2));
+        
+        },
+        path_buliding(){
+          this.mp.addOverlay(this.addlandmark("红花园工业园1号楼",'3',[110.574494,27.905342]))
+          this.mp.addOverlay(this.addlandmark("红花园工业园2号楼",'6',[110.574907,27.905837]))
+          this.mp.addOverlay(this.addlandmark("五里排",'1',[110.56976,27.909667]))
+          this.mp.addOverlay(this.addlandmark("林翠山公园",'1',[110.584321,27.910753]))
+          this.mp.addOverlay(this.addlandmark("蒋家冲",'1',[110.568709,27.900633]))
+          this.mp.addOverlay(this.addlandmark("溆水外滩",'1',[110.58734,27.90199]))
+          this.mp.addOverlay(this.addlandmark("罗家湾",'1',[110.579686,27.91179]))
+          this.mp.addOverlay(this.addlandmark("三坝塘",'1',[110.571494,27.913881]))
+          this.mp.addOverlay(this.addlandmark("红花园村",'1',[110.562726,27.897616]))
         }
       },
       mounted(){
         var map=this.getMapToDiv('allmap');
         this.mp=map;
-        var alarmsize=500;
-        var alarmsize1=1000;
         var that=this;
-        var scale={
-          19: 20,
-          18: 50,
-          17: 100,
-          16: 200,
-          15: 400,
-          14: 1000,
-          13: 2000,
-          12: 5000,
-          11: 10000,
-          10: 20000,
-          9: 25000,
-          8: 50000,
-          7: 100000,
-          6: 200000,
-          5: 500000,
-          4: 1000000,
-          3: 2000000,
-        }
-        map.addOverlay(this.addlandmark("银湖",'3',[108.378000,22.795000]))
-        map.addOverlay(this.addlandmark("银湖海",'6',[108.385000,22.795000]))
-        map.addOverlay(this.addlandmark("银湖海岸",'9',[108.381257,22.801501]))
-        map.addOverlay(this.addlandmark("银湖海岸城",'12',[108.385257,22.805501]))
-        map.addOverlay(this.addpeople("银湖海岸城1",'2',[108.382500,22.799300]))
-        var alarm=this.addalarm("银湖海岸城1",'6',alarmsize,[108.385000,22.795000]);
-        map.addOverlay(alarm[0])
-        map.addOverlay(alarm[1])
-
-        var alarm1=this.addalarm("银湖海岸城1",'12',alarmsize,[108.385257,22.805501]);
-        map.addOverlay(alarm1[0])
-        map.addOverlay(alarm1[1])
+        // var 
+        this.path_index();
 
         map.addEventListener("zoomend", function(evt){
-          that.listenerScale = scale[that.zoom] / scale[map.getZoom()] * alarmsize ;
-          map.removeOverlay(alarm[0])
-          alarm=that.addalarm("银湖海岸城1",'6',that.listenerScale,[108.385000,22.795000])
-          map.addOverlay(alarm[0])
-          // that.alarmsArray.
-          
-          for(var i=0;i<that.alarmsArray.length;i++){
-            // console.log(that.alarmsArray[i][1].pointX+','+that.alarmsArray[i][1].pointY);
-            map.removeOverlay(that.alarmsArray[i][0]);
-            map.removeOverlay(that.alarmsArray[i][2]);
-            that.alarmsArray[i][0]=that.addalarm("银湖海岸城1",'12',that.listenerScale,[that.alarmsArray[i][1].pointX,that.alarmsArray[i][1].pointY])[0];
-            // console.log(newalarm);
-            map.addOverlay(that.alarmsArray[i][0]);
-            map.addOverlay(that.alarmsArray[i][2]);
+        that.listenerScale = that.scale[that.zoom] / that.scale[map.getZoom()] * that.alarmsize ;
+        // alert(that.routepath)
+          if(that.routepath=='/index'){
+            for(var i=0;i<that.alarmsArray.length;i++){
+              map.removeOverlay(that.alarmsArray[i][0]);
+              map.removeOverlay(that.alarmsArray[i][2]);
+              that.alarmsArray[i][0]=that.addalarm("银湖海岸城1",'12',that.listenerScale,[that.alarmsArray[i][1].pointX,that.alarmsArray[i][1].pointY])[0];
+              // console.log(newalarm);
+              map.addOverlay(that.alarmsArray[i][0]);
+              map.addOverlay(that.alarmsArray[i][2]);
+            }
           }
-
-          map.removeOverlay(alarm1[0])
-          alarm1=that.addalarm("银湖海岸城1",'12',that.listenerScale,[108.385257,22.805501])
-          map.addOverlay(alarm1[0])
+          
         });
-        var linearray = [
-          [108.378000,22.795000],
-          [108.385000,22.795000],
-          [108.381257,22.801501],
-          [108.385257,22.805501]
-        ];
-        map.addOverlay(this.addline(linearray));
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
-        // setTimeout(() => {
-        //   map.setCenter(new BMap.Point(108.363609,22.815612))
-        // }, 5000);
       }
     }
 </script>

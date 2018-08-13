@@ -54,7 +54,7 @@
                         <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                       </span>
                     </h4>
-                    <div id="myChart" style="width: 100%;height:180px;margin: 0 auto;"></div>
+                    <div id="myChart" style="width: 100%;height:160px;margin: 0 auto;"></div>
                   </div>
                 </section>
           <!-- <section>
@@ -103,16 +103,16 @@
                   </p>
                 </li>
                 <li>
-                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位"  @change="tolineitem">
-                    <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部单位"  @change="tolineitem">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                   </el-select>
-                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部建筑"  @change="tolineitem">
-                    <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部建筑"  @change="tolineitem">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                   </el-select>
-                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 pull-right" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部类型"  @change="tolineitem">
-                    <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                  <el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 pull-right" size="mini" v-model="value7" placeholder="全部类型"  @change="tolineitem">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                   </el-select>
                 </li>
@@ -120,134 +120,54 @@
                     <table class="table table-responsive size-12 table-condensed toolroute-table margin-top10">
                       <thead>
                       <tr>
-                        <th>序号</th>
                         <th>预案名称</th>
                         <th>类型</th>
                         <th>所属建筑</th>
                         <th>所属单位</th>
-                        <th>操作</th>
                       </tr>
                       </thead>
                       <tbody id="">
                       <tr>
-                        <td>1</td>
                         <td>火情确认须知</td>
                         <td>火灾预案</td>
-                        <td>实验室教学楼1号</td>
+                        <td>实验室教学楼</td>
                         <td>中心小学</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>2</td>
-                        <td>单位灭火力量分布</td>
+                        <td>单位灭火力量</td>
                         <td>火灾预案</td>
                         <td>-</td>
                         <td>中心小学</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>3</td>
-                        <td>应急路线示意图</td>
+                        <td>应急路线示意</td>
                         <td>疏散示意图</td>
-                        <td>瑞和家园商业楼</td>
+                        <td>瑞和商业楼</td>
                         <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>4</td>
                         <td>消防值班守则</td>
                         <td>管理规定</td>
                         <td>-</td>
                         <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>5</td>
                         <td>火情确认须知</td>
                         <td>火灾预案</td>
-                        <td>实验室教学楼1号</td>
+                        <td>实验室教学楼</td>
                         <td>中心小学</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>6</td>
-                        <td>单位灭火力量分布</td>
+                        <td>单位灭火分布</td>
                         <td>火灾预案</td>
                         <td>-</td>
                         <td>中心小学</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       <tr>
-                        <td>7</td>
-                        <td>应急路线示意图</td>
+                        <td>应急路线示意</td>
                         <td>疏散示意图</td>
-                        <td>瑞和家园商业楼</td>
+                        <td>瑞和商业楼</td>
                         <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>8</td>
-                        <td>消防值班守则</td>
-                        <td>管理规定</td>
-                        <td>-</td>
-                        <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>9</td>
-                        <td>应急路线示意图</td>
-                        <td>疏散示意图</td>
-                        <td>瑞和家园商业楼</td>
-                        <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>10</td>
-                        <td>消防值班守则</td>
-                        <td>管理规定</td>
-                        <td>-</td>
-                        <td>瑞和家园</td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-                          </a>
-                        </td>
                       </tr>
                       </tbody>
                     </table>
@@ -271,7 +191,7 @@
             <section class="my-filter padding5 bg-gray-222 clearfix">
                       <!-- 单位筛选 -->
                       <div class="col-sm-3 padding0">
-                        <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位">
+                        <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="全部单位">
                           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                           </el-option>
                         </el-select>
@@ -308,7 +228,7 @@
                             </p>
                             <p class="text-left padding0">
                                 <span>
-                                    <i class="el-icon-location"></i> </i> 广西省南宁市良庆区银海大道710-2号
+                                    <i class="el-icon-location"></i> 怀化市银海大道710-2号
                                 </span>
                             </p>                       
                     </div>
@@ -370,7 +290,7 @@
                           <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
                         </p>
                         <p>
-                        <span><i class="el-icon-location"></i> 南宁市良庆区</span>
+                        <span><i class="el-icon-location"></i> 怀化市</span>
                         </p>
                       </div>
                     </div>
@@ -432,7 +352,7 @@
                           <ul class="list-inline">
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <img src="../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知">
+                                <div class="plan-listimg"><img src="../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="火情确认须知">火情确认须知</h4>
                                   <h5>中心小学</h5>
@@ -446,7 +366,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <img src="../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布">
+                                <div class="plan-listimg"><img src="../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
                                   <h5>瑞和家园</h5>
@@ -460,7 +380,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <img src="../assets/images/plan/plan3.png" class="img-responsive" alt="单位灭火力量分布">
+                                <div class="plan-listimg"><img src="../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
                                   <h5>瑞和家园</h5>
@@ -474,7 +394,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <img src="../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知">
+                                <div class="plan-listimg"><img src="../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="火情确认须知">火情确认须知</h4>
                                   <h5>中心小学</h5>
@@ -488,7 +408,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <img src="../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布">
+                                <div class="plan-listimg"><img src="../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
                                   <h5>瑞和家园</h5>
@@ -502,7 +422,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <img src="../assets/images/plan/plan3.png" class="img-responsive" alt="单位灭火力量分布">
+                                <div class="plan-listimg"><img src="../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
                                   <h5>瑞和家园</h5>
@@ -524,7 +444,7 @@
                           <ul class="list-inline">
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <img src="../assets/images/plan/plan2.png" class="img-responsive" alt="消防值班守则">
+                                <div class="plan-listimg"><img src="../assets/images/plan/plan2.png" class="img-responsive" alt="消防值班守则"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="消防值班守则">消防值班守则</h4>
                                   <h5>中心小学</h5>
@@ -546,7 +466,7 @@
                           <ul class="list-inline">
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <img src="../assets/images/plan/plan3.png" class="img-responsive" alt="应急路线示意图">
+                                <div class="plan-listimg"><img src="../assets/images/plan/plan3.png" class="img-responsive" alt="应急路线示意图"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="应急路线示意图">应急路线示意图</h4>
                                   <h5>瑞和家园</h5>
@@ -597,6 +517,21 @@
     return {
       // 单选按钮
       bulidvalue:1,
+      value7:'',
+      options: [
+        {
+          value: "选项1",
+          label: "怀化市"
+        },
+        {
+          value: "选项2",
+          label: "怀化市兴宁区"
+        },
+        {
+          value: "选项3",
+          label: "怀化市横县"
+        }
+      ],
       // 时间筛选
       pickerOptions2: {
         shortcuts: [
@@ -635,6 +570,10 @@
   methods: {
     // tab切换  
     // 实时警报列表展开/折叠
+    
+    tolineitem(){
+      
+    },
     openEarlyList(){
       $(".unit-info").slideToggle(
         function(){
@@ -921,12 +860,12 @@
             };
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       myChart.setOption(option);
-      let myChart2 = this.$echarts.init(document.getElementById("myChart1"));
-      myChart2.setOption(option);
-      let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
-      mypie1.setOption(pie);
-      let myChart1 = this.$echarts.init(document.getElementById("axis1"));
-      myChart1.setOption(option1);
+      // let myChart2 = this.$echarts.init(document.getElementById("myChart1"));
+      // myChart2.setOption(option);
+      // let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
+      // mypie1.setOption(pie);
+      // let myChart1 = this.$echarts.init(document.getElementById("axis1"));
+      // myChart1.setOption(option1);
     }
   },
   mounted() {

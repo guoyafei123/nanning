@@ -1,20 +1,30 @@
 <template>
   <div id="app">
     <!-- #地图主容器 -->
-    <map-vue v-if="mapAndFooter"></map-vue>
+    <template v-if="mapAndFooter">
+      <map-vue ></map-vue>
+    </template>
+    
     <div class="container-fluid">
       <router-view></router-view>
     </div>
     <div v-if="mapAndFooter" class="row public-footer">
       <footer-vue></footer-vue>
     </div>
-  </div>
+  <!-- 警报弹窗 -->
+<!--   <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+      <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
+      <earlyinfo-vue></earlyinfo-vue>
+    </el-dialog> -->
+  </div>    
 </template>
 
 <script>
   import MapVue from './components/map';
   import FooterVue from './components/footer';
-  import{mapState} from "vuex"
+  import{mapState} from "vuex";
+  // import EarlyinfoVue from './components/earlyinfo';
+  // import { realconsole } from './assets/js/management.js'
   export default {
     name: 'app',
     data () {
@@ -24,7 +34,8 @@
     },
     components: {
       'map-vue': MapVue,
-      'footer-vue': FooterVue
+      'footer-vue': FooterVue,
+      // 'earlyinfo-vue':EarlyinfoVue
     },
     computed:mapState([
       'route_path',
@@ -41,12 +52,15 @@
       },
     },
 
-    mounted() {
+    mounted() {     
+      // realconsole();
       $("[data-toggle='tooltip']").tooltip();
       // alert(this.$route.path);
       // this.$router.path
       // 
-    }
+    },
+    methods: {
+    },
   }
 </script>
 

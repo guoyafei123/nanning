@@ -123,10 +123,10 @@
             </div>
             <div class="textandimg-img">
               <div class="col-sm-3">
-                <img src="../assets/images/people.png">
+                <img src="../assets/images/123.jpg">
               </div>
               <div class="col-sm-3">
-                <img src="../assets/images/people.png">
+                <img src="../assets/images/456.jpg">
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@
             </div>
             <div class="textandimg-img">
               <div class="col-sm-3">
-                <img src="../assets/images/people.png">
+                <img src="../assets/images/478.jpg">
               </div>
             </div>
           </div>
