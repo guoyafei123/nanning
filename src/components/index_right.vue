@@ -378,16 +378,16 @@
       <div id="audioBox"></div>
     </template>
     <!-- 弹窗 -->
-    <!-- <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+    <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
       <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
       <earlyinfo-vue></earlyinfo-vue>
-    </el-dialog> -->
+    </el-dialog>
   </div>
 
 </template>
 
 <script>
-// import earlyinfoVue from './earlyinfo.vue';
+import earlyinfoVue from './earlyinfo.vue';
 import{mapState} from "vuex";
 import sockjs from 'sockjs-client';
 import moment from 'moment';
@@ -396,7 +396,7 @@ var Stomp = require('@stomp/stompjs');
 export default {
 
   components:{
-      // 'earlyinfo-vue':earlyinfoVue
+      'earlyinfo-vue':earlyinfoVue
   },
   // 数据接入
 
