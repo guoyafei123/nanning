@@ -1,13 +1,13 @@
 <template>
-  <div style="height:100%;">
+  <div>
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
-          <i class="fa fa-th-large font-gray-666 float-left"></i>
-          <h2 class="float-left font-white size-16">单位管理</h2>
+          <i class="icon iconfont icon-danweiguanli-mian-1"></i>
+          <h2 class="float-left font-white size-16">单位管理3333</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Unit_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+          <router-link to="/Unit_management/list"><button class="btn_add"><i class="el-icon-plus float-left"></i>新增</button></router-link>
         </div>
       </div>
       <div class="main_content">
@@ -178,97 +178,5 @@
     }
 </script>
 
-<style lang="scss" scoped>
-  .clearFix:after{
-    clear:both;
-    content:'';
-    display:block;
-  }
-  h2{
-    margin: 0;
-    padding: 0;
-  }
-
-  @media (min-width: 768px) and (max-width:1600px){
-    aside{
-      width:525px;
-      max-height:740px;
-      background:#111111;
-      overflow: hidden;
-    }
-    .main_content{
-      width:500px;
-      height:672px;
-      margin:0 auto;
-      overflow-y: scroll;
-      border-top:1px solid #222222;
-
-    }
-  }
-  @media (min-width: 1600px){
-    aside{
-      width:525px;
-      max-height:740px;
-      background:#111111;
-      overflow: hidden;
-    }
-    .main_content{
-      width:500px;
-      height:672px;
-      margin:0 auto;
-      overflow-y: scroll;
-      border-top:1px solid #222222;
-
-    }
-  }
-  .main_header{
-    width:100%;
-    height:68px;
-  }
-  .main_title{
-    display: flex;
-    align-items: center;
-  }
-  .main_title i{
-    margin-left:20px;
-    margin-right:10px;
-  }
-  .main_title h2{
-    line-height: 68px;
-  }
-  .main_header button{
-    width:64px;
-    height:28px;
-    float: left;
-    outline:none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border:2px solid #333333;
-    background: #111111;
-    font-size: 12px;
-    color: #999;
-    margin-top: 21px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .main_header a:nth-child(1) button{
-    border-right:none;
-  }
-  .main_header a:nth-child(3) button{
-    border-left:none;
-  }
-  .main_header button i{
-    margin-right: 3px;
-  }
-  .main_header button.btn_add{
-    width:64px;
-    height:28px;
-    border:none;
-    background: #bad616;
-    margin-left: 6px;
-    margin-right: 20px;
-  }
-
+<style scoped>
 </style>

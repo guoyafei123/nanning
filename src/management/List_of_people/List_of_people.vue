@@ -32,6 +32,9 @@
   import Set_rightVue from './right.vue';
   import '../../assets/css/setting.scss';
   import '../../assets/css/upd-element.css';
+  import '../../assets/css/element.css';
+  import '../../assets/css/manage.css';
+  import '../../assets/css/media.css';
   export default {
     data(){
       return{

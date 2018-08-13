@@ -20,8 +20,8 @@ Vue.use(ElementUI);
 
 import 'element-ui/lib/theme-chalk/index.css';
 // bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.min'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min';
 
 // 跨浏览器兼容
 require('./assets/css/normalize.css');
@@ -37,13 +37,15 @@ require('./assets/css/common.css');
 // import './assets/map/map.js';
 // import './assets/map/.js'
 // 首页
-import './assets/css/index.css'
-import './assets/css/main.css'
+import './assets/css/upd-element.css';
+import './assets/css/element.css';
+import './assets/css/index.css';
+import './assets/css/main.css';
 import './assets/css/messages.css';
 import './assets/css/early.css';
 import './assets/css/map.css';
-import './assets/css/element.css';
-import './assets/css/upd-element.css'
+import './assets/css/manage.css';
+import './assets/css/media.css';
 // axios请求
 import { post,fetch } from './assets/js/http';
 //定义全局变量

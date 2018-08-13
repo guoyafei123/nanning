@@ -169,7 +169,7 @@
 }
 .main_content_table{
   ::-webkit-scrollbar{
-    height:8px;
+    height:3px;
   }
   ::-webkit-scrollbar-thumb{
     background-color: #222222;
@@ -178,7 +178,7 @@
     background-color: #000000;
   }
   .el-table{
-    background-color: #111111;
+    background-color: transparent;
   }
   .el-table--border{
     border:none;
@@ -187,7 +187,7 @@
     background-color: transparent;
   }
   .el-table th, .el-table tr{
-    background-color: #111111;
+    background-color: transparent;
   }
   .el-table--border th,.el-table--border td{
     border:none;

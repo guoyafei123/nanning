@@ -91,16 +91,16 @@ p {
 }
 /*滚动条*/
 ::-webkit-scrollbar {width: 2px;height:2px;}
-::-webkit-scrollbar-track-piece {background-color: #3c3c3c;margin: -2px;}
-::-webkit-scrollbar-thumb {background: #666;min-height: 150px;min-width: 150px;border-radius: 10px;}
-::-webkit-scrollbar-thumb:vertical:hover{background: #555555}
-::-webkit-scrollbar-thumb:horizontal:hover{background: #555555}
+::-webkit-scrollbar-track-piece {background-color: #222;margin: -2px;}
+::-webkit-scrollbar-thumb {background: #666;min-height: 150px;min-width: 150px;border-radius: 0;}
+::-webkit-scrollbar-thumb:vertical:hover{background: #ccc}
+::-webkit-scrollbar-thumb:horizontal:hover{background: #ccc}
 
 ::-moz-scrollbar {width: 2px;height:2px;}
 ::-moz-scrollbar-track-piece {background-color: #3c3c3c;margin: -2px;}
-::-moz-scrollbar-thumb {background: #666;min-height: 150px;min-width: 150px;border-radius: 10px;}
-::-moz-scrollbar-thumb:vertical:hover{background: #555555}
-::-moz-scrollbar-thumb:horizontal:hover{background: #555555}
+::-moz-scrollbar-thumb {background: #666;min-height: 150px;min-width: 150px;border-radius: 0;}
+::-moz-scrollbar-thumb:vertical:hover{background: #ccc}
+::-moz-scrollbar-thumb:horizontal:hover{background: #ccc}
 
 /*超出隐藏*/
 .white-space{
