@@ -42,9 +42,9 @@
             </li>
             <li class="col-sm-12">
               <!-- 历史未解决，已确认，复位/关闭 -->
-                <h5>未解决 <span v-if="queryTroubleData.troubleCount">{{queryTroubleData.troubleCount.SOLVE}}</span></h5>
-                <h5>已解决 <span v-if="queryTroubleData.troubleCount">{{queryTroubleData.troubleCount.UNSOLVE}}</span></h5>
-                <span class="indexdateabox alarmdate">
+                <h5>未解决 <span v-if="queryTroubleData.troubleCount">{{queryTroubleData.troubleCount.UNSOLVE}}</span></h5>
+                <h5>已解决 <span v-if="queryTroubleData.troubleCount">{{queryTroubleData.troubleCount.SOLVE}}</span></h5>
+                <span class="indexdateabox troubledate">
                   <b class="indexdateactive">日</b>
                   <b>月</b>
                   <b>年</b>
@@ -127,6 +127,7 @@ export default {
     toIndexLeftAlarmChar(){
       console.log(this.toIndexLeftAlarmChar);
       this.getalarm();
+      this.gettrouble();
     },
   },
   methods: {
@@ -307,7 +308,7 @@ export default {
     this.getalarm();
     this.gettrouble();
     let that=this;
-    $('.troubledate span').click(function(){
+    $('.troubledate b').click(function(){
       $(this).addClass('indexdateactive').siblings().removeClass('indexdateactive');
       var value=$(this).html();
       if(value=='日'){
@@ -322,7 +323,7 @@ export default {
       }
       that.gettrouble();
     })
-    $('.alarmdate span').click(function(){
+    $('.alarmdate b').click(function(){
       $(this).addClass('indexdateactive').siblings().removeClass('indexdateactive');
       var value=$(this).html();
       if(value=='日'){

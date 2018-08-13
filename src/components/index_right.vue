@@ -378,20 +378,19 @@
       <div id="audioBox"></div>
     </template>
     <!-- 弹窗 -->
-    <!-- <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+    <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
       <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
       <earlyinfo-vue></earlyinfo-vue>
-    </el-dialog> -->
+    </el-dialog>
   </div>
 
 </template>
 
 <script>
-// import earlyinfoVue from './earlyinfo.vue';
+import earlyinfoVue from './earlyinfo.vue';
 import{mapState} from "vuex";
 import sockjs from 'sockjs-client';
 import moment from 'moment';
-import earlyinfoVue from './earlyinfo.vue';
 import { realconsole } from '../assets/js/management.js'
 var Stomp = require('@stomp/stompjs');
 export default {
@@ -419,7 +418,10 @@ export default {
       websock: null,
       tounpdateIndex:1,
       myAudio:Object,
-      myAudioarr:["http://api.nanninglqys.51play.com/alarm/getAlarmAudio?referenceId=88&per=4&pit=4"]
+      mp3arr:[require('../assets/mp3/login.mp3'),require('../assets/mp3/login.mp3')],
+      socketcodes:{
+
+      },
     }
   },
   // sockets:{
@@ -464,9 +466,17 @@ export default {
           //点对点
           stompClient.subscribe('/user/topic/p2p', function (data) {
               // console.info("receive a p2p message");
-              that.runCallback(data,that);
-              that.$store.commit('toIndexLeftAlarmChar', '更新'+that.tounpdateIndex++);
-              that.getgetUnitsSynthesis();
+              var message = JSON.parse(data.body);
+              var opt = message.data.opt;
+              console.log(opt.code);
+              if(!that.socketcodes[opt.code]){
+                 that.runCallback(data,that);
+                 that.$store.commit('toIndexLeftAlarmChar', '更新'+that.tounpdateIndex++);
+                 that.getgetUnitsSynthesis();
+                 that.socketcodes[opt.code] = true ;
+                 console.log(1);
+              }
+              
               // console.log(data);
           });
           console.log("创建链接完成。。。");
@@ -499,7 +509,17 @@ export default {
         that.getqueryAlarmIng(4,opt.type);
         this.openpanl(opt.type,opt)
       }
-
+      if(opt.type==9){
+        that.getqueryAlarmIng(9,opt.type);
+        this.openpanl(opt.type,opt)
+      }
+      if(opt.type==10){
+        that.getqueryAlarmIng(10,opt.type);
+        this.openpanl(opt.type,opt)
+      }
+      if(opt.title!=null || opt.title!=''){
+        this.getmp3new('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?content='+opt.title);
+      }
     },
 
     getgetUnitsSynthesis(){
@@ -533,28 +553,37 @@ export default {
         }
       });
     },
-    getmp3new(){
-      // this.myAudioarr.push('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?referenceId=81&per=4&pit=4')
-      // this.myAudio.src = this.myAudioarr.pop();
-      // this.myAudio.play();
+    
+    getmp3new(mp3){
+      this.mp3arr.push(mp3)
+			this.mp3arr.push(require('../assets/mp3/login.mp3'))
+			if(this.mp3arr.length>0){
+				this.myAudio.addEventListener('ended', this.playEndedHandler, false);
+				this.myAudio.play();
+      }
+      let that=this;
     },
     getmp3(){
-      // let myAudio=this.myAudio;
-      // myAudio = new Audio();
-      // myAudio.autoplay=true;
-      // myAudio.preload = true;
-      // myAudio.controls = true;
-      // myAudio.src = this.myAudioarr.pop();
-      // myAudio.addEventListener('ended', playEndedHandler, false);
-      // myAudio.play();
-      // document.getElementById("audioBox").appendChild(myAudio);
-      // myAudio.loop = false;
-      // function playEndedHandler(){
-      //   myAudio.src = this.myAudioarr.pop();
-      //   myAudio.play();
-      //   console.log(this.myAudioarr.length);
-      //   !this.myAudioarr.length && myAudio.removeEventListener('ended',playEndedHandler,false);//只有一个元素时解除绑定
-      // }
+      let myAudio=this.myAudio;
+      this.myAudio = new Audio();
+      this.myAudio.preload = true; 
+      this.myAudio.controls = false; 
+      this.myAudio.src = this.mp3arr.shift();
+      this.myAudio.addEventListener('ended', this.playEndedHandler, false); 
+      this.myAudio.play(); 
+      document.getElementById("audioBox").appendChild(this.myAudio); 
+      this.myAudio.loop = false; 
+      let that=this;
+    },
+    playEndedHandler(){
+      this.myAudio.src = this.mp3arr.shift();
+      this.myAudio.play();
+      if(this.mp3arr.length>0){
+        console.log('--')
+      }else{
+        console.log('-')
+        this.myAudio.removeEventListener('ended',this.playEndedHandler,false);
+      }
     },
     openpanl(type,item){
       // 报警
@@ -578,6 +607,16 @@ export default {
       // 关闭火情
       if(type==6 || type==3 || type==20){
         icon='icon-baojing-xian-';
+        title='关闭';
+        style='panlset-blue';
+      }
+      if(type==9){
+        icon='icon-feirenweiyinsuyinhuan-xian-1';
+        title='隐患';
+        style='panlset-yellow';
+      }
+      if(type==10){
+        icon='icon-feirenweiyinsuyinhuan-xian-1';
         title='关闭';
         style='panlset-blue';
       }
