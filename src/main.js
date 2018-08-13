@@ -1,6 +1,10 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+// Element-UI
+import ElementUI from 'element-ui';
+Vue.use(ElementUI);
+import 'element-ui/lib/theme-chalk/index.css';
 import App from './App'
 import router from './router'
 import $ from 'jquery'
@@ -13,12 +17,7 @@ import moment from 'moment';
 import echarts from 'echarts';
 Vue.prototype.$echarts = echarts;
 
-// Element-UI
-import ElementUI from 'element-ui';
-Vue.use(ElementUI);
 
-
-import 'element-ui/lib/theme-chalk/index.css';
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
