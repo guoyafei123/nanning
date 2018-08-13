@@ -16,6 +16,7 @@
           alarms:Object,
           listenerScale:500,
           alarmsArray:[],
+          troubleArray:[],
           routepath:'',
           scale:{
             19: 20,
@@ -117,7 +118,26 @@
                 this.alarmsArray.push([alarms[0],element,alarms[1]]);
               })
             }
-          // }
+            else if(type==9){
+              let element=this.indexToAlarmTroubel[0].troubles[0];
+              let alarms=this.addalarm("银湖海岸城1",'5',this.listenerScale,[element.pointX,element.pointY]);
+              this.mp.addOverlay(alarms[0])
+              this.mp.addOverlay(alarms[1])
+              this.troubleArray.push([alarms[0],element,alarms[1]]);
+              this.mp.setCenter(new BMap.Point(element.pointX,element.pointY));
+            }else if(type==10){
+              for(var i=0;i<this.troubleArray.length;i++){
+                this.mp.removeOverlay(this.troubleArray[i][0]);
+                this.mp.removeOverlay(this.troubleArray[i][2]);
+              }
+              this.troubleArray=[];
+              this.indexToAlarmTroubel[0].alarms.forEach(element=>{
+                let alarms=this.addalarm("银湖海岸城1",'6',this.listenerScale,[element.pointX,element.pointY]);
+                this.mp.addOverlay(alarms[0])
+                this.mp.addOverlay(alarms[1])
+                this.troubleArray.push([alarms[0],element,alarms[1]]);
+              })
+            }
         },
 
         route_path(){
@@ -639,6 +659,15 @@
               // console.log(newalarm);
               map.addOverlay(that.alarmsArray[i][0]);
               map.addOverlay(that.alarmsArray[i][2]);
+            }
+
+            for(var i=0;i<that.troubleArray.length;i++){
+              map.removeOverlay(that.troubleArray[i][0]);
+              map.removeOverlay(that.troubleArray[i][2]);
+              that.troubleArray[i][0]=that.addalarm("银湖海岸城1",'5',that.listenerScale,[that.troubleArray[i][1].pointX,that.troubleArray[i][1].pointY])[0];
+              // console.log(newalarm);
+              map.addOverlay(that.troubleArray[i][0]);
+              map.addOverlay(that.troubleArray[i][2]);
             }
           }
           

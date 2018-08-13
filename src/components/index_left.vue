@@ -127,6 +127,7 @@ export default {
     toIndexLeftAlarmChar(){
       console.log(this.toIndexLeftAlarmChar);
       this.getalarm();
+      this.gettrouble();
     },
   },
   methods: {

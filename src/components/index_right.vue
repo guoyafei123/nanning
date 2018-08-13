@@ -391,13 +391,12 @@
 import{mapState} from "vuex";
 import sockjs from 'sockjs-client';
 import moment from 'moment';
-import earlyinfoVue from './earlyinfo.vue';
 import { realconsole } from '../assets/js/management.js'
 var Stomp = require('@stomp/stompjs');
 export default {
 
   components:{
-      'earlyinfo-vue':earlyinfoVue
+      // 'earlyinfo-vue':earlyinfoVue
   },
   // 数据接入
 
@@ -420,6 +419,9 @@ export default {
       tounpdateIndex:1,
       myAudio:Object,
       mp3arr:[require('../assets/mp3/login.mp3'),require('../assets/mp3/login.mp3')],
+      socketcodes:{
+
+      },
     }
   },
   // sockets:{
@@ -451,7 +453,7 @@ export default {
     connect() {
       var that=this;
       console.log("去链接。。。");
-      var socket = new sockjs('http://api.nanninglqys.51play.com/socket');
+      var socket = new sockjs('http://api.nanninglq.51play.com/socket');
       var stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame) {
           console.log('Connected: ' + frame);
@@ -464,9 +466,16 @@ export default {
           //点对点
           stompClient.subscribe('/user/topic/p2p', function (data) {
               // console.info("receive a p2p message");
-              that.runCallback(data,that);
-              that.$store.commit('toIndexLeftAlarmChar', '更新'+that.tounpdateIndex++);
-              that.getgetUnitsSynthesis();
+              var message = JSON.parse(data.body);
+              var opt = message.data.opt;
+              console.log(opt.code);
+              if(!that.socketcodes[opt.code]){
+                 that.runCallback(data,that);
+                 that.$store.commit('toIndexLeftAlarmChar', '更新'+that.tounpdateIndex++);
+                 that.getgetUnitsSynthesis();
+                 that.socketcodes[opt.code] = true ;
+              }
+              
               // console.log(data);
           });
           console.log("创建链接完成。。。");
@@ -499,12 +508,17 @@ export default {
         that.getqueryAlarmIng(4,opt.type);
         this.openpanl(opt.type,opt)
       }
-
-      if(opt==7){
-        
+      if(opt.type==9){
+        that.getqueryAlarmIng(9,opt.type);
+        this.openpanl(opt.type,opt)
       }
-      this.getmp3new('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?messageId='+opt.messageId);
-
+      if(opt.type==10){
+        that.getqueryAlarmIng(10,opt.type);
+        this.openpanl(opt.type,opt)
+      }
+      if(opt.title!=null || opt.title!=''){
+        this.getmp3new('http://api.nanninglq.51play.com/alarm/getAlarmAudio?content='+opt.title);
+      }
     },
 
     getgetUnitsSynthesis(){
@@ -592,6 +606,16 @@ export default {
       // 关闭火情
       if(type==6 || type==3 || type==20){
         icon='icon-baojing-xian-';
+        title='关闭';
+        style='panlset-blue';
+      }
+      if(type==9){
+        icon='icon-feirenweiyinsuyinhuan-xian-1';
+        title='隐患';
+        style='panlset-yellow';
+      }
+      if(type==10){
+        icon='icon-feirenweiyinsuyinhuan-xian-1';
         title='关闭';
         style='panlset-blue';
       }
