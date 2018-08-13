@@ -500,7 +500,9 @@ export default {
         this.openpanl(opt.type,opt)
       }
 
-
+      if(opt==7){
+        
+      }
       this.getmp3new('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?messageId='+opt.messageId);
 
     },
