@@ -419,7 +419,7 @@ export default {
       websock: null,
       tounpdateIndex:1,
       myAudio:Object,
-      myAudioarr:["http://api.nanninglqys.51play.com/alarm/getAlarmAudio?referenceId=88&per=4&pit=4"]
+      mp3arr:[require('../assets/mp3/login.mp3'),require('../assets/mp3/login.mp3')],
     }
   },
   // sockets:{
@@ -500,6 +500,9 @@ export default {
         this.openpanl(opt.type,opt)
       }
 
+
+      this.getmp3new('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?messageId='+opt.messageId);
+
     },
 
     getgetUnitsSynthesis(){
@@ -533,28 +536,37 @@ export default {
         }
       });
     },
-    getmp3new(){
-      // this.myAudioarr.push('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?referenceId=81&per=4&pit=4')
-      // this.myAudio.src = this.myAudioarr.pop();
-      // this.myAudio.play();
+    
+    getmp3new(mp3){
+      this.mp3arr.push(mp3)
+			this.mp3arr.push(require('../assets/mp3/login.mp3'))
+			if(this.mp3arr.length>0){
+				this.myAudio.addEventListener('ended', this.playEndedHandler, false);
+				this.myAudio.play();
+      }
+      let that=this;
     },
     getmp3(){
-      // let myAudio=this.myAudio;
-      // myAudio = new Audio();
-      // myAudio.autoplay=true;
-      // myAudio.preload = true;
-      // myAudio.controls = true;
-      // myAudio.src = this.myAudioarr.pop();
-      // myAudio.addEventListener('ended', playEndedHandler, false);
-      // myAudio.play();
-      // document.getElementById("audioBox").appendChild(myAudio);
-      // myAudio.loop = false;
-      // function playEndedHandler(){
-      //   myAudio.src = this.myAudioarr.pop();
-      //   myAudio.play();
-      //   console.log(this.myAudioarr.length);
-      //   !this.myAudioarr.length && myAudio.removeEventListener('ended',playEndedHandler,false);//只有一个元素时解除绑定
-      // }
+      let myAudio=this.myAudio;
+      this.myAudio = new Audio();
+      this.myAudio.preload = true; 
+      this.myAudio.controls = false; 
+      this.myAudio.src = this.mp3arr.shift();
+      this.myAudio.addEventListener('ended', this.playEndedHandler, false); 
+      this.myAudio.play(); 
+      document.getElementById("audioBox").appendChild(this.myAudio); 
+      this.myAudio.loop = false; 
+      let that=this;
+    },
+    playEndedHandler(){
+      this.myAudio.src = this.mp3arr.shift();
+      this.myAudio.play();
+      if(this.mp3arr.length>0){
+        console.log('--')
+      }else{
+        console.log('-')
+        this.myAudio.removeEventListener('ended',this.playEndedHandler,false);
+      }
     },
     openpanl(type,item){
       // 报警
