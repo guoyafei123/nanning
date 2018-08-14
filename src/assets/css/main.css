@@ -11,6 +11,9 @@ a.active {
     padding: 2px 8px;
     border-radius: 10px;
 }
+.cursor-no {
+    cursor: not-allowed!important;
+}
 .hide {
   display: none!important;
 }
@@ -32,10 +35,39 @@ a.active {
     background-color: rgba(0, 0, 0, .5);
     overflow-y: hidden;
 }
+.btn-on,.btn-off {
+    width: 38px;
+    height: 20px;
+    text-align: center!important;
+}
+.btn-on {
+    color: #bad616!important;
+    border: 1px solid #bad616!important;
+}
+.btn-off {
+    color: #999!important;
+    border: 1px solid #999!important;
+}
+.btn-off:hover {
+    color: #ccc!important;
+    border: 1px solid #ccc;
+}
+.cell .btn-off:hover {
+    color: #ccc!important;
+}
+.btn-ok {
+    width: 132px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0;
+    background:#bad616;
+    color: #000;
+    text-align: center;
+}
 /*返回按钮*/
 .btn-back {
     background-color: transparent;
-    border: 1px solid #333;
+    border: 1px solid #333!important;
     width: 56px;
     height: 26px;
     line-height: 26px;
@@ -68,6 +100,8 @@ a.active {
 /*.btn-back>i {
     color: #bad616;
 }*/
+.btn-on:hover,
+.btn-ok:hover,
 .btn-back:hover,
 .btn-back:focus {
   background-color: #bad616;

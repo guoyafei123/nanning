@@ -32,7 +32,7 @@
   import Set_leftVue from '../left.vue';
   import MainVue from './Unit_main.vue';
   import Set_rightVue from './Unit_right.vue';
-
+  import '../../assets/css/setting.scss';
   export default {  
     data(){
       return{

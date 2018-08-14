@@ -20,11 +20,11 @@
     background: #111111;
     border-color: #333333;
     font-size:12px;
-    color: #ccc;
+    color: #fff;
     border-radius:0;
   }
   .el-form-item {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   .el-form--label-top .el-form-item__label{
     padding:0;
@@ -457,4 +457,244 @@ table th, table td{
 .Inspection_plan{
   // overflow: hidden;
     // background: rgb(17, 17, 17);
+}
+// floor 
+  .floor_wrap{
+    width:100%;
+    padding:0 15px;
+    .floor_header{
+      h2{
+        color: #fff;
+        font-size: 20px;
+        float: left;
+        margin-top: 17px;
+      }
+      span{
+        display: inline-block;
+        float: right;
+        line-height: 35px;
+        color: #999999;
+        padding:0;
+        margin:10px 30px 0 0 ;
+      }
+    }
+    .floor_title{
+      h3{
+        color: #cccccc;
+        font-size:14px;
+        float:left;
+        margin-top:16px;
+      }
+      button{
+        float: right;
+        width:64px;
+        height:28px;
+        border:none;
+        background: #bad616;
+        margin-left: 6px;
+        margin-right: 20px;
+        margin-top:10px;
+        display: flex;
+        font-size:13px;
+        align-items: center;
+        justify-content: center;
+        border:2px solid transparent;
+        color: #000;
+        i{
+          color: #000;
+          margin-right:2px;
+        }
+      }
+    }
+    table{
+      margin-top:70px;
+      border-color: #999999;
+      background: #222;
+      thead{
+        tr{
+          td{
+            color:#999;
+            text-align: center!important;
+            vertical-align: middle!important;
+          }
+        }
+      }
+      tbody{
+        
+        tr{
+          height:40px!important;
+          td{
+            height:40px!important;
+            color: #cccccc;
+            text-align: center!important;
+            vertical-align: middle!important;
+            input{
+              width:60px;
+              background: #111;
+              border:1px solid #222;
+              outline:none;
+              color:#ccc;
+              display:inline-block;
+            }
+            img{
+              // float: left;
+              width:23px;
+              margin-right:10px;
+            }
+            i{
+              // float: left;
+            }
+            button{
+              // float: left;
+            }
+          }
+        }
+      }
+    }
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+       border-color: #999999;
+    }
+  }
+
+
+  // room 
+  .room_wrap{
+    width:100%;
+    margin-top:150px;
+    padding:0 15px;
+    .room_header{
+      h2{
+        color: #fff;
+        font-size: 20px;
+        float: left;
+        margin-top: 17px;
+      }
+      span{
+        display: inline-block;
+        float: right;
+        line-height: 35px;
+        color: #999999;
+        padding:0;
+        margin:10px 30px 0 0 ;
+      }
+    }
+    .room_title{
+      h3{
+        color: #cccccc;
+        font-size:14px;
+        float:left;
+        margin-top:16px;
+      }
+      button{
+        float: right;
+        width:64px;
+        height:28px;
+        border:none;
+        background: #bad616;
+        margin-left: 6px;
+        margin-right: 20px;
+        margin-top:10px;
+        display: flex;
+        font-size:13px;
+        align-items: center;
+        justify-content: center;
+        border:2px solid transparent;
+        color: #000;
+        i{
+          color: #000;
+          margin-right:2px;
+        }
+      }
+    }
+    table{
+      margin-top:70px;
+      border-color: #999999;
+      background: #222;
+      thead{
+        tr{
+          td{
+            color:#999;
+            text-align: center!important;
+            vertical-align: middle!important;
+          }
+        }
+      }
+      tbody{
+        
+        tr{
+          height:40px!important;
+          td{
+            height:40px!important;
+            color: #cccccc;
+            text-align: center!important;
+            vertical-align: middle!important;
+            input{
+              width:60px;
+              background: #111;
+              border:1px solid #222;
+              outline:none;
+              color: #ccc;
+              display:inline-block;
+            }
+            img{
+              // float: left;
+              width:23px;
+              margin-right:10px;
+            }
+            i{
+              // float: left;
+            }
+            button{
+              // float: left;
+            }
+          }
+        }
+      }
+    }
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+       border-color: #999999;
+    }
+  }
+.table_ul{
+  width:100%;
+  height:100%;
+  margin:0;padding:0;
+  li{
+    height:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i{
+      margin-right:10px;
+    }
+    input{
+      width:100px !important;
+      height:30px;
+      text-align: center;
+    }
+    button{
+      outline:none;
+      background:#222;
+      font-size: 15px;
+      border:1px solid #999999
+    }
+  }
+}
+.floor_wrap table tbody {
+    display: block;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.floor_wrap table thead,
+.floor_wrap tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.floor_wrap table thead td:nth-child(1),tbody tr td:nth-child(1){
+  width:50px;
+}
+.floor_wrap table thead td:nth-child(2),tbody tr td:nth-child(2){
+  width:120px;
 }

@@ -1,26 +1,22 @@
 <template>
-  <div>
+  <section>
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="fa fa-th-large font-gray-666 float-left"></i>
-        <h2 class="float-left font-white size-16">巡检管理</h2>
-      </div>
-      <div class="main_con_nav float-left">
-        <!--<a href="javascript:;" class="link-active"><button><i class="fa fa-th-large font-gray-666 float-left"></i>巡检路线</button></a>-->
-        <!--<a href="javascript:;"><button><i class="fa fa-th-large font-gray-666 float-left"></i>巡检任务</button></a>-->
+        <i class="icon iconfont icon-xunjianguihua-mian-"></i>
+        <h2>巡检管理</h2>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Inspection_plan/list"><button  class="btn_add" @click="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>规划</button></router-link>
+        <router-link to="/Inspection_plan/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>规划</span></router-link>
       </div>
     </div>
     <div class="main_all_content" style="display: block;">
       <div class="main_content_top">
-        <el-form ref="form" :model="form" label-width="80px" class="float-left">
-          <el-select v-model="form.region1" placeholder="选择单位" class="select" style="width:auto;">
+        <el-form ref="form" :model="form" class="float-left">
+          <el-select v-model="form.region1" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
-          <el-select v-model="form.region2" placeholder="巡检类型" class="select" style="width:150px;">
+          <el-select v-model="form.region2" placeholder="巡检类型" class="select">
             <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
           </el-select>
           <el-select v-model="form.region3" placeholder="路线状态" class="select">
@@ -44,66 +40,57 @@
           <!--<el-button>确定</el-button>-->
         </el-form>
         <div class="main_nav_two float-right">
-          <router-link to="/Inspection_plan/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
-          <router-link to="/Inspection_plan/maps"><button @click="btn_map"><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Inspection_plan/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Inspection_plan/maps"><span @click="btn_map"><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
         </div>
       </div>
       <div class="main_content_table">
         <el-table
           :data="tableData"
           border
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-          style="width: 100%;height:570px;">
+          :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             sortable
             prop="Serial_number"
             type="index"
-            width="60"
+            fixed="left"
             label="序号">
           </el-table-column>
           <el-table-column
             prop="name"
-            width="120"
             label="路线名称">
           </el-table-column>
           <el-table-column
             prop="unitName"
-            width="120"
             label="巡检单位">
           </el-table-column>
           <el-table-column
             prop="type" :formatter="formatType"
-            width="120"
             label="巡检类型">
           </el-table-column>
           <el-table-column
             prop="createUserName"
-            width="120"
             label="发布者">
           </el-table-column>
           <el-table-column
             prop="createTime"
-            width="140"
             label="发布日期">
           </el-table-column>
           <el-table-column
             prop="amount"
-            width="120"
             label="每次额定次数">
           </el-table-column>
           <el-table-column
             prop="isScan" :formatter="formatScan"
-            width="120"
             label="是否扫码打卡">
           </el-table-column>
           <el-table-column 
             prop="status"
-            width="120"
             label="路线状态">
             <template slot-scope="scope" >
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.status==1'>已激活<i class="fa fa-th-large font-gray-666"></i></el-tag>
+                disable-transitions v-if='scope.row.status==1'>已激活 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
               <el-tag
                 :type="scope.row.status === 2 ? 'red' : 'green'"
                 disable-transitions v-if='scope.row.status==2'>未激活</el-tag>
@@ -112,34 +99,36 @@
           </el-table-column>
           <el-table-column
             fixed="right"
-            label="操作"
-            width="120">
+            label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==2">开启</button>
-              <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" style="width:40px;height:22px;border:2px solid #999999;color: #999;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==1">关闭</button>
-              <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
-              <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
-              <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
+              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" v-if="scope.row.status==2" class="btn-on">开启</button>
+              <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" v-if="scope.row.status==1" class="btn-off">关闭</button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2" v-if="scope.row.status==2"><i  class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <!-- <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
+                <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
+                <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i> -->
+              <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="disabled"><i class="el-icon-delete font-gray-666" data-toggle="tooltip" title="删除"></i></button>
+              <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
         </el-table>
       </div>
       <div class="main_content_bottom">
         <div class="bottom_con">
-          <div class="float-left">
-            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出标码</a>
+          <div class="float-left btn-system">
+            <a href="javascript:;">打印</a>
+            <a href="javascript:;">导出</a>
+            <a href="javascrip:;">导出二维码</a>
           </div>
-          <el-pagination style="float: right;background: transparent"
+          <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
-          <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
-          <el-pagination style="float: right;"
+          <span>{{page}}页</span>
+          <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
@@ -224,7 +213,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
 </template>
 
@@ -464,210 +453,4 @@
   };
 </script>
 <style lang="scss" scoped>
-  h2{
-    margin: 0;
-    padding: 0;
-  }
-  main{
-    height: 100%;
-  }
-  @media (min-width: 768px) and (max-width:1600px){
-    main {
-      padding-left:295px;
-      padding-right:400px;
-    }
-  }
-  @media (min-width: 1600px){
-
-    main {
-      margin-left:17.58%;
-      margin-right: 24%;
-    }
-  }
-  .main_header{
-    width:100%;
-    height:68px;
-    background: #111111;
-  }
-  .main_title{
-    display: flex;
-    align-items: center;
-  }
-  .main_title i{
-    margin-left:20px;
-    margin-right:10px;
-  }
-  .main_title h2{
-    line-height: 68px;
-  }
-  .main_header button,.main_nav_two button{
-    width:64px;
-    height:28px;
-    float: left;
-    outline:none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border:2px solid transparent;
-    background: #111111;
-    font-size: 12px;
-    color: #999;
-    margin-top: 21px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .main_header a:nth-child(2) button{
-    border-left:none;
-  }
-  .main_header button i{
-    margin-right: 3px;
-  }
-  .main_header button.btn_add{
-    width:64px;
-    height:28px;
-    border:none;
-    background: #bad616;
-    margin-left: 6px;
-    margin-right: 20px;
-    color:#000000;
-  }
-  .main_header button.btn_add i{
-    color: #000;
-  }
-  .main_nav_two{
-    margin-top:6px;
-    margin-right:20px;
-  }
-  .main_nav_two button{
-    margin-top:0;
-  }
-  .main_nav_two i{
-    margin-right: 3px;
-  }
-  .main_content_top{
-    height:40px;
-    background: #222222;
-  }
-  .main_content_table{
-    width:100%;
-    background: #111111;
-  }
-
-  .main_content_bottom{
-    width:100%;
-    height:60px;
-    padding-top:10px;
-    background: #111111;
-    .bottom_con{
-      margin:0 20px;
-      padding-top:10px;
-      border-top:1px solid #222222;
-    }
-  }
-  .main_con_nav{
-    button{
-      background-color: #222222;
-    }
-    margin-left:30%;
-    a:nth-last-child(1) button{
-      border-left:none;
-    }
-    .link-active button{
-      color: #191d03;
-      background-color: #bad616;
-    }
-    .link-active i{
-      color: #191d03;
-      background-color: #bad616;
-    }
-  }
-  .router-link-active button{
-    color: #b8b8b8;
-    background-color: #000000;
-  }
-  .router-link-active i{
-    color: #b8b8b8;
-    background-color: #333333;
-  }
-  .main_all_content{
-    display: none;
-  }
-  .main_nav_show{
-    width:64px;
-    position: absolute;
-    top:159px;
-    z-index: 33;
-    border:2px solid #bad616;
-    ul{
-      width:100%;
-      li{
-        float: none;
-        width:100%;
-        a{
-          button{
-            margin:0;
-            border-top:2px;
-            border-bottom:2px;
-            margin-left:-42px;
-            border-color:#bad616;
-          }
-        }
-      }
-    }
-  }
-  .btn_active button{
-    background-color: #bad616;
-    color: #0c0e01;
-  }
-  .btn_active i{
-    color: #0c0e01;
-    background-color: transparent;
-  }
-
-  .span_show{
-    width:40px;
-    height:32px;
-    border:2px solid #bad616;
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: 31px !important;
-    text-align:center;
-    color: #bad616;
-    background-color: #111111;
-  }
-  .span_hide{
-    width:40px;
-    height:32px;
-    border:2px solid #333333;
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: 31px !important;
-    text-align:center;
-    color: #5e5e5e;
-    background-color: #111111;
-  }
-  .danger{
-    width:132px;
-    background-color: #f13131;
-    color: #000;
-    font-size: 14px;
-    height:32px;
-    line-height: 32px;
-    padding:0;
-  }
-  .el-tag--red{
-    color: red !important;
-    padding:0 !important;
-    border:none;
-  }
-  .el-tag--green{
-    color: #fff !important;
-    padding:0 !important;
-    border:none;
-    i{
-      margin-left:7px;
-    }
-  }
-
 </style>

@@ -535,3 +535,28 @@ header .el-select-dropdown__item:last-child {
   -webkit-transform: translate(-50%, -100%);
   transform: translate(-50%, -100%)
 }
+/*时间筛选*/
+.el-year-table td .cell:hover,
+.el-year-table td.current:not(.disabled) .cell,
+.el-date-picker__header-label.active,
+.el-date-picker__header-label:hover {
+  color: #bad616;
+}
+.el-year-table td .cell {
+  font-size: 16px;
+}
+
+/*表单*/
+.el-form-item__label {
+  color: #999;
+  line-height: 24px;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.main_content .el-date-editor.el-input,.main_content  .el-date-editor.el-input__inner {
+    width: inherit;
+}
+.main_content .el-input__inner {
+  color: #fff!important;
+  border: 1px solid #333!important;
+}

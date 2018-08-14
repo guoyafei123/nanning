@@ -30,14 +30,7 @@
               <h2>设备管理</h2>
               <span>2074</span>
             </li>
-          </router-link>
-          <router-link to="/Dangerous_goods_management">
-            <li>
-              <i class="icon iconfont icon-weixianpin-xian-"></i>
-              <h2>危险品管理</h2>
-              <span>19</span>
-            </li>
-          </router-link>
+          </router-link>          
           <li class="system_title">风险防控</li>
           <router-link to="/Risk_Analysis">
             <li>
@@ -53,7 +46,14 @@
               <span>168</span>
             </li>
           </router-link>
-          <router-link to="/Alarm_management">
+          <router-link to="/Dangerous_goods_management">
+            <li>
+              <i class="icon iconfont icon-weixianpin-xian-"></i>
+              <h2>危险品管理</h2>
+              <span>19</span>
+            </li>
+          </router-link>
+          <!-- <router-link to="/Alarm_management">
             <li>
               <i class="icon icon icon-baojingguanli-xian-"></i>
               <h2>报警管理</h2>
@@ -73,7 +73,7 @@
               <h2>故障管理</h2>
               <span></span>
             </li>
-          </router-link>
+          </router-link> -->
           <li class="system_title">人员管理</li>
           <router-link to="/List_of_people">
             <li>

@@ -10,7 +10,15 @@
 }
 #manage-center {
     margin-top: 120px;
+    height: 62%;
 }
+#unit-manage #manage-center {
+    height: 70%;
+    padding-bottom: 39px;
+}
+#manage-center>section{
+    height: 100%;
+} 
 /* 头部 */
 #header{
     width: 100%;
@@ -514,7 +522,7 @@ p.toolcount-p2 {
     color: #777;
 }
 .textandimg-main>div>span {
-    min-width: 50px;
+    min-width: 60px;
     display: inline-block;
 }
 .textandimg-main strong {

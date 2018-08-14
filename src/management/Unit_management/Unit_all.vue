@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <section>
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-danweiguanli-mian-1"></i>
-        <h2 class="float-left font-white size-16">单位管理</h2>
+        <h2>单位管理</h2>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Unit_management/list"><button class="btn_add" @click="btn_add"><i class="fa fa-plus float-left"></i>新增</button></router-link>
+        <router-link to="/Unit_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
       </div>
     </div>
     <div class="main_all_content">
@@ -68,8 +68,8 @@
             fixed="right"
             label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="icon iconfont icon-bianji-" data-toggle="tooltip" title="编辑"></i></button>
-              <i @click="show3(scope.row)" class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
         </el-table>
@@ -134,9 +134,8 @@
               <el-form-item label="单位图片">
                 <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
                   <input id="file" name="file" type="file" @change="file()" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
-                  <div style="width:80px;height:80px;background:#222;border:1px solid #222;">
-                    <span style="display:block;width:50px;height:6px;background:#999;position:absolute;top:50%;left:50%;margin-left:-25px;margin-top:-3px;"></span>
-                    <span style="display:block;width:6px;height:50px;background:#999;position:absolute;top:50%;left:50%;margin-left:-3px;margin-top:-25px;"></span>
+                  <div class="bg-gray-222 text-center margin-top5">
+                    <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
                   </div>
                 </div>
                 <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>
@@ -156,13 +155,13 @@
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -355,10 +354,5 @@
     }
   };
 </script>
-<style lang="scss" scoped>
-  
-  
-  
-  
-  
+<style lang="scss" scoped>  
 </style>

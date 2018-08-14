@@ -1,4 +1,5 @@
 @charset "utf-8";
+
 #unit-manage .main_content_top {
 	height: 1px;
 }
@@ -88,7 +89,7 @@
     margin-left: -10px;
 }
 .manage-menu .router-link-active i{
-    color:#fff;
+    color:#bad616;
 }
 .manage-menu .router-link-active h2,
 .manage-menu .main_aside a:hover>li>h2{
@@ -101,23 +102,26 @@
 }
 
 /*中间主列表*/
+
 .main_header{
     width:100%;
     height:68px;
+    padding:0 15px;
     background: #111111;
   }
   .main_title{
     display: flex;
     align-items: center;
   }
-  .main_title i{
-    margin-left:20px;
+  .main_title i{    
     margin-right:10px;
   }
   .main_title h2{
     line-height: 68px;
+    color: #fff;
+    font-size: 14px;
   }
-  .main_header button,.main_nav_two button{
+/*  .main_header button,.main_nav_two button{
     width:64px;
     height:28px;
     float: left;
@@ -133,38 +137,90 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-  }
+  }*/
   .main_header a:nth-child(2) button{
     border-left:none;
   }
 .main_title i {
 	color: #999;
 }
-.main_header button.btn_add{
-    width: 64px;
-    height: 28px;
-    line-height: 28px;
-    border: none;
+.main_header .btn_add{    
     background: #bad616!important;
-    margin-left: 6px;
-    margin-right: 20px;
     color: #000!important;
 }
-.main_header button i{
+.main_header a i{
     margin-right: 3px;
+    font-size: 12px;
 }
 
 /*表格*/
+.main_all_content .select {
+	margin:0 15px;
+}
+.main_all_content,
+.main_content_table {
+	height: 100%;
+}
+.main_header span,.main_nav_two span{
+  width:64px;
+  height:28px;
+  float: left;
+  outline:none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border:2px solid transparent;
+  background: #111111;
+  font-size: 12px;
+  color: #999;
+  margin-top: 21px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.main_header a:nth-child(2) span{
+  border-left:none;
+}
+.main_header span i{
+  margin-right: 3px;
+}
+.main_header span.btn_add i{
+  color: #000;
+}
+.main_header span.btn_add{
+  width:64px;
+  height:28px;
+  border:none;
+  background: #bad616;
+  margin-left: 6px;
+  color: #000;
+}
+.main_nav_two a:nth-last-child(1) span{
+    border-left:none;
+  }
+.main_nav_two .link-active span{
+    color: #191d03;
+    background-color: #bad616;
+  }
+.main_nav_two .link-active i{
+    color: #191d03;
+    background-color: #bad616;
+  }
+.main_nav_two .router-link-active span{
+  color: #999;
+  background-color: #000000;
+}
+
 .main_nav_two{
-    margin-top:6px;
-    margin-right:20px;
-  }
-  .main_nav_two button{
-    margin-top:0;
-  }
-  .main_nav_two i{
-    margin-right: 3px;
-  }
+  margin-top:6px;
+  margin-right:15px;
+}
+.main_nav_two span{
+  margin-top:0;
+}
+.main_nav_two i{
+  margin-right: 3px;
+}
   .main_content_top{
     height:40px;
     background: #222222;
@@ -269,7 +325,6 @@
 }
 .el-table .cell>button,.el-table .cell>i {
 	color: #ccc;
-	line-height: 40px;
 	text-align: left;
 	background-color: transparent;
 	font-size: 12px;
@@ -277,9 +332,10 @@
 }
 .el-table .cell>button>i {
 	font-size: 14px;
-}
+	line-height: 40px;
+} 
 .el-table__header thead th:last-child .cell,.el-table__header thead th:first-child .cell {
-	padding-top: 10px!important;
+	padding-top: 9px!important;
 }
 
 .el-table__empty-text {
@@ -362,16 +418,107 @@
 .el-button--default:hover {
 	color: #bad616!important;
 }
-
-
-/*新增表单*/
-/*.main_content form div.el-form-item:last-child {
-	margin-top: 40px;
-	display: block;
-	position: relative;
-	background-color: #111;
+.el-button--danger {
+	background-color: #f13131;
+	border-color: transparent!important;
 }
-.main_content form div.el-form-item:last-child>.el-form-item__content {
+
+.main_content_top .el-select {
+	min-width: 120px;
+}
+/*新增表单*/
+#list-maps aside {
+  width: 100%;
+}
+#add-new {
+	height: 128%;
+}
+#add-new aside {
+  width: 525px;
+  height: 100%;
+  position: relative;
+  background: #111111;
+}
+.main_nav a {	
+    border: none;
+    text-align: center;
+}
+.main_nav a span {
+	display: block;
+	margin-top: 21px;
+	width: 64px!important;
+	height: 28px!important;
+    line-height: 28px!important;
+}
+.main_nav a span.btn-back:hover {
+	border-color: #bad616!important;
+	background-color:transparent!important;
+	color: #bad616!important;
+}
+.main_content {	
+  width: initial;
+  height: 84%;
+  margin-bottom:15px;
+  padding: 15px;
+  overflow-y: auto;
+}
+.main_content .el-form {
+	margin-right: 5px;
+	padding-bottom:15px; 
+}
+
+.main_content .el-form .hint-error {
+	color: #f13131;
+	font-size: 12px;
+	line-height: 24px;
 	position: absolute;
-	bottom: 10px;
-}*/
+	top:-24px;
+	right:0;
+	text-align: right;
+	font-family: element-icons!important;
+}
+.main_content .el-form .hint-error:before {
+	content: "\E607";
+	display: inline-block;
+	font-size: 12px;
+	margin-right: 4px;
+}
+.main_content .el-form-item__label{
+	margin-left: 15px;
+}
+[class*="col-"]>.el-form-item__label,
+[class^=col-].el-form-item__label {
+	margin-left: 0!important;
+}
+.el-input[class*="col-"],
+.el-input[class^=col-],
+.el-form-item[class*="col-"],
+.el-form-item[class^=col-]{
+	padding-right:0!important;
+}
+.main_footer {
+	position: absolute;
+	bottom: 0;
+	width: -webkit-fill-available;		
+	background-color: #111;
+	padding: 0 15px 20px;
+}
+.main_footer:before {
+	content: "";
+	display: block;
+	margin-bottom: 15px;
+	border-top:1px solid #333; 
+}
+.main_footer a {
+	display: inline-block;
+	margin-right: 10px;
+}
+.main_footer .btn-back {
+	height: 32px;
+	line-height: 32px;
+}
+.main_footer .btn-back:hover {
+	background-color: transparent;
+	border-color:#666!important;
+	color:#ccc!important;
+}

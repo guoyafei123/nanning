@@ -1,23 +1,24 @@
 <template>
-  <div>
+  <div id="add-new">
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="icon iconfont icon-danweiguanli-mian-1"></i>
-          <h2 class="float-left font-white size-16">单位管理3333</h2>
+          <h2 class="float-left font-white size-16">新增单位</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Unit_management/list"><button class="btn_add"><i class="el-icon-plus float-left"></i>新增</button></router-link>
+          <router-link to="/Unit_management/Unit_all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
+      <section class="border-top-solid-333 margin-left15 margin-right15"></section>
       <div class="main_content">
-        <el-form ref="form" :label-position="labelPosition" :model="form">
+        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="单位名称">
-            <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-            <el-input v-model="form.name"></el-input>
+            <span class="hint-error">单位名称有误或重复</span>
+            <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
           <el-form-item label="单位性质">
-            <el-select name="" v-model="form.property" placeholder="请选择结构">
+            <el-select name="" v-model="form.property" placeholder="请选择结构" class="col-sm-4">
               <el-option label="事业单位" value="事业单位"></el-option>
               <el-option label="国家行政机关" value="国家行政机关"></el-option>
               <el-option label="政府" value="政府"></el-option>
@@ -28,41 +29,40 @@
               <el-option label="私营企业" value="私营企业"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="单位人数">
+          <el-form-item label="单位人数" class="col-sm-4">
             <el-input v-model="form.staffNum"></el-input>
           </el-form-item>
-          <el-form-item label="单位地址">
-            <el-input v-model="form.location"></el-input>
+          <el-form-item label="法人代表" class="col-sm-4">
+            <el-input v-model="form.corporation"></el-input>
           </el-form-item>
-          <el-form-item label="单位图片">
+          <el-form-item label="部门电话" class="col-sm-4">
+            <el-input v-model="form.telephone"></el-input>
+          </el-form-item>
+          <el-form-item label="单位地址">
+            <el-input v-model="form.location" class="col-sm-8"></el-input>
+          </el-form-item>
+          <el-form-item label="消防负责人" class="col-sm-4">
+            <el-input v-model="form.firemenName"></el-input>
+          </el-form-item>
+          <el-form-item label="消防负责人电话" class="col-sm-4">
+            <el-input v-model="form.firemenTel"></el-input>
+          </el-form-item> 
+          <el-form-item label="单位图片" class="col-sm-12">
             <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
               <input id="file" name="file" type="file" @change="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
-              <div style="width:80px;height:80px;background:#222;border:1px solid #222;">
-                <span style="display:block;width:50px;height:6px;background:#999;position:absolute;top:50%;left:50%;margin-left:-25px;margin-top:-3px;"></span>
-                <span style="display:block;width:6px;height:50px;background:#999;position:absolute;top:50%;left:50%;margin-left:-3px;margin-top:-25px;"></span>
+              <div class="bg-gray-222 text-center margin-top5">
+                <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
               </div>
             </div>
             <img v-show="isShow" src="" id="up_img" style="width:80px;height:80px;"/>
             <!-- <span style="width: 200px;height: 80px;text-align:center;line-height:80px;color:#fff;display:block;float:left;">{{ files }}</span> -->
-          </el-form-item>
-          <el-form-item label="部门电话">
-            <el-input v-model="form.telephone"></el-input>
-          </el-form-item>
-          <el-form-item label="消防负责人">
-            <el-input v-model="form.firemenName"></el-input>
-          </el-form-item>
-          <el-form-item label="消防负责人电话">
-            <el-input v-model="form.firemenTel"></el-input>
-          </el-form-item>
-          <el-form-item label="法人代表">
-            <el-input v-model="form.corporation"></el-input>
-          </el-form-item>
-          <div style="clear: both;"></div>
-          <el-form-item style="margin-bottom: 20px;">
-            <el-button type="primary"  icon="el-icon-search" class="primary" @click="btn">保存并提交</el-button>
-            <el-button class="back" @click="back">返回</el-button>
-          </el-form-item>
+          </el-form-item>          
+                   
         </el-form>
+      </div>
+      <div class="main_footer">
+        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+        <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
   </div>
