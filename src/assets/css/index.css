@@ -1,18 +1,20 @@
 
 #left{
-    width: 20%;
-    padding-right: 10px;
+    /*width: 20%;*/
+    /*padding-right: 10px;*/
     height: 100%;
 }
 #right{
-    width:24%;
+    /*width:24%;*/
     height: 100%;
+}
+#manage-center {
+    margin-top: 120px;
 }
 /* 头部 */
 #header{
     width: 100%;
 }
-
 
 .public-dropdown{
     display: inline-block !important;
@@ -52,7 +54,7 @@
     position: absolute;
     top: 0px;
     width: 100%;
-    margin-top: 36px;
+    margin-top: 10px;
 }
 .header-middle ul li{
     display: inline-block;
@@ -115,6 +117,7 @@
 .toolleft {
     margin-top: 120px;
     padding-left:37px;
+    padding-right: 10px;
     height: auto;
 }
 .toolcountp1{
@@ -440,67 +443,7 @@ p.toolcount-p2 {
 .bg-black02{background: rgba(255,255,255,0.2) !important;}
 .glyphicon-searchdiv{padding-right: 10px!important;}
 
-/* 媒体查询 */
-@media (max-width: 768px) {
-    #early #common-cont{
-        width: 52%;
-        margin-left: 300px;
-    }
-    #early #right{
-        min-width: 48%;
-    }
-    #min-map {
-        right: 400px;
-    }
-    #left{
-        width: 300px;
-    }
-    #right {
-        width: 400px;
-    }
-    .header-middle{
-        margin-top: 74px;
-    }
-}
-@media (min-width: 1600px) {
-    #early  #common-cont{
-        width: 47%;
-        margin-left: 24%;
-    }
-    #common-cont{
-        width: 76%;
-    }
-    #min-map {
-        right: 29%;
-    }
-    #left{
-        width: 24%;
-    }
-    #right{
-        width: 29%;
-    }
-    .header-middle{
-        margin-top: 18px;
-    }
-}
-@media (min-width: 2300px) {
-    #early  #common-cont{
-        width: 63%;
-        margin-left: 17%;
-    }
-    #common-cont{
-        width: 80%;
-    }
-    #min-map {
-        right: 20%;
-    }
-    #left{
-        width: 17%;
-    }
-    #right{
-        width: 20%;
-    }
-}
+
 
 /*人员页面代码 */
 #personnel .toolcount-left li:nth-child(1) p{

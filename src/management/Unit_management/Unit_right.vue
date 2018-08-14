@@ -1,55 +1,45 @@
 <template>
-  <div class="Inspection_plan z-index-20  ">
-    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:130px;display:none;">
-      <section class="inspection-iteminfo" >
-        <section>
-          <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10" style="margin-left:45px;">
-                 单位详情
-              </h2>
-              <div class="row textandimg-main">
+  <div class="toolright">
+    <section class="textandimg margin-top20">
+              <h4 class="p-title">单位详情</h4>
+              <div class="row textandimg-main margin-top20 size-12">
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">单位名称 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.name"></span>
+                      <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg'" :id="'up_img'+ this.id" class="img-responsive center-block" style="max-height: 140px;" />
+                  </div>
+                  <div class="col-sm-6">
+                      <span>单位名称 </span>
+                      <strong v-html="this.name"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>部门电话 </span>
+                      <strong v-html="this.telephone"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>单位性质 </span>
+                      <strong v-html="this.property"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>法人代表 </span>
+                      <strong v-html="this.corporation"></strong>
+                  </div>                  
+                  <div class="col-sm-6">
+                      <span>单位人数 </span>
+                      <strong v-html="this.staffNum"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">单位性质 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.property"></span>
+                      <span>单位地址 </span>
+                      <strong v-html="this.location"></strong>
+                  </div>                  
+                  <div class="col-sm-6">
+                      <span>消防负责人 </span>
+                      <strong v-html="this.firemenName"></strong>
                   </div>
-
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">单位人数 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.staffNum"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">单位地址 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.location"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">单位图片</span>
-                      <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg'" :id="'up_img'+ this.id" style="width:80px;height:80px;"/>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">部门电话 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.telephone"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">消防负责人 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.firemenName"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">消防负责人电话 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.firemenTel"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">法人代表 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.corporation"></span>
-                  </div>
+                  <div class="col-sm-6">
+                      <span>消防负责人电话 </span>
+                      <strong v-html="this.firemenTel"></strong>
+                  </div>                  
               </div>
-          </div>
-        </section>
-      </section>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -127,25 +117,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .clearFix:after{
-    clear:both;
-    content:'';
-    display: block;
-  }
-  .textandimg{
-    margin-left:90px;
-  }
-  .span_name{
-    font-size: 16px !important;
-    width:160px;
-    display:inline-block;
-    margin-left:-20px;
-    line-height: 40px;
-  }
-  .span_con{
-    font-size: 14px !important;
-    display:inline-block;
-    line-height: 40px;
-  }
   
 </style>

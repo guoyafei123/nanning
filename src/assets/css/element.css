@@ -13,7 +13,7 @@
 }
 /*分页*/
 .el-pagination {
-  padding: 3px 0;
+  padding: 0;
 }
 .el-pagination .btn-prev {
   padding-right: 0;

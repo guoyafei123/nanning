@@ -2,11 +2,11 @@
   <div>
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="fa fa-th-large font-gray-666 float-left"></i>
+        <i class="icon iconfont icon-danweiguanli-mian-1"></i>
         <h2 class="float-left font-white size-16">单位管理</h2>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Unit_management/list"><button class="btn_add" @click="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+        <router-link to="/Unit_management/list"><button class="btn_add" @click="btn_add"><i class="fa fa-plus float-left"></i>新增</button></router-link>
       </div>
     </div>
     <div class="main_all_content">
@@ -22,84 +22,74 @@
         <el-table
           :data="tableData"
           border
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-          style="width: 100%;height:570px;">
+          :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             prop="Serial_number"
+            fixed="left"
             type="index"
-            sortable  
-            width="80"
+            sortable
             label="序号">
           </el-table-column>
           <el-table-column
             prop="name"
-            width="140"
             :show-overflow-tooltip="true"
             label="单位名称">
           </el-table-column>
           <el-table-column
             prop="staffNum"
-            width="100"
             label="单位人数">
           </el-table-column>
           <el-table-column
             prop="property"
-            width="130"
             label="单位性质">
           </el-table-column>
           <el-table-column
             prop="location"
-            width="130"
             :show-overflow-tooltip="true"
             label="单位地址">
           </el-table-column>
           <el-table-column
             prop="telephone"
-            width="120"
             label="部门电话">
           </el-table-column>
           <el-table-column
             prop="firemenName"
-            width="100"
             label="消防负责人">
           </el-table-column>
           <el-table-column
             prop="firemenTel"
-            width="120"
             label="消防负责人电话">
           </el-table-column>
           <el-table-column
             prop="corporation"
-            width="100"
             label="法人代表">
           </el-table-column>
           <el-table-column
             fixed="right"
-            label="操作"
-            width="100">
+            label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">修改</button>
-              <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
+              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="icon iconfont icon-bianji-" data-toggle="tooltip" title="编辑"></i></button>
+              <i @click="show3(scope.row)" class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
             </template>
           </el-table-column>
         </el-table>
       </div>
       <div class="main_content_bottom">
         <div class="bottom_con">
-          <div class="float-left">
-            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
+          <div class="float-left btn-system">
+            <a href="javascript:;">打印</a>
+            <a href="javascript:;">导出</a>
+            <a href="javascrip:;">导出二维码</a>
           </div>
-          <el-pagination style="float: right;background: transparent"
+          <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
-          <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
-          <el-pagination style="float: right;"
+          <span>{{page}}页</span>
+          <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
@@ -163,7 +153,6 @@
               <el-form-item label="法人代表">
                 <el-input v-model="form.corporation"></el-input>
               </el-form-item>
-              <div style="clear: both;"></div>
             </el-form>
           </div>
           <div class="modal-footer">
@@ -367,211 +356,9 @@
   };
 </script>
 <style lang="scss" scoped>
-  h2{
-    margin: 0;
-    padding: 0;
-  }
-  main{
-    height: 100%;
-  }
-  @media (min-width: 768px) and (max-width:1600px){
-    main {
-      padding-left:295px;
-      padding-right:400px;
-    }
-  }
-  @media (min-width: 1600px){
-    main {
-      margin-left:17.58%;
-      margin-right: 24%;
-    }
-  }
-  .main_header{
-    width:100%;
-    height:68px;
-    background: #111111;
-  }
-  .main_title{
-    display: flex;
-    align-items: center;
-  }
-  .main_title i{
-    margin-left:20px;
-    margin-right:10px;
-  }
-  .main_title h2{
-    line-height: 68px;
-  }
-  .main_header button,.main_nav_two button{
-    width:64px;
-    height:28px;
-    float: left;
-    outline:none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border:2px solid transparent;
-    background: #111111;
-    font-size: 12px;
-    color: #999;
-    margin-top: 21px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .main_header a:nth-child(2) button{
-    border-left:none;
-  }
-  .main_header button i{
-    margin-right: 3px;
-  }
-  .main_header button.btn_add i{
-    color: #000;
-  }
-  .main_header button.btn_add{
-    width:64px;
-    height:28px;
-    border:none;
-    background: #bad616;
-    margin-left: 6px;
-    margin-right: 20px;
-    color: #000;
-  }
-  .main_nav_two{
-    margin-top:6px;
-    margin-right:20px;
-  }
-  .main_nav_two button{
-    margin-top:0;
-  }
-  .main_nav_two i{
-    margin-right: 3px;
-  }
-  .main_content_top{
-    height:40px;
-    background: #222222;
-  }
-  .main_content_table{
-    width:100%;
-    background: #111111;
-  }
-  .main_content_bottom{
-    width:100%;
-    height:60px;
-    padding-top:10px;
-    background: #111111;
-    .bottom_con{
-      margin:0 20px;
-      padding-top:10px;
-      border-top:1px solid #222222;
-    }
-  }
-  .main_con_nav{
-    button{
-      background-color: #222222;
-    }
-    margin-left:30%;
-    a:nth-last-child(1) button{
-      border-left:none;
-    }
-    .link-active button{
-      color: #191d03;
-      background-color: #bad616;
-    }
-    .link-active i{
-      color: #191d03;
-      background-color: #bad616;
-    }
-  }
-  .router-link-active button{
-    color: #b8b8b8;
-    background-color: #000000;
-  }
-  .router-link-active i{
-    color: #b8b8b8;
-    background-color: #333333;
-  }
- 
-  .main_nav_show{
-    width:64px;
-    position: absolute;
-    top:159px;
-    z-index: 33;
-    border:2px solid #bad616;
-    ul{
-      width:100%;
-      li{
-        float: none;
-        width:100%;
-        a{
-          button{
-            margin:0;
-            border-top:2px;
-            border-bottom:2px;
-            margin-left:-42px;
-            border-color:#bad616;
-          }
-        }
-      }
-    }
-  }
-  .btn_active button{
-    background-color: #bad616;
-    color: #0c0e01;
-  }
-  .btn_active i{
-    color: #0c0e01;
-    background-color: transparent;
-  }
-
-  .span_show{
-    width:40px;
-    height:32px;
-    border:2px solid #bad616;
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: 31px !important;
-    text-align:center;
-    color: #bad616;
-    background-color: #111111;
-  }
-  .span_hide{
-    width:40px;
-    height:32px;
-    border:2px solid #333333;
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: 31px !important;
-    text-align:center;
-    color: #5e5e5e;
-    background-color: #111111;
-  }
-  .danger{
-    width:132px;
-    background-color: #f13131;
-    color: #000;
-    font-size: 14px;
-    height:32px;
-    line-height: 32px;
-    padding:0;
-  }
-  .el-tag--red{
-    color: red !important;
-    padding:0 !important;
-    border:none;
-  }
-  .el-tag--green{
-    color: #fff !important;
-    padding:0 !important;
-    border:none;
-    i{
-      margin-left:7px;
-    }
-  }
-
-
-  .start{
-    margin-top:4px;
-    margin-left:10px;
-  }
+  
+  
+  
+  
+  
 </style>

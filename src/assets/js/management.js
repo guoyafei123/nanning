@@ -3,7 +3,7 @@ function realconsole(){
 
 
   //管理端
-  $('.el-table__body-wrapper').css('height','520px');
+  $('.el-table__body-wrapper').css('height','100%');
   $('.el-scrollbar').css({
     'background':'#000'
   });
