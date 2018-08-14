@@ -41,6 +41,8 @@ import Dangerous_goods_managementVue from '../management/Dangerous_goods_managem
 import Dangerous_goods_management_listVue from '../management/Dangerous_goods_management/list';
 import Dangerous_goods_management_AllVue from '../management/Dangerous_goods_management/all';
 import Dangerous_goods_management_MapsVue from '../management/Dangerous_goods_management/maps';
+import operationLogVue from '../management/operationLog/operationLog';
+import operationLog_AllVue from '../management/operationLog/all';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -146,6 +148,14 @@ export default new Router({
         { path:'/Dangerous_goods_management/all',component:Dangerous_goods_management_AllVue},
         { path:'/Dangerous_goods_management/maps',component:Dangerous_goods_management_MapsVue},
         { path:'/Dangerous_goods_management',redirect:'/Dangerous_goods_management/all'}
+      ]
+    },
+    {
+      path:'/operationLog',
+      component:operationLogVue,
+      children:[
+        { path:'/operationLog/all',component:operationLog_AllVue},
+        { path:'/operationLog',redirect:'/operationLog/all'}
       ]
     }
   ]

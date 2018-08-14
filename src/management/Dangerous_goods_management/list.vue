@@ -4,7 +4,7 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-th-large font-gray-666 float-left"></i>
-          <h2 class="float-left font-white size-16">设备管理</h2>
+          <h2 class="float-left font-white size-16">添加危险品</h2>
         </div>
         <div class="main_nav float-right">
           <router-link to="/Dangerous_goods_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
@@ -12,7 +12,7 @@
       </div>
       <div class="main_content">
         <el-form ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="设备名称">
+          <el-form-item label="危险品名称">
             <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
             <el-input v-model="form.name"></el-input>
           </el-form-item>
@@ -22,18 +22,7 @@
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="设备类型">
-            <el-select
-              v-model="form.equipmentId"
-              placeholder="选择设备类型" class="sbwz_138_32 start" style="margin-left:0px;">
-              <el-option
-                v-for="item in equipmentList"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="设备位置">
+          <el-form-item label="位置">
             <el-select
               v-model="form.buildingId"
             placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="margin-left:0px;">
@@ -68,14 +57,14 @@
             <el-input v-model="form.point.pointY" style="display:inline-block;width:200px;"></el-input>
           </el-form-item>
 
-          <el-form-item label="物理地址">
-            <el-input v-model="form.PhysicalAddress"></el-input>
+          <el-form-item label="上报人">
+            <el-input v-model="form.nickName"></el-input>
           </el-form-item>
 
-          <el-form-item label="投入使用日期">
+          <el-form-item label="上报时间">
             <div class="block">
               <el-date-picker
-                v-model="form.startDate"
+                v-model="form.createTime"
                 type="date"
                 placeholder="选择日期"
                 format="yyyy 年 MM 月 dd 日"
@@ -83,40 +72,25 @@
               </el-date-picker>
             </div>
           </el-form-item>
-          <el-form-item label="相对房顶高度（m）">
-            <el-input v-model="form.RoofHeight"></el-input>
-          </el-form-item>
-          <el-form-item label="相对地板高度（m）">
-            <el-input v-model="form.floorHeight"></el-input>
-          </el-form-item>
-          <el-form-item label="更换周期（天）">
-            <el-input v-model="form.Retroperiod"></el-input>
-          </el-form-item>
-          <el-form-item label="生产商">
-            <el-input v-model="form.Bike"></el-input>
-          </el-form-item>
-          <el-form-item label="生产日期">
-            <div class="block">
-              <el-date-picker
-                v-model="form.ProductionDay"
-                type="date"
-                placeholder="选择日期"
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
+          <el-form-item label="图片和视频">
+            <div>
+              <div class="mainmenuone cf">
+                <ul class="cf">
+                  <li><input id="file" type="file" name="img"/></li>
+                  <li><input id="file2" type="file" name="img"/></li>
+                </ul>
+              </div>
             </div>
+            <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/> 
+            <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span> 
           </el-form-item>
-          <el-form-item label="维保单位">
-            <el-input v-model="form.Refundable"></el-input>
-          </el-form-item>
-          <el-form-item label="维保人员">
-            <el-input v-model="form.linkname"></el-input>
-          </el-form-item>
-          <el-form-item label="维保电话">
-            <el-input v-model="form.phone"></el-input>
-          </el-form-item>
-          <el-form-item label="控制器ID">
-            <el-input v-model="form.controlId"></el-input>
+          <el-form-item label="简介">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="请输入内容"
+              v-model="form.cont">
+            </el-input>
           </el-form-item>
           <div style="clear: both;"></div>
           <el-form-item style="margin-bottom: 20px;">
@@ -134,8 +108,8 @@
       data() {
         return {
           labelPosition: 'top',
+          index:1,
           form:{
-            id:'',
             name:'',
             unitId:null,
             unitName:'',
@@ -145,8 +119,6 @@
             floorNumber:'',
             roomId:'',
             roomNumber:'',
-            equipmentId:'',
-            deviceTypeName:'',
             roomList:[],
             floorList:[],
             buildList:[],
@@ -156,59 +128,65 @@
               xRate:'',
               yRate:''
             },
-            PhysicalAddress:'',
-            startDate:'',
-            lifeMonth:'',
-            RoofHeight:'',
-            floorHeight:'',
-            Retroperiod:'',
-            Bike:'',
-            ProductionDay:'',
-            Refundable:'',
-            linkname:'',
-            phone:'',
-            controlId:''
+            nickName:'',
+            createTime:'',
+            cont:''
           },
-          unit:null,//选择单位
           optionList:[],//全部单位列表
-          equipmentList:[]
+          files:["file"]
         }
       },
       methods:{
+        add11(){
+          this.index++;
+          console.log(this.index)
+          this.files.push('file'+this.index);
+          
+          $(".mainmenuone ul").append("<li style='margin-bottom:10px;'><input type='file' name='file"+this.index+"'/></li>");
+          console.log(this.files)
+        },
         btn(){
-          this.$fetch("/api/device/addDevice",{
-            'name':this.form.name,
-            'unitId':this.form.unitId,
-            'unitName':this.form.unitName,
-            'buildingId':this.form.buildingId,
-            'buildingName':this.form.buildingName,
-            'floorId':this.form.floorId,
-            'floorNumber':this.form.floorNumber,
-            'roomId':this.form.roomId,
-            'roomNumber':this.form.roomNumber,
-            'deviceTypeId':this.form.equipmentId,
-            'deviceTypeName':this.form.deviceTypeName,
-            'pointX':this.form.point.pointX,
-            'pointY':this.form.point.pointY,
-            'xRate':this.form.point.xRate,
-            'yRate':this.form.point.yRate,
-            'mac':this.form.PhysicalAddress,
-            'startDate':this.form.startDate,
-            'height':this.form.RoofHeight,
-            'fheight':this.form.floorHeight,
-            'lifeMonth':this.form.Retroperiod,
-            'firm':this.form.Bike,
-            'productDate':this.form.ProductionDay,
-            'maintenanceUnit':this.form.Refundable,
-            'maintenanceUser':this.form.linkname,
-            'maintenancePhone':this.form.phone,
-            'controlId':this.form.controlId
-          }).then(response=>{
-            if(response){
-              console.log('新增成功...'+ JSON.stringify(response));
+          
+          // var files = this.files;
+          // console.log(files)
+          $.ajaxFileUpload({
+            url: '/api/trouble/insertTrouble',
+            // secureuri: false,
+            fileElementId:["file","file2"],
+            data : {
+              type:5,
+              name:this.form.name,
+              unitId:this.form.unitId,
+              unitName:this.form.unitName,
+              buildingId:this.form.buildingId,
+              buildingName:this.form.buildingName,
+              floorId:this.form.floorId,
+              floorNumber:this.form.floorNumber,
+              roomId:this.form.roomId,
+              roomNumber:this.form.roomNumber,
+              pointX:this.form.point.pointX,
+              pointY:this.form.point.pointY,
+              nickName:this.form.nickName,
+              createTime:this.form.createTime,
+              cont:this.form.cont
+            },
+            type: 'POST',
+            dataType: "json",
+            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+            
+        
+            },
+            error: function (e) { //服务器响应失败处理函数
+              $.messager.alert('警告', "系统错误", "warning");
+            },
+            complete: function (e) {//只要完成即执行，最后执行
+              // console.log(e) 
+                // $("#file").replaceWith('<input id="file" name="file" type="file"/>');  
+                
+              // });
             }
-          })
-          this.$router.push({path:'/Dangerous_goods_management/all'});
+          });
+          // this.$router.push({path:'/Dangerous_goods_management/all'});
         },
         back(){
           this.$router.push({path:'/Dangerous_goods_management/all'});
@@ -231,15 +209,6 @@
             .then(err => {
               // console.log(err);
             });
-        },
-        equipmentSearch(){
-          this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
-            console.log('equipmentSearch:'+response);
-            if (response) {
-              this.equipmentList = response.data.deviceTypeEnum;
-              console.log(this.equipmentList);
-            }
-          })
         },
         formBuildSearch(unitId){
           this.$fetch("/api/building/selectNode",{
@@ -287,9 +256,6 @@
         },
         roomId(){
           return this.form.roomId;
-        },
-        equipmentId(){
-          return this.form.equipmentId;
         }
       },
       watch:{
@@ -340,15 +306,6 @@
               console.log(this.form.roomNumber);
             }
           })
-        },
-        equipmentId(curVal,oldVal){
-          this.form.equipmentId = curVal ;
-          this.equipmentList.forEach((item,index)=>{
-            if(item.id == this.form.equipmentId){
-              this.form.deviceTypeName = item.name ;
-              console.log(this.form.deviceTypeName);
-            }
-          })
         }
       },
       mounted(){
@@ -360,7 +317,6 @@
         $(' .el-select-dropdown__item').mouseover(function(){
           $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
         });
-        this.equipmentSearch();
         this.unitSearch();
       }
     }
@@ -463,5 +419,7 @@
     margin-top:4px;
     margin-left:10px;
   }
-
+  .mainmenuone li{
+    margin-bottom:10px;
+  }
 </style>

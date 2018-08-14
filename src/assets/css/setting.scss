@@ -308,6 +308,13 @@
   color: #fff !important;
   background-color: #333;
 }
+.el-table__row{
+  .cell{
+    text-align: left !important;
+  }
+}
+
+
 
 //模态框
 .modal-content{

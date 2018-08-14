@@ -6,54 +6,6 @@
 
       </section>
       <section class="inspection-iteminfo" >
-        <!-- <section>
-          <div class="row toolcount margin-top40">
-            <div class="col-sm-4  font-gray-999 padding-right0">
-              <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
-                <li>
-                  <p class="size-70 font-blue" style="line-height:90px;" v-html="">0</p>
-                </li>
-                <li>
-                  <p class="size-10 text-center">Running State</p>
-                </li>
-                <li>
-                  <p class="size-16 font-blue">总房间</p>
-                </li>
-              </ul>
-            </div>
-            <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
-              <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
-                <li>
-                  <p class="size-16 font-gray-ccc">信息统计</p>
-                </li>
-                <li>
-                  <p class="size-10 set-scaleright">Pepair Statistics</p>
-                </li>
-                <li>
-                  <p class="size-12">楼层数量&#x3000;&#x3000;<span class="font-gray-ccc" v-html=""></span></p>
-                  <p class="size-12">预案&#x3000;&#x3000;<span class="font-gray-ccc" v-html=""></span></p>
-                </li>
-                <li>
-                  <p class="size-12">使用 &#x3000;<span class="font-gray-ccc" v-html=""></span></p>
-                </li>
-                <li class="row text-center padding-right16 margin-top5">
-                  <div class="col-sm-4 container-padding0 personnel-borderright">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;" v-html=""></p>
-                    <p class="size-12 margin-bottom0">设备总数</p>
-                  </div>
-                  <div class="col-sm-4 container-padding0 personnel-borderright">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;" v-html=""></p>
-                    <p class="size-12 margin-bottom0">警报总数</p>
-                  </div>
-                  <div class="col-sm-4 container-padding0">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;"></p>
-                    <p class="size-12 margin-bottom0">隐患总数</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>   -->
         <section>
           <div class="textandimg">
               <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10" style="letter-spacing:5px;">
@@ -124,25 +76,6 @@
       </section>
     </div>
     <div class="font-white total" style="margin-top:120px;margin-right:10px;">
-      <!-- <h2 style="font-size: 12px;line-height:10px;margin-bottom:10px;" class="font-gray-999">Inspection Total</h2>
-      <h3 style="font-size:18px;" class="font-blue">当前线路总数</h3> -->
-      <!-- <div style="width:100%;overflow: hidden;">
-        <p style="width:15%;font-size: 70px;margin-left:20px;float: left" v-html="this.countInspectionPlanRelevant.countTotal"></p>
-        <ul class="inspection_ul">
-          <li>
-            未激活<span v-html="this.countInspectionPlanRelevant.countDisableTotal"></span>
-          </li>
-          <li>
-            已激活<span v-html="this.countInspectionPlanRelevant.countEnableTotal"></span>
-          </li>
-          <li>
-            已删除<span v-html="this.countInspectionPlanRelevant.countDelete"></span>
-          </li>
-          <li>
-            扫码打卡<span v-html="this.countInspectionPlanRelevant.countIssanCount"></span>
-          </li>
-        </ul>
-      </div> -->
       <section style="display: none;" class="mapTable">
         <div class="toolbuildrate margin-top30">
           <div class="main_content_table">
@@ -173,10 +106,11 @@
               <el-table-column
                 fixed="right"
                 label="操作"
-                width="115">
+                width="180">
                 <template slot-scope="scope">
                   <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">编辑</button>
                   <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
+                  <button @click="floor_build(scope.row)" style="width:50px;height:22px;border:1px solid transparent;border-radius:5px;color: #ffffff;background-color: #0798db;line-height: 19px;margin:0;padding:0;font-size: 11px;text-align: center;margin-right:10px;">楼层管理</button>
                   <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
                 </template>
               </el-table-column>
@@ -246,12 +180,14 @@
                       <el-option label="玻璃" value="玻璃"></el-option>
                     </el-select>
                   </el-form-item>
-                  <el-form-item label="建成年份">
+                   <el-form-item label="建成年份">
                     <div class="block">
                       <el-date-picker
                         v-model="form.timeYear"
-                        type="year"
-                        placeholder="选择年">
+                        type="date"
+                        placeholder="选择年份"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="yyyy-MM-dd">
                       </el-date-picker>
                     </div>
                   </el-form-item>
@@ -375,7 +311,7 @@
                   <li v-for="(key,indexs) in item.roomList">
                     <i class="fa fa-th-large font-gray-666 float-left"></i>
                     <input type="text" v-model="key.roomNumber"/>
-                    <button @click="deleteRoom(floorRoomList[index].roomList, indexs)" style="width:30px;height:30px;">X</button>
+                    <button @click="deleteRoom(floorRoomList[index].roomList[index],floorRoomList[index].roomList,indexs)" style="width:30px;height:30px;">X</button>
                   </li>
                   <li><button @click="addRoom(item,index)">添加房间</button></li>
                 </ul>
@@ -394,13 +330,6 @@
   export default {
     data() {
       return {
-        // countInspectionPlanRelevant:{
-        //   countTotal:0,
-        //   countDelete:0,
-        //   countDisableTotal:0,
-        //   countEnableTotal:0,
-        //   countIssanCount:0
-        // },
         labelPosition: 'left',
         form: {
           unitId:'',
@@ -431,8 +360,7 @@
         number:0,
         floor_index:0,
         floorName:'',
-        floorRoomList:[],
-        roomList:[]
+        floorRoomList:[]
       };
     },
     
@@ -561,6 +489,18 @@
         console.log(item.id);
         this.floorRoomListShow();
       },
+      floor_build(row){
+        $('.build').hide();
+        $('.floor').show();
+        $('.main_content_table').hide();
+        $('.main_content_bottom').hide();
+        $('.plan').hide();
+        $('.total').hide();
+        $('.floor_wrap').show();
+        $('room_wrap').hide();
+        this.$store.commit('floorAdd',1);
+        this.$store.commit('buildingId',row.id);
+      },
       findPageBuildIngFloor(){
         // console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
@@ -578,15 +518,15 @@
         this.floorRoomList.push({unitBuilding:'',roomList:[]})
       },
       addRoom(item,index){
-        item.roomList.push({floorId:this.floorId,roomNumber:'',roomId:'',imgKey:''})
+        item.roomList.push({floorId:this.floorId,roomNumber:'',roomId:'',imgKey:null})
       },
-      deleteRoom(key, index){
+      deleteRoom(key, item,index){
         console.info(key);
         this.$fetch("/api/building/deleteBuildingFloorRoom",{
-          roomId:key.roomId
+          roomId:key.id
         }).then(response=>{
           console.log(response);
-          key.splice(index,1);
+          item.splice(index,1);
         })
       },
       submitFloorRoomList(){
@@ -607,13 +547,24 @@
         }).then(response=>{
           console.log(JSON.stringify(response));
           var pageBuildIng = response.data.pageBuildIng.result;
-          console.log(this.floorRoomList);
-          pageBuildIng.forEach((item,index)=>{
-            console.log(item.floorUnit)
+          var floorUnitList = response.data.floorUnitList;
+          // console.log(floorUnitList);
+          this.floorRoomList.length = 0 ;
+          floorUnitList.forEach((item,index)=>{
+            var newarr = pageBuildIng.filter(function (obj) {
+              return obj.floorUnit == item;
+            });
+            newarr.forEach((item,index)=>{
+              var key = 'roomId';
+              item[key] = item['id'];
+              delete item['id'];
+            })
+            console.log(newarr);
+            this.floorRoomList.push({unitBuilding:item,roomList:newarr})
           })
+          
         })
       },
-
 
       back_first(){
         $('.plan').hide();
@@ -626,14 +577,6 @@
         if(this.$route.path == '/Building_management/all'){
           $('.mapTable').hide();
           $('.total').show();
-          // if(this.floorAdd == 1){
-          //   $('.plan').hide();
-          //   $('.total').hide();
-          //   $('.floor_wrap').show();
-          // }else if(this.floorAdd ==2){
-          //   $('.plan').show();
-          //   $('.total').hide();
-          // }
         }
       },
       floor_back(){
@@ -645,6 +588,7 @@
         $('.total').hide();
         $('.floor_wrap').hide();
         $('.room_wrap').hide();
+        $('.maps').show();
       },
       room_back(){
         $('.build').hide();
@@ -728,6 +672,7 @@
       },
       show3(row){//跳转
         console.log(row.id);
+        this.$store.commit('floorAdd',2)
         this.$store.commit('buildingId',row.id);
         $('.plan').show();
         $('.mapTable').hide();
@@ -825,24 +770,9 @@
         this.tableList();
       }
       if(this.$route.path == '/Building_management/all'){
-        // $('.floor_wrap').show();
         $('.plan').show();
         $('.total').hide();
       }
-      // this.$fetch("/api/admin/inspection/countInspectionPlanRelevant",{
-      //   unitId:''
-      // }).then(response=>{
-      //   if(response.data.map){
-      //     console.log(response.data.map);
-      //     this.countInspectionPlanRelevant.countTotal = response.data.map.TOTAL;
-      //     this.countInspectionPlanRelevant.countDisableTotal = response.data.map.DISABLETOTAL;
-      //     this.countInspectionPlanRelevant.countEnableTotal = response.data.map.ENABLETOTAL;
-      //     this.countInspectionPlanRelevant.countDelete = response.data.map.DELETED;
-      //     this.countInspectionPlanRelevant.countIssanCount = response.data.map.ISSANCOUNT;
-      //   }
-      // }).then(err=>{
-      //   console.log(err)
-      // })
     },
     watch:{
       $route: {
@@ -868,24 +798,6 @@
         // console.log(this.currentPage4);
         this.tableList();
       },
-      buildUnit(){
-        // console.log(this.buildUnit);
-         this.tableList();
-        // this.$fetch("/api/admin/inspection/countInspectionPlanRelevant",{
-        //   unitId:this.Unit
-        // }).then(response=>{
-        //   if(response.data.map){
-        //     console.log(response.data.map);
-        //     this.countInspectionPlanRelevant.countTotal = response.data.map.TOTAL;
-        //     this.countInspectionPlanRelevant.countDisableTotal = response.data.map.DISABLETOTAL;
-        //     this.countInspectionPlanRelevant.countEnableTotal = response.data.map.ENABLETOTAL;
-        //     this.countInspectionPlanRelevant.countDelete = response.data.map.DELETED;
-        //     this.countInspectionPlanRelevant.countIssanCount = response.data.map.ISSANCOUNT;
-        //   }
-        // }).then(err=>{
-        //   // console.log(err)
-        // })
-      },
       buildingId(){
         if(this.$route.path == '/Building_management/maps'){
           $('.mapTable').show();
@@ -907,6 +819,22 @@
               this.form.phone = item.phone ;
             }
           })
+          if(this.floorAdd == 1){
+            $('.plan').hide();
+            $('.total').hide();
+            $('.floor_wrap').show();
+            $('.maps').hide();
+            this.tableData.forEach((item,index)=>{
+              if(item.id == this.buildingId){
+                // console.log(item);
+                this.form.BuildName = item.name ;
+                this.form.unitId = item.unitId ;
+                this.form.UnitName = item.unitName ;
+              }
+            })
+            this.findPageBuildIngFloor();
+          }
+           
         }
         if(this.$route.path == '/Building_management/all'){
           if(this.floorAdd == 1){
@@ -948,6 +876,7 @@
         // console.log(this.buildingId);
       },
       floorId(){
+        this.findPageBuildIngFloor();
         if(this.$route.path == '/Building_management/all'){
           if(this.floorAdd == 3){
             $('.plan').hide();
@@ -961,7 +890,6 @@
       }
     },
     computed:mapState([
-      'buildUnit',
       'buildingId',
       'floorAdd',
       'floorId'

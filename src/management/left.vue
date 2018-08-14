@@ -67,13 +67,13 @@
               <span>34</span>
             </li>
           </router-link>
-          <router-link to="/Fault_management">
+          <!-- <router-link to="/Fault_management">
             <li>
               <i class="icon iconfont icon-guzhangguanli-xian-"></i>
               <h2>故障管理</h2>
               <span></span>
             </li>
-          </router-link>
+          </router-link> -->
           <li class="system_title">人员管理</li>
           <router-link to="/List_of_people">
             <li>
@@ -93,6 +93,14 @@
             <li>
               <i class="icon iconfont icon-quanxianfenpei-xian-"></i>
               <h2>权限分配</h2>
+              <span>6</span>
+            </li>
+          </router-link>
+          <li class="system_title">操作日志</li>
+          <router-link to="/operationLog">
+            <li>
+              <i class="fa fa-th-large font-gray-666"></i>
+              <h2>操作日志</h2>
               <span>6</span>
             </li>
           </router-link>
