@@ -93,7 +93,7 @@
                     <el-dropdown trigger="click">
                       <span class="el-dropdown-link">
                         <span class="header-head-portrait">
-                            <img src="../assets/images/people.png" class="img-responsive img-circle">
+                            <img src="../../assets/images/people.png" class="img-responsive img-circle">
                         </span>
                         <span class="user-name">姓名</span>
                         <span class="caret"></span>

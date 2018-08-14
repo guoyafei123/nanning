@@ -1,101 +1,89 @@
 <template>
-  <div>
+  <section>
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="fa fa-th-large font-gray-666 float-left"></i>
-        <h2 class="float-left font-white size-16">建筑管理</h2>
+        <i class="icon iconfont icon-jianzhuguanli-mian-"></i>
+        <h2>建筑管理</h2>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Building_management/list"><button class="btn_add" @click="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+        <router-link to="/Building_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
       </div>
     </div>
     <div class="main_all_content">
       <div class="main_content_top">
-        <el-form label-width="80px" class="float-left">
-          <el-select v-model="buildUnit" placeholder="选择单位" class="select build" style="width:auto;">
+        <el-form class="float-left">
+          <el-select v-model="buildUnit" placeholder="选择单位" class="select build">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
            <!-- 楼层管理 -->
-           <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="width:150px;display:none;">
+           <el-select v-model="floorId" placeholder="选择楼层" class="select floor display-none">
             <el-option label="全部楼层" value=""></el-option>
             <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form>
         <div class="main_nav_two float-right">
-          <router-link to="/Building_management/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
-          <router-link to="/Building_management/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>
+          <router-link to="/Building_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Building_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
         </div>
       </div>
       <div class="main_content_table">
         <el-table
           :data="tableData"
           border
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-          style="width: 100%;height:570px;">
+          :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             prop="Serial_number"
             type="index"
-            sortable  
-            width="80"
+            fixed="left"
+            sortable
             label="序号">
           </el-table-column>
           <el-table-column
             prop="name"
-            width="130"
             :show-overflow-tooltip="true"
             label="建筑名称">
           </el-table-column>
           <el-table-column
             prop="unitName"
-            width="130"
             :show-overflow-tooltip="true"
             label="所属单位">
           </el-table-column>
           <el-table-column
             prop="location"
-            width="130"
             :show-overflow-tooltip="true"
             label="地址">
           </el-table-column>
           <el-table-column
             prop="area"
-            width="130"
-            label="占地面积（m^2）">
+            label="占地面积 (㎡)">
           </el-table-column>
           <el-table-column
             prop="heightOfBuilding"
-            width="100"
-            label="高度（m）">
+            label="高度 (cm)">
           </el-table-column>
           <el-table-column
             prop="floors"
-            width="100"
             label="楼层数">
           </el-table-column>
           <el-table-column
             prop="structure"
-            width="100"
             label="建筑结构">
           </el-table-column>
           <el-table-column
             prop="buildYear"
-             width="140"
             label="建成年份">
           </el-table-column>
           <el-table-column
             prop="property"
-             width="120"
             label="建筑性质">
           </el-table-column>
           <el-table-column 
             prop="linkname"
-            width="120"
             label="消防负责人">
           </el-table-column>
           <el-table-column 
             prop="phone"
-            width="120"
             label="消防负责人电话">
           </el-table-column>
           <el-table-column
@@ -103,30 +91,30 @@
             label="操作"
             width="180">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">编辑</button>
-              <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
-              <button @click="floor_build(scope.row)" style="width:50px;height:22px;border:1px solid transparent;border-radius:5px;color: #ffffff;background-color: #0798db;line-height: 19px;margin:0;padding:0;font-size: 11px;text-align: center;margin-right:10px;">楼层管理</button>
-              <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
+              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <button @click="floor_build(scope.row)"><i class="icon iconfont icon-danweiguanli-mian-1" data-toggle="tooltip" title="楼层管理"></i></button>
+              <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
         </el-table>
       </div>
       <div class="main_content_bottom">
         <div class="bottom_con">
-          <div class="float-left">
-            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
+          <div class="float-left btn-system">
+            <a href="javascript:;">打印</a>
+            <a href="javascript:;">导出</a>
+            <a href="javascrip:;">导出二维码</a>
           </div>
-          <el-pagination style="float: right;background: transparent"
+          <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
-          <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
-          <el-pagination style="float: right;"
+          <span>{{page}}页</span>
+          <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
@@ -159,10 +147,10 @@
               <el-form-item label="建筑地址">
                 <el-input v-model="form.address"></el-input>
               </el-form-item>
-              <el-form-item label="占地面积（m^2）">
+              <el-form-item label="占地面积 (㎡)">
                 <el-input v-model="form.area"></el-input>
               </el-form-item>
-              <el-form-item label="高度">
+              <el-form-item label="高度 (cm)">
                 <el-input v-model="form.height"></el-input>
               </el-form-item>
               <el-form-item label="总楼层">
@@ -199,11 +187,10 @@
               <el-form-item label="消防负责人电话">
                 <el-input v-model="form.phone"></el-input>
               </el-form-item>
-              <div style="clear: both;"></div>
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -215,21 +202,21 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel2">提示</h4>
-            <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
+            <h5 class="modal-p">该操作并不影响之前的统计数据</h5>
           </div>
-          <div class="modal-body" style="height:217px;">
-            <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
-            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ deviceName }}</p>
+          <div class="modal-body text-center container-padding40">
+            <h3 class="font-red size-14">是否删除</h3>
+            <p class="font-white size-18">{{ deviceName }}</p>
           </div>
           <div class="modal-footer">
-            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
+            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
       </div>
     </div>
    
-  </div>
+  </section>
 
 </template>
 
@@ -458,212 +445,4 @@
     }
   };
 </script>
-<style lang="scss" scoped>
-  h2{
-    margin: 0;
-    padding: 0;
-  }
-  main{
-    height: 100%;
-  }
-  @media (min-width: 768px) and (max-width:1600px){
-    main {
-      padding-left:295px;
-      padding-right:400px;
-    }
-  }
-  @media (min-width: 1600px){
-    main {
-      margin-left:17.58%;
-      margin-right: 24%;
-    }
-  }
-  .main_header{
-    width:100%;
-    height:68px;
-    background: #111111;
-  }
-  .main_title{
-    display: flex;
-    align-items: center;
-  }
-  .main_title i{
-    margin-left:20px;
-    margin-right:10px;
-  }
-  .main_title h2{
-    line-height: 68px;
-  }
-  .main_header button,.main_nav_two button{
-    width:64px;
-    height:28px;
-    float: left;
-    outline:none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border:2px solid transparent;
-    background: #111111;
-    font-size: 12px;
-    color: #999;
-    margin-top: 21px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .main_header a:nth-child(2) button{
-    border-left:none;
-  }
-  .main_header button i{
-    margin-right: 3px;
-  }
-  .main_header button.btn_add i{
-    color: #000;
-  }
-  .main_header button.btn_add{
-    width:64px;
-    height:28px;
-    border:none;
-    background: #bad616;
-    margin-left: 6px;
-    margin-right: 20px;
-    color: #000;
-  }
-  .main_nav_two{
-    margin-top:6px;
-    margin-right:20px;
-  }
-  .main_nav_two button{
-    margin-top:0;
-  }
-  .main_nav_two i{
-    margin-right: 3px;
-  }
-  .main_content_top{
-    height:40px;
-    background: #222222;
-  }
-  .main_content_table{
-    width:100%;
-    background: #111111;
-  }
-  .main_content_bottom{
-    width:100%;
-    height:60px;
-    padding-top:10px;
-    background: #111111;
-    .bottom_con{
-      margin:0 20px;
-      padding-top:10px;
-      border-top:1px solid #222222;
-    }
-  }
-  .main_con_nav{
-    button{
-      background-color: #222222;
-    }
-    margin-left:30%;
-    a:nth-last-child(1) button{
-      border-left:none;
-    }
-    .link-active button{
-      color: #191d03;
-      background-color: #bad616;
-    }
-    .link-active i{
-      color: #191d03;
-      background-color: #bad616;
-    }
-  }
-  .router-link-active button{
-    color: #b8b8b8;
-    background-color: #000000;
-  }
-  .router-link-active i{
-    color: #b8b8b8;
-    background-color: #333333;
-  }
- 
-  .main_nav_show{
-    width:64px;
-    position: absolute;
-    top:159px;
-    z-index: 33;
-    border:2px solid #bad616;
-    ul{
-      width:100%;
-      li{
-        float: none;
-        width:100%;
-        a{
-          button{
-            margin:0;
-            border-top:2px;
-            border-bottom:2px;
-            margin-left:-42px;
-            border-color:#bad616;
-          }
-        }
-      }
-    }
-  }
-  .btn_active button{
-    background-color: #bad616;
-    color: #0c0e01;
-  }
-  .btn_active i{
-    color: #0c0e01;
-    background-color: transparent;
-  }
 
-  .span_show{
-    width:40px;
-    height:32px;
-    border:2px solid #bad616;
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: 31px !important;
-    text-align:center;
-    color: #bad616;
-    background-color: #111111;
-  }
-  .span_hide{
-    width:40px;
-    height:32px;
-    border:2px solid #333333;
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: 31px !important;
-    text-align:center;
-    color: #5e5e5e;
-    background-color: #111111;
-  }
-  .danger{
-    width:132px;
-    background-color: #f13131;
-    color: #000;
-    font-size: 14px;
-    height:32px;
-    line-height: 32px;
-    padding:0;
-  }
-  .el-tag--red{
-    color: red !important;
-    padding:0 !important;
-    border:none;
-  }
-  .el-tag--green{
-    color: #fff !important;
-    padding:0 !important;
-    border:none;
-    i{
-      margin-left:7px;
-    }
-  }
-
-
-  .start{
-    margin-top:4px;
-    margin-left:10px;
-  }
-</style>

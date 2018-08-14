@@ -48,7 +48,7 @@
           .then(response => {
             if (response) {
               console.log(response);
-              if(response.field=='11'){
+              if(response.errorCode=='20023'){
                 this.varphoneb=true;
                 callback();
               }else{

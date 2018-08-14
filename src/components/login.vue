@@ -54,19 +54,19 @@
           )
           .then(response => {
             if (response) {
-              if(response.field=='11'){
+              if(response.errorCode=='20023'){
                 this.varphoneb=false;
                 return callback(new Error('该手机号未注册,等前往注册'));
-              }else if(response.field=='13'){
+              }else if(response.errorCode=='20024'){
                 this.varphoneb=false;
                 return callback(new Error('此账号已被删除,如有问题请联系管理员!'));
-              }else if(response.field=='14'){
+              }else if(response.errorCode=='20025'){
                 this.varphoneb=false;
                 return callback(new Error('此账号审核未通过,如有问题请联系管理员!'));
-              }else if(response.field=='15'){
+              }else if(response.errorCode=='20026'){
                 this.varphoneb=false;
                 return callback(new Error('此账号审核中,请稍后再试!'));
-              }else if(response.field=='16'){
+              }else if(response.errorCode=='20027'){
                 this.varphoneb=false;
                 return callback(new Error('此账号被禁用'));
               }else if(response.field=='ok'){
@@ -222,7 +222,7 @@
     },
     mounted() {
       // this.ruleForm.username=this.loginusername;
-      this.$store.commit('route_path',"/index");
+      this.$store.commit('route_path',"/login");
     }
   }
 </script>

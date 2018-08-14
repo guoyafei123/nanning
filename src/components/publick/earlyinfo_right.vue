@@ -21,7 +21,7 @@
             </article>
           </div>
           <!-- 单位图片 -->
-          <img src="../assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
+          <img src="../../assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
         </li>
         <!-- 统计1 -->
         <li>
@@ -123,10 +123,10 @@
             </div>
             <div class="textandimg-img">
               <div class="col-sm-3">
-                <img src="../assets/images/123.jpg">
+                <img src="../../assets/images/123.jpg">
               </div>
               <div class="col-sm-3">
-                <img src="../assets/images/456.jpg">
+                <img src="../../assets/images/456.jpg">
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@
             </div>
             <div class="textandimg-img">
               <div class="col-sm-3">
-                <img src="../assets/images/478.jpg">
+                <img src="../../assets/images/478.jpg">
               </div>
             </div>
           </div>

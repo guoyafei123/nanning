@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import HeaderVue from '../../components/header.vue';
+  import HeaderVue from '../../components/publick/header.vue';
   import Set_leftVue from '../left.vue';
   import MainVue from './main.vue';
   import Set_rightVue from './set_right.vue';

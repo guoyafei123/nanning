@@ -28,11 +28,11 @@
 </template>
 
 <script>
-  import HeaderVue from '../../components/header.vue';
+  import HeaderVue from '../../components/publick/header.vue';
   import Set_leftVue from '../left.vue';
   import MainVue from './Unit_main.vue';
   import Set_rightVue from './Unit_right.vue';
-
+  import '../../assets/css/setting.scss';
   export default {  
     data(){
       return{

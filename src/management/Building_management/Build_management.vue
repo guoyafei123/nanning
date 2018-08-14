@@ -28,15 +28,11 @@
 </template>
 
 <script>
-  import HeaderVue from '../../components/header.vue';
+  import HeaderVue from '../../components/publick/header.vue';
   import Set_leftVue from '../left.vue';
   import MainVue from './main.vue';
   import Set_rightVue from './right.vue';
   import '../../assets/css/setting.scss';
-  import '../../assets/css/upd-element.css';
-  import '../../assets/css/element.css';
-  import '../../assets/css/manage.css';
-  import '../../assets/css/media.css';
   export default {
     methods:{
       show(){

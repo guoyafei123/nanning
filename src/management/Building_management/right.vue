@@ -1,80 +1,79 @@
 <template>
-  <div class="Inspection_plan toolright z-index-20">
-    <div class="font-white margin-left15 margin-right20 plan">
+  <div class="toolright z-index-20">
+    <div class="font-white plan">
+      <!-- <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Building_management/maps'">&lt;返回</span> -->
+      <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Building_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
+      <!-- 建筑详情 -->
       <section>
-          <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Building_management/maps'">&lt;返回</span>
-
-      </section>
-      <section class="inspection-iteminfo" >
-        <section>
-          <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10" style="letter-spacing:5px;">
+        <div class="textandimg margin-top20">
+              <h4 class="p-title">
                  {{ this.form.BuildName }}建筑详情
-              </h2>
-              <div class="row textandimg-main">
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">建筑名称 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.form.BuildName"></span>
+              </h4>
+              <div class="row textandimg-main margin-top20 size-12">
+                  <div class="col-sm-6">
+                      <span>建筑名称 </span>
+                      <strong v-html="this.form.BuildName"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>所属单位 </span>
+                      <strong v-html="this.form.UnitName"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>建筑结构 </span>
+                      <strong v-html="this.form.structure"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>建筑性质 </span>
+                      <strong v-html="this.form.property"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">所属单位 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.form.UnitName"></span>
-                  </div>
-
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">建筑地址 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.form.address"></span>
+                      <span>建筑地址 </span>
+                      <strong v-html="this.form.address"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16  font-gray-666 span_name" style="width:120px;">经纬度 </span>
-                      <span class="size-12 font-gray-999 span_con" style="margin-right:10px;" v-html="this.form.point.pointX"></span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.point.pointY"></span>
+                      <span>经纬度 </span>
+                      <strong v-html="this.form.point.pointX"></strong>
+                      <strong v-html="this.form.point.pointY"></strong>
                   </div>
-
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">占地面积 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.area"></span>
+                  
+                  <div class="col-sm-6">
+                      <span>占地面积 </span>
+                      <strong v-html="this.form.area"></strong>
                   </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">高度 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.height"></span>
-                  </div>
-
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">总楼层 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.floor"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">建筑年份 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.timeYear"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">建筑结构 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.structure"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">建筑性质 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.property"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">消防负责人 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.name"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">消防负责人电话 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.phone"></span>
+                  <div class="col-sm-6">
+                      <span>高 度 </span>
+                      <strong v-html="this.form.height"></strong>
                   </div>
 
+                  <div class="col-sm-6">
+                      <span>总楼层 </span>
+                      <strong v-html="this.form.floor"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>建筑年份 </span>
+                      <strong v-html="this.form.timeYear"></strong>
+                  </div>
+                  
+                  <div class="col-sm-6">
+                      <span>消防负责人 </span>
+                      <strong v-html="this.form.name"> </strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>消防负责人电话 </span>
+                      <strong v-html="this.form.phone"></strong>
+                  </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">建筑二维码 </span>
-                      <span class="size-12 font-gray-999 span_con">按钮 </span>
-                      <span class="size-12 font-gray-999 span_con">按钮 </span>
+                      <span>建筑二维码 </span>
+                      <strong>
+                        <a href="" data-toggle="tooltip" title="预览二维码" class="font-blue display-inline-block">预览</a>
+                        <a href="" data-toggle="tooltip" title="下载二维码" class="font-blue display-inline-block">下载</a>
+                      </strong>
                   </div>
               </div>
-          </div>
-        </section>
+        </div>
       </section>
     </div>
+    <!-- 简单统计 -->
     <div class="font-white total" style="margin-top:120px;margin-right:10px;">
       <section style="display: none;" class="mapTable">
         <div class="toolbuildrate margin-top30">
@@ -237,7 +236,6 @@
     </div>
 
     <!-- 楼层管理 -->
-
     <div class="floor_wrap" style="display:none;">
       <div class="floor_header clearFix">
         <h2>楼层管理</h2>
@@ -290,7 +288,6 @@
     </div>
 
     <!-- 房间管理 -->
-
     <div class="room_wrap" style="display:none;">
       <div class="room_header clearFix">
         <h2>房间管理</h2>
@@ -898,326 +895,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .clearFix:after{
-    clear:both;
-    content:'';
-    display: block;
-  }
-  .padding-right16 {
-    padding-right: 16px;
-  }
-  .inspection_ul{
-    width:75%;
-    float: left;
-    margin-top:30px;
-    li{
-      float: left;
-      width:33%;
-      font-size: 12px;
-      color: #999999;
-      height: 30px;
-      span{
 
-        margin-left:8px;
-        color: #cccccc;
-      }
-      &:nth-child(1){
-        span{
-          margin-left:20px;
-          color: red;
-        }
-      }
-      &:nth-child(2){
-        span{
-          margin-left:19px;
-        }
-      }
-    }
-  }
-  .el-tag--red{
-    color: red !important;
-    padding:0 !important;
-    border:none;
-  }
-  .el-tag--green{
-    color: #fff !important;
-    padding:0 !important;
-    border:none;
-    i{
-      margin-left:7px;
-    }
-  }
-  .danger{
-      width: 132px;
-      background-color: #f13131;
-      color: #000;
-      font-size: 14px;
-      height: 32px;
-      line-height: 32px;
-      padding: 0;
-  }
-
-
-  .textandimg{
-    // margin-top:150px;
-    
-    margin-left:90px;
-  }
-
-  .span_name{
-    font-size: 16px !important;
-    width:160px;
-    display:inline-block;
-    margin-left:-20px;
-    line-height: 40px;
-  }
-  .span_con{
-    font-size: 14px !important;
-    display:inline-block;
-    line-height: 40px;
-  }
-  
-
-
-  // floor 
-  .floor_wrap{
-    width:100%;
-    margin-top:150px;
-    padding:0 15px;
-    .floor_header{
-      h2{
-        color: #fff;
-        font-size: 20px;
-        float: left;
-        margin-top: 17px;
-      }
-      span{
-        display: inline-block;
-        float: right;
-        line-height: 35px;
-        color: #999999;
-        padding:0;
-        margin:10px 30px 0 0 ;
-      }
-    }
-    .floor_title{
-      h3{
-        color: #cccccc;
-        font-size:14px;
-        float:left;
-        margin-top:16px;
-      }
-      button{
-        float: right;
-        width:64px;
-        height:28px;
-        border:none;
-        background: #bad616;
-        margin-left: 6px;
-        margin-right: 20px;
-        margin-top:10px;
-        display: flex;
-        font-size:13px;
-        align-items: center;
-        justify-content: center;
-        border:2px solid transparent;
-        color: #000;
-        i{
-          color: #000;
-          margin-right:2px;
-        }
-      }
-    }
-    table{
-      margin-top:70px;
-      border-color: #999999;
-      background: #222;
-      thead{
-        tr{
-          td{
-            color:#999;
-            text-align: center!important;
-            vertical-align: middle!important;
-          }
-        }
-      }
-      tbody{
-        
-        tr{
-          height:40px!important;
-          td{
-            height:40px!important;
-            color: #cccccc;
-            text-align: center!important;
-            vertical-align: middle!important;
-            input{
-              width:60px;
-              background: #111;
-              border:1px solid #222;
-              outline:none;
-              color:#ccc;
-              display:inline-block;
-            }
-            img{
-              // float: left;
-              width:23px;
-              margin-right:10px;
-            }
-            i{
-              // float: left;
-            }
-            button{
-              // float: left;
-            }
-          }
-        }
-      }
-    }
-    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
-       border-color: #999999;
-    }
-  }
-
-
-  // room 
-  .room_wrap{
-    width:100%;
-    margin-top:150px;
-    padding:0 15px;
-    .room_header{
-      h2{
-        color: #fff;
-        font-size: 20px;
-        float: left;
-        margin-top: 17px;
-      }
-      span{
-        display: inline-block;
-        float: right;
-        line-height: 35px;
-        color: #999999;
-        padding:0;
-        margin:10px 30px 0 0 ;
-      }
-    }
-    .room_title{
-      h3{
-        color: #cccccc;
-        font-size:14px;
-        float:left;
-        margin-top:16px;
-      }
-      button{
-        float: right;
-        width:64px;
-        height:28px;
-        border:none;
-        background: #bad616;
-        margin-left: 6px;
-        margin-right: 20px;
-        margin-top:10px;
-        display: flex;
-        font-size:13px;
-        align-items: center;
-        justify-content: center;
-        border:2px solid transparent;
-        color: #000;
-        i{
-          color: #000;
-          margin-right:2px;
-        }
-      }
-    }
-    table{
-      margin-top:70px;
-      border-color: #999999;
-      background: #222;
-      thead{
-        tr{
-          td{
-            color:#999;
-            text-align: center!important;
-            vertical-align: middle!important;
-          }
-        }
-      }
-      tbody{
-        
-        tr{
-          height:40px!important;
-          td{
-            height:40px!important;
-            color: #cccccc;
-            text-align: center!important;
-            vertical-align: middle!important;
-            input{
-              width:60px;
-              background: #111;
-              border:1px solid #222;
-              outline:none;
-              color: #ccc;
-              display:inline-block;
-            }
-            img{
-              // float: left;
-              width:23px;
-              margin-right:10px;
-            }
-            i{
-              // float: left;
-            }
-            button{
-              // float: left;
-            }
-          }
-        }
-      }
-    }
-    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
-       border-color: #999999;
-    }
-  }
-.table_ul{
-  width:100%;
-  height:100%;
-  margin:0;padding:0;
-  li{
-    height:40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    i{
-      margin-right:10px;
-    }
-    input{
-      width:100px !important;
-      height:30px;
-      text-align: center;
-    }
-    button{
-      outline:none;
-      background:#222;
-      font-size: 15px;
-      border:1px solid #999999
-    }
-  }
-}
-.floor_wrap table tbody {
-    display: block;
-    height: 500px;
-    overflow-y: scroll;
-}
-
-.floor_wrap table thead,
-.floor_wrap tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-.floor_wrap table thead td:nth-child(1),tbody tr td:nth-child(1){
-  width:50px;
-}
-.floor_wrap table thead td:nth-child(2),tbody tr td:nth-child(2){
-  width:120px;
-}
 </style>

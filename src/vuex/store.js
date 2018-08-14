@@ -38,7 +38,9 @@ var state={
   route_path:'',
   torightdata:Object,
   indexToAlarmTroubel:Object,
-  toIndexLeftAlarmChar:Object
+  toIndexLeftAlarmChar:Object,
+  // 展示端风险
+  toriskitem:false,
 }
 
 var mutations={
@@ -137,6 +139,10 @@ var mutations={
   },
   toIndexLeftAlarmChar(state,data){
     state.toIndexLeftAlarmChar=data;
+  },
+  // 展示端风险
+  toriskitem(state,data){
+    state.toriskitem=data;
   },
 }
 

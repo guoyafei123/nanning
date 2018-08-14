@@ -1,6 +1,6 @@
 <template>
-  <div class="Inspection_plan z-index-20  ">
-    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:110px;display: none;">
+  <div class="Inspection_plan z-index-20">
+    <div class="font-white plan">
       <section>
           <span @click="back_first" class="font-gray-666" style="cursor:pointer;">&lt;返回</span>
           <div class="personinfo">

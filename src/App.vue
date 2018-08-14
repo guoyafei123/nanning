@@ -21,7 +21,7 @@
 
 <script>
   import MapVue from './components/map';
-  import FooterVue from './components/footer';
+  import FooterVue from './components/publick/footer';
   import{mapState} from "vuex";
   // import EarlyinfoVue from './components/earlyinfo';
   // import { realconsole } from './assets/js/management.js'
@@ -53,6 +53,7 @@
     },
 
     mounted() {     
+      console.log('加载')
       // realconsole();
       $("[data-toggle='tooltip']").tooltip();
       // alert(this.$route.path);

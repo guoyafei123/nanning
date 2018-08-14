@@ -348,7 +348,7 @@
 </template>
 
 <script>
-import HeaderVue from "./header.vue";
+import HeaderVue from "./publick/header.vue";
 // import Call_leftVue from './call_left.vue';
 // import Call_rightVue from './call_right.vue';
 export default {
