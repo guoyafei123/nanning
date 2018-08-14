@@ -5,7 +5,6 @@
       <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Building_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       <!-- 建筑详情 -->
       <section>
-<<<<<<< HEAD
         <div class="textandimg margin-top20">
               <h4 class="p-title">
                  {{ this.form.BuildName }}建筑详情
@@ -26,21 +25,6 @@
                   <div class="col-sm-6">
                       <span>建筑性质 </span>
                       <strong v-html="this.form.property"></strong>
-=======
-          <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Building_management/maps'">&lt;返回</span>
-
-      </section>
-      <section class="inspection-iteminfo" >
-        <section>
-          <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10" style="letter-spacing:5px;">
-                 {{ this.form.BuildName }}建筑详情
-              </h2>
-              <div class="row textandimg-main">
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">建筑名称 </span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.form.BuildName"></span>
->>>>>>> 814173364fd8aa5a6ee0e657089c88222fb43130
                   </div>
                   <div class="col-sm-12">
                       <span>建筑地址 </span>

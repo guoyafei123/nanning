@@ -7,11 +7,7 @@
         <h2>巡检规划</h2>
       </div>
         <div class="main_nav float-right">
-<<<<<<< HEAD
           <router-link to="/Inspection_plan/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
-=======
-          <router-link to="/Inspection_plan/list"><button style="margin-right:20px;border-right:2px solid #333333;"><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
->>>>>>> 814173364fd8aa5a6ee0e657089c88222fb43130
         </div>
       </div>
       <div class="main_content">
