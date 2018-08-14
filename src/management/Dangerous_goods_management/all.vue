@@ -3,7 +3,7 @@
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="fa fa-th-large font-gray-666 float-left"></i>
-        <h2 class="float-left font-white size-16">设备管理</h2>
+        <h2 class="float-left font-white size-16">危险品管理</h2>
       </div>
       <div class="main_nav float-right">
         <router-link to="/Dangerous_goods_management/list"><button class="btn_add" @click="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
@@ -72,49 +72,38 @@
             label="序号">
           </el-table-column>
           <el-table-column
-            prop="name"
+            prop="dangerName"
             width="170"
             :show-overflow-tooltip="true"
-            label="设备名称">
+            label="危险品名称">
           </el-table-column>
           <el-table-column
-            prop="location"
+            prop="unitName"
             width="160"
             :show-overflow-tooltip="true"
-            label="设备位置">
+            label="所属单位">
           </el-table-column>
           <el-table-column
             prop="deviceTypeName"
             width="100"
             :show-overflow-tooltip="true"
-            label="设备类型">
+            label="位置">
           </el-table-column>
           <el-table-column
-            prop="height"
+            prop="cont"
             width="130"
-            label="相对地板高度（m）">
+            label="危险品简介">
           </el-table-column>
           <el-table-column
-            prop="fheight"
+            prop="nickName"
             width="140"
-            label="相对天花板高度（m）">
+            label="上报人">
           </el-table-column>
           <el-table-column
-            prop="startDate"
+            prop="createTime"
             width="100"
             :show-overflow-tooltip="true"
-            label="投入使用时间">
-          </el-table-column>
-          <el-table-column
-            prop="startDate"
-            width="130"
-            :formatter="formatter"
-            label="运行时长（天）">
-          </el-table-column>
-          <el-table-column
-            prop="lifeMonth"
-             width="120"
-            label="更换周期（天）">
+            label="上报时间">
           </el-table-column>
           <el-table-column 
             prop="status"
@@ -127,17 +116,30 @@
               <el-tag
                 :type="scope.row.status === 2 ? 'yellow' : 'green'"
                 disable-transitions v-if='scope.row.status==2'>故障</el-tag>
-              <el-tag
-                :type="scope.row.status === 3 ? 'red' : 'green'"
-                disable-transitions v-if='scope.row.status==3'>警报</el-tag>
             </template>
+          </el-table-column>
+          <el-table-column
+            prop="reviewerName"
+            width="130"
+            :formatter="formatter"
+            label="解决人">
+          </el-table-column>
+          <el-table-column
+            prop="reviewTime"
+             width="120"
+            label="解决时间">
+          </el-table-column>
+          <el-table-column
+            prop="treatment"
+             width="120"
+            label="解决原因">
           </el-table-column>
           <el-table-column
             fixed="right"
             label="操作"
             width="120">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">修改</button>
+              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">处理</button>
               <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
               <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
             </template>
@@ -520,32 +522,34 @@
       },
       tableList(){
         this.$fetch(
-          "/api/device/deviceList",{
+          "/api/trouble/troubleList",{
             unitId:this.unit,
-            deviceTypeId:this.equipment,
+            type:5,
             buildingId:this.building,
             floorId:this.floor,
             roomId:this.room,
             currentPage:this.currentPage4,
-            pageSize:9
+            pageSize:10
           }
         )
           .then(response => {
-            console.log('设备111111111111111111'+JSON.stringify(response));
+            console.log('危险品！！！'+JSON.stringify(response));
             if (response) {
               // console.log(response.data.inspectionPlanList);
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
-              this.tableData.forEach((item,index)=>{
-                // console.log(111)
-                if(index == this.tableData.length-1){
-                  this.$store.commit('deviceId',item.id);
-                }
-              })
-              if(this.totalList % 9 == 0){
-                this.page = parseInt( this.totalList / 9 )
+              if(this.tableData){
+                this.tableData.forEach((item,index)=>{
+                  // console.log(111)
+                  if(index == this.tableData.length-1){
+                    this.$store.commit('deviceId',item.id);
+                  }
+                })
+              }
+              if(this.totalList % 10 == 0){
+                this.page = parseInt( this.totalList / 10 )
               }else{
-                this.page = parseInt( this.totalList / 9 ) + 1
+                this.page = parseInt( this.totalList / 10 ) + 1
               }
             }
           })
@@ -583,15 +587,6 @@
           if (response) {
             this.roomList = response.data.list;
             console.log(this.roomList);
-          }
-        })
-      },
-      equipmentSearch(){
-        this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
-          console.log('equipmentSearch:'+response);
-          if (response) {
-            this.equipmentList = response.data.deviceTypeEnum;
-            console.log(this.equipmentList);
           }
         })
       },
@@ -641,9 +636,6 @@
       },
       roomId(){
         return this.form.roomId;
-      },
-      equipmentId(){
-        return this.form.equipmentId;
       }
     },
     watch:{
@@ -680,11 +672,6 @@
         console.log(this.room);
         this.tableList();
       },
-      equipment(curVal,oldVal){
-        this.equipment = curVal ;
-        console.log(this.equipment);
-        this.tableList();
-      },
       unitId(curVal,oldVal){
         this.form.unitId = curVal;
         this.formBuildSearch(this.form.unitId);
@@ -705,18 +692,13 @@
       },
       roomId(curVal,oldVal){
         this.form.roomId = curVal ;
-      },
-      equipmentId(curVal,oldVal){
-        this.form.equipmentId = curVal;
       }
     },
     mounted(){
       realconsole();
       this.tableList();
       this.unitSearch();
-      this.equipmentSearch();
       $('#right').show();
-      // this.$store.commit('Unit',this.unit);
       if(this.$route.path == '/Dangerous_goods_management/all'){
         $('.mapTable').hide();
       }

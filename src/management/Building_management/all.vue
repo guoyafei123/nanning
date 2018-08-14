@@ -167,8 +167,10 @@
                 <div class="block">
                   <el-date-picker
                     v-model="form.timeYear"
-                    type="year"
-                    placeholder="选择年">
+                    type="date"
+                    placeholder="选择年份"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd">
                   </el-date-picker>
                 </div>
               </el-form-item>

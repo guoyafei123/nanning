@@ -693,6 +693,21 @@ video:hover{
         border-top:1px solid #333; 
         border-bottom:1px solid #333; 
     }
+
+    .cardinfo-style{
+        margin: 0px !important;
+        padding:0px 0px 0px 10px;
+    }
+
+    .cardinfo-style p{
+        padding: 0px 10px 0px 0px;
+        font-size: 12px;
+        margin-top:10px;
+    }
+    .cardinfo-style span{
+        float: right !important;
+        color: #bad616
+    }
     
     /* 综合页面css */
     .indexdateabox{

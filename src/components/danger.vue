@@ -383,8 +383,8 @@
 </template>
 
 <script>
-import HeaderVue from "./header.vue";
-import earlyinfoVue from './earlyinfo.vue';
+import HeaderVue from "./publick/header.vue";
+import earlyinfoVue from './publick/earlyinfo.vue';
 import { realconsole } from '../assets/js/management.js'
 // import Call_leftVue from './call_left.vue';
 // import Call_rightVue from './call_right.vue';

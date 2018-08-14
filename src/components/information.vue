@@ -513,7 +513,7 @@
 </template>
 
 <script>
-import HeaderVue from "./header.vue";
+import HeaderVue from "./publick/header.vue";
 // import Infor_leftVue from './infor_left.vue';
 // import Infor_rightVue from './infor_right.vue';
 export default {

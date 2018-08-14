@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '../../router'
 //
 axios.defaults.timeout = 50000;
 //http request 拦截器
@@ -33,6 +34,11 @@ export function fetch(url,params = {}){
     axios.get(url,{params:params})
       .then(response => {
         resolve(response.data);
+        console.log(response.data.errorCode);
+        if(response.data.errorCode=='20012'){
+          // alert('未登录')
+          this.$router.push("/login");
+        }
       },err => {
         reject(err)
       })

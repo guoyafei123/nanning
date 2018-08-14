@@ -1,21 +1,18 @@
 <template>
-  <div class="row" id="unit-manage">
+  <div class="row">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->
     <!-- #左边 -->
-    <section id="left" class="position-fixed-left z-index-20">
+    <section id="left" class="position-fixed-left container-padding5 z-index-20" style="padding:0;">
       <div class="overlay"></div>
       <set_left-vue></set_left-vue>
     </section>
-    <!-- #中间-->
-    <section id="manage-center" class="position-fixed-left z-index-20">
-      <main-vue></main-vue>
-    </section> 
+    <!-- #左边 End-->
+    <main-vue></main-vue>
     <!-- #右边 -->
-    <section id="right" class="position-fixed-right z-index-20">
+    <section id="right" class="position-fixed-right container-padding5 z-index-20" style="padding:0;">
       <div class="overlay"></div>
-      <set_right-vue></set_right-vue>
     </section>
     <div class="fix" @click="show" style="display:none;width:20px;height:60px;position: fixed;top:35%;left:0;background:#333;text-align:center;line-height: 60px;">
       <span style="font-size: 23px;
@@ -30,10 +27,10 @@
 <script>
   import HeaderVue from '../../components/publick/header.vue';
   import Set_leftVue from '../left.vue';
-  import MainVue from './Unit_main.vue';
-  import Set_rightVue from './Unit_right.vue';
+  import MainVue from './main.vue';
   import '../../assets/css/setting.scss';
-  export default {  
+  import '../../assets/css/upd-element.css';
+  export default {
     data(){
       return{
 
@@ -42,7 +39,7 @@
     methods:{
       show(){
         $('main').css('margin-left','17.58%');
-        $("#left").css('width','17.58%'); 
+        $("#left").css('width','17.58%');
         $('.show_left').slideToggle(1000,function(){
           $('.fix').hide();
         });
@@ -51,7 +48,6 @@
     components:{
       'header-vue':HeaderVue,
       'set_left-vue':Set_leftVue,
-      'set_right-vue':Set_rightVue,
       'main-vue':MainVue
     },
     watch:{
@@ -61,4 +57,30 @@
 </script>
 
 <style scoped>
+  .row{
+    position: relative;
+  }
+  .position-fixed-right{
+    top:0;
+  }
+  #header{
+    height: 110px;
+    /*background:rgba(0,0,0,1)*/
+  }
+  @media (min-width: 768px) and (max-width:1600px){
+    #left{
+      width:295px;
+    }
+     #right{
+      width:400px;
+    }
+  }
+  @media (min-width: 1600px){
+    #left{
+      width:17.58%;
+    }
+    #right{
+      width:24%;
+    }
+  }
 </style>

@@ -32,14 +32,6 @@
         <li>
           <router-link to="/plan">预案</router-link>
         </li>
-        <!-- <li>
-          <router-link to="">联控</router-link>
-        </li> -->
-        <!-- <li>
-          <router-link to="">
-            <i class="fa fa-th-large"></i>
-          </router-link>
-        </li> -->
       </ul>
       <!-- <abbr class="size-12 font-gray-333">数雨如歌智慧消防大数据监控平台 政府版
         <span>BETA3.0</span>

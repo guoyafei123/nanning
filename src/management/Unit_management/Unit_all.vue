@@ -134,8 +134,14 @@
               <el-form-item label="单位图片">
                 <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
                   <input id="file" name="file" type="file" @change="file()" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
+<<<<<<< HEAD
                   <div class="bg-gray-222 text-center margin-top5">
                     <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
+=======
+                  <div style="width:80px;height:80px;background:#222;border:1px solid #222;">
+                    <span style="display:block;width:50px;height:3px;background:#999;position:absolute;top:50%;left:50%;margin-left:-25px;margin-top:-1.5px;"></span>
+                    <span style="display:block;width:3px;height:50px;background:#999;position:absolute;top:50%;left:50%;margin-left:-1.5px;margin-top:-25px;"></span>
+>>>>>>> 814173364fd8aa5a6ee0e657089c88222fb43130
                   </div>
                 </div>
                 <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>

@@ -12,10 +12,20 @@
       </div>
       <div class="main_all_content">
         <div class="main_content_top">
+<<<<<<< HEAD
           <el-form class="float-left">
             <el-select v-model="buildUnit" placeholder="选择单位" class="select">
+=======
+          <el-form label-width="80px"  class="float-left">
+            <el-select v-model="buildUnit" placeholder="选择单位" class="select build">
+>>>>>>> 814173364fd8aa5a6ee0e657089c88222fb43130
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+            <!-- 楼层管理 -->
+            <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="width:150px;display:none;">
+              <el-option label="全部楼层" value=""></el-option>
+              <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form>
           <div class="main_nav_two float-right">
@@ -38,8 +48,10 @@
   export default {
     data() {
       return {
-        buildUnit:null,//选择单位
-        optionList:[]//全部单位列表
+        buildUnit:null,//选择单位,
+        floorId:'',
+        optionList:[],//全部单位列表,
+        floorList:[]//楼层列表
       }
     },
     components:{

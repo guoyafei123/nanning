@@ -21,7 +21,7 @@
             </article>
           </div>
           <!-- 单位图片 -->
-          <img src="../assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
+          <img src="/assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
         </li>
         <!-- 统计1 -->
         <li>
@@ -387,11 +387,11 @@
 </template>
 
 <script>
-import earlyinfoVue from './earlyinfo.vue';
+import earlyinfoVue from '../publick/earlyinfo';
 import{mapState} from "vuex";
 import sockjs from 'sockjs-client';
 import moment from 'moment';
-import { realconsole } from '../assets/js/management.js'
+import { realconsole } from '../../assets/js/management.js'
 var Stomp = require('@stomp/stompjs');
 export default {
 
@@ -418,10 +418,9 @@ export default {
       websock: null,
       tounpdateIndex:1,
       myAudio:Object,
-      mp3arr:[require('../assets/mp3/login.mp3'),require('../assets/mp3/login.mp3')],
-      socketcodes:{
-
-      },
+      mp3arr:[require('../../assets/mp3/login.mp3'),require('../../assets/mp3/login.mp3')],
+      socketcodes:{},
+      socketIs:1
     }
   },
   // sockets:{
@@ -453,7 +452,7 @@ export default {
     connect() {
       var that=this;
       console.log("去链接。。。");
-      var socket = new sockjs('http://api.nanninglqys.51play.com/socket');
+      var socket = new sockjs('http://api.nanninglq.51play.com/socket');
       var stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame) {
           console.log('Connected: ' + frame);
@@ -518,7 +517,7 @@ export default {
         this.openpanl(opt.type,opt)
       }
       if(opt.title!=null || opt.title!=''){
-        this.getmp3new('http://api.nanninglqys.51play.com/alarm/getAlarmAudio?content='+opt.title);
+        this.getmp3new('http://api.nanninglq.51play.com/alarm/getAlarmAudio?content='+opt.title);
       }
     },
 
@@ -556,7 +555,7 @@ export default {
     
     getmp3new(mp3){
       this.mp3arr.push(mp3)
-			this.mp3arr.push(require('../assets/mp3/login.mp3'))
+			this.mp3arr.push(require('../../assets/mp3/login.mp3'))
 			if(this.mp3arr.length>0){
 				this.myAudio.addEventListener('ended', this.playEndedHandler, false);
 				this.myAudio.play();
@@ -647,6 +646,8 @@ export default {
   },
   // 默认加载方法
   mounted() {
+    this.socketIs++;
+    console.log(this.socketIs);
     realconsole();
     this.getgetUnitsSynthesis();
     this.getqueryAlarmIng(1);
