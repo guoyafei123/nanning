@@ -7,8 +7,6 @@
           <h2 class="float-left font-white size-16">路线规划</h2>
         </div>
         <div class="main_nav float-right">
-          <!--<router-link to="/Inspection_plan/maps"><button><i class="fa fa-th-large font-gray-666 float-left"></i>地图</button></router-link>-->
-          <!--<router-link to="/Inspection_plan/all"><button><i class="fa fa-th-large font-gray-666 float-left"></i>完整</button></router-link>-->
           <router-link to="/Inspection_plan/list"><button style="margin-right:20px;border-right:2px solid #333333;"><i class="fa fa-th-large font-gray-666 float-left"></i>列表</button></router-link>
         </div>
       </div>
@@ -24,7 +22,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="选择单位">
-            <el-select v-model="form.region1" placeholder="选择单位" class="select">
+            <el-select v-model="region1" placeholder="选择单位" class="select">
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -195,9 +193,9 @@
           form: {
             name: '',//路线名称
             region: '',//巡检类型
-            region1: '',//选择单位
             region2:''//巡检类型
           },
+          region1:'',//选择单位
           building:'',//选择建筑（开始）
           buildings:'',//选择建筑（结束）
           buildingNode:'',//选择建筑节点
@@ -567,14 +565,14 @@
         inspectionNode(){
           var unitName = '';
           this.optionList.forEach((item,index)=>{
-            if(item.id == this.form.region1){
+            if(item.id == this.region1){
               unitName = item.name;
             }
           });
           this.$fetch("/api/admin/inspection/insertInspectionPlan",{
             name:this.form.name,
             type:this.form.region2,
-            unitId:this.form.region1,
+            unitId:this.region1,
             unitName:unitName,
             startNodes:this.startNodes,
             endNodes:this.endNodes,
@@ -597,17 +595,21 @@
         this.unitSearch();
       },
       watch:{
-        form:{
-          //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
-          handler(curVal,oldVal){
-            // console.log(curVal);
-            this.form = curVal;
-            // console.log(this.form);
-            this.buildSearch(this.form.region1);
-            this.buildSearchs(this.form.region1);
-            this.buildSearchNode(this.form.region1);
-          },
-          deep:true
+        // form:{
+        //   //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
+        //   handler(curVal,oldVal){
+        //     // console.log(curVal);
+        //     this.form = curVal;
+        //     // console.log(this.form);
+            
+        //   },
+        //   deep:true
+        // },
+        region1(curVal,oldVal){
+          this.region1 = curVal ;
+          this.buildSearch(this.region1);
+          this.buildSearchs(this.region1);
+          this.buildSearchNode(this.region1);
         },
         building(curVal,oldVal){
           this.building = curVal ;
