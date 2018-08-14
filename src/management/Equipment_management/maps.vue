@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import { realconsole } from '../assets/js/management.js'
+  import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {

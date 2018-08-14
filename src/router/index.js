@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
-// header
-import Equipment_managementVue from '../components/setting';
 // footer
 import LoginVue from '../components/login';
 import RegisterVue from '../components/register';
@@ -15,9 +13,6 @@ import PersonnelVue from '../components/personnel';
 import RiskVue from '../components/risk';
 import DangerVue from '../components/danger';
 import BulidVue from '../components/buliding';
-import ListVue from '../components/list';
-import AllVue from '../components/all';
-import MapsVue from '../components/maps';
 import PlanVue from '../components/plan';
 import MinmapVue from '../components/min_map';
 // 管理端
@@ -28,6 +23,10 @@ import Building_managementVue from '../management/Building_management/Build_mana
 import Build_listVue from '../management/Building_management/list';
 import Build_AllVue from '../management/Building_management/all';
 import Build_MapsVue from '../management/Building_management/maps';
+import Equipment_managementVue from '../management/Equipment_management/setting';
+import Equipment_management_ListVue from '../management/Equipment_management/list';
+import Equipment_management_AllVue from '../management/Equipment_management/all';
+import Equipment_management_MapsVue from '../management/Equipment_management/maps';
 import Inspection_planVue from '../management/Inspection_plan/Inspection_plan';
 import Plan_listVue from '../management/Inspection_plan/list';
 import Plan_AllVue from '../management/Inspection_plan/all';
@@ -97,9 +96,9 @@ export default new Router({
       path:'/Equipment_management',
       component:Equipment_managementVue,
       children:[
-        { path:'/Equipment_management/list',component:ListVue},
-        { path:'/Equipment_management/all',component:AllVue},
-        { path:'/Equipment_management/maps',component:MapsVue},
+        { path:'/Equipment_management/list',component:Equipment_management_ListVue},
+        { path:'/Equipment_management/all',component:Equipment_management_AllVue},
+        { path:'/Equipment_management/maps',component:Equipment_management_MapsVue},
         { path:'/Equipment_management',redirect:'/Equipment_management/all'}
       ]
     },

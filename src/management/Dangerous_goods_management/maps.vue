@@ -46,10 +46,10 @@
               </el-option>
             </el-select>
             <el-select
-              v-model="equipment"
-              placeholder="选择设备" class="sbwz_120_32 start startDevice">
+              v-model="status"
+              placeholder="选择状态" class="sbwz_120_32 start startDevice" style="width:auto;">
               <el-option
-                v-for="item in equipmentList"
+                v-for="item in statusList"
                 :label="item.name"
                 :value="item.id">
               </el-option>
@@ -76,18 +76,17 @@
         building:'',//选择建筑
         floor:'',
         room:'',
-        equipment:'',
+        status:'',
         roomList:[],
         floorList:[],
         buildList:[],
-        equipmentList:[],
+        statusList:[],
         optionList:[]//全部单位列表
       
       }
     },
     methods: {
       btn_add(){
-        // console.log($('#right'));
         $('#right').hide();
       },
       buildSearch(unitId){
@@ -123,17 +122,6 @@
           }
         })
       },
-      equipmentSearch(roomId){
-        this.$fetch("/api/building/selectNode",{
-          roomId:roomId
-        }).then(response=>{
-          console.log('equipmentSearch:'+response);
-          if (response) {
-            this.equipmentList = response.data.list;
-            console.log(this.equipmentList);
-          }
-        })
-      },
       unitSearch(){
         this.$fetch(
           "/api/unit/queryUnit"
@@ -154,10 +142,14 @@
       }
     },
     watch:{
+      status(curVal,oldVal){
+        this.status = curVal ;
+        this.$store.commit('dengerStatus',this.status);
+      },
       unit(curVal,oldVal){
         this.unit = curVal;
         this.buildSearch(this.unit);
-        this.$store.commit('Unit',this.unit);
+        this.$store.commit('dangerUnit',this.unit);
       },
       building(curVal,oldVal){
         this.building = curVal ;
@@ -167,13 +159,13 @@
           this.room = '';
           this.equipment = '';
           this.floorSearch(this.building);
-          this.$store.commit('buildDevice',this.building);
+          this.$store.commit('dangerBuild',this.building);
         }else{
           this.floor = '';
           this.room = '';
           this.equipment = '';
           this.equipmentSearch(this.building);
-          this.$store.commit('buildDevice',this.building);
+          this.$store.commit('dangerBuild',this.building);
         }
       },
       floor(curVal,oldVal){
@@ -182,7 +174,7 @@
         if(this.floor !== 0){
           this.roomSearch(this.floor);
           $('.startRoom').show();
-          this.$store.commit('floorDevice',this.floor);
+          this.$store.commit('dangerFloor',this.floor);
         }
       },
       room(curVal,oldVal){
@@ -191,12 +183,8 @@
         if(this.room !== 0){
           this.equipmentSearch(this.room);
           $('.startDevice').show();
-          this.$store.commit('roomDevice',this.room);
+          this.$store.commit('dangerRoom',this.room);
         }
-      },
-      equipment(curVal,oldVal){
-        this.equipment = curVal ;
-        this.$store.commit('equipmentDevice',this.equipment);
       }
     },
     mounted(){

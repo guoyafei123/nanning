@@ -26,12 +26,12 @@
 </template>
 
 <script>
-  import HeaderVue from './header.vue';
-  import Set_leftVue from './set_left.vue';
+  import HeaderVue from '../../components/header.vue';
+  import Set_leftVue from '../left.vue';
   import MainVue from './main.vue';
   import Set_rightVue from './set_right.vue';
-  import '../assets/css/setting.scss';
-  import '../assets/css/upd-element.css';
+  import '../../assets/css/setting.scss';
+  import '../../assets/css/upd-element.css';
   export default {
     methods:{
       show(){

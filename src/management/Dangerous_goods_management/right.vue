@@ -98,70 +98,74 @@
                 label="序号">
               </el-table-column>
               <el-table-column
-                prop="name"
+                prop="dangerName"
+                width="170"
+                :show-overflow-tooltip="true"
+                label="危险品名称">
+              </el-table-column>
+              <el-table-column
+                prop="unitName"
+                width="160"
+                :show-overflow-tooltip="true"
+                label="所属单位">
+              </el-table-column>
+              <el-table-column
+                prop="cont"
                 width="100"
                 :show-overflow-tooltip="true"
-                label="设备名称">
+                label="位置">
               </el-table-column>
-              <!-- <el-table-column
-                prop="location"
-                width="155"
-                label="设备位置">
-              </el-table-column> -->
               <el-table-column
-                prop="deviceTypeName"
-                width="80"
+                prop="cont"
+                width="130"
+                label="危险品简介">
+              </el-table-column>
+              <el-table-column
+                prop="nickName"
+                width="140"
+                label="上报人">
+              </el-table-column>
+              <el-table-column
+                prop="createTime"
+                width="100"
                 :show-overflow-tooltip="true"
-                label="设备类型">
+                label="上报时间">
               </el-table-column>
-              <!-- <el-table-column
-                prop="height"
-                width="130"
-                label="相对地板高度（m）">
-              </el-table-column>
-              <el-table-column
-                prop="fheight"
-                width="140"
-                label="相对天花板高度（m）">
-              </el-table-column>
-              <el-table-column
-                prop="startDate"
-                width="140"
-                label="投入使用时间">
-              </el-table-column>
-              <el-table-column
-                prop="Fault"
-                width="130"
-                label="运行时长（天）">
-              </el-table-column>
-              <el-table-column
-                prop="lifeMonth"
-                width="120"
-                label="更换周期（天）">
-              </el-table-column> -->
               <el-table-column 
                 prop="status"
-                width="80"
-                :show-overflow-tooltip="true"
+                width="120"
                 label="状态">
                 <template slot-scope="scope">
                   <el-tag
+                    :type="scope.row.status === 0 ? 'red' : 'green'"
+                    disable-transitions v-if='scope.row.status==0'>未解决<i class="fa fa-th-large font-gray-666"></i></el-tag>
+                  <el-tag
                     :type="scope.row.status === 1 ? 'green' : 'red'"
-                    disable-transitions v-if='scope.row.status==1'>正常<i class="fa fa-th-large font-gray-666"></i></el-tag>
-                  <el-tag
-                    :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==2'>故障</el-tag>
-                  <el-tag
-                    :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==3'>警报</el-tag>
+                    disable-transitions v-if='scope.row.status==1'>已解决</el-tag>
                 </template>
+              </el-table-column>
+              <el-table-column
+                prop="reviewerName"
+                width="130"
+                :formatter="formatter"
+                label="解决人">
+              </el-table-column>
+              <el-table-column
+                prop="reviewTime"
+                width="120"
+                label="解决时间">
+              </el-table-column>
+              <el-table-column
+                prop="treatment"
+                width="120"
+                label="解决原因">
               </el-table-column>
               <el-table-column
                 fixed="right"
                 label="操作"
                 width="120">
                 <template slot-scope="scope">
-                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">修改</button>
+                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">处理</button>
                   <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
                   <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
                 </template>
@@ -173,12 +177,11 @@
               <div class="float-left">
                 <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
                 <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-                <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
               </div>
               <el-pagination style="float: right;background: transparent"
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
-                            :page-size="9"
+                            :page-size="10"
                             layout="prev, pager, next"
                             :total="totalList">
               </el-pagination>
@@ -186,7 +189,7 @@
               <el-pagination style="float: right;"
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
-                            :page-size="9"
+                            :page-size="10"
                             layout="total"
                             :total="totalList">
               </el-pagination>
@@ -449,21 +452,7 @@
             this.form.roomId = item.roomId ;
             this.form.roomNumber = item.roomNumber
             this.form.equipment = item.deviceTypeId ;
-            this.form.deviceTypeName = item.deviceTypeName;
-            this.form.point.pointX = item.pointX ;
-            this.form.point.pointY = item.pointY ;
-            this.form.point.xRate = item.xRate ;
-            this.form.point.yRate = item.yRate ;
-            this.form.PhysicalAddress = item.mac ;
-            this.form.startDate = item.startDate ;
-            this.form.RoofHeight = item.height ;
-            this.form.floorHeight = item.fheight ;
-            this.form.Retroperiod = item.lifeMonth ;
-            this.form.Bike = item.firm ;
-            this.form.ProductionDay = item.productDate ;
-            this.form.Refundable = item.maintenanceUnit ;
-            this.form.linkname = item.maintenanceUser ;
-            this.form.phone = item.maintenancePhone ;
+            this.form.deviceTypeName = item.deviceTypeName ;
           }
         })
       },
@@ -479,22 +468,7 @@
           'floorNumber':this.form.floorNumber,
           'roomId':this.form.roomId,
           'roomNumber':this.form.roomNumber,
-          'deviceTypeId':this.form.equipment,
-          'deviceTypeName':this.form.deviceTypeName,
-          'pointX':this.form.point.pointX,
-          'pointY':this.form.point.pointY,
-          'xRate':this.form.point.xRate,
-          'yRate':this.form.point.yRate,
-          'mac':this.form.PhysicalAddress,
-          'startDate':this.form.startDate,
-          'height':this.form.RoofHeight,
-          'fheight':this.form.floorHeight,
-          'lifeMonth':this.form.Retroperiod,
-          'firm':this.form.Bike,
-          'productDate':this.form.ProductionDay,
-          'maintenanceUnit':this.form.Refundable,
-          'maintenanceUser':this.form.linkname,
-          'maintenancePhone':this.form.phone
+          'deviceTypeId':this.form.equipment
         }).then(response=>{
           if(response){
             console.log('修改成功...'+ JSON.stringify(response));
@@ -511,7 +485,7 @@
       },
       show3(row){//跳转
         console.log(row.id);
-        this.$store.commit('deviceId',row.id);
+        this.$store.commit('dangerId',row.id);
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
@@ -550,50 +524,34 @@
       },
       tableList(){
         this.$fetch(
-          "/api/device/deviceList",{
-            unitId:this.Unit,
-            deviceTypeId:this.equipmentDevice,
-            buildingId:this.buildDevice,
-            floorId:this.floorDevice,
-            roomId:this.roomDevice,
+          "/api/trouble/troubleList",{
+            unitId:this.unit,
+            type:5,
+            buildingId:this.building,
+            floorId:this.floor,
+            roomId:this.room,
             currentPage:this.currentPage4,
-            pageSize:9
+            pageSize:10,
+            status:this.status
           }
         )
           .then(response => {
-            console.log('右侧设备列表'+JSON.stringify(response));
+            console.log('危险品！！！'+JSON.stringify(response));
             if (response) {
               // console.log(response.data.inspectionPlanList);
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
-              console.log(this.tableData)
-              if(this.$route.path == '/Dangerous_goods_management/all'){
-                $('.plan').show()
+              if(this.tableData){
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
-                    console.log(item);
-                    this.device.status = item.status ;
-                    this.device.name = item.name ;
-                    this.device.deviceTypeName = item.deviceTypeName ;
-                    this.device.location = item.location ;
-                    this.device.point.pointX = item.pointX ;
-                    this.device.point.pointY = item.pointY ;
-                    this.device.mac = item.mac ;
-                    this.device.height = item.height ;
-                    this.device.fheight = item.fheight ;
-                    this.device.startDate = item.startDate ;
-                    this.device.lifeMonth = item.lifeMonth ;
-                    this.device.firm = item.firm ;
-                    this.device.productDate = item.productDate ;
-                    this.device.maintenanceUnit = item.maintenanceUnit ;
-                    this.device.maintenancePhone = item.maintenancePhone ;
+                    this.$store.commit('dangerId',item.id);
                   }
                 })
               }
-              if(this.totalList % 9 == 0){
-                this.page = parseInt( this.totalList / 9 )
+              if(this.totalList % 10 == 0){
+                this.page = parseInt( this.totalList / 10 )
               }else{
-                this.page = parseInt( this.totalList / 9 ) + 1
+                this.page = parseInt( this.totalList / 10 ) + 1
               }
             }
           })
@@ -631,17 +589,6 @@
           if (response) {
             this.form.roomList = response.data.list;
             console.log(this.form.roomList);
-          }
-        })
-      },
-      formEquipmentSearch(roomId){
-        this.$fetch("/api/building/selectNode",{
-          roomId:roomId
-        }).then(response=>{
-          console.log('formEquipmentSearch:'+response);
-          if (response) {
-            this.form.equipmentList = response.data.list;
-            console.log(this.form.equipmentList);
           }
         })
       }
@@ -715,13 +662,12 @@
           this.formEquipmentSearch(this.form.roomId);
         }
       },
-      deviceId(){
+      dangerId(){
         $('.plan').show();
         $('.total').hide();
         if(this.$route.path == '/Dangerous_goods_management/maps'){
           $('.mapTable').show();
           $('.total').show();
-          
         }
         if(this.$route.path == '/Dangerous_goods_management/all'){
           $('.plan').show();
@@ -730,26 +676,10 @@
         }
         console.log(this.tableData)
         this.tableData.forEach((item,index)=>{
-            if(item.id == this.deviceId){
-              console.log(item);
-              this.device.status = item.status ;
-              this.device.name = item.name ;
-              this.device.deviceTypeName = item.deviceTypeName ;
-              this.device.location = item.location ;
-              this.device.point.pointX = item.pointX ;
-              this.device.point.pointY = item.pointY ;
-              this.device.mac = item.mac ;
-              this.device.height = item.height ;
-              this.device.fheight = item.fheight ;
-              this.device.startDate = item.startDate ;
-              this.device.lifeMonth = item.lifeMonth ;
-              this.device.firm = item.firm ;
-              this.device.productDate = item.productDate ;
-              this.device.maintenanceUnit = item.maintenanceUnit ;
-              this.device.maintenancePhone = item.maintenancePhone ;
-            }
-          })
-        console.log(this.deviceId);
+          if(item.id == this.deviceId){
+            console.log(item);
+          }
+        })
       },
       Unit(){
         this.tableList();
@@ -762,9 +692,6 @@
       },
       roomDevice(){
         this.tableList();
-      },
-      equipmentDevice(){
-        this.tableList();
       }
     },
     computed:mapState([
@@ -772,8 +699,7 @@
       'buildDevice',
       'floorDevice',
       'roomDevice',
-      'equipmentDevice',
-      'deviceId'
+      'dangerId'
     ])
   }
 </script>

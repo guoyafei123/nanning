@@ -24,6 +24,13 @@ var state={
   floorId:'',
   //人员
   unitNumber:'',
+  //危险品
+  dangerId:'',
+  dengerStatus:'',
+  dangerUnit:'',
+  dangerBuild:'',
+  dangerFloor:'',
+  dangerRoom:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -89,6 +96,25 @@ var mutations={
   //人员
   unitNumber(state,data){
     state.unitNumber = data ;
+  },
+  //危险品
+  dangerId(state,data){
+    state.dangerId = data ;
+  },
+  dangerUnit(state,data){
+    state.dangerUnit = data;
+  },
+  dangerBuild(state,data){
+    state.dangerBuild = data;
+  },
+  dangerFloor(state,data){
+    state.dangerFloor = data;
+  },
+  dangerRoom(state,data){
+    state.dangerRoom = data;
+  },
+  dengerStatus(state,data){
+    state.dengerStatus = data;
   },
   // 展示端的store
   setvuextest(state,data){

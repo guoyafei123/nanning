@@ -75,13 +75,13 @@
           <el-form-item label="图片和视频">
             <div>
               <div class="mainmenuone cf">
-                <ul class="cf">
-                  <li><input id="file" type="file" name="img"/></li>
-                  <li><input id="file2" type="file" name="img"/></li>
-                </ul>
+                  <ul class="cf">
+                    <li><input id="file" type="file" name="img"/></li>
+                    <!-- <li><input id="file2" type="file" name="img"/></li> -->
+                  </ul>
               </div>
             </div>
-            <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/> 
+            <!-- <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>  -->
             <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span> 
           </el-form-item>
           <el-form-item label="简介">
@@ -146,29 +146,30 @@
           console.log(this.files)
         },
         btn(){
-          
-          // var files = this.files;
+          console.log(111)
+          var files =this.files;
           // console.log(files)
           $.ajaxFileUpload({
             url: '/api/trouble/insertTrouble',
             // secureuri: false,
-            fileElementId:["file","file2"],
+            fileElementId:files,
             data : {
-              type:5,
-              name:this.form.name,
-              unitId:this.form.unitId,
-              unitName:this.form.unitName,
-              buildingId:this.form.buildingId,
-              buildingName:this.form.buildingName,
-              floorId:this.form.floorId,
-              floorNumber:this.form.floorNumber,
-              roomId:this.form.roomId,
-              roomNumber:this.form.roomNumber,
-              pointX:this.form.point.pointX,
-              pointY:this.form.point.pointY,
-              nickName:this.form.nickName,
-              createTime:this.form.createTime,
-              cont:this.form.cont
+              'type':5,
+              'levels':3,
+              'name':this.form.name,
+              'unitId':this.form.unitId,
+              'unitName':this.form.unitName,
+              'buildingId':this.form.buildingId,
+              'buildingName':this.form.buildingName,
+              'floorId':this.form.floorId,
+              'floorNumber':this.form.floorNumber,
+              'roomId':this.form.roomId,
+              'roomNumber':this.form.roomNumber,
+              'pointX':this.form.point.pointX,
+              'pointY':this.form.point.pointY,
+              'nickName':this.form.nickName,
+              'createTime':this.form.createTime,
+              'cont':this.form.cont
             },
             type: 'POST',
             dataType: "json",

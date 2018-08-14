@@ -84,7 +84,7 @@
             label="所属单位">
           </el-table-column>
           <el-table-column
-            prop="deviceTypeName"
+            prop="cont"
             width="100"
             :show-overflow-tooltip="true"
             label="位置">
@@ -111,11 +111,11 @@
             label="状态">
             <template slot-scope="scope">
               <el-tag
-                :type="scope.row.status === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.status==1'>正常<i class="fa fa-th-large font-gray-666"></i></el-tag>
+                :type="scope.row.status === 0 ? 'red' : 'green'"
+                disable-transitions v-if='scope.row.status==0'>未解决<i class="fa fa-th-large font-gray-666"></i></el-tag>
               <el-tag
-                :type="scope.row.status === 2 ? 'yellow' : 'green'"
-                disable-transitions v-if='scope.row.status==2'>故障</el-tag>
+                :type="scope.row.status === 1 ? 'green' : 'red'"
+                disable-transitions v-if='scope.row.status==1'>已解决</el-tag>
             </template>
           </el-table-column>
           <el-table-column
@@ -151,7 +151,6 @@
           <div class="float-left">
             <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
             <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
           </div>
           <el-pagination style="float: right;background: transparent"
                          @current-change="handleCurrentChange"
@@ -325,6 +324,7 @@
     data() {
       return {
         labelPosition: 'top',
+
         form:{
           id:'',
           name:'',
@@ -336,8 +336,6 @@
           floorNumber:'',
           roomId:'',
           roomNumber:'',
-          equipmentId:'',
-          deviceTypeName:'',
           roomList:[],
           floorList:[],
           buildList:[],
@@ -347,17 +345,7 @@
             xRate:'',
             yRate:''
           },
-          PhysicalAddress:'',
-          startDate:'',
-          lifeMonth:'',
-          RoofHeight:'',
-          floorHeight:'',
-          Retroperiod:'',
-          Bike:'',
-          ProductionDay:'',
-          Refundable:'',
-          linkname:'',
-          phone:''
+          startDate:''
         },
 
 
@@ -370,9 +358,13 @@
         roomList:[],
         floorList:[],
         buildList:[],
-        statusList:[],
+        statusList:[
+          { name: '全部' , id:'' },
+          { name:'未解决', id:0 },
+          { name:'已解决', id:1 }
+        ],
         optionList:[],//全部单位列表
-        tableData: [],//设备列表
+        tableData: [],//危险品列表
         page:null,//总页数
         currentPage4: 1,//当前页
         totalList:null,//总条数
@@ -381,22 +373,19 @@
       }
     },
     methods: {
-      formatter(row, column){
-        return this.dateMinus(row.startDate)
-      },
       btn_map(){
         $('.plan').hide();
         $('.mapTable').show();
         $('.total').show();
       },
       btn_add(){
-        $('#right').css('display','none');
+        $('#right').hide();
       },
       handleCurrentChange(val) {
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
-      start_plan(row){//修改
+      start_plan(row){//处理
         $('#mymodal').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
@@ -414,21 +403,6 @@
             this.form.roomId = item.roomId ;
             this.form.roomNumber = item.roomNumber
             this.form.equipmentId = item.deviceTypeId ;
-            this.form.deviceTypeName = item.deviceTypeName;
-            this.form.point.pointX = item.pointX ;
-            this.form.point.pointY = item.pointY ;
-            this.form.point.xRate = item.xRate ;
-            this.form.point.yRate = item.yRate ;
-            this.form.PhysicalAddress = item.mac ;
-            this.form.startDate = item.startDate ;
-            this.form.RoofHeight = item.height ;
-            this.form.floorHeight = item.fheight ;
-            this.form.Retroperiod = item.lifeMonth ;
-            this.form.Bike = item.firm ;
-            this.form.ProductionDay = item.productDate ;
-            this.form.Refundable = item.maintenanceUnit ;
-            this.form.linkname = item.maintenanceUser ;
-            this.form.phone = item.maintenancePhone ;
           }
         })
       },
@@ -444,25 +418,10 @@
           'floorNumber':this.form.floorNumber,
           'roomId':this.form.roomId,
           'roomNumber':this.form.roomNumber,
-          'deviceTypeId':this.form.equipmentId,
-          'deviceTypeName':this.form.deviceTypeName,
-          'pointX':this.form.point.pointX,
-          'pointY':this.form.point.pointY,
-          'xRate':this.form.point.xRate,
-          'yRate':this.form.point.yRate,
-          'mac':this.form.PhysicalAddress,
-          'startDate':this.form.startDate,
-          'height':this.form.RoofHeight,
-          'fheight':this.form.floorHeight,
-          'lifeMonth':this.form.Retroperiod,
-          'firm':this.form.Bike,
-          'productDate':this.form.ProductionDay,
-          'maintenanceUnit':this.form.Refundable,
-          'maintenanceUser':this.form.linkname,
-          'maintenancePhone':this.form.phone
+          'deviceTypeId':this.form.equipmentId
         }).then(response=>{
           if(response){
-            console.log('修改成功...'+ JSON.stringify(response));
+            console.log('处理成功...'+ JSON.stringify(response));
             this.tableList();
           }
         })
@@ -476,7 +435,7 @@
       },
       show3(row){//跳转
         console.log(row.id);
-        this.$store.commit('deviceId',row.id);
+        this.$store.commit('dangerId',row.id);
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
@@ -494,13 +453,6 @@
           }).then(err => {
             console.log(err);
           });
-      },
-      dateMinus(sDate){ 
-    　　var sdate = new Date(sDate.replace(/-/g, "/")); 
-    　　var now = new Date(); 
-    　　var days = now.getTime() - sdate.getTime(); 
-    　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
-    　　return day; 
       },
       unitSearch(){
         this.$fetch(
@@ -529,7 +481,8 @@
             floorId:this.floor,
             roomId:this.room,
             currentPage:this.currentPage4,
-            pageSize:10
+            pageSize:10,
+            status:this.status
           }
         )
           .then(response => {
@@ -540,9 +493,8 @@
               this.tableData = response.data.pager.result;
               if(this.tableData){
                 this.tableData.forEach((item,index)=>{
-                  // console.log(111)
                   if(index == this.tableData.length-1){
-                    this.$store.commit('deviceId',item.id);
+                    this.$store.commit('dangerId',item.id);
                   }
                 })
               }
@@ -639,6 +591,10 @@
       }
     },
     watch:{
+      status(curVal,oldVal){
+        this.status = curVal ;
+        this.tableList();
+      },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
         console.log(this.currentPage4);

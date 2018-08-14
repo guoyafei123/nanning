@@ -35,7 +35,10 @@ jQuery.extend({
 			{
 				jQuery('<input type="hidden" name="' + i + '" value="' + data[i] + '" />').appendTo(form);
 			}			
-		}
+        }
+        if(typeof(fileElementId) == 'string'){  
+                fileElementId = [fileElementId];  
+            }  
 	for(var i in fileElementId){  
 		var oldElement = jQuery('#' + fileElementId[i]);  
 		var newElement = jQuery(oldElement).clone();  
