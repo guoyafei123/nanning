@@ -1,5 +1,6 @@
 <template>
   <div class="toolright">
+    <!-- 单位信息 -->
     <section class="textandimg margin-top20">
               <h4 class="p-title">单位详情</h4>
               <div class="row textandimg-main margin-top20 size-12">
@@ -29,17 +30,25 @@
                   <div class="col-sm-12">
                       <span>单位地址 </span>
                       <strong v-html="this.location"></strong>
-                  </div>                  
+                  </div>          
+              </div>
+    </section>
+    <!-- 安防信息 -->
+      <section>
+        <div class="textandimg margin-top30">
+              <h4 class="p-title">安防信息</h4>
+              <div class="row textandimg-main margin-top20 size-12">
                   <div class="col-sm-6">
                       <span>消防负责人 </span>
                       <strong v-html="this.firemenName"></strong>
                   </div>
                   <div class="col-sm-6">
-                      <span>消防负责人电话 </span>
+                      <span>负责人电话 </span>
                       <strong v-html="this.firemenTel"></strong>
-                  </div>                  
-              </div>
-    </section>
+                  </div>                 
+                </div>
+          </div>
+      </section>  
   </div>
 </template>
 

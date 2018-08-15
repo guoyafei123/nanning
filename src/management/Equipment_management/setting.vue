@@ -1,17 +1,19 @@
 <template>
-  <div class="row">
+  <div class="row" id="device">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->
     <!-- #左边 -->
-    <section id="left" class="position-fixed-left container-padding5 z-index-20"  style="width:295px;padding:0;">
+    <section id="left" class="position-fixed-left z-index-20">
       <div class="overlay"></div>
       <set_left-vue></set_left-vue>
     </section>
-    <!-- #左边 End-->
-    <main-vue></main-vue>
+    <!-- #中间-->
+    <section id="manage-center" class="position-fixed-left z-index-20">
+      <main-vue></main-vue>
+    </section> 
     <!-- #右边 -->
-    <section id="right" class="position-fixed-right container-padding5 z-index-20" style="">
+    <section id="right" class="position-fixed-right z-index-20">
       <div class="overlay"></div>
       <set_right-vue></set_right-vue>
     </section>
@@ -31,7 +33,6 @@
   import MainVue from './main.vue';
   import Set_rightVue from './set_right.vue';
   import '../../assets/css/setting.scss';
-  import '../../assets/css/upd-element.css';
   export default {
     methods:{
       show(){
@@ -50,33 +51,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .row{
-    position: relative;
-    z-index: 22;
-  }
-  .position-fixed-right{
-    top:0;
-  }
-  #header{
-    height: 110px;
-    /*background:rgba(0,0,0,1)*/
-  }
-  @media (min-width: 768px) and (max-width:1600px){
-    #left{
-      width:295px;
-    }
-     #right{
-      width:400px;
-    }
-  }
-  @media (min-width: 1600px){
-    #left{
-      width:17.58%;
-    }
-    #right{
-      width:24%;
-    }
-  }
-</style>

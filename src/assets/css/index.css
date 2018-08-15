@@ -18,7 +18,11 @@
 }
 #manage-center>section{
     height: 100%;
-} 
+}
+#manage-center .xzmap {
+    border: 4px solid #222;
+    border-top: 0;
+}
 /* 头部 */
 #header{
     width: 100%;

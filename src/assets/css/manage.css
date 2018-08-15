@@ -3,6 +3,7 @@
 #unit-manage .main_content_top {
 	height: 1px;
 }
+
 /*左侧导航*/
 .manage-menu {
 	padding-right: 0!important;
@@ -154,12 +155,37 @@
 }
 
 /*表格*/
-.main_all_content .select {
-	margin:0 15px;
+.mapTable tr {
+	background-color: #000!important;
+}
+.mapTable tr.hover-row:hover,
+.mapTable tr.hover-row:hover td,
+.mapTable tr.hover-row:hover th {
+	background-color: #222!important;
+}
+.main_content_top .el-select:first-child {
+	margin-left: 15px;
+}
+.main_content_top .el-select:last-child {
+	margin-right: 0;
+}
+.main_all_content .el-select {
+    margin-right: 10px;
 }
 .main_all_content,
 .main_content_table {
 	height: 100%;
+}
+.main_content_table .el-table td:last-child .cell,
+.main_content_table .el-table th:last-child .cell{
+	text-align: right!important;
+	padding-right: 20px!important;
+}
+.main_content_table .el-table th:last-child .cell {
+	padding-right: 24px!important;
+}
+.total .main_content_table .el-table td:last-child .cell {
+  padding-right: 0px!important;
 }
 .main_header span,.main_nav_two span{
   width:64px;
@@ -329,6 +355,9 @@
 	background-color: transparent;
 	font-size: 12px;
 	border: none;
+}
+.el-table .cell>button {
+	padding: 0 4px;
 }
 .el-table .cell>button>i {
 	font-size: 14px;

@@ -7,14 +7,14 @@
       <section>
         <div class="textandimg margin-top20">
               <h4 class="p-title">
-                 {{ this.form.BuildName }}建筑详情
+                 <!-- {{ this.form.BuildName }} -->建筑详情
               </h4>
               <div class="row textandimg-main margin-top20 size-12">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>建筑名称 </span>
                       <strong v-html="this.form.BuildName"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>所属单位 </span>
                       <strong v-html="this.form.UnitName"></strong>
                   </div>
@@ -54,14 +54,7 @@
                       <strong v-html="this.form.timeYear"></strong>
                   </div>
                   
-                  <div class="col-sm-6">
-                      <span>消防负责人 </span>
-                      <strong v-html="this.form.name"> </strong>
-                  </div>
-                  <div class="col-sm-6">
-                      <span>消防负责人电话 </span>
-                      <strong v-html="this.form.phone"></strong>
-                  </div>
+                  
                   <div class="col-sm-12">
                       <span>建筑二维码 </span>
                       <strong>
@@ -72,65 +65,77 @@
               </div>
         </div>
       </section>
+      <!-- 安防信息 -->
+      <section>
+        <div class="textandimg margin-top30">
+              <h4 class="p-title">安防信息</h4>
+              <div class="row textandimg-main margin-top20 size-12">
+                  <div class="col-sm-6">
+                      <span>消防负责人 </span>
+                      <strong v-html="this.form.name"> </strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>负责人电话 </span>
+                      <strong v-html="this.form.phone"></strong>
+                  </div>                 
+                </div>
+          </div>
+      </section>  
     </div>
     <!-- 简单统计 -->
-    <div class="font-white total" style="margin-top:120px;margin-right:10px;">
+    <div class="font-white total">
       <section style="display: none;" class="mapTable">
-        <div class="toolbuildrate margin-top30">
-          <div class="main_content_table">
+        <div class="toolbuildrate">
+          <div class="main_content_table bg-black">
             <el-table
               :data="tableData"
               border
-              :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-              style="width: 100%;height:570px;">
+              :default-sort = "{prop: 'Serial_number', order: 'descending'}">
               <el-table-column
                 prop="Serial_number"
                 type="index"
-                sortable  
-                width="60"
+                fixed="left"
+                sortable
                 label="序号">
               </el-table-column>
               <el-table-column
                 prop="name"
-                width="110"
                 :show-overflow-tooltip="true"
                 label="建筑名称">
               </el-table-column>
               <el-table-column
                 prop="location"
-                width="100"
                 :show-overflow-tooltip="true"
                 label="地址">
               </el-table-column>
               <el-table-column
                 fixed="right"
-                label="操作"
-                width="180">
+                label="操作">
                 <template slot-scope="scope">
-                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">编辑</button>
-                  <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
-                  <button @click="floor_build(scope.row)" style="width:50px;height:22px;border:1px solid transparent;border-radius:5px;color: #ffffff;background-color: #0798db;line-height: 19px;margin:0;padding:0;font-size: 11px;text-align: center;margin-right:10px;">楼层管理</button>
-                  <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
+                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+                  <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+                  <button @click="floor_build(scope.row)"><i class="icon iconfont icon-danweiguanli-mian-1" data-toggle="tooltip" title="楼层管理"></i></button>
+                  <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
                 </template>
               </el-table-column>
             </el-table>
           </div>
-          <div class="main_content_bottom">
+          <div class="main_content_bottom bg-black">
             <div class="bottom_con">
-              <div class="float-left" style="margin-top:6px;">
-                <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-                <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-                <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
+              <div class="float-left btn-system">
+                <a href="javascript:;">打印</a>
+                <a href="javascript:;">导出</a>
+                <a href="javascrip:;">导出二维码</a>
               </div>
-              <el-pagination style="float: right;background: transparent"
+              <el-pagination
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
                             :page-size="10"
                             layout="prev, pager, next"
                             :total="totalList">
               </el-pagination>
-              <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
-              <el-pagination style="float: right;"
+              <span>{{page}}页</span>
+              <el-pagination
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
                             :page-size="10"
@@ -236,13 +241,13 @@
     </div>
 
     <!-- 楼层管理 -->
-    <div class="floor_wrap" style="display:none;">
+    <div class="floor_wrap margin-top20" style="display:none;">
       <div class="floor_header clearFix">
-        <h2>楼层管理</h2>
-        <span @click="floor_back">返回</span>
+        <a @click="floor_back" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
+        <h4 class="p-title">楼层管理 <span class="pull-right">{{ this.form.UnitName }}{{ this.form.BuildName }}</span> </h4>        
       </div>
-      <div class="floor_title">
-        <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}</h3>
+      <div class="floor_title"><!-- 
+        <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}</h3> -->
         <button class="btn_add" @click="add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
       </div>
       <table class="table table-bordered ">
@@ -288,13 +293,15 @@
     </div>
 
     <!-- 房间管理 -->
-    <div class="room_wrap" style="display:none;">
+    <div class="room_wrap margin-top20" style="display:none;">
       <div class="room_header clearFix">
-        <h2>房间管理</h2>
-        <span @click="room_back">返回</span>
+        <!-- <h2>房间管理</h2>
+        <span @click="room_back">返回</span> -->
+        <a @click="room_back" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
+        <h4 class="p-title">房间管理 <span class="pull-right">{{ this.form.UnitName }}{{ this.form.BuildName }}{{ this.floorName }}层</span> </h4>  
       </div>
       <div class="room_title">
-        <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}{{ this.floorName }}层</h3>
+        <!-- <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}{{ this.floorName }}层</h3> -->
         <button class="btn_add" @click="addUnit"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
       </div>
       <table class="table table-bordered ">
