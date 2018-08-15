@@ -550,7 +550,7 @@
 </template>
 
 <script>
-  import HeaderVue from './publick/header.vue';
+  import HeaderVue from '../publick/header.vue';
   export default {
   components:{
       'header-vue':HeaderVue

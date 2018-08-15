@@ -129,31 +129,50 @@
         <!-- <call_right-vue></call_right-vue> -->
         <template>
           <div class="toolright">
-                <section>
-                    <div class="personinfo">
-                        <p>
-                        <span class="size-20 font-blue">南宁市良庆区</span>
-                        </p>
-                        <p>
-                        <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
-                        </p>
+                <section class="my-filter padding5 bg-gray-222 clearfix">
+                  <!-- 单位筛选 -->
+                  <div class="col-sm-3 padding0">
+                    <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <!-- 日期筛选 -->
+                  <div class="col-sm-9 padding0">
+                    <div class="upd-elmdate">
+                      <el-date-picker
+                        v-model="value7"
+                        size="mini"
+                        type="daterange"
+                        align="right"
+                        unlink-panels
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions2">
+                      </el-date-picker>
                     </div>
-                </section>
-                <section>
-                  <div  class="upd-elmdate">
-                    <el-date-picker
-                      v-model="value7"
-                      size="mini"
-                      type="daterange"
-                      align="right"
-                      unlink-panels
-                      range-separator="至"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
-                      :picker-options="pickerOptions2">
-                    </el-date-picker>
                   </div>
                 </section>
+                <section class="row margin-top20 clearfix">
+                <!-- 已选择单位 -->                  
+                    <div class="col-sm-7">
+                      <div class="personinfo">
+                        <p>
+                          <span class="size-20 font-blue">中心小学</span>
+                          <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                        </p>
+                        <p class="text-left padding0">
+                          <span><i class="fas fa-industry"></i> 中心小学</span>
+                        </p>
+                      </div>
+                    </div>
+                    <!-- 已选择单位巡检任务总数 -->                  
+                    <div class="col-sm-5 font-white text-right size-12">                      
+                      <i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 报警总数<br>
+                      <span class="size-22 font-blue">1746</span>
+                    </div>
+                </section> 
                 <section class="dan-lineinfo margin-top10">
                   <div class="toolcount">
                   <h4 class="p-title">报警统计</h4>
@@ -340,7 +359,7 @@
       </section>
       <!-- #右边 End-->
       <!-- 弹窗 -->
-    <el-dialog title="":visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
+    <el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
       <a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
       <earlyinfo-vue></earlyinfo-vue>
     </el-dialog>
@@ -348,13 +367,13 @@
 </template>
 
 <script>
-import HeaderVue from "./publick/header.vue";
+import HeaderVue from "../publick/header.vue";
 // import Call_leftVue from './call_left.vue';
 // import Call_rightVue from './call_right.vue';
 export default {
   components: {
     "header-vue": HeaderVue,
-    'earlyinfo-vue':earlyinfoVue
+    // 'earlyinfo-vue':earlyinfoVue
     // 'call_left-vue':Call_leftVue,
     // 'call_right-vue':Call_rightVue
   },

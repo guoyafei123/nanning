@@ -352,7 +352,7 @@
                           <ul class="list-inline">
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <div class="plan-listimg"><img src="../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
+                                <div class="plan-listimg"><img src="../../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="火情确认须知">火情确认须知</h4>
                                   <h5>中心小学</h5>
@@ -366,7 +366,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <div class="plan-listimg"><img src="../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
+                                <div class="plan-listimg"><img src="../../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
                                   <h5>瑞和家园</h5>
@@ -380,7 +380,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <div class="plan-listimg"><img src="../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
+                                <div class="plan-listimg"><img src="../../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
                                   <h5>瑞和家园</h5>
@@ -394,7 +394,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <div class="plan-listimg"><img src="../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
+                                <div class="plan-listimg"><img src="../../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="火情确认须知">火情确认须知</h4>
                                   <h5>中心小学</h5>
@@ -408,7 +408,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <div class="plan-listimg"><img src="../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
+                                <div class="plan-listimg"><img src="../../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
                                   <h5>瑞和家园</h5>
@@ -422,7 +422,7 @@
                             </li>
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <div class="plan-listimg"><img src="../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
+                                <div class="plan-listimg"><img src="../../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
                                   <h5>瑞和家园</h5>
@@ -444,7 +444,7 @@
                           <ul class="list-inline">
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <div class="plan-listimg"><img src="../assets/images/plan/plan2.png" class="img-responsive" alt="消防值班守则"></div>
+                                <div class="plan-listimg"><img src="../../assets/images/plan/plan2.png" class="img-responsive" alt="消防值班守则"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="消防值班守则">消防值班守则</h4>
                                   <h5>中心小学</h5>
@@ -466,7 +466,7 @@
                           <ul class="list-inline">
                             <li class="col-lg-4 col-md-4 col-sm-4">
                               <figure>
-                                <div class="plan-listimg"><img src="../assets/images/plan/plan3.png" class="img-responsive" alt="应急路线示意图"></div>
+                                <div class="plan-listimg"><img src="../../assets/images/plan/plan3.png" class="img-responsive" alt="应急路线示意图"></div>
                                 <div class="caption">
                                   <h4 data-toggle="tooltip" title="应急路线示意图">应急路线示意图</h4>
                                   <h5>瑞和家园</h5>
@@ -508,7 +508,7 @@
   }
 </script>
 <script>
-  import HeaderVue from './publick/header.vue';
+  import HeaderVue from '../publick/header.vue';
   export default {
   components:{
       'header-vue':HeaderVue
