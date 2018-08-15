@@ -26,7 +26,7 @@
 				        <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
 				    </div>
 	                <!-- 位置截图 -->
-	                <div class="min-map-img"><img src="../assets/images/111.jpg"></div>
+	                <div class="min-map-img"><img src="../../assets/images/111.jpg"></div>
 		    	</li>
 		    	<li class="warning-list">
 		    		<!-- 点击跳转详情 -->
@@ -45,7 +45,7 @@
 				        <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
 				    </div>
 	                <!-- 位置截图 -->
-	                <div class="min-map-img"><img src="../assets/images/111.jpg"></div>
+	                <div class="min-map-img"><img src="../../assets/images/111.jpg"></div>
 		    	</li>
 		    	<li class="fault-list">
 		    		<!-- 点击跳转详情 -->
@@ -64,7 +64,7 @@
 				        <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
 				    </div>
 	                <!-- 位置截图 -->
-	                <div class="min-map-img"><img src="../assets/images/111.jpg"></div>
+	                <div class="min-map-img"><img src="../../assets/images/111.jpg"></div>
 		    	</li>
 		    	<li class="dangers-list">
 		    		<!-- 点击跳转详情 -->
@@ -83,7 +83,7 @@
 				        <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
 				    </div>
 	                <!-- 位置截图 -->
-	                <div class="min-map-img"><img src="../assets/images/111.jpg"></div>
+	                <div class="min-map-img"><img src="../../assets/images/111.jpg"></div>
 		    	</li>
 		    	<li class="fire-list">
 		    		<!-- 点击跳转详情 -->
@@ -102,7 +102,7 @@
 				        <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
 				    </div>
 	                <!-- 位置截图 -->
-	                <div class="min-map-img"><img src="../assets/images/111.jpg"></div>
+	                <div class="min-map-img"><img src="../../assets/images/111.jpg"></div>
 		    	</li>
 		    	<li class="warning-list">
 		    		<!-- 点击跳转详情 -->
@@ -121,7 +121,7 @@
 				        <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
 				    </div>
 	                <!-- 位置截图 -->
-	                <div class="min-map-img"><img src="../assets/images/111.jpg"></div>
+	                <div class="min-map-img"><img src="../../assets/images/111.jpg"></div>
 		    	</li>
 		    	<li class="fault-list">
 		    		<!-- 点击跳转详情 -->
@@ -140,7 +140,7 @@
 				        <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
 				    </div>
 	                <!-- 位置截图 -->
-	                <div class="min-map-img"><img src="../assets/images/111.jpg"></div>
+	                <div class="min-map-img"><img src="../../assets/images/111.jpg"></div>
 		    	</li>
 		    	<li class="dangers-list">
 		    		<!-- 点击跳转详情 -->
@@ -159,7 +159,7 @@
 				        <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
 				    </div>
 	                <!-- 位置截图 -->
-	                <div class="min-map-img"><img src="../assets/images/111.jpg"></div>
+	                <div class="min-map-img"><img src="../../assets/images/111.jpg"></div>
 		    	</li>
 		    </ul>
 	    </div>
