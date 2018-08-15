@@ -3,24 +3,23 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 // footer
-import LoginVue from '../components/login';
-import RegisterVue from '../components/register';
+import LoginVue from '../components/login/login';
+import RegisterVue from '../components/register/register';
 import IndexVue from '../components/index/index';
-import CallpoliceVue from '../components/callpolice';
-import InspectionVue from '../components/inspection';
-import InformationVue from '../components/information';
-import PersonnelVue from '../components/personnel';
+import CallpoliceVue from '../components/callpolice/callpolice';
+import InspectionVue from '../components/inspection/inspection';
+import InformationVue from '../components/information/information';
+import PersonnelVue from '../components/personnel/personnel';
 import RiskVue from '../components/risk/risk';
-import DangerVue from '../components/danger';
-import BulidVue from '../components/buliding';
-import PlanVue from '../components/plan';
-import MinmapVue from '../components/min_map';
+import DangerVue from '../components/danger/danger';
+import BulidVue from '../components/buliding/buliding';
+import PlanVue from '../components/plan/plan';
+import MinmapVue from '../components/publick/min_map';
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
 import Unit_AllVue from '../management/Unit_management/Unit_all';
 import Building_managementVue from '../management/Building_management/Build_management';
-import Build_listVue from '../management/Building_management/list';
 import Build_AllVue from '../management/Building_management/all';
 import Build_MapsVue from '../management/Building_management/maps';
 import Equipment_managementVue from '../management/Equipment_management/setting';
@@ -82,7 +81,8 @@ export default new Router({
     {
       path:'/plan',component:PlanVue
     },
-    // 管理端路由
+    
+    
     {
       path:'/Unit_management',
       component:Unit_managementVue,
@@ -106,7 +106,6 @@ export default new Router({
       path:'/Building_management',
       component:Building_managementVue,
       children:[
-        { path:'/Building_management/list',component:Build_listVue},
         { path:'/Building_management/all',component:Build_AllVue},
         { path:'/Building_management/maps',component:Build_MapsVue},
         { path:'/Building_management',redirect:'/Building_management/all'}

@@ -10,6 +10,7 @@
       </div>
     </div>
     <div class="main_all_content">
+      <!-- 筛选 -->
       <div class="main_content_top">
         <el-form ref="form" :model="form" class="float-left">
           <el-select v-model="form.region1" placeholder="选择单位" class="select">
@@ -24,26 +25,13 @@
             <el-option label="已激活" value="1"></el-option>
             <el-option label="未激活" value="2"></el-option>
           </el-select>
-          <!--<div class="upd-elmdate float-left" style="margin-bottom:0;background-color: #111;margin-left:10px;">-->
-            <!--<el-date-picker-->
-              <!--v-model="pickerTime"-->
-              <!--size="mini"-->
-              <!--type="daterange"-->
-              <!--align="right"-->
-              <!--unlink-panels-->
-              <!--range-separator="至"-->
-              <!--start-placeholder="开始日期"-->
-              <!--end-placeholder="结束日期"-->
-              <!--:picker-options="pickerOptions2">-->
-            <!--</el-date-picker>-->
-          <!--</div>-->
-          <!--<el-button>确定</el-button>-->
         </el-form>
         <div class="main_nav_two float-right">
           <router-link to="/Inspection_plan/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
           <router-link to="/Inspection_plan/maps"><span @click="btn_map"><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
         </div>
       </div>
+      <!-- 表格 -->
       <div class="main_content_table">
         <el-table
           :data="tableData"
@@ -77,6 +65,10 @@
             label="发布日期">
           </el-table-column>
           <el-table-column
+                prop="nodeCount"
+                label="节点数">
+              </el-table-column>
+          <el-table-column
             prop="amount"
             label="每次额定次数">
           </el-table-column>
@@ -95,7 +87,6 @@
                 :type="scope.row.status === 2 ? 'red' : 'green'"
                 disable-transitions v-if='scope.row.status==2'>未激活</el-tag>
             </template>
-
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -104,15 +95,13 @@
               <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" v-if="scope.row.status==2" class="btn-on">开启</button>
               <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" v-if="scope.row.status==1" class="btn-off">关闭</button>
               <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2" v-if="scope.row.status==2"><i  class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
-              <!-- <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
-                <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
-                <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i> -->
               <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no"><i class="el-icon-delete font-gray-666" data-toggle="tooltip" title="删除"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
         </el-table>
       </div>
+      <!-- 分页 -->
       <div class="main_content_bottom">
         <div class="bottom_con">
           <div class="float-left btn-system">
@@ -138,7 +127,7 @@
         </div>
       </div>
     </div>
-    <!-- Modal -->
+    <!-- 开启Modal -->
     <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -146,35 +135,36 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">激活</h4>
             <h5 class="modal-p">{{ inspectionName }}</h5>
+            <!-- 错误提示 -->
+              <div class="text-center">
+                <span class="font-red size-12"><i class="el-icon-warning"></i> 未选择是否生成图形码</span>
+              </div>
           </div>
-          <div class="modal-body">
-            <el-form ref="form" :label-position="labelPosition" :model="form">
-
+          <div class="modal-body text-left container-padding40">            
+            <el-form ref="form" :label-position="labelPosition" :model="form">              
               <el-form-item size="small"
                   label="每日额定完成次数"
                   prop="age">
-                <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:190px;"></el-input>
-                <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
+                <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:160px;"></el-input>
+                <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="width:300px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
               </el-form-item>
-              <div style="clear: both;"></div>
-              <el-form-item label="是否开启扫描打卡" style="margin-top:10px;">
-                <span class="font-red" style="position: absolute;top:-54px;right:20px;">未选择是否生成图形码</span>
+              <el-form-item label="是否开启扫描打卡"class="margin-top10">                
                 <el-radio-group v-model="isScan">
                   <el-radio-button label="1">是</el-radio-button>
                   <el-radio-button label="0">否</el-radio-button>
                 </el-radio-group>
-                <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
-
+                <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="width:300px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
               </el-form-item>
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">激活</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">激活</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
       </div>
     </div>
+    <!-- 删除Modal -->
     <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" style="">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -183,17 +173,18 @@
             <h4 class="modal-title" id="myModalLabel2">提示</h4>
             <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
           </div>
-          <div class="modal-body" style="height:217px;">
-            <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
-            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ inspectionName }}</p>
+          <div class="modal-body text-center container-padding40">
+                <h3 class="font-red size-14">是否删除</h3>
+                <p class="font-white size-16">{{ inspectionName }}</p>
           </div>
           <div class="modal-footer">
-            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
+            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
       </div>
     </div>
+    <!-- 关闭Modal -->
     <div class="modal fade" id="mymodal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" style="">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -202,12 +193,12 @@
             <h4 class="modal-title" id="myModalLabel3">提示</h4>
             <h5 class="modal-p">关闭操作并不影响之前的统计数据</h5>
           </div>
-          <div class="modal-body" style="height:217px;">
-            <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否关闭</h2>
-            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ inspectionName }}</p>
+          <div class="modal-body text-center container-padding40">
+            <h3 class="font-red size-14">是否关闭</h3>
+            <p class="font-white size-16">{{ inspectionName }}</p>
           </div>
           <div class="modal-footer">
-            <el-button type="danger" @click.native.prevent="StopRow()" icon="el-icon-search" class="danger" data-dismiss="modal">关闭</el-button>
+            <el-button type="danger" @click.native.prevent="StopRow()" icon="el-icon-circle-close-outline" class="danger" data-dismiss="modal">关闭</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>

@@ -1,82 +1,102 @@
 <template>
+<<<<<<< HEAD
+  <div class="list_content">
+    <div id="manage-center" class="list_main position-fixed-left z-index-20">
+      <img src="../../assets/images/floor.png">
+    </div>
+    <div id="add-new" class="float-right add-new">
+      <aside>
+        <div class="main_header clearFix">
+          <div class="main_title float-left clearFix">
+            <i class="icon iconfont icon-jianzhuguanli-mian-"></i>
+            <h2 class="float-left font-white size-16">新增建筑</h2>
+          </div>
+          <div class="main_nav float-right">
+            <router-link to="/Building_management/all"><span class="btn-back" @click="btn_back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          </div>
+=======
   <div id="add-new">
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="icon iconfont icon-jianzhuguanli-mian-"></i>
-          <h2 class="float-left font-white size-16">新增建筑</h2>
+          <h2>新增建筑</h2>
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
+=======
+>>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
+=======
+>>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
         </div>
-        <div class="main_nav float-right">
-          <router-link to="/Building_management/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+        <section class="border-top-solid-333 margin-left15 margin-right15"></section>
+        <div class="main_content" style="overflow-y:auto;height:650px;">
+          <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+            <el-form-item label="建筑名称">
+              <span class="hint-error">建筑名称有误或重复</span>
+              <el-input v-model="form.BuildName" class="col-sm-8"></el-input>
+            </el-form-item>
+            <el-form-item label="所属单位">
+              <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-8">
+                <!-- <el-option label="全部单位" value=""></el-option> -->
+                <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="建筑结构" class="col-sm-6">
+              <el-select name="" v-model="form.structure" placeholder="请选择结构">
+                <el-option label="砖混" value="砖混"></el-option>
+                <el-option label="钢结构" value="钢结构"></el-option>
+                <el-option label="玻璃" value="玻璃"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="建筑性质" class="col-sm-6">
+              <el-select v-model="form.property" placeholder="建筑性质">
+                <el-option label="居住" value="居住"></el-option>
+                <el-option label="公共" value="公共"></el-option>
+                <el-option label="工业" value="工业"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="建成年份" class="col-sm-6">
+              <div class="block">
+                <el-date-picker
+                  v-model="form.timeYear"
+                  type="date"
+                  placeholder="选择年份"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </div>
+            </el-form-item>
+            <el-form-item label="占地面积 (㎡)" class="col-sm-6">
+              <el-input v-model="form.area"></el-input>
+            </el-form-item>
+            <el-form-item label="高度 (cm)" class="col-sm-6">
+              <el-input v-model="form.height"></el-input>
+            </el-form-item>
+            <el-form-item label="总楼层" class="col-sm-6">
+              <el-input v-model="form.floor"></el-input>
+            </el-form-item>
+            <el-form-item label="建筑地址">
+              <el-input v-model="form.address" class="col-sm-8"></el-input>
+            </el-form-item>
+            <el-form-item label="经纬度">
+              <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
+              <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
+            </el-form-item>          
+            <el-form-item label="消防负责人" class="col-sm-4">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="消防负责人电话" class="col-sm-4">
+              <el-input v-model="form.phone"></el-input>
+            </el-form-item>          
+          </el-form>        
         </div>
-      </div>
-      <section class="border-top-solid-333 margin-left15 margin-right15"></section>
-      <div class="main_content">
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="建筑名称">
-            <span class="hint-error">建筑名称有误或重复</span>
-            <el-input v-model="form.BuildName" class="col-sm-4"></el-input>
-          </el-form-item>
-          <el-form-item label="所属单位">
-            <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-4">
-              <el-option label="全部单位" value=""></el-option>
-              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="建筑结构" class="col-sm-4">
-            <el-select name="" v-model="form.structure" placeholder="请选择结构">
-              <el-option label="砖混" value="砖混"></el-option>
-              <el-option label="钢结构" value="钢结构"></el-option>
-              <el-option label="玻璃" value="玻璃"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="建筑性质" class="col-sm-4">
-            <el-select v-model="form.property" placeholder="建筑性质">
-              <el-option label="居住" value="居住"></el-option>
-              <el-option label="公共" value="公共"></el-option>
-              <el-option label="工业" value="工业"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="建成年份" class="col-sm-4">
-            <div class="block">
-              <el-date-picker
-                v-model="form.timeYear"
-                type="date"
-                placeholder="选择年份"
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
-            </div>
-          </el-form-item>
-          <el-form-item label="占地面积 (㎡)" class="col-sm-4">
-            <el-input v-model="form.area"></el-input>
-          </el-form-item>
-          <el-form-item label="高度 (cm)" class="col-sm-4">
-            <el-input v-model="form.height"></el-input>
-          </el-form-item>
-          <el-form-item label="总楼层" class="col-sm-4">
-            <el-input v-model="form.floor"></el-input>
-          </el-form-item>
-          <el-form-item label="建筑地址">
-            <el-input v-model="form.address" class="col-sm-8"></el-input>
-          </el-form-item>
-          <el-form-item label="经纬度">
-            <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
-            <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
-          </el-form-item>          
-          <el-form-item label="消防负责人" class="col-sm-4">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="消防负责人电话" class="col-sm-4">
-            <el-input v-model="form.phone"></el-input>
-          </el-form-item>          
-        </el-form>        
-      </div>
-      <div class="main_footer">
-        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
-        <a class="btn-back" @click="back">返回</a>
-      </div>
-    </aside>
+        <div class="main_footer">
+          <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+          <a class="btn-back" @click="back">返回</a>
+        </div>
+      </aside>
+    </div>
   </div>
 </template>
 
@@ -107,6 +127,11 @@
         }
       },
       methods:{
+        btn_back(){
+          $('#right').show();
+          $('.manage-center').show();
+          $('#list').hide();
+        },
         btn(){
           this.optionList.forEach((item,index)=>{
             if(item.id == this.form.unitId){
@@ -138,10 +163,11 @@
             }
           })
           this.$router.push({path:'/Building_management/all'});
+          this.btn_back();
         },
         back(){
           this.$router.push({path:'/Building_management/all'});
-          $('#right').show();
+          this.btn_back();
         },
         unitSearch(){
           this.$fetch(

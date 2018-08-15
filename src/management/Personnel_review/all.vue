@@ -1,105 +1,118 @@
 <template>
-  <div>
+  <section>
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="fa fa-th-large font-gray-666 float-left"></i>
-        <h2 class="float-left font-white size-16">人员审核</h2>
+        <i class="icon iconfont icon-renyuanliebiao-mian-"></i>
+        <h2>人员管理</h2>
+      </div>
+      <div class="main_nav float-right">
+        <router-link to="/Equipment_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
       </div>
     </div>
     <div class="main_all_content">
+      <!-- 筛选 -->
       <div class="main_content_top">
-        <el-form label-width="80px" class="float-left">
-          <el-select v-model="unitId" placeholder="选择单位" style="width:auto;margin-left:10px;">
+        <el-form class="float-left">
+          <el-select v-model="unitId" placeholder="选择单位">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
-          <el-select v-model="reviewId" placeholder="选择审核状态" style="width:auto;margin-left:10px;">
+          <el-select v-model="reviewId" placeholder="选择审核状态">
             <el-option label="全部状态" value=""></el-option>
             <el-option v-for="item in reviewList" :label="item.review" :value="item.id"></el-option>
           </el-select>
         </el-form>
       </div>
+      <!-- 表格 -->
       <div class="main_content_table">
         <el-table
           :data="tableData"
           border
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-          style="width: 100%;height:570px;">
+          :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             prop="Serial_number"
             type="index"
+            fixed="left"
             sortable  
-            width="80"
             label="序号">
           </el-table-column>
           <el-table-column
             prop="nickName"
-            width="130"
             label="姓名">
           </el-table-column>
           <el-table-column
             prop="username"
-            width="130"
             label="账号">
           </el-table-column>
           <el-table-column
             prop="unitName"
-            width="130"
             label="所属单位">
           </el-table-column>
           <el-table-column
             prop="position"
-            width="130"
             label="职位">
           </el-table-column>
           <el-table-column
             prop="cellPhone"
-            width="130"
             label="电话">
           </el-table-column>
           <el-table-column
             prop="roleName"
-            width="100"
             label="角色">
           </el-table-column>
           <el-table-column
             prop="review"
-            width="100"
             :formatter="formatter"
             label="状态">
           </el-table-column>
           <el-table-column
             prop="reviewName"
-            width="100"
             label="审核人">
           </el-table-column>
           <el-table-column
             fixed="right"
-            label="操作"
-            width="120">
+            label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">修改</button>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+              <button v-if="scope.row.review == 3" @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">审核</button>
               <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
+=======
+              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
+>>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
+=======
+              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
+>>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
+=======
+              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
+>>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
             </template>
           </el-table-column>
         </el-table>
       </div>
       <div class="main_content_bottom">
         <div class="bottom_con">
-          <div class="float-left">
-            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-            <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-            <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
+          <div class="float-left btn-system">
+            <a href="javascript:;">打印</a>
+            <a href="javascript:;">导出</a>
+            <a href="javascrip:;">导出二维码</a>
           </div>
-          <el-pagination style="float: right;background: transparent"
+          <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
-          <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
-          <el-pagination style="float: right;"
+          <span>{{page}}页</span>
+          <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
                          :page-size="10"
@@ -109,7 +122,7 @@
         </div>
       </div>
     </div>
-    <!-- Modal -->
+    <!-- 编辑Modal -->
     <div class="modal modal_form fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -140,7 +153,7 @@
               </el-form-item>
               <el-form-item v-if="this.review == 1" label="所属单位">
                 <el-select v-model="form.unitId" placeholder="选择单位" class="select">
-                  <el-option label="全部单位" value=""></el-option>
+                  <!-- <el-option label="全部单位" value=""></el-option> -->
                   <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
@@ -152,17 +165,16 @@
                   v-model="reviewContent">
                 </el-input>
               </el-form-item>
-              <div style="clear: both;"></div>
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -285,7 +297,8 @@
             currentPager:this.currentPage4,
             pagerSize:10,
             unitId:this.unitId,
-            reviewId:this.reviewId
+            reviewId:this.reviewId,
+            flag:1
           }
         )
           .then(response => {
@@ -338,153 +351,4 @@
   };
 </script>
 <style lang="scss" scoped>
-  h2{
-    margin: 0;
-    padding: 0;
-  }
-  main{
-    height: 100%;
-  }
-  @media (min-width: 768px) and (max-width:1600px){
-    main {
-      padding-left:295px;
-      padding-right:400px;
-    }
-  }
-  @media (min-width: 1600px){
-    main {
-      margin-left:17.58%;
-      margin-right: 24%;
-    }
-  }
-  .main_header{
-    width:100%;
-    height:68px;
-    background: #111111;
-  }
-  .main_title{
-    display: flex;
-    align-items: center;
-  }
-  .main_title i{
-    margin-left:20px;
-    margin-right:10px;
-  }
-  .main_title h2{
-    line-height: 68px;
-  }
-  .main_header button,.main_nav_two button{
-    width:64px;
-    height:28px;
-    float: left;
-    outline:none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border:2px solid transparent;
-    background: #111111;
-    font-size: 12px;
-    color: #999;
-    margin-top: 21px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .main_header a:nth-child(2) button{
-    border-left:none;
-  }
-  .main_header button i{
-    margin-right: 3px;
-  }
-  .main_header button.btn_add i{
-    color: #000;
-  }
-  .main_header button.btn_add{
-    width:64px;
-    height:28px;
-    border:none;
-    background: #bad616;
-    margin-left: 6px;
-    margin-right: 20px;
-    color: #000;
-  }
-  .main_nav_two{
-    margin-top:6px;
-    margin-right:20px;
-  }
-  .main_nav_two button{
-    margin-top:0;
-  }
-  .main_nav_two i{
-    margin-right: 3px;
-  }
-  .main_content_top{
-    height:40px;
-    background: #222222;
-  }
-  .main_content_table{
-    width:100%;
-    background: #111111;
-  }
-  .main_content_bottom{
-    width:100%;
-    height:60px;
-    padding-top:10px;
-    background: #111111;
-    .bottom_con{
-      margin:0 20px;
-      padding-top:10px;
-      border-top:1px solid #222222;
-    }
-  }
-
-  .router-link-active button{
-    color: #b8b8b8;
-    background-color: #000000;
-  }
-  .router-link-active i{
-    color: #b8b8b8;
-    background-color: #333333;
-  }
- 
-  .main_nav_show{
-    width:64px;
-    position: absolute;
-    top:159px;
-    z-index: 33;
-    border:2px solid #bad616;
-    ul{
-      width:100%;
-      li{
-        float: none;
-        width:100%;
-        a{
-          button{
-            margin:0;
-            border-top:2px;
-            border-bottom:2px;
-            margin-left:-42px;
-            border-color:#bad616;
-          }
-        }
-      }
-    }
-  }
-  .btn_active button{
-    background-color: #bad616;
-    color: #0c0e01;
-  }
-  .btn_active i{
-    color: #0c0e01;
-    background-color: transparent;
-  }
-.danger{
-    width:132px;
-    background-color: #f13131;
-    color: #000;
-    font-size: 14px;
-    height:32px;
-    line-height: 32px;
-    padding:0;
-  }
 </style>

@@ -335,7 +335,7 @@
                           <ul class="toolcount-left padding-left0" id="toolcount">
                             <li class="col-xs-offset-1 col-xs-10 margin-bottom10 padding-left5">
                               <!-- <h1 class="toolcount-p1">8.7</h1> -->
-                              <img src="../assets/images/head.jpg" class="img-responsive img-circle" alt="段亚伟">
+                              <img src="../../assets/images/head.jpg" class="img-responsive img-circle" alt="段亚伟">
                             </li>
                             <li class="col-xs-offset-1 col-xs-10 padding-left5 text-center">
                               <h4 class="size-16 font-blue show">段亚伟</h4>
@@ -684,7 +684,7 @@
 </template>
 
 <script>
-  import HeaderVue from './publick/header.vue';
+  import HeaderVue from '../publick/header.vue';
   import{mapState} from "vuex";
   // import Per_leftVue from './per_left.vue';
   // import Per_rightVue from './per_right.vue';

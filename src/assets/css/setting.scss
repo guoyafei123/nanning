@@ -73,17 +73,7 @@
   background: #020202 !important;
   border:none !important;
 }
-.resource_btn{
-  width:230px;
-  height:25px;
-  font-size: 10px !important;
-  padding:0 !important;
-  line-height: 25px !important;
-  float: right;
-  margin-top: 8px !important;
-  background: #020202 !important;
-  border:none !important;
-}
+
 .primary{
   width:132px;
   height:32px;
@@ -98,9 +88,11 @@
   line-height: 32px !important;
   padding:0 !important;
   background: #111111 !important;
-  border-color: #666666 !important;
+  border-color: #333 !important;
 }
-
+.back:hover {
+  border-color: #999 !important;
+}
 .el-radio__input.is-checked+.el-radio__label{
   color: #bad616 !important;
 }
@@ -297,11 +289,11 @@
 
 
 .el-table th:nth-child(1) div, .el-table--border th:first-child .cell{
-  padding-left:20px !important;
+  padding-left:15px !important;
 }
 
 .el-table--border td:first-child .cell {
-  padding-left: 20px !important;
+  padding-left: 15px !important;
 }
 
 .el-pager li.active{
@@ -408,7 +400,7 @@ table th, table td{
 .el-radio-button>.el-radio-button__inner{
       width:40px !important;
       height:32px !important;
-      border:2px solid #333333 !important;
+      border:1px solid #333333 !important;
       box-sizing: border-box !important;
       display: inline-block !important;
       line-height: 31px !important;
@@ -421,12 +413,10 @@ table th, table td{
 .el-radio-button__orig-radio:checked+.el-radio-button__inner{
   background-color: #111111 !important;
   color: #bad616 !important;
-  border:2px solid #bad616 !important;
+  border:1px solid #bad616 !important;
   box-shadow:none !important;
 }
-.el-radio-button__inner:hover{
-  color: #bad616 !important;
-}
+
 .el-tag{
   background-color: transparent !important;
 }
@@ -550,7 +540,6 @@ table th, table td{
   // room 
   .room_wrap{
     width:100%;
-    margin-top:150px;
     padding:0 15px;
     .room_header{
       h2{
@@ -597,7 +586,6 @@ table th, table td{
       }
     }
     table{
-      margin-top:70px;
       border-color: #999999;
       background: #222;
       thead{
@@ -616,7 +604,6 @@ table th, table td{
           td{
             height:40px!important;
             color: #cccccc;
-            text-align: center!important;
             vertical-align: middle!important;
             input{
               width:60px;
@@ -666,7 +653,7 @@ table th, table td{
       outline:none;
       background:#222;
       font-size: 15px;
-      border:1px solid #999999
+      border:1px solid #999999;
     }
   }
 }
@@ -686,4 +673,31 @@ table th, table td{
 }
 .floor_wrap table thead td:nth-child(2),tbody tr td:nth-child(2){
   width:120px;
+}
+
+.floorMap{
+  width:100%;
+  img{
+    width:100%;
+  }
+}
+.roomMap{
+  width:100%;
+  img{
+    width:100%;
+  }
+}
+
+.add-new{
+  margin-top:120px;
+  width:400px;
+  aside{
+    width: 400px !important;
+  }
+  
+}
+.list_main{
+  img{
+    width:100%;
+  }
 }
