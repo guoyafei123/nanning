@@ -7,7 +7,7 @@
           <h2 class="float-left font-white size-16">设备管理</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Equipment_management/list"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
+          <router-link to="/Equipment_management/all"><button class="btn_add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button></router-link>
         </div>
       </div>
       <div class="main_content">

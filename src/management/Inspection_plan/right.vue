@@ -570,6 +570,7 @@
           console.log(val);
           if(this.$route.path == '/Inspection_plan/maps'){
             this.tableList2();
+            this.$store.commit('InspectionMap',this.tableData);
           }
         },
         // 深度观察监听

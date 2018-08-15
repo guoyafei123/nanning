@@ -418,7 +418,7 @@
       this.unitSearch();
       this.tableBuildList();
       $('#right').show();
-      
+      this.$store.commit('route_path',this.$route.path);
     },
     watch:{
       $route: {

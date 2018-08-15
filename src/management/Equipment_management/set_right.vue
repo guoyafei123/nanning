@@ -766,6 +766,7 @@
           console.log(val);
           if(this.$route.path == '/Equipment_management/maps'){
             this.tableList();
+            this.$store.commit('DeviceMap',this.tableData);
           }
         },
         // 深度观察监听
