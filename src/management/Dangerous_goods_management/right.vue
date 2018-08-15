@@ -6,62 +6,63 @@
       </section>
       <!-- 危险品详情 -->
       <section>
-          <div class="textandimg margin-top20">
+           <div class="textandimg margin-top20">
               <h4 class="p-title">
-                 <!-- {{ this.device.name }} -->危险品详情
+                 <!-- {{ this.trouble.dangerName }} -->危险品详情
               </h4>
-              <div class="row textandimg-main margin-top20 size-12">
-                  <div class="col-sm-12">
-                      <span>建筑名称 </span>
-                      <strong v-html="this.form.BuildName"></strong>
+              <div class="row textandimg-main">
+                <div class="col-sm-12">
+                      <span>名称</span>
+                      <strong v-html="this.trouble.dangerName"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span>所属单位 </span>
-                      <strong v-html="this.form.UnitName"></strong>
-                  </div>
-                  <div class="col-sm-6">
-                      <span>建筑结构 </span>
-                      <strong v-html="this.form.structure"></strong>
-                  </div>
-                  <div class="col-sm-6">
-                      <span>建筑性质 </span>
-                      <strong v-html="this.form.property"></strong>
+                      <span>状态</span>
+                      <span v-if="this.trouble.status == 0">未解决</span>
+                      <strong v-if="this.trouble.status == 1">已解决</strong>
                   </div>
                   <div class="col-sm-12">
-                      <span>建筑地址 </span>
-                      <strong v-html="this.form.address"></strong>
+                      <span>所属单位</span>
+                      <strong v-html="this.trouble.unitName"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span>经纬度 </span>
-                      <strong v-html="this.form.point.pointX"></strong>
-                      <strong v-html="this.form.point.pointY"></strong>
+                      <span>位置</span>
+                      <strong v-if="this.trouble.buildingName == '室外'">室外</strong>
+                      <strong v-else><span v-if="this.trouble.buildingName != '' && this.trouble.buildingName != null">{{ this.trouble.buildingName }} 建筑</span><span v-if="this.trouble.floorNumber != '' && this.trouble.floorNumber != null">{{ this.trouble.floorNumber }} 楼层</span><span v-if="this.trouble.roomNumber != '' && this.trouble.roomNumber != null">{{ this.trouble.roomNumber }} 房间</span></strong>
                   </div>
-                  
-                  <div class="col-sm-6">
-                      <span>占地面积 </span>
-                      <strong v-html="this.form.area"></strong>
-                  </div>
-                  <div class="col-sm-6">
-                      <span>高 度 </span>
-                      <strong v-html="this.form.height"></strong>
-                  </div>
-
-                  <div class="col-sm-6">
-                      <span>总楼层 </span>
-                      <strong v-html="this.form.floor"></strong>
-                  </div>
-                  <div class="col-sm-6">
-                      <span>建筑年份 </span>
-                      <strong v-html="this.form.timeYear"></strong>
-                  </div>
-                  
-                  
                   <div class="col-sm-12">
-                      <span>建筑二维码 </span>
-                      <strong>
-                        <a href="" data-toggle="tooltip" title="预览二维码" class="font-blue display-inline-block">预览</a>
-                        <a href="" data-toggle="tooltip" title="下载二维码" class="font-blue display-inline-block">下载</a>
-                      </strong>
+                      <span>坐标 </span>
+                      <strong v-html="this.trouble.point.pointX"></strong>
+                      <strong v-html="this.trouble.point.pointY"></strong>
+                  </div>
+                  <div class="col-sm-12">
+                    <span>上报人</span>
+                    <strong v-html="this.trouble.nickName"></strong>
+                  </div>
+                  <div class="col-sm-12">
+                      <span>上报时间</span>
+                      <strong v-html="this.trouble.createTime"></strong>
+                  </div>
+                  <div class="col-sm-12">
+                      <span>解决人</span>
+                      <strong v-html="this.trouble.reviewerName"></strong>
+                  </div>
+                  <div class="col-sm-12">
+                      <span>解决时间 </span>
+                      <strong v-html="this.trouble.reviewTime"></strong>
+                  </div>
+                  <div class="col-sm-12">
+                      <span>图片及视频 </span>
+                      <ul>
+                        <li style="width:100px;"><img style="width:100%;" :src="this.trouble.imgUrl"/></li>
+                      </ul>
+                  </div>
+                  <div class="col-sm-12">
+                      <span>简介 </span>
+                      <strong v-html="this.trouble.cont"></strong>
+                  </div>
+                  <div class="col-sm-12">
+                      <span>解决原因 </span>
+                      <strong v-html="this.trouble.treatment"></strong>
                   </div>
               </div>
           </div>
@@ -189,11 +190,11 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">修改设备</h4>
+                <h4 class="modal-title" id="myModalLabel">解决危险品</h4>
               </div>
               <div class="modal-body">
                 <el-form ref="form" :label-position="labelPosition" :model="form">
-                  <el-form-item label="设备名称">
+                  <el-form-item label="危险品名称">
                     <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
                     <el-input v-model="form.name"></el-input>
                   </el-form-item>
@@ -375,25 +376,24 @@
           linkname:'',
           phone:''
         },
-        device:{
+        trouble:{
+          dangerName:'',
           status:'',
-          name:'',
-          deviceTypeName:'',
-          location:'',
+          unitName:'',
+          buildingName:'',
+          floorNumber:'',
+          roomNumber:'',
           point:{
             pointX:'',
             pointY:''
           },
-          mac:'',
-          height:'',
-          fheight:'',
-          startDate:'',
-          timeYear:'',
-          lifeMonth:'',
-          firm:'',
-          productDate:'',
-          maintenanceUnit:'',
-          maintenancePhone:''
+          nickName:'',
+          createTime:'',
+          reviewerName:'',
+          reviewTime:'',
+          imgUrl:[],
+          cont:'',
+          treatment:''
         },
         optionList:[],//全部单位列表
         tableData: [],//设备列表
@@ -445,7 +445,7 @@
         })
       },
       startRow(){
-        this.$fetch("/api/device/updateDevice",{
+        this.$fetch("/api/trouble/updateDevice",{
           'id':this.form.id,
           'name':this.form.name,
           'unitId':this.form.unitId,
@@ -480,7 +480,7 @@
       },
       deleteRow(){
            console.log(this.deviceIndex);
-          this.$fetch("/api/device/deleteDevice",{
+          this.$fetch("/api/trouble/deleteDevice",{
             'deviceId':this.deviceIndex
           }).then(response=>{
             if(response){
@@ -491,6 +491,32 @@
           }).then(err => {
             console.log(err);
           });
+      },
+      findTrouble(troubleId){
+        this.$fetch("/api/trouble/troubleDetail",{
+          'troubleId':troubleId
+        }).then(response=>{
+          console.log(response);
+          if(response.data.trouble){
+            var item = response.data.trouble;
+            this.trouble.dangerName = item.dangerName ;
+            this.trouble.status = item.status ;
+            this.trouble.unitName = item.unitName ;
+            this.trouble.buildingName = item.buildingName ;
+            this.trouble.floorNumber = item.floorNumber ;
+            this.trouble.roomNumber = item.roomNumber ;
+            this.trouble.point.pointX = item.pointX ;
+            this.trouble.point.pointY = item.pointY ;
+            this.trouble.nickName = item.nickName ;
+            this.trouble.createTime = item.createTime ;
+            this.trouble.reviewerName = item.reviewerName ;
+            this.trouble.reviewTime = item.reviewTime ;
+            this.trouble.imgUrl = item.imgUrl ;
+            this.trouble.cont = item.cont ;
+            this.trouble.treatment = item.treatment ;
+            console.log(this.trouble.nickName)
+          }
+        })
       },
       unitSearch(){
         this.$fetch(
@@ -513,26 +539,29 @@
       tableList(){
         this.$fetch(
           "/api/trouble/troubleList",{
-            unitId:this.unit,
+            unitId:this.dangerUnit,
             type:5,
-            buildingId:this.building,
-            floorId:this.floor,
-            roomId:this.room,
+            buildingId:this.dangerBuild,
+            floorId:this.dangerFloor,
+            roomId:this.dangerRoom,
             currentPage:this.currentPage4,
             pageSize:10,
-            status:this.status
+            status:this.dengerStatus
           }
         )
           .then(response => {
             console.log('危险品！！！'+JSON.stringify(response));
             if (response) {
-              // console.log(response.data.inspectionPlanList);
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
-              if(this.tableData){
+              if(this.$route.path == '/Dangerous_goods_management/all'){
+                console.log(this.tableData)
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
-                    this.$store.commit('dangerId',item.id);
+                    console.log(index);
+                    console.log(this.tableData.length-1)
+                    console.log(item.id);
+                    this.findTrouble(item.id)
                   }
                 })
               }
@@ -662,12 +691,8 @@
           $('.total').hide();
           $('.mapTable').hide();
         }
-        console.log(this.tableData)
-        this.tableData.forEach((item,index)=>{
-          if(item.id == this.deviceId){
-            console.log(item);
-          }
-        })
+        console.log(this.dangerId)
+        this.findTrouble(this.dangerId);
       },
       Unit(){
         this.tableList();

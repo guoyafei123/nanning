@@ -640,7 +640,8 @@
             this.form.UnitName = item.name;
           }
         })
-        this.$fetch("/api/building/addBuilding",{
+        this.$fetch("/api/building/updateBuilding",{
+          'id':this.deviceIndex,
           'name':this.form.BuildName,
           'unitId':this.form.unitId,
           'unitName':this.form.UnitName,

@@ -179,23 +179,6 @@
                   </section>
                   </div>
           </section>
-            <!-- <section>
-                <div class="personinfo">
-                  <p>
-                    <span class="size-20">控烟严格巡查</span>
-                    <span class="bgbox-min bg-gray-666 font-black">举报检查</span>
-                    <span class="bgbox-min bg-blue font-black">每天4次</span>
-                    <span class="float-right">
-                              <span class="font-blue">
-                                  <i class="fas fa-industry"></i> 进行中</span>
-                          </span>
-                  </p>
-                  <p>
-                    <span><i class="fa fa-th-large"></i> 中心小学</span>
-                    <span class="float-right set-positiontop2">最新更新 <span class="font-gray-999">2018.7.6 08:00:00</span></span>
-                  </p>
-                </div>
-              </section>-->
             <section class="inspection-iteminfo display-none">
               <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
               <section class="margin-top20">
@@ -235,7 +218,7 @@
                   </div>
                   <div class="col-sm-8 font-gray-999 padding-left0 padding-right0 position-relative">
                     <div class="toolbuildrate-people text-center position-absolute-right margin-right20">
-                        <img src="../assets/images/people.png">
+                        <img src="../../assets/images/people.png">
                         <br/>                      
                         <template v-if="ins_queryPlanUserDetails.inspectionPlanUser!=null">
                               <span class="size-12 display-inline-block">{{ins_queryPlanUserDetails.inspectionPlanUser.userName}}</span>
@@ -406,13 +389,13 @@
                       <span><i class="fas fa-industry"></i> 中心小学</span>
                     </p>
                   </div>
-              </div>
-              <!-- 已选择单位巡检任务总数 -->                  
-              <div class="col-sm-5 font-white text-right size-12">                      
-                <i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 任务总数<br>
-                <span class="size-22 font-blue">1746</span>
-              </div>
-            </section>
+                </div>
+                <!-- 已选择单位巡检任务总数 -->                  
+                <div class="col-sm-5 font-white text-right size-12">                      
+                  <i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 任务总数<br>
+                  <span class="size-22 font-blue">1746</span>
+                </div>
+              </section>
               <section>
                 <div class="toolcount margin-top20">
                   <h4 class="p-title">巡检统计</h4>
@@ -475,9 +458,6 @@
                     <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                         <p class="font-blue size-50">
-                          <!-- <template v-if="ins_queryPlanDetails.planDetails!=null">
-                            {{ins_queryPlanDetails.planDetails.amount}}/{{ins_queryPlanDetails.planDetails.finishAmount}}
-                          </template> -->
                           3/30
                         </p>
                       </li>
@@ -524,25 +504,6 @@
                 <div class="textandimg row">
                   <h4 class="p-title">路线信息</h4>
                   <div class="row textandimg-main padding-left15 size-12">
-                    <!-- <template v-if="ins_queryPlanDetails.inspectionPlan">
-                        <div class="col-sm-12">
-                        <span>路线最新激活时间 </span>
-                        <strong>{{ins_queryPlanDetails.inspectionPlan.activeTime}}</strong>
-                      </div>
-                      <div class="col-sm-12">
-                        <span>路线激活人 </span>
-                        <strong>{{ins_queryPlanDetails.inspectionPlan.activeName}}</strong>
-                      </div>
-                      <div class="col-sm-12">
-                        <span>路线删除时间 </span>
-                        <strong>{{ins_queryPlanDetails.inspectionPlan.delTime}}</strong>
-                      </div>
-                      <div class="col-sm-12">
-                        <span>路线删除人 </span>
-                        <strong>{{ins_queryPlanDetails.inspectionPlan.delName}}</strong>
-                      </div>
-                    </template> -->
-                    <!-- <template v-if="ins_queryPlanDetails.inspectionPlan"> -->
                       <div class="col-sm-12">
                         <span>路线最新激活时间 </span>
                         <strong>2018-08-09 08:00:00</strong>
@@ -604,7 +565,7 @@
 </template>
 
 <script>
-import HeaderVue from "./publick/header.vue";
+import HeaderVue from "../publick/header.vue";
 // import Ins_leftVue from "./ins_left.vue";
 // import Ins_rightVue from "./ins_right.vue";
 export default {

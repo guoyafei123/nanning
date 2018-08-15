@@ -38,6 +38,7 @@ export function fetch(url,params = {}){
         if(response.data.errorCode=='20012'){
           // alert('未登录')
           this.$router.push("/login");
+          return;
         }
       },err => {
         reject(err)

@@ -38,7 +38,7 @@
 </template>
 
 <script>  
-  import managementMapVue from '../../components/managementMap';
+  import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
@@ -85,6 +85,7 @@
     mounted(){
       realconsole();
       this.unitSearch();
+      this.$store.commit('route_path',this.$route.path);
     }
   };
 </script>

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import MapVue from './components/map';
+  import MapVue from './components/publick/map';
   import FooterVue from './components/publick/footer';
   import{mapState} from "vuex";
   // import EarlyinfoVue from './components/earlyinfo';
@@ -61,6 +61,7 @@
       // 
     },
     methods: {
+      
     },
   }
 </script>
