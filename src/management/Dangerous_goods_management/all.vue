@@ -176,35 +176,25 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">修改设备</h4>
+            <h4 class="modal-title" id="myModalLabel">解决危险品</h4>
           </div>
           <div class="modal-body" style="height:650px;overflow-y:auto;">
             <el-form ref="form" :label-position="labelPosition" :model="form">
-              <el-form-item label="设备名称">
+              <el-form-item label="危险品名称">
                 <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="form.dangerName" disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="所属单位">
-                <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" style="width:auto;">
+                <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" style="width:auto;" disabled="true">
                   <el-option label="全部单位" value=""></el-option>
                   <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="设备类型">
-                <el-select
-                  v-model="form.equipmentId"
-                  placeholder="选择设备类型" class="sbwz_138_32 start" style="margin-left:0px;width:auto;">
-                  <el-option
-                    v-for="item in equipmentList"
-                    :label="item.name"
-                    :value="item.id">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="设备位置">
+              <el-form-item label="位置">
                 <el-select
                   v-model="form.buildingId"
-                placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="margin-left:0px;width:auto;">
+                  disabled="true"
+                  placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="margin-left:0px;width:auto;">
                   <el-option label="室外" value="0"></el-option>
                   <el-option
                     v-for="item in form.buildList"
@@ -214,6 +204,7 @@
                 </el-select>
                 <el-select
                   v-model="form.floorId"
+                  disabled="true"
                   placeholder="选择楼层" class="sbwz_138_32 start">
                   <el-option
                     v-for="item in form.floorList"
@@ -223,6 +214,7 @@
                 </el-select>
                 <el-select
                   v-model="form.roomId"
+                  disabled="true"
                   placeholder="选择房间" class="sbwz_138_32 start">
                   <el-option
                     v-for="item in form.roomList"
@@ -232,59 +224,41 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="坐标">
-                <el-input v-model="form.point.pointX" style="display:inline-block;width:200px;"></el-input>
-                <el-input v-model="form.point.pointY" style="display:inline-block;width:200px;"></el-input>
+                <el-input v-model="form.point.pointX" style="display:inline-block;width:200px;" disabled="true"></el-input>
+                <el-input v-model="form.point.pointY" style="display:inline-block;width:200px;" disabled="true"></el-input>
               </el-form-item>
-
-              <el-form-item label="物理地址">
-                <el-input v-model="form.PhysicalAddress"></el-input>
+              <el-form-item label="上报人">
+                <el-input v-model="form.nickName" disabled="true"></el-input>
               </el-form-item>
-
-              <el-form-item label="投入使用日期">
-                <div class="block">
-                  <el-date-picker
-                    v-model="form.startDate"
-                    type="date"
-                    placeholder="选择年"
-                    format="yyyy 年 MM 月 dd 日"
-                    value-format="yyyy-MM-dd">
-                  </el-date-picker>
-                </div>
+              <el-form-item label="上报时间">
+                <el-input v-model="form.createTime" disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="运行时长">
-                <el-input v-model="form.time"></el-input>
+              <el-form-item label="解决人">
+                <el-input v-model="form.reviewerName" disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="相对房顶高度（m）">
-                <el-input v-model="form.RoofHeight"></el-input>
+              <el-form-item label="解决时间">
+                <el-input v-model="form.reviewTime" disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="相对地板高度（m）">
-                <el-input v-model="form.floorHeight"></el-input>
+              <el-form-item label="图片及视频">
+                <ul>
+                  <li style="width:100px;"><img style="width:100%;" :src="this.form.imgUrl"/></li>
+                </ul>
               </el-form-item>
-              <el-form-item label="更换周期（天）">
-                <el-input v-model="form.Retroperiod"></el-input>
+              <el-form-item label="简介">
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  disabled="true"
+                  v-model="form.cont">
+                </el-input>
               </el-form-item>
-              <el-form-item label="生产商">
-                <el-input v-model="form.Bike"></el-input>
-              </el-form-item>
-              <el-form-item label="生产日期">
-                <div class="block">
-                  <el-date-picker
-                    v-model="form.ProductionDay"
-                    type="date"
-                    placeholder="选择年"
-                    format="yyyy 年 MM 月 dd 日"
-                    value-format="yyyy-MM-dd">
-                  </el-date-picker>
-                </div>
-              </el-form-item>
-              <el-form-item label="维保单位">
-                <el-input v-model="form.Refundable"></el-input>
-              </el-form-item>
-              <el-form-item label="维保人员">
-                <el-input v-model="form.linkname"></el-input>
-              </el-form-item>
-              <el-form-item label="维保电话">
-                <el-input v-model="form.phone"></el-input>
+              <el-form-item label="简介">
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="请输入内容"
+                  v-model="form.treatment">
+                </el-input>
               </el-form-item>
               <div style="clear: both;"></div>
             </el-form>
@@ -327,7 +301,7 @@
 
         form:{
           id:'',
-          name:'',
+          dangerName:'',
           unitId:null,
           unitName:'',
           buildingId:'',
@@ -345,7 +319,13 @@
             xRate:'',
             yRate:''
           },
-          startDate:''
+          nickName:'',
+          createTime:'',
+          reviewerName:'',
+          reviewTime:'',
+          imgUrl:[],
+          cont:'',
+          treatment:''
         },
 
 
@@ -393,32 +373,36 @@
         this.tableData.forEach((item,index)=>{
           if(item.id == row.id){
             this.form.id = item.id ;
-            this.form.name = item.name ;
+            this.form.dangerName = item.dangerName ;
             this.form.unitId = item.unitId ;
             this.form.unitName = item.unitName ;
             this.form.buildingId = item.buildingId ;
-            this.form.buildingName = item.buildingName ;
+            if( this.form.buildingId == '0' &&  this.form.buildingId == 0){
+              this.form.buildingName = '室外' ;
+            }else{
+              this.form.buildingName = item.buildingName ;
+            }
             this.form.floorId = item.floorId ;
             this.form.floorNumber = item.floorNumber ;
             this.form.roomId = item.roomId ;
-            this.form.roomNumber = item.roomNumber
-            this.form.equipmentId = item.deviceTypeId ;
+            this.form.roomNumber = item.roomNumber ;
+            this.form.point.pointX = item.pointX ;
+            this.form.point.pointY = item.pointY ;
+            this.form.nickName = item.nickName ;
+            this.form.createTime = item.createTime ;
+            this.form.reviewerName = item.reviewerName ;
+            this.form.reviewTime = item.reviewTime ;
+            this.form.imgUrl = item.imgUrl ;
+            this.form.cont = item.cont ;
+            this.form.treatment = item.treatment ;
           }
         })
       },
       startRow(){
-        this.$fetch("/api/device/updateDevice",{
-          'id':this.form.id,
-          'name':this.form.name,
-          'unitId':this.form.unitId,
-          'unitName':this.form.unitName,
-          'buildingId':this.form.buildingId,
-          'buildingName':this.form.buildingName,
-          'floorId':this.form.floorId,
-          'floorNumber':this.form.floorNumber,
-          'roomId':this.form.roomId,
-          'roomNumber':this.form.roomNumber,
-          'deviceTypeId':this.form.equipmentId
+        this.$fetch("/api/trouble/solveTrouble",{
+          'troubleId':this.form.id,
+          'dangerName':this.form.dangerName,
+          'treatment':this.form.treatment
         }).then(response=>{
           if(response){
             console.log('处理成功...'+ JSON.stringify(response));
@@ -495,6 +479,7 @@
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
                     this.$store.commit('dangerId',item.id);
+                    console.log(item.id)
                   }
                 })
               }

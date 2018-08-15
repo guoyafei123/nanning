@@ -8,75 +8,57 @@
       <section>
            <div class="textandimg">
               <h2 class="size-18 font-gray-ccc margin-bottom20 margin-top10" style="text-align:center;line-height:35px;">
-                 {{ this.device.name }}<br/>设备信息详情
+                 {{ this.trouble.dangerName }}<br/>危险品信息详情
               </h2>
               <div class="row textandimg-main">
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备状态</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.status"></span>
+                      <span class="size-16 font-gray-666 span_name">状态</span>
+                      <span class="size-14 font-gray-999 span_con" v-if="this.trouble.status == 0">未解决</span>
+                      <span class="size-14 font-gray-999 span_con" v-if="this.trouble.status == 1">已解决</span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备名称</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.name"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备类型</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.deviceTypeName"></span>
+                      <span class="size-16 font-gray-666 span_name">所属单位</span>
+                      <span class="size-14 font-gray-999 span_con" v-html="this.trouble.unitName"></span>
                   </div>
                   <div class="col-sm-12">
                       <span class="size-16 font-gray-666 span_name">位置</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.location"></span>
+                      <span class="size-14 font-gray-999 span_con" v-if="this.trouble.buildingName == '室外'">室外</span>
+                      <span class="size-14 font-gray-999 span_con" v-else><span v-if="this.trouble.buildingName != '' && this.trouble.buildingName != null">{{ this.trouble.buildingName }} 建筑</span><span v-if="this.trouble.floorNumber != '' && this.trouble.floorNumber != null">{{ this.trouble.floorNumber }} 楼层</span><span v-if="this.trouble.roomNumber != '' && this.trouble.roomNumber != null">{{ this.trouble.roomNumber }} 房间</span></span>
                   </div>
                   <div class="col-sm-12">
                       <span class="size-16  font-gray-666 span_name">坐标 </span>
-                      <span class="size-12 font-gray-999 span_con" style="margin-right:10px;" v-html="this.device.point.pointX"></span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.point.pointY"></span>
+                      <span class="size-12 font-gray-999 span_con" style="margin-right:10px;" v-html="this.trouble.point.pointX"></span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.trouble.point.pointY"></span>
                   </div>
                   <div class="col-sm-12">
-                    <span class="size-16 font-gray-666 span_name">物理地址</span>
-                    <span class="size-14 font-gray-999 span_con" v-html="this.device.mac"></span>
+                    <span class="size-16 font-gray-666 span_name">上报人</span>
+                    <span class="size-14 font-gray-999 span_con" v-html="this.trouble.nickName"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">相对房顶高度（m）</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.height"></span>
+                      <span class="size-12 font-gray-666 span_name">上报时间</span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.trouble.createTime"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">相对地板高度（m)</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.fheight"></span>
-                  </div>
-
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">投入使用日期 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.startDate"></span>
+                      <span class="size-12 font-gray-666 span_name">解决人</span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.trouble.reviewerName"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">运行时长（天） </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.timeYear"></span>
+                      <span class="size-12 font-gray-666 span_name">解决时间 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.trouble.reviewTime"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">更换周期（天） </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.lifeMonth"></span>
+                      <span class="size-12 font-gray-666 span_name">图片及视频 </span>
+                      <ul>
+                        <li style="width:100px;"><img style="width:100%;" :src="this.trouble.imgUrl"/></li>
+                      </ul>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">生产商 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.firm"></span>
+                      <span class="size-12 font-gray-666 span_name">简介 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.trouble.cont"></span>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">生产日期 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.productDate"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">维保单位 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.maintenanceUnit"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">维保电话 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.maintenancePhone"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">设备二维码 </span>
-                      <span class="size-12 font-gray-999 span_con">查看</span>
-                      <span class="size-12 font-gray-999 span_con">下载</span>
+                      <span class="size-12 font-gray-666 span_name">解决原因 </span>
+                      <span class="size-12 font-gray-999 span_con" v-html="this.trouble.treatment"></span>
                   </div>
               </div>
           </div>
@@ -202,11 +184,11 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">修改设备</h4>
+                <h4 class="modal-title" id="myModalLabel">解决危险品</h4>
               </div>
               <div class="modal-body" style="height:650px;overflow-y:auto;">
                 <el-form ref="form" :label-position="labelPosition" :model="form">
-                  <el-form-item label="设备名称">
+                  <el-form-item label="危险品名称">
                     <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
                     <el-input v-model="form.name"></el-input>
                   </el-form-item>
@@ -387,25 +369,24 @@
           linkname:'',
           phone:''
         },
-        device:{
+        trouble:{
+          dangerName:'',
           status:'',
-          name:'',
-          deviceTypeName:'',
-          location:'',
+          unitName:'',
+          buildingName:'',
+          floorNumber:'',
+          roomNumber:'',
           point:{
             pointX:'',
             pointY:''
           },
-          mac:'',
-          height:'',
-          fheight:'',
-          startDate:'',
-          timeYear:'',
-          lifeMonth:'',
-          firm:'',
-          productDate:'',
-          maintenanceUnit:'',
-          maintenancePhone:''
+          nickName:'',
+          createTime:'',
+          reviewerName:'',
+          reviewTime:'',
+          imgUrl:[],
+          cont:'',
+          treatment:''
         },
         optionList:[],//全部单位列表
         tableData: [],//设备列表
@@ -457,7 +438,7 @@
         })
       },
       startRow(){
-        this.$fetch("/api/device/updateDevice",{
+        this.$fetch("/api/trouble/updateDevice",{
           'id':this.form.id,
           'name':this.form.name,
           'unitId':this.form.unitId,
@@ -492,7 +473,7 @@
       },
       deleteRow(){
            console.log(this.deviceIndex);
-          this.$fetch("/api/device/deleteDevice",{
+          this.$fetch("/api/trouble/deleteDevice",{
             'deviceId':this.deviceIndex
           }).then(response=>{
             if(response){
@@ -503,6 +484,32 @@
           }).then(err => {
             console.log(err);
           });
+      },
+      findTrouble(troubleId){
+        this.$fetch("/api/trouble/troubleDetail",{
+          'troubleId':troubleId
+        }).then(response=>{
+          console.log(response);
+          if(response.data.trouble){
+            var item = response.data.trouble;
+            this.trouble.dangerName = item.dangerName ;
+            this.trouble.status = item.status ;
+            this.trouble.unitName = item.unitName ;
+            this.trouble.buildingName = item.buildingName ;
+            this.trouble.floorNumber = item.floorNumber ;
+            this.trouble.roomNumber = item.roomNumber ;
+            this.trouble.point.pointX = item.pointX ;
+            this.trouble.point.pointY = item.pointY ;
+            this.trouble.nickName = item.nickName ;
+            this.trouble.createTime = item.createTime ;
+            this.trouble.reviewerName = item.reviewerName ;
+            this.trouble.reviewTime = item.reviewTime ;
+            this.trouble.imgUrl = item.imgUrl ;
+            this.trouble.cont = item.cont ;
+            this.trouble.treatment = item.treatment ;
+            console.log(this.trouble.nickName)
+          }
+        })
       },
       unitSearch(){
         this.$fetch(
@@ -525,26 +532,29 @@
       tableList(){
         this.$fetch(
           "/api/trouble/troubleList",{
-            unitId:this.unit,
+            unitId:this.dangerUnit,
             type:5,
-            buildingId:this.building,
-            floorId:this.floor,
-            roomId:this.room,
+            buildingId:this.dangerBuild,
+            floorId:this.dangerFloor,
+            roomId:this.dangerRoom,
             currentPage:this.currentPage4,
             pageSize:10,
-            status:this.status
+            status:this.dengerStatus
           }
         )
           .then(response => {
             console.log('危险品！！！'+JSON.stringify(response));
             if (response) {
-              // console.log(response.data.inspectionPlanList);
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
-              if(this.tableData){
+              if(this.$route.path == '/Dangerous_goods_management/all'){
+                console.log(this.tableData)
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
-                    this.$store.commit('dangerId',item.id);
+                    console.log(index);
+                    console.log(this.tableData.length-1)
+                    console.log(item.id);
+                    this.findTrouble(item.id)
                   }
                 })
               }
@@ -674,12 +684,8 @@
           $('.total').hide();
           $('.mapTable').hide();
         }
-        console.log(this.tableData)
-        this.tableData.forEach((item,index)=>{
-          if(item.id == this.deviceId){
-            console.log(item);
-          }
-        })
+        console.log(this.dangerId)
+        this.findTrouble(this.dangerId);
       },
       Unit(){
         this.tableList();
