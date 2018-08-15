@@ -1,169 +1,260 @@
 <template>
-  <div class="Inspection_plan z-index-20  ">
-    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:140px;display: none;">
+  <div class="toolright z-index-20">
+    <!-- 设备详情 -->
+    <div class="plan">
       <section>
-          <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Equipment_management/maps'">&lt;返回</span>
-        
+          <!-- <span @click="back_first" class="font-gray-666" v-if="this.$route.path == '/Equipment_management/maps'">&lt;返回</span> -->
+        <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Equipment_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       </section>
+      <!-- 设备名称 -->
+      <section>        
+        <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
+                  <!-- 已选择 -->
+                  <div class="personinfo">
+                        <p>                       
+                        <span class="size-20 font-blue">
+                          <i class="icon iconfont icon-jiankong-mian- size-20" data-toggle="tooltip" title="监控摄像头"></i> <span>{{ this.device.name }}</span>
+                        </span>
+                        <span class="float-right">
+                                <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{this.device.deviceTypeName}}</span>
+                            </span>
+                        </p>
+                        <p class="col-sm-7 text-left padding0">
+                            <span>
+                                <i class="fas fa-industry"></i> 怀化市中心小学</span>
+                        </p>
+                        <P class="col-sm-5 text-right padding0">
+                            <span class="text-right">
+                            最后更新：<span class="font-gray-999">2018.07.09 08:00:00</span>
+                            </span>
+                        </P>                        
+                  </div>
+        </div>
+      </section>
+      <!-- 设备信息统计 -->
       <section>
-           <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom20 margin-top10" style="text-align:center;line-height:35px;">
-                 {{ this.device.name }}<br/>设备信息详情
-              </h2>
-              <div class="row textandimg-main">
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备状态</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.status"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备名称</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.name"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备类型</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.deviceTypeName"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">位置</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.location"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-16  font-gray-666 span_name">坐标 </span>
-                      <span class="size-12 font-gray-999 span_con" style="margin-right:10px;" v-html="this.device.point.pointX"></span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.point.pointY"></span>
-                  </div>
-                  <div class="col-sm-12">
-                    <span class="size-16 font-gray-666 span_name">物理地址</span>
-                    <span class="size-14 font-gray-999 span_con" v-html="this.device.mac"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">相对房顶高度（m）</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.height"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">相对地板高度（m)</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.fheight"></span>
-                  </div>
-
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">投入使用日期 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.startDate"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">运行时长（天） </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.timeYear"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">更换周期（天） </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.lifeMonth"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">生产商 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.firm"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">生产日期 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.productDate"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">维保单位 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.maintenanceUnit"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">维保电话 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.maintenancePhone"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">设备二维码 </span>
-                      <span class="size-12 font-gray-999 span_con">查看</span>
-                      <span class="size-12 font-gray-999 span_con">下载</span>
-                  </div>
+          <div class="toolcount margin-top20 clearfix">
+              <div class="col-sm-4 font-gray-999 padding0">
+                  <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
+                      <li>
+                          <h1 class="toolcount-p1"><span class="font-blue"></span>正常</h1>
+                      </li>
+                      <li class="margin-top30">
+                          <p class="size-10 ">Device Status</p>
+                      </li>
+                      <li>
+                          <p class="size-16 font-blue">设备运行状态</p>
+                      </li>
+                  </ul>
+              </div>
+              <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
+                  <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
+                      <li>
+                          <p class="size-18 font-white">信息统计</p>
+                      </li>
+                      <li class="margin-bottom5">
+                          <p class="size-10 set-scaleright">Repair Statistics</p>
+                      </li>
+                      <li class="margin-top10">
+                          <p class="set-width-50">运行时长 <span class="font-blue">639 </span>天</p>
+                          <p class="pull-right">
+                              <a class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="查看监控摄像头">
+                                    <i class="icon iconfont icon-jiankong-mian-"></i> 监控</a>
+                          </p>
+                      </li>
+                      <li class="row text-center padding-right16 margin-top10">
+                          <div class="col-sm-4 personnel-borderright">
+                              <p class="size-16 show font-red">18</p>
+                              <p>报警次数</p>
+                          </div>
+                          <div class="col-sm-4 personnel-borderright">
+                              <p class="size-16 show font-orange">6</p>
+                              <p>故障次数</p>
+                          </div>
+                          <div class="col-sm-4">
+                              <p class="size-16 show font-white">360</p>
+                              <p>更换周期</p>
+                          </div>
+                      </li>
+                  </ul>
               </div>
           </div>
       </section>
+      <!-- 设备基本信息 -->
+      <section>
+        <div class="textandimg margin-top20">
+          <h4 class="p-title">设备详情<!-- <span class="pull-right font-blue">{{ this.device.name }}</span> --></h4>
+          <div class="row textandimg-main margin-top20 size-12">
+                  <div class="col-sm-12">
+                      <span>设备名称</span>
+                      <strong v-html="this.device.name"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>设备类型</span>
+                      <strong v-html="this.device.deviceTypeName"></strong>
+                  </div>                                  
+                  <div class="col-sm-12">
+                      <span>设备位置</span>
+                      <strong v-html="this.device.location"></strong>
+                  </div>
+                  <div class="col-sm-12">
+                      <span>位置坐标 </span>
+                      <strong v-html="this.device.point.pointX"></strong>
+                      <strong v-html="this.device.point.pointY"></strong>
+                  </div>                  
+                  <div class="col-sm-6">
+                      <span>距离顶部 </span>
+                      <strong v-html="this.device.height"></strong> 
+                      <b> cm</b>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>离地高度</span>
+                      <strong v-html="this.device.fheight"></strong> 
+                      <b> cm</b>
+                  </div>                  
+                  <div class="col-sm-6">
+                      <span>设备状态</span>
+                      <strong v-html="this.device.status"></strong>
+                  </div>  
+                  <div class="col-sm-6">
+                      <span>运行时长 </span>
+                      <strong v-html="this.device.timeYear"></strong>
+                      <b> 天</b>
+                  </div>  
+                  <div class="col-sm-12">
+                      <span>投入时间 </span>
+                      <strong v-html="this.device.startDate"></strong>
+                  </div>                                 
+                  <div class="col-sm-12">
+                      <span>二 维 码 </span>
+                      <strong>
+                        <a href="" class="font-blue display-inline-block" data-toggle="tooltip" title="预览二维码">预览</a> 
+                        <a href="" class="font-blue display-inline-block" data-toggle="tooltip" title="下载二维码">下载</a>
+                      </strong>
+                  </div>
+          </div>              
+        </div>
+      </section>
+      <!-- 生产信息 -->
+      <section>
+        <div class="textandimg margin-top30">
+              <h4 class="p-title">生产信息</h4>
+              <div class="row textandimg-main margin-top20 size-12">
+                  <div class="col-sm-6">
+                      <span>生产厂商 </span>
+                      <strong v-html="this.device.firm"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>生产日期 </span>
+                      <strong v-html="this.device.productDate"> </strong>
+                  </div>
+                  <div class="col-sm-12">
+                    <span>物理地址</span>
+                    <strong v-html="this.device.mac"></strong>
+                  </div>                 
+                </div>
+          </div>
+      </section>  
+      <!-- 维保信息 -->
+      <section>
+        <div class="textandimg margin-top30">
+              <h4 class="p-title">维保信息</h4>
+              <div class="row textandimg-main margin-top20 size-12">
+                  <div class="col-sm-6">
+                      <span>维保单位 </span>
+                      <strong v-html="this.device.maintenanceUnit"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>更换周期 </span>
+                      <strong v-html="this.device.lifeMonth"></strong>
+                      <b>天</b>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>维保人员 </span>
+                      <strong v-html="this.device.maintenanceUnit"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>维保电话 </span>
+                      <strong v-html="this.device.maintenancePhone"></strong>
+                  </div>                   
+                </div>
+          </div>
+      </section>      
     </div>
-    <div class="font-white margin-left15 margin-right20 total" style="margin-top:120px;">
-      <section style="display: none;" class="mapTable">
-        <div class="toolbuildrate margin-top30">
+    <!-- 设备小列表 -->
+    <div class="total" style="display: none;">
+      <section class="mapTable">
+        <!-- 总数统计 -->
+        <div class="toolcount clearfix">
+          <ul class="toolcount-left padding0 col-sm-3">
+            <li>
+              <p class="size-10 font-gray-666">Device Total</p>
+            </li>
+            <li>
+              <p class="size-18 font-blue">当前设备总数</p>
+            </li>
+            <li>
+              <h1 class="toolcount-p1">569</h1>
+            </li>
+          </ul>
+          <ul class="list-unstyled col-sm-9 margin-top70 font-gray-666 size-12">
+            <li>
+              <span>室内设备</span> <strong class="font-gray-ccc">96</strong>
+              <span>室外设备</span> <strong class="font-gray-ccc">126</strong>
+            </li>
+            <li>
+              <span>预警设备</span> <strong class="font-gray-ccc">96</strong>
+              <span>消防设备</span> <strong class="font-gray-ccc">126</strong>
+              <span>灭火设备</span> <strong class="font-gray-ccc">96</strong>
+              <span>监控设备</span> <strong class="font-gray-ccc">126</strong>
+            </li>
+          </ul>
+        </div>
+        <div class="toolbuildrate">
           <div class="main_content_table">
             <el-table
               :data="tableData"
               border
-              :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-              style="width: 100%;height:570px;">
+              :default-sort = "{prop: 'Serial_number', order: 'descending'}">
               <el-table-column
                 prop="Serial_number"
                 type="index"
-                width="60"
+                fixd="left"
                 label="序号">
               </el-table-column>
               <el-table-column
                 prop="name"
-                width="100"
                 :show-overflow-tooltip="true"
                 label="设备名称">
               </el-table-column>
-              <!-- <el-table-column
-                prop="location"
-                width="155"
-                label="设备位置">
-              </el-table-column> -->
               <el-table-column
                 prop="deviceTypeName"
-                width="80"
                 :show-overflow-tooltip="true"
                 label="设备类型">
               </el-table-column>
-              <!-- <el-table-column
-                prop="height"
-                width="130"
-                label="相对地板高度（m）">
-              </el-table-column>
-              <el-table-column
-                prop="fheight"
-                width="140"
-                label="相对天花板高度（m）">
-              </el-table-column>
-              <el-table-column
-                prop="startDate"
-                width="140"
-                label="投入使用时间">
-              </el-table-column>
-              <el-table-column
-                prop="Fault"
-                width="130"
-                label="运行时长（天）">
-              </el-table-column>
-              <el-table-column
-                prop="lifeMonth"
-                width="120"
-                label="更换周期（天）">
-              </el-table-column> -->
               <el-table-column 
                 prop="status"
-                width="80"
                 :show-overflow-tooltip="true"
                 label="状态">
                 <template slot-scope="scope">
                   <el-tag
                     :type="scope.row.status === 1 ? 'green' : 'red'"
-                    disable-transitions v-if='scope.row.status==1'>正常<i class="fa fa-th-large font-gray-666"></i></el-tag>
+                    disable-transitions v-if='scope.row.status==1'>正常</el-tag>
                   <el-tag
                     :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==2'>故障</el-tag>
+                    disable-transitions v-if='scope.row.status==2'>故障<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
                   <el-tag
                     :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==3'>警报</el-tag>
+                    disable-transitions v-if='scope.row.status==3'>警报<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
                 </template>
               </el-table-column>
               <el-table-column
                 fixed="right"
-                label="操作"
-                width="120">
+                label="操作">
                 <template slot-scope="scope">
-                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">修改</button>
-                  <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
-                  <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
+                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+                  <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+                  <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
                 </template>
               </el-table-column>
             </el-table>
@@ -201,14 +292,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">修改设备</h4>
               </div>
-              <div class="modal-body" style="height:650px;overflow-y:auto;">
+              <div class="modal-body">
                 <el-form ref="form" :label-position="labelPosition" :model="form">
                   <el-form-item label="设备名称">
                     <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
                     <el-input v-model="form.name"></el-input>
                   </el-form-item>
                   <el-form-item label="所属单位">
-                    <el-select v-model="form.unitId" placeholder="选择单位" class="select" style="width:150px;">
+                    <el-select v-model="form.unitId" placeholder="选择单位" class="select">
                       <el-option label="全部单位" value=""></el-option>
                       <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                     </el-select>
@@ -216,7 +307,7 @@
                   <el-form-item label="设备类型">
                     <el-select
                       v-model="form.equipmentId"
-                      placeholder="选择设备类型" class="sbwz_138_32 start" style="margin-left:0px;">
+                      placeholder="选择设备类型" class="sbwz_138_32 start">
                       <el-option
                         v-for="item in form.equipmentList"
                         :label="item.name"
@@ -227,7 +318,7 @@
                   <el-form-item label="设备位置">
                     <el-select
                       v-model="form.buildingId"
-                    placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="margin-left:0px;">
+                    placeholder="选择建筑"  class="sbwz_138_32 start float-left">
                       <el-option label="室外" value="0"></el-option>
                       <el-option
                         v-for="item in form.buildList"
@@ -255,8 +346,8 @@
                     </el-select>
                   </el-form-item>
                   <el-form-item label="坐标">
-                    <el-input v-model="form.point.pointX" style="display:inline-block;width:200px;"></el-input>
-                    <el-input v-model="form.point.pointY" style="display:inline-block;width:200px;"></el-input>
+                    <el-input v-model="form.point.pointX" class="display-inline-block"></el-input>
+                    <el-input v-model="form.point.pointY" class="display-inline-block"></el-input>
                   </el-form-item>
 
                   <el-form-item label="物理地址" v-if="form.deviceType == 1">
@@ -341,7 +432,6 @@
       </section>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -778,78 +868,5 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .padding-right16 {
-    padding-right: 16px;
-  }
-  .inspection_ul{
-    width:75%;
-    float: left;
-    margin-top:30px;
-    li{
-      float: left;
-      width:33%;
-      font-size: 12px;
-      color: #999999;
-      height: 30px;
-      span{
-
-        margin-left:8px;
-        color: #cccccc;
-      }
-      &:nth-child(1){
-        span{
-          margin-left:20px;
-          color: red;
-        }
-      }
-      &:nth-child(2){
-        span{
-          margin-left:19px;
-        }
-      }
-    }
-  }
-  .el-tag--red{
-    color: red !important;
-    padding:0 !important;
-    border:none;
-  }
-  .el-tag--green{
-    color: #fff !important;
-    padding:0 !important;
-    border:none;
-    i{
-      margin-left:7px;
-    }
-  }
-  .danger{
-      width: 132px;
-      background-color: #f13131;
-      color: #000;
-      font-size: 14px;
-      height: 32px;
-      line-height: 32px;
-      padding: 0;
-  }
-
-  .textandimg{
-    // margin-top:130px;
-    
-    margin-left:60px;
-  }
-
-  .span_name{
-    font-size: 15px !important;
-    width:140px;
-    display:inline-block;
-    margin-left:-20px;
-    line-height: 30px;
-  }
-  .span_con{
-    font-size: 14px !important;
-    display:inline-block;
-    line-height: 30px;
-  }
-  
+<style lang="scss" scoped>  
 </style>

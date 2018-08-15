@@ -88,8 +88,7 @@
           </el-table-column>
           <el-table-column
             fixed="right"
-            label="操作"
-            width="180">
+            label="操作">
             <template slot-scope="scope">
               <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
               <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>

@@ -9,7 +9,7 @@
         <router-link to="/Inspection_plan/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>规划</span></router-link>
       </div>
     </div>
-    <div class="main_all_content" style="display: block;">
+    <div class="main_all_content">
       <div class="main_content_top">
         <el-form ref="form" :model="form" class="float-left">
           <el-select v-model="form.region1" placeholder="选择单位" class="select">
@@ -107,7 +107,7 @@
               <!-- <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
                 <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
                 <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i> -->
-              <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="disabled"><i class="el-icon-delete font-gray-666" data-toggle="tooltip" title="删除"></i></button>
+              <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no"><i class="el-icon-delete font-gray-666" data-toggle="tooltip" title="删除"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
