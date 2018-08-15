@@ -32,7 +32,8 @@
             </li>
           </router-link>          
           <li class="system_title">风险防控</li>
-          <router-link to="/Risk_Analysis">
+          <router-link to="/Unit_management">
+          <!-- Risk_Analysis -->
             <li>
               <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
               <h2>风险分析</h2>
@@ -53,27 +54,6 @@
               <span>19</span>
             </li>
           </router-link>
-          <!-- <router-link to="/Alarm_management">
-            <li>
-              <i class="icon icon icon-baojingguanli-xian-"></i>
-              <h2>报警管理</h2>
-              <span>42</span>
-            </li>
-          </router-link>
-          <router-link to="/Hidden_danger_management">
-            <li>
-              <i class="icon iconfont icon-yinhuanguanli-xian-"></i>
-              <h2>隐患管理</h2>
-              <span>34</span>
-            </li>
-          </router-link>
-          <!-- <router-link to="/Fault_management">
-            <li>
-              <i class="icon iconfont icon-guzhangguanli-xian-"></i>
-              <h2>故障管理</h2>
-              <span></span>
-            </li>
-          </router-link> -->
           <li class="system_title">人员管理</li>
           <router-link to="/List_of_people">
             <li>
