@@ -123,7 +123,7 @@
         </div>
       </div>
     </div>
-    <!-- Modal -->
+    <!-- 编辑Modal -->
     <div class="modal modal_form fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -189,12 +189,13 @@
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">编辑并提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
       </div>
     </div>
+    <!-- 删除Modal -->
     <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -205,7 +206,7 @@
           </div>
           <div class="modal-body text-center container-padding40">
             <h3 class="font-red size-14">是否删除</h3>
-            <p class="font-white size-18">{{ deviceName }}</p>
+            <p class="font-white size-16">{{ deviceName }}</p>
           </div>
           <div class="modal-footer">
             <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>

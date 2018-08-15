@@ -84,7 +84,7 @@
     </div>
     <!-- 简单统计 -->
     <div class="font-white total">
-      <section style="display: none;" class="mapTable">
+      <section style="display: none;" class="mapTable">        
         <div class="toolbuildrate">
           <div class="main_content_table bg-black">
             <el-table

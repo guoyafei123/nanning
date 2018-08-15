@@ -1,202 +1,189 @@
 <template>
-  <div class="Inspection_plan toolright">
-    <div class="font-white margin-left15 margin-right20 plan">
+  <div class="toolright">
+    <div class="font-white plan">
       <section>
-          <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Dangerous_goods_management/maps'">&lt;返回</span>
-        
+        <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Dangerous_goods_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       </section>
+      <!-- 危险品详情 -->
       <section>
-           <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom20 margin-top10" style="text-align:center;line-height:35px;">
-                 {{ this.device.name }}<br/>设备信息详情
-              </h2>
-              <div class="row textandimg-main">
+          <div class="textandimg margin-top20">
+              <h4 class="p-title">
+                 <!-- {{ this.device.name }} -->危险品详情
+              </h4>
+              <div class="row textandimg-main margin-top20 size-12">
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备状态</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.status"></span>
+                      <span>建筑名称 </span>
+                      <strong v-html="this.form.BuildName"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备名称</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.name"></span>
+                      <span>所属单位 </span>
+                      <strong v-html="this.form.UnitName"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>建筑结构 </span>
+                      <strong v-html="this.form.structure"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>建筑性质 </span>
+                      <strong v-html="this.form.property"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">设备类型</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.deviceTypeName"></span>
+                      <span>建筑地址 </span>
+                      <strong v-html="this.form.address"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">位置</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.device.location"></span>
+                      <span>经纬度 </span>
+                      <strong v-html="this.form.point.pointX"></strong>
+                      <strong v-html="this.form.point.pointY"></strong>
                   </div>
-                  <div class="col-sm-12">
-                      <span class="size-16  font-gray-666 span_name">坐标 </span>
-                      <span class="size-12 font-gray-999 span_con" style="margin-right:10px;" v-html="this.device.point.pointX"></span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.point.pointY"></span>
+                  
+                  <div class="col-sm-6">
+                      <span>占地面积 </span>
+                      <strong v-html="this.form.area"></strong>
                   </div>
-                  <div class="col-sm-12">
-                    <span class="size-16 font-gray-666 span_name">物理地址</span>
-                    <span class="size-14 font-gray-999 span_con" v-html="this.device.mac"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">相对房顶高度（m）</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.height"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">相对地板高度（m)</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.fheight"></span>
+                  <div class="col-sm-6">
+                      <span>高 度 </span>
+                      <strong v-html="this.form.height"></strong>
                   </div>
 
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">投入使用日期 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.startDate"></span>
+                  <div class="col-sm-6">
+                      <span>总楼层 </span>
+                      <strong v-html="this.form.floor"></strong>
                   </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">运行时长（天） </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.timeYear"></span>
+                  <div class="col-sm-6">
+                      <span>建筑年份 </span>
+                      <strong v-html="this.form.timeYear"></strong>
                   </div>
+                  
+                  
                   <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">更换周期（天） </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.lifeMonth"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">生产商 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.firm"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">生产日期 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.productDate"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">维保单位 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.maintenanceUnit"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">维保电话 </span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.device.maintenancePhone"> </span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">设备二维码 </span>
-                      <span class="size-12 font-gray-999 span_con">查看</span>
-                      <span class="size-12 font-gray-999 span_con">下载</span>
+                      <span>建筑二维码 </span>
+                      <strong>
+                        <a href="" data-toggle="tooltip" title="预览二维码" class="font-blue display-inline-block">预览</a>
+                        <a href="" data-toggle="tooltip" title="下载二维码" class="font-blue display-inline-block">下载</a>
+                      </strong>
                   </div>
               </div>
           </div>
       </section>
     </div>
-    <div class="font-white margin-left15 margin-right20 total" style="margin-top:120px;">
-      <section style="display: none;" class="mapTable">
-        <div class="toolbuildrate margin-top30">
-          <div class="main_content_table">
+    <div class="font-white total">
+      <section class="mapTable" style="display: none;">
+        <!-- 总数统计 -->
+        <div class="toolcount clearfix">
+          <ul class="toolcount-left padding0 col-sm-3">
+            <li>
+              <p class="size-10 font-gray-666">Dangerous Total</p>
+            </li>
+            <li>
+              <p class="size-18 font-blue">危险品总数</p>
+            </li>
+            <li>
+              <h1 class="toolcount-p1">569</h1>
+            </li>
+          </ul>
+        </div>
+        <div class="toolbuildrate">
+          <div class="main_content_table bg-black">
             <el-table
               :data="tableData"
               border
-              :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-              style="width: 100%;height:570px;">
+              :default-sort = "{prop: 'Serial_number', order: 'descending'}">
               <el-table-column
                 prop="Serial_number"
                 type="index"
-                width="60"
+                fixed="left"
                 label="序号">
               </el-table-column>
               <el-table-column
                 prop="dangerName"
-                width="170"
                 :show-overflow-tooltip="true"
                 label="危险品名称">
               </el-table-column>
               <el-table-column
                 prop="unitName"
-                width="160"
                 :show-overflow-tooltip="true"
                 label="所属单位">
               </el-table-column>
               <el-table-column
                 prop="cont"
-                width="100"
                 :show-overflow-tooltip="true"
                 label="位置">
               </el-table-column>
               <el-table-column
                 prop="cont"
-                width="130"
                 label="危险品简介">
               </el-table-column>
               <el-table-column
                 prop="nickName"
-                width="140"
                 label="上报人">
               </el-table-column>
               <el-table-column
                 prop="createTime"
-                width="100"
                 :show-overflow-tooltip="true"
                 label="上报时间">
               </el-table-column>
               <el-table-column 
                 prop="status"
-                width="120"
                 label="状态">
                 <template slot-scope="scope">
                   <el-tag
                     :type="scope.row.status === 0 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==0'>未解决<i class="fa fa-th-large font-gray-666"></i></el-tag>
+                    disable-transitions v-if='scope.row.status==0'>未解决</el-tag>
                   <el-tag
                     :type="scope.row.status === 1 ? 'green' : 'red'"
-                    disable-transitions v-if='scope.row.status==1'>已解决</el-tag>
+                    disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
                 </template>
               </el-table-column>
               <el-table-column
                 prop="reviewerName"
-                width="130"
                 :formatter="formatter"
                 label="解决人">
               </el-table-column>
               <el-table-column
                 prop="reviewTime"
-                width="120"
                 label="解决时间">
               </el-table-column>
               <el-table-column
                 prop="treatment"
-                width="120"
                 label="解决原因">
               </el-table-column>
               <el-table-column
                 fixed="right"
-                label="操作"
-                width="120">
+                label="操作">
                 <template slot-scope="scope">
-                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;">处理</button>
-                  <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
-                  <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
+                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" class="btn-on">处理</button>
+                  <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+                  <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
                 </template>
               </el-table-column>
             </el-table>
           </div>
           <div class="main_content_bottom">
             <div class="bottom_con">
-              <div class="float-left">
-                <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-                <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
+              <div class="float-left btn-system">
+                <a href="javascript:;">打印</a>
+                <a href="javascript:;">导出</a>
               </div>
-              <el-pagination style="float: right;background: transparent"
+              <el-pagination
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
-                            :page-size="10"
+                            :page-size="6"
                             layout="prev, pager, next"
                             :total="totalList">
               </el-pagination>
-              <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
+              <span>{{page}}页</span>
               <el-pagination style="float: right;"
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
-                            :page-size="10"
+                            :page-size="6"
                             layout="total"
                             :total="totalList">
               </el-pagination>
             </div>
           </div>
         </div>
-        <!-- Modal -->
+        <!-- 编辑Modal -->
         <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -204,7 +191,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">修改设备</h4>
               </div>
-              <div class="modal-body" style="height:650px;overflow-y:auto;">
+              <div class="modal-body">
                 <el-form ref="form" :label-position="labelPosition" :model="form">
                   <el-form-item label="设备名称">
                     <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
@@ -322,6 +309,7 @@
             </div>
           </div>
         </div>
+        <!-- 删除Modal -->
         <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -330,9 +318,9 @@
                 <h4 class="modal-title" id="myModalLabel2">提示</h4>
                 <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
               </div>
-              <div class="modal-body" style="height:217px;">
-                <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
-                <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ deviceName }}</p>
+              <div class="modal-body text-center container-padding40">
+                <h3 class="font-red size-14">是否删除</h3>
+                <p class="font-white size-16">{{ deviceName }}</p>
               </div>
               <div class="modal-footer">
                 <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
@@ -705,77 +693,4 @@
 </script>
 
 <style lang="scss" scoped>
-  .padding-right16 {
-    padding-right: 16px;
-  }
-  .inspection_ul{
-    width:75%;
-    float: left;
-    margin-top:30px;
-    li{
-      float: left;
-      width:33%;
-      font-size: 12px;
-      color: #999999;
-      height: 30px;
-      span{
-
-        margin-left:8px;
-        color: #cccccc;
-      }
-      &:nth-child(1){
-        span{
-          margin-left:20px;
-          color: red;
-        }
-      }
-      &:nth-child(2){
-        span{
-          margin-left:19px;
-        }
-      }
-    }
-  }
-  .el-tag--red{
-    color: red !important;
-    padding:0 !important;
-    border:none;
-  }
-  .el-tag--green{
-    color: #fff !important;
-    padding:0 !important;
-    border:none;
-    i{
-      margin-left:7px;
-    }
-  }
-  .danger{
-      width: 132px;
-      background-color: #f13131;
-      color: #000;
-      font-size: 14px;
-      height: 32px;
-      line-height: 32px;
-      padding: 0;
-  }
-
-  .textandimg{
-    // margin-top:130px;
-    
-    margin-left:60px;
-  }
-
-  .span_name{
-    font-size: 15px !important;
-    width:140px;
-    display:inline-block;
-    margin-left:-20px;
-    line-height: 30px;
-  }
-  .span_con{
-    font-size: 14px !important;
-    display:inline-block;
-    line-height: 30px;
-  }
-  
 </style>

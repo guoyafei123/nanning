@@ -4,7 +4,7 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="icon iconfont icon-jianzhuguanli-mian-"></i>
-          <h2 class="float-left font-white size-16">新增建筑</h2>
+          <h2>新增建筑</h2>
         </div>
         <div class="main_nav float-right">
           <router-link to="/Building_management/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>

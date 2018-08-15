@@ -1,33 +1,39 @@
 <template>
-  <div class="Inspection_plan z-index-20">
-    <div class="font-white plan">
+  <div class="toolright z-index-20">
+    <!-- 路线详情 -->
+    <div class="plan">
       <section>
-          <span @click="back_first" class="font-gray-666" style="cursor:pointer;">&lt;返回</span>
+        <a @click="back_first" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
+        <!-- 路线标题 -->
+        <section>            
           <div class="personinfo">
             <p>
               <span class="size-20 font-blue" v-html="this.inspectionPlan.name"></span>
-              <span class="bgbox-min bg-gray-666 font-black">{{ this.inspectionPlan.type == 1 ? '举报检查': this.inspectionPlan.type == 2 ? '活动检查':this.inspectionPlan.type == 3 ? '例行检查':this.inspectionPlan.type == 4 ? '复查':this.inspectionPlan.type == 5 ? '施工检查':this.inspectionPlan.type == 6 ? '解除临时查封':this.inspectionPlan.type == 7 ? '恢复工作检查':this.inspectionPlan.type == 8 ? '其他检查':'全部'}}</span>
+              <span class="bgbox-min bg-gray-666 font-black size-10">{{ this.inspectionPlan.type == 1 ? '举报检查': this.inspectionPlan.type == 2 ? '活动检查':this.inspectionPlan.type == 3 ? '例行检查':this.inspectionPlan.type == 4 ? '复查':this.inspectionPlan.type == 5 ? '施工检查':this.inspectionPlan.type == 6 ? '解除临时查封':this.inspectionPlan.type == 7 ? '恢复工作检查':this.inspectionPlan.type == 8 ? '其他检查':'全部'}}</span>
               <span class="float-right">
-                        <span class="font-black size-12 bg-blue" style="padding:2px 5px;" v-if="this.inspectionPlan.status == 1">激活</span>
-                        <span class="font-black size-12 bg-red" style="padding:2px 5px;" v-if="this.inspectionPlan.status == 2">未激活</span>
-                    </span>
+                  <span class="bgbox-max bg-blue font-black size-10" v-if="this.inspectionPlan.status == 1">已激活</span>
+                  <span class="bgbox-max bg-red font-black size-10" style="padding:2px 5px;" v-if="this.inspectionPlan.status == 2">未激活</span>
+              </span>
             </p>
-            <p>
-              <span class="size-12 font-gray-666"><i class="fa fa-th-large"></i> {{ this.inspectionPlan.unitName }}</span>
-              <span class="size-12 font-gray-666 float-right set-positiontop2">激活时间<span class="font-gray-999 margin-left5" v-html="this.inspectionPlan.createTime"></span></span>
+            <p class="col-sm-7 text-left padding0">
+              <span><i class="fas fa-industry"></i> {{ inspectionPlan.unitName }}</span>
+            </p>
+            <p class="col-sm-5 text-right padding0">
+              最后更新:<strong class="font-gray-999">{{inspectionPlan.createTime}}</strong>            
             </p>
           </div>
         </section>
-      <section class="inspection-iteminfo " >
+      </section>
+      <!-- 路线信息 -->
         <section>
-          <div class="row toolcount margin-top40">
-            <div class="col-sm-4  font-gray-999 padding-right0">
-              <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
+          <div class="row toolcount margin-top20">
+            <div class="col-sm-4 font-gray-999 padding0">
+              <ul class="toolcount-left margin-bottom0 padding-left15">
                 <li>
-                  <p class="size-70 font-blue" style="line-height:90px;" v-html="this.inspectionPlan.amount"></p>
+                  <h1 class="toolcount-p1 font-yellow" v-html="this.inspectionPlan.amount">17</h1>
                 </li>
-                <li>
-                  <p class="size-10 text-center">Running Counts</p>
+                <li class="margin-top30">
+                  <p class="size-10">Rated Counts</p>
                 </li>
                 <li>
                   <p class="size-16 font-blue">每日额定完成数</p>
@@ -35,94 +41,99 @@
               </ul>
             </div>
             <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
-              <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
+              <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
                 <li>
-                  <p class="size-16 font-gray-ccc">路线信息</p>
+                  <p class="size-18 font-white">路线信息</p>
                 </li>
                 <li>
                   <p class="size-10 set-scaleright">Inspection Info</p>
                 </li>
-                <li>
-                  <p class="size-12">添加人&#x3000;&#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createUserName"></span></p>
+                <li class="margin-top10">
+                  添加人&#x3000;&#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createUserName"></span>
                 </li>
                 <li>
-                  <p class="size-12">添加时间 &#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createTime"></span></p>
+                  添加时间 &#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createTime"></span>
                 </li>
-                <li class="row text-center padding-right16 margin-top5">
+                <li class="row text-center padding-right16 margin-top10">
                   <div class="col-sm-4 container-padding0 personnel-borderright">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;" v-html="this.inspectionPlan.isScan == 1 ? '是':'否'"></p>
-                    <p class="size-12 margin-bottom0">扫码打卡</p>
+                    <p class="size-16 show font-red" v-html="this.inspectionPlan.isScan == 1 ? '是':'否'"></p>
+                    <p>扫码打卡</p>
                   </div>
                   <div class="col-sm-4 container-padding0 personnel-borderright">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;" v-html="this.inspectionPlan.nodeCount == null ? 0 : this.inspectionPlan.nodeCount"></p>
-                    <p class="size-12 margin-bottom0">节点总数</p>
+                    <p class="size-16 show font-white" v-html="this.inspectionPlan.nodeCount == null ? 0 : this.inspectionPlan.nodeCount"></p>
+                    <p>节点总数</p>
                   </div>
                   <div class="col-sm-4 container-padding0">
-                    <p class="size-16 font-white" style="width:100%;line-height: 10px;">-</p>
-                    <p class="size-12 margin-bottom0">巡检人数</p>
+                    <p class="size-16 show font-blue">20</p>
+                    <p>巡检人数</p>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
         </section>
+        <!-- 节点信息 -->
         <section>
           <div class="toolbuildrate margin-top30">
-            <h2 class="size-14 font-gray-ccc">
-              <span class="tool-rect bg-blue"></span>路线详情 </h2>
-            <div class="panel-group tablist-item margin-left15" id="accordion" role="tablist" aria-multiselectable="true">
-              <div class="panel panel-default bg-none border-none border-radiusnone">
-                <div class="panel-heading bg-gray-222 font-gray-999 tablist-itemtitle" role="tab" id="headingOne">
-                  <span class="itemtitle-rect"><i class="fa fa-th-large font-gray-333"></i></span>
-                  <h4 class="panel-title">
-                    <a v-for="item in startInspection" role="button" class="size-12" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      {{ item.buildingName }}{{ item.floorNumber }}<span v-if="item.floorNumber">层</span>{{ item.roomNumber }}<span v-if="item.roomNumber">房间</span><span class="itemtitle-value display-inline-block margin-left10 bg-red font-black" v-html="item.deviceId"></span>
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                  <div class="panel-body padding3">
-                    <ul class="size-12 font-gray-999 tablist-itemul">
-                      <li v-for="item in nodeInspection">
-                          <span>{{ item.buildingName }}{{ item.floorNumber }}<span v-if="item.floorNumber">层</span>{{ item.roomNumber }}<span v-if="item.roomNumber">房间</span>
-                            <span class="float-right">
-                              <i class="fa fa-th-large font-yellow"></i>
-                              <span class="font-blue" v-html="item.floorId"></span>/<span class="font-yellow" v-html="item.roomId"></span>
-                            </span>
-                          </span>
-                      </li>
-                    </ul>
+            <h4 class="p-title">路线详情 </h4>
+            <div class="container-padding20 clearfix">
+              <div class="panel-group tablist-item position-relative" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default bg-none border-none border-radiusnone">
+                  <div class="panel-heading bg-gray-222 font-gray-999 tablist-itemtitle" role="tab" id="headingOne">
+                    <span class="itemtitle-rect"><i class="fas fa-angle-double-down font-black"></i></span>
+                    <h4 class="panel-title">
+                      <a v-for="item in startInspection" role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        {{ item.buildingName }}{{ item.floorNumber }}<span v-if="item.floorNumber">层</span>{{ item.roomNumber }}<span v-if="item.roomNumber">房间</span>
+                        <!-- 安全评分 -->
+                        <span class="badge itemtitle-value display-inline-block margin-left10 bg-red font-black" v-html="item.deviceId"></span>
+                      </a>
+                    </h4>
                   </div>
-                </div>
-                <div class="panel-heading bg-gray-222 font-gray-999 tablist-itemtitle" role="tab" id="footerone">
-                  <span class="itemtitle-rect"><i class="fa fa-th-large font-gray-333"></i></span>
-                  <h4 class="panel-title">
-                    <a v-for="item in endInspection" role="button" class="size-12" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      {{ item.buildingName }}{{ item.floorNumber }}<span v-if="item.floorNumber">层</span>{{ item.roomNumber }}<span v-if="item.roomNumber">房间</span><span class="itemtitle-value display-inline-block margin-left10 bg-red font-black" v-html="item.deviceId"></span>
-                    </a>
-                  </h4>
+                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body padding0">
+                      <ul class="size-12 font-gray-999 tablist-itemul">
+                        <li v-for="item in nodeInspection">
+                            <span>{{ item.buildingName }}{{ item.floorNumber }}<span v-if="item.floorNumber">层</span>{{ item.roomNumber }}<span v-if="item.roomNumber">房间</span>
+                              <span class="float-right">
+                                <i class="icon iconfont icon-yinhuan-xian- font-yellow size-14 text-left"></i>
+                                <span class="font-blue" v-html="item.floorId"></span>/<span class="font-yellow" v-html="item.roomId"></span>
+                              </span>
+                            </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="toolbuildrate-forter" role="tab" id="footerone">
+                    <span class="itemtitle-rect"><i class="fas fa-flag-checkered font-black"></i></span>
+                    <h4 class="panel-title">
+                      <a v-for="item in endInspection" role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        {{ item.buildingName }}{{ item.floorNumber }}<span v-if="item.floorNumber">层</span>{{ item.roomNumber }}<span v-if="item.roomNumber">房间</span>
+                        <!-- 安全评分 -->
+                        <span class="badge itemtitle-value display-inline-block margin-left10 bg-red font-black" v-html="item.deviceId"></span>
+                      </a>
+                    </h4>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
+        <!-- 路线日志 -->
         <section>
-          <div class="toolbuildrate margin-top30">
-            <h2 class="size-14 font-gray-ccc"><span class="tool-rect bg-blue"></span>操作日志</h2>
+          <div class="table-responsive bg-black">
+            <h4 class="p-title">操作日志</h4>
             <div class="main_content_table">
               <el-table
                 :data="tableData"
                 border
-                style="width: 100%;height:235px;">
+                style="height:235px;">
                 <el-table-column
                   sortable
                   type="index"
-                  width="60"
                   label="序号">
                 </el-table-column>
                 <el-table-column
                   prop="createTime"
-                  width="140"
                   label="操作时间">
                 </el-table-column>
                 <el-table-column
@@ -135,21 +146,22 @@
                 </el-table-column>
               </el-table>
             </div>
+            <!-- 分页 -->
             <div class="main_content_bottom">
               <div class="bottom_con">
-                <div class="float-left" style="margin-top:5px;">
-                  <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-                  <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
+                <div class="float-left btn-system">
+                  <a href="javascript:;">打印</a>
+                  <a href="javascript:;">导出</a>
                 </div>
-                <el-pagination style="float: right;background: transparent"
+                <el-pagination
                                @current-change="handleCurrentChange"
                                :current-page="currentPage4"
                                :page-size="4"
                                layout="prev, pager, next"
                                :total="totalList">
                 </el-pagination>
-                <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
-                <el-pagination style="float: right;"
+                <span>{{page}}页</span>
+                <el-pagination
                                @current-change="handleCurrentChange"
                                :current-page="currentPage4"
                                :page-size="4"
@@ -161,66 +173,72 @@
             </div>
           </div>
         </section>
-      </section>
     </div>
-    <div class="font-white margin-left15 margin-right20 total" style="margin-top:120px;">
-      <h2 style="font-size: 12px;line-height:10px;margin-bottom:10px;" class="font-gray-999">Inspection Total</h2>
-      <h3 style="font-size:18px;" class="font-blue">当前线路总数</h3>
-      <div style="width:100%;overflow: hidden;">
-        <p style="width:15%;font-size: 70px;margin-left:20px;float: left" v-html="this.countInspectionPlanRelevant.countTotal"></p>
-        <ul class="inspection_ul">
+    <!-- 小列表 -->
+    <div class="total" style="display: none;">
+      <!-- 总数统计 -->
+      <section class="toolcount clearfix">
+        <ul class="toolcount-left padding0 col-sm-3">
           <li>
-            未激活<span v-html="this.countInspectionPlanRelevant.countDisableTotal"></span>
+            <p class="size-10 font-gray-666">Inspection Total</p>
           </li>
           <li>
-            已激活<span v-html="this.countInspectionPlanRelevant.countEnableTotal"></span>
+            <p class="size-18 font-blue">当前线路总数</p>
           </li>
           <li>
-            已删除<span v-html="this.countInspectionPlanRelevant.countDelete"></span>
-          </li>
-          <li>
-            扫码打卡<span v-html="this.countInspectionPlanRelevant.countIssanCount"></span>
+            <h1 class="toolcount-p1">{{countInspectionPlanRelevant.countTotal}}</h1>
           </li>
         </ul>
-      </div>
-      <section style="display: none;" class="mapTable">
-        <div class="toolbuildrate margin-top30">
+        <ul class="list-inline col-sm-9 text-left margin-top90 font-gray-666 size-12">
+          <li>
+            未激活 <span class="font-red">{{countInspectionPlanRelevant.countDisableTotal}}</span>
+          </li>
+          <li>
+            已激活 <span class="font-white">{{countInspectionPlanRelevant.countEnableTotal}}</span>
+          </li>
+          <li>
+            已删除 <span class="font-gray-ccc">{{countInspectionPlanRelevant.countDelete}}</span>
+          </li>
+          <li>
+            扫码打卡 <span class="font-blue">{{countInspectionPlanRelevant.countIssanCount}}</span>
+          </li>
+        </ul>
+      </section>
+      <!-- 主体 -->
+      <section class="mapTable">
+        <div class="toolbuildrate">
+          <!-- 表格 -->
           <div class="main_content_table">
             <el-table
               :data="tableDataList"
               border
-              :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-              style="width: 100%;height:570px;">
+              :default-sort = "{prop: 'Serial_number', order: 'descending'}">
               <el-table-column
                 type="index"
+                fixed="left"
                 sortable
                 prop="Serial_number"
-                width="60"
                 label="序号">
               </el-table-column>
               <el-table-column
                 prop="name"
-                width="100"
                 label="路线名称">
               </el-table-column>
               <el-table-column
                 prop="nodeCount"
-                width="60"
-                label="节点">
+                label="节点数">
               </el-table-column>
               <el-table-column
                 prop="isScan" :formatter="formatScan"
-                width="100"
                 label="扫码打卡">
               </el-table-column>
               <el-table-column :formatter="formatStatus"
                 prop="status"
-                width="100"
                 label="路线状态">
                 <template slot-scope="scope" :formatter="formatStatus">
                   <el-tag
                     :type="scope.row.status === 1 ? 'green' : 'red'"
-                    disable-transitions v-if='scope.row.status==1'>已激活<i class="fa fa-th-large font-gray-666"></i></el-tag>
+                    disable-transitions v-if='scope.row.status==1'>已激活 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
                   <el-tag
                     :type="scope.row.status === 2 ? 'red' : 'green'"
                     disable-transitions v-if='scope.row.status==2'>未激活</el-tag>
@@ -228,121 +246,123 @@
               </el-table-column>
               <el-table-column
                 fixed="right"
-                label="操作"
-                width="120">
+                label="操作">
                 <template slot-scope="scope">
-                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" style="width:40px;height:22px;border:2px solid #bad616;color: #bad616;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==2">开启</button>
-                  <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" style="width:40px;height:22px;border:2px solid #999999;color: #999;background-color: #111111;line-height: 19px;margin:0;padding:0;font-size: 12px;text-align: center;margin-right:10px;" v-if="scope.row.status==1">关闭</button>
-                  <i @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"  class="fa fa-th-large font-gray-666" style="margin-right: 10px;" v-if="scope.row.status==2"></i>
-                  <i class="fa fa-th-large" style="margin-right: 10px;color: #2c2c2c;" v-if="scope.row.status==1"></i>
-                  <i @click="show3(scope.row)" class="fa fa-th-large font-gray-666"></i>
-                </template>
+                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" v-if="scope.row.status==2" class="btn-on">开启</button>
+                  <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" v-if="scope.row.status==1" class="btn-off">关闭</button>
+                  <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2" v-if="scope.row.status==2"><i  class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+                  <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no"><i class="el-icon-delete font-gray-666" data-toggle="tooltip" title="删除"></i></button>
+                  <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
+                </template> 
               </el-table-column>
             </el-table>
           </div>
+          <!-- 分页 -->
           <div class="main_content_bottom">
             <div class="bottom_con">
-              <div class="float-left" style="margin-top:5px;">
-                <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-                <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
+              <div class="float-left btn-system">
+                <a href="javascript:;">打印</a>
+                <a href="javascript:;">导出</a>
+                <a href="javascrip:;">导出二维码</a>
               </div>
-              <el-pagination style="float: right;background: transparent"
+              <el-pagination
                              @current-change="handleCurrent"
                              :current-page="currentPage"
-                             :page-size="10"
+                             :page-size="5"
                              layout="prev, pager, next"
                              :total="totalCount">
               </el-pagination>
-              <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{pageCount}}页</span>
-              <el-pagination style="float: right;"
+              <span>{{pageCount}}页</span>
+              <el-pagination
                              @current-change="handleCurrent"
                              :current-page="currentPage"
-                             :page-size="10"
+                             :page-size="5"
                              layout="total"
                              :total="totalCount">
               </el-pagination>
             </div>
           </div>
         </div>
-        <!-- Modal -->
-    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">激活</h4>
-            <h5 class="modal-p">{{ inspectionName }}</h5>
-          </div>
-          <div class="modal-body">
-            <el-form ref="form" :label-position="labelPosition" :model="form">
-
-              <el-form-item size="small"
-                  label="每日额定完成次数"
-                  prop="age">
-                <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:190px;"></el-input>
-                <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
-              </el-form-item>
-              <div style="clear: both;"></div>
-              <el-form-item label="是否开启扫描打卡" style="margin-top:10px;">
-                <span class="font-red" style="position: absolute;top:-54px;right:20px;">未选择是否生成图形码</span>
-                <el-radio-group v-model="isScan">
-                  <el-radio-button label="1">是</el-radio-button>
-                  <el-radio-button label="0">否</el-radio-button>
-                </el-radio-group>
-                <el-button type="primary" round icon="el-icon-search" class="resource_btn" style="width:260px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
-
-              </el-form-item>
-            </el-form>
-          </div>
-          <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">激活</el-button>
-            <el-button class="back" data-dismiss="modal">取消</el-button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel2">提示</h4>
-            <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
-          </div>
-          <div class="modal-body" style="height:217px;">
-            <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
-            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ inspectionName }}</p>
-          </div>
-          <div class="modal-footer">
-            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
-            <el-button class="back" data-dismiss="modal">取消</el-button>
+        <!-- 开启Modal -->
+        <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">激活</h4>
+                <h5 class="modal-p">{{ inspectionName }}</h5>
+                <!-- 错误提示 -->
+                  <div class="text-center">
+                    <span class="font-red size-12"><i class="el-icon-warning"></i> 未选择是否生成图形码</span>
+                  </div>
+              </div>
+              <div class="modal-body text-left container-padding40">            
+                <el-form ref="form" :label-position="labelPosition" :model="form">              
+                  <el-form-item size="small"
+                      label="每日额定完成次数"
+                      prop="age">
+                    <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:160px;"></el-input>
+                    <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="width:300px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
+                  </el-form-item>
+                  <el-form-item label="是否开启扫描打卡"class="margin-top10">                
+                    <el-radio-group v-model="isScan">
+                      <el-radio-button label="1">是</el-radio-button>
+                      <el-radio-button label="0">否</el-radio-button>
+                    </el-radio-group>
+                    <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="width:300px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
+                  </el-form-item>
+                </el-form>
+              </div>
+              <div class="modal-footer">
+                <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">激活</el-button>
+                <el-button class="back" data-dismiss="modal">取消</el-button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="modal fade" id="mymodal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel3">提示</h4>
-            <h5 class="modal-p">关闭操作并不影响之前的统计数据</h5>
-          </div>
-          <div class="modal-body" style="height:217px;">
-            <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否关闭</h2>
-            <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ inspectionName }}</p>
-          </div>
-          <div class="modal-footer">
-            <el-button type="danger" @click.native.prevent="StopRow()" icon="el-icon-search" class="danger" data-dismiss="modal">关闭</el-button>
-            <el-button class="back" data-dismiss="modal">取消</el-button>
+        <!-- 删除Modal -->
+        <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" style="">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
+              </div>
+              <div class="modal-body text-center container-padding40">
+                    <h3 class="font-red size-14">是否删除</h3>
+                    <p class="font-white size-16">{{ inspectionName }}</p>
+              </div>
+              <div class="modal-footer">
+                <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
+                <el-button class="back" data-dismiss="modal">取消</el-button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+        <!-- 关闭Modal -->
+        <div class="modal fade" id="mymodal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" style="">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel3">提示</h4>
+                <h5 class="modal-p">关闭操作并不影响之前的统计数据</h5>
+              </div>
+              <div class="modal-body text-center container-padding40">
+                <h3 class="font-red size-14">是否关闭</h3>
+                <p class="font-white size-16">{{ inspectionName }}</p>
+              </div>
+              <div class="modal-footer">
+                <el-button type="danger" @click.native.prevent="StopRow()" icon="el-icon-circle-close-outline" class="danger" data-dismiss="modal">关闭</el-button>
+                <el-button class="back" data-dismiss="modal">取消</el-button>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
+      </div>
     </div>
-  </div>
-
 </template>
 
 <script>
@@ -653,58 +673,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .padding-right16 {
-    padding-right: 16px;
-  }
-  .inspection_ul{
-    width:75%;
-    float: left;
-    margin-top:30px;
-    li{
-      float: left;
-      width:33%;
-      font-size: 12px;
-      color: #999999;
-      height: 30px;
-      span{
-
-        margin-left:8px;
-        color: #cccccc;
-      }
-      &:nth-child(1){
-        span{
-          margin-left:20px;
-          color: red;
-        }
-      }
-      &:nth-child(2){
-        span{
-          margin-left:19px;
-        }
-      }
-    }
-  }
-  .el-tag--red{
-    color: red !important;
-    padding:0 !important;
-    border:none;
-  }
-  .el-tag--green{
-    color: #fff !important;
-    padding:0 !important;
-    border:none;
-    i{
-      margin-left:7px;
-    }
-  }
-  .danger{
-      width: 132px;
-      background-color: #f13131;
-      color: #000;
-      font-size: 14px;
-      height: 32px;
-      line-height: 32px;
-      padding: 0;
-  }
 
 </style>

@@ -221,7 +221,7 @@
               <section>
                 <div class="row toolcount margin-top20">
                   <div class="col-sm-4 font-gray-999 padding0">
-                    <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
+                    <ul class="toolcount-left margin-bottom0 padding-left15" id="toolcount">
                       <li>
                         <h1 class="toolcount-p1 font-yellow">17</h1>
                       </li>

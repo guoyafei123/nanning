@@ -108,7 +108,7 @@
     width:100%;
     height:68px;
     padding:0 15px;
-    background: #111111;
+    background-color: #111;
   }
   .main_title{
     display: flex;
@@ -172,17 +172,19 @@
 .main_all_content .el-select {
     margin-right: 10px;
 }
-.main_all_content,
-.main_content_table {
+.main_all_content {
 	height: 100%;
+}
+.main_content_table table {
+  margin-top: 9px;
 }
 .main_content_table .el-table td:last-child .cell,
 .main_content_table .el-table th:last-child .cell{
 	text-align: right!important;
-	padding-right: 20px!important;
+	padding-right: 15px!important;
 }
 .main_content_table .el-table th:last-child .cell {
-	padding-right: 24px!important;
+	padding-right: 20px!important;
 }
 .total .main_content_table .el-table td:last-child .cell {
   padding-right: 0px!important;
@@ -253,13 +255,11 @@
   }
   .main_content_table{
     width:100%;
-    background: #111111;
   }
   .main_content_bottom{
     width:100%;
     height:60px;
     padding-top:10px;
-    background: #111111;
     
   }
  .btn_active button{
@@ -311,13 +311,10 @@
     color: #fff !important;
     padding:0 !important;
     border:none;
-    i{
-      margin-left:7px;
-    }
   }
   .start{
-    margin-top:4px;
-    margin-left:10px;
+    /*margin-top:4px;
+    margin-left:10px;*/
   }
 .bottom_con {
 	line-height: 22px;
@@ -332,22 +329,20 @@
  	margin-right: 5px;
  }
 .el-table td, .el-table th {
-	min-width: 60px!important;
+	/*min-width: 60px!important;*/
 	padding:0!important;
 	color: #999;
 }
+
 .el-table tr:hover button,
 .el-table tr:hover .cell>i.iconfont,
 .el-table tr.active,
 .el-table__body tr.hover-row>td i.iconfont,
 .el-table__body tr.hover-row>td .cell>button {
-	color: #bad616!important;
+	color: #bad616;
 }
 .el-table .cell, .el-table th div {
 	padding-right: 0!important;
-}
-.el-table__header-wrapper {
-	padding-top: 9px;
 }
 .el-table .cell>button,.el-table .cell>i {
 	color: #ccc;
@@ -362,11 +357,7 @@
 .el-table .cell>button>i {
 	font-size: 14px;
 	line-height: 40px;
-} 
-.el-table__header thead th:last-child .cell,.el-table__header thead th:first-child .cell {
-	padding-top: 9px!important;
 }
-
 .el-table__empty-text {
 	color: #f13131!important;
 }
@@ -445,7 +436,8 @@
 	border-color: transparent!important;
 }
 .el-button--default:hover {
-	color: #bad616!important;
+  border-color: #999;
+	color: #ccc;
 }
 .el-button--danger {
 	background-color: #f13131;
@@ -460,7 +452,7 @@
   width: 100%;
 }
 #add-new {
-	height: 128%;
+	height: 100%;
 }
 #add-new aside {
   width: 525px;
@@ -496,22 +488,7 @@
 	padding-bottom:15px; 
 }
 
-.main_content .el-form .hint-error {
-	color: #f13131;
-	font-size: 12px;
-	line-height: 24px;
-	position: absolute;
-	top:-24px;
-	right:0;
-	text-align: right;
-	font-family: element-icons!important;
-}
-.main_content .el-form .hint-error:before {
-	content: "\E607";
-	display: inline-block;
-	font-size: 12px;
-	margin-right: 4px;
-}
+
 .main_content .el-form-item__label{
 	margin-left: 15px;
 }
@@ -519,10 +496,13 @@
 [class^=col-].el-form-item__label {
 	margin-left: 0!important;
 }
+.el-select[class^=col-],
 .el-input[class*="col-"],
 .el-input[class^=col-],
 .el-form-item[class*="col-"],
-.el-form-item[class^=col-]{
+.el-form-item[class^=col-],
+.el-form-item [class*="col-"],
+.el-form-item [class^=col-]{
 	padding-right:0!important;
 }
 .main_footer {
@@ -551,3 +531,25 @@
 	border-color:#666!important;
 	color:#ccc!important;
 }
+
+/*设备*/
+.toolbuildrate {
+  background-color: #000;
+}
+.main_content_table{
+  background-color: transparent;
+  height: 79%;
+}
+#unit-manage .main_content_table {
+    height: 84%;
+}
+.badge-tip{
+  padding: 2px 10px !important;
+    float: right;
+    margin-top: 8px !important;
+    background: #000 !important;
+    border: none !important;
+    border-radius: 20px!important;
+    height: 26px!important;
+}
+
