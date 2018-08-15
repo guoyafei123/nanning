@@ -468,23 +468,6 @@ table th, table td{
 // floor 
   .floor_wrap{
     width:100%;
-    padding:0 15px;
-    .floor_header{
-      h2{
-        color: #fff;
-        font-size: 20px;
-        float: left;
-        margin-top: 17px;
-      }
-      span{
-        display: inline-block;
-        float: right;
-        line-height: 35px;
-        color: #999999;
-        padding:0;
-        margin:10px 30px 0 0 ;
-      }
-    }
     .floor_title{
       h3{
         color: #cccccc;
@@ -690,7 +673,6 @@ table th, table td{
 .floor_wrap table tbody {
     display: block;
     height: 500px;
-    overflow-y: scroll;
 }
 
 .floor_wrap table thead,
