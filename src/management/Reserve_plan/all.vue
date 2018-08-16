@@ -2,11 +2,11 @@
   <section>
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-danweiguanli-mian-1"></i>
-        <h2>单位管理</h2>
+        <i class="icon iconfont icon-yuanliebiao"></i>
+        <h2>预案管理</h2>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Unit_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
+        <router-link to="/Reserve_plan/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
       </div>
     </div>
     <div class="main_all_content">
@@ -14,7 +14,6 @@
         <el-table
           :data="tableData"
           border
-          :highlight-current-row="true"
           :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             prop="Serial_number"
@@ -131,8 +130,7 @@
                     <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
                   </div>
                 </div>
-                <img v-show="isShow" :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>
-                <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
+                <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>
               </el-form-item>
               <el-form-item label="部门电话">
                 <el-input v-model="form.telephone"></el-input>
@@ -185,26 +183,11 @@
         totalList:null,//总条数
         deviceIndex:'',
         deviceName:'',
-        deviceIndexs:'',
-        isShow:true,
-        fileVerification:''//验证图片
+        deviceIndexs:''
       }
     },
     methods: {
       file(){
-        var x = document.getElementById("file");
-        if (!x || !x.value) return;
-        var patn = /\.jpg$|\.jpeg$|\.png$/i;
-        if (!patn.test(x.value)) {
-          this.fileVerification="您选择的似乎不是图像文件!!";
-          x.value = "";
-          this.isShow = false ;
-          
-          return;
-        }
-        this.isShow = true ;
-        this.fileVerification="";
-        $("#up_img"+this.form.id+"").attr("src",'');
         console.log(this.form.id)
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
       },

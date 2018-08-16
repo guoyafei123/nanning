@@ -8,8 +8,8 @@
           <div class="position-absolute-bottom clearfix">
             <!-- 单位信息 -->
             <article class="unit-brief white-space col-sm-10">
-              <h3>怀化市</h3>
-              <small><i class="el-icon-location"></i> 怀化市银海大道710-2号</small>
+              <h3>-</h3>
+              <small><i class="el-icon-location"></i> -</small>
             </article>
             <!-- 安全评分 -->
             <article class="unit-score">
@@ -21,7 +21,7 @@
             </article>
           </div>
           <!-- 单位图片 -->
-          <img src="/assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
+          <img src="../../assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
         </li>
         <!-- 统计1 -->
         <li>
@@ -387,42 +387,45 @@
 </template>
 
 <script>
-import earlyinfoVue from '../publick/earlyinfo';
-import{mapState} from "vuex";
-import sockjs from 'sockjs-client';
-import moment from 'moment';
-import { realconsole } from '../../assets/js/management.js'
-var Stomp = require('@stomp/stompjs');
+import earlyinfoVue from "../publick/earlyinfo";
+import { mapState } from "vuex";
+import sockjs from "sockjs-client";
+import moment from "moment";
+import { realconsole } from "../../assets/js/management.js";
+var Stomp = require("@stomp/stompjs");
 export default {
-
-  components:{
-      'earlyinfo-vue':earlyinfoVue
+  components: {
+    "earlyinfo-vue": earlyinfoVue
   },
   // 数据接入
 
   data() {
     return {
-      getunitid:null,
+      getunitid: null,
       // 弹报警详情
       dialogVisible: false,
-      torightdatas:Object,
-      getUnitsSynthesis_parmar:{
-        unitId:null
+      torightdatas: Object,
+      getUnitsSynthesis_parmar: {
+        unitId: null
       },
-      getUnitsSynthesis:Object,
-      queryAlarmIng_parmar:{
-        unitid:null,
-        type:1
+      getUnitsSynthesis: Object,
+      queryAlarmIng_parmar: {
+        unitid: null,
+        type: 1
       },
-      queryAlarmIng:Object,
+      queryAlarmIng: Object,
       // socketid:''
       websock: null,
-      tounpdateIndex:1,
-      myAudio:Object,
-      mp3arr:[require('../../assets/mp3/login.mp3'),require('../../assets/mp3/login.mp3')],
-      socketcodes:{},
-      socketIs:1
-    }
+      tounpdateIndex: 1,
+      myAudio: Object,
+      mp3arr: [
+        require("../../assets/mp3/login.mp3"),
+        require("../../assets/mp3/login.mp3")
+      ],
+      socketcodes: {},
+      socketIs: 1,
+      // getuserinfos: Object
+    };
   },
   // sockets:{
   //   connect: function(){  //这里是监听connect事件
@@ -432,115 +435,121 @@ export default {
   //     console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
   //   }
   // },
-  computed:mapState([
-    'torightdata',
-    'unitid'
-  ]),
-  watch:{
-      torightdata(){
-        this.torightdatas=this.torightdata;
-      },
-      unitid(){
-        if(this.unitid!=0){
-          this.getunitid=this.unitid;
-        }else{
-          this.getunitid=null;
-        }
-        this.getUnitsSynthesis_parmar.unitId=this.getunitid;
-        this.queryAlarmIng_parmar.unitId=this.getunitid;
-        this.getgetUnitsSynthesis();
-        this.getqueryAlarmIng(666);
-      }
+  computed: mapState(["torightdata", "unitid", "userinfo"]),
+  watch: {
+    torightdata() {
+      this.torightdatas = this.torightdata;
     },
+    unitid() {
+      if (this.unitid != 0) {
+        this.getunitid = this.unitid;
+      } else {
+        this.getunitid = null;
+      }
+      this.getUnitsSynthesis_parmar.unitId = this.getunitid;
+      this.queryAlarmIng_parmar.unitId = this.getunitid;
+      this.getgetUnitsSynthesis();
+      this.getqueryAlarmIng(666);
+    }
+  },
   // 调用方法
   methods: {
-    openEarlyList(){
-      $(".unit-info").slideToggle(
-        function(){
+    openEarlyList() {
+      $(".unit-info").slideToggle(function() {
         $(".unit-btn-close").toggle();
         $(".unit-btn-open").toggle();
         $(".early-warning").toggleClass("scrollheight");
       });
     },
     connect() {
-      var that=this;
+      var that = this;
       console.log("去链接。。。");
-      var socket = new sockjs('http://api.nanninglq.51play.com/socket');
+      var socket = new sockjs("http://api.nanninglq.51play.com/socket");
       var stompClient = Stomp.over(socket);
-      stompClient.connect({}, function (frame) {
-          console.log('Connected: ' + frame);
+      stompClient.connect(
+        {},
+        function(frame) {
+          console.log("Connected: " + frame);
           //广播消息
-          stompClient.subscribe('/topic/broadcast', function (data) {
-              // console.info("receive a broadcast message");
-              // that.runCallback(data);
-              // console.log(data);
+          stompClient.subscribe("/topic/broadcast", function(data) {
+            // console.info("receive a broadcast message");
+            // that.runCallback(data);
+            // console.log(data);
           });
           //点对点
-          stompClient.subscribe('/user/topic/p2p', function (data) {
-              // console.info("receive a p2p message");
-              var message = JSON.parse(data.body);
-              var opt = message.data.opt;
-              console.log(opt.code);
-              if(!that.socketcodes[opt.code]){
-                 that.runCallback(data,that);
-                 that.$store.commit('toIndexLeftAlarmChar', '更新'+that.tounpdateIndex++);
-                 that.getgetUnitsSynthesis();
-                 that.socketcodes[opt.code] = true ;
-                 console.log(1);
-              }
-              
-              // console.log(data);
+          stompClient.subscribe("/user/topic/p2p", function(data) {
+            // console.info("receive a p2p message");
+            var message = JSON.parse(data.body);
+            var opt = message.data.opt;
+            console.log(opt.code);
+            if (!that.socketcodes[opt.code]) {
+              that.runCallback(data, that);
+              that.$store.commit(
+                "toIndexLeftAlarmChar",
+                "更新" + that.tounpdateIndex++
+              );
+              that.getgetUnitsSynthesis();
+              that.socketcodes[opt.code] = true;
+              console.log(1);
+            }
+
+            // console.log(data);
           });
           console.log("创建链接完成。。。");
-      },function (e) {
+        },
+        function(e) {
           console.error("connection closed, retry in 5 seconds");
-          setTimeout('connect()', 5000);
+          setTimeout("connect()", 5000);
           console.log("创建链接失败。。。");
-      });
+        }
+      );
     },
-    runCallback(data,that) {
+    runCallback(data, that) {
       var message = JSON.parse(data.body);
       var opt = message.data.opt;
 
       // 人工报警和设备报警
-      if(opt.type==1 || opt.type==2){
-        that.getqueryAlarmIng(2,opt.type);
-        this.openpanl(opt.type,opt)
+      if (opt.type == 1 || opt.type == 2) {
+        that.getqueryAlarmIng(2, opt.type);
+        this.openpanl(opt.type, opt);
       }
       // 确认火情
-      if(opt.type==5){
-        that.getqueryAlarmIng(3,opt.type);
-        this.openpanl(opt.type,opt)
+      if (opt.type == 5) {
+        that.getqueryAlarmIng(3, opt.type);
+        this.openpanl(opt.type, opt);
       }
-      if(opt.type==20){
-        that.getqueryAlarmIng(20,opt.type);
-        this.openpanl(opt.type,opt)
+      if (opt.type == 20) {
+        that.getqueryAlarmIng(20, opt.type);
+        this.openpanl(opt.type, opt);
       }
       // 关闭火情
-      if(opt.type==6 || opt.type==3){
-        that.getqueryAlarmIng(4,opt.type);
-        this.openpanl(opt.type,opt)
+      if (opt.type == 6 || opt.type == 3) {
+        that.getqueryAlarmIng(4, opt.type);
+        this.openpanl(opt.type, opt);
       }
-      if(opt.type==9){
-        that.getqueryAlarmIng(9,opt.type);
-        this.openpanl(opt.type,opt)
+      if (opt.type == 9) {
+        that.getqueryAlarmIng(9, opt.type);
+        this.openpanl(opt.type, opt);
       }
-      if(opt.type==10){
-        that.getqueryAlarmIng(10,opt.type);
-        this.openpanl(opt.type,opt)
+      if (opt.type == 10) {
+        that.getqueryAlarmIng(10, opt.type);
+        this.openpanl(opt.type, opt);
       }
-      if(opt.title!=null || opt.title!=''){
-        this.getmp3new('http://api.nanninglq.51play.com/alarm/getAlarmAudio?content='+opt.title);
+      if (opt.title != null || opt.title != "") {
+        this.getmp3new(
+          "http://api.nanninglq.51play.com/alarm/getAlarmAudio?content=" +
+            opt.title
+        );
       }
     },
 
-    getgetUnitsSynthesis(){
+    getgetUnitsSynthesis() {
       this.$fetch(
         "/api/unit/getUnitsSynthesis",
         this.getUnitsSynthesis_parmar
       ).then(response => {
         if (response.data) {
-          this.getUnitsSynthesis=response.data.result;
+          this.getUnitsSynthesis = response.data.result;
         }
       });
     },
@@ -551,117 +560,129 @@ export default {
     // =3 确认报警
     // =4 关闭火情
 
-    getqueryAlarmIng(type,opttype){
-      this.queryAlarmIng=Object;
-      this.$fetch(
-        "/api/alarm/queryAlarmIng",
-        this.queryAlarmIng_parmar
-      ).then(response => {
-        if (response.data) {
-          this.queryAlarmIng=response.data;
-          console.log(this.queryAlarmIng);
-          this.$store.commit('indexToAlarmTroubel',[this.queryAlarmIng,type]);
-
+    getqueryAlarmIng(type, opttype) {
+      this.queryAlarmIng = Object;
+      this.$fetch("/api/alarm/queryAlarmIng", this.queryAlarmIng_parmar).then(
+        response => {
+          if (response.data) {
+            this.queryAlarmIng = response.data;
+            console.log(this.queryAlarmIng);
+            this.$store.commit("indexToAlarmTroubel", [
+              this.queryAlarmIng,
+              type
+            ]);
+          }
         }
-      });
+      );
     },
-    
-    getmp3new(mp3){
-      this.mp3arr.push(mp3)
-			this.mp3arr.push(require('../../assets/mp3/login.mp3'))
-			if(this.mp3arr.length>0){
-				this.myAudio.addEventListener('ended', this.playEndedHandler, false);
-				this.myAudio.play();
+
+    getmp3new(mp3) {
+      this.mp3arr.push(mp3);
+      this.mp3arr.push(require("../../assets/mp3/login.mp3"));
+      if (this.mp3arr.length > 0) {
+        this.myAudio.addEventListener("ended", this.playEndedHandler, false);
+        this.myAudio.play();
       }
-      let that=this;
+      let that = this;
     },
-    getmp3(){
-      let myAudio=this.myAudio;
+    getmp3() {
+      let myAudio = this.myAudio;
       this.myAudio = new Audio();
-      this.myAudio.preload = true; 
-      this.myAudio.controls = false; 
+      this.myAudio.preload = true;
+      this.myAudio.controls = false;
       this.myAudio.src = this.mp3arr.shift();
-      this.myAudio.addEventListener('ended', this.playEndedHandler, false); 
-      this.myAudio.play(); 
-      document.getElementById("audioBox").appendChild(this.myAudio); 
-      this.myAudio.loop = false; 
-      let that=this;
+      this.myAudio.addEventListener("ended", this.playEndedHandler, false);
+      this.myAudio.play();
+      document.getElementById("audioBox").appendChild(this.myAudio);
+      this.myAudio.loop = false;
+      let that = this;
     },
-    playEndedHandler(){
+    playEndedHandler() {
       this.myAudio.src = this.mp3arr.shift();
       this.myAudio.play();
-      if(this.mp3arr.length>0){
-        console.log('--')
-      }else{
-        console.log('-')
-        this.myAudio.removeEventListener('ended',this.playEndedHandler,false);
+      if (this.mp3arr.length > 0) {
+        console.log("--");
+      } else {
+        console.log("-");
+        this.myAudio.removeEventListener("ended", this.playEndedHandler, false);
       }
     },
-    openpanl(type,item){
+    openpanl(type, item) {
       // 报警
-      var icon='icon-baojing-xian-';
-      var title='报警';
-      var position='经典大厦';
-      var people='段亚伟';
-      var time='';
-      var style='panlset-red';
-      if(type==1 || type==2){
-        icon='icon-baojing-xian-';
-        title='报警';
-        style='panlset-red';
+      var icon = "icon-baojing-xian-";
+      var title = "报警";
+      var position = "经典大厦";
+      var people = "段亚伟";
+      var time = "";
+      var style = "panlset-red";
+      if (type == 1 || type == 2) {
+        icon = "icon-baojing-xian-";
+        title = "报警";
+        style = "panlset-red";
       }
       // 确认火情
-      if(type==5){
-        icon='icon-baojing-xian-';
-        title='火情';
-        style='panlset-red';
+      if (type == 5) {
+        icon = "icon-baojing-xian-";
+        title = "火情";
+        style = "panlset-red";
       }
       // 关闭火情
-      if(type==6 || type==3 || type==20){
-        icon='icon-baojing-xian-';
-        title='关闭';
-        style='panlset-blue';
+      if (type == 6 || type == 3 || type == 20) {
+        icon = "icon-baojing-xian-";
+        title = "关闭";
+        style = "panlset-blue";
       }
-      if(type==9){
-        icon='icon-feirenweiyinsuyinhuan-xian-1';
-        title='隐患';
-        style='panlset-yellow';
+      if (type == 9) {
+        icon = "icon-feirenweiyinsuyinhuan-xian-1";
+        title = "隐患";
+        style = "panlset-yellow";
       }
-      if(type==10){
-        icon='icon-feirenweiyinsuyinhuan-xian-1';
-        title='关闭';
-        style='panlset-blue';
+      if (type == 10) {
+        icon = "icon-feirenweiyinsuyinhuan-xian-1";
+        title = "关闭";
+        style = "panlset-blue";
       }
 
-      var html=`
+      var html =
+        `
         <div class='row font-black' style='width:600px;'>
           <div class='col-sm-3 notify-left size-26'>
-            <i class='icon iconfont `+icon+` size-48'></i>
-            <span class='size-20'>`+title+`</span>
+            <i class='icon iconfont ` +
+        icon +
+        ` size-48'></i>
+            <span class='size-20'>` +
+        title +
+        `</span>
           </div>
           <div class='col-sm-9 notify-right'>
-            <P>`+item.title+`</p>
+            <P>` +
+        item.title +
+        `</p>
             <P class='size-12'>
-            <i class="icon iconfont icon-xunjianyuan-mian-"><span>`+item.time+`</span></i>
+            <i class="icon iconfont icon-xunjianyuan-mian-"><span>` +
+        item.time +
+        `</span></i>
             </p>
           </div>
         </div>
-      `
+      `;
       this.$notify({
-      // title: '提示',
-      dangerouslyUseHTMLString: true,
-      customClass:style,
-      message: html,
-      duration: 0
-    });
+        // title: '提示',
+        dangerouslyUseHTMLString: true,
+        customClass: style,
+        message: html,
+        duration: 0
+      });
+    },
+    getuserinfo() {
+      this.getuserinfos = this.userinfo;
     }
-
   },
   // 默认加载方法
   mounted() {
-    if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
-      this.getUnitsSynthesis_parmar.unitId=sessionStorage.unitid;
-      this.queryAlarmIng_parmar.unitId=sessionStorage.unitid;
+    if (sessionStorage.unitid != undefined || sessionStorage.unitid != "") {
+      this.getUnitsSynthesis_parmar.unitId = sessionStorage.unitid;
+      this.queryAlarmIng_parmar.unitId = sessionStorage.unitid;
     }
     this.socketIs++;
     console.log(this.socketIs);
@@ -670,7 +691,7 @@ export default {
     this.getqueryAlarmIng(1);
     this.connect();
     this.getmp3();
+    // this.getuserinfo();
   }
 };
-
 </script>

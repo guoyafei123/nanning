@@ -4,10 +4,10 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-plus"></i>
-          <h2>新增单位</h2>
+          <h2>添加预案</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Unit_management/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Reserve_plan/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
       <section class="border-top-solid-333 margin-left15 margin-right15"></section>
@@ -54,12 +54,11 @@
           <el-form-item label="单位图片" class="col-sm-12">
             <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
               <input id="file" name="file" type="file" @change="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
-              <div class="bg-gray-222 text-center">
+              <div class="bg-gray-222 text-center margin-top5">
                 <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
               </div>
             </div>
             <img v-show="isShow" src="" id="up_img" style="width:80px;height:80px;"/>
-            <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
             <!-- <span style="width: 200px;height: 80px;text-align:center;line-height:80px;color:#fff;display:block;float:left;">{{ files }}</span> -->
           </el-form-item>                   
         </el-form>
@@ -91,25 +90,13 @@
               pointY:''
             }
           },
-          isShow:false,
-          fileVerification:''//图片验证
+          isShow:false
         }
       },
       methods:{
         file(){
-          var x = document.getElementById("file");
-          if (!x || !x.value) return;
-          var patn = /\.jpg$|\.jpeg$|\.png$/i;
-          if (!patn.test(x.value)) {
-            this.fileVerification="您选择的似乎不是图像文件!!";
-            x.value = "";
-            this.isShow = false ;
-            $("#up_img").attr("src",'');
-            return;
-          }
           this.isShow = true ;
           $("#up_img").attr("src", this.getObjectURL($("#file")[0]));
-          this.fileVerification="";
         },
         getObjectURL(node) {
             var imgURL = "";
@@ -144,8 +131,6 @@
         },
         btn(){
           var file = "file";
-          
-          
           $.ajaxFileUpload({
             url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
             /* secureuri : false, */ //一般设置为false
@@ -176,10 +161,10 @@
 
             }
           });
-          this.$router.push({path:'/Unit_management/all'});
+          this.$router.push({path:'/Reserve_plan/all'});
         },
         back(){
-          this.$router.push({path:'/Unit_management/all'});
+          this.$router.push({path:'/Reserve_plan/all'});
           $('#right').show();
         }
       },

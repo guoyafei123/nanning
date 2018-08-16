@@ -69,7 +69,7 @@
                         <span class="header-head-portrait">
                             <img src="../../assets/images/people.png" class="img-responsive img-circle">
                         </span>
-                        <span class="user-name">姓名</span>
+                        <span class="user-name">{{username}}</span>
                         <span class="caret"></span>
                       </span>
                       <el-dropdown-menu slot="dropdown">                        
@@ -138,7 +138,8 @@ export default {
     return {
       areavalue: "选项2",
       unitvalue: "全部单位",
-      queryUnit:Object
+      queryUnit:Object,
+      username:'-'
     };
   },
   computed:mapState([
@@ -146,17 +147,21 @@ export default {
     ]),
     watch:{
         userinfo(){
-            console.log(this.userinfo);
+            // this.getuserinfo=this.userinfo;
+            // console.log(this.userinfo);
         }
     },
   //其他
   mounted() {
+    // console.log(this.userinfo);
+
     this.mini_go("header-canvas-people", 88.88);
     this.mini_go("header-canvas-host", 88.88);
     this.mini_go("header-canvas-cpu", 88.88);
     this.mini_go("header-canvas-memory", 88.88);
     $("[data-toggle='tooltip']").tooltip();
     this.getunitlist();
+    this.getuserinfo();
 
   },
 
@@ -243,6 +248,9 @@ export default {
         console.log(this.unitvalue);
         sessionStorage.unitid=this.unitvalue;
         this.$store.commit('unitid',this.unitvalue);
+    },
+    getuserinfo(){
+        this.username=localStorage.name
     }
   }
 };

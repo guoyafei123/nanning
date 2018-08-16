@@ -4,7 +4,7 @@
       <!-- 标题 -->
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
-          <i class="icon iconfont icon-jianzhuguanli-mian-"></i>
+          <i class="fa fa-plus"></i>
           <h2>新增设备</h2>
         </div>
         <div class="main_nav float-right">
@@ -15,21 +15,25 @@
       <section class="border-top-solid-333 margin-left15 margin-right15"></section>
       <!-- 表单 -->
       <div class="main_content">
+        <!--
+          class类not-null为必填标识,如需请加在<el-form-item>
+          class类hint-error为错误提示
+         -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="设备名称">
+          <el-form-item label="设备名称" class="not-null">
             <span class="hint-error">设备名称有误或重复</span>
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
-          <el-form-item label="所属单位">
+          <el-form-item label="所属单位" class="not-null">
             <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="设备类型">
+          <el-form-item label="设备类型" class="not-null">
             <el-select
               v-model="form.equipmentId"
-              placeholder="选择设备类型" class="sbwz_138_32 start col-sm-4">
+              placeholder="选择设备类型" class="start col-sm-4">
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
@@ -37,10 +41,10 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="设备位置">
+          <el-form-item label="设备位置" class="not-null">
             <el-select
               v-model="form.buildingId"
-            placeholder="选择建筑"  class="sbwz_138_32 start col-sm-4">
+            placeholder="选择建筑"  class="start col-sm-4">
               <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in form.buildList"
@@ -50,7 +54,7 @@
             </el-select>
             <el-select
               v-model="form.floorId"
-              placeholder="选择楼层" class="sbwz_138_32 start col-sm-4">
+              placeholder="选择楼层" class="start col-sm-4">
               <el-option
                 v-for="item in form.floorList"
                 :label="item.floorName+'层'"
@@ -59,7 +63,7 @@
             </el-select>
             <el-select
               v-model="form.roomId"
-              placeholder="选择房间" class="sbwz_138_32 start col-sm-4">
+              placeholder="选择房间" class="start col-sm-4">
               <el-option
                 v-for="item in form.roomList"
                 :label="item.roomNumber+'房间'"
@@ -125,12 +129,12 @@
           </div>
           <div class="col-sm-12 margin-bottom20">
             <div class="row">
-              <el-form-item label="更换周期 (天)" class="col-sm-4">
+              <el-form-item label="更换周期 (天)" class="not-null col-sm-4">
                 <el-input v-model="form.Retroperiod"></el-input>
               </el-form-item>
             </div>
           </div> 
-          <el-form-item label="控制器ID" class="col-sm-4">
+          <el-form-item label="控制器ID" class="not-null col-sm-4">
             <el-input v-model="form.controlId"></el-input>
           </el-form-item>
         </el-form>
