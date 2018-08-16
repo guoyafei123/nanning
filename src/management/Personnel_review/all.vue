@@ -72,6 +72,7 @@
           </el-table-column>
           <el-table-column
             fixed="right"
+            width="120"
             label="操作">
             <template slot-scope="scope">
               <button v-if="scope.row.review == 3" @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal" class="btn-check">审核</button>

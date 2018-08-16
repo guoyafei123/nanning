@@ -1,5 +1,6 @@
 <template>
   <section>
+    <!-- 标题 -->
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-shebeiguanli-mian-"></i>
@@ -9,6 +10,7 @@
         <router-link to="/Equipment_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
       </div>
     </div>
+    <!-- 主体 -->
     <div class="main_all_content">
       <!-- 筛选 -->
       <div class="main_content_top">
@@ -170,21 +172,26 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">修改设备</h4>
+            <h5 class="modal-p font-blue">{{this.form.name}}</h5>
           </div>
           <div class="modal-body">
+            <!--
+              class类not-null为必填标识,如需请加在<el-form-item>
+              class类hint-error为错误提示
+             -->
             <div class="main_content">
               <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-                <el-form-item label="设备名称">
+                <el-form-item label="设备名称" class="not-null">
                   <span class="hint-error">设备名称有误或重复</span>
                   <el-input v-model="form.name" class="col-sm-4"></el-input>
                 </el-form-item>
-                <el-form-item label="所属单位">
+                <el-form-item label="所属单位" class="not-null">
                   <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
                     <el-option label="全部单位" value=""></el-option>
                     <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="设备类型">
+                <el-form-item label="设备类型" class="not-null">
                   <el-select
                     v-model="form.equipmentId"
                     placeholder="选择设备类型" class="start col-sm-4">
@@ -195,7 +202,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="设备位置">
+                <el-form-item label="设备位置" class="not-null">
                   <el-select
                     v-model="form.buildingId"
                   placeholder="选择建筑"  class="start col-sm-4">
@@ -229,10 +236,16 @@
                   <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
                   <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
                 </el-form-item>
-
-                <el-form-item label="物理地址">
-                  <el-input v-model="form.PhysicalAddress" class="col-sm-8"></el-input>
-                </el-form-item>          
+                <div class="col-sm-12">
+                  <div class="row">
+                    <el-form-item label="物理地址" class="col-sm-4">
+                      <el-input v-model="form.PhysicalAddress"></el-input>
+                    </el-form-item>
+                    <el-form-item label="控制器ID" class="not-null col-sm-4">
+                      <el-input v-model="form.controlId"></el-input>
+                    </el-form-item>
+                  </div>
+                </div>
                 <el-form-item label="相对房顶高度 (cm)" class="col-sm-4">
                   <el-input v-model="form.RoofHeight"></el-input>
                 </el-form-item>
@@ -283,19 +296,16 @@
                 </div>
                 <div class="col-sm-12 margin-bottom20">
                   <div class="row">
-                    <el-form-item label="更换周期 (天)" class="col-sm-4">
+                    <el-form-item label="更换周期 (天)" class="not-null col-sm-4">
                       <el-input v-model="form.Retroperiod"></el-input>
                     </el-form-item>
                   </div>
-                </div> 
-                <el-form-item label="控制器ID" class="col-sm-4">
-                  <el-input v-model="form.controlId"></el-input>
-                </el-form-item>
+                </div>                 
               </el-form>
             </div>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">编辑并提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -320,28 +330,8 @@
               </div>
             </div>
           </div>
-        </div>
-    <div class="modal fade" id="mymodal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" style="">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel3">提示</h4>
-            <h5 class="modal-p">关闭操作并不影响之前的统计数据</h5>
-          </div>
-          <div class="modal-body text-center container-padding40">
-            <h3 class="font-red size-14">是否关闭</h3>
-            <p class="font-white size-16">{{ deviceName }}</p>
-          </div>
-          <div class="modal-footer">
-            <el-button type="danger" @click.native.prevent="StopRow()" icon="el-icon-circle-close-outline" class="danger" data-dismiss="modal">关闭</el-button>
-            <el-button class="back" data-dismiss="modal">取消</el-button>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
-
 </template>
 
 <script>

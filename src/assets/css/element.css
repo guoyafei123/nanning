@@ -219,6 +219,9 @@ footer .el-button:hover,footer .el-button:focus {
     border-color: #bad616!important;
 }
 /*Select 选择器*/
+.el-select {
+  display: inherit;
+}
 .el-input--suffix .el-input__inner {
   padding-right: 0;
 }

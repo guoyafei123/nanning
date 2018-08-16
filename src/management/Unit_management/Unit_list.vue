@@ -17,12 +17,12 @@
           class类hint-error为错误提示
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="单位名称">
+          <el-form-item label="单位名称" class="not-null">
             <span class="hint-error">单位名称有误或重复</span>
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
-          <el-form-item label="单位性质">
-            <el-select name="" v-model="form.property" placeholder="请选择结构" class="col-sm-4">
+          <el-form-item label="单位性质" class="not-null">
+            <el-select name="" v-model="form.property" placeholder="请选择单位" class="col-sm-4">
               <el-option label="事业单位" value="事业单位"></el-option>
               <el-option label="国家行政机关" value="国家行政机关"></el-option>
               <el-option label="政府" value="政府"></el-option>
@@ -32,33 +32,33 @@
               <el-option label="合资企业" value="合资企业"></el-option>
               <el-option label="私营企业" value="私营企业"></el-option>
             </el-select>
+          </el-form-item>          
+          <el-form-item label="法人代表" class="not-null col-sm-4">
+            <el-input v-model="form.corporation"></el-input>
+          </el-form-item>
+          <el-form-item label="部门电话" class="not-null col-sm-4">
+            <el-input v-model="form.telephone"></el-input>
           </el-form-item>
           <el-form-item label="单位人数" class="col-sm-4">
             <el-input v-model="form.staffNum"></el-input>
           </el-form-item>
-          <el-form-item label="法人代表" class="col-sm-4">
-            <el-input v-model="form.corporation"></el-input>
-          </el-form-item>
-          <el-form-item label="部门电话" class="col-sm-4">
-            <el-input v-model="form.telephone"></el-input>
-          </el-form-item>
-          <el-form-item label="单位地址">
+          <el-form-item label="单位地址" class="not-null">
             <el-input v-model="form.location" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="消防负责人" class="col-sm-4">
+          <el-form-item label="消防负责人" class="not-null col-sm-4">
             <el-input v-model="form.firemenName"></el-input>
           </el-form-item>
-          <el-form-item label="消防负责人电话" class="col-sm-4">
+          <el-form-item label="消防负责人电话" class="not-null col-sm-4">
             <el-input v-model="form.firemenTel"></el-input>
           </el-form-item> 
-          <el-form-item label="单位图片" class="col-sm-12">
-            <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
-              <input id="file" name="file" type="file" @change="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
+          <el-form-item label="单位图片" class="not-null col-sm-12">
+            <div class="head-photo">
+              <input id="file" name="file" type="file" @change="file"/>
               <div class="bg-gray-222 text-center">
-                <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
+                <i class="el-icon-plus"></i>
               </div>
             </div>
-            <img v-show="isShow" src="" id="up_img" style="width:80px;height:80px;"/>
+            <img v-show="isShow" src="" id="up_img" class="head-pic" />
             <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
             <!-- <span style="width: 200px;height: 80px;text-align:center;line-height:80px;color:#fff;display:block;float:left;">{{ files }}</span> -->
           </el-form-item>                   

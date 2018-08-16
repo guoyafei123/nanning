@@ -207,6 +207,7 @@
 .main_content_table table {
   margin-top:0px;
 }
+
 .main_content_table .el-table td:last-child .cell,
 .main_content_table .el-table th:last-child .cell{
 	text-align: right!important;
@@ -472,7 +473,11 @@
 	background-color: #f13131;
 	border-color: transparent!important;
 }
-
+.el-button--danger:hover {
+  color: #000;
+  background-color: rgba(255,0,0,1);
+  border-color: transparent!important;
+}
 .main_content_top .el-select {
 	min-width: 120px;
 }
@@ -645,10 +650,11 @@
   align-items: center;
 }
 /*上传*/
-.head-photo .head-2{  
+.head-photo{  
   position:relative;
   width: 80px;
   height: 80px;
+  margin-top: 5px;
   overflow:hidden;
   float:left;
 }
@@ -674,14 +680,15 @@
   top:0;
 }
 .head-photo i.el-icon-plus {
-  font-size: 40px!important;
+  font-size: 40px;
   line-height: 80px;
   color: #ccc;
 }
-.head-photo img  {
+.head-pic  {
   background-color: #222;
-  width: 80px!important;
-  height: 80px!important;
+  width: 80px;
+  height: 80px;
+  margin-top: 5px;
 }
 /*设备*/
 .main_content_table{
@@ -707,6 +714,7 @@
 #manage-center .el-select .el-input--suffix .el-input__inner {
   background-color:#111;
 }
+
 #manage-center .el-input__inner:active,
 #manage-center .el-input__inner:visited,
 #manage-center .el-input__inner:hover,
@@ -715,22 +723,17 @@
 #manage-center .is-focus .el-input__inner:active,
 #manage-center .is-focus .el-input__inner:visited,
 #manage-center .is-focus .el-input__inner:hover{
-    border: none!important;
-    color: #fff!important;
-    background-color: rgba(0, 0, 0, 1);
-}
-#add-new {
-
-}
-#add-new .el-input__inner:active,
-#add-new .el-input__inner:visited,
-#add-new .el-input__inner:hover,
-#add-new .el-input__inner.is-active,
-#add-new .is-focus .el-input__inner,
-#add-new .is-focus .el-input__inner:active,
-#add-new .is-focus .el-input__inner:visited,
-#add-new .is-focus .el-input__inner:hover{
     border: 1px solid #333!important;
     color: #fff!important;
     background-color: rgba(0, 0, 0, 1);
+}
+#manage-center .main_content_top .el-input__inner:active,
+#manage-center .main_content_top .el-input__inner:visited,
+#manage-center .main_content_top .el-input__inner:hover,
+#manage-center .main_content_top .el-input__inner.is-active,
+#manage-center .main_content_top .is-focus .el-input__inner,
+#manage-center .main_content_top .is-focus .el-input__inner:active,
+#manage-center .main_content_top .is-focus .el-input__inner:visited,
+#manage-center .main_content_top .is-focus .el-input__inner:hover{
+    border: none!important;
 }
