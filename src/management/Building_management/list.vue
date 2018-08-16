@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="list_content">
     <div id="manage-center" class="list_main position-fixed-left z-index-20">
       <img src="../../assets/images/floor.png">
@@ -14,23 +13,6 @@
           <div class="main_nav float-right">
             <router-link to="/Building_management/all"><span class="btn-back" @click="btn_back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
           </div>
-=======
-  <div id="add-new">
-    <aside>
-      <div class="main_header clearFix">
-        <div class="main_title float-left clearFix">
-          <i class="icon iconfont icon-jianzhuguanli-mian-"></i>
-          <h2>新增建筑</h2>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
         </div>
         <section class="border-top-solid-333 margin-left15 margin-right15"></section>
         <div class="main_content" style="overflow-y:auto;height:650px;">

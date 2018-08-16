@@ -21,22 +21,8 @@
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
           <el-form-item label="所属单位">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" style="width:170px;">
-              <!-- <el-option label="全部单位" value=""></el-option> -->
-=======
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
             <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
               <el-option label="全部单位" value=""></el-option>
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>

@@ -1,7 +1,6 @@
 <template>
   <div class="toolright z-index-20">
     <div class="font-white plan"  style="display: none;">
-      <!-- <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Building_management/maps'">&lt;返回</span> -->
       <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Building_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       <!-- 建筑详情 -->
       <section>
@@ -83,22 +82,8 @@
       </section>  
     </div>
     <!-- 简单统计 -->
-<<<<<<< HEAD
-    <div class="font-white total" style="display: none;">
-      <section>
-=======
     <div class="font-white total">
       <section style="display: none;" class="mapTable">        
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
-=======
->>>>>>> e11dcd166c1e101ee76da14250a81a9c5310a4fe
         <div class="toolbuildrate">
           <div class="main_content_table bg-black">
             <el-table
@@ -346,7 +331,6 @@
       <el-button @click="submitFloorRoomList" type="success" style="width:120px;margin:0 auto;display: flex;justify-content: center;font-size:16px;height:35px;line-height:35px;padding:0;">提交</el-button>
     </div>
   </div>
-
 </template>
 
 <script>
