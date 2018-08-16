@@ -4,7 +4,7 @@
     <!-- <header-vue></header-vue> -->
     <!-- #头部 End-->
     <!-- #左边 -->
-    <section id="left" class="position-fixed-left container-padding5 z-index-20" style="padding:0;">
+    <section id="left" class="position-fixed-left z-index-20">
       <div class="overlay"></div>
       <set_left-vue></set_left-vue>
     </section>
@@ -13,7 +13,7 @@
       <main-vue></main-vue>
     </section> 
     <!-- #右边 -->
-    <section id="right" class="position-fixed-right container-padding5 z-index-20" style="padding:0;">
+    <section id="right" class="position-fixed-right z-index-20">
       <div class="overlay"></div>
       <set_right-vue></set_right-vue>
     </section>

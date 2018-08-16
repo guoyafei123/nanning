@@ -33,11 +33,15 @@
         </div>
       </div>
     </aside>
+    <div class="maps">
+      <managementMap-vue></managementMap-vue>
+    </div>
   </div>
 
 </template>
 
 <script>
+  import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
@@ -68,6 +72,9 @@
           name: '其他检查', id: 8
         }]
       }
+    },
+    components:{
+      'managementMap-vue': managementMapVue,
     },
     methods: {
       btn_add(){
@@ -112,6 +119,7 @@
     mounted(){
       realconsole();
       this.unitSearch();
+      this.$store.commit('route_path',this.$route.path);
     }
   };
 </script>

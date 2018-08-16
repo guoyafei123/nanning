@@ -1,7 +1,6 @@
 <template>
   <div class="toolright z-index-20">
-    <div class="font-white plan">
-      <!-- <span @click="back_first" class="font-gray-666" style="cursor:pointer;" v-if="this.$route.path == '/Building_management/maps'">&lt;返回</span> -->
+    <div class="font-white plan"  style="display: none;">
       <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Building_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       <!-- 建筑详情 -->
       <section>
@@ -84,7 +83,7 @@
     </div>
     <!-- 简单统计 -->
     <div class="font-white total">
-      <section style="display: none;" class="mapTable">
+      <section style="display: none;" class="mapTable">        
         <div class="toolbuildrate">
           <div class="main_content_table bg-black">
             <el-table
@@ -305,6 +304,12 @@
         <button class="btn_add" @click="addUnit"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
       </div>
       <table class="table table-bordered ">
+        <thead>
+          <tr>
+            <td>单元</td>
+            <td>房间</td>
+          </tr>
+        </thead>
         <tbody style="height:500px!important;overflow-y:auto;">
             <tr v-for="(item,index) in floorRoomList">
               <td style="min-width:100px;" class="col-md-4">
@@ -326,7 +331,6 @@
       <el-button @click="submitFloorRoomList" type="success" style="width:120px;margin:0 auto;display: flex;justify-content: center;font-size:16px;height:35px;line-height:35px;padding:0;">提交</el-button>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -487,6 +491,9 @@
         $('.total').hide();
         $('.floor_wrap').hide();
         $('.room_wrap').show();
+        $('.maps').hide();
+        $('.floorMap').hide();
+        $('.roomMap').show();
         this.floorName = item.floorName ;
         this.$store.commit('floorAdd',3);
         this.$store.commit('floorId',item.id);
@@ -501,7 +508,10 @@
         $('.plan').hide();
         $('.total').hide();
         $('.floor_wrap').show();
-        $('room_wrap').hide();
+        $('.room_wrap').hide();
+        $('.floorMap').show();
+        $('.maps').hide();
+        $('.floorMap').show();
         this.$store.commit('floorAdd',1);
         this.$store.commit('buildingId',row.id);
       },
@@ -571,38 +581,68 @@
       },
 
       back_first(){
-        $('.plan').hide();
-        $('.mapTable').show();
-        $('.total').show();
         if(this.$route.path == '/Building_management/maps'){
-          $('.mapTable').show();
           $('.total').show();
+          $('.plan').hide();
         }
-        if(this.$route.path == '/Building_management/all'){
-          $('.mapTable').hide();
-          $('.total').show();
-        }
+        // if(this.$route.path == '/Building_management/all'){
+        //   $('.mapTable').hide();
+        //   $('.total').show();
+        // }
       },
       floor_back(){
-        $('.build').show();
-        $('.floor').hide();
-        $('.main_content_table').show();
-        $('.main_content_bottom').show();
-        $('.plan').show();
-        $('.total').hide();
-        $('.floor_wrap').hide();
-        $('.room_wrap').hide();
-        $('.maps').show();
+        if(this.$route.path == '/Building_management/maps'){
+          $('.build').show();
+          $('.floor').hide();
+          $('.plan').hide();
+          $('.total').show();
+          $('.floor_wrap').hide();
+          $('.room_wrap').hide();
+          
+          $('.main_content_table').show();
+          $('.main_content_bottom').show();
+          $('.maps').show();
+          $('.floorMap').hide();
+          $('.roomMap').hide();
+        }else{
+          $('.build').show();
+          $('.floor').hide();
+          $('.main_content_table').show();
+          $('.main_content_bottom').show();
+          $('.plan').show();
+          $('.total').hide();
+          $('.floor_wrap').hide();
+          $('.room_wrap').hide();
+          $('.floorMap').hide();
+          $('.roomMap').hide();
+        }
       },
       room_back(){
-        $('.build').hide();
-        $('.floor').hide();
-        $('.main_content_table').hide();
-        $('.main_content_bottom').hide();
-        $('.plan').hide();
-        $('.total').hide();
-        $('.floor_wrap').show();
-        $('.room_wrap').hide();
+        
+        if(this.$route.path == '/Building_management/maps'){
+          $('.build').hide();
+          $('.floor').hide();
+          $('.plan').hide();
+          $('.total').hide();
+          $('.floor_wrap').show();
+          $('.main_content_table').show();
+          $('.main_content_bottom').show();
+          $('.room_wrap').hide();  
+          $('.maps').hide();
+          $('.floorMap').show();
+          $('.roomMap').hide();
+        }else{
+          $('.build').hide();
+          $('.floor').hide();
+          $('.main_content_table').hide();
+          $('.main_content_bottom').hide();
+          $('.plan').hide();
+          $('.total').hide();
+          $('.floor_wrap').show();
+          $('.room_wrap').hide();
+          $('.floorMap').show();
+          $('.roomMap').hide();
+        }
       },
       handleCurrentChange(val) {
         this.currentPage4 = val;
@@ -640,7 +680,8 @@
             this.form.UnitName = item.name;
           }
         })
-        this.$fetch("/api/building/addBuilding",{
+        this.$fetch("/api/building/updateBuilding",{
+          'id':this.deviceIndex,
           'name':this.form.BuildName,
           'unitId':this.form.unitId,
           'unitName':this.form.UnitName,
@@ -679,7 +720,6 @@
         this.$store.commit('floorAdd',2)
         this.$store.commit('buildingId',row.id);
         $('.plan').show();
-        $('.mapTable').hide();
         $('.total').hide();
       },
       deleteRow(){
@@ -769,13 +809,11 @@
     mounted() {
       this.tableList();
       if(this.$route.path == '/Building_management/maps'){
-        $('.mapTable').show();
         $('.total').show();
         this.tableList();
       }
       if(this.$route.path == '/Building_management/all'){
         $('.plan').show();
-        $('.total').hide();
       }
     },
     watch:{
@@ -784,7 +822,6 @@
           // console.log(val);
           if(this.$route.path == '/Building_management/maps'){
             $('.plan').hide();
-            $('.mapTable').show();
             $('.total').show();
             this.tableList();
             this.$store.commit('tableData',this.tableData);
@@ -792,6 +829,8 @@
           if(this.$route.path == '/Building_management/all'){
             $('.total').hide();
             $('.plan').show();
+            $('.floor_wrap').hide();
+            $('.room_wrap').hide();
           }
         },
         // 深度观察监听
@@ -804,7 +843,6 @@
       },
       buildingId(){
         if(this.$route.path == '/Building_management/maps'){
-          $('.mapTable').show();
           $('.total').show();
           this.tableData.forEach((item,index)=>{
             if(item.id == this.buildingId){

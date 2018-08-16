@@ -9,6 +9,7 @@ var state={
   region:'',
   inspectionId:'',
   form:{},
+  InspectionMap:[],
   //设备
   deviceId:'',
   Unit:'',
@@ -16,6 +17,7 @@ var state={
   floorDevice:'',
   roomDevice:'',
   equipmentDevice:'',
+  DeviceMap:[],
   //建筑
   buildUnit:'',
   buildingId:'',
@@ -62,6 +64,9 @@ var mutations={
   form(state,data){
     state.form= data;
   },
+  InspectionMap(state,data){
+    state.InspectionMap = data;
+  },
   //设备
   deviceId(state,data){
     state.deviceId = data;
@@ -81,7 +86,9 @@ var mutations={
   equipmentDevice(state,data){
     state.equipmentDevice = data;
   },
-
+  DeviceMap(state,data){
+    state.DeviceMap = data ;
+  },
   //建筑
   buildUnit(state,data){
     state.buildUnit = data;

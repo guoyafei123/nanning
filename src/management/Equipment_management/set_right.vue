@@ -182,10 +182,9 @@
       </section>      
     </div>
     <!-- 设备小列表 -->
-    <div class="total" style="display: none;">
-      <section class="mapTable">
+    <div class="total" style="display: none;">      
         <!-- 总数统计 -->
-        <div class="toolcount clearfix">
+        <section class="toolcount clearfix">
           <ul class="toolcount-left padding0 col-sm-3">
             <li>
               <p class="size-10 font-gray-666">Device Total</p>
@@ -209,226 +208,349 @@
               <span>监控设备</span> <strong class="font-gray-ccc">126</strong>
             </li>
           </ul>
-        </div>
-        <div class="toolbuildrate">
-          <div class="main_content_table">
-            <el-table
-              :data="tableData"
-              border
-              :default-sort = "{prop: 'Serial_number', order: 'descending'}">
-              <el-table-column
-                prop="Serial_number"
-                type="index"
-                fixd="left"
-                label="序号">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                :show-overflow-tooltip="true"
-                label="设备名称">
-              </el-table-column>
-              <el-table-column
-                prop="deviceTypeName"
-                :show-overflow-tooltip="true"
-                label="设备类型">
-              </el-table-column>
-              <el-table-column 
-                prop="status"
-                :show-overflow-tooltip="true"
-                label="状态">
-                <template slot-scope="scope">
-                  <el-tag
-                    :type="scope.row.status === 1 ? 'green' : 'red'"
-                    disable-transitions v-if='scope.row.status==1'>正常</el-tag>
-                  <el-tag
-                    :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==2'>故障<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
-                  <el-tag
-                    :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==3'>警报<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column
-                fixed="right"
-                label="操作">
-                <template slot-scope="scope">
-                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
-                  <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
-                  <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
-          <div class="main_content_bottom">
-            <div class="bottom_con">
-              <div class="float-left">
-                <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">打印</a>
-                <a href="javascript:;" class="font-gray-666" style="margin-left:5px;">导出</a>
-                <a href="javascrip:;" class="font-gray-666" style="margin-left:5px;">导出二维码</a>
+        </section>
+        <!-- 列表 -->
+        <section class="mapTable">          
+          <div class="toolbuildrate">
+            <div class="main_content_table">
+              <el-table
+                :data="tableData"
+                border
+                :default-sort = "{prop: 'Serial_number', order: 'descending'}">
+                <el-table-column
+                  prop="Serial_number"
+                  type="index"
+                  fixd="left"
+                  label="序号">
+                </el-table-column>
+                <el-table-column
+                  prop="name"
+                  :show-overflow-tooltip="true"
+                  label="设备名称">
+                </el-table-column>
+                <el-table-column
+                  prop="deviceTypeName"
+                  :show-overflow-tooltip="true"
+                  label="设备类型">
+                </el-table-column>
+                <el-table-column 
+                  prop="status"
+                  :show-overflow-tooltip="true"
+                  label="状态">
+                  <template slot-scope="scope">
+                    <el-tag
+                      :type="scope.row.status === 1 ? 'green' : 'red'"
+                      disable-transitions v-if='scope.row.status==1'>正常</el-tag>
+                    <el-tag
+                      :type="scope.row.status === 2 ? 'red' : 'green'"
+                      disable-transitions v-if='scope.row.status==2'>故障<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
+                    <el-tag
+                      :type="scope.row.status === 2 ? 'red' : 'green'"
+                      disable-transitions v-if='scope.row.status==3'>警报<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  fixed="right"
+                  label="操作">
+                  <template slot-scope="scope">
+                    <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+                    <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+                    <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+            <div class="main_content_bottom">
+              <div class="bottom_con">
+                <div class="float-left btn-system">
+              <a href="javascript:;">打印</a>
+              <a href="javascript:;">导出</a>
+              <a href="javascrip:;">导出二维码</a>
+            </div>
+                <el-pagination
+                              @current-change="handleCurrentChange"
+                              :current-page="currentPage4"
+                              :page-size="6"
+                              layout="prev, pager, next"
+                              :total="totalList">
+                </el-pagination>
+                <span>{{page}}页</span>
+                <el-pagination
+                              @current-change="handleCurrentChange"
+                              :current-page="currentPage4"
+                              :page-size="6"
+                              layout="total"
+                              :total="totalList">
+                </el-pagination>
               </div>
-              <el-pagination style="float: right;background: transparent"
-                            @current-change="handleCurrentChange"
-                            :current-page="currentPage4"
-                            :page-size="9"
-                            layout="prev, pager, next"
-                            :total="totalList">
-              </el-pagination>
-              <span style="float: right;margin-top:5px;color: #666;margin-left:5px;margin-right:10px;">{{page}}页</span>
-              <el-pagination style="float: right;"
-                            @current-change="handleCurrentChange"
-                            :current-page="currentPage4"
-                            :page-size="9"
-                            layout="total"
-                            :total="totalList">
-              </el-pagination>
             </div>
           </div>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">修改设备</h4>
-              </div>
-              <div class="modal-body">
-                <el-form ref="form" :label-position="labelPosition" :model="form">
-                  <el-form-item label="设备名称">
-                    <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-                    <el-input v-model="form.name"></el-input>
-                  </el-form-item>
-                  <el-form-item label="所属单位">
-                    <el-select v-model="form.unitId" placeholder="选择单位" class="select">
-                      <el-option label="全部单位" value=""></el-option>
-                      <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="设备类型">
-                    <el-select
-                      v-model="form.equipmentId"
-                      placeholder="选择设备类型" class="sbwz_138_32 start">
-                      <el-option
-                        v-for="item in form.equipmentList"
-                        :label="item.name"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="设备位置">
-                    <el-select
-                      v-model="form.buildingId"
-                    placeholder="选择建筑"  class="sbwz_138_32 start float-left">
-                      <el-option label="室外" value="0"></el-option>
-                      <el-option
-                        v-for="item in form.buildList"
-                        :label="item.name"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                    <el-select
-                      v-model="form.floorId"
-                      placeholder="选择楼层" class="sbwz_138_32 start">
-                      <el-option
-                        v-for="item in form.floorList"
-                        :label="item.floor+'层'"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                    <el-select
-                      v-model="form.roomId"
-                      placeholder="选择房间" class="sbwz_138_32 start">
-                      <el-option
-                        v-for="item in form.roomList"
-                        :label="item.roomNumber+'房间'"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="坐标">
-                    <el-input v-model="form.point.pointX" class="display-inline-block"></el-input>
-                    <el-input v-model="form.point.pointY" class="display-inline-block"></el-input>
-                  </el-form-item>
+          <!-- 编辑表单Modal -->
+          <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">修改设备</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="main_content">
+                    <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+                      <el-form-item label="设备名称">
+                        <span class="hint-error">设备名称有误或重复</span>
+                        <el-input v-model="form.name" class="col-sm-4"></el-input>
+                      </el-form-item>
+                      <el-form-item label="所属单位">
+                        <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
+                          <el-option label="全部单位" value=""></el-option>
+                          <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                        </el-select>
+                      </el-form-item>
+                      <el-form-item label="设备类型">
+                        <el-select
+                          v-model="form.equipmentId"
+                          placeholder="选择设备类型" class="sbwz_138_32 start col-sm-4">
+                          <el-option
+                            v-for="item in equipmentList"
+                            :label="item.name"
+                            :value="item.id">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                      <el-form-item label="设备位置">
+                        <el-select
+                          v-model="form.buildingId"
+                        placeholder="选择建筑"  class="sbwz_138_32 start col-sm-4">
+                          <el-option label="室外" value="0"></el-option>
+                          <el-option
+                            v-for="item in form.buildList"
+                            :label="item.name"
+                            :value="item.id">
+                          </el-option>
+                        </el-select>
+                        <el-select
+                          v-model="form.floorId"
+                          placeholder="选择楼层" class="sbwz_138_32 start col-sm-4">
+                          <el-option
+                            v-for="item in form.floorList"
+                            :label="item.floorName+'层'"
+                            :value="item.id">
+                          </el-option>
+                        </el-select>
+                        <el-select
+                          v-model="form.roomId"
+                          placeholder="选择房间" class="sbwz_138_32 start col-sm-4">
+                          <el-option
+                            v-for="item in form.roomList"
+                            :label="item.roomNumber+'房间'"
+                            :value="item.id">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                      <el-form-item label="坐标">
+                        <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
+                        <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
+                      </el-form-item>
 
-                  <el-form-item label="物理地址" v-if="form.deviceType == 1">
-                    <el-input v-model="form.PhysicalAddress"></el-input>
-                  </el-form-item>
+                      <el-form-item label="物理地址">
+                        <el-input v-model="form.PhysicalAddress" class="col-sm-8"></el-input>
+                      </el-form-item>          
+                      <el-form-item label="相对房顶高度 (cm)" class="col-sm-4">
+                        <el-input v-model="form.RoofHeight"></el-input>
+                      </el-form-item>
+                      <el-form-item label="相对地板高度 (cm)" class="col-sm-4">
+                        <el-input v-model="form.floorHeight"></el-input>
+                      </el-form-item>
+                      <div class="col-sm-12">
+                          <div class="row">
+                            <el-form-item label="生产商" class="col-sm-4">
+                              <el-input v-model="form.Bike"></el-input>
+                            </el-form-item>
+                            <el-form-item label="生产日期" class="col-sm-4">
+                              <div class="block">
+                                <el-date-picker
+                                  v-model="form.ProductionDay"
+                                  type="date"
+                                  placeholder="选择日期"
+                                  format="yyyy 年 MM 月 dd 日"
+                                  value-format="yyyy-MM-dd">
+                                </el-date-picker>
+                              </div>
+                            </el-form-item>
+                            <el-form-item label="投入使用日期" class="col-sm-4">
+                              <div class="block">
+                                <el-date-picker
+                                  v-model="form.startDate"
+                                  type="date"
+                                  placeholder="选择日期"
+                                  format="yyyy 年 MM 月 dd 日"
+                                  value-format="yyyy-MM-dd">
+                                </el-date-picker>
+                                </div>
+                              </el-form-item>
+                            </div>
+                          </div>
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <el-form-item label="维保单位" class="col-sm-4">
+                              <el-input v-model="form.Refundable"></el-input>
+                            </el-form-item>
+                            <el-form-item label="维保人员" class="col-sm-4">
+                              <el-input v-model="form.linkname"></el-input>
+                            </el-form-item>
+                            <el-form-item label="维保电话" class="col-sm-4">
+                              <el-input v-model="form.phone"></el-input>
+                            </el-form-item>
+                          </div>
+                      </div>
+                      <div class="col-sm-12 margin-bottom20">
+                        <div class="row">
+                          <el-form-item label="更换周期 (天)" class="col-sm-4">
+                            <el-input v-model="form.Retroperiod"></el-input>
+                          </el-form-item>
+                        </div>
+                      </div> 
+                      <el-form-item label="控制器ID" class="col-sm-4">
+                        <el-input v-model="form.controlId"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </div>
+                  <!-- <el-form ref="form" :label-position="labelPosition" :model="form">
+                    <el-form-item label="设备名称">
+                      <el-input v-model="form.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="所属单位">
+                      <el-select v-model="form.unitId" placeholder="选择单位" class="select">
+                        <el-option label="全部单位" value=""></el-option>
+                        <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item label="设备类型">
+                      <el-select
+                        v-model="form.equipmentId"
+                        placeholder="选择设备类型" class="sbwz_138_32 start">
+                        <el-option
+                          v-for="item in form.equipmentList"
+                          :label="item.name"
+                          :value="item.id">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item label="设备位置">
+                      <el-select
+                        v-model="form.buildingId"
+                      placeholder="选择建筑"  class="sbwz_138_32 start float-left">
+                        <el-option label="室外" value="0"></el-option>
+                        <el-option
+                          v-for="item in form.buildList"
+                          :label="item.name"
+                          :value="item.id">
+                        </el-option>
+                      </el-select>
+                      <el-select
+                        v-model="form.floorId"
+                        placeholder="选择楼层" class="sbwz_138_32 start">
+                        <el-option
+                          v-for="item in form.floorList"
+                          :label="item.floor+'层'"
+                          :value="item.id">
+                        </el-option>
+                      </el-select>
+                      <el-select
+                        v-model="form.roomId"
+                        placeholder="选择房间" class="sbwz_138_32 start">
+                        <el-option
+                          v-for="item in form.roomList"
+                          :label="item.roomNumber+'房间'"
+                          :value="item.id">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item label="坐标">
+                      <el-input v-model="form.point.pointX" class="display-inline-block"></el-input>
+                      <el-input v-model="form.point.pointY" class="display-inline-block"></el-input>
+                    </el-form-item>
 
-                  <el-form-item label="投入使用日期">
-                    <div class="block">
-                      <el-date-picker
-                        v-model="form.startDate"
-                        type="date"
-                        placeholder="选择年"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="yyyy-MM-dd">
-                      </el-date-picker>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="运行时长">
-                    <el-input v-model="form.lifeMonth"></el-input>
-                  </el-form-item>
-                  <el-form-item label="相对房顶高度（m）">
-                    <el-input v-model="form.RoofHeight"></el-input>
-                  </el-form-item>
-                  <el-form-item label="相对地板高度（m）">
-                    <el-input v-model="form.floorHeight"></el-input>
-                  </el-form-item>
-                  <el-form-item label="更换周期（天）">
-                    <el-input v-model="form.Retroperiod"></el-input>
-                  </el-form-item>
-                  <el-form-item label="生产商">
-                    <el-input v-model="form.Bike"></el-input>
-                  </el-form-item>
-                  <el-form-item label="生产日期">
-                    <div class="block">
-                      <el-date-picker
-                        v-model="form.ProductionDay"
-                        type="date"
-                        placeholder="选择年"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="yyyy-MM-dd">
-                      </el-date-picker>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="维保单位">
-                    <el-input v-model="form.Refundable"></el-input>
-                  </el-form-item>
-                  <el-form-item label="维保人员">
-                    <el-input v-model="form.linkname"></el-input>
-                  </el-form-item>
-                  <el-form-item label="维保电话">
-                    <el-input v-model="form.phone"></el-input>
-                  </el-form-item>
-                  <div style="clear: both;"></div>
-                </el-form>
-              </div>
-              <div class="modal-footer">
-                <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
-                <el-button class="back" data-dismiss="modal">取消</el-button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">提示</h4>
-                <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
-              </div>
-              <div class="modal-body" style="height:217px;">
-                <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
-                <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ deviceName }}</p>
-              </div>
-              <div class="modal-footer">
-                <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
-                <el-button class="back" data-dismiss="modal">取消</el-button>
+                    <el-form-item label="物理地址" v-if="form.deviceType == 1">
+                      <el-input v-model="form.PhysicalAddress"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="投入使用日期">
+                      <div class="block">
+                        <el-date-picker
+                          v-model="form.startDate"
+                          type="date"
+                          placeholder="选择年"
+                          format="yyyy 年 MM 月 dd 日"
+                          value-format="yyyy-MM-dd">
+                        </el-date-picker>
+                      </div>
+                    </el-form-item>
+                    <el-form-item label="运行时长">
+                      <el-input v-model="form.lifeMonth"></el-input>
+                    </el-form-item>
+                    <el-form-item label="相对房顶高度（m）">
+                      <el-input v-model="form.RoofHeight"></el-input>
+                    </el-form-item>
+                    <el-form-item label="相对地板高度（m）">
+                      <el-input v-model="form.floorHeight"></el-input>
+                    </el-form-item>
+                    <el-form-item label="更换周期（天）">
+                      <el-input v-model="form.Retroperiod"></el-input>
+                    </el-form-item>
+                    <el-form-item label="生产商">
+                      <el-input v-model="form.Bike"></el-input>
+                    </el-form-item>
+                    <el-form-item label="生产日期">
+                      <div class="block">
+                        <el-date-picker
+                          v-model="form.ProductionDay"
+                          type="date"
+                          placeholder="选择年"
+                          format="yyyy 年 MM 月 dd 日"
+                          value-format="yyyy-MM-dd">
+                        </el-date-picker>
+                      </div>
+                    </el-form-item>
+                    <el-form-item label="维保单位">
+                      <el-input v-model="form.Refundable"></el-input>
+                    </el-form-item>
+                    <el-form-item label="维保人员">
+                      <el-input v-model="form.linkname"></el-input>
+                    </el-form-item>
+                    <el-form-item label="维保电话">
+                      <el-input v-model="form.phone"></el-input>
+                    </el-form-item>
+                    <div style="clear: both;"></div>
+                  </el-form> -->
+                </div>
+                <div class="modal-footer">
+                  <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">编辑并提交</el-button>
+                  <el-button class="back" data-dismiss="modal">取消</el-button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <!-- 删除设备Modal -->
+          <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                  <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
+                </div>
+                <div class="modal-body text-center container-padding40">
+                  <h3 class="font-red size-14">是否删除</h3>
+                  <p class="font-white size-16">{{ deviceName }}</p>
+                </div>
+                <div class="modal-footer">
+                  <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
+                  <el-button class="back" data-dismiss="modal">取消</el-button>
+                </div>
+              </div>
+            </div>
+          </div>
       </section>
     </div>
   </div>
@@ -766,6 +888,7 @@
           console.log(val);
           if(this.$route.path == '/Equipment_management/maps'){
             this.tableList();
+            this.$store.commit('DeviceMap',this.tableData);
           }
         },
         // 深度观察监听

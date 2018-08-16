@@ -246,7 +246,35 @@ export default {
           label: "怀化市横县"
         }
       ],
-      itemtrue: false
+      itemtrue: false,
+      //巡检统计参数
+      risk_riskCount_parameter:{},
+      //巡检统计参数-返回
+      risk_riskCount: {
+        finish: "",
+        nofinish: "",
+        amount: "",
+        plancount: "",
+        planing: "",
+        weekRate: "",
+        monthRate: "",
+        dayRate: "",
+        historyRate: "",
+        plansum: "",
+        troubleRate: ""
+      },
+      // 表格-请求
+      queryRiskList_parameter: {
+        id: null,
+        unitId: 4,
+        type: null,
+        inspectionName: null,
+        status: null,
+        currentPage: "1",
+        pageSize: 10
+      },
+      // 表格返回
+      tableData: Object,
     };
   },
   methods: {
@@ -474,15 +502,48 @@ export default {
       let myChart11 = this.$echarts.init(document.getElementById("myChart1"));
       myChart11.setOption(option11);
     },
-    toiteminfo() {
+    // 获取统计数据
+    getRiskData() {
+      this.$fetch("/api/inspection/planInspectionCount").then(response => {
+        let data = response.data;
+        if (response.data) {
+            console.log("获取风险表格列表数据:"); 
+            console.log(response.data);
+        }
+      });
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页:` + val);
+      this.queryRiskList_parameter.currentPage = val;
+      this.getTable();
+    },
+    // 获取表格
+    getRiskTable() {
+      this.$fetch(
+        "/api/inspection/queryPlanUserList",
+        this.queryRiskList_parameter
+      ).then(response => {
+          if (response) {
+            this.tableData = response.data.pager;
+            console.log("获取风险表格列表数据:");
+            console.log(this.tableData);
+          }
+        })
+        .then(err => {
+          console.log(err);
+        });
+    },
+    //获取详情
+    toiteminfo(data) {
       this.itemtrue = true;
       this.$store.commit("toriskitem", this.itemtrue);
     }
   },
   mounted() {
     this.$store.commit("route_path", this.$route.path);
-    // 左侧图表
-    this.chart_left();
+    this.chart_left();// 左侧图表
+    this.getRiskData(); //风险统计 
+    this.getRiskTable(); //风险表格
   }
 };
 </script>

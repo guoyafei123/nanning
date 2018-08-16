@@ -23,7 +23,7 @@
           </el-form-item>
           <el-form-item label="选择单位">
             <el-select v-model="region1" placeholder="选择单位" class="select">
-              <el-option label="全部单位" value=""></el-option>
+              <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>

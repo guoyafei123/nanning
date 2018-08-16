@@ -273,14 +273,31 @@
       
       watch:{
         tableData(){
-          this.tableData.forEach(item => {
-            console.log(item.pointX);
-            console.log(item.pointY);
-            this.mp.addOverlay(this.addlandmark(item.name,item.status,[item.pointX,item.pointY]));
-            // this.mp.addOverlay(this.addlandmark(item.name,item.status,[108.363609,22.815612]));
+          if(this.route_path == '/Building_management/maps'){
+            this.tableData.forEach(item => {
+              console.log(item.pointX);
+              console.log(item.pointY);
+              this.mp.addOverlay(this.addlandmark(item.name,item.status,[item.pointX,item.pointY]));
+            })
+          }
+        },
+        DeviceMap(){
+          if(this.route_path == '/Equipment_management/maps'){
+            this.DeviceMap.forEach(item => {
+              console.log(item.pointX);
+              console.log(item.pointY);
+              this.mp.addOverlay(this.addlandmark(item.name,item.status,[item.pointX,item.pointY]));
+            })
+          }
+        },
+        InspectionMap(){
+          if(this.route_path=='/Inspection_plan/maps'){
             
-          })
-        }
+          }
+        },
+        route_path(){
+          this.mp.clearOverlays();
+        },
       },
       mounted(){
         var mapStates = this.getMapToDiv('manage_map');
@@ -289,7 +306,10 @@
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
       },
       computed:mapState([
-        'tableData'
+        'tableData',
+        'InspectionMap',
+        'route_path',
+        'DeviceMap'
       ])
     }
 </script>
