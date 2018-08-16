@@ -47,7 +47,8 @@
             </el-select>
             <el-select
               v-model="equipment"
-              placeholder="选择设备" class="sbwz_120_32 start startDevice">
+              placeholder="选择设备类型" class="sbwz_120_32 start startDevice">
+              <el-option label="全部设备" value=""></el-option>
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
@@ -130,13 +131,11 @@ import managementMapVue from '../managementMap';
           }
         })
       },
-      equipmentSearch(roomId){
-        this.$fetch("/api/building/selectNode",{
-          roomId:roomId
-        }).then(response=>{
+      equipmentSearch(){
+        this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
           console.log('equipmentSearch:'+response);
           if (response) {
-            this.equipmentList = response.data.list;
+            this.equipmentList = response.data.deviceTypeEnum;
             console.log(this.equipmentList);
           }
         })
@@ -169,37 +168,24 @@ import managementMapVue from '../managementMap';
       building(curVal,oldVal){
         this.building = curVal ;
         console.log(this.building);
-        if(this.building !== 0 && this.building !== '0'){
-          this.floor = '';
-          this.room = '';
-          this.equipment = '';
-          this.floorSearch(this.building);
-          this.$store.commit('buildDevice',this.building);
-        }else{
-          this.floor = '';
-          this.room = '';
-          this.equipment = '';
-          this.equipmentSearch(this.building);
-          this.$store.commit('buildDevice',this.building);
-        }
+        this.floor = '';
+        this.room = '';
+        this.equipment = '';
+        this.floorSearch(this.building);
+        this.$store.commit('buildDevice',this.building);
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
         console.log(this.floor);
         if(this.floor !== 0){
           this.roomSearch(this.floor);
-          $('.startRoom').show();
           this.$store.commit('floorDevice',this.floor);
         }
       },
       room(curVal,oldVal){
         this.room = curVal ;
         console.log(this.room);
-        if(this.room !== 0){
-          this.equipmentSearch(this.room);
-          $('.startDevice').show();
-          this.$store.commit('roomDevice',this.room);
-        }
+        this.$store.commit('roomDevice',this.room);
       },
       equipment(curVal,oldVal){
         this.equipment = curVal ;
@@ -209,6 +195,7 @@ import managementMapVue from '../managementMap';
     mounted(){
       realconsole();
       this.unitSearch();
+      this.equipmentSearch();
       this.$store.commit('route_path',this.$route.path);
     }
   };

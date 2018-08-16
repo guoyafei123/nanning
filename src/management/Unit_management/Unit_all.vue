@@ -10,14 +10,6 @@
       </div>
     </div>
     <div class="main_all_content">
-      <div class="main_content_top">
-        <!-- <el-form label-width="80px" class="float-left">
-          <el-select v-model="unitNumber" placeholder="选择单位" class="select build" style="width:150px;">
-            <el-option label="全部单位" value=""></el-option>
-            <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-        </el-form> -->
-      </div>
       <div class="main_content_table">
         <el-table
           :data="tableData"

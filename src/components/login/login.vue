@@ -210,7 +210,7 @@
             if(response.status==1){
               this.$router.push("/index");
               localStorage.login=1;
-              this.$store.commit('userinfo',response.status);
+              this.$store.commit('userinfo',response.data);
             }else{
               this.tologin='登录失败!请联系管理员'
             }

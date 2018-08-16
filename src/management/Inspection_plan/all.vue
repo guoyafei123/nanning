@@ -36,6 +36,7 @@
         <el-table
           :data="tableData"
           border
+          :highlight-current-row="true"
           :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             sortable
