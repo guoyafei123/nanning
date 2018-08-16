@@ -103,6 +103,7 @@
     },
     watch:{
       unitNumber(){
+        this.tableList();
         this.right_list();
       }
     },

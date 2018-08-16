@@ -1,7 +1,7 @@
 <template>
     <div class="row">
       <!-- #头部 -->
-      <header-vue></header-vue>
+      <!-- <header-vue></header-vue> -->
       <!-- #头部 End-->
       <!-- #左边 -->
       <section id="left" class="position-fixed-left z-index-20">
@@ -14,7 +14,7 @@
                 <div class="set-width-50  font-gray-999 padding-right0">
                   <ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
                     <li>
-                      <h1 class="toolcount-p1 font-red">{{ins_queryAlarmStats.countAlarm}}</h1>
+                      <h1 class="toolcount-p1 font-red">{{ins_queryAlarmStats.ALARMTOTAL}}</h1>
                     </li>
                     <li> 
                     <p class="size-10">Alarm Number</p>
@@ -28,19 +28,19 @@
                   <ul class="padding-left0 margin-bottom0">
                     <li>
                       <p>故障数</p>
-                      <p class="font-blue font-italic float-right size-14">{{ins_queryAlarmStats.countFault}}</p>
+                      <p class="font-blue font-italic float-right size-14">{{ins_queryAlarmStats.FAULTNUM}}</p>
                     </li>
                     <li>
                       <p>故障处理</p>
-                      <p class="font-blue font-italic float-right size-14">{{ins_queryAlarmStats.faultDeal}}</p>
+                      <p class="font-blue font-italic float-right size-14">{{ins_queryAlarmStats.FAULTDEAL}}</p>
                     </li>
                     <li>
                       <p>发生火情</p>
-                      <p class="font-blue font-italic float-right size-14">{{ins_queryAlarmStats.occurFire}}</p>
+                      <p class="font-blue font-italic float-right size-14">{{ins_queryAlarmStats.FIRENUM}}</p>
                     </li>
                     <li>
                       <p>报警确认</p>
-                      <p class="font-blue font-italic float-right size-14">{{ins_queryAlarmStats.alarmAck}}</p>
+                      <p class="font-blue font-italic float-right size-14">{{ins_queryAlarmStats.ALARMDEAL}}</p>
                     </li>
                   </ul>
                 </div>
