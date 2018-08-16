@@ -23,7 +23,22 @@ a.active {
     font-size: 12px;
     margin-right: 4px;
 }
-
+.hint_error{
+    color: #f13131;
+    font-size: 16px;
+    line-height: 24px;
+    /* position: absolute; */
+    /* top: 60%; */
+    /* left: 110px; */
+    text-align: center;
+    font-family: element-icons!important;
+}
+.hint_error:before {
+    content: "\E607";
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 4px;
+}
 .tooltip-inner {
     max-width: 600px!important;
     padding: 2px 8px;

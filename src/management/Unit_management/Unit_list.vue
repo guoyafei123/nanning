@@ -55,6 +55,7 @@
               </div>
             </div>
             <img v-show="isShow" src="" id="up_img" style="width:80px;height:80px;"/>
+            <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
             <!-- <span style="width: 200px;height: 80px;text-align:center;line-height:80px;color:#fff;display:block;float:left;">{{ files }}</span> -->
           </el-form-item>                   
         </el-form>
@@ -86,13 +87,25 @@
               pointY:''
             }
           },
-          isShow:false
+          isShow:false,
+          fileVerification:''//图片验证
         }
       },
       methods:{
         file(){
+          var x = document.getElementById("file");
+          if (!x || !x.value) return;
+          var patn = /\.jpg$|\.jpeg$|\.png$/i;
+          if (!patn.test(x.value)) {
+            this.fileVerification="您选择的似乎不是图像文件!!";
+            x.value = "";
+            this.isShow = false ;
+            $("#up_img").attr("src",'');
+            return;
+          }
           this.isShow = true ;
           $("#up_img").attr("src", this.getObjectURL($("#file")[0]));
+          this.fileVerification="";
         },
         getObjectURL(node) {
             var imgURL = "";
@@ -127,6 +140,8 @@
         },
         btn(){
           var file = "file";
+          
+          
           $.ajaxFileUpload({
             url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
             /* secureuri : false, */ //一般设置为false
