@@ -3,7 +3,7 @@
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-renyuanliebiao-mian-"></i>
-        <h2>人员管理</h2>
+        <h2>人员审核</h2>
       </div>
       <div class="main_nav float-right">
         <router-link to="/Equipment_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
@@ -74,7 +74,7 @@
             fixed="right"
             label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button v-if="scope.row.review == 3" @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal" class="btn-check">审核</button>
               <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
@@ -86,7 +86,6 @@
           <div class="float-left btn-system">
             <a href="javascript:;">打印</a>
             <a href="javascript:;">导出</a>
-            <a href="javascrip:;">导出二维码</a>
           </div>
           <el-pagination
                          @current-change="handleCurrentChange"

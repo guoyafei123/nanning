@@ -3,8 +3,8 @@
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
-          <i class="icon iconfont icon-weixianpin-mian-"></i>
-          <h2>危险品管理</h2>
+          <i class="fa fa-plus"></i>
+          <h2>添加危险品</h2>
         </div>
         <div class="main_nav float-right">
           <router-link to="/Dangerous_goods_management/list"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
@@ -14,6 +14,10 @@
       <section class="border-top-solid-333 margin-left15 margin-right15"></section>
       <!-- 表单 -->
       <div class="main_content">
+        <!--
+          class类not-null为必填标识,如需请加在<el-form-item>
+          class类hint-error为错误提示
+         -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="危险品名称">
             <span class="hint-error">设备名称有误或重复</span>

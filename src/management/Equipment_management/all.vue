@@ -19,7 +19,7 @@
           </el-select>
           <el-select
               v-model="building"
-            placeholder="选择建筑"  class="sbwz_138_32 start">
+            placeholder="选择建筑"  class="start">
               <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
@@ -29,7 +29,7 @@
             </el-select>
             <el-select
               v-model="floor"
-              placeholder="选择楼层" class="sbwz_90_32 start startFloor">
+              placeholder="选择楼层" class="start startFloor">
               <el-option
                 v-for="item in floorList"
                 :label="item.floor+'层'"
@@ -38,7 +38,7 @@
             </el-select>
             <el-select
               v-model="room"
-              placeholder="选择房间" class="sbwz_90_32 start startRoom">
+              placeholder="选择房间" class="start startRoom">
               <el-option
                 v-for="item in roomList"
                 :label="item.roomNumber+'房间'"
@@ -47,8 +47,12 @@
             </el-select>
             <el-select
               v-model="equipment"
+<<<<<<< HEAD
               placeholder="选择设备类型" class="sbwz_120_32 start startDevice">
               <el-option label="全部设备" value=""></el-option>
+=======
+              placeholder="选择设备类型" class="start startDevice">
+>>>>>>> 56320e816ff93f44015b2426169159118d50c28b
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
@@ -187,7 +191,7 @@
                 <el-form-item label="设备类型">
                   <el-select
                     v-model="form.equipmentId"
-                    placeholder="选择设备类型" class="sbwz_138_32 start col-sm-4">
+                    placeholder="选择设备类型" class="start col-sm-4">
                     <el-option
                       v-for="item in equipmentList"
                       :label="item.name"
@@ -198,7 +202,7 @@
                 <el-form-item label="设备位置">
                   <el-select
                     v-model="form.buildingId"
-                  placeholder="选择建筑"  class="sbwz_138_32 start col-sm-4">
+                  placeholder="选择建筑"  class="start col-sm-4">
                     <el-option label="室外" value="0"></el-option>
                     <el-option
                       v-for="item in form.buildList"
@@ -208,7 +212,7 @@
                   </el-select>
                   <el-select
                     v-model="form.floorId"
-                    placeholder="选择楼层" class="sbwz_138_32 start col-sm-4">
+                    placeholder="选择楼层" class="start col-sm-4">
                     <el-option
                       v-for="item in form.floorList"
                       :label="item.floorName+'层'"
@@ -217,7 +221,7 @@
                   </el-select>
                   <el-select
                     v-model="form.roomId"
-                    placeholder="选择房间" class="sbwz_138_32 start col-sm-4">
+                    placeholder="选择房间" class="start col-sm-4">
                     <el-option
                       v-for="item in form.roomList"
                       :label="item.roomNumber+'房间'"

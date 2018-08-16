@@ -120,7 +120,7 @@
         </section>
         <!-- 路线日志 -->
         <section>
-          <div class="table-responsive bg-black">
+          <div class="table-responsive padding-top10 bg-black">
             <h4 class="p-title">操作日志</h4>
             <div class="main_content_table">
               <el-table

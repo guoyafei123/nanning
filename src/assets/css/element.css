@@ -219,6 +219,9 @@ footer .el-button:hover,footer .el-button:focus {
     border-color: #bad616!important;
 }
 /*Select 选择器*/
+.el-input--suffix .el-input__inner {
+  padding-right: 0;
+}
   #login .el-input__inner,
   #register .el-input__inner{
     color: #fff!important;
@@ -569,6 +572,7 @@ header .el-select-dropdown__item:last-child {
     width: inherit;
 }
 .main_content .el-input__inner {
+  padding:0 10px;
   color: #fff!important;
   border: 1px solid #333!important;
 }
