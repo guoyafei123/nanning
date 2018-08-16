@@ -119,6 +119,13 @@
     background-color: #f13131!important;
 }
 /*中间主列表*/
+#equipment #right .size-10,
+#dangerous #right .size-10 {
+    margin-left: -5px;
+}
+#inspection #right .size-10 {
+    margin-left: -2px;
+}
 
 .main_header{
     width:100%;

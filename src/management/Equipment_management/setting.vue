@@ -1,5 +1,5 @@
 <template>
-  <div class="row" id="device">
+  <div class="row" id="equipment">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->

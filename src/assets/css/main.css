@@ -581,10 +581,7 @@ span.point {
 #device .size-10{
     margin-left: -4px;
 }
-#inspection .size-10,
-#dangerous .size-10 {
-    margin-left: -7px;
-}
+
 .dev-tit-icon {
     width: 18px;
     height: 18px;
