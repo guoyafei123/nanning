@@ -28,19 +28,18 @@
           <router-link to="/Building_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
           </div>
         </div>
-      </div>
-    </aside>
-    <div class="maps">
+        <div class="maps">
         <managementMap-vue></managementMap-vue>
-    </div>
-    <div class="floorMap" style="display:none;">
-      <img src="../../assets/images/floor.png">
-    </div>
-    <div class="roomMap" style="display:none;">
-      <img src="../../assets/images/floor.png">
-    </div>
+        </div>
+        <div class="floorMap" style="display:none;">
+          <img src="../../assets/images/floor.png">
+        </div>
+        <div class="roomMap" style="display:none;">
+          <img src="../../assets/images/floor.png">
+        </div>  
+      </div>
+    </aside>    
   </div>
-
 </template>
 
 <script>  

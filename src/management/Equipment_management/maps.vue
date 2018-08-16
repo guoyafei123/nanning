@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div id="list-maps">
     <aside>
       <div class="main_header clearFix">
-      <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-shebeiguanli-mian-"></i>
-        <h2>设备管理</h2>
+        <div class="main_title float-left clearFix">
+          <i class="icon iconfont icon-shebeiguanli-mian-"></i>
+          <h2>设备管理</h2>
+        </div>
+        <div class="main_nav float-right">
+          <router-link to="/Equipment_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
+        </div>
       </div>
-      <div class="main_nav float-right">
-        <router-link to="/Equipment_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
-      </div>
-    </div>
       <div class="main_all_content">
         <div class="main_content_top">
           <el-form class="float-left">
@@ -61,11 +61,11 @@
             <router-link to="/Equipment_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
           </div>
         </div>
+        <div class="maps">
+            <managementMap-vue></managementMap-vue>
+        </div>
       </div>
-    </aside>
-    <div class="maps">
-        <managementMap-vue></managementMap-vue>
-    </div>
+    </aside>    
   </div>
 
 </template>

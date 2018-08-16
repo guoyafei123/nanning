@@ -315,14 +315,6 @@
 </script>
 
 <style scoped>
-  .xzmap {
-    width: 100%!important;
-    height: 100%!important;
-    position: absolute !important;
-    background-color: rgb(31, 31, 31)!important;
-    /**bottom: 1px;*/
-  }
-
 </style>
 
 
