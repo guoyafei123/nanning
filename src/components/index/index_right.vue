@@ -31,15 +31,15 @@
           </div>
           <div class="pull-right">
             <article>
-              <h4>{{getUnitsSynthesis.ALLALARM}}</h4>
+              <h4 v-if="getUnitsSynthesis">{{getUnitsSynthesis.ALLALARM}}</h4>
               <small>今日警报</small>
             </article>
             <article>
-              <h4>{{getUnitsSynthesis.ALLTROUBLE}}</h4>
+              <h4 v-if="getUnitsSynthesis">{{getUnitsSynthesis.ALLTROUBLE}}</h4>
               <small>今日隐患</small>
             </article>
             <article>
-              <h4>{{getUnitsSynthesis.ALLINSPECTION}}</h4>
+              <h4 v-if="getUnitsSynthesis">{{getUnitsSynthesis.ALLINSPECTION}}</h4>
               <small>巡检完成</small>
             </article>
           </div>
@@ -47,22 +47,22 @@
         <!-- 统计2 -->
         <li>
           <article>
-            单位总数<span>{{getUnitsSynthesis.UNITCOUNT}}</span>
+            单位总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.UNITCOUNT}}</span>
           </article>
           <article>
-            建筑总数<span>{{getUnitsSynthesis.BUILDINGCOUNT}}</span>
+            建筑总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.BUILDINGCOUNT}}</span>
           </article>
           <article>
-            设备总数<span>{{getUnitsSynthesis.DEVICECOUNT}}</span>
+            设备总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.DEVICECOUNT}}</span>
           </article>
           <article>
-            预案总数<span>{{getUnitsSynthesis.PREARRANGECOUNT}}</span>
+            预案总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.PREARRANGECOUNT}}</span>
           </article>
           <article>
-            人员总数<span>{{getUnitsSynthesis.STAFFNUM}}</span>
+            人员总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.STAFFNUM}}</span>
           </article>
           <article>
-            巡检路线<span>{{getUnitsSynthesis.INSPECTIONPLANCOUNT}}</span>
+            巡检路线<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.INSPECTIONPLANCOUNT}}</span>
           </article>
         </li>
       </ul>
@@ -402,6 +402,7 @@ export default {
 
   data() {
     return {
+      getunitid:null,
       // 弹报警详情
       dialogVisible: false,
       torightdatas:Object,
@@ -433,11 +434,23 @@ export default {
   // },
   computed:mapState([
     'torightdata',
+    'unitid'
   ]),
   watch:{
       torightdata(){
         this.torightdatas=this.torightdata;
       },
+      unitid(){
+        if(this.unitid!=0){
+          this.getunitid=this.unitid;
+        }else{
+          this.getunitid=null;
+        }
+        this.getUnitsSynthesis_parmar.unitId=this.getunitid;
+        this.queryAlarmIng_parmar.unitId=this.getunitid;
+        this.getgetUnitsSynthesis();
+        this.getqueryAlarmIng(666);
+      }
     },
   // 调用方法
   methods: {
@@ -646,6 +659,10 @@ export default {
   },
   // 默认加载方法
   mounted() {
+    if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+      this.getUnitsSynthesis_parmar.unitId=sessionStorage.unitid;
+      this.queryAlarmIng_parmar.unitId=sessionStorage.unitid;
+    }
     this.socketIs++;
     console.log(this.socketIs);
     realconsole();

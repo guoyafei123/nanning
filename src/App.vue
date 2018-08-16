@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <template v-if="mapAndFooter">
+      <header-vue></header-vue>
+    </template>
+    
     <!-- #地图主容器 -->
     <template v-if="mapAndFooter">
       <map-vue ></map-vue>
@@ -22,6 +26,7 @@
 <script>
   import MapVue from './components/publick/map';
   import FooterVue from './components/publick/footer';
+  import HeaderVue from './components/publick/header';
   import{mapState} from "vuex";
   // import EarlyinfoVue from './components/earlyinfo';
   // import { realconsole } from './assets/js/management.js'
@@ -35,6 +40,7 @@
     components: {
       'map-vue': MapVue,
       'footer-vue': FooterVue,
+      'header-vue': HeaderVue,
       // 'earlyinfo-vue':EarlyinfoVue
     },
     computed:mapState([

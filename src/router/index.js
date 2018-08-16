@@ -14,6 +14,7 @@ import RiskVue from '../components/risk/risk';
 import DangerVue from '../components/danger/danger';
 import BulidVue from '../components/buliding/buliding';
 import PlanVue from '../components/plan/plan';
+import Cookie from '../components/publick/cookie';
 import MinmapVue from '../components/publick/min_map';
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
@@ -80,6 +81,9 @@ export default new Router({
     },
     {
       path:'/plan',component:PlanVue
+    },
+    {
+      path:'/cookie',component:Cookie
     },
     
     

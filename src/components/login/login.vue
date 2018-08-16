@@ -209,7 +209,8 @@
             console.log(response);
             if(response.status==1){
               this.$router.push("/index");
-              // this.$store.commit('route_path',"/index");
+              localStorage.login=1;
+              this.$store.commit('userinfo',response.status);
             }else{
               this.tologin='登录失败!请联系管理员'
             }
@@ -221,6 +222,11 @@
       },
     },
     mounted() {
+      if(localStorage.login==1){
+        this.$router.push("/index");
+      }else{
+        this.$router.push("/login");
+      }
       // this.ruleForm.username=this.loginusername;
       this.$store.commit('route_path',"/login");
     }
