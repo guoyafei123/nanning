@@ -102,7 +102,7 @@ footer .el-button {
 footer .el-button:hover,footer .el-button:focus {
     background-color: transparent;
     display: block;
-    color:inherit;
+    color:#000!important;
 }
 .el-badge__content.is-fixed {
     top: -11px;
@@ -547,6 +547,18 @@ header .el-select-dropdown__item:last-child {
 }
 
 /*表单*/
+.el-textarea__inner {
+  padding: 5px 10px;
+  border-radius: 0;
+  border: 1px solid #333;
+  background-color: #111;
+  font-size: 12px;
+  color: #fff;
+}
+.el-textarea__inner:hover,.el-textarea__inner:focus {
+  border: 1px solid #333;
+  background-color: #000;
+}
 .el-form-item__label {
   color: #999;
   line-height: 24px;

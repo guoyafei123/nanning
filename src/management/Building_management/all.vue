@@ -6,7 +6,7 @@
         <h2>建筑管理</h2>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Building_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
+        <span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span>
       </div>
     </div>
     <div class="main_all_content">
@@ -17,7 +17,7 @@
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
            <!-- 楼层管理 -->
-           <el-select v-model="floorId" placeholder="选择楼层" class="select floor display-none">
+           <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="display:none;">
             <el-option label="全部楼层" value=""></el-option>
             <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
           </el-select>
@@ -90,8 +90,8 @@
             fixed="right"
             label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
-              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <!-- <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button> -->
+              <!-- <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
               <button @click="floor_build(scope.row)"><i class="icon iconfont icon-danweiguanli-mian-1" data-toggle="tooltip" title="楼层管理"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
@@ -122,8 +122,14 @@
           </el-pagination>
         </div>
       </div>
+      <div class="floorMap" style="display:none;">
+        <img src="../../assets/images/floor.png">
+      </div>
+      <div class="roomMap" style="display:none;">
+        <img src="../../assets/images/floor.png">
+      </div>
     </div>
-    <!-- Modal -->
+    <!-- 编辑Modal -->
     <div class="modal modal_form fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -189,12 +195,13 @@
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">编辑并提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
       </div>
     </div>
+    <!-- 删除Modal -->
     <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -205,7 +212,7 @@
           </div>
           <div class="modal-body text-center container-padding40">
             <h3 class="font-red size-14">是否删除</h3>
-            <p class="font-white size-18">{{ deviceName }}</p>
+            <p class="font-white size-16">{{ deviceName }}</p>
           </div>
           <div class="modal-footer">
             <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
@@ -255,6 +262,8 @@
     methods: {
       btn_add(){
         $('#right').css('display','none');
+        $('.manage-center').hide();
+        $('#list').show();
       },
       handleCurrentChange(val) {
         this.currentPage4 = val;
@@ -333,7 +342,8 @@
         $('.plan').hide();
         $('.total').hide();
         $('.floor_wrap').show();
-        $('room_wrap').hide();
+        $('.room_wrap').hide();
+        $('.floorMap').show();
         this.$store.commit('floorAdd',1);
         this.$store.commit('buildingId',row.id);
       },
@@ -342,7 +352,6 @@
         this.$store.commit('floorAdd',2)
         this.$store.commit('buildingId',row.id);
         $('.plan').show();
-        $('.mapTable').hide();
         $('.total').hide();
       },
       deleteRow(){
@@ -425,7 +434,6 @@
         handler: function(val, oldVal){
           console.log(val);
           if(this.$route.path == '/Building_management/all'){
-            $('.mapTable').hide();
             $('.plan').show();
             $('.floor_wrap').hide();
           }

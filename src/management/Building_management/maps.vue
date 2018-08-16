@@ -7,13 +7,13 @@
           <h2>建筑管理</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Building_management/list"><span @click="btn_add" class="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
+          <span @click="btn_add" class="btn_add"><i class="fa fa-plus"></i>新增</span>
         </div>
       </div>
       <div class="main_all_content">
         <div class="main_content_top">
           <el-form class="float-left">
-            <el-select v-model="buildUnit" placeholder="选择单位" class="select">
+            <el-select v-model="buildUnit" placeholder="选择单位" class="select build">
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -32,6 +32,12 @@
     </aside>
     <div class="maps">
         <managementMap-vue></managementMap-vue>
+    </div>
+    <div class="floorMap" style="display:none;">
+      <img src="../../assets/images/floor.png">
+    </div>
+    <div class="roomMap" style="display:none;">
+      <img src="../../assets/images/floor.png">
     </div>
   </div>
 
@@ -55,6 +61,8 @@
     methods: {
       btn_add(){
         $('#right').hide();
+        $('#manage-center').hide();
+        $('#list').show();
       },
       unitSearch(){
         this.$fetch(
