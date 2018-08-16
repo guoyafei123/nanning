@@ -69,7 +69,7 @@
                         <span class="header-head-portrait">
                             <img src="../../assets/images/people.png" class="img-responsive img-circle">
                         </span>
-                        <span class="user-name">{{userinfo.userInfo.realName}}</span>
+                        <span class="user-name">{{username}}</span>
                         <span class="caret"></span>
                       </span>
                       <el-dropdown-menu slot="dropdown">                        
@@ -139,7 +139,7 @@ export default {
       areavalue: "选项2",
       unitvalue: "全部单位",
       queryUnit:Object,
-      getuserinfos:Object
+      username:'-'
     };
   },
   computed:mapState([
@@ -250,7 +250,7 @@ export default {
         this.$store.commit('unitid',this.unitvalue);
     },
     getuserinfo(){
-        this.getuserinfos=this.userinfo;
+        this.username=localStorage.name
     }
   }
 };

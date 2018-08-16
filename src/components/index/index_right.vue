@@ -8,8 +8,8 @@
           <div class="position-absolute-bottom clearfix">
             <!-- 单位信息 -->
             <article class="unit-brief white-space col-sm-10">
-              <h3>{{userinfo.unit.name}}</h3>
-              <small><i class="el-icon-location"></i> {{userinfo.unit.location}}</small>
+              <h3>-</h3>
+              <small><i class="el-icon-location"></i> -</small>
             </article>
             <!-- 安全评分 -->
             <article class="unit-score">
@@ -21,7 +21,7 @@
             </article>
           </div>
           <!-- 单位图片 -->
-          <img src="/assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
+          <img src="../../assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
         </li>
         <!-- 统计1 -->
         <li>
@@ -424,7 +424,7 @@ export default {
       ],
       socketcodes: {},
       socketIs: 1,
-      getuserinfos: Object
+      // getuserinfos: Object
     };
   },
   // sockets:{
@@ -691,7 +691,7 @@ export default {
     this.getqueryAlarmIng(1);
     this.connect();
     this.getmp3();
-    this.getuserinfo();
+    // this.getuserinfo();
   }
 };
 </script>
