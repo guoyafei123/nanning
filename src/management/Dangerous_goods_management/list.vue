@@ -24,7 +24,6 @@
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
           <el-form-item label="所属单位">
-
             <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>

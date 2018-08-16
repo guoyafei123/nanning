@@ -1,51 +1,131 @@
 <template>
-  <div class="Inspection_plan z-index-20  ">
-    <div class="font-white margin-left15 margin-right20 plan" style="margin-top:130px;display:none;">
-      <section class="inspection-iteminfo" >
-        <section>
-          <div class="textandimg">
-              <h2 class="size-18 font-gray-ccc margin-bottom30 margin-top10" style="letter-spacing:10px;">
-                 {{ this.form.nickName }}的信息
-              </h2>
-              <div class="row textandimg-main">
-                  <div class="col-sm-12">
-                      <span class="size-16 font-gray-666 span_name">姓名</span>
-                      <span class="size-14 font-gray-999 span_con" v-html="this.form.nickName"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">职位</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.position"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">联系电话</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.cellPhone"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">所属单位</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.unitName"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">审核意见</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.review"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">审核说明</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.reviewContent"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">审核人</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.reviewName"></span>
-                  </div>
-                  <div class="col-sm-12">
-                      <span class="size-12 font-gray-666 span_name">审核时间</span>
-                      <span class="size-12 font-gray-999 span_con" v-html="this.form.reviewTime"></span>
-                  </div>
+        <div class="toolright z-index-20">
+          <!-- 详情 -->
+          <section class="per-iteminfo plan">
+            <!-- <a class="btn-back" @click="back_first" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a> -->
+            <section class="margin-top20">
+              <div class="personinfo">
+                <p>
+                  <span class="size-20 font-blue">{{ this.form.nickName }}姓名</span>
+                  <span class="bgbox-min bg-red font-black size-10">{{ this.form.review }}</span>
+                  <span class="float-right">
+                      <span class="bgbox-max bg-gray-333 font-gray-ccc size-10">{{ this.form.roleName }}</span>
+                  </span>
+                </p>
+                <p class="col-sm-7 text-left padding0">
+                  <span><i class="fas fa-industry"></i> {{ this.form.unitName }}</span>
+                </p>
+                <p class="col-sm-5 text-right padding0">
+                  注册时间:<strong class="font-gray-999">{{ this.form.reviewTime }}</strong>            
+                </p>
               </div>
-          </div>
-        </section>
-      </section>
-    </div>
-  </div>
+            </section>
+            <!-- 个人信息 -->
+            <section>
+              <div class="row toolcount margin-top20">
+                        <div class="col-sm-4 font-gray-666 padding0">
+                          <ul class="toolcount-left padding-left0" id="toolcount">
+                            <li class="col-xs-offset-1 col-xs-10 margin-bottom10 padding-left5 text-center">
+                              <!-- <h1 class="toolcount-p1">8.7</h1> -->
+                              <!-- <img src="../../assets/images/head.jpg" class="img-responsive img-circle"> -->
+                              <img :src="this.form.headImgUrl" id="up_img" class="img-responsive img-circle center-block" style="width:100px;height:100px;"/>
+                            </li>
+                            <li class="col-xs-offset-1 col-xs-10 padding-left5 text-center">
+                              <h4 class="size-16 font-blue show">{{ this.form.nickName }}</h4>
+                              <span class="size-12 font-gray-999"><!-- 男 25岁 河北邯郸<br> -->{{ this.form.cellPhone }}</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-8 font-gray-999 padding0">
+                          <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
+                            <li>
+                              <p class="size-18 font-white">个人信息</p>
+                            <li>
+                              <p class="size-10 set-scaleright">Personnel Info</p>
+                            </li>
+                            <li class="margin-top20">
+                                <p>在线时长 <strong class="font-white">3229分钟</strong></p>
+                            </li>
+                            <!-- <li class="row text-left">
+                              <div class="col-sm-6">
+                                <p>报警响应 <strong class="font-red">23次</strong></p>
+                              </div>
+                              <div class="col-sm-6">
+                                <p>平均响应时长 <strong class="font-blue">1227s</strong></p>
+                              </div>
+                            </li> -->
+                            <li class="row text-center padding-right16 margin-top10">
+                              <div class="col-sm-4 personnel-borderright">
+                                <p class="size-16 show font-white">269</p>
+                                <p>巡检完成数</p>
+                              </div>
+                              <div class="col-sm-4 personnel-borderright">
+                                <p class="size-16 show font-white">87</p>
+                                <p>隐患发现数</p>
+                              </div>
+                              <div class="col-sm-4">
+                                <p class="size-16 show font-white">63</p>
+                                <p>隐患解决数</p>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+              </div>
+            </section>
+            <!-- 详细信息 -->
+            <section>
+              <div class="textandimg margin-top30">
+                    <h4 class="p-title">详细信息</h4>
+                    <div class="row textandimg-main margin-top20 size-12">
+                        <div class="col-sm-6">
+                            <span>姓名 </span>
+                            <strong v-html="this.form.nickName"></strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>联系电话 </span>
+                            <strong v-html="this.form.cellPhone"></strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>角色 </span>
+                            <strong v-html="this.form.roleName"></strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>职位 </span>
+                            <strong v-html="this.form.position"></strong>
+                        </div>
+                        <div class="col-sm-12">
+                            <span>所属单位</span>
+                            <strong v-html="this.form.unitName"></strong>
+                        </div>                
+                      </div>
+                </div>
+            </section>
+            <!-- 详细信息 -->
+            <section>
+              <div class="textandimg margin-top30">
+                    <h4 class="p-title">审核信息</h4>
+                    <div class="row textandimg-main margin-top20 size-12">
+                        <div class="col-sm-12">
+                            <span>审核结果</span>
+                            <strong class="font-red" v-html="this.form.review"></strong>
+                        </div>
+                        <div class="col-sm-12">
+                            <span>审核说明</span>
+                            <strong v-html="this.form.reviewContent"></strong>
+                        </div>
+                        <div class="col-sm-12">
+                            <span>审核人</span>
+                            <strong class="font-blue" v-html="this.form.reviewName"></strong>
+                        </div>
+                        <div class="col-sm-12">
+                            <span>审核时间</span>
+                            <strong v-html="this.form.reviewTime"></strong>
+                        </div>              
+                      </div>
+                </div>
+            </section>
+          </section>
+        </div>
 </template>
 
 <script>
@@ -120,25 +200,4 @@
 </script>
 
 <style lang="scss" scoped>
-  .clearFix:after{
-    clear:both;
-    content:'';
-    display: block;
-  }
-  .textandimg{
-    margin-left:80px;
-  }
-  .span_name{
-    font-size: 16px !important;
-    width:160px;
-    display:inline-block;
-    margin-left:-20px;
-    line-height: 40px;
-  }
-  .span_con{
-    font-size: 14px !important;
-    display:inline-block;
-    line-height: 40px;
-  }
-  
 </style>

@@ -47,12 +47,8 @@
             </el-select>
             <el-select
               v-model="equipment"
-<<<<<<< HEAD
-              placeholder="选择设备类型" class="sbwz_120_32 start startDevice">
-              <el-option label="全部设备" value=""></el-option>
-=======
               placeholder="选择设备类型" class="start startDevice">
->>>>>>> 56320e816ff93f44015b2426169159118d50c28b
+              <el-option label="全部设备" value=""></el-option>
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
