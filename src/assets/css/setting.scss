@@ -130,8 +130,8 @@
   .el-input__inner{
     height:28px;
     font-size: 12px;
-    color: #999999 !important;
-    background-color:#111111!important;
+    color: #fff !important;
+    background-color:#000;
     border:none !important;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -541,6 +541,7 @@ table th, table td{
   .room_wrap{
     width:100%;
     padding:0 15px;
+    
     .room_header{
       h2{
         color: #fff;
@@ -588,6 +589,7 @@ table th, table td{
     table{
       border-color: #999999;
       background: #222;
+      margin-top: 60px;
       thead{
         tr{
           td{
@@ -701,3 +703,4 @@ table th, table td{
     width:100%;
   }
 }
+

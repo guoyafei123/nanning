@@ -2,10 +2,10 @@
   <div class="toolright">
     <!-- 单位信息 -->
     <section class="textandimg margin-top20">
-              <h4 class="p-title">单位详情</h4>
+              <h4 class="p-title">预案详情</h4>
               <div class="row textandimg-main margin-top20 size-12">
-                  <div class="col-sm-12 margin-bottom20 imgSrc">
-                      <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg?'+'time='+(new Date()).getTime()" :id="'up_img'+ this.id" class="img-responsive center-block" style="max-height: 140px;" />
+                  <div class="col-sm-12 margin-bottom20">
+                      <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg'" :id="'up_img'+ this.id" class="img-responsive center-block" style="max-height: 140px;" />
                   </div>
                   <div class="col-sm-6">
                       <span>单位名称 </span>
@@ -72,7 +72,6 @@
     
     methods: {
       right_list(){
-        
         this.tableData.forEach((item,index)=>{
           if(item.id == this.unitNum){
             this.id = item.id ;
@@ -99,10 +98,9 @@
           console.log(response);
           if (response.data.pager) {
             this.tableData = response.data.pager.result;
-            // console.log(this.tableData);
-            
-            this.right_list();
+            console.log(this.tableData);
             $('.plan').show();
+            this.right_list();
           }
         })
         .then(err => {
@@ -117,8 +115,8 @@
     },
     watch:{
       unitNum(){
-        this.tableList();
         this.right_list();
+        this.tableList();
       }
     },
     computed:mapState([

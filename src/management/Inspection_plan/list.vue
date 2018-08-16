@@ -1,37 +1,43 @@
 <template>
   <div id="add-new">
     <aside>
-    <div class="main_header clearFix">
-      <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-xunjianguihua-mian-"></i>
+      <!-- 标题 -->
+      <div class="main_header clearFix">
+        <div class="main_title float-left clearFix">
+          <i class="fa fa-plus"></i>
         <h2>巡检规划</h2>
-      </div>
+        </div>
         <div class="main_nav float-right">
           <router-link to="/Inspection_plan/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
+      <section class="border-top-solid-333 margin-left15 margin-right15"></section>
+      <!-- 表单 -->
       <div class="main_content">
-        <el-form ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="路线名称" >
-            <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">路线名称重复，请重新输入</span> -->
-            <el-input v-model="form.name" style="width:190px;"></el-input>
-          </el-form-item>
-          <el-form-item label="巡检类型">
-            <el-select v-model="form.region2" placeholder="巡检类型" class="select">
-              <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+        <!--
+          class类not-null为必填标识,如需请加在<el-form-item>
+          class类hint-error为错误提示
+         -->
+        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+          <el-form-item label="路线名称">
+            <span class="hint-error">单位名称有误或重复</span>
+            <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
           <el-form-item label="选择单位">
-            <el-select v-model="region1" placeholder="选择单位" class="select">
+            <el-select v-model="region1" placeholder="选择单位" class="select col-sm-4">
               <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-
-          <el-form-item label="起点">
+          <el-form-item label="巡检类型">
+            <el-select v-model="form.region2" placeholder="巡检类型" class="select col-sm-4">
+              <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="起点" class="line-start col-sm-12">
             <el-select
               v-model="building"
-            placeholder="选择建筑"  class="sbwz_138_32 start" :disabled="isdisabled">
+            placeholder="选择建筑"  class="start" :disabled="isdisabled">
               <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
@@ -41,7 +47,7 @@
             </el-select>
             <el-select
               v-model="floor"
-              placeholder="选择楼层" class="sbwz_90_32 start startFloor" style="display: none;" :disabled="isdisabled">
+              placeholder="选择楼层" class="start startFloor" style="display: none;" :disabled="isdisabled">
               <el-option
                 v-for="item in floorList"
                 :label="item.floor+'层'"
@@ -50,7 +56,7 @@
             </el-select>
             <el-select
               v-model="room"
-              placeholder="选择房间" class="sbwz_90_32 start startRoom"  style="display: none;" :disabled="isdisabled">
+              placeholder="选择房间" class="start startRoom"  style="display: none;" :disabled="isdisabled">
               <el-option
                 v-for="item in roomList"
                 :label="item.roomNumber+'房间'"
@@ -59,24 +65,24 @@
             </el-select>
             <el-select
               v-model="equipment"
-              placeholder="选择设备" class="sbwz_120_32 start startDevice" style="display: none;" :disabled="isdisabled">
+              placeholder="选择设备" class="start startDevice" style="display: none;" :disabled="isdisabled">
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
                 :value="item.id">
               </el-option>
             </el-select>
-            <div class="float-right" v-if="!isdisabled" @click="jinyong" style="width:32px;height:32px;border:1px solid #333333;margin-top:5px;margin-right:5px;display:flex;justify-content: center;align-items: center;">
-              <i class="fa fa-th-large font-gray-666 float-right"></i>
+            <div class="icon-frame float-right" v-if="!isdisabled" @click="jinyong">
+              <i class="fas fa-check-circle font-blue float-right" data-toggle="tooltip" title="保存"></i>
             </div>
-            <div class="float-right" v-if="isdisabled" @click="kaiqi" style="width:32px;height:32px;border:1px solid #333333;margin-top:5px;margin-right:5px;display:flex;justify-content: center;align-items: center;">
-              <i class="fa fa-th-large font-gray-666 float-right"></i>
+            <div class="icon-frame float-right" v-if="isdisabled" @click="kaiqi">
+              <i class="fas fa-pencil-alt font-yellow float-right" data-toggle="tooltip" title="编辑"></i>
             </div>
           </el-form-item>
-          <el-form-item label="终点">
+          <el-form-item label="终点" class="line-end col-sm-12">
             <el-select
               v-model="buildings"
-              placeholder="选择建筑" class="sbwz_138_32 end" :disabled="isdisableds">
+              placeholder="选择建筑" class="end" :disabled="isdisableds">
               <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildLists"
@@ -86,7 +92,7 @@
             </el-select>
             <el-select
               v-model="floors"
-              placeholder="选择楼层" class="sbwz_90_32 end endFloor" style="display: none;" :disabled="isdisableds">
+              placeholder="选择楼层" class="end endFloor" style="display: none;" :disabled="isdisableds">
               <el-option
                 v-for="item in floorLists"
                 :label="item.floor+'层'"
@@ -95,7 +101,7 @@
             </el-select>
             <el-select
               v-model="rooms"
-              placeholder="选择房间" class="sbwz_90_32 end endRoom" style="display: none;" :disabled="isdisableds">
+              placeholder="选择房间" class="end endRoom" style="display: none;" :disabled="isdisableds">
               <el-option
                 v-for="item in roomLists"
                 :label="item.roomNumber+'房间'"
@@ -104,37 +110,37 @@
             </el-select>
             <el-select
               v-model="equipments"
-              placeholder="选择设备" class="sbwz_120_32 end endDevice" style="display: none;" :disabled="isdisableds">
+              placeholder="选择设备" class="end endDevice" style="display: none;" :disabled="isdisableds">
               <el-option
                 v-for="item in equipmentLists"
                 :label="item.name"
                 :value="item.id">
               </el-option>
             </el-select>
-            <div class="float-right" v-if="!isdisableds" @click="jinyongs" style="width:32px;height:32px;border:1px solid #333333;margin-top:5px;margin-right:5px;display:flex;justify-content: center;align-items: center;">
-              <i class="fa fa-th-large font-gray-666 float-right"></i>
+            <div class="icon-frame float-right" v-if="!isdisableds" @click="jinyongs">
+              <i class="fas fa-check-circle font-blue float-right" data-toggle="tooltip" title="保存"></i>
             </div>
-            <div class="float-right" v-if="isdisableds" @click="kaiqis" style="width:32px;height:32px;border:1px solid #333333;margin-top:5px;margin-right:5px;display:flex;justify-content: center;align-items: center;">
-              <i class="fa fa-th-large font-gray-666 float-right"></i>
+            <div class="icon-frame float-right" v-if="isdisableds" @click="kaiqis">
+              <i class="fas fa-pencil-alt font-yellow float-right" data-toggle="tooltip" title="编辑"></i>
             </div>
           </el-form-item>
-          <el-form-item label="节点">
+          <el-form-item label="节点" class="line-node col-sm-12">
             <div class="contentNode">
-              <ul>
-                <li v-for="(item,index) in inspectionListNode">
-                  <span style="display: inline-block;font-size: 13px;color: #999999;margin-right:20px;">{{ item.build }}</span>
-                  <span style="display: inline-block;font-size: 13px;color: #999999;margin-right:20px;" v-show="item.floor!=''">{{ item.floor }}层</span>
-                  <span style="display: inline-block;font-size: 13px;color: #999999;margin-right:20px;" v-show="item.room!=''">{{ item.room }}房间</span>
-                  <span style="display: inline-block;font-size: 13px;color: #999999;">{{ item.equipment }}</span>
-                  <div class="float-right" @click="Delete(index)" style="width:32px;height:32px;border:1px solid #333333;margin-top:5px;margin-right:5px;display:flex;justify-content: center;align-items: center;">
-                    <i class="fa fa-th-large font-gray-666 float-right"></i>
+              <ul class="list-unstyled margin-bottom0">
+                <li class="margin-bottom0" v-for="(item,index) in inspectionListNode">
+                  <span class="line-show">{{ item.build }}</span>
+                  <span class="line-show" v-show="item.floor!=''">{{ item.floor }}</span>
+                  <span class="line-show" v-show="item.room!=''">{{ item.room }}</span>
+                  <span class="line-show margin-right0">{{ item.equipment }}</span>
+                  <div class="icon-frame float-right" @click="Delete(index)">
+                    <i class="fas fa-minus-circle font-red float-right" data-toggle="tooltip" title="移除"></i>
                   </div>
                 </li>
               </ul>
             </div>
             <el-select
               v-model="buildingNode"
-              placeholder="选择建筑" class="sbwz_138_32 Node">
+              placeholder="选择建筑" class="Node">
               <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildListNode"
@@ -144,7 +150,7 @@
             </el-select>
             <el-select
               v-model="floorNode"
-              placeholder="选择楼层" style="display: none;"  class="sbwz_90_32 Node NodeFloor">
+              placeholder="选择楼层" class="Node NodeFloor">
               <el-option
                 v-for="item in floorListNode"
                 :label="item.floor+'层'"
@@ -153,7 +159,7 @@
             </el-select>
             <el-select
               v-model="roomNode"
-              placeholder="选择房间" style="display: none;" class="sbwz_90_32 Node NodeRoom">
+              placeholder="选择房间" class="Node NodeRoom">
               <el-option
                 v-for="item in roomListNode"
                 :label="item.roomNumber+'房间'"
@@ -162,26 +168,24 @@
             </el-select>
             <el-select
               v-model="equipmentNode"
-              placeholder="选择设备" style="display: none;" class="sbwz_120_32 Node NodeDevice">
+              placeholder="选择设备" class="Node NodeDevice">
               <el-option
                 v-for="item in equipmentListNode"
                 :label="item.name"
                 :value="item.id">
               </el-option>
             </el-select>
-            <div class="float-right" @click="Add" style="width:32px;height:32px;border:1px solid #333333;margin-top:5px;margin-right:5px;display:flex;justify-content: center;align-items: center;">
-              <i class="fa fa-th-large font-gray-666 float-right"></i>
+            <div class="icon-frame float-right" @click="Add">
+              <i class="fas fa-plus-circle font-blue float-right" data-toggle="tooltip" title="添加节点"></i>
             </div>
-          </el-form-item>
-          <div style="width:485px;margin:0 auto 25px;border-top:1px solid #222222;"></div>
-          <el-form-item style="margin-bottom: 20px;">
-            <el-button type="primary"  icon="el-icon-search" class="primary" @click="btn">保存并提交</el-button>
-            <el-button class="back" @click="back">返回</el-button>
           </el-form-item>
         </el-form>
       </div>
+      <div class="main_footer">
+        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+        <a class="btn-back" @click="back">返回</a>
+      </div>
     </aside>
-
   </div>
 </template>
 
@@ -719,120 +723,4 @@
 </script>
 
 <style lang="scss" scoped>
-  .clearFix:after{
-    clear:both;
-    content:'';
-    display:block;
-  }
-  h2{
-    margin: 0;
-    padding: 0;
-  }
-
-  @media (min-width: 768px) and (max-width:1600px){
-    aside{
-      width:525px;
-      max-height:740px;
-      background:#111111;
-      overflow: hidden;
-    }
-    .main_content{
-      width:500px;
-      height:672px;
-      margin:0 auto;
-      overflow-y: scroll;
-      border-top:1px solid #222222;
-
-    }
-  }
-  @media (min-width: 1600px){
-    aside{
-      width:525px;
-      max-height:740px;
-      background:#111111;
-      overflow: hidden;
-    }
-    .main_content{
-      width:500px;
-      height:672px;
-      margin:0 auto;
-      overflow-y: scroll;
-      border-top:1px solid #222222;
-
-    }
-  }
-  .main_header{
-    width:100%;
-    height:68px;
-  }
-  .main_title{
-    display: flex;
-    align-items: center;
-  }
-  .main_title i{
-    margin-left:20px;
-    margin-right:10px;
-  }
-  .main_title h2{
-    line-height: 68px;
-  }
-  .main_header button{
-    width:64px;
-    height:28px;
-    float: left;
-    outline:none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border:2px solid #333333;
-    background: #111111;
-    font-size: 12px;
-    color: #999;
-    margin-top: 21px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .main_header a:nth-child(1) button{
-    border-right:none;
-  }
-  .main_header a:nth-child(3) button{
-    border-left:none;
-  }
-  .main_header button i{
-    margin-right: 3px;
-  }
-  .main_header button.btn_add{
-    width:64px;
-    height:28px;
-    border:none;
-    background: #bad616;
-    margin-left: 6px;
-    margin-right: 20px;
-  }
-
-  //模态框
-  .modal-content{
-    background-color: #111111 !important;
-  }
-  .modal-title{
-    font-size:24px;
-    color: #ffffff;
-    text-align: center;
-    letter-spacing: 15px;
-    text-indent: 15px;
-  }
-  .modal-p{
-    color: #666666;
-    text-align: center;
-    font-size: 12px;
-  }
-  .modal-header{
-    border-bottom:1px solid #222222;
-  }
-  .modal-footer{
-    border-top:1px solid #222222;
-  }
-
-
 </style>

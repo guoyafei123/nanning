@@ -247,29 +247,27 @@ export default {
         }
       ],
       itemtrue: false,
-      //巡检统计参数
+      //风险评估统计参数
       risk_riskCount_parameter:{},
-      //巡检统计参数-返回
+      //风险评估参数-返回
       risk_riskCount: {
-        finish: "",
-        nofinish: "",
-        amount: "",
-        plancount: "",
-        planing: "",
-        weekRate: "",
-        monthRate: "",
-        dayRate: "",
-        historyRate: "",
-        plansum: "",
-        troubleRate: ""
+        riskFactor: "",
+        alarm: "",
+        trouble: "",
+        danger: "",
+        totalScore: "",
+        min: "",
+        max: "",
+        centre: ""
       },
       // 表格-请求
       queryRiskList_parameter: {
         id: null,
         unitId: 4,
         type: null,
-        inspectionName: null,
-        status: null,
+        buidingId: null,
+        startTime: null,
+        endTime: null,
         currentPage: "1",
         pageSize: 10
       },
@@ -509,13 +507,9 @@ export default {
         if (response.data) {
             console.log("获取风险表格列表数据:"); 
             console.log(response.data);
+          
         }
       });
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页:` + val);
-      this.queryRiskList_parameter.currentPage = val;
-      this.getTable();
     },
     // 获取表格
     getRiskTable() {
@@ -532,6 +526,11 @@ export default {
         .then(err => {
           console.log(err);
         });
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页:` + val);
+      this.queryRiskList_parameter.currentPage = val;
+      this.getTable();
     },
     //获取详情
     toiteminfo(data) {

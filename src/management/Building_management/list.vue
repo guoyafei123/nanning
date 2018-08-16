@@ -7,15 +7,19 @@
       <aside>
         <div class="main_header clearFix">
           <div class="main_title float-left clearFix">
-            <i class="icon iconfont icon-jianzhuguanli-mian-"></i>
-            <h2 class="float-left font-white size-16">新增建筑</h2>
+            <i class="fa fa-plus"></i>
+            <h2>新增建筑</h2>
           </div>
           <div class="main_nav float-right">
             <router-link to="/Building_management/all"><span class="btn-back" @click="btn_back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
           </div>
         </div>
         <section class="border-top-solid-333 margin-left15 margin-right15"></section>
-        <div class="main_content" style="overflow-y:auto;height:650px;">
+        <div class="main_content">
+          <!--
+          class类not-null为必填标识,如需请加在<el-form-item>
+          class类hint-error为错误提示
+         -->
           <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
             <el-form-item label="建筑名称">
               <span class="hint-error">建筑名称有误或重复</span>
