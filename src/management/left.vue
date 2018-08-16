@@ -83,7 +83,7 @@
             <li class="p-red">
               <i class="icon iconfont icon-xiaoxi-"></i>
               <h2>消息管理</h2>
-              <span data-toggle="tooltip" title="未读消息 <span class="font-red">3</span> 条">3</span>
+              <span data-toggle="tooltip" title="未读消息 3 条">3</span>
             </li>
           </router-link>
           <router-link to="/Reserve_plan">

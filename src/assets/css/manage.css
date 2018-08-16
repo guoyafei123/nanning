@@ -704,3 +704,18 @@
     color: #fff!important;
     background-color: rgba(0, 0, 0, 1);
 }
+#add-new {
+
+}
+#add-new .el-input__inner:active,
+#add-new .el-input__inner:visited,
+#add-new .el-input__inner:hover,
+#add-new .el-input__inner.is-active,
+#add-new .is-focus .el-input__inner,
+#add-new .is-focus .el-input__inner:active,
+#add-new .is-focus .el-input__inner:visited,
+#add-new .is-focus .el-input__inner:hover{
+    border: 1px solid #333!important;
+    color: #fff!important;
+    background-color: rgba(0, 0, 0, 1);
+}
