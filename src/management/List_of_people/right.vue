@@ -9,14 +9,14 @@
                   <span class="size-20 font-blue">{{ this.form.nickName }}姓名</span>
                   <span class="bgbox-min bg-blue font-black size-10">在线</span>
                   <span class="float-right">
-                      <span class="bgbox-max bg-gray-333 font-gray-ccc size-10">{{ this.form.roleName }}巡检员</span>
+                      <span class="bgbox-max bg-gray-333 font-gray-ccc size-10">{{ this.form.roleName }}</span>
                   </span>
                 </p>
                 <p class="col-sm-7 text-left padding0">
-                  <span><i class="fas fa-industry"></i> 中心小学</span>
+                  <span><i class="fas fa-industry"></i>{{ this.form.unitName }}</span>
                 </p>
                 <p class="col-sm-5 text-right padding0">
-                  注册时间:<strong class="font-gray-999">2018-16:23 13:56:37</strong>            
+                  注册时间:<strong class="font-gray-999">{{ this.form.createTime }}</strong>            
                 </p>
               </div>
             </section>
@@ -31,8 +31,8 @@
                               <img :src="this.form.headImgUrl" id="up_img" class="img-responsive img-circle center-block" style="min-width:100px;min-height:100px;"/>
                             </li>
                             <li class="col-xs-offset-1 col-xs-10 padding-left5 text-center">
-                              <h4 class="size-16 font-blue show">{{ this.form.nickName }}姓名</h4>
-                              <span class="size-12 font-gray-999"><!-- 男 25岁 河北邯郸<br> -->{{ this.form.cellPhone }}1861596479</span>
+                              <h4 class="size-16 font-blue show">{{ this.form.nickName }}</h4>
+                              <span class="size-12 font-gray-999"><!-- 男 25岁 河北邯郸<br> -->{{ this.form.cellPhone }}</span>
                             </li>
                           </ul>
                         </div>
@@ -109,13 +109,15 @@
     data() {
       return {
         form:{
+          unitName:'',
           nickName:'',
           position:'',
           unitName:'',
           cellPhone:'',
           roleName:'',
           headImgUrl:'',
-          review:''
+          review:'',
+          createTime:''
         },
         tableData:[]
       }
@@ -126,12 +128,14 @@
         this.tableData.forEach((item,index)=>{
           if(item.id == this.unitNumber){
             item.review == 0 ? this.form.review = '非审核账号' : item.review == 1 ? this.form.review = '审核通过' : item.review == 2 ? this.form.review = '审核未通过' : this.form.review = '待审核' ;
+            this.form.unitName = item.unitName ;
             this.form.nickName = item.nickName ;
             this.form.position = item.position ;
             this.form.unitName = item.unitName ;
             this.form.cellPhone = item.cellPhone ;
             this.form.roleName = item.roleName ;
             this.form.headImgUrl = item.headImgUrl ;
+            this.form.createTime = item.createTime ;
           }
         })
       },
@@ -158,16 +162,32 @@
     },
     mounted() {
       this.tableList();
-      this.right_list();
     },
     watch:{
       unitNumber(){
         this.tableList();
-        this.right_list();
+      },
+      peopleTableData(){
+        this.form.nickName = '' ;
+        this.form.position = '' ;
+        this.form.unitName = '' ;
+        this.form.cellPhone = '' ;
+        this.form.roleName = '' ;
+        this.form.headImgUrl = '' ;
+        var item = this.peopleTableData ;
+        console.log(this.peopleTableData)
+        item.review == 0 ? this.form.review = '非审核账号' : item.review == 1 ? this.form.review = '审核通过' : item.review == 2 ? this.form.review = '审核未通过' : this.form.review = '待审核' ;
+        this.form.nickName = item.nickName ;
+        this.form.position = item.position ;
+        this.form.unitName = item.unitName ;
+        this.form.cellPhone = item.cellPhone ;
+        this.form.roleName = item.roleName ;
+        this.form.headImgUrl = item.headImgUrl ;
       }
     },
     computed:mapState([
-      'unitNumber'
+      'unitNumber',
+      'peopleTableData'
     ])
   }
 </script>

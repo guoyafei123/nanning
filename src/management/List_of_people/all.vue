@@ -270,18 +270,10 @@
             this.form.roleId = item.roleId ;
             this.form.id = item.id ;
             this.form.headImgUrl = item.headImgUrl ;
-            // $("#up_img"+this.form.id+"").attr("src",item.headImgUrl);
-            // console.log($("#up_img"+this.form.id+""))
           }
         })
       },
       startRow(){
-        // console.log(this.deviceIndex);
-        // console.log(this.form.nickName);
-        // console.log(this.form.username);
-        // console.log(this.form.position);
-        // console.log(this.form.unitId);
-        // console.log(this.form.cellPhone);
         var file = "file";
         var that = this;
         $.ajaxFileUpload({
@@ -309,6 +301,9 @@
             complete: function (e) {//只要完成即执行，最后执行
               // console.log(e) 
               that.tableList();
+              // console.log(that.tableData)
+              // that.$store.commit('unitNumber',that.deviceIndex);
+              
               $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                 $("#file").on("change", function(){  
                   console.log($("#up_img"+that.form.id+""))
@@ -389,6 +384,10 @@
                 if(index == this.tableData.length-1){
                   this.$store.commit('unitNumber',item.id);
                   console.log(item.id)
+                }
+                if(item.id == this.deviceIndex){
+                  this.$store.commit('peopleTableData',item);
+                  // console.log(item)
                 }
               })
               if(this.totalList % 10 == 0){

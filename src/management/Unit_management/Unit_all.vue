@@ -333,6 +333,10 @@
                   this.$store.commit('unitNum',item.id);
                   console.log(item.id)
                 }
+                if(item.id == this.deviceIndex){
+                  this.$store.commit('peopleTableData',item);
+                  // console.log(item)
+                }
               })
               if(this.totalList % 10 == 0){
                 this.page = parseInt( this.totalList / 10 )

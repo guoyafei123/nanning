@@ -9,7 +9,7 @@
         <span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span>
       </div>
     </div>
-    <div class="main_all_content">
+    <div class="main_all_content ">
       <div class="main_content_top">
         <el-form class="float-left">
           <el-select v-model="buildUnit" placeholder="选择单位" class="select build">
@@ -262,7 +262,7 @@
     },
     methods: {
       btn_add(){
-        $('#right').css('display','none');
+        $('#right').hide();
         $('.manage-center').hide();
         $('#list').show();
       },
@@ -338,8 +338,8 @@
       floor_build(row){
         $('.build').hide();
         $('.floor').show();
-        $('.main_content_table').hide();
-        $('.main_content_bottom').hide();
+        $('.main_all_content .main_content_table').hide();
+        $('.main_all_content .main_content_bottom').hide();
         $('.plan').hide();
         $('.total').hide();
         $('.floor_wrap').show();

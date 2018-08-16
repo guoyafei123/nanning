@@ -119,10 +119,33 @@
       unitNum(){
         this.tableList();
         this.right_list();
+      },
+      peopleTableData(){
+        this.id = '' ;
+        this.name = '' ;
+        this.property = '' ;
+        this.staffNum = '' ;
+        this.location = '' ;
+        this.telephone = '' ;
+        this.firemenName = '' ;
+        this.firemenTel = '' ;
+        this.corporation = '' ;
+        var item = this.peopleTableData ;
+        console.log(this.peopleTableData);
+        this.id = item.id ;
+        this.name = item.name ;
+        this.property = item.property ;
+        this.staffNum = item.staffNum ;
+        this.location = item.location ;
+        this.telephone = item.telephone ;
+        this.firemenName = item.firemenName ;
+        this.firemenTel = item.firemenTel ;
+        this.corporation = item.corporation ;
       }
     },
     computed:mapState([
-      'unitNum'
+      'unitNum',
+      'peopleTableData'
     ])
   }
 </script>
