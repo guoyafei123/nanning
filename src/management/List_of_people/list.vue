@@ -17,23 +17,23 @@
           class类hint-error为错误提示
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="姓名">
+          <el-form-item label="姓名" class="not-null">
             <span class="hint-error">单位名称有误或重复</span>
             <el-input v-model="form.nickName" class="col-sm-4"></el-input>
           </el-form-item>
-          <el-form-item label="账号">
+          <el-form-item label="账号" class="not-null">
             <el-input v-model="form.username" class="col-sm-4"></el-input>
           </el-form-item>
-          <el-form-item label="联系电话" class="col-sm-4">
-            <el-input v-model="form.cellPhone"></el-input>
+          <el-form-item label="联系电话" class="not-null">
+            <el-input v-model="form.cellPhone" class="col-sm-4"></el-input>
           </el-form-item>                   
-          <el-form-item label="所属单位">
+          <el-form-item label="所属单位" class="not-null">
             <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-4">
               <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="角色" class="col-sm-4">
+          <el-form-item label="角色" class="not-null col-sm-4">
             <el-select v-model="form.roleId" placeholder="选择角色" class="select">
               <el-option label="全部角色" value=""></el-option>
               <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
@@ -42,7 +42,7 @@
           <el-form-item label="职位" class="col-sm-4">
             <el-input v-model="form.position"></el-input>
           </el-form-item>
-          <el-form-item label="头像" class="head-photo col-sm-12">
+          <el-form-item label="头像" class="not-null head-photo col-sm-12">
             <div class="head-2">
               <input id="file" name="file" type="file" @change="file"/>
               <div>
