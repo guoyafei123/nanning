@@ -13,10 +13,10 @@
                   </span>
                 </p>
                 <p class="col-sm-7 text-left padding0">
-                  <span><i class="fas fa-industry"></i>  {{ this.form.unitName }}</span>
+                  <span><i class="fas fa-industry"></i>{{ this.form.unitName }}</span>
                 </p>
                 <p class="col-sm-5 text-right padding0">
-                  注册时间:<strong class="font-gray-999">2018-16:23 13:56:37</strong>            
+                  注册时间:<strong class="font-gray-999">{{ this.form.createTime }}</strong>            
                 </p>
               </div>
             </section>
@@ -109,13 +109,15 @@
     data() {
       return {
         form:{
+          unitName:'',
           nickName:'',
           position:'',
           unitName:'',
           cellPhone:'',
           roleName:'',
           headImgUrl:'',
-          review:''
+          review:'',
+          createTime:''
         },
         tableData:[]
       }
@@ -126,12 +128,14 @@
         this.tableData.forEach((item,index)=>{
           if(item.id == this.unitNumber){
             item.review == 0 ? this.form.review = '非审核账号' : item.review == 1 ? this.form.review = '审核通过' : item.review == 2 ? this.form.review = '审核未通过' : this.form.review = '待审核' ;
+            this.form.unitName = item.unitName ;
             this.form.nickName = item.nickName ;
             this.form.position = item.position ;
             this.form.unitName = item.unitName ;
             this.form.cellPhone = item.cellPhone ;
             this.form.roleName = item.roleName ;
             this.form.headImgUrl = item.headImgUrl ;
+            this.form.createTime = item.createTime ;
           }
         })
       },
@@ -158,16 +162,32 @@
     },
     mounted() {
       this.tableList();
-      this.right_list();
     },
     watch:{
       unitNumber(){
         this.tableList();
-        this.right_list();
+      },
+      peopleTableData(){
+        this.form.nickName = '' ;
+        this.form.position = '' ;
+        this.form.unitName = '' ;
+        this.form.cellPhone = '' ;
+        this.form.roleName = '' ;
+        this.form.headImgUrl = '' ;
+        var item = this.peopleTableData ;
+        console.log(this.peopleTableData)
+        item.review == 0 ? this.form.review = '非审核账号' : item.review == 1 ? this.form.review = '审核通过' : item.review == 2 ? this.form.review = '审核未通过' : this.form.review = '待审核' ;
+        this.form.nickName = item.nickName ;
+        this.form.position = item.position ;
+        this.form.unitName = item.unitName ;
+        this.form.cellPhone = item.cellPhone ;
+        this.form.roleName = item.roleName ;
+        this.form.headImgUrl = item.headImgUrl ;
       }
     },
     computed:mapState([
-      'unitNumber'
+      'unitNumber',
+      'peopleTableData'
     ])
   }
 </script>

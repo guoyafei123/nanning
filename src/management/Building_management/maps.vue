@@ -83,6 +83,21 @@
       }
     },
     watch:{
+      $route: {
+        handler: function(val, oldVal){
+          // console.log(val);
+          if(this.$route.path == '/Building_management/maps'){
+            $('.plan').hide();
+            $('.total').show();
+            $('.floor_wrap').hide();
+            $('.room_wrap').hide();
+            this.tableList();
+            this.$store.commit('tableData',this.tableData);
+          }
+        },
+        // 深度观察监听
+        deep: true
+      },
       buildUnit(curVal,oldVal){
         this.buildUnit = curVal;
         console.log(this.buildUnit);

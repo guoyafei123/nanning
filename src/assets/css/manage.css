@@ -338,7 +338,12 @@
     border:none;
   }
   .el-tag--green{
-    color: #fff !important;
+    color: greenyellow !important;
+    padding:0 !important;
+    border:none;
+  }
+  .el-tag--yellow{
+    color: yellow !important;
     padding:0 !important;
     border:none;
   }

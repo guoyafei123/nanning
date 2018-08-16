@@ -80,7 +80,7 @@
       </section>  
     </div>
     <!-- 简单统计 --> 
-    <div class="font-white total">
+    <div class="font-white total" style="display:none;">
       <section>        
         <div class="toolbuildrate">
           <div class="main_content_table bg-black">
@@ -510,8 +510,8 @@
       room_build(item){
         $('.build').hide();
         $('.floor').hide();
-        $('.main_content_table').hide();
-        $('.main_content_bottom').hide();
+        $('.main_all_content .main_content_table').hide();
+        $('.main_all_content .main_content_bottom').hide();
         $('.plan').hide();
         $('.total').hide();
         $('.floor_wrap').hide();
@@ -528,8 +528,8 @@
       floor_build(row){
         $('.build').hide();
         $('.floor').show();
-        $('.main_content_table').hide();
-        $('.main_content_bottom').hide();
+        $('.main_all_content .main_content_table').hide();
+        $('.main_all_content .main_content_bottom').hide();
         $('.plan').hide();
         $('.total').hide();
         $('.floor_wrap').show();
@@ -641,16 +641,16 @@
           $('.floor_wrap').hide();
           $('.room_wrap').hide();
           
-          $('.main_content_table').show();
-          $('.main_content_bottom').show();
+          $('.main_all_content .main_content_table').show();
+          $('.main_all_content .main_content_bottom').show();
           $('.maps').show();
           $('.floorMap').hide();
           $('.roomMap').hide();
         }else{
           $('.build').show();
           $('.floor').hide();
-          $('.main_content_table').show();
-          $('.main_content_bottom').show();
+          $('.main_all_content .main_content_table').show();
+          $('.main_all_content .main_content_bottom').show();
           $('.plan').show();
           $('.total').hide();
           $('.floor_wrap').hide();
@@ -667,8 +667,8 @@
           $('.plan').hide();
           $('.total').hide();
           $('.floor_wrap').show();
-          $('.main_content_table').show();
-          $('.main_content_bottom').show();
+          $('.main_all_content .main_content_table').show();
+          $('.main_all_content .main_content_bottom').show();
           $('.room_wrap').hide();  
           $('.maps').hide();
           $('.floorMap').show();
@@ -676,8 +676,8 @@
         }else{
           $('.build').hide();
           $('.floor').hide();
-          $('.main_content_table').hide();
-          $('.main_content_bottom').hide();
+          $('.main_all_content .main_content_table').hide();
+          $('.main_all_content .main_content_bottom').hide();
           $('.plan').hide();
           $('.total').hide();
           $('.floor_wrap').show();
@@ -852,10 +852,16 @@
       this.tableList();
       if(this.$route.path == '/Building_management/maps'){
         $('.total').show();
+        $('.plan').hide();
+        $('.floor_wrap').hide();
+        $('.room_wrap').hide();
         this.tableList();
       }
       if(this.$route.path == '/Building_management/all'){
         $('.plan').show();
+        $('.total').hide();
+        $('.floor_wrap').hide();
+        $('.room_wrap').hide();
       }
     },
     watch:{
@@ -865,6 +871,8 @@
           if(this.$route.path == '/Building_management/maps'){
             $('.plan').hide();
             $('.total').show();
+            $('.floor_wrap').hide();
+            $('.room_wrap').hide();
             this.tableList();
             this.$store.commit('tableData',this.tableData);
           }

@@ -63,8 +63,18 @@
           </el-table-column>
           <el-table-column
             prop="review"
-            :formatter="formatter"
             label="状态">
+            <template slot-scope="scope" >
+              <el-tag
+                :type="scope.row.review === 1 ? 'green' : 'red'"
+                disable-transitions v-if='scope.row.review==1'>审核通过 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+              <el-tag
+                :type="scope.row.review === 2 ? 'red' : 'green'"
+                disable-transitions v-if='scope.row.review==2'>审核未通过</el-tag>
+              <el-tag
+                :type="scope.row.review === 3 ? 'yellow' : 'green'"
+                disable-transitions v-if='scope.row.review==3'>待审核</el-tag>
+            </template>
           </el-table-column>
           <el-table-column
             prop="reviewName"
@@ -181,7 +191,6 @@
         },
         optionList:[],//单位列表
         reviewList:[
-          {'id':0,'review':'非审核账号'},
           {'id':1,'review':'审核通过'},
           {'id':2,'review':'审核未通过'},
           {'id':3,'review':'待审核'}
@@ -197,9 +206,6 @@
       }
     },
     methods: {
-      formatter(row){
-        return row.review == 0 ? '非审核账号' : row.review == 1 ? '审核通过' : row.review == 2 ? '审核未通过' : '待审核' ;
-      },
       btn_add(){
         $('#right').hide();
       },
