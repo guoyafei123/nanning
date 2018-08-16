@@ -41,7 +41,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr @click="toiteminfo()">
+                      <tr @click="toiteminfo(1)">
                         <td>1</td>
                         <td>瑞和家园3号楼</td>
                         <td>瑞和家园</td>
@@ -55,7 +55,7 @@
                           </a>
                         </td>
                       </tr>
-                      <tr>
+                      <tr  @click="toiteminfo(2)">
                         <td>2</td>
                         <td>实验教学楼7号</td>
                         <td>实验小学</td>
@@ -69,7 +69,7 @@
                           </a>
                         </td>
                       </tr>
-                      <tr>
+                      <tr  @click="toiteminfo(3)">
                         <td>3</td>
                         <td>三年级教学楼</td>
                         <td>实验小学</td>
