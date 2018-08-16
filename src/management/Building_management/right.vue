@@ -52,8 +52,6 @@
                       <span>建筑年份 </span>
                       <strong v-html="this.form.timeYear"></strong>
                   </div>
-                  
-                  
                   <div class="col-sm-12">
                       <span>建筑二维码 </span>
                       <strong>
@@ -81,9 +79,9 @@
           </div>
       </section>  
     </div>
-    <!-- 简单统计 -->
+    <!-- 简单统计 --> 
     <div class="font-white total">
-      <section style="display: none;" class="mapTable">        
+      <section>        
         <div class="toolbuildrate">
           <div class="main_content_table bg-black">
             <el-table
@@ -304,7 +302,7 @@
         <button class="btn_add" @click="addUnit"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
       </div>
       <table class="table table-bordered ">
-        <thead>
+        <thead v-if="this.floorRoomList.length != 0" class="table_top" >
           <tr>
             <td>单元</td>
             <td>房间</td>
@@ -312,8 +310,11 @@
         </thead>
         <tbody style="height:500px!important;overflow-y:auto;">
             <tr v-for="(item,index) in floorRoomList">
-              <td style="min-width:100px;" class="col-md-4">
+              <td style="min-width:100px;position:relative;" class="col-md-4">
+                <!-- <span class="hint_error" @click="deleteUnit(item.unitBuilding,index,floorRoomList)" data-toggle="modal" data-target="#mymodalRoom"></span> -->
                 <input type="text" v-model="item.unitBuilding" style="width:100px;height:30px;text-align:center;" maxlength="6"/>
+                <span class="hint_error" @click="deleteUnit(item.unitBuilding,index,floorRoomList)" data-toggle="modal" data-target="#mymodalRoom"></span>
+                
               </td>
               <td class="col-md-8">
                 <ul class="table_ul">
@@ -329,6 +330,25 @@
         </tbody>
       </table>
       <el-button @click="submitFloorRoomList" type="success" style="width:120px;margin:0 auto;display: flex;justify-content: center;font-size:16px;height:35px;line-height:35px;padding:0;">提交</el-button>
+      <div class="modal fade" id="mymodalRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabelRoom">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelRoom">提示</h4>
+                <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
+              </div>
+              <div class="modal-body" style="height:217px;">
+                <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
+                <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ unitBuilding }}</p>
+              </div>
+              <div class="modal-footer">
+                <el-button type="danger" @click.native.prevent="deleteUnitRoom()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
+                <el-button class="back" data-dismiss="modal">取消</el-button>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </template>
@@ -368,7 +388,10 @@
         number:0,
         floor_index:0,
         floorName:'',
-        floorRoomList:[]
+        floorRoomList:[],
+        unitBuilding:'',
+        indexUnit:'',
+        RoomChild:''
       };
     },
     
@@ -528,26 +551,43 @@
       },
 
 // 房间
+
       addUnit(){
         this.floorRoomList.push({unitBuilding:'',roomList:[]})
       },
       addRoom(item,index){
-        item.roomList.push({floorId:this.floorId,roomNumber:'',roomId:'',imgKey:null})
+        item.roomList.push({roomNumber:'',roomId:'',imgKey:null})
       },
-      deleteRoom(key, item,index){
+      deleteUnit(key,index,item){
+        this.unitBuilding = key ;
+        this.indexUnit = index ;
+        this.RoomChild = item ;
+      },
+      deleteUnitRoom(){
+        this.$fetch("/api/building/deleteByFloorUnit",{
+          floorUnit:this.unitBuilding,
+          floorId:this.floorId
+        }).then(response=>{
+          console.log(response);
+          this.RoomChild.splice(this.indexUnit,1);
+        })
+      },
+      deleteRoom(key,item,index){
         console.info(key);
         this.$fetch("/api/building/deleteBuildingFloorRoom",{
-          roomId:key.id
+          roomId:key.roomId
         }).then(response=>{
           console.log(response);
           item.splice(index,1);
+          console.log(item)
         })
       },
       submitFloorRoomList(){
         console.log(this.floorRoomList);
         var floorRoomList = JSON.stringify( this.floorRoomList );
         this.$fetch("/api/building/addBuildingFloorRoom",{
-          floorRoomList:floorRoomList
+          floorRoomList:floorRoomList,
+          floorId:this.floorId
         }).then(response=>{
           console.log(response);
           this.room_back()
@@ -940,5 +980,5 @@
 </script>
 
 <style lang="scss" scoped>
-
+  
 </style>

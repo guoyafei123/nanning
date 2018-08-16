@@ -22,6 +22,7 @@
         <el-table
           :data="tableData"
           border
+          :highlight-current-row="true"
           :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             prop="Serial_number"
@@ -138,7 +139,8 @@
                     <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
                   </div>
                 </div>
-                <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>
+                <img v-show="isShow" :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>
+                <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
               </el-form-item>
               <el-form-item label="部门电话">
                 <el-input v-model="form.telephone"></el-input>
@@ -191,11 +193,26 @@
         totalList:null,//总条数
         deviceIndex:'',
         deviceName:'',
-        deviceIndexs:''
+        deviceIndexs:'',
+        isShow:true,
+        fileVerification:''//验证图片
       }
     },
     methods: {
       file(){
+        var x = document.getElementById("file");
+        if (!x || !x.value) return;
+        var patn = /\.jpg$|\.jpeg$|\.png$/i;
+        if (!patn.test(x.value)) {
+          this.fileVerification="您选择的似乎不是图像文件!!";
+          x.value = "";
+          this.isShow = false ;
+          
+          return;
+        }
+        this.isShow = true ;
+        this.fileVerification="";
+        $("#up_img"+this.form.id+"").attr("src",'');
         console.log(this.form.id)
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
       },

@@ -89,9 +89,12 @@ import{mapState} from "vuex";
 export default {
   data() {
     return {
+      getunitid:null,
       troubletext:'今日',
       alarmtext:'今日',
-      planInspectionCount_parmar: {},
+      planInspectionCount_parmar: {
+        unitId:null
+      },
       planInspectionCount: {
         finish: "",
         nofinish: "",
@@ -106,10 +109,12 @@ export default {
         troubleRate: ""
       },
       queryAlarmData_parmar:{
+        unitId:null,
         dateType:1
       },
       queryAlarmData:Object,
       queryTroubleData_parmar:{
+        unitId:null,
         dateType:1
       },
       queryTroubleData:Object,
@@ -122,6 +127,7 @@ export default {
   },
   computed:mapState([
     'toIndexLeftAlarmChar',
+    'unitid'
   ]),
   watch:{
     toIndexLeftAlarmChar(){
@@ -129,6 +135,21 @@ export default {
       this.getalarm();
       this.gettrouble();
     },
+    unitid(){
+      // console.log(this.queryAlarmData_parmar.unitId)
+      if(this.unitid!=0){
+        this.getunitid=this.unitid;
+      }else{
+        this.getunitid=null;
+      }
+      
+      this.planInspectionCount_parmar.unitId=this.getunitid;
+      this.queryAlarmData_parmar.unitId=this.getunitid;
+      this.queryTroubleData_parmar.unitId=this.getunitid
+      this.getdata();
+      this.getalarm();
+      this.gettrouble();
+    }
   },
   methods: {
     getdata() {
@@ -165,13 +186,17 @@ export default {
       ).then(response => {
         if (response.data) {
           this.queryAlarmData=response.data.result;
-          // this.torightdata.alltrouble=this.queryAlarmData.troubleCount.ALLTROUBLE;
-          // this.torightdata.allalarm=this.queryAlarmData.alarmCount.UNSOLVE;
-          // this.$store.commit('torightdata',this.torightdata);
-          if(response.data.result.alarmLineChart)
-          this.draw_line(
-            "charalarm",this.queryAlarmData.alarmLineChart.lineChartsDate,this.queryAlarmData.alarmLineChart.lineChartsCount
-          );
+          if(response.data.result.alarmLineChart){
+            this.draw_line(
+              "charalarm",this.queryAlarmData.alarmLineChart.lineChartsDate,this.queryAlarmData.alarmLineChart.lineChartsCount
+            );
+          }else{
+            var a=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+            var b=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            this.draw_line(
+              "charalarm",a,b
+            );
+          }
         }
       });
     },
@@ -182,10 +207,18 @@ export default {
       ).then(response => {
         if (response.data) {
           this.queryTroubleData=response.data.result;
-          if(response.data.result.troubleLineChart)
-          this.draw_line(
-            "chartrouble",this.queryTroubleData.troubleLineChart.lineChartsDate,this.queryTroubleData.troubleLineChart.lineChartsCount
-          );
+          if(response.data.result.troubleLineChart){
+            this.draw_line(
+              "chartrouble",this.queryTroubleData.troubleLineChart.lineChartsDate,this.queryTroubleData.troubleLineChart.lineChartsCount
+            );
+          }else{
+            var a=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+            var b=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            this.draw_line(
+              "chartrouble",a,b
+            );
+          }
+          
         }
       });
     },
@@ -233,10 +266,11 @@ export default {
       };
       
       let chars = this.$echarts.init(document.getElementById(id));
-      chars.setOption(char);
+      chars.setOption(char,true);
     },
     draw_line(id,d1,d2) {
       let a=d1,b=d2;
+      // console.log(b);
       var char = {
         xAxis: {
           type: "category",
@@ -300,10 +334,16 @@ export default {
         }
       };
       let charf = this.$echarts.init(document.getElementById(id));
-      charf.setOption(char);
+      // charf.clear();
+      charf.setOption(char,true);
     },
   },
   mounted() {
+    if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+      this.planInspectionCount_parmar.unitId=sessionStorage.unitid;
+      this.queryAlarmData_parmar.unitId=sessionStorage.unitid;
+      this.queryTroubleData_parmar.unitId=sessionStorage.unitid;
+    }
     this.getdata();
     this.getalarm();
     this.gettrouble();
