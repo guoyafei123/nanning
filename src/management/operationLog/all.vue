@@ -19,6 +19,7 @@
         <el-table
           :data="tableData"
           border
+          :highlight-current-row="true"
           :default-sort = "{prop: 'Serial_number', order: 'descending'}"
           style="width: 100%;height:570px;">
           <el-table-column

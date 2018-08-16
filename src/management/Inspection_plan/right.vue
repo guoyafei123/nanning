@@ -126,6 +126,7 @@
               <el-table
                 :data="tableData"
                 border
+                :highlight-current-row="true"
                 style="height:235px;">
                 <el-table-column
                   sortable
