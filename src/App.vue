@@ -55,7 +55,7 @@
     mounted() {     
       console.log('加载')
       // realconsole();
-      $("[data-toggle='tooltip']").tooltip();
+      $("[data-toggle='tooltip']").tooltip({html : true });
       // alert(this.$route.path);
       // this.$router.path
       // 

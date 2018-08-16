@@ -4,10 +4,10 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-plus"></i>
-          <h2>新增单位</h2>
+          <h2>添加预案</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Unit_management/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Reserve_plan/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
       <section class="border-top-solid-333 margin-left15 margin-right15"></section>
@@ -54,7 +54,7 @@
           <el-form-item label="单位图片" class="col-sm-12">
             <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
               <input id="file" name="file" type="file" @change="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
-              <div class="bg-gray-222 text-center">
+              <div class="bg-gray-222 text-center margin-top5">
                 <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
               </div>
             </div>
@@ -161,10 +161,10 @@
 
             }
           });
-          this.$router.push({path:'/Unit_management/all'});
+          this.$router.push({path:'/Reserve_plan/all'});
         },
         back(){
-          this.$router.push({path:'/Unit_management/all'});
+          this.$router.push({path:'/Reserve_plan/all'});
           $('#right').show();
         }
       },

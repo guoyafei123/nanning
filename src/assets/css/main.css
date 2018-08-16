@@ -1,3 +1,6 @@
+html,body,#app {
+    background-color: #000;
+}
 a,a:focus {
     display: block;
     text-decoration: none;
@@ -53,10 +56,20 @@ a.active {
     background-color: rgba(0, 0, 0, .5);
     overflow-y: hidden;
 }
-.btn-on,.btn-off {
+.btn-on,.btn-off,.btn-check {
     width: 38px;
     height: 20px;
     text-align: center!important;
+}
+.btn-check {
+    color: #f13131!important;
+    border: 1px solid #f13131!important;
+    background-color: transparent;
+}
+.btn-check:hover,.btn-check:focus {
+    color: #000!important;
+    border:none!important;
+    background-color: #f13131!important;
 }
 .btn-on {
     color: #bad616!important;

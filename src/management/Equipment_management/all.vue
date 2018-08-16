@@ -19,7 +19,7 @@
           </el-select>
           <el-select
               v-model="building"
-            placeholder="选择建筑"  class="sbwz_138_32 start">
+            placeholder="选择建筑"  class="start">
               <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
@@ -29,7 +29,7 @@
             </el-select>
             <el-select
               v-model="floor"
-              placeholder="选择楼层" class="sbwz_90_32 start startFloor">
+              placeholder="选择楼层" class="start startFloor">
               <el-option
                 v-for="item in floorList"
                 :label="item.floor+'层'"
@@ -38,7 +38,7 @@
             </el-select>
             <el-select
               v-model="room"
-              placeholder="选择房间" class="sbwz_90_32 start startRoom">
+              placeholder="选择房间" class="start startRoom">
               <el-option
                 v-for="item in roomList"
                 :label="item.roomNumber+'房间'"
@@ -47,7 +47,7 @@
             </el-select>
             <el-select
               v-model="equipment"
-              placeholder="选择设备类型" class="sbwz_120_32 start startDevice">
+              placeholder="选择设备类型" class="start startDevice">
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
@@ -170,110 +170,6 @@
             <h4 class="modal-title" id="myModalLabel">修改设备</h4>
           </div>
           <div class="modal-body">
-            <!-- <el-form ref="form" :label-position="labelPosition" :model="form">
-              <el-form-item label="设备名称">
-                <el-input v-model="form.name"></el-input>
-              </el-form-item>
-              <el-form-item label="所属单位">
-                <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit">
-                  <el-option label="全部单位" value=""></el-option>
-                  <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="设备类型">
-                <el-select
-                  v-model="form.equipmentId"
-                  placeholder="选择设备类型" class="sbwz_138_32 start">
-                  <el-option
-                    v-for="item in equipmentList"
-                    :label="item.name"
-                    :value="item.id">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="设备位置">
-                <el-select
-                  v-model="form.buildingId"
-                placeholder="选择建筑"  class="sbwz_138_32 start">
-                  <el-option label="室外" value="0"></el-option>
-                  <el-option
-                    v-for="item in form.buildList"
-                    :label="item.name"
-                    :value="item.id">
-                  </el-option>
-                </el-select>
-                <el-select
-                  v-model="form.floorId"
-                  placeholder="选择楼层" class="sbwz_138_32 start">
-                  <el-option
-                    v-for="item in form.floorList"
-                    :label="item.floorName+'层'"
-                    :value="item.id">
-                  </el-option>
-                </el-select>
-                <el-select
-                  v-model="form.roomId"
-                  placeholder="选择房间" class="sbwz_138_32 start">
-                  <el-option
-                    v-for="item in form.roomList"
-                    :label="item.roomNumber+'房间'"
-                    :value="item.id">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="坐标">
-                <el-input v-model="form.point.pointX" style="display:inline-block;width:200px;"></el-input>
-                <el-input v-model="form.point.pointY" style="display:inline-block;width:200px;"></el-input>
-              </el-form-item>
-
-              <el-form-item label="物理地址">
-                <el-input v-model="form.PhysicalAddress"></el-input>
-              </el-form-item>
-
-              <el-form-item label="投入使用日期">
-                <div class="block">
-                  <el-date-picker
-                    v-model="form.startDate"
-                    type="date"
-                    placeholder="选择年份"
-                    format="yyyy 年 MM 月 dd 日"
-                    value-format="yyyy-MM-dd">
-                  </el-date-picker>
-                </div>
-              </el-form-item>
-              <el-form-item label="相对房顶高度 (cm)">
-                <el-input v-model="form.RoofHeight"></el-input>
-              </el-form-item>
-              <el-form-item label="相对地板高度 (cm)">
-                <el-input v-model="form.floorHeight"></el-input>
-              </el-form-item>
-              <el-form-item label="更换周期 (天)">
-                <el-input v-model="form.Retroperiod"></el-input>
-              </el-form-item>
-              <el-form-item label="生产商">
-                <el-input v-model="form.Bike"></el-input>
-              </el-form-item>
-              <el-form-item label="生产日期">
-                <div class="block">
-                  <el-date-picker
-                    v-model="form.ProductionDay"
-                    type="date"
-                    placeholder="选择年份"
-                    format="yyyy 年 MM 月 dd 日"
-                    value-format="yyyy-MM-dd">
-                  </el-date-picker>
-                </div>
-              </el-form-item>
-              <el-form-item label="维保单位">
-                <el-input v-model="form.Refundable"></el-input>
-              </el-form-item>
-              <el-form-item label="维保人员">
-                <el-input v-model="form.linkname"></el-input>
-              </el-form-item>
-              <el-form-item label="维保电话">
-                <el-input v-model="form.phone"></el-input>
-              </el-form-item>
-            </el-form> -->
             <div class="main_content">
               <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
                 <el-form-item label="设备名称">
@@ -289,7 +185,7 @@
                 <el-form-item label="设备类型">
                   <el-select
                     v-model="form.equipmentId"
-                    placeholder="选择设备类型" class="sbwz_138_32 start col-sm-4">
+                    placeholder="选择设备类型" class="start col-sm-4">
                     <el-option
                       v-for="item in equipmentList"
                       :label="item.name"
@@ -300,7 +196,7 @@
                 <el-form-item label="设备位置">
                   <el-select
                     v-model="form.buildingId"
-                  placeholder="选择建筑"  class="sbwz_138_32 start col-sm-4">
+                  placeholder="选择建筑"  class="start col-sm-4">
                     <el-option label="室外" value="0"></el-option>
                     <el-option
                       v-for="item in form.buildList"
@@ -310,7 +206,7 @@
                   </el-select>
                   <el-select
                     v-model="form.floorId"
-                    placeholder="选择楼层" class="sbwz_138_32 start col-sm-4">
+                    placeholder="选择楼层" class="start col-sm-4">
                     <el-option
                       v-for="item in form.floorList"
                       :label="item.floorName+'层'"
@@ -319,7 +215,7 @@
                   </el-select>
                   <el-select
                     v-model="form.roomId"
-                    placeholder="选择房间" class="sbwz_138_32 start col-sm-4">
+                    placeholder="选择房间" class="start col-sm-4">
                     <el-option
                       v-for="item in form.roomList"
                       :label="item.roomNumber+'房间'"

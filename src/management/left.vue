@@ -1,10 +1,12 @@
 <template>
   <div class="show_left toolleft manage-menu">
       <div class="row manage-menu-title size-12 clearfix">
-        <h1 class="col-xs-8 size-80 font-white">管理</h1>
-        <div class="col-xs-3 margin-top10 padding-right0 text-right">
-          <a href="" data-toggle="tooltip" title="工作日志"><i class="icon iconfont icon-caozuorizhi-xian-"></i></a>
-          <a class="span_show margin-top30" data-toggle="tooltip" title="收起导航"><i class="el-icon-arrow-left"></i>收起</a>
+        <h1 class="col-xs-8">管理</h1>
+        <div class="col-xs-3 padding-right0 text-right">
+          <router-link to="/operationLog">
+          <i class="icon iconfont icon-caozuorizhi-xian-" data-toggle="tooltip" title="工作日志"></i>
+          </router-link>
+          <a class="span_show margin-top20" data-toggle="tooltip" title="收起导航"><i class="el-icon-arrow-left"></i>收起</a>
         </div>
       </div>
       <div class="main_aside">
@@ -54,19 +56,19 @@
               <span>19</span>
             </li>
           </router-link>
-          <li class="system_title">人员管理</li>
+          <li class="system_title">人员管理</li>          
+          <router-link to="/Personnel_review">
+            <li class="p-green">
+              <i class="icon iconfont icon-renyuanshenhe-xian-"></i>
+              <h2>人员审核</h2>
+              <span>24</span>
+            </li>
+          </router-link>
           <router-link to="/List_of_people">
             <li>
               <i class="icon iconfont icon-renyuanliebiao-xian-"></i>
               <h2>人员列表</h2>
               <span>118</span>
-            </li>
-          </router-link>
-          <router-link to="/Personnel_review">
-            <li>
-              <i class="icon iconfont icon-renyuanshenhe-xian-"></i>
-              <h2>人员审核</h2>
-              <span>24</span>
             </li>
           </router-link>
           <router-link to="/Authority_allocation">
@@ -76,11 +78,25 @@
               <span>6</span>
             </li>
           </router-link>
-          <li class="system_title">操作日志</li>
+          <li class="system_title">档案管理</li>
+          <router-link to="/Reserve_plan">
+            <li class="p-red">
+              <i class="icon iconfont icon-xiaoxi-"></i>
+              <h2>消息管理</h2>
+              <span data-toggle="tooltip" title="未读消息 <span class="font-red">3</span> 条">3</span>
+            </li>
+          </router-link>
+          <router-link to="/Reserve_plan">
+            <li>
+              <i class="icon iconfont icon-yingjiyuan"></i>
+              <h2>预案管理</h2>
+              <span data-toggle="tooltip" title="预案总数">36</span>
+            </li>
+          </router-link>
           <router-link to="/operationLog">
             <li>
-              <i class="fa fa-th-large font-gray-666"></i>
-              <h2>操作日志</h2>
+              <i class="icon iconfont icon-caozuorizhi-xian-"></i>
+              <h2>工作日志</h2>
               <span>6</span>
             </li>
           </router-link>

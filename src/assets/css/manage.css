@@ -13,6 +13,12 @@
     cursor: pointer!important;
     color: #ccc!important;
 }
+.manage-menu-title h1 {
+  font-size: 80px;
+  line-height: 70px;
+  letter-spacing: 10px;
+  color: #fff;
+}
 .manage-menu-title a:hover,.manage-menu-title a.active {
     color: #bad616!important;
     text-decoration: none!important;
@@ -30,9 +36,6 @@
 	font-size: 18px;
 	color: #999;
 }
-.manage-menu h1{
-    letter-spacing: 20px;
-}
 .manage-menu .main_aside{
     width:100%;
 }
@@ -43,7 +46,7 @@
 }
 .manage-menu .main_aside ul>li {
 	height: 20px!important;
-	margin-top: 30px;
+	margin-top: 20px;
 }
 .manage-menu .main_aside ul li{
     width:100%;   
@@ -93,7 +96,8 @@
     color:#bad616;
 }
 .manage-menu .router-link-active h2,
-.manage-menu .main_aside a:hover>li>h2{
+.manage-menu .main_aside a:hover>li>h2,
+.manage-menu .main_aside a>li.p-green>span{
     color:#bad616;
 }
 .manage-menu .router-link-active span,
@@ -101,7 +105,19 @@
     color:#fff;
     background-color: #000;
 }
-
+.manage-menu .main_aside a:hover>li.p-green>span,
+.manage-menu .main_aside .router-link-active>li.p-green>span{
+    color:#000!important;
+    background-color: #bad616!important;
+}
+.manage-menu .main_aside a>li.p-red>span {
+    color:#f13131;
+}
+.manage-menu .main_aside a:hover>li.p-red>span,
+.manage-menu .main_aside .router-link-active>li.p-red>span{
+    color:#000!important;
+    background-color: #f13131!important;
+}
 /*中间主列表*/
 
 .main_header{
@@ -532,7 +548,119 @@
 	border-color:#666!important;
 	color:#ccc!important;
 }
-
+.not-null label:after{
+  content: "*";
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 4px;
+  color:#f13131;
+}
+.main_content .el-date-editor .el-input__inner {
+    padding-left: 30px;
+}
+/*巡检表单*/
+.line-start .el-select,
+.line-end .el-select,
+.line-node .el-select {
+  width: 20%;
+  margin-right: 10px;
+}
+.line-start .el-select .el-input__inner,
+.line-end .el-select .el-input__inner,
+.line-node .el-select .el-input__inner {
+  width: inherit;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  padding-right: 0;
+}
+.line-start label:before,
+.line-end label:before,
+.line-node label:before {
+  display: inline-block;
+  font-size: 12px;
+  margin-right: 4px;  
+  font-family: Font Awesome\ 5 Free;
+}
+.line-start label:before{
+  content: "\f103";
+  color: #bad616;
+}
+.line-end label:before {
+  content: "\f11e";
+  color: #f13131;
+}
+.line-node label:before {
+  content: "\f276";
+  color: #fff;
+}
+.line-show {
+  margin-top: 5px;
+  display: inline-block;
+  width: 20%;
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  padding-left:10px;
+  padding-right:10px;
+  margin-right:10px;
+  color: #fff;
+  border: 1px solid #222;
+  background-color: transparent;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.icon-frame {
+  cursor: pointer;
+  width:32px;
+  height:32px;
+  border:1px solid #333333;
+  margin-top:5px;
+  margin-right:5px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+/*上传*/
+.head-photo .head-2{  
+  position:relative;
+  width: 80px;
+  height: 80px;
+  overflow:hidden;
+  float:left;
+}
+.head-photo label {
+  margin-bottom: 8px;
+}
+.head-photo div {
+  text-align: center;
+  background-color: #222;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+}
+.head-photo input {
+  float: left;
+  cursor: pointer;
+  width:80px;
+  height:80px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  position: absolute;
+  right:0;
+  top:0;
+}
+.head-photo i.el-icon-plus {
+  font-size: 40px!important;
+  line-height: 80px;
+  color: #ccc;
+}
+.head-photo img  {
+  background-color: #222;
+  width: 80px!important;
+  height: 80px!important;
+}
 /*设备*/
 .toolbuildrate {
   background-color: #000;
@@ -554,3 +682,18 @@
     height: 26px!important;
 }
 
+#manage-center .el-select .el-input--suffix .el-input__inner {
+  background-color:#111;
+}
+#manage-center .el-input__inner:active,
+#manage-center .el-input__inner:visited,
+#manage-center .el-input__inner:hover,
+#manage-center .el-input__inner.is-active,
+#manage-center .is-focus .el-input__inner,
+#manage-center .is-focus .el-input__inner:active,
+#manage-center .is-focus .el-input__inner:visited,
+#manage-center .is-focus .el-input__inner:hover{
+    border: none!important;
+    color: #fff!important;
+    background-color: rgba(0, 0, 0, 1);
+}
