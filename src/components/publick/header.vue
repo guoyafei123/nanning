@@ -5,40 +5,14 @@
         <p class="font-white size-18 version-title"><!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
             <span class="size-10 version-num">BETA3.0</span>
         </p>
-        <el-select v-model="areavalue" placeholder="全部区域" size="mini">
+        <el-select v-model="unitvalue" size="mini" @change="optionchange" style="width:600px;">
             <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+                  v-for="item in queryUnit"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
             </el-option>
         </el-select>
-        <el-select v-model="unitvalue" placeholder="全部单位" size="mini">
-            <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-            </el-option>
-        </el-select>
-        <!-- <i class="fa fa-th-large font-gray-666"></i>
-        <div class="dropdown public-dropdown display-inline-block">
-            <button class="btn btn-default dropdown-toggle size-12 font-blue dropdown-btnstyle" type="button" id="aaaa" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                中心小学
-                <span class="caret font-blue"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="aaaa">
-                <li>
-                    <a href="#">中心小学</a>
-                </li>
-                <li>
-                    <a href="#">中心小学</a>
-                </li>
-                <li>
-                    <a href="#">中心小学</a>
-                </li>
-            </ul>
-        </div> -->
     </div>
     <div class="header-middle font-gray-ccc">
         <ul>
@@ -153,98 +127,126 @@
 </template>
 
 <script>
-  import messagesVue from './messages.vue';
-  export default {
-    components:{
-      'messages-vue':messagesVue
+import messagesVue from "./messages.vue";
+import{mapState} from "vuex";
+export default {
+  components: {
+    "messages-vue": messagesVue
+  },
+  // 选择器
+  data() {
+    return {
+      areavalue: "选项2",
+      unitvalue: "全部单位",
+      queryUnit:Object
+    };
+  },
+  computed:mapState([
+        'userinfo',
+    ]),
+    watch:{
+        userinfo(){
+            console.log(this.userinfo);
+        }
     },
-    // 选择器
-    data() {
-      return {
-        options: [{
-          value: '选项2',
-          label: '怀化市'
-        }, {
-          value: '选项3',
-          label: '怀化市兴宁区'
-        }, {
-          value: '选项4',
-          label: '怀化市横县'
-        }],
-        areavalue: "选项2",
-        unitvalue:'全部单位'
-      }
-    },
-    //其他
-    mounted(){
+  //其他
+  mounted() {
+    this.mini_go("header-canvas-people", 88.88);
+    this.mini_go("header-canvas-host", 88.88);
+    this.mini_go("header-canvas-cpu", 88.88);
+    this.mini_go("header-canvas-memory", 88.88);
+    $("[data-toggle='tooltip']").tooltip();
+    this.getunitlist();
 
-      this.mini_go('header-canvas-people', 88.88);
-      this.mini_go('header-canvas-host', 88.88);
-      this.mini_go('header-canvas-cpu', 88.88);
-      this.mini_go('header-canvas-memory', 88.88);
-      $("[data-toggle='tooltip']").tooltip();
-    },
-    methods:{
-        // 显示模态窗
-        showMessages(){            
-            $('#showmessages').modal('toggle');
-            $('#showmessages').on('show.bs.modal', function () {
-                  $(".icon-xiaoxi-mian--").addClass("font-white");
-            });
-        },
-        // 开关声音
-        voice(){
-            $(".icon-tongzhi-mian-").toggleClass("font-blue");
-        },
-    
-      mini_go(id, num) {
-        //画底圆
-        //mini图配置
-        var canvas_mini = document.getElementById(id);
+  },
 
-        canvas_mini.width = canvas_mini.width;
-        canvas_mini.height = canvas_mini.height;
-        var cxt_mini = canvas_mini.getContext("2d");
-        cxt_mini.fillStyle = 'rgba(255, 255, 255, 0)';
-        // cxt_mini.globalAlpha= (Math.sin(0) + 1) / 2;
-        var mini_width = canvas_mini.width;
-        var mini_height = canvas_mini.height;
-        var mini_r = mini_width / 2;
-        cxt_mini.translate(mini_width / 2, mini_height / 2);
-        var radi2_mini = mini_r * 0.855;
-        cxt_mini.rotate(5.5);
-        // 画底圆
-        cxt_mini.translate(-25, -25);
-        cxt_mini.translate(mini_width / 2, mini_height / 2);
-        cxt_mini.clearRect(0, 0, mini_width, mini_height);
-        cxt_mini.beginPath();
-        cxt_mini.lineWidth = 2;
-        cxt_mini.strokeStyle = '#fff';
-        cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI);
-        cxt_mini.stroke();
-        cxt_mini.closePath();
-        //画比例圆
-        cxt_mini.beginPath();
-        cxt_mini.lineWidth = 2;
-        cxt_mini.strokeStyle = '#bad616';
-        cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI * num, true);
-        cxt_mini.stroke();
-        cxt_mini.closePath();
-        //画斜杠
-        cxt_mini.beginPath();
-        cxt_mini.lineWidth = 2;
-        cxt_mini.strokeStyle = '#fff';
-        var moveto = mini_width * 0.133333333;
-        var lineto = mini_width * 0.377777777;
-        cxt_mini.moveTo(moveto, 0);
-        cxt_mini.lineTo(lineto, 0);
-        cxt_mini.stroke();
-        cxt_mini.closePath();
-      }
+  methods: {
+    // 显示模态窗
+    showMessages() {
+      $("#showmessages").modal("toggle");
+      $("#showmessages").on("show.bs.modal", function() {
+        $(".icon-xiaoxi-mian--").addClass("font-white");
+      });
+    },
+    // 开关声音
+    voice() {
+      $(".icon-tongzhi-mian-").toggleClass("font-blue");
+    },
+
+    mini_go(id, num) {
+      //画底圆
+      //mini图配置
+      var canvas_mini = document.getElementById(id);
+
+      canvas_mini.width = canvas_mini.width;
+      canvas_mini.height = canvas_mini.height;
+      var cxt_mini = canvas_mini.getContext("2d");
+      cxt_mini.fillStyle = "rgba(255, 255, 255, 0)";
+      // cxt_mini.globalAlpha= (Math.sin(0) + 1) / 2;
+      var mini_width = canvas_mini.width;
+      var mini_height = canvas_mini.height;
+      var mini_r = mini_width / 2;
+      cxt_mini.translate(mini_width / 2, mini_height / 2);
+      var radi2_mini = mini_r * 0.855;
+      cxt_mini.rotate(5.5);
+      // 画底圆
+      cxt_mini.translate(-25, -25);
+      cxt_mini.translate(mini_width / 2, mini_height / 2);
+      cxt_mini.clearRect(0, 0, mini_width, mini_height);
+      cxt_mini.beginPath();
+      cxt_mini.lineWidth = 2;
+      cxt_mini.strokeStyle = "#fff";
+      cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI);
+      cxt_mini.stroke();
+      cxt_mini.closePath();
+      //画比例圆
+      cxt_mini.beginPath();
+      cxt_mini.lineWidth = 2;
+      cxt_mini.strokeStyle = "#bad616";
+      cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI * num, true);
+      cxt_mini.stroke();
+      cxt_mini.closePath();
+      //画斜杠
+      cxt_mini.beginPath();
+      cxt_mini.lineWidth = 2;
+      cxt_mini.strokeStyle = "#fff";
+      var moveto = mini_width * 0.133333333;
+      var lineto = mini_width * 0.377777777;
+      cxt_mini.moveTo(moveto, 0);
+      cxt_mini.lineTo(lineto, 0);
+      cxt_mini.stroke();
+      cxt_mini.closePath();
+    },
+    getunitlist() {
+      this.$fetch("api/unit/queryUnit")
+        .then(response => {
+            if (response) {
+            this.queryUnit = response.data.unitList;
+            console.log(this.queryUnit);
+            console.log(this.queryUnit.length);
+            if(this.queryUnit.length==1){
+                this.unitvalue=this.queryUnit[0].name;
+                this.$store.commit('unitid',this.queryUnit[0].id);
+            }else if(this.queryUnit.length>1){
+                this.unitvalue='全部单位';
+                this.queryUnit.unshift({id:0,name:'全部单位'})
+                this.$store.commit('unitid',null);
+
+            }
+            }
+        })
+        .then(err => {
+            console.log(err);
+        });
+    },
+    optionchange(){
+        console.log(this.unitvalue);
+        sessionStorage.unitid=this.unitvalue;
+        this.$store.commit('unitid',this.unitvalue);
     }
   }
+};
 </script>
 
 <style scoped>
-
 </style>
