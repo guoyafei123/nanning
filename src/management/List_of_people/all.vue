@@ -30,7 +30,13 @@
         <el-table
           :data="tableData"
           border
+<<<<<<< HEAD
+          :highlight-current-row="true"
+          :default-sort = "{prop: 'Serial_number', order: 'descending'}"
+          style="width: 100%;height:570px;">
+=======
           :default-sort = "{prop: 'Serial_number', order: 'descending'}">
+>>>>>>> 56320e816ff93f44015b2426169159118d50c28b
           <el-table-column
             prop="Serial_number"
             type="index"
@@ -108,43 +114,48 @@
             <h4 class="modal-title" id="myModalLabel">修改人员信息</h4>
           </div>
           <div class="modal-body">
-            <el-form ref="form" :label-position="labelPosition" :inline="true" :model="form">
-              <el-form-item label="姓名">
-                <el-input v-model="form.nickName"></el-input>
-              </el-form-item>
-              <el-form-item label="账号">
-                <el-input v-model="form.username"></el-input>
-              </el-form-item>
-              <el-form-item label="头像">
-                <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
-                  <input id="file" name="file" type="file" @change="file()" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
-                  <div style="width:80px;height:80px;background:#222;border:1px solid #222;">
-                    <span style="display:block;width:50px;height:3px;background:#999;position:absolute;top:50%;left:50%;margin-left:-25px;margin-top:-1.5px;"></span>
-                    <span style="display:block;width:3px;height:50px;background:#999;position:absolute;top:50%;left:50%;margin-left:-1.5px;margin-top:-25px;"></span>
+            <div class="main_content">
+            <!--
+              class类not-null为必填标识,如需请加在<el-form-item>
+              class类hint-error为错误提示
+             -->
+             <el-form-item label="头像">
+                  <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
+                    <input id="file" name="file" type="file" @change="file()" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
+                    <div style="width:80px;height:80px;background:#222;border:1px solid #222;">
+                      <span style="display:block;width:50px;height:3px;background:#999;position:absolute;top:50%;left:50%;margin-left:-25px;margin-top:-1.5px;"></span>
+                      <span style="display:block;width:3px;height:50px;background:#999;position:absolute;top:50%;left:50%;margin-left:-1.5px;margin-top:-25px;"></span>
+                    </div>
                   </div>
-                </div>
-                <img :src="this.form.headImgUrl" :id="'up_img'+this.form.id" style="width:80px;height:80px;"/>
-              </el-form-item>
-              <el-form-item label="职位">
-                <el-input v-model="form.position"></el-input>
-              </el-form-item>
-              <el-form-item label="所属单位">
-                <el-select v-model="form.unitId" placeholder="选择单位" class="select">
-                  <el-option label="全部单位" value=""></el-option>
-                  <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="联系电话">
-                <el-input v-model="form.cellPhone"></el-input>
-              </el-form-item>
-              <el-form-item label="角色">
-                <el-select v-model="form.roleId" placeholder="选择角色" class="select">
-                  <el-option label="全部角色" value=""></el-option>
-                  <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                </el-select>
-              </el-form-item>
-              <div style="clear: both;"></div>
-            </el-form>
+                  <img :src="this.form.headImgUrl" :id="'up_img'+this.form.id" style="width:80px;height:80px;"/>
+                </el-form-item>
+              <el-form class="row" ref="form" :label-position="labelPosition" :inline="true" :model="form">
+                <el-form-item label="姓名" class="not-null">
+                  <el-input v-model="form.nickName" class="col-sm-4"></el-input>
+                </el-form-item>
+                <el-form-item label="账号" class="not-null">
+                  <el-input v-model="form.username" class="col-sm-4"></el-input>
+                </el-form-item>
+                <el-form-item label="联系电话" class="not-null">
+                  <el-input v-model="form.cellPhone" class="col-sm-4"></el-input>
+                </el-form-item>
+                <el-form-item label="所属单位" class="not-null">
+                  <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-4">
+                    <el-option label="全部单位" value=""></el-option>
+                    <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>                
+                <el-form-item label="角色" class="not-null col-sm-4">
+                  <el-select v-model="form.roleId" placeholder="选择角色" class="select">
+                    <el-option label="全部角色" value=""></el-option>
+                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="职位" class="col-sm-4">
+                  <el-input v-model="form.position"></el-input>
+                </el-form-item>                
+              </el-form>
+            </div>
           </div>
           <div class="modal-footer">
             <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
