@@ -26,8 +26,9 @@
                         </div>
                       </div>
             </section>
-            <section v-show="itemtrue==false" class="risk-lineinfo">
-              <section>
+            <section class="risk-lineinfo">
+
+              <section v-show="itemtrue==false">
                 <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
                           <!-- 已选择 -->
                   <div class="personinfo">
@@ -49,13 +50,37 @@
                   </div>
                 </div>
               </section>
+
+              <section v-show="itemtrue==true">
+                <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
+                  <div class="personinfo">
+                      <p>
+                      <span class="size-20 font-blue">中心小学</span>                        
+                      <span class="float-right">
+                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                      </span>
+                      </p>
+                      <p class="col-sm-5 text-left padding0">
+                          <span>
+                              <i class="fas fa-industry"></i> 中心小学</span>
+                      </p>
+                      <P class="col-sm-7 text-right padding0">
+                          <span class="text-right">
+                          最新更新<span class="font-gray-999">2018.07.09 08:00:00</span>
+                          </span>
+                      </P>                        
+                  </div>
+                </div>
+              </section>
+
               <section>
                 <div class="toolcount">
                   <h4 class="p-title">风险系数</h4>
                   <div id="axis1" style="width: 100%;height:200px;margin: 0 auto;"></div>
                 </div>
               </section>
-              <section>
+
+              <section v-show="itemtrue==false">
                 <h4 class="p-title margin-top30">风险系数</h4>
                 <div class="row cardinfo-style margin-top10 font-gray-999">
                   <p class="col-sm-4">建筑防火 <span>3.5</span></p>
@@ -68,48 +93,8 @@
                   <p class="col-sm-4">消防给水 <span>3.5</span></p>
                 </div>
               </section>
-              <section>
-                <div class="toolcount margin-top30">
-                  <h4 class="p-title">安全评分变化趋势
-                    <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span>
-                  </h4>
-                  <div id="myChart" style="width: 100%;height:180px;margin: 0 auto;"></div>
-                </div>
-              </section>
-            </section>
 
-            <section v-show="itemtrue==true" class="risk-iteminfo">
-              <section>
-                <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
-                          <!-- 已选择 -->
-                  <div class="personinfo">
-                      <p>
-                      <span class="size-20 font-blue">中心小学</span>                        
-                      <span class="float-right">
-                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
-                      </span>
-                      </p>
-                      <p class="col-sm-5 text-left padding0">
-                          <span>
-                              <i class="fas fa-industry"></i> 中心小学</span>
-                      </p>
-                      <P class="col-sm-7 text-right padding0">
-                          <span class="text-right">
-                          最新更新<span class="font-gray-999">2018.07.09 08:00:00</span>
-                          </span>
-                      </P>                        
-                  </div>
-                </div>
-              </section>
-              <section>
-                <div class="toolcount">
-                  <h4 class="p-title">风险系数</h4>
-                  <div id="axis11" style="width: 100%;height:200px;margin: 0 auto;"></div>
-                </div>
-              </section>
-              <section>
+              <section v-show="itemtrue==true">
                 <h4 class="p-title margin-top30">风险系数</h4>
                 <div class="row cardinfo-style margin-top10 font-gray-999">
                   <p class="col-sm-4">建筑参数 <span>3.5</span></p>
@@ -123,6 +108,7 @@
                   <p class="col-sm-4">灭火设备 <span>3.5</span></p>
                 </div>
               </section>
+
               <section>
                 <div class="toolcount margin-top30">
                   <h4 class="p-title">安全评分变化趋势
@@ -130,10 +116,12 @@
                       <i class="icon iconfont icon-weibiaoti10 size-12"></i>
                     </span>
                   </h4>
-                  <div id="myChart11" style="width: 100%;height:180px;margin: 0 auto;"></div>
+                  <div id="myChart" style="width: 100%;height:180px;margin: 0 auto;"></div>
                 </div>
               </section>
             </section>
+
+            
         </div>
       </template>
 
@@ -222,8 +210,9 @@ export default {
     // 所有巡检单位
     toriskitem(){
       this.itemtrue=this.toriskitem;
-      this.drawPieChart("myChart11",null);
-      this.drawLineChart("axis11",null);
+      var lineData=[50, 210, 200, 310, 150, 250, 187,299];
+      this.drawPieChart("axis1",lineData);
+      this.drawLineChart("myChart",null);
     },
   },
 
@@ -311,7 +300,7 @@ export default {
         },
         // 图例
         legend: {
-          data: ["评分"]
+          data: ["安全评分"]
         },
         // 调整实际显示的 margin
         grid: {
@@ -323,18 +312,17 @@ export default {
         },
         // 数据
         series: [
-          {
-            data: [300, 950, 900, 800, 700, 600, 700],
-            name: "高",
+         {
+            data: [100, 499, 50, 1111, 45, 345, 907],
+            name: "安全评分",
             type: "line",
             symbol: "none",
             smooth: true,
-            areaStyle: { normal: {} },
             color: {
               colorStops: [
                 {
                   offset: 0,
-                  color: "rgba(255,255,255,0.3)" // 0% 处的颜色
+                  color: "#333"
                 }
               ]
             }
@@ -349,42 +337,20 @@ export default {
           }
         }
       };
-      var pie = {
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            selectedMode: "single",
-            radius: [0, "70%"],
-            label: {
-              normal: {
-                position: "inner"
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            color: ["#bad616", "#333"],
-            data: [
-              { value: 335, name: "50%", selected: true },
-              { value: 679, name: "" }
-            ]
-          }
-        ]
-      };
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
-      myChart.setOption(option);
-      let myChart11 = this.$echarts.init(document.getElementById("myChart11"));
-      myChart11.setOption(option);
+      let lineChart = this.$echarts.init(document.getElementById(id));
+      lineChart.clear();
+      lineChart.setOption(option,true);
     },
     //left-柱状图
     drawPieChart(id,data){
+      var axisDate=["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+      var axisData = null;
+      if(data != null){
+        axisData = data;
+      }else{
+        axisData=[10, 52, 200, 334, 390, 330, 220, 192];
+      }
+      
       // 根据值判断柱子颜色的柱状图
       var option1 = {
         color: ["#3398DB"],
@@ -405,7 +371,7 @@ export default {
           {
             type: "category",
             show: true,
-            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+            data: axisDate,
             axisTick: {
               alignWithLabel: true
             }
@@ -426,10 +392,10 @@ export default {
         },
         series: [
           {
-            name: "直接访问",
+            name: "风险系数",
             type: "bar",
             barWidth: "60%",
-            data: [10, 52, 200, 334, 390, 330, 220, 192],
+            data: axisData,
             itemStyle: {
               normal: {
                 // 值显示在柱子顶部
@@ -471,70 +437,16 @@ export default {
           }
         ]
       };
-      // 横向柱子
-      var riskchar1f = {
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            // 坐标轴指示器，坐标轴触发有效
-            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        grid: {
-          left: "0",
-          right: "0",
-          bottom: "0",
-          top: "0"
-        },
-        xAxis: {
-          type: "value",
-          show: false
-        },
-        yAxis: {
-          type: "category",
-          show: false
-        },
-        series: [
-          {
-            name: "搜索引擎",
-            type: "bar",
-            stack: "总量",
-            label: {
-              normal: {
-                show: true,
-                position: "insideRight",
-                color: "#000"
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: function(params) {
-                  if (params.value > 0 && params.value < 300) {
-                    return "#333333";
-                  } else if (params.value >= 100 && params.value <= 600) {
-                    return "#666666";
-                  } else if (params.value >= 200 && params.value <= 900) {
-                    return "#999999";
-                  }
-                  return "#bad616";
-                }
-              }
-            },
-            data: [220, 532, 901]
-          }
-        ]
-      };
-      let axis1 = this.$echarts.init(document.getElementById("axis1"));
-      axis1.setOption(option1);
-      let axis11 = this.$echarts.init(document.getElementById("axis11"));
-      axis11.setOption(option1);
+      let axisChart = this.$echarts.init(document.getElementById(id));
+      axisChart.clear();
+      axisChart.setOption(option1,true);
     }
   },
   mounted() {
     this.$store.commit("route_path", this.$route.path);
     // 右侧图表
-    this.drawPieChart("myChart",null);
-    this.drawLineChart("axis1",null);
+    this.drawPieChart("axis1",null);
+    this.drawLineChart("myChart",null);
     //this.getData();
   }
 };
