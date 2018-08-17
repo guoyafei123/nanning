@@ -35,9 +35,13 @@ export function fetch(url,params = {}){
       .then(response => {
         resolve(response.data);
         console.log(response.data.errorCode);
+        // 全局拦截tooltip提示
+        $("[data-toggle='tooltip']").tooltip();
+        // 全局拦截未登录调整login
         if(response.data.errorCode=='20012'){
           // alert('未登录')
           this.$router.push("/login");
+          
           return;
         }
       },err => {
