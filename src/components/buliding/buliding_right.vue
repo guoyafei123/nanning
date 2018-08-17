@@ -221,6 +221,7 @@
 
 
 <script>
+import{mapState} from "vuex";
 export default {
   data() {
     return {
@@ -255,8 +256,32 @@ export default {
             }
           }
         ]
-      }
+      },
+      //点击接收的参数对象
+      builddata: Object,
+      getBuildIngAssess_parameter: {
+        unitId: 4,
+        beginTime: '2017-07-02',
+        endTime: '2017-08-20'
+      },
+      getBuildIngAssess: Object,
+      //建筑安全评分级别
+      buildAssessScore: Object,
+      //建筑报警数折线图
+      buildAlarmCountAssess: Object,
+      //建筑隐患数折线图
+      getBuildIngAssess: Object
     };
+  },
+  computed:mapState([
+    'tobuilditem'
+  ]),
+  watch:{
+    // 所有巡检单位
+    tobuilditem(){
+      this.builddata =this.tobuilditem;
+      console.log("【建筑】——获取详情数据.......");
+    },
   },
   methods: {
     moren() {
@@ -275,8 +300,19 @@ export default {
         .addClass("display-none")
         .removeClass("display-block");
     },
-    tolineitem() {},
-    chart_one() {
+    getData() {
+      // 请求统计数据
+      this.$fetch("/api/building/getBuildIngAssess",this.getBuildIngAssess_parameter).then(response => {
+        console.log("【建筑】——请求统计数据:")
+        console.log(response.data);
+        if (response.data) {
+           this.planInspectionCount = response.data;
+           
+        }
+      });
+    },
+    //划饼状图
+    drawPieChart(id,data){
       var pie = {
         title: {
           x: "center"
@@ -313,7 +349,12 @@ export default {
           }
         ]
       };
-      // 根据值判断柱子颜色的柱状图
+      let mypie1 = this.$echarts.init(document.getElementById(id));
+      mypie1.setOption(pie);
+    },
+    //划饼状图
+    drawBarChart(id,data){
+         // 根据值判断柱子颜色的柱状图
       var option1 = {
         color: ["#3398DB"],
         tooltip: {
@@ -399,16 +440,15 @@ export default {
           }
         ]
       };
-      let myChart2 = this.$echarts.init(document.getElementById("myChart1"));
+      let myChart2 = this.$echarts.init(document.getElementById(id));
       myChart2.setOption(option1);
-      let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
-      mypie1.setOption(pie);
-      let myChart1 = this.$echarts.init(document.getElementById("axis1"));
-      myChart1.setOption(option1);
     }
   },
   mounted() {
-    this.chart_one();
+    this.getData();
+    this.drawPieChart("pieb1",null);
+    this.drawBarChart("axis1",null);
+    this.drawBarChart("myChart1",null);
   }
 };
 </script>
