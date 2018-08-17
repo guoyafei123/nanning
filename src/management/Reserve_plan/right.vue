@@ -3,10 +3,14 @@
     <!-- 单位信息 -->
     <section class="textandimg margin-top20">
               <h4 class="p-title">预案详情</h4>
-              <div class="row textandimg-main margin-top20 size-12">                  
-                  <div class="col-sm-12">
+              <div class="row textandimg-main margin-top20 size-12">
+                <div class="col-sm-6">
                       <span>预案名称 </span>
                       <strong class="font-blue" v-html="this.name"></strong>
+                  </div>                  
+                  <div class="col-sm-6 text-right">
+                      <a href="#" class="display-inline-block font-blue size-12"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i> 预览</a>
+                      <a href="#" class="display-inline-block font-blue size-12"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i> 下载</a>
                   </div>
                   <div class="col-sm-12">
                       <span>预案类型 </span>
@@ -29,7 +33,7 @@
                       <strong>2018-09-13 23:36:32</strong>
                   </div>
                   <div class="col-sm-12 margin-top10">
-                      <img src="../../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知" height="160">
+                    <img src="../../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知">
                   </div>
               </div>
     </section>  
