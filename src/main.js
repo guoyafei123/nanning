@@ -55,8 +55,10 @@ Vue.prototype.$http = axios;
 import qs from 'qs';
 Vue.prototype.$qs=qs;
 // this.$post('/api/').then((response) => {console.log(response)})
-
-import './assets/js/ajaxfileupload'
+//上传图片
+import './assets/js/ajaxfileupload';
+//验证
+import './assets/js/validate';
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
