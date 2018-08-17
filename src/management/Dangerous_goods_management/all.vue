@@ -104,14 +104,15 @@
           </el-table-column>
           <el-table-column 
             prop="status"
+            :show-overflow-tooltip="true"
             label="状态">
             <template slot-scope="scope">
               <el-tag
                 :type="scope.row.status === 0 ? 'red' : 'green'"
-                disable-transitions v-if='scope.row.status==0'>未解决</el-tag>
+                disable-transitions v-if='scope.row.status==0'>未解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+                disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-red" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
             </template>
           </el-table-column>
           <el-table-column
@@ -131,7 +132,7 @@
             fixed="right"
             label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" v-if='scope.row.status==0' data-toggle="modal" data-target="#mymodal" class="btn-on">处理</button>
+              <button @click="start_plan(scope.row)" v-if='scope.row.status==0' data-toggle="modal" data-target="#mymodal" class="btn-check">处理</button>
               <!-- <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
@@ -170,7 +171,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">解决</h4>
-            <h5 class="modal-p font-blue">{{this.form.dangerName}}</h5>
+            <h5 class="modal-p font-blue">{{dangerName}}</h5>
           </div>
           <div class="modal-body">
             <div class="main_content">

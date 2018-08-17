@@ -2,6 +2,74 @@
   <div class="toolright z-index-20">
     <div class="plan"  style="display: none;">
       <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Building_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
+      <!-- 建筑名称 -->
+      <section>        
+        <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
+                  <!-- 已选择 -->
+                  <div class="personinfo">
+                        <p>                       
+                        <span class="size-20 font-blue">{{this.form.BuildName}}</span>
+                        <span class="float-right">
+                                <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                            </span>
+                        </p>
+                        <p class="col-sm-7 text-left padding0">
+                            <span>
+                                <i class="fas fa-industry"></i> {{this.form.UnitName}}</span>
+                        </p>
+                        <P class="col-sm-5 text-right padding0">
+                            <span class="text-right">
+                            最后更新：<span class="font-gray-999">{{this.createTime}}</span>
+                            </span>
+                        </P>                        
+                  </div>
+        </div>
+      </section>
+      <!-- 建筑信息统计 -->
+      <section>
+          <div class="toolcount margin-top20 clearfix">
+              <div class="col-sm-4 font-gray-999 padding0">
+                  <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
+                      <li>
+                          <h1 class="toolcount-p1"><span class="font-blue"></span>114</h1>
+                      </li>
+                      <li class="margin-top30">
+                          <p class="size-10 ">Room Total</p>
+                      </li>
+                      <li>
+                          <p class="size-16 font-blue">总房间数量</p>
+                      </li>
+                  </ul>
+              </div>
+              <div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
+                  <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
+                      <li>
+                          <p class="size-18 font-white">信息统计</p>
+                      </li>
+                      <li class="margin-bottom5">
+                          <p class="size-10 set-scaleright">Buliding Statistics</p>
+                      </li>
+                      <li class="margin-top10">
+                          <p>消防负责人 <span class="font-white">{{this.form.name}} {{this.form.phone}}</span></p>
+                      </li>
+                      <li class="row text-center padding-right16 margin-top10">
+                          <div class="col-sm-4 personnel-borderright">
+                              <p class="size-16 show font-white">{{this.form.area}}</p>
+                              <p>面积 m²</p> 
+                          </div>
+                          <div class="col-sm-4 personnel-borderright">
+                              <p class="size-16 show font-white">13{{this.form.height}}</p>
+                              <p>高度 m</p>
+                          </div>
+                          <div class="col-sm-4">                              
+                              <p class="size-16 show font-blue">{{this.form.floor}}</p>
+                              <p>楼层数量</p>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </section>
       <!-- 建筑详情 -->
       <section>
         <div class="textandimg margin-top20">
@@ -91,12 +159,12 @@
               <p class="size-18 font-blue">当前建筑总数</p>
             </li>
             <li>
-              <h1 class="toolcount-p1">7</h1>
+              <h1 class="toolcount-p1">{{totalList}}</h1>
             </li>
           </ul>
         </section>
         <!-- 建筑小列表 -->
-      <section>        
+      <section class="bg-black">        
         <div class="toolbuildrate">
           <div class="main_content_table">
             <el-table
@@ -374,7 +442,7 @@
   export default {
     data() {
       return {
-        labelPosition: 'left',
+        labelPosition: 'top',
         form: {
           unitId:'',
           UnitName:'',

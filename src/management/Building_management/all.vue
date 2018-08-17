@@ -65,7 +65,7 @@
           </el-table-column>
           <el-table-column
             prop="heightOfBuilding"
-            label="高度 (cm)">
+            label="高度 (m)">
           </el-table-column>
           <el-table-column
             prop="floors"
