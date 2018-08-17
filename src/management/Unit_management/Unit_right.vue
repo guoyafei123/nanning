@@ -7,11 +7,11 @@
                   <div class="col-sm-12 margin-bottom20 imgSrc">
                       <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg?'+'time='+(new Date()).getTime()" :id="'up_img'+ this.id" class="img-responsive center-block" style="max-height: 140px;" />
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>单位名称 </span>
                       <strong v-html="this.name"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>部门电话 </span>
                       <strong v-html="this.telephone"></strong>
                   </div>
@@ -38,11 +38,11 @@
         <div class="textandimg margin-top30">
               <h4 class="p-title">安防信息</h4>
               <div class="row textandimg-main margin-top20 size-12">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>消防负责人 </span>
                       <strong v-html="this.firemenName"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>负责人电话 </span>
                       <strong v-html="this.firemenTel"></strong>
                   </div>                 

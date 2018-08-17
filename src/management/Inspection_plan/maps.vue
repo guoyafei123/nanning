@@ -11,6 +11,7 @@
         </div>
       </div>
       <div class="main_all_content">
+      <!-- 筛选 -->
         <div class="main_content_top">
           <el-form ref="form" :model="form"  class="float-left">
             <el-select v-model="form.region1" placeholder="选择单位" class="select">
@@ -31,11 +32,12 @@
             <router-link to="/Inspection_plan/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
           </div>
         </div>
-      </div>
-    </aside>
-    <div class="maps">
-      <managementMap-vue></managementMap-vue>
-    </div>
+        <!-- 地图 -->
+        <div class="maps">
+        <managementMap-vue></managementMap-vue>
+        </div>
+      </div>      
+    </aside>    
   </div>
 
 </template>

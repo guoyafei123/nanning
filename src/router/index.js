@@ -40,9 +40,12 @@ import Dangerous_goods_managementVue from '../management/Dangerous_goods_managem
 import Dangerous_goods_management_listVue from '../management/Dangerous_goods_management/list';
 import Dangerous_goods_management_AllVue from '../management/Dangerous_goods_management/all';
 import Dangerous_goods_management_MapsVue from '../management/Dangerous_goods_management/maps';
-// import Reserve_planVue from '../management/Reserve_plan/Reserve_plan';
-// import Reserve_planlistVue from '../management/Reserve_plan/list';
-// import Reserve_planAllVue from '../management/Reserve_plan/all';
+import Reserve_planVue from '../management/Reserve_plan/Reserve_plan';
+import Reserve_planListVue from '../management/Reserve_plan/list';
+import Reserve_planAllVue from '../management/Reserve_plan/all';
+import Message_managementVue from '../management/Message_management/Message_management';
+import Message_managementlistVue from '../management/Message_management/list';
+import Message_managementAllVue from '../management/Message_management/all';
 import operationLogVue from '../management/operationLog/operationLog';
 import operationLog_AllVue from '../management/operationLog/all';
 import { registerDecorator } from 'handlebars';
@@ -163,14 +166,23 @@ export default new Router({
         { path:'/operationLog',redirect:'/operationLog/all'}
       ]
     },
-    // {
-    //   path:'/Reserve_plan',
-    //   component:Reserve_planVue,
-    //   children:[
-    //     { path:'/Reserve_plan/list',component:Reserve_planlistVue},
-    //     { path:'/Reserve_plan/all',component:Reserve_planAllVue},
-    //     { path:'/Reserve_plan',redirect:'/Reserve_plan/all'}
-    //   ]
-    // }
+    {
+      path:'/Message_management',
+      component:Message_managementVue,
+      children:[
+        { path:'/Message_management/list',component:Message_managementlistVue},
+        { path:'/Message_management/all',component:Message_managementAllVue},
+        { path:'/Message_management',redirect:'/Message_management/all'}
+      ]
+    },
+    {
+      path:'/Reserve_plan',
+      component:Reserve_planVue,
+      children:[
+        { path:'/Reserve_plan/list',component:Reserve_planListVue},
+        { path:'/Reserve_plan/all',component:Reserve_planAllVue},
+        { path:'/Reserve_plan',redirect:'/Reserve_plan/all'}
+      ]
+    }
   ]
 })

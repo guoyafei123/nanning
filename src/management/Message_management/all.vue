@@ -3,11 +3,11 @@
     <!-- 标题 -->
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-yuanliebiao"></i>
-        <h2>预案管理</h2>
+        <i class="icon iconfont icon-xiaoxi-mian--"></i>
+        <h2>消息管理</h2>
       </div>
       <div class="main_nav float-right">
-        <router-link to="/Message_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
+        <router-link to="/Message_management/list"><span class="btn_add" @click="btn_add"><i class="icon iconfont icon-fabu"></i>发布</span></router-link>
       </div>
     </div>
     <!-- 主体 -->
@@ -15,14 +15,15 @@
       <!-- 筛选 -->
       <div class="main_content_top">
         <el-form ref="form" :model="form" class="float-left">
-          <el-select v-model="unit" placeholder="全部单位" class="select">
+          <el-select v-model="unit" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
           <el-select
               v-model="building"
-            placeholder="选择建筑"  class="start">
-              <el-option label="室外" value="0"></el-option>
+            placeholder="消息类型"  class="start">
+              <el-option label="公告" value="0"></el-option>
+              <el-option label="活动" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
                 :label="item.name"
@@ -31,8 +32,9 @@
             </el-select>
             <el-select
               v-model="building"
-            placeholder="预案类型"  class="start">
-              <el-option label="室外" value="0"></el-option>
+            placeholder="消息状态"  class="start">
+              <el-option label="进行中" value="0"></el-option>
+              <el-option label="已过期" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
                 :label="item.name"
@@ -58,29 +60,32 @@
           <el-table-column
             prop="name"
             :show-overflow-tooltip="true"
-            label="预案名称">
-          </el-table-column>
-          <el-table-column
-            prop="staffNum"
-            :show-overflow-tooltip="true"
-            label="所属建筑">
-          </el-table-column>
+            label="主题">
+          </el-table-column>          
           <el-table-column
             prop="property"
+            label="过期时间">
+          </el-table-column>
+          <el-table-column
+            prop="firemenName"
+            label="类型">
+          </el-table-column>
+          <el-table-column
+            prop="telephone"
             label="所属单位">
           </el-table-column>
           <el-table-column
-            prop="location"            
-            label="预案类型">
-          </el-table-column>
+            prop="telephone"
+            label="状态">
+          </el-table-column>  
           <el-table-column
-            prop="corporation"
+            prop="staffNum"
             label="发布人">
           </el-table-column>
           <el-table-column
-            prop="firemenTel"
+            prop="property"
             label="发布时间">
-          </el-table-column>          
+          </el-table-column>        
           <el-table-column
             fixed="right"
             label="操作">
@@ -124,7 +129,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">修改预案</h4>
+            <h4 class="modal-title" id="myModalLabel">修改</h4>
             <h5 class="modal-p font-blue">{{this.form.name}}</h5>
           </div>
           <div class="modal-body">
@@ -134,11 +139,11 @@
              -->
              <div class="main_content">
                 <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-                  <el-form-item label="预案名称" class="not-null">
+                  <el-form-item label="单位名称" class="not-null">
                     <el-input v-model="form.name" class="col-sm-4"></el-input>
                   </el-form-item>
-                  <el-form-item label="预案类型" class="not-null">
-                    <el-select name="" v-model="form.property" placeholder="请选择类型" class="col-sm-4">
+                  <el-form-item label="单位性质" class="not-null">
+                    <el-select name="" v-model="form.property" placeholder="请选择结构" class="col-sm-4">
                       <el-option label="事业单位" value="事业单位"></el-option>
                       <el-option label="国家行政机关" value="国家行政机关"></el-option>
                       <el-option label="政府" value="政府"></el-option>
@@ -149,31 +154,25 @@
                       <el-option label="私营企业" value="私营企业"></el-option>
                     </el-select>
                   </el-form-item>
-                  <el-form-item label="所属单位" class="not-null col-sm-4">
-                    <el-select name="" v-model="form.property" placeholder="请选择单位">
-                      <el-option label="事业单位" value="事业单位"></el-option>
-                      <el-option label="国家行政机关" value="国家行政机关"></el-option>
-                      <el-option label="政府" value="政府"></el-option>
-                      <el-option label="国有企业" value="国有企业"></el-option>
-                      <el-option label="国有控股企业" value="国有控股企业"></el-option>
-                      <el-option label="外资企业" value="外资企业"></el-option>
-                      <el-option label="合资企业" value="合资企业"></el-option>
-                      <el-option label="私营企业" value="私营企业"></el-option>
-                    </el-select>
+                  <el-form-item label="法人代表" class="not-null col-sm-4">
+                    <el-input v-model="form.corporation"></el-input>
                   </el-form-item>
-                  <el-form-item label="所属建筑" class="not-null col-sm-4">
-                    <el-select name="" v-model="form.property" placeholder="请选择单位">
-                      <el-option label="事业单位" value="事业单位"></el-option>
-                      <el-option label="国家行政机关" value="国家行政机关"></el-option>
-                      <el-option label="政府" value="政府"></el-option>
-                      <el-option label="国有企业" value="国有企业"></el-option>
-                      <el-option label="国有控股企业" value="国有控股企业"></el-option>
-                      <el-option label="外资企业" value="外资企业"></el-option>
-                      <el-option label="合资企业" value="合资企业"></el-option>
-                      <el-option label="私营企业" value="私营企业"></el-option>
-                    </el-select>
+                  <el-form-item label="部门电话" class="not-null col-sm-4">
+                    <el-input v-model="form.telephone"></el-input>
                   </el-form-item>
-                  <el-form-item label="预案文件" class="not-null col-sm-12">
+                  <el-form-item label="单位人数" class="col-sm-4">
+                    <el-input v-model="form.staffNum"></el-input>
+                  </el-form-item>
+                  <el-form-item label="单位地址" class="not-null">
+                    <el-input v-model="form.location" class="col-sm-4"></el-input>
+                  </el-form-item>                           
+                  <el-form-item label="消防负责人" class="not-null col-sm-4">
+                    <el-input v-model="form.firemenName"></el-input>
+                  </el-form-item>
+                  <el-form-item label="消防负责人电话" class="not-null col-sm-4">
+                    <el-input v-model="form.firemenTel"></el-input>
+                  </el-form-item>
+                  <el-form-item label="单位图片" class="not-null col-sm-12">
                     <div class="head-photo">
                       <input id="file" name="file" type="file" @change="file()" />
                       <div class="bg-gray-222 text-center">
