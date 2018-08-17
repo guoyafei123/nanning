@@ -145,7 +145,7 @@
         phone_parameter:{
           cellPhone:''
         },
-        
+
       };
     },
     computed:mapState([
@@ -177,7 +177,7 @@
                 let intver=setInterval(()=>{
                   num--;
                   this.vercodetext=num+'秒后重新获取';
-                  
+
                   if(num==0){
                     clearInterval(intver);
                     this.vercodetext='获取验证码';
@@ -190,13 +190,13 @@
             )
             .then(response => {
               if (response) {
-                
+
               }
             })
             .then(err => {
               console.log(err);
             });
-          
+
         }
       },
       login(){
@@ -210,7 +210,7 @@
             if(response.status==1){
               this.$router.push("/index");
               localStorage.login=1;
-              localStorage.name=response.data.userInfo.realName;
+              localStorage.name=response.data.user.nickName;
               this.$store.commit('userinfo',response.data);
             }else{
               this.tologin='登录失败!请联系管理员'
