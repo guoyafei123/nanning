@@ -105,7 +105,7 @@
           <div class="float-left btn-system">
             <a href="javascript:;">打印</a>
             <a href="javascript:;">导出</a>
-            <a href="javascrip:;">导出二维码</a>
+            <a href="javascript:;" @click="qrcode()">导出二维码</a>
           </div>
           <el-pagination
                          @current-change="handleCurrentChange"
@@ -234,9 +234,6 @@
     data() {
       return {
         labelPosition: 'left',
-
-
-
         form: {
           unitId:'',
           unitName:'',
@@ -373,6 +370,9 @@
         }).then(err => {
           console.log(err);
         });
+      },
+      qrcode(){
+        window.open("/api/qrcode/buildingImgs?unitId="+this.buildUnit);
       },
       unitSearch(){
         this.$fetch(
