@@ -1,24 +1,116 @@
 <template>
   <div class="toolright">
-    <div class="font-white plan">
+    <div class="plan">
       <section>
         <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Dangerous_goods_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       </section>
-      <!-- 危险品详情 -->
+      <!-- 危险品名称 -->
+      <section>        
+        <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
+        <!-- 标题 -->
+          <div class="personinfo">
+              <p>
+                <span class="size-20 font-red" v-if="this.trouble.status == 0">
+                  <i class="icon iconfont icon-weixianpin-mian- size-20" data-toggle="tooltip" title="危险品"></i>
+                  <span>{{ this.trouble.dangerName }}</span>
+                </span>
+                <span class="size-20 font-blue" v-if="this.trouble.status == 1">
+                  <i class="icon iconfont icon-weixianpin-mian- size-20" data-toggle="tooltip" title="危险品"></i>
+                  <span>{{ this.trouble.dangerName }}</span>
+                </span>
+                <span class="float-right font-black size-10">
+                  <span class="bgbox-max bg-red" v-if="this.trouble.status == 0">未解决</span>
+                  <span class="bgbox-max bg-blue" v-if="this.trouble.status == 1">已解决</span>
+                </span>
+              </p>
+              <p class="col-sm-7 text-left font-gray-999 padding0">
+                <span>
+                  <i class="fas fa-industry"></i> {{ this.trouble.unitName }}
+                </span>
+              </p>
+              <P class="col-sm-5 text-right padding0">
+                <span class="text-right" v-if="this.trouble.status == 0">
+                  发现时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
+                </span>
+                <span class="text-right" v-if="this.trouble.status == 1">
+                  解决时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
+                </span>
+              </P>
+          </div>         
+        </div>
+      </section>
+      <!-- 危险品信息统计 -->
       <section>
-           <div class="textandimg margin-top20">
+          <div class="toolcount margin-top20 font-gray-999 clearfix">
+              <div class="col-md-5 padding0">
+                  <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
+                      <li>
+                          <h1 class="toolcount-p1 cn-status">
+                            <span class="font-red" v-if="this.trouble.status == 0">未解决</span>
+                            <span class="font-blue" v-if="this.trouble.status == 1">已解决</span>
+                          </h1>
+                      </li>
+                      <li class="margin-top40">
+                          <p class="size-10 ">Dangerous Status</p>
+                      </li>
+                      <li>
+                          <p class="size-16 font-blue">危险品状态</p>
+                      </li>
+                  </ul>
+              </div>
+              <div class="col-md-7 padding0">
+                  <ul class="toolcount-right margin-bottom0 size-12">
+                      <li>
+                          <p class="size-18 font-white">信息概览</p>
+                      </li>
+                      <li class="margin-bottom5">
+                          <p class="size-10 set-scaleright">Dangerous info</p>
+                      </li>
+                      <li class="margin-top10">
+                          <p>位置
+                            <span class="font-white">
+                              <strong v-if="this.trouble.buildingName == '室外'">室外</strong>
+                              <strong v-else><span v-if="this.trouble.buildingName != '' && this.trouble.buildingName != null">{{ this.trouble.buildingName }} 建筑</span><span v-if="this.trouble.floorNumber != '' && this.trouble.floorNumber != null">{{ this.trouble.floorNumber }} 楼层</span><span v-if="this.trouble.roomNumber != '' && this.trouble.roomNumber != null">{{ this.trouble.roomNumber }} 房间</span></strong>
+                            </span>
+                          </p>
+                      </li>
+                      <li class="row text-left padding-right16 margin-top15">
+                          <div class="col-sm-5 personnel-borderright" v-if="this.trouble.status == 0">
+                              <p class="size-16 show font-red">{{this.trouble.nickName}}</p>
+                              <p>上报人</p>
+                          </div>
+                          <div class="col-sm-5 personnel-borderright" v-if="this.trouble.status == 1">
+                              <p class="size-16 show font-blue">{{this.trouble.nickName}}</p>
+                              <p>解决人</p>
+                          </div>
+                          <div class="col-sm-7" v-if="this.trouble.status == 0">
+                              <p class="size-12 show font-white">{{this.trouble.createTime}}</p>
+                              <p>上报时间</p>
+                          </div>
+                          <div class="col-sm-7" v-if="this.trouble.status == 1">
+                              <p class="size-12 show font-white">{{this.trouble.createTime}}</p>
+                              <p>解决时间</p>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+      <!-- 危险品详情 -->
+      <section>        
+          <div class="textandimg margin-top20 size-12">
               <h4 class="p-title">
-                 <!-- {{ this.trouble.dangerName }} -->危险品详情
+                 <!-- {{ this.trouble.dangerName }} -->上报详情
               </h4>
-              <div class="row textandimg-main">
-                <div class="col-sm-12">
+              <div class="row textandimg-main margin-top20">
+                <div class="col-sm-6">
                       <span>名称</span>
                       <strong v-html="this.trouble.dangerName"></strong>
                   </div>
-                  <div class="col-sm-12">
+                  <div class="col-sm-6">
                       <span>状态</span>
-                      <span v-if="this.trouble.status == 0">未解决</span>
-                      <strong v-if="this.trouble.status == 1">已解决</strong>
+                      <strong class="font-red" v-if="this.trouble.status == 0">未解决</strong>
+                      <strong class="font-blue"  v-if="this.trouble.status == 1">已解决</strong>
                   </div>
                   <div class="col-sm-12">
                       <span>所属单位</span>
@@ -34,41 +126,49 @@
                       <strong v-html="this.trouble.point.pointX"></strong>
                       <strong v-html="this.trouble.point.pointY"></strong>
                   </div>
-                  <div class="col-sm-12">
+                  <div class="col-sm-6">
                     <span>上报人</span>
                     <strong v-html="this.trouble.nickName"></strong>
                   </div>
-                  <div class="col-sm-12">
+                  <div class="col-sm-6">
                       <span>上报时间</span>
                       <strong v-html="this.trouble.createTime"></strong>
-                  </div>
-                  <div class="col-sm-12">
-                      <span>解决人</span>
-                      <strong v-html="this.trouble.reviewerName"></strong>
-                  </div>
-                  <div class="col-sm-12">
-                      <span>解决时间 </span>
-                      <strong v-html="this.trouble.reviewTime"></strong>
-                  </div>
-                  <div class="col-sm-12">
-                      <span>图片及视频 </span>
-                      <ul>
-                        <li style="width:100px;"><img style="width:100%;" :src="this.trouble.imgUrl"/></li>
-                      </ul>
                   </div>
                   <div class="col-sm-12">
                       <span>简介 </span>
                       <strong v-html="this.trouble.cont"></strong>
                   </div>
                   <div class="col-sm-12">
+                      <span>图片及视频 </span>
+                      <ul class="list-inline margin-top10">
+                        <li class="col-sm-3"><img :src="this.trouble.imgUrl" class="img-responsive"/></li>
+                      </ul>
+                  </div>                  
+                </div>
+              </div>
+              <!-- 解决危险品 -->
+              <div class="textandimg margin-top20" v-if="this.trouble.status == 1">
+                <h4 class="p-title">
+                   <!-- {{ this.trouble.dangerName }} -->处理记录
+                </h4>
+                <div class="row textandimg-main margin-top20">
+                  <div class="col-sm-6">
+                      <span>解决人</span>
+                      <strong v-html="this.trouble.reviewerName"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>解决时间 </span>
+                      <strong v-html="this.trouble.reviewTime"></strong>
+                  </div>                  
+                  <div class="col-sm-12">
                       <span>解决原因 </span>
                       <strong v-html="this.trouble.treatment"></strong>
                   </div>
               </div>
-          </div>
+        </div>
       </section>
     </div>
-    <div class="font-white total">
+    <div class="total">
       <section class="mapTable" style="display: none;">
         <!-- 总数统计 -->
         <div class="toolcount clearfix">
@@ -80,12 +180,12 @@
               <p class="size-18 font-blue">危险品总数</p>
             </li>
             <li>
-              <h1 class="toolcount-p1">569</h1>
+              <h1 class="toolcount-p1">6</h1>
             </li>
           </ul>
         </div>
         <div class="toolbuildrate">
-          <div class="main_content_table bg-black">
+          <div class="main_content_table">
             <el-table
               :data="tableData"
               border
@@ -192,118 +292,109 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">解决危险品</h4>
+                <h5 class="modal-p font-blue">{{this.form.dangerName}}</h5>
               </div>
               <div class="modal-body">
-                <el-form ref="form" :label-position="labelPosition" :model="form">
-                  <el-form-item label="危险品名称">
-                    <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-                    <el-input v-model="form.name"></el-input>
-                  </el-form-item>
-                  <el-form-item label="所属单位">
-                    <el-select v-model="form.unitId" placeholder="选择单位" class="select" style="width:150px;">
-                      <el-option label="全部单位" value=""></el-option>
-                      <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="设备类型">
-                    <el-select
-                      v-model="form.equipmentId"
-                      placeholder="选择设备类型" class="sbwz_138_32 start" style="margin-left:0px;">
-                      <el-option
-                        v-for="item in form.equipmentList"
-                        :label="item.name"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="设备位置">
-                    <el-select
-                      v-model="form.buildingId"
-                    placeholder="选择建筑"  class="sbwz_138_32 start float-left" style="margin-left:0px;">
-                      <el-option label="室外" value="0"></el-option>
-                      <el-option
-                        v-for="item in form.buildList"
-                        :label="item.name"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                    <el-select
-                      v-model="form.floorId"
-                      placeholder="选择楼层" class="sbwz_138_32 start">
-                      <el-option
-                        v-for="item in form.floorList"
-                        :label="item.floor+'层'"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                    <el-select
-                      v-model="form.roomId"
-                      placeholder="选择房间" class="sbwz_138_32 start">
-                      <el-option
-                        v-for="item in form.roomList"
-                        :label="item.roomNumber+'房间'"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="坐标">
-                    <el-input v-model="form.point.pointX" style="display:inline-block;width:200px;"></el-input>
-                    <el-input v-model="form.point.pointY" style="display:inline-block;width:200px;"></el-input>
-                  </el-form-item>
-
-                  <el-form-item label="物理地址" v-if="form.deviceType == 1">
-                    <el-input v-model="form.PhysicalAddress"></el-input>
-                  </el-form-item>
-
-                  <el-form-item label="投入使用日期">
-                    <div class="block">
-                      <el-date-picker
-                        v-model="form.startDate"
-                        type="date"
-                        placeholder="选择年"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="yyyy-MM-dd">
-                      </el-date-picker>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="运行时长">
-                    <el-input v-model="form.lifeMonth"></el-input>
-                  </el-form-item>
-                  <el-form-item label="相对房顶高度（m）">
-                    <el-input v-model="form.RoofHeight"></el-input>
-                  </el-form-item>
-                  <el-form-item label="相对地板高度（m）">
-                    <el-input v-model="form.floorHeight"></el-input>
-                  </el-form-item>
-                  <el-form-item label="更换周期（天）">
-                    <el-input v-model="form.Retroperiod"></el-input>
-                  </el-form-item>
-                  <el-form-item label="生产商">
-                    <el-input v-model="form.Bike"></el-input>
-                  </el-form-item>
-                  <el-form-item label="生产日期">
-                    <div class="block">
-                      <el-date-picker
-                        v-model="form.ProductionDay"
-                        type="date"
-                        placeholder="选择年"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="yyyy-MM-dd">
-                      </el-date-picker>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="维保单位">
-                    <el-input v-model="form.Refundable"></el-input>
-                  </el-form-item>
-                  <el-form-item label="维保人员">
-                    <el-input v-model="form.linkname"></el-input>
-                  </el-form-item>
-                  <el-form-item label="维保电话">
-                    <el-input v-model="form.phone"></el-input>
-                  </el-form-item>
-                  <div style="clear: both;"></div>
-                </el-form>
-              </div>
+            <div class="main_content">
+            <!--
+              class类not-null为必填标识,如需请加在<el-form-item>
+              class类hint-error为错误提示
+             -->
+              <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+                <!-- <el-form-item label="危险品名称" class="not-null col-sm-8">
+                  <el-input v-model="form.dangerName" disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="所属单位" class="not-null col-sm-4">
+                  <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" disabled="true">
+                    <el-option label="全部单位" value=""></el-option>
+                    <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="位置" class="not-null">
+                  <el-select
+                    v-model="form.buildingId"
+                    disabled="true"
+                    placeholder="选择建筑"  class="start float-left col-sm-4">
+                    <el-option label="室外" value="0"></el-option>
+                    <el-option
+                      v-for="item in form.buildList"
+                      :label="item.name"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                  <el-select
+                    v-model="form.floorId"
+                    disabled="true"
+                    placeholder="选择楼层" class="start col-sm-4">
+                    <el-option
+                      v-for="item in form.floorList"
+                      :label="item.floorName+'层'"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                  <el-select
+                    v-model="form.roomId"
+                    disabled="true"
+                    placeholder="选择房间" class="start col-sm-4">
+                    <el-option
+                      v-for="item in form.roomList"
+                      :label="item.roomNumber+'房间'"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="坐标" class="not-null">
+                  <el-input v-model="form.point.pointX"  class="col-sm-4" disabled="true"></el-input>
+                  <el-input v-model="form.point.pointY"  class="col-sm-4" disabled="true"></el-input>
+                </el-form-item>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <el-form-item label="上报人" class="not-null col-sm-4">
+                  <el-input v-model="form.nickName" disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="上报时间" class="not-null col-sm-4">
+                  <el-input v-model="form.createTime" disabled="true"></el-input>
+                </el-form-item>                
+                  </div>
+                </div>
+                <el-form-item label="描述" class="not-null col-sm-12">
+                  <el-input
+                    type="textarea"
+                    :rows="2"
+                    disabled="true"
+                    v-model="form.cont">
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="图片及视频" class="not-null col-sm-12">
+                  <ul class="list-line">
+                    <li class="col-sm-3"><img :src="this.form.imgUrl" class="img-responsive" /></li>
+                  </ul>
+                </el-form-item> -->
+                <el-form-item label="解决人" class="not-null">
+                  <el-input v-model="form.reviewerName" class="not-null col-sm-6"></el-input>
+                </el-form-item>
+                <el-form-item label="解决时间" class="not-null col-sm-6">
+                  <div class="block">
+                    <el-date-picker
+                      v-model="form.reviewTime"
+                      type="date"
+                      placeholder="选择日期"
+                      format="yyyy 年 MM 月 dd 日"
+                      value-format="yyyy-MM-dd">
+                    </el-date-picker>
+                  </div>
+                </el-form-item>               
+                <el-form-item label="解决原因" class="not-null col-sm-12">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    placeholder="请输入内容"
+                    v-model="form.treatment">
+                  </el-input>
+                </el-form-item>
+              </el-form>
+            </div>
+          </div>
               <div class="modal-footer">
                 <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
                 <el-button class="back" data-dismiss="modal">取消</el-button>
@@ -322,7 +413,7 @@
               </div>
               <div class="modal-body text-center container-padding40">
                 <h3 class="font-red size-14">是否删除</h3>
-                <p class="font-white size-16">{{ deviceName }}</p>
+                <p class="font-white size-16">{{this.form.dangerName}}</p>
               </div>
               <div class="modal-footer">
                 <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>

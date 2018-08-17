@@ -11,6 +11,7 @@
       </div>
     </div>
       <div class="main_all_content">
+        <!-- 筛选 -->
         <div class="main_content_top">
           <el-form class="float-left">
             <el-select v-model="unit" placeholder="选择单位" class="select">
@@ -56,10 +57,11 @@
             </el-select>
           </el-form>
           <div class="main_nav_two float-right">
-          <router-link to="/Dangerous_goods_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
-          <router-link to="/Dangerous_goods_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
+            <router-link to="/Dangerous_goods_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+            <router-link to="/Dangerous_goods_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
+          </div>
         </div>
-        </div>
+        <!-- 地图 -->
       </div>
     </aside>
   </div>

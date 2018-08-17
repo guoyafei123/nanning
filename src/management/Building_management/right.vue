@@ -1,6 +1,6 @@
 <template>
   <div class="toolright z-index-20">
-    <div class="font-white plan"  style="display: none;">
+    <div class="plan"  style="display: none;">
       <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Building_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       <!-- 建筑详情 -->
       <section>
@@ -67,11 +67,11 @@
         <div class="textandimg margin-top30">
               <h4 class="p-title">安防信息</h4>
               <div class="row textandimg-main margin-top20 size-12">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>消防负责人 </span>
                       <strong v-html="this.form.name"> </strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>负责人电话 </span>
                       <strong v-html="this.form.phone"></strong>
                   </div>                 
@@ -81,9 +81,24 @@
     </div>
     <!-- 简单统计 --> 
     <div class="font-white total" style="display:none;">
+      <!-- 总数统计 -->
+        <section class="toolcount clearfix">
+          <ul class="toolcount-left padding0 col-sm-3">
+            <li>
+              <p class="size-10 font-gray-666">Building Total</p>
+            </li>
+            <li>
+              <p class="size-18 font-blue">当前建筑总数</p>
+            </li>
+            <li>
+              <h1 class="toolcount-p1">7</h1>
+            </li>
+          </ul>
+        </section>
+        <!-- 建筑小列表 -->
       <section>        
         <div class="toolbuildrate">
-          <div class="main_content_table bg-black">
+          <div class="main_content_table">
             <el-table
               :data="tableData"
               border
@@ -238,7 +253,6 @@
         </div>
       </section>
     </div>
-
     <!-- 楼层管理 -->
     <div class="floor_wrap margin-top20" style="display:none;">
       <div class="floor_header clearFix">

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" id="Build_management">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->
