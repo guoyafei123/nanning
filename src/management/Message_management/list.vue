@@ -97,29 +97,29 @@
       </div>
       <div class="main_footer">
         <a class="btn-ok" data-toggle="modal" data-target="#mymodal"><i class="el-icon-circle-check-outline"></i> 提交</a>
-        <a class="btn-back" @click="back">返回</a>
+        <router-link to="/Message_management/notice" class="btn-back">返回</router-link>
       </div>
-    </aside>
-    <!-- 确认Modal -->
-    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel2">提示</h4>
-            <h5 class="modal-p">该操作会立即生效并发送通知</h5>
-          </div>
-          <div class="modal-body text-center container-padding40">
-                <h3 class="font-red size-14">确认立刻发送该公告吗?</h3>
-                <p class="font-white size-16">显示消息主题</p>
-          </div>
-          <div class="modal-footer">
-            <el-button type="danger" @click="btn" icon="icon iconfont icon-fasong-xian-" class="primary" data-dismiss="modal">发送</el-button>
-            <el-button class="back" data-dismiss="modal">取消</el-button>
+      <!-- 确认Modal -->
+      <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel2">提示</h4>
+              <h5 class="modal-p">该操作会立即生效并发送通知</h5>
+            </div>
+            <div class="modal-body text-center container-padding40">
+                  <h3 class="font-blue size-14">确认立刻发送该公告吗?</h3>
+                  <p class="font-white size-16">显示消息主题</p>
+            </div>
+            <div class="modal-footer">
+              <el-button type="danger" @click="btn" icon="icon iconfont icon-fasong-xian-" class="primary" data-dismiss="modal">发送</el-button>
+              <el-button class="back" data-dismiss="modal">取消</el-button>
+            </div>
           </div>
         </div>
       </div>
-    </div>   
+    </aside>    
   </div>
 </template>
 

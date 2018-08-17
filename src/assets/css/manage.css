@@ -556,6 +556,9 @@
 	min-width: 120px;
 }
 /*新增表单*/
+#add-new .modal-dialog {
+    margin-top: 120px;
+}
 #add-new .el-date-editor .el-range-input {
     background-color: transparent;
     font-size: 12px;
@@ -581,12 +584,25 @@
 }
 #add-new {
 	height: 100%;
+  width: 100%;
+  margin:0;
+  position: relative;
 }
 #add-new aside {
   width: 525px;
   height: 100%;
+  padding:0;
+  float: left;
   position: relative;
-  background: #111111;
+  background: #111;
+}
+#add-new.add-map aside:last-child {
+  width: -webkit-fill-available;
+  position: absolute;
+  left: 535px;
+  margin-right: 37px;
+  background: #000;
+  border: 4px solid #111;
 }
 .main_nav a {	
     border: none;

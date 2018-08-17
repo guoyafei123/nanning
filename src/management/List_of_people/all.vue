@@ -119,7 +119,7 @@
                 <el-form-item label="姓名" class="not-null">
                   <el-input v-model="form.nickName" class="col-sm-4"></el-input>
                 </el-form-item>
-                <el-form-item label="账号/手机号" prop="cellPhone" class="not-null col-sm-4">
+                <el-form-item label="账号/手机号" class="not-null col-sm-4">
                   <el-input v-model="form.cellPhone" class=""></el-input>
                 </el-form-item>
                 <div class="col-sm-12">
@@ -132,15 +132,14 @@
                       </el-form-item>
                       <el-form-item label="角色" class="not-null col-sm-4">
                         <el-select v-model="form.roleId" placeholder="选择角色" class="select">
-                          <el-option label="全部角色" value=""></el-option>
                           <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
                         </el-select>
                       </el-form-item>
                   </div>
                 </div>
-                <el-form-item label="职位" class="col-sm-4">
+                <!-- <el-form-item label="职位" class="col-sm-4">
                     <el-input v-model="form.position"></el-input>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="头像" class="not-null col-sm-12">
                   <div class="head-photo">
                     <input id="file" name="file" type="file" @change="file"/>

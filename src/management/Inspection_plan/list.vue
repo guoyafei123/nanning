@@ -1,5 +1,6 @@
 <template>
-  <div id="add-new">
+  <div id="add-new" class="add-map">
+    <!-- 表单 -->
     <aside>
       <!-- 标题 -->
       <div class="main_header clearFix">
@@ -185,6 +186,14 @@
         <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
         <a class="btn-back" @click="back">返回</a>
       </div>
+    </aside>
+    <!-- 地图 -->
+    <aside>      
+        <div class="maps">
+          <div class="text-center padding-top120">
+            <h1 class="size-80 font-white">地图</h1>
+          </div>
+        </div>
     </aside>
   </div>
 </template>
