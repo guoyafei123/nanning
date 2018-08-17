@@ -19,20 +19,20 @@
           class类hint-error为错误提示
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="危险品名称">
+          <el-form-item label="危险品名称" class="not-null">
             <span class="hint-error">设备名称有误或重复</span>
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
-          <el-form-item label="所属单位">
+          <el-form-item label="所属单位" class="not-null">
             <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="位置">
+          <el-form-item label="位置" class="not-null">
             <el-select
               v-model="form.buildingId"
-            placeholder="选择建筑"  class="sbwz_138_32 start col-sm-4">
+            placeholder="选择建筑"  class="start col-sm-4">
               <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in form.buildList"
@@ -42,7 +42,7 @@
             </el-select>
             <el-select
               v-model="form.floorId"
-              placeholder="选择楼层" class="sbwz_138_32 start col-sm-4">
+              placeholder="选择楼层" class="start col-sm-4">
               <el-option
                 v-for="item in form.floorList"
                 :label="item.floorName+'层'"
@@ -51,7 +51,7 @@
             </el-select>
             <el-select
               v-model="form.roomId"
-              placeholder="选择房间" class="sbwz_138_32 start col-sm-4">
+              placeholder="选择房间" class="start col-sm-4">
               <el-option
                 v-for="item in form.roomList"
                 :label="item.roomNumber+'房间'"
@@ -64,18 +64,19 @@
             <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
           </el-form-item>
 
-          <el-form-item label="上报人" class="col-sm-4">
+          <el-form-item label="上报人" class="not-null col-sm-4">
             <el-input v-model="form.nickName"></el-input>
           </el-form-item>
 
-          <el-form-item label="上报时间" class="col-sm-4">
+          <el-form-item label="上报时间" class="not-null col-sm-8">
             <div class="block">
               <el-date-picker
                 v-model="form.createTime"
-                type="date"
+                type="datetime"
                 placeholder="选择日期"
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd">
+                format="yyyy-MM-dd HH:mm:ss"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                clearable>
               </el-date-picker>
             </div>
           </el-form-item>
@@ -95,10 +96,10 @@
               </el-form-item>
             </div>
           </div>          
-          <el-form-item label="描述" class="col-sm-6">
+          <el-form-item label="描述" class="col-sm-12">
             <el-input
               type="textarea"
-              :rows="2"
+              :rows="3"
               placeholder="请输入内容"
               v-model="form.cont">
             </el-input>

@@ -71,7 +71,7 @@
               </el-table-column>
           <el-table-column
             prop="amount"
-            label="每次额定次数">
+            label="额定次数/日">
           </el-table-column>
           <el-table-column
             prop="isScan" :formatter="formatScan"

@@ -19,22 +19,22 @@
           class类hint-error为错误提示
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="路线名称">
+          <el-form-item label="路线名称" class="not-null">
             <span class="hint-error">单位名称有误或重复</span>
-            <el-input v-model="form.name" class="col-sm-4"></el-input>
+            <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="选择单位">
+          <el-form-item label="选择单位" class="not-null">
             <el-select v-model="region1" placeholder="选择单位" class="select col-sm-4">
               <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="巡检类型">
+          <el-form-item label="巡检类型" class="not-null">
             <el-select v-model="form.region2" placeholder="巡检类型" class="select col-sm-4">
               <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="起点" class="line-start col-sm-12">
+          <el-form-item label="起点" class="line-start not-null col-sm-12">
             <el-select
               v-model="building"
             placeholder="选择建筑"  class="start" :disabled="isdisabled">
@@ -79,7 +79,7 @@
               <i class="fas fa-pencil-alt font-yellow float-right" data-toggle="tooltip" title="编辑"></i>
             </div>
           </el-form-item>
-          <el-form-item label="终点" class="line-end col-sm-12">
+          <el-form-item label="终点" class="line-end not-null col-sm-12">
             <el-select
               v-model="buildings"
               placeholder="选择建筑" class="end" :disabled="isdisableds">
@@ -124,7 +124,7 @@
               <i class="fas fa-pencil-alt font-yellow float-right" data-toggle="tooltip" title="编辑"></i>
             </div>
           </el-form-item>
-          <el-form-item label="节点" class="line-node col-sm-12">
+          <el-form-item label="节点" class="line-node not-null col-sm-12">
             <div class="contentNode">
               <ul class="list-unstyled margin-bottom0">
                 <li class="margin-bottom0" v-for="(item,index) in inspectionListNode">

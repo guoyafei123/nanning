@@ -9,7 +9,7 @@
       <left-vue></left-vue>
     </section>
     <!-- #中间-->
-    <section id="manage-center" class="position-fixed-left z-index-20">
+    <section id="manage-center" class="position-fixed-left z-index-20">      
       <main-vue></main-vue>
     </section> 
     <!-- #右边 -->

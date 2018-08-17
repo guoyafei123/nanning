@@ -41,8 +41,12 @@
     color: #bad616;
 }
 .el-date-table td.today span {
-  background-color: #bad616;
-  color: #000;
+  background-color: #fff!important;
+  color: #000!important;
+}
+.el-date-table td.current:not(.disabled) span {
+  background-color: #bad616!important;
+  color: #000!important;
 }
 .el-date-table td.in-range div, .el-date-table td.in-range div:hover, .el-date-table.is-week-mode .el-date-table__row.current div, .el-date-table.is-week-mode .el-date-table__row:hover div {
     background-color: #000;
