@@ -166,6 +166,7 @@ h4.p-title {
     color: #fff;
     font-size: 14px;
 }
+
 h4.p-title:before {
     content: "";
     width: 5px;
