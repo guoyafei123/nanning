@@ -227,9 +227,10 @@
           }).then(response=>{
             if(response){
               console.log('新增成功...'+ JSON.stringify(response));
+              this.$router.push({path:'/Equipment_management/all'});
             }
           })
-          this.$router.push({path:'/Equipment_management/all'});
+          
         },
         back(){
           this.$router.push({path:'/Equipment_management/all'});

@@ -327,6 +327,7 @@
           userId:this.deviceIndex
         }).then(response=>{
           console.log(response);
+          this.tableList();
         })
       },
       show3(row){//跳转

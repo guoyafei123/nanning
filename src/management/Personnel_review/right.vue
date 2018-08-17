@@ -141,7 +141,8 @@
           review:'',
           textarea:'',
           reviewName:'',
-          reviewTime:''
+          reviewTime:'',
+          headImgUrl:''
         },
         tableData:[]
       }
@@ -159,6 +160,7 @@
             this.form.cellPhone = item.cellPhone ;
             this.form.reviewName = item.reviewName ;
             this.form.reviewTime = item.reviewTime ;
+            this.form.headImgUrl = item.headImgUrl ;
           }
         })
       },
