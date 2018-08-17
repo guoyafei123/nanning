@@ -189,10 +189,7 @@
   .el-table{
     font-size: 12px;
   }
-  .el-table__body tr.hover-row>td{
-    background-color: #000;
-    color: #fff;
-  }
+  
   .el-table--border::after, .el-table--group::after, .el-table::before{
     background-color: transparent;
   }
@@ -705,5 +702,5 @@ table th, table td{
 
 
 #operationLog .main_content_table .el-table .el-table__row td:last-child .cell, .main_content_table .el-table th:last-child .cell{
-  text-align:left!important;
+  text-align:center!important;
 }
