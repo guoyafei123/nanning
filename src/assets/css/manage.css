@@ -260,7 +260,8 @@
 .total .main_content_table .el-table td:last-child .cell {
   padding-right: 0px!important;
 }
-.main_header span,.main_nav_two span{
+.main_header span,
+.main_nav_two span {
   width:64px;
   height:28px;
   float: left;
@@ -277,6 +278,35 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.main_nav_tab {
+  font-size: 12px;
+  text-align: center;  
+  left: 46%;
+  margin: 21px auto 0;  
+  background-color: transparent;
+}
+.main_nav_tab a {
+  display: block;
+  width:64px;
+  height:28px;
+  line-height: 28px;
+  color: #999;
+  border:1px solid #555;
+  float: left;
+}
+.main_nav_tab a:first-child {
+  border-right: none;
+}
+.main_nav_tab a.active,
+.main_nav_tab a:active,
+.main_nav_tab a:hover,
+.main_nav_tab a:focus,
+.main_nav_tab a:visited {
+  color: #000!important;
+  background-color: #bad616;
+  border:1px solid #bad616;
+}
+
 .main_header a:nth-child(2) span{
   border-left:none;
 }

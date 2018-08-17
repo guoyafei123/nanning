@@ -1,19 +1,26 @@
 <template>
   <section>
     <!-- 标题 -->
-    <div class="main_header clearFix">
-      <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-xiaoxi-mian--"></i>
-        <h2>消息管理</h2>
-      </div>
-      <div class="main_nav float-right">
-        <router-link to="/Message_management/list"><span class="btn_add" @click="btn_add"><i class="icon iconfont icon-fabu"></i>发布</span></router-link>
-      </div>
+    <div class="main_header position-relative clearFix">
+      <!-- 标题 -->
+        <div class="main_title float-left clearfix">
+          <i class="icon iconfont icon-xiaoxi-mian--"></i>
+          <h2>消息管理</h2>
+        </div>
+        <!-- 切换 -->
+        <div class="main_nav_tab position-absolute-top">
+          <a class="active"><i class="icon iconfont icon-tongzhi-xian-"></i>公告</a>
+          <a><i class="icon iconfont icon-huodong-xian-"></i>活动</a>
+        </div>
+        <!-- 发布 -->
+        <div class="main_nav float-right">
+          <router-link to="/Message_management/list"><span class="btn_add" @click="btn_add"><i class="icon iconfont icon-fabu"></i>发布</span></router-link>
+        </div>
     </div>
-    <!-- 主体 -->
+    <!-- 公告 -->
     <div class="main_all_content">
-      <!-- 筛选 -->
       <div class="main_content_top">
+        <!-- 筛选 -->
         <el-form ref="form" :model="form" class="float-left">
           <el-select v-model="unit" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
@@ -41,7 +48,7 @@
                 :value="item.id">
               </el-option>
             </el-select>
-        </el-form>
+        </el-form>        
       </div>
       <!-- 表格 -->
       <div class="main_content_table">
