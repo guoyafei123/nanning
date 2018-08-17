@@ -207,7 +207,6 @@
 .main_content_table table {
   margin-top:0px;
 }
-
 .main_content_table .el-table td:last-child .cell,
 .main_content_table .el-table th:last-child .cell{
 	text-align: right!important;
@@ -596,6 +595,7 @@
 .line-node .el-select {
   width: 20%;
   margin-right: 10px;
+  float: left;
 }
 .line-start .el-select .el-input__inner,
 .line-end .el-select .el-input__inner,
@@ -719,7 +719,9 @@
 #manage-center .el-select .el-input--suffix .el-input__inner {
   background-color:#111;
 }
-
+#manage-center .el-textarea__inner:active,
+#manage-center .el-textarea__inner:visited,
+#manage-center .el-textarea__inner:hover,
 #manage-center .el-input__inner:active,
 #manage-center .el-input__inner:visited,
 #manage-center .el-input__inner:hover,
@@ -741,4 +743,11 @@
 #manage-center .main_content_top .is-focus .el-input__inner:visited,
 #manage-center .main_content_top .is-focus .el-input__inner:hover{
     border: none!important;
+}
+
+#log .main_content_table td:last-child {
+  color: #ffb709;
+}
+#manage-center .el-textarea {
+  margin-top: 5px;
 }

@@ -1,5 +1,6 @@
 <template>
   <section>
+    <!-- 标题 -->
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-jianzhuguanli-mian-"></i>
@@ -9,7 +10,9 @@
         <span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span>
       </div>
     </div>
+    <!-- 主体 -->
     <div class="main_all_content ">
+      <!-- 筛选 -->
       <div class="main_content_top">
         <el-form class="float-left">
           <el-select v-model="buildUnit" placeholder="选择单位" class="select build">
@@ -27,6 +30,7 @@
           <router-link to="/Building_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
         </div>
       </div>
+      <!-- 表格 -->
       <div class="main_content_table">
         <el-table
           :data="tableData"
@@ -100,6 +104,7 @@
           </el-table-column>
         </el-table>
       </div>
+      <!-- 分页 -->
       <div class="main_content_bottom">
         <div class="bottom_con">
           <div class="float-left btn-system">
@@ -132,45 +137,46 @@
       </div>
     </div>
     <!-- 编辑Modal -->
-    <div class="modal modal_form fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">修改建筑</h4>
+            <h5 class="modal-p font-blue">{{this.form.buildName}}</h5>
           </div>
           <div class="modal-body">
-            <el-form ref="form" :label-position="labelPosition" :inline="true" :model="form">
-              <el-form-item label="建筑名称">
+            <div class="main_content">
+              <!--
+              class类not-null为必填标识,如需请加在<el-form-item>
+              class类hint-error为错误提示
+             -->
+            <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+              <el-form-item label="建筑名称" class="not-null">
                 <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-                <el-input v-model="form.buildName"></el-input>
+                <el-input v-model="form.buildName" class="col-sm-4"></el-input>
               </el-form-item>
-              <el-form-item label="所属单位">
-                <el-select v-model="form.unitId" placeholder="选择单位" class="select" style="width:auto;">
+              <el-form-item label="所属单位" class="not-null">
+                <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-4">
                   <el-option label="全部单位" value=""></el-option>
                   <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="建筑地址">
-                <el-input v-model="form.address"></el-input>
+              <el-form-item label="建筑性质" class="not-null col-sm-4">
+                <el-select v-model="form.property" placeholder="建筑性质">
+                  <el-option label="居住" value="居住"></el-option>
+                  <el-option label="公共" value="公共"></el-option>
+                  <el-option label="工业" value="工业"></el-option>
+                </el-select>
               </el-form-item>
-              <el-form-item label="占地面积 (㎡)">
-                <el-input v-model="form.area"></el-input>
-              </el-form-item>
-              <el-form-item label="高度 (cm)">
-                <el-input v-model="form.height"></el-input>
-              </el-form-item>
-              <el-form-item label="总楼层">
-                <el-input v-model="form.floor"></el-input>
-              </el-form-item>
-              <el-form-item label="建成结构">
+              <el-form-item label="建成结构" class="not-null col-sm-4">
                 <el-select name="" v-model="form.structure" placeholder="请选择结构">
                   <el-option label="砖混" value="砖混"></el-option>
                   <el-option label="钢结构" value="钢结构"></el-option>
                   <el-option label="玻璃" value="玻璃"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="建成年份">
+              <el-form-item label="建成年份" class="not-null col-sm-4">
                 <div class="block">
                   <el-date-picker
                     v-model="form.timeYear"
@@ -180,22 +186,32 @@
                     value-format="yyyy-MM-dd">
                   </el-date-picker>
                 </div>
+              </el-form-item> 
+              <el-form-item label="建筑地址" class="not-null">
+                <el-input v-model="form.address" class="col-sm-8"></el-input>
               </el-form-item>
-              <el-form-item label="建筑性质">
-                <el-select v-model="form.property" placeholder="建筑性质">
-                  <el-option label="居住" value="居住"></el-option>
-                  <el-option label="公共" value="公共"></el-option>
-                  <el-option label="工业" value="工业"></el-option>
-                </el-select>
+              <el-form-item label="经纬度" class="not-null">
+              <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
+              <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
+            </el-form-item>
+              <el-form-item label="占地面积 (㎡)" class="not-null col-sm-4">
+                <el-input v-model="form.area"></el-input>
               </el-form-item>
-              <el-form-item label="消防负责人">
+              <el-form-item label="高度 (cm)" class="not-null col-sm-4">
+                <el-input v-model="form.height"></el-input>
+              </el-form-item>
+              <el-form-item label="总楼层" class="not-null col-sm-4">
+                <el-input v-model="form.floor"></el-input>
+              </el-form-item>                           
+              <el-form-item label="消防负责人" class="not-null col-sm-4">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
-              <el-form-item label="消防负责人电话">
+              <el-form-item label="消防负责人电话" class="not-null col-sm-4">
                 <el-input v-model="form.phone"></el-input>
               </el-form-item>
             </el-form>
           </div>
+        </div>
           <div class="modal-footer">
             <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">编辑并提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
@@ -222,20 +238,15 @@
           </div>
         </div>
       </div>
-    </div>
-   
+    </div>   
   </section>
-
 </template>
-
 <script>
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
-        labelPosition: 'left',
-
-
+        labelPosition: 'top',
 
         form: {
           unitId:'',
@@ -247,7 +258,11 @@
           property:'',          
           timeYear:'',
           name:'',
-          phone:''
+          phone:'',
+          point:{
+              pointX:'',
+              pointY:''
+          }
         },
         buildUnit:'',//选择单位
         floorId:'',

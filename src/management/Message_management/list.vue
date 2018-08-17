@@ -3,11 +3,11 @@
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
-          <i class="fa fa-plus"></i>
-          <h2>新增单位</h2>
+          <i class="icon iconfont icon-fasong-xian- size-20"></i>
+          <h2>发布消息</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Reserve_plan/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Message_management/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
       <section class="border-top-solid-333 margin-left15 margin-right15"></section>
@@ -16,12 +16,24 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="单位名称" class="not-null">
-            <span class="hint-error">单位名称有误或重复</span>
-            <el-input v-model="form.name" class="col-sm-4"></el-input>
+        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">          
+          <el-form-item label="消息类型" class="not-null">
+            <el-select name="" v-model="form.property" placeholder="选择消息类型" class="col-sm-4">
+              <el-option label="事业单位" value="事业单位"></el-option>
+              <el-option label="国家行政机关" value="国家行政机关"></el-option>
+              <el-option label="政府" value="政府"></el-option>
+              <el-option label="国有企业" value="国有企业"></el-option>
+              <el-option label="国有控股企业" value="国有控股企业"></el-option>
+              <el-option label="外资企业" value="外资企业"></el-option>
+              <el-option label="合资企业" value="合资企业"></el-option>
+              <el-option label="私营企业" value="私营企业"></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="单位性质" class="not-null">
+          <el-form-item label="主题" class="not-null">
+            <span class="hint-error">消息主题重复</span>
+            <el-input v-model="form.name" class="col-sm-6"></el-input>
+          </el-form-item>
+          <el-form-item label="所属单位" class="not-null">
             <el-select name="" v-model="form.property" placeholder="请选择单位" class="col-sm-4">
               <el-option label="事业单位" value="事业单位"></el-option>
               <el-option label="国家行政机关" value="国家行政机关"></el-option>
@@ -32,36 +44,26 @@
               <el-option label="合资企业" value="合资企业"></el-option>
               <el-option label="私营企业" value="私营企业"></el-option>
             </el-select>
-          </el-form-item>          
-          <el-form-item label="法人代表" class="not-null col-sm-4">
-            <el-input v-model="form.corporation"></el-input>
           </el-form-item>
-          <el-form-item label="部门电话" class="not-null col-sm-4">
-            <el-input v-model="form.telephone"></el-input>
-          </el-form-item>
-          <el-form-item label="单位人数" class="col-sm-4">
-            <el-input v-model="form.staffNum"></el-input>
-          </el-form-item>
-          <el-form-item label="单位地址" class="not-null">
-            <el-input v-model="form.location" class="col-sm-8"></el-input>
-          </el-form-item>
-          <el-form-item label="消防负责人" class="not-null col-sm-4">
-            <el-input v-model="form.firemenName"></el-input>
-          </el-form-item>
-          <el-form-item label="消防负责人电话" class="not-null col-sm-4">
-            <el-input v-model="form.firemenTel"></el-input>
-          </el-form-item> 
-          <el-form-item label="单位图片" class="not-null col-sm-12">
-            <div class="head-photo">
-              <input id="file" name="file" type="file" @change="file"/>
-              <div class="bg-gray-222 text-center">
-                <i class="el-icon-plus"></i>
-              </div>
+          <el-form-item label="过期时间" class="col-sm-4">
+            <div class="block">
+              <el-date-picker
+                v-model="form.createTime"
+                type="date"
+                placeholder="选择日期"
+                format="yyyy 年 MM 月 dd 日"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
             </div>
-            <img v-show="isShow" src="" id="up_img" class="head-pic" />
-            <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
-            <!-- <span style="width: 200px;height: 80px;text-align:center;line-height:80px;color:#fff;display:block;float:left;">{{ files }}</span> -->
-          </el-form-item>                   
+          </el-form-item>
+          <el-form-item label="描述" class="col-sm-12">
+            <el-input
+              type="textarea"
+              :rows="6"
+              placeholder="请输入内容"
+              v-model="form.cont">
+            </el-input>
+          </el-form-item>                 
         </el-form>
       </div>
       <div class="main_footer">
@@ -176,10 +178,10 @@
 
             }
           });
-          this.$router.push({path:'/Reserve_plan/all'});
+          this.$router.push({path:'/Message_management/all'});
         },
         back(){
-          this.$router.push({path:'/Reserve_plan/all'});
+          this.$router.push({path:'/Message_management/all'});
           $('#right').show();
         }
       },
