@@ -116,7 +116,7 @@
                             <i data-toggle="tooltip" title="缺失" v-if="item.type==4" class="icon iconfont icon-queshi-xian- set-ciontop3" ></i>
                             <i data-toggle="tooltip" title="危险品" v-if="item.type==5" class="icon iconfont icon-weixianpin-xian- set-ciontop3" ></i>
                           </td>
-                          <td>{{item.createTime}}</td>
+                          <td>{{item.createTime.substring(5)}}</td>
                           <td>
                             <i data-toggle="tooltip" title="解决" v-if="item.status==1" class="icon iconfont icon-guanbi-xian- font-blue set-ciontop4" ></i>
                             <i  data-toggle="tooltip" title="未解决" v-if="item.status==0" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 font-yellow set-ciontop4" ></i>
@@ -161,106 +161,134 @@
       <template>
         <div class="">
           <div class="toolright">
-              <section>
-                  <div class="personinfo">
-                      <p>
-                      <span class="size-20 font-blue">南宁市良庆区</span>
-                      </p>
-                      <p>
-                      <span><i class="fas fa-industry"></i> 良庆区中心小学</span>
-                      </p>
-                  </div>
-              </section>
-              <section>
-                <div class="upd-elmdate">
-                  <el-date-picker
-                    v-model="value7"
-                    size="mini"
-                    type="daterange"
-                    align="right"
-                    unlink-panels
-                    range-separator="至"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
-                    :picker-options="pickerOptions2">
-                  </el-date-picker>
-                </div>
-              </section>
-              <section class="dan-lineinfo">
-                <div class="toolcount">
-                  <h4 class="p-title">隐患统计</h4>
-                  <div class="col-sm-7 font-gray-999 padding-right0 text-center margin-top50 size-12">
-                    <div class="row">
-                      <div class="col-sm-4 personnel-borderright">
-                        <p class="size-16 font-white">
-                          <!-- {{ins_troubleCount.troubleRatio.allCount}} -->
-                          {{ins_troubleCount ? ins_troubleCount.troubleRatio.allCount:'0'}}
-                        </p>
-                        <p>隐患总数</p>
-                      </div>
-                      <div class="col-sm-4 personnel-borderright">
-                        <p class="size-16 font-white">
-                          {{ins_troubleCount ? ins_troubleCount.troubleCount.findCount:'0'}}
-                        </p>
-                        <p>隐患发现</p>
-                      </div>
-                      <div class="col-sm-4">
-                        <p class="size-16 font-white">
-                          {{ins_troubleCount ? ins_troubleCount.troubleCount.decideCount:'0'}}
-                        </p>
-                        <p>隐患解决</p>
-                      </div>
+              <section class="my-filter padding5 bg-gray-222 clearfix">
+                  <div class="col-sm-12 padding0">
+                    <div class="upd-elmdate">
+                      <el-date-picker
+                        v-model="value7"
+                        size="mini"
+                        type="daterange"
+                        align="right"
+                        unlink-panels
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions2">
+                      </el-date-picker>
                     </div>
                   </div>
-                  <div class="col-sm-5 font-gray-999 text-right size-12">
-                    <div id="dan_charpiemin" style="width: 100%;height:140px;text-align: right;"></div>
+                </section>
+                <section class="row margin-top20 clearfix">
+                <!-- 已选择单位 -->                  
+                    <div class="col-sm-7">
+                      <div class="personinfo">
+                        <p>
+                          <span class="size-20 font-blue">中心小学</span>
+                          <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                        </p>
+                        <p class="text-left padding0">
+                          <span><i class="fas fa-industry"></i> 中心小学</span>
+                        </p>
+                      </div>
+                    </div>
+                    <!-- 已选择单位巡检任务总数 -->                  
+                    <div class="col-sm-5 font-white text-right size-12">                      
+                      <i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 隐患总数<br>
+                      <span class="size-22 font-blue">1746</span>
+                    </div>
+                </section>
+              <section class="dan-lineinfo">
+                <section>
+                  <div class="toolcount">
+                    <h4 class="p-title">隐患统计</h4>
+                    <div class="col-sm-7 font-gray-999 padding-right0 text-center margin-top50 size-12">
+                      <div class="row">
+                        <div class="col-sm-4 personnel-borderright">
+                          <p class="size-16 font-white">
+                            <!-- {{troubleCount.troubleRatio.allCount}} -->
+                            {{troubleRatio ? troubleRatio.allCount:'0'}}
+                          </p>
+                          <p>隐患总数</p>
+                        </div>
+                        <div class="col-sm-4 personnel-borderright">
+                          <p class="size-16 font-white">
+                            <!-- {{troubleCount.troubleCount.findCount}} -->
+                            {{troubleCount ? troubleCount.findCount:'0'}}
+                          </p>
+                          <p>隐患发现</p>
+                        </div>
+                        <div class="col-sm-4">
+                          <p class="size-16 font-white">
+                            <!-- {{troubleCount.troubleCount.decideCount}} -->
+                            {{troubleCount ? troubleCount.decideCount:'0'}}
+                          </p>
+                          <p>隐患解决</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-5 font-gray-999 text-right size-12">
+                      <div id="dan_charpiemin" style="width: 100%;height:110px;text-align: right;"></div>
+                    </div>
                   </div>
-                </div>
-                  <section>
-                      <div class="toolcount">
-                          <div class="col-sm-12 font-gray-999 padding-right0 size-12">
-                            <div class="text-center">
-                                <template>
-                                  <div class="col-sm-4 container-padding0 personnel-borderright">
-                                  <p class="size-16 font-blue" v-if="ins_troubleCount.dangerCount">
-                                    {{ins_troubleCount ? ins_troubleCount.dangerCount.dangerAll:'0'}}
-                                  </p>
-                                  <p>危险品总数</p>
-                                  </div>
-                                  <div class="col-sm-4 container-padding0 personnel-borderright">
-                                  <p class="size-16 font-gray-ccc" v-if="ins_troubleCount.dangerCount">
-                                    {{ins_troubleCount ? ins_troubleCount.dangerCount.dangerNew:'0'}}
-                                  </p>
-                                  <p>危险品新增</p>
-                                  </div>
-                                  <div class="col-sm-4 container-padding0">
-                                  <p class="size-16 font-gray-ccc" v-if="ins_troubleCount.dangerCount">
-                                    {{ins_troubleCount ? ins_troubleCount.dangerCount.dangerResolved:'0'}}
-                                  </p>
-                                  <p>危险品处理</p>
-                                  </div>
-                                </template>
-                            </div>
+                </section>
+                <!-- <section>
+                    <div class="toolcount">
+                        <div class="col-sm-12 font-gray-999 padding-right0 size-12">
+                          <div class="text-center">
+                              <template>
+                                <div class="col-sm-4 container-padding0 personnel-borderright">
+                                <p class="size-16 font-blue">
+                                  {{dangerCount ? dangerCount.dangerAll:'0'}}
+                                </p>
+                                <p>危险品总数</p>
+                                </div>
+                                <div class="col-sm-4 container-padding0 personnel-borderright">
+                                <p class="size-16 font-gray-ccc">
+                                  {{dangerCount ? dangerCount.dangerNew:'0'}}
+                                </p>
+                                <p>危险品新增</p>
+                                </div>
+                                <div class="col-sm-4 container-padding0">
+                                <p class="size-16 font-gray-ccc">
+                                  {{dangerCount ? dangerCount.dangerResolved:'0'}}
+                                </p>
+                                <p>危险品处理</p>
+                                </div>
+                              </template>
                           </div>
-                      </div>
-                      
-                  </section>
-                  <section>
-                      <div class="toolcount">
-                          <h4 class="p-title">各类型隐患占比</h4>
-                          <div id="dan_charpiemax" style="width: 100%;height:200px;margin: 0 auto;text-align: center;"></div>
-                      </div>
-                  </section>
-                  <section>
-                      <div class="toolcount">
-                          <h4 class="p-title">隐患历史趋势
-                            <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                              <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                            </span>
-                          </h4>
-                          <div id="dan_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
-                      </div>
-                  </section>
+                        </div>
+                    </div>
+                    
+                </section> -->
+                <section>
+                  <div class="row cardinfo-style margin-top0 font-gray-999">
+                    <p class="col-sm-4">危险品总数 <span>
+                      {{dangerCount ? dangerCount.dangerAll:'0'}}
+                    </span></p>
+                    <p class="col-sm-4">危险品新增 <span>
+                      {{dangerCount ? dangerCount.dangerNew:'0'}}
+                    </span></p>
+                    <p class="col-sm-4">危险品处理 <span>
+                      {{dangerCount ? dangerCount.dangerResolved:'0'}}
+                    </span></p>
+                  </div>
+                </section>
+                <section >
+                    <div class="toolcount margin-top30">
+                        <h4 class="p-title">各类型隐患占比</h4>
+                        <div id="dan_charpiemax" style="width: 100%;height:200px;margin: 0 auto;text-align: center;"></div>
+                    </div>
+                </section>
+                <section>
+                    <div class="toolcount margin-top20">
+                        <h4 class="p-title">隐患历史趋势
+                          <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+                            <i class="icon iconfont icon-weibiaoti10 size-12"></i>
+                          </span>
+                        </h4>
+                        <div id="dan_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
+                    </div>
+                </section>
               </section>
 
               <section class="dan-iteminfo display-none overflow-scr">
@@ -433,7 +461,10 @@ export default {
         beginTime:'2018-07-01',
         endTime:'2019-07-12'
       },
-      ins_troubleCount:Object,
+      // troubleCount:Object,
+      troubleRatio:Object,
+      dangerCount:Object,
+      troubleCount:Object,
       // 折线图数据
       troubleRate_parameter:{
         unitId:4,
@@ -526,9 +557,12 @@ export default {
       )
       .then(response => {
         if (response) {
-          this.ins_troubleCount = response.data;
-          this.draw_piemin('dan_charpiemin',this.ins_troubleCount.troubleCount);
-          this.draw_piemax('dan_charpiemax',this.ins_troubleCount.troubleRatio);
+          this.troubleCount = response.data;
+          this.troubleRatio=response.data.troubleRatio
+          this.dangerCount=response.data.dangerCount
+          this.troubleCount=response.data.troubleCount
+          this.draw_piemin('dan_charpiemin',this.troubleCount);
+          this.draw_piemax('dan_charpiemax',this.troubleRatio);
         }
       })
       .then(err => {
