@@ -223,11 +223,11 @@
       },
     },
     mounted() {
-      if(localStorage.login==1){
-        this.$router.push("/index");
-      }else{
-        this.$router.push("/login");
-      }
+      // if(localStorage.login==1){
+      //   this.$router.push("/index");
+      // }else{
+      //   this.$router.push("/login");
+      // }
       // this.ruleForm.username=this.loginusername;
       this.$store.commit('route_path',"/login");
     }
