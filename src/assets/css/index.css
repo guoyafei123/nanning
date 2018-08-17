@@ -728,4 +728,13 @@ video:hover{
     .audiostyle{
         display: none;
     }
-    
+
+    /* 微调icon */
+    .set-ciontop4{
+        position: relative;
+        bottom: 4px;
+    }
+    .set-ciontop3{
+        position: relative;
+        bottom: 3px;
+    }

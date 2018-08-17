@@ -233,10 +233,18 @@ export default {
                 this.unitvalue=this.queryUnit[0].name;
                 this.$store.commit('unitid',this.queryUnit[0].id);
             }else if(this.queryUnit.length>1){
-                this.unitvalue='全部单位';
+                if(sessionStorage.unitid){
+                    response.data.unitList.forEach(element => {
+                        if(element.id==sessionStorage.unitid){
+                            this.unitvalue=element.name;
+                            return;
+                        }
+                    });
+                }else{
+                    this.unitvalue='全部单位';
+                }
                 this.queryUnit.unshift({id:0,name:'全部单位'})
                 this.$store.commit('unitid',null);
-
             }
             }
         })
@@ -247,6 +255,7 @@ export default {
     optionchange(){
         console.log(this.unitvalue);
         sessionStorage.unitid=this.unitvalue;
+
         this.$store.commit('unitid',this.unitvalue);
     },
     getuserinfo(){

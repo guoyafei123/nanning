@@ -637,7 +637,7 @@ table{
     overflow-x: hidden !important;
 }
 table th,table td{
-    text-align: center;
+    text-align: center !important;
 }
 .mini-table td{
     overflow:hidden; text-overflow:ellipsis;

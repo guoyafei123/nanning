@@ -513,12 +513,12 @@
 </template>
 
 <script>
-import HeaderVue from "../publick/header.vue";
+// import HeaderVue from "../publick/header.vue";
 // import Infor_leftVue from './infor_left.vue';
 // import Infor_rightVue from './infor_right.vue';
 export default {
   components: {
-    "header-vue": HeaderVue
+    // "header-vue": HeaderVue
     // 'call_left-vue':Call_leftVue,
     // 'call_right-vue':Call_rightVue
   },

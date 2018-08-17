@@ -45,7 +45,7 @@
                     <h1 class="toolcount-p1 font-red">0</h1>
                   </li>
                   <li> 
-                    <p class="size-10">Current Dangerous Number</p>
+                    <p class="size-10">Current Dangerous</p>
                   </li>
                   <li class="margin-bottom10">
                     <p class="size-18 font-blue">当前危险品数</p>
@@ -98,7 +98,7 @@
                       <thead>
                         <tr>
                           <!-- <th >序号</th> -->
-                          <th >隐患单号</th>
+                          <th >隐患源</th>
                           <th >类型</th>
                           <th >发现时间</th>
                           <th >状态</th>
@@ -108,10 +108,19 @@
                       <tbody>
                         <tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
                           <!-- <td>{{(troubleList_parameter.currentPage-1)*troubleList_parameter.pageSize+index+1}}</td> -->
-                          <td>{{item.idCode}}</td>
-                          <td>{{item.type}}</td>
+                          <td>{{item.nickName}}</td>
+                          <td class="font-yellow">
+                            <i data-toggle="tooltip" title="损坏" v-if="item.type==1" class="icon iconfont icon-sunhuai-xian- set-ciontop3" ></i>
+                            <i data-toggle="tooltip" title="人为风险" v-if="item.type==2" class="icon iconfont icon-weiyinsuyinhuan-xian- set-ciontop3" ></i>
+                            <i data-toggle="tooltip" title="非人为风险" v-if="item.type==3" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 set-ciontop3" ></i>
+                            <i data-toggle="tooltip" title="缺失" v-if="item.type==4" class="icon iconfont icon-queshi-xian- set-ciontop3" ></i>
+                            <i data-toggle="tooltip" title="危险品" v-if="item.type==5" class="icon iconfont icon-weixianpin-xian- set-ciontop3" ></i>
+                          </td>
                           <td>{{item.createTime}}</td>
-                          <td>{{item.status}}</td>
+                          <td>
+                            <i data-toggle="tooltip" title="解决" v-if="item.status==1" class="icon iconfont icon-guanbi-xian- font-blue set-ciontop4" ></i>
+                            <i  data-toggle="tooltip" title="未解决" v-if="item.status==0" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 font-yellow set-ciontop4" ></i>
+                          </td>
                           <td>
                             <a v-on:click="toitmeinfo(item)">
                               <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
@@ -181,17 +190,24 @@
                 <div class="toolcount">
                   <h4 class="p-title">隐患统计</h4>
                   <div class="col-sm-7 font-gray-999 padding-right0 text-center margin-top50 size-12">
-                    <div class="row" v-if="ins_troubleCount.troubleCount">
+                    <div class="row">
                       <div class="col-sm-4 personnel-borderright">
-                        <p class="size-16 font-white">{{ins_getAlarmCount.alarmSum}}</p>
+                        <p class="size-16 font-white">
+                          <!-- {{ins_troubleCount.troubleRatio.allCount}} -->
+                          {{ins_troubleCount ? ins_troubleCount.troubleRatio.allCount:'0'}}
+                        </p>
                         <p>隐患总数</p>
                       </div>
                       <div class="col-sm-4 personnel-borderright">
-                        <p class="size-16 font-white">{{ins_troubleCount.troubleCount.findCount}}</p>
+                        <p class="size-16 font-white">
+                          {{ins_troubleCount ? ins_troubleCount.troubleCount.findCount:'0'}}
+                        </p>
                         <p>隐患发现</p>
                       </div>
                       <div class="col-sm-4">
-                        <p class="size-16 font-white">{{ins_troubleCount.troubleCount.decideCount}}</p>
+                        <p class="size-16 font-white">
+                          {{ins_troubleCount ? ins_troubleCount.troubleCount.decideCount:'0'}}
+                        </p>
                         <p>隐患解决</p>
                       </div>
                     </div>
@@ -204,17 +220,23 @@
                       <div class="toolcount">
                           <div class="col-sm-12 font-gray-999 padding-right0 size-12">
                             <div class="text-center">
-                                <template v-if="ins_troubleCount.dangerCount">
+                                <template>
                                   <div class="col-sm-4 container-padding0 personnel-borderright">
-                                  <p class="size-16 font-blue">{{ins_troubleCount.dangerCount.dangerAll}}</p>
+                                  <p class="size-16 font-blue" v-if="ins_troubleCount.dangerCount">
+                                    {{ins_troubleCount ? ins_troubleCount.dangerCount.dangerAll:'0'}}
+                                  </p>
                                   <p>危险品总数</p>
                                   </div>
                                   <div class="col-sm-4 container-padding0 personnel-borderright">
-                                  <p class="size-16 font-gray-ccc">{{ins_troubleCount.dangerCount.dangerNew}}</p>
+                                  <p class="size-16 font-gray-ccc" v-if="ins_troubleCount.dangerCount">
+                                    {{ins_troubleCount ? ins_troubleCount.dangerCount.dangerNew:'0'}}
+                                  </p>
                                   <p>危险品新增</p>
                                   </div>
                                   <div class="col-sm-4 container-padding0">
-                                  <p class="size-16 font-gray-ccc">{{ins_troubleCount.dangerCount.dangerResolved}}</p>
+                                  <p class="size-16 font-gray-ccc" v-if="ins_troubleCount.dangerCount">
+                                    {{ins_troubleCount ? ins_troubleCount.dangerCount.dangerResolved:'0'}}
+                                  </p>
                                   <p>危险品处理</p>
                                   </div>
                                 </template>
@@ -394,29 +416,29 @@ export default {
       ins_queryInspectionNameListvalue: "全部类型",
       // 表格-请求
       troubleList_parameter: {
-        unitId: "4",
+        unitId: null,
         currentPage: 1,
-        pageSize: 10
+        pageSize: 8
       },
       // 表格-请求
       tableData: Object,
       queryTroubleStats_parameter: {
-        unitId: "4"
+        unitId: 4
       },
 
       ins_queryTroubleStats: Object,
       // 饼图数据
       troubleCount_parameter:{
-        unitId:'4',
+        unitId:null,
         beginTime:'2018-07-01',
-        endTime:'2018-07-12'
+        endTime:'2019-07-12'
       },
       ins_troubleCount:Object,
       // 折线图数据
       troubleRate_parameter:{
-        unitId:'4',
+        unitId:4,
         beginTime:'2018-06-21',
-        endTime:'2018-07-12',
+        endTime:'2019-07-12',
         type:2
       },
       ins_troubleRate:Object,

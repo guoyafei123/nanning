@@ -75,7 +75,7 @@
                           <tr>
                             <!-- <th >序号</th> -->
                             <th >报警源</th>
-                            <th >类型</th>
+                            <th style="max-width:20px !important;">类型</th>
                             <th >发生时间</th>
                             <th >状态</th>
                             <th>查看</th>
@@ -84,14 +84,22 @@
                         <tbody>
                           <tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
                             <!-- <td>{{(getAlarmList_parameter.currentPage-1)*getAlarmList_parameter.pageSize+index+1}}</td> -->
-                            <td v-if="item.isUser==0">{{item.deviceTypeName}}</td>
-                            <td v-if="item.isUser==1">{{item.nickName}}</td>
-                            <td>{{item.eventLevel}}</td>
-                            <td>{{item.startTime}}</td>
-                            <td>{{item.status}}</td>
+                            <td v-if="item.nickName=='' || item.nickName==null">{{item.deviceTypeName}}</td>
+                            <td v-if="item.nickName">{{item.nickName}}</td>
+                            <td class="font-red " style="max-width:20px !important;">
+                              <i data-toggle="tooltip" title="设备报警" v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-xian- set-ciontop3" ></i>
+                              <i data-toggle="tooltip" title="火情" v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- set-ciontop3" ></i>
+                              <i data-toggle="tooltip" title="人工报警" v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-xian- set-ciontop3" ></i>
+                              <i data-toggle="tooltip" title="故障" v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-xian- set-ciontop3" ></i>
+                            </td>
+                            <td>{{(item.startTime).substring(5)}}</td>
                             <td>
-                              <a v-on:click="toitmeinfo(item)">
-                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+                              <i data-toggle="tooltip" title="关闭" v-if="item.status==1" class="icon iconfont icon-guanbi-xian- font-blue set-ciontop4" ></i>
+                              <i  data-toggle="tooltip" title="进行中" v-if="item.status==0" class="icon iconfont icon-huoqing-mian- font-red set-ciontop4" ></i>
+                            </td>
+                            <td >
+                              <a v-on:click="toitmeinfo(item)" data-toggle="tooltip" title="查看详情">
+                              <i class="fas fa-chevron-circle-right" ></i>
                             </a>
                             </td>
                           </tr>
@@ -131,14 +139,14 @@
           <div class="toolright">
                 <section class="my-filter padding5 bg-gray-222 clearfix">
                   <!-- 单位筛选 -->
-                  <div class="col-sm-3 padding0">
+                  <!-- <div class="col-sm-3 padding0">
                     <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
                       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
-                  </div>
+                  </div> -->
                   <!-- 日期筛选 -->
-                  <div class="col-sm-9 padding0">
+                  <div class="col-sm-12 padding0">
                     <div class="upd-elmdate">
                       <el-date-picker
                         v-model="value7"
@@ -225,8 +233,7 @@
                               <div class="row margin-top20 padding-left10">
                                 <el-radio-group @change="callradio" v-model="radiovalue">
                                   <el-radio label="1" class="col-xs-3">报警率</el-radio>
-                                  <el-radio label="2" class="col-xs-3">故障率</el-radio>
-                                  <el-radio label="3" class="col-xs-3">火情发生率</el-radio>
+                                  <el-radio label="2" class="col-xs-3">火情发生率</el-radio>
                                 </el-radio-group>
                               </div>                              
                             </template>
@@ -235,7 +242,7 @@
                     </section>
                     <section>
                         <div class="toolcount margin-top20">
-                            <h4 class="p-title">报警率历史趋势
+                            <h4 class="p-title">报警历史趋势
                             <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
                               <i class="icon iconfont icon-weibiaoti10 size-12"></i>
                             </span>
@@ -417,38 +424,38 @@ export default {
       ins_queryInspectionNameListvalue: "全部状态",
       // 表格-请求
       getAlarmList_parameter: {
-        unitId: "5",
+        unitId: null,
         currentPage: 1,
         pageSize: 10
       },
       // 报警统计-请求
       tableData: Object,
       queryAlarmStats_parameter: {
-        unitId: "4"
+        unitId: null
       },
 
       ins_queryAlarmStats: Object,
       // 报警数据统计
       getAlarmCount_parameter:{
-        unitId:'4',
-        beginTime: "2018-06-01",
-        endTime: "2018-07-30"
+        unitId:null,
+        beginTime: null,
+        endTime: null
       },
       radiovalue:'1',
       ins_getAlarmCount:Object,
       // 饼图数据
       getAlarmRate_parameter: {
-        unitId: "4",
-        beginTime: "2018-06-01",
-        endTime: "2018-07-30",
+        unitId: null,
+        beginTime: null,
+        endTime: null,
         type:1
       },
       ins_getAlarmRate: Object,
       // 折线图数据
       getHistoryAlarmRate_parameter: {
-        unitId: "4",
-        beginTime: "2018-06-21",
-        endTime: "2018-07-30",
+        unitId: null,
+        beginTime: null,
+        endTime: null,
         type: 1
       },
       ins_getHistoryAlarmRate: Object,
@@ -827,6 +834,7 @@ export default {
     this.getTable();
     this.getData();
     this.get_Pie();
+    $("[data-toggle='tooltip']").tooltip();
   }
 };
 </script>
