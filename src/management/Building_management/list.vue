@@ -149,10 +149,11 @@
           ).then(response=>{
             if(response){
               console.log('新增建筑成功...'+ JSON.stringify(response));
+              this.$router.push({path:'/Building_management/all'});
+              this.btn_back();
             }
           })
-          this.$router.push({path:'/Building_management/all'});
-          this.btn_back();
+          
         },
         back(){
           this.$router.push({path:'/Building_management/all'});

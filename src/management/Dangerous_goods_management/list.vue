@@ -91,7 +91,7 @@
                   </div>
                 </div>
                 <!-- <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>  -->
-                <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span> 
+                <!-- <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span>  -->
               </el-form-item>
             </div>
           </div>          
@@ -158,6 +158,7 @@
         btn(){
           console.log(111)
           var files =this.files;
+          var that = this ;
           // console.log(files)
           $.ajaxFileUpload({
             url: '/api/trouble/insertTrouble',
@@ -166,7 +167,7 @@
             data : {
               'type':5,
               'levels':3,
-              'name':this.form.name,
+              'dangerName':this.form.name,
               'unitId':this.form.unitId,
               'unitName':this.form.unitName,
               'buildingId':this.form.buildingId,
@@ -195,9 +196,11 @@
                 // $("#file").replaceWith('<input id="file" name="file" type="file"/>');  
                 
               // });
+              that.$router.push({path:'/Dangerous_goods_management/all'});
             }
+            
           });
-          // this.$router.push({path:'/Dangerous_goods_management/all'});
+          
         },
         back(){
           this.$router.push({path:'/Dangerous_goods_management/all'});

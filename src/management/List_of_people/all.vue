@@ -68,7 +68,7 @@
             label="操作">
             <template slot-scope="scope">
               <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
-              <button @click="delete_people(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <!-- <button @click="delete_people(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
@@ -182,8 +182,7 @@
               </div>
         </div>
       </div>
-    </div>
-   
+    </div>   
   </section>
 </template>
 
@@ -328,6 +327,7 @@
           userId:this.deviceIndex
         }).then(response=>{
           console.log(response);
+          this.tableList();
         })
       },
       show3(row){//跳转

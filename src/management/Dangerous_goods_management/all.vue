@@ -11,8 +11,8 @@
     </div>
     <!-- 主体 -->
     <div class="main_all_content">
-      <!-- 筛选 -->
       <div class="main_content_top">
+        <!-- 筛选 -->
         <el-form ref="form" :model="form" class="float-left">
           <el-select v-model="unit" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
@@ -47,15 +47,16 @@
               </el-option>
             </el-select>
             <el-select
-              v-model="equipment"
-              placeholder="选择设备类型" class="start startDevice">
+              v-model="status"
+              placeholder="选择状态" class="start startDevice">
               <el-option
-                v-for="item in equipmentList"
+                v-for="item in statusList"
                 :label="item.name"
                 :value="item.id">
               </el-option>
             </el-select>
         </el-form>
+        <!-- 切换 -->
         <div class="main_nav_two float-right">
           <router-link to="/Dangerous_goods_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
           <router-link to="/Dangerous_goods_management/maps"><span @click="btn_map"><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
@@ -85,9 +86,12 @@
             label="所属单位">
           </el-table-column>
           <el-table-column
-            prop="cont"
             :show-overflow-tooltip="true"
             label="位置">
+            <template slot-scope="scope">
+              <strong v-if="scope.row.buildingId == 0">室外</strong>
+              <strong v-else><span v-if="scope.row.buildingId != 0">{{ scope.row.buildingName }}</span><span v-if="scope.row.floorNumber != '' && scope.row.floorNumber != null">{{ scope.row.floorNumber }} 楼层</span><span v-if="scope.row.roomNumber != '' && scope.row.roomNumber != null">{{ scope.row.roomNumber }} 房间</span></strong>
+            </template>
           </el-table-column>
           <el-table-column
             prop="cont"
@@ -104,14 +108,15 @@
           </el-table-column>
           <el-table-column 
             prop="status"
+            :show-overflow-tooltip="true"
             label="状态">
             <template slot-scope="scope">
               <el-tag
                 :type="scope.row.status === 0 ? 'red' : 'green'"
-                disable-transitions v-if='scope.row.status==0'>未解决</el-tag>
+                disable-transitions v-if='scope.row.status==0'>未解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+                disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-red" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
             </template>
           </el-table-column>
           <el-table-column
@@ -131,7 +136,7 @@
             fixed="right"
             label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" v-if='scope.row.status==0' data-toggle="modal" data-target="#mymodal" class="btn-on">处理</button>
+              <button @click="start_plan(scope.row)" v-if='scope.row.status==0' data-toggle="modal" data-target="#mymodal" class="btn-check">处理</button>
               <!-- <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
@@ -170,7 +175,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">解决</h4>
-            <h5 class="modal-p font-blue">{{this.form.dangerName}}</h5>
+            <h5 class="modal-p font-blue">{{dangerName}}</h5>
           </div>
           <div class="modal-body">
             <div class="main_content">
@@ -179,7 +184,7 @@
               class类hint-error为错误提示
              -->
               <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-                <!-- <el-form-item label="危险品名称" class="not-null col-sm-8">
+                <el-form-item label="危险品名称" class="not-null col-sm-8">
                   <el-input v-model="form.dangerName" disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="所属单位" class="not-null col-sm-4">
@@ -190,7 +195,7 @@
                 </el-form-item>
                 <el-form-item label="位置" class="not-null">
                   <el-select
-                    v-model="form.buildingId"
+                    v-model="form.buildingName"
                     disabled="true"
                     placeholder="选择建筑"  class="start float-left col-sm-4">
                     <el-option label="室外" value="0"></el-option>
@@ -201,7 +206,7 @@
                     </el-option>
                   </el-select>
                   <el-select
-                    v-model="form.floorId"
+                    v-model="form.floorNumber"
                     disabled="true"
                     placeholder="选择楼层" class="start col-sm-4">
                     <el-option
@@ -211,7 +216,7 @@
                     </el-option>
                   </el-select>
                   <el-select
-                    v-model="form.roomId"
+                    v-model="form.roomNumber"
                     disabled="true"
                     placeholder="选择房间" class="start col-sm-4">
                     <el-option
@@ -247,15 +252,16 @@
                   <ul class="list-line">
                     <li class="col-sm-3"><img :src="this.form.imgUrl" class="img-responsive" /></li>
                   </ul>
-                </el-form-item> -->
+                </el-form-item>
                 <el-form-item label="解决人" class="not-null">
-                  <el-input v-model="form.reviewerName" class="not-null col-sm-6"></el-input>
+                  <el-input v-model="form.reviewerName" disabled="true" class="not-null col-sm-6"></el-input>
                 </el-form-item>
                 <el-form-item label="解决时间" class="not-null col-sm-6">
                   <div class="block">
                     <el-date-picker
                       v-model="form.reviewTime"
                       type="date"
+                      disabled="true"
                       placeholder="选择日期"
                       format="yyyy 年 MM 月 dd 日"
                       value-format="yyyy-MM-dd">
@@ -607,7 +613,6 @@
         console.log(this.building);
         this.floor = '';
         this.room = '';
-        this.equipment = '';
         this.floorSearch(this.building);
         this.tableList();
       },

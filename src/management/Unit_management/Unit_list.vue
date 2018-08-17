@@ -173,10 +173,10 @@
             },
             complete: function (e) {//只要完成即执行，最后执行
               // console.log(e) 
-
+              this.$router.push({path:'/Unit_management/all'});
             }
           });
-          this.$router.push({path:'/Unit_management/all'});
+          
         },
         back(){
           this.$router.push({path:'/Unit_management/all'});

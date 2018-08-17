@@ -119,15 +119,15 @@
           </div>
         </section>
         <!-- 路线日志 -->
-        <section>
-          <div class="table-responsive padding-top10 bg-black">
+        <section class="bg-black padding-top10">
+          <div class="table-responsive">
             <h4 class="p-title">操作日志</h4>
-            <div class="main_content_table">
+            <div class="main_content_table margin-top10">
               <el-table
                 :data="tableData"
                 border
                 :highlight-current-row="true"
-                style="height:235px;">
+                style="max-height:235px;">
                 <el-table-column
                   sortable
                   type="index"
