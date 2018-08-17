@@ -101,7 +101,7 @@
                         <td>108</td>
                         <td>424</td>
                         <td>
-                          <a v-on:click="toitmeinfo(item)">
+                          <a v-on:click="toiteminfo(item)">
                             <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
                           </a>
                         </td>
@@ -117,7 +117,7 @@
                         <td>108</td>
                         <td>373</td>
                         <td>
-                          <a v-on:click="toitmeinfo(item)">
+                          <a v-on:click="toiteminfo(item)">
                             <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
                           </a>
                         </td>
@@ -133,7 +133,7 @@
                         <td>20</td>
                         <td>72</td>
                         <td>
-                          <a v-on:click="toitmeinfo(item)">
+                          <a v-on:click="toiteminfo(item)">
                             <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
                           </a>
                         </td>
@@ -149,7 +149,7 @@
                         <td>124</td>
                         <td>318</td>
                         <td>
-                          <a v-on:click="toitmeinfo(item)">
+                          <a v-on:click="toiteminfo(item)">
                             <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
                           </a>
                         </td>
@@ -165,7 +165,7 @@
                         <td>88</td>
                         <td>248</td>
                         <td>
-                          <a v-on:click="toitmeinfo(item)">
+                          <a v-on:click="toiteminfo(item)">
                             <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
                           </a>
                         </td>
@@ -252,6 +252,7 @@
       </template>
 
 <script>
+  import{mapState} from "vuex";
   import HeaderVue from '../publick/header.vue';
   export default {
   components:{
@@ -274,6 +275,29 @@
           label: "怀化市横县"
         }
       ],
+      itemtrue: false,
+      //风险评估统计参数
+      build_buildCount_parameter:{
+        unitId: 4
+      },
+      //风险评估参数-返回
+      risk_riskCount: {
+        assessScore: "",
+        buildStats: "",
+        totalBuild: "",
+        structure: "",
+        highRisk: ""
+      },
+      // 表格-请求
+      queryBuildList_parameter: {
+        unitId: '',
+        property: null,
+        structure: null,
+        currentPage: "1",
+        pageSize: 10
+      },
+      // 表格返回
+      tableData: Object,
     };
   },
   methods: {
@@ -293,9 +317,51 @@
         .addClass("display-none")
         .removeClass("display-block");
     },
+    // 获取统计数据
+    getRiskData() {
+      this.$fetch(
+          "/api/building/queryBuildStatisInfo", 
+          this.build_buildCount_parameter
+          ).then(response => {
+          let data = response.data;
+          if (response.data) {
+              console.log("【建筑】——获取建筑统计数据:"); 
+              console.log(response.data);
+            
+          }
+      });
+    },
+    // 获取表格
+    getRiskTable() {
+      this.$fetch(
+        "/api/building/findPageBuildIng",
+        this.queryBuildList_parameter
+      ).then(response => {
+          if (response) {
+            this.tableData = response.data.pageBuildIng;
+            console.log("【建筑】——获取建筑表格列表数据:");
+            console.log(this.tableData);
+          }
+        })
+        .then(err => {
+          console.log(err);
+        });
+    },
+    handleCurrentChange(val) {
+      console.log(`【建筑】——当前页:` + val);
+      this.queryBuildList_parameter.currentPage = val;
+      this.getTable();
+    },
+    //获取详情
+    toiteminfo(data) {
+      this.itemdata = data;
+      this.$store.commit("tobuilditem", this.itemdata);
+    }
   },
   mounted() {
-    
+    this.$store.commit("route_path", this.$route.path);
+    this.getRiskData();  
+    this.getRiskTable(); 
   }
 };
 </script>

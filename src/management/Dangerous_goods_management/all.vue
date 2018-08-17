@@ -11,8 +11,8 @@
     </div>
     <!-- 主体 -->
     <div class="main_all_content">
-      <!-- 筛选 -->
       <div class="main_content_top">
+        <!-- 筛选 -->
         <el-form ref="form" :model="form" class="float-left">
           <el-select v-model="unit" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
@@ -56,6 +56,7 @@
               </el-option>
             </el-select>
         </el-form>
+        <!-- 切换 -->
         <div class="main_nav_two float-right">
           <router-link to="/Dangerous_goods_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
           <router-link to="/Dangerous_goods_management/maps"><span @click="btn_map"><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
