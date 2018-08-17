@@ -115,6 +115,7 @@
     background-color: #f13131!important;
 }
 /*中间主列表*/
+#Build_management #right .size-10,
 #equipment #right .size-10,
 #dangerous #right .size-10 {
     margin-left: -5px;
@@ -175,6 +176,16 @@
 
 
 /*表格*/
+#right .el-table--border th:first-child .cell,
+#right .el-table--border td:first-child .cell {
+  padding-left: 0!important;
+}
+
+#right .el-table--border th:last-child .cell,
+#right .el-table--border td:last-child .cell {
+  padding-right: 0!important;
+  padding-left: 0!important;
+}
 .el-table__row.current-row td:first-child,
 .el-table__row.current-row td:last-child i.fa-chevron-circle-right {
   color: #bad616!important;
@@ -183,7 +194,9 @@
   color: #fff;
   background-color: #000!important;
 }
-
+.mapTable {
+  background-color: #000;
+}
 .mapTable tr {
 	background-color: #000!important;
 }
@@ -207,7 +220,6 @@
 .main_content_table table {
   margin-top:0px;
 }
-
 .main_content_table .el-table td:last-child .cell,
 .main_content_table .el-table th:last-child .cell{
 	text-align: right!important;
@@ -333,17 +345,17 @@
     padding:0;
   }
   .el-tag--red{
-    color: red !important;
+    color: #f13131!important;
     padding:0 !important;
     border:none;
   }
   .el-tag--green{
-    color: greenyellow !important;
+    color: #bad616!important;
     padding:0 !important;
     border:none;
   }
   .el-tag--yellow{
-    color: yellow !important;
+    color: #ffb709!important;
     padding:0 !important;
     border:none;
   }
@@ -358,6 +370,10 @@
     margin:0 20px;
     padding-top:10px;
     border-top:1px solid #222222;
+ }
+ #right .bottom_con {
+  margin:0;
+  padding-left: 20px;
  }
  .btn-system a {
  	color: #fff;
@@ -596,6 +612,7 @@
 .line-node .el-select {
   width: 20%;
   margin-right: 10px;
+  float: left;
 }
 .line-start .el-select .el-input__inner,
 .line-end .el-select .el-input__inner,
@@ -719,7 +736,9 @@
 #manage-center .el-select .el-input--suffix .el-input__inner {
   background-color:#111;
 }
-
+#manage-center .el-textarea__inner:active,
+#manage-center .el-textarea__inner:visited,
+#manage-center .el-textarea__inner:hover,
 #manage-center .el-input__inner:active,
 #manage-center .el-input__inner:visited,
 #manage-center .el-input__inner:hover,
@@ -741,4 +760,11 @@
 #manage-center .main_content_top .is-focus .el-input__inner:visited,
 #manage-center .main_content_top .is-focus .el-input__inner:hover{
     border: none!important;
+}
+
+#log .main_content_table td:last-child {
+  color: #ffb709;
+}
+#manage-center .el-textarea {
+  margin-top: 5px;
 }

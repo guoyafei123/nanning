@@ -41,6 +41,10 @@
             label="操作Ip">
           </el-table-column>
           <el-table-column
+            prop="moduleName"
+            label="操作模块">
+          </el-table-column>
+          <el-table-column
             prop="content"
             :show-overflow-tooltip="true"
             label="操作内容">
@@ -48,10 +52,6 @@
           <el-table-column
             prop="functionName"
             label="操作">
-          </el-table-column>
-          <el-table-column
-            prop="moduleName"
-            label="操作模块">
           </el-table-column>
         </el-table>
       </div>

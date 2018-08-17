@@ -81,7 +81,10 @@ a.active {
     border: 1px solid #f13131!important;
     background-color: transparent;
 }
-.btn-check:hover,.btn-check:focus {
+.btn-check:hover,
+.btn-check:focus,
+.btn-check:active,
+.btn-check:visited{
     color: #000!important;
     border:none!important;
     background-color: #f13131!important;
@@ -91,7 +94,10 @@ a.active {
     border: 1px solid #bad616!important;
     background-color: transparent;
 }
-.btn-on:hover,.btn-on:focus {
+.btn-on:hover,
+.btn-on:focus,
+.btn-on:active,
+.btn-on:visited {
     color: #000!important;
     border:none!important;
     background-color: #bad616!important;

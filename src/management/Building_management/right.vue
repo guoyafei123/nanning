@@ -1,6 +1,6 @@
 <template>
   <div class="toolright z-index-20">
-    <div class="font-white plan"  style="display: none;">
+    <div class="plan"  style="display: none;">
       <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Building_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       <!-- 建筑详情 -->
       <section>
@@ -52,13 +52,6 @@
                       <span>建筑年份 </span>
                       <strong v-html="this.form.timeYear"></strong>
                   </div>
-                  <div class="col-sm-12">
-                      <span>建筑二维码 </span>
-                      <strong>
-                        <a href="" data-toggle="tooltip" title="预览二维码" class="font-blue display-inline-block">预览</a>
-                        <a href="" data-toggle="tooltip" title="下载二维码" class="font-blue display-inline-block">下载</a>
-                      </strong>
-                  </div>
               </div>
         </div>
       </section>
@@ -67,11 +60,11 @@
         <div class="textandimg margin-top30">
               <h4 class="p-title">安防信息</h4>
               <div class="row textandimg-main margin-top20 size-12">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>消防负责人 </span>
                       <strong v-html="this.form.name"> </strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>负责人电话 </span>
                       <strong v-html="this.form.phone"></strong>
                   </div>                 
@@ -81,9 +74,24 @@
     </div>
     <!-- 简单统计 --> 
     <div class="font-white total" style="display:none;">
+      <!-- 总数统计 -->
+        <section class="toolcount clearfix">
+          <ul class="toolcount-left padding0 col-sm-3">
+            <li>
+              <p class="size-10 font-gray-666">Building Total</p>
+            </li>
+            <li>
+              <p class="size-18 font-blue">当前建筑总数</p>
+            </li>
+            <li>
+              <h1 class="toolcount-p1">7</h1>
+            </li>
+          </ul>
+        </section>
+        <!-- 建筑小列表 -->
       <section>        
         <div class="toolbuildrate">
-          <div class="main_content_table bg-black">
+          <div class="main_content_table">
             <el-table
               :data="tableData"
               border
@@ -124,7 +132,7 @@
               <div class="float-left btn-system">
                 <a href="javascript:;">打印</a>
                 <a href="javascript:;">导出</a>
-                <a href="javascrip:;">导出二维码</a>
+                <a href="javascrip:;" @click="qrcode()">导出二维码</a>
               </div>
               <el-pagination
                             @current-change="handleCurrentChange"
@@ -238,7 +246,6 @@
         </div>
       </section>
     </div>
-
     <!-- 楼层管理 -->
     <div class="floor_wrap margin-top20" style="display:none;">
       <div class="floor_header clearFix">
@@ -265,7 +272,7 @@
                 <input type="number" v-model="item.floorName" style="text-align:center;"/>
               </td>
               <td class="weixiugai_edit">
-                <img src="../../assets/images/u237.png"/>
+                <!-- <img src="../../assets/images/u237.png"/> -->
                 <i @click="xiugai(index)" class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
                 <i @click="floor_delete(item,index)" class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
                 <button @click="room_build(item)" style="width:50px;height:22px;border:1px solid transparent;border-radius:5px;color: #ffffff;background-color: #0798db;line-height: 19px;margin:0;padding:0;font-size: 11px;text-align: center;margin-right:10px;">房间管理</button>
@@ -377,7 +384,6 @@
             pointY:''
           }
         },
-        unit:null,//选择单位
         optionList:[],//全部单位列表
         tableData: [],//设备列表
         page:null,//总页数
@@ -763,6 +769,8 @@
         this.$store.commit('buildingId',row.id);
         $('.plan').show();
         $('.total').hide();
+        $('.floor_wrap').hide();
+        $('.room_wrap').hide();
       },
       deleteRow(){
         console.log(this.deviceIndex);
@@ -781,6 +789,9 @@
         }).then(err => {
           console.log(err);
         });
+      },
+      qrcode(){
+        window.open("/api/qrcode/buildingImgs?unitId="+this.buildUnit);
       },
       unitSearch(){
         this.$fetch(
@@ -805,7 +816,7 @@
           "/api/building/queryPageBuildingList",{
             currentPage:this.currentPage4,
             pageSize:10,
-            unitId:this.unit
+            unitId:this.buildUnit
           }
         )
           .then(response => {
@@ -850,6 +861,7 @@
     },
     mounted() {
       this.tableList();
+      this.unitSearch();
       if(this.$route.path == '/Building_management/maps'){
         $('.total').show();
         $('.plan').hide();
@@ -893,7 +905,7 @@
       },
       buildingId(){
         if(this.$route.path == '/Building_management/maps'){
-          $('.total').show();
+          $('.total').hide();
           this.tableData.forEach((item,index)=>{
             if(item.id == this.buildingId){
               console.log(item);
@@ -979,9 +991,13 @@
           // console.log(this.floorId);
           this.floorRoomListShow()
         }
+      },
+      buildUnit(){
+        this.tableList();
       }
     },
     computed:mapState([
+      'buildUnit',
       'buildingId',
       'floorAdd',
       'floorId'

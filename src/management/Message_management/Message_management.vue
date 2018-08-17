@@ -1,5 +1,5 @@
 <template>
-  <div class="row" id="Reserve_plan">
+  <div class="row" id="Message_manage">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->

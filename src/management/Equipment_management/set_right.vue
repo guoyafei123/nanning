@@ -125,13 +125,6 @@
                       <span>投入时间 </span>
                       <strong v-html="this.device.startDate"></strong>
                   </div>                                 
-                  <div class="col-sm-12">
-                      <span>二 维 码 </span>
-                      <strong>
-                        <a href="" class="font-blue display-inline-block" data-toggle="tooltip" title="预览二维码">预览</a> 
-                        <a href="" class="font-blue display-inline-block" data-toggle="tooltip" title="下载二维码">下载</a>
-                      </strong>
-                  </div>
           </div>              
         </div>
       </section>
@@ -266,7 +259,7 @@
                 <div class="float-left btn-system">
               <a href="javascript:;">打印</a>
               <a href="javascript:;">导出</a>
-              <a href="javascrip:;">导出二维码</a>
+              <a href="javascript:;" @click="qrcode">导出二维码</a>
             </div>
                 <el-pagination
                               @current-change="handleCurrentChange"
@@ -416,114 +409,6 @@
                       </el-form-item>
                     </el-form>
                   </div>
-                  <!-- <el-form ref="form" :label-position="labelPosition" :model="form">
-                    <el-form-item label="设备名称">
-                      <el-input v-model="form.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="所属单位">
-                      <el-select v-model="form.unitId" placeholder="选择单位" class="select">
-                        <el-option label="全部单位" value=""></el-option>
-                        <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                      </el-select>
-                    </el-form-item>
-                    <el-form-item label="设备类型">
-                      <el-select
-                        v-model="form.equipmentId"
-                        placeholder="选择设备类型" class="sbwz_138_32 start">
-                        <el-option
-                          v-for="item in form.equipmentList"
-                          :label="item.name"
-                          :value="item.id">
-                        </el-option>
-                      </el-select>
-                    </el-form-item>
-                    <el-form-item label="设备位置">
-                      <el-select
-                        v-model="form.buildingId"
-                      placeholder="选择建筑"  class="sbwz_138_32 start float-left">
-                        <el-option label="室外" value="0"></el-option>
-                        <el-option
-                          v-for="item in form.buildList"
-                          :label="item.name"
-                          :value="item.id">
-                        </el-option>
-                      </el-select>
-                      <el-select
-                        v-model="form.floorId"
-                        placeholder="选择楼层" class="sbwz_138_32 start">
-                        <el-option
-                          v-for="item in form.floorList"
-                          :label="item.floor+'层'"
-                          :value="item.id">
-                        </el-option>
-                      </el-select>
-                      <el-select
-                        v-model="form.roomId"
-                        placeholder="选择房间" class="sbwz_138_32 start">
-                        <el-option
-                          v-for="item in form.roomList"
-                          :label="item.roomNumber+'房间'"
-                          :value="item.id">
-                        </el-option>
-                      </el-select>
-                    </el-form-item>
-                    <el-form-item label="坐标">
-                      <el-input v-model="form.point.pointX" class="display-inline-block"></el-input>
-                      <el-input v-model="form.point.pointY" class="display-inline-block"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="物理地址" v-if="form.deviceType == 1">
-                      <el-input v-model="form.PhysicalAddress"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="投入使用日期">
-                      <div class="block">
-                        <el-date-picker
-                          v-model="form.startDate"
-                          type="date"
-                          placeholder="选择年"
-                          format="yyyy 年 MM 月 dd 日"
-                          value-format="yyyy-MM-dd">
-                        </el-date-picker>
-                      </div>
-                    </el-form-item>
-                    <el-form-item label="运行时长">
-                      <el-input v-model="form.lifeMonth"></el-input>
-                    </el-form-item>
-                    <el-form-item label="相对房顶高度（m）">
-                      <el-input v-model="form.RoofHeight"></el-input>
-                    </el-form-item>
-                    <el-form-item label="相对地板高度（m）">
-                      <el-input v-model="form.floorHeight"></el-input>
-                    </el-form-item>
-                    <el-form-item label="更换周期（天）">
-                      <el-input v-model="form.Retroperiod"></el-input>
-                    </el-form-item>
-                    <el-form-item label="生产商">
-                      <el-input v-model="form.Bike"></el-input>
-                    </el-form-item>
-                    <el-form-item label="生产日期">
-                      <div class="block">
-                        <el-date-picker
-                          v-model="form.ProductionDay"
-                          type="date"
-                          placeholder="选择年"
-                          format="yyyy 年 MM 月 dd 日"
-                          value-format="yyyy-MM-dd">
-                        </el-date-picker>
-                      </div>
-                    </el-form-item>
-                    <el-form-item label="维保单位">
-                      <el-input v-model="form.Refundable"></el-input>
-                    </el-form-item>
-                    <el-form-item label="维保人员">
-                      <el-input v-model="form.linkname"></el-input>
-                    </el-form-item>
-                    <el-form-item label="维保电话">
-                      <el-input v-model="form.phone"></el-input>
-                    </el-form-item>
-                    <div style="clear: both;"></div>
-                  </el-form> -->
                 </div>
                 <div class="modal-footer">
                   <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">编辑并提交</el-button>
@@ -742,6 +627,9 @@
           }).then(err => {
             console.log(err);
           });
+      },
+      qrcode(){
+        window.open("/api/qrcode/deviceImgs?unitId="+this.Unit+'&buildingId='+this.buildDevice+'&floorId='+this.floorDevice+'&roomId='+this.roomDevice+'&deviceTypeId='+this.equipmentDevice);
       },
       unitSearch(){
         this.$fetch(

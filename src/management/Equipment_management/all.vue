@@ -145,7 +145,7 @@
           <div class="float-left btn-system">
             <a href="javascript:;">打印</a>
             <a href="javascript:;">导出</a>
-            <a href="javascrip:;">导出二维码</a>
+            <a href="javascript:;" @click="qrcode">导出二维码</a>
           </div>
           <el-pagination
                          @current-change="handleCurrentChange"
@@ -377,7 +377,7 @@
 
 
         
-        unit:null,//选择单位
+        unit:'',//选择单位
         building:'',//选择建筑
         floor:'',
         room:'',
@@ -516,6 +516,9 @@
     　　var days = now.getTime() - sdate.getTime(); 
     　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
     　　return day; 
+      },
+      qrcode(){
+        window.open("/api/qrcode/deviceImgs?unitId="+this.unit+'&buildingId='+this.building+'&floorId='+this.floor+'&roomId='+this.room+'&deviceTypeId='+this.equipment);
       },
       unitSearch(){
         this.$fetch(

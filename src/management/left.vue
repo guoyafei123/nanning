@@ -79,7 +79,7 @@
             </li>
           </router-link>
           <li class="system_title">档案管理</li>
-          <router-link to="/Reserve_plan">
+          <router-link to="/Message_management">
             <li class="p-red">
               <i class="icon iconfont icon-xiaoxi-"></i>
               <h2>消息管理</h2>

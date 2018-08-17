@@ -21,31 +21,31 @@
           class类hint-error为错误提示
          -->
           <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-            <el-form-item label="建筑名称">
+            <el-form-item label="建筑名称" class="not-null">
               <span class="hint-error">建筑名称有误或重复</span>
-              <el-input v-model="form.BuildName" class="col-sm-8"></el-input>
+              <el-input v-model="form.BuildName" class="col-sm-6"></el-input>
             </el-form-item>
-            <el-form-item label="所属单位">
-              <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-8">
+            <el-form-item label="所属单位" class="not-null">
+              <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-6">
                 <!-- <el-option label="全部单位" value=""></el-option> -->
                 <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="建筑结构" class="col-sm-6">
+            <el-form-item label="建筑结构" class="not-null col-sm-6">
               <el-select name="" v-model="form.structure" placeholder="请选择结构">
                 <el-option label="砖混" value="砖混"></el-option>
                 <el-option label="钢结构" value="钢结构"></el-option>
                 <el-option label="玻璃" value="玻璃"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="建筑性质" class="col-sm-6">
+            <el-form-item label="建筑性质" class="not-null col-sm-6">
               <el-select v-model="form.property" placeholder="建筑性质">
                 <el-option label="居住" value="居住"></el-option>
                 <el-option label="公共" value="公共"></el-option>
                 <el-option label="工业" value="工业"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="建成年份" class="col-sm-6">
+            <el-form-item label="建成年份" class="not-null col-sm-6">
               <div class="block">
                 <el-date-picker
                   v-model="form.timeYear"
@@ -56,26 +56,26 @@
                 </el-date-picker>
               </div>
             </el-form-item>
-            <el-form-item label="占地面积 (㎡)" class="col-sm-6">
+            <el-form-item label="占地面积 (㎡)" class="not-null col-sm-6">
               <el-input v-model="form.area"></el-input>
             </el-form-item>
-            <el-form-item label="高度 (cm)" class="col-sm-6">
+            <el-form-item label="高度 (cm)" class="not-null col-sm-6">
               <el-input v-model="form.height"></el-input>
             </el-form-item>
-            <el-form-item label="总楼层" class="col-sm-6">
+            <el-form-item label="总楼层" class="not-null col-sm-6">
               <el-input v-model="form.floor"></el-input>
             </el-form-item>
-            <el-form-item label="建筑地址">
-              <el-input v-model="form.address" class="col-sm-8"></el-input>
+            <el-form-item label="建筑地址" class="not-null">
+              <el-input v-model="form.address" class="col-sm-12"></el-input>
             </el-form-item>
-            <el-form-item label="经纬度">
-              <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
-              <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
+            <el-form-item label="经纬度" class="not-null">
+              <el-input v-model="form.point.pointX" class="col-sm-6"></el-input>
+              <el-input v-model="form.point.pointY" class="col-sm-6"></el-input>
             </el-form-item>          
-            <el-form-item label="消防负责人" class="col-sm-4">
+            <el-form-item label="消防负责人" class="not-null col-sm-6">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="消防负责人电话" class="col-sm-4">
+            <el-form-item label="消防负责人电话" class="not-null col-sm-6">
               <el-input v-model="form.phone"></el-input>
             </el-form-item>          
           </el-form>        

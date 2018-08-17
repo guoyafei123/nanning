@@ -7,7 +7,7 @@
           <h2>添加危险品</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Dangerous_goods_management/list"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Dangerous_goods_management/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
       <!-- 分割线 -->

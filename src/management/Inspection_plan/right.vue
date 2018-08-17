@@ -1,7 +1,7 @@
 <template>
   <div class="toolright z-index-20">
     <!-- 路线详情 -->
-    <div class="plan">
+    <div class="plan" style="display:none;">
       <section>
         <a @click="back_first" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
         <!-- 路线标题 -->

@@ -148,6 +148,10 @@
     margin-bottom: 22px;
     color: #fff;
 }
+.cn-status {
+    font-size: 48px;
+    line-height: 48px;
+}
 .toolcount-p2,.set-scaleright{
     position: relative;
     right: 6px;

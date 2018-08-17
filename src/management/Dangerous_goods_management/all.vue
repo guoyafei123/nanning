@@ -131,8 +131,8 @@
             fixed="right"
             label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" class="btn-on">处理</button>
-              <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <button @click="start_plan(scope.row)" v-if='scope.row.status==0' data-toggle="modal" data-target="#mymodal" class="btn-on">处理</button>
+              <!-- <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
@@ -169,92 +169,109 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">解决危险品</h4>
+            <h4 class="modal-title" id="myModalLabel">解决</h4>
+            <h5 class="modal-p font-blue">{{this.form.dangerName}}</h5>
           </div>
-          <div class="modal-body" style="height:650px;overflow-y:auto;">
-            <el-form ref="form" :label-position="labelPosition" :model="form">
-              <el-form-item label="危险品名称">
-                <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-                <el-input v-model="form.dangerName" disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="所属单位">
-                <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" style="width:auto;" disabled="true">
-                  <el-option label="全部单位" value=""></el-option>
-                  <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="位置">
-                <el-select
-                  v-model="form.buildingId"
-                  disabled="true"
-                  placeholder="选择建筑"  class="start float-left" style="margin-left:0px;width:auto;">
-                  <el-option label="室外" value="0"></el-option>
-                  <el-option
-                    v-for="item in form.buildList"
-                    :label="item.name"
-                    :value="item.id">
-                  </el-option>
-                </el-select>
-                <el-select
-                  v-model="form.floorId"
-                  disabled="true"
-                  placeholder="选择楼层" class="start">
-                  <el-option
-                    v-for="item in form.floorList"
-                    :label="item.floorName+'层'"
-                    :value="item.id">
-                  </el-option>
-                </el-select>
-                <el-select
-                  v-model="form.roomId"
-                  disabled="true"
-                  placeholder="选择房间" class="start">
-                  <el-option
-                    v-for="item in form.roomList"
-                    :label="item.roomNumber+'房间'"
-                    :value="item.id">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="坐标">
-                <el-input v-model="form.point.pointX" style="display:inline-block;width:200px;" disabled="true"></el-input>
-                <el-input v-model="form.point.pointY" style="display:inline-block;width:200px;" disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="上报人">
-                <el-input v-model="form.nickName" disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="上报时间">
-                <el-input v-model="form.createTime" disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="解决人">
-                <el-input v-model="form.reviewerName" disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="解决时间">
-                <el-input v-model="form.reviewTime" disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="图片及视频">
-                <ul>
-                  <li style="width:100px;"><img style="width:100%;" :src="this.form.imgUrl"/></li>
-                </ul>
-              </el-form-item>
-              <el-form-item label="简介">
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  disabled="true"
-                  v-model="form.cont">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="简介">
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="请输入内容"
-                  v-model="form.treatment">
-                </el-input>
-              </el-form-item>
-              <div style="clear: both;"></div>
-            </el-form>
+          <div class="modal-body">
+            <div class="main_content">
+            <!--
+              class类not-null为必填标识,如需请加在<el-form-item>
+              class类hint-error为错误提示
+             -->
+              <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+                <!-- <el-form-item label="危险品名称" class="not-null col-sm-8">
+                  <el-input v-model="form.dangerName" disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="所属单位" class="not-null col-sm-4">
+                  <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit" disabled="true">
+                    <el-option label="全部单位" value=""></el-option>
+                    <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="位置" class="not-null">
+                  <el-select
+                    v-model="form.buildingId"
+                    disabled="true"
+                    placeholder="选择建筑"  class="start float-left col-sm-4">
+                    <el-option label="室外" value="0"></el-option>
+                    <el-option
+                      v-for="item in form.buildList"
+                      :label="item.name"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                  <el-select
+                    v-model="form.floorId"
+                    disabled="true"
+                    placeholder="选择楼层" class="start col-sm-4">
+                    <el-option
+                      v-for="item in form.floorList"
+                      :label="item.floorName+'层'"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                  <el-select
+                    v-model="form.roomId"
+                    disabled="true"
+                    placeholder="选择房间" class="start col-sm-4">
+                    <el-option
+                      v-for="item in form.roomList"
+                      :label="item.roomNumber+'房间'"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="坐标" class="not-null">
+                  <el-input v-model="form.point.pointX"  class="col-sm-4" disabled="true"></el-input>
+                  <el-input v-model="form.point.pointY"  class="col-sm-4" disabled="true"></el-input>
+                </el-form-item>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <el-form-item label="上报人" class="not-null col-sm-4">
+                  <el-input v-model="form.nickName" disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="上报时间" class="not-null col-sm-4">
+                  <el-input v-model="form.createTime" disabled="true"></el-input>
+                </el-form-item>                
+                  </div>
+                </div>
+                <el-form-item label="描述" class="not-null col-sm-12">
+                  <el-input
+                    type="textarea"
+                    :rows="2"
+                    disabled="true"
+                    v-model="form.cont">
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="图片及视频" class="not-null col-sm-12">
+                  <ul class="list-line">
+                    <li class="col-sm-3"><img :src="this.form.imgUrl" class="img-responsive" /></li>
+                  </ul>
+                </el-form-item> -->
+                <el-form-item label="解决人" class="not-null">
+                  <el-input v-model="form.reviewerName" class="not-null col-sm-6"></el-input>
+                </el-form-item>
+                <el-form-item label="解决时间" class="not-null col-sm-6">
+                  <div class="block">
+                    <el-date-picker
+                      v-model="form.reviewTime"
+                      type="date"
+                      placeholder="选择日期"
+                      format="yyyy 年 MM 月 dd 日"
+                      value-format="yyyy-MM-dd">
+                    </el-date-picker>
+                  </div>
+                </el-form-item>               
+                <el-form-item label="解决原因" class="not-null col-sm-12">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    placeholder="请输入内容"
+                    v-model="form.treatment">
+                  </el-input>
+                </el-form-item>
+              </el-form>
+            </div>
           </div>
           <div class="modal-footer">
             <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
