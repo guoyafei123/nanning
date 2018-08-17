@@ -5,9 +5,6 @@
         <i class="icon iconfont icon-renyuanliebiao-mian-"></i>
         <h2>人员审核</h2>
       </div>
-      <div class="main_nav float-right">
-        <router-link to="/Equipment_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
-      </div>
     </div>
     <div class="main_all_content">
       <!-- 筛选 -->
@@ -191,9 +188,9 @@
         },
         optionList:[],//单位列表
         reviewList:[
-          {'id':1,'review':'审核通过'},
-          {'id':2,'review':'审核未通过'},
-          {'id':3,'review':'待审核'}
+          {id:1,review:'审核通过'},
+          {id:2,review:'审核未通过'},
+          {id:3,review:'待审核'}
         ],//角色列表
         tableData: [],//人员信息列表
         roleList:[],//角色列表
@@ -287,7 +284,7 @@
             currentPager:this.currentPage4,
             pagerSize:10,
             unitId:this.unitId,
-            reviewId:this.reviewId,
+            review:this.reviewId,
             flag:1
           }
         )

@@ -47,10 +47,10 @@
               </el-option>
             </el-select>
             <el-select
-              v-model="equipment"
-              placeholder="选择设备类型" class="start startDevice">
+              v-model="status"
+              placeholder="选择状态" class="start startDevice">
               <el-option
-                v-for="item in equipmentList"
+                v-for="item in statusList"
                 :label="item.name"
                 :value="item.id">
               </el-option>
@@ -85,9 +85,12 @@
             label="所属单位">
           </el-table-column>
           <el-table-column
-            prop="cont"
             :show-overflow-tooltip="true"
             label="位置">
+            <template slot-scope="scope">
+              <strong v-if="scope.row.buildingId == 0">室外</strong>
+              <strong v-else><span v-if="scope.row.buildingId != 0">{{ scope.row.buildingName }}</span><span v-if="scope.row.floorNumber != '' && scope.row.floorNumber != null">{{ scope.row.floorNumber }} 楼层</span><span v-if="scope.row.roomNumber != '' && scope.row.roomNumber != null">{{ scope.row.roomNumber }} 房间</span></strong>
+            </template>
           </el-table-column>
           <el-table-column
             prop="cont"
@@ -179,7 +182,7 @@
               class类hint-error为错误提示
              -->
               <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-                <!-- <el-form-item label="危险品名称" class="not-null col-sm-8">
+                <el-form-item label="危险品名称" class="not-null col-sm-8">
                   <el-input v-model="form.dangerName" disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="所属单位" class="not-null col-sm-4">
@@ -190,7 +193,7 @@
                 </el-form-item>
                 <el-form-item label="位置" class="not-null">
                   <el-select
-                    v-model="form.buildingId"
+                    v-model="form.buildingName"
                     disabled="true"
                     placeholder="选择建筑"  class="start float-left col-sm-4">
                     <el-option label="室外" value="0"></el-option>
@@ -201,7 +204,7 @@
                     </el-option>
                   </el-select>
                   <el-select
-                    v-model="form.floorId"
+                    v-model="form.floorNumber"
                     disabled="true"
                     placeholder="选择楼层" class="start col-sm-4">
                     <el-option
@@ -211,7 +214,7 @@
                     </el-option>
                   </el-select>
                   <el-select
-                    v-model="form.roomId"
+                    v-model="form.roomNumber"
                     disabled="true"
                     placeholder="选择房间" class="start col-sm-4">
                     <el-option
@@ -247,15 +250,16 @@
                   <ul class="list-line">
                     <li class="col-sm-3"><img :src="this.form.imgUrl" class="img-responsive" /></li>
                   </ul>
-                </el-form-item> -->
+                </el-form-item>
                 <el-form-item label="解决人" class="not-null">
-                  <el-input v-model="form.reviewerName" class="not-null col-sm-6"></el-input>
+                  <el-input v-model="form.reviewerName" disabled="true" class="not-null col-sm-6"></el-input>
                 </el-form-item>
                 <el-form-item label="解决时间" class="not-null col-sm-6">
                   <div class="block">
                     <el-date-picker
                       v-model="form.reviewTime"
                       type="date"
+                      disabled="true"
                       placeholder="选择日期"
                       format="yyyy 年 MM 月 dd 日"
                       value-format="yyyy-MM-dd">
@@ -607,7 +611,6 @@
         console.log(this.building);
         this.floor = '';
         this.room = '';
-        this.equipment = '';
         this.floorSearch(this.building);
         this.tableList();
       },

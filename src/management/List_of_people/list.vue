@@ -145,10 +145,11 @@
               },
               complete: function (e) {//只要完成即执行，最后执行
                 // console.log(e) 
-                that.tableList()
+                that.$router.push({path:'/List_of_people/all'});
+                
               }
           });
-          this.$router.push({path:'/List_of_people/all'});
+          
         },
         back(){
           this.$router.push({path:'/List_of_people/all'});
