@@ -1,5 +1,6 @@
 <template>
   <section>
+    <!-- 标题 -->
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-danweiguanli-mian-1"></i>
@@ -9,7 +10,9 @@
         <router-link to="/Unit_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
       </div>
     </div>
+    <!-- 主体 -->
     <div class="main_all_content">
+      <!-- 表格 -->
       <div class="main_content_table">
         <el-table
           :data="tableData"
@@ -67,6 +70,7 @@
           </el-table-column>
         </el-table>
       </div>
+      <!-- 分页 -->
       <div class="main_content_bottom">
         <div class="bottom_con">
           <div class="float-left btn-system">
@@ -92,64 +96,70 @@
         </div>
       </div>
     </div>
-    <!-- Modal -->
-    <div class="modal modal_form fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- 编辑Modal -->
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">修改单位</h4>
+            <h5 class="modal-p font-blue">{{this.form.name}}</h5>
           </div>
           <div class="modal-body">
-            <el-form ref="form" :label-position="labelPosition" :inline="true" :model="form">
-              <el-form-item label="单位名称">
-                <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-                <el-input v-model="form.name"></el-input>
-              </el-form-item>
-              <el-form-item label="单位性质">
-                <el-select name="" v-model="form.property" placeholder="请选择结构">
-                  <el-option label="事业单位" value="事业单位"></el-option>
-                  <el-option label="国家行政机关" value="国家行政机关"></el-option>
-                  <el-option label="政府" value="政府"></el-option>
-                  <el-option label="国有企业" value="国有企业"></el-option>
-                  <el-option label="国有控股企业" value="国有控股企业"></el-option>
-                  <el-option label="外资企业" value="外资企业"></el-option>
-                  <el-option label="合资企业" value="合资企业"></el-option>
-                  <el-option label="私营企业" value="私营企业"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="单位人数">
-                <el-input v-model="form.staffNum"></el-input>
-              </el-form-item>
-              <el-form-item label="单位地址">
-                <el-input v-model="form.location"></el-input>
-              </el-form-item>
-              <el-form-item label="单位图片">
-                <div style="position:relative; width: 80px;height: 80px;overflow:hidden;float:left;">
-                  <input id="file" name="file" type="file" @change="file()" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>
-                  <div class="bg-gray-222 text-center margin-top5">
-                    <i class="el-icon-plus size-60 font-gray-999" style="line-height: 80px"></i>
-                  </div>
-                </div>
-                <img v-show="isShow" :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>
-                <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
-              </el-form-item>
-              <el-form-item label="部门电话">
-                <el-input v-model="form.telephone"></el-input>
-              </el-form-item>
-              <el-form-item label="消防负责人">
-                <el-input v-model="form.firemenName"></el-input>
-              </el-form-item>
-              <el-form-item label="消防负责人电话">
-                <el-input v-model="form.firemenTel"></el-input>
-              </el-form-item>
-              <el-form-item label="法人代表">
-                <el-input v-model="form.corporation"></el-input>
-              </el-form-item>
-            </el-form>
+            <!--
+              class类not-null为必填标识,如需请加在<el-form-item>
+              class类hint-error为错误提示
+             -->
+             <div class="main_content">
+                <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+                  <el-form-item label="单位名称" class="not-null">
+                    <el-input v-model="form.name" class="col-sm-4"></el-input>
+                  </el-form-item>
+                  <el-form-item label="单位性质" class="not-null">
+                    <el-select name="" v-model="form.property" placeholder="请选择结构" class="col-sm-4">
+                      <el-option label="事业单位" value="事业单位"></el-option>
+                      <el-option label="国家行政机关" value="国家行政机关"></el-option>
+                      <el-option label="政府" value="政府"></el-option>
+                      <el-option label="国有企业" value="国有企业"></el-option>
+                      <el-option label="国有控股企业" value="国有控股企业"></el-option>
+                      <el-option label="外资企业" value="外资企业"></el-option>
+                      <el-option label="合资企业" value="合资企业"></el-option>
+                      <el-option label="私营企业" value="私营企业"></el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="法人代表" class="not-null col-sm-4">
+                    <el-input v-model="form.corporation"></el-input>
+                  </el-form-item>
+                  <el-form-item label="部门电话" class="not-null col-sm-4">
+                    <el-input v-model="form.telephone"></el-input>
+                  </el-form-item>
+                  <el-form-item label="单位人数" class="col-sm-4">
+                    <el-input v-model="form.staffNum"></el-input>
+                  </el-form-item>
+                  <el-form-item label="单位地址" class="not-null">
+                    <el-input v-model="form.location" class="col-sm-4"></el-input>
+                  </el-form-item>                           
+                  <el-form-item label="消防负责人" class="not-null col-sm-4">
+                    <el-input v-model="form.firemenName"></el-input>
+                  </el-form-item>
+                  <el-form-item label="消防负责人电话" class="not-null col-sm-4">
+                    <el-input v-model="form.firemenTel"></el-input>
+                  </el-form-item>
+                  <el-form-item label="单位图片" class="not-null col-sm-12">
+                    <div class="head-photo">
+                      <input id="file" name="file" type="file" @change="file()" />
+                      <div class="bg-gray-222 text-center">
+                        <i class="el-icon-plus"></i>
+                      </div>
+                    </div>
+                    <img v-show="isShow" :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" class="head-pic"/>
+                    <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
+                  </el-form-item> 
+                </el-form>
+              </div>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">编辑并提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -163,7 +173,7 @@
   export default {
     data() {
       return {
-        labelPosition: 'left',
+        labelPosition: 'top',
         form: {
           id:'',
           name:'',
@@ -332,6 +342,10 @@
                 if(index == this.tableData.length-1){
                   this.$store.commit('unitNum',item.id);
                   console.log(item.id)
+                }
+                if(item.id == this.deviceIndex){
+                  this.$store.commit('peopleTableData',item);
+                  // console.log(item)
                 }
               })
               if(this.totalList % 10 == 0){

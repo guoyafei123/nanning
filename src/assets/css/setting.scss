@@ -179,6 +179,8 @@
     background-color: transparent;
   }
   .el-table th, .el-table tr{
+    height: 40px;
+    line-height: 40px;
     background-color: transparent;
   }
   .el-table--border th,.el-table--border td{
@@ -300,11 +302,7 @@
   color: #fff !important;
   background-color: #333;
 }
-.el-table__row{
-  .cell{
-    text-align: left !important;
-  }
-}
+
 
 
 
@@ -327,9 +325,10 @@
     text-indent: 15px;
   }
   .modal-p{
-    color: #666666;
+    color: #666;
     text-align: center;
     font-size: 12px;
+    line-height:18px;
   }
 
   .el-picker-panel{
@@ -704,3 +703,7 @@ table th, table td{
   }
 }
 
+
+#operationLog .main_content_table .el-table .el-table__row td:last-child .cell, .main_content_table .el-table th:last-child .cell{
+  text-align:left!important;
+}

@@ -91,6 +91,7 @@
           </el-table-column>
           <el-table-column
             fixed="right"
+            width="120"
             label="操作">
             <template slot-scope="scope">
               <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" v-if="scope.row.status==2" class="btn-on">开启</button>

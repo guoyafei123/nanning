@@ -26,6 +26,7 @@ var state={
   floorId:'',
   //人员
   unitNumber:'',
+  peopleTableData:'',
   //危险品
   dangerId:'',
   dengerStatus:'',
@@ -109,6 +110,9 @@ var mutations={
   //人员
   unitNumber(state,data){
     state.unitNumber = data ;
+  },
+  peopleTableData(state,data){
+    state.peopleTableData = data;
   },
   //危险品
   dangerId(state,data){

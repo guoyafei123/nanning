@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="operationLog">
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-caozuorizhi-xian-"></i>
@@ -19,13 +19,8 @@
         <el-table
           :data="tableData"
           border
-<<<<<<< HEAD
           :highlight-current-row="true"
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}"
-          style="width: 100%;height:570px;">
-=======
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}">
->>>>>>> 56320e816ff93f44015b2426169159118d50c28b
+          :default-sort = "{prop: 'Serial_number', order: 'descending'}"> 
           <el-table-column
             prop="Serial_number"
             type="index"

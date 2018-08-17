@@ -13,7 +13,7 @@
     <div class="main_all_content">
       <!-- 筛选 -->
       <div class="main_content_top">
-        <el-form ref="form" :model="form">
+        <el-form ref="form" :model="form" class="float-left">
           <el-select v-model="unit" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>

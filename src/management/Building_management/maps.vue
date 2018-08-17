@@ -28,19 +28,18 @@
           <router-link to="/Building_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
           </div>
         </div>
-      </div>
-    </aside>
-    <div class="maps">
+        <div class="maps">
         <managementMap-vue></managementMap-vue>
-    </div>
-    <div class="floorMap" style="display:none;">
-      <img src="../../assets/images/floor.png">
-    </div>
-    <div class="roomMap" style="display:none;">
-      <img src="../../assets/images/floor.png">
-    </div>
+        </div>
+        <div class="floorMap" style="display:none;">
+          <img src="../../assets/images/floor.png">
+        </div>
+        <div class="roomMap" style="display:none;">
+          <img src="../../assets/images/floor.png">
+        </div>  
+      </div>
+    </aside>    
   </div>
-
 </template>
 
 <script>  
@@ -84,6 +83,21 @@
       }
     },
     watch:{
+      $route: {
+        handler: function(val, oldVal){
+          // console.log(val);
+          if(this.$route.path == '/Building_management/maps'){
+            $('.plan').hide();
+            $('.total').show();
+            $('.floor_wrap').hide();
+            $('.room_wrap').hide();
+            this.tableList();
+            this.$store.commit('tableData',this.tableData);
+          }
+        },
+        // 深度观察监听
+        deep: true
+      },
       buildUnit(curVal,oldVal){
         this.buildUnit = curVal;
         console.log(this.buildUnit);

@@ -75,10 +75,16 @@
             <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
             <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
           </el-form-item>
-
-          <el-form-item label="物理地址">
-            <el-input v-model="form.PhysicalAddress" class="col-sm-8"></el-input>
-          </el-form-item>          
+          <div class="col-sm-12">
+            <div class="row">
+              <el-form-item label="物理地址" class="col-sm-4">
+                <el-input v-model="form.PhysicalAddress"></el-input>
+              </el-form-item>
+              <el-form-item label="控制器ID" class="not-null col-sm-4">
+                <el-input v-model="form.controlId"></el-input>
+              </el-form-item>
+            </div>
+          </div>          
           <el-form-item label="相对房顶高度 (cm)" class="col-sm-4">
             <el-input v-model="form.RoofHeight"></el-input>
           </el-form-item>
@@ -133,10 +139,7 @@
                 <el-input v-model="form.Retroperiod"></el-input>
               </el-form-item>
             </div>
-          </div> 
-          <el-form-item label="控制器ID" class="not-null col-sm-4">
-            <el-input v-model="form.controlId"></el-input>
-          </el-form-item>
+          </div>
         </el-form>
       </div>
       <div class="main_footer">

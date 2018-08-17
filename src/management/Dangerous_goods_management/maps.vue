@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="list-maps">
     <aside>
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">

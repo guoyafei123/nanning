@@ -9,7 +9,7 @@
         <span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span>
       </div>
     </div>
-    <div class="main_all_content">
+    <div class="main_all_content ">
       <div class="main_content_top">
         <el-form class="float-left">
           <el-select v-model="buildUnit" placeholder="选择单位" class="select build">
@@ -89,10 +89,11 @@
           </el-table-column>
           <el-table-column
             fixed="right"
+            width="140"
             label="操作">
             <template slot-scope="scope">
-              <!-- <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button> -->
-              <!-- <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
+              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
               <button @click="floor_build(scope.row)"><i class="icon iconfont icon-danweiguanli-mian-1" data-toggle="tooltip" title="楼层管理"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
@@ -262,7 +263,7 @@
     },
     methods: {
       btn_add(){
-        $('#right').css('display','none');
+        $('#right').hide();
         $('.manage-center').hide();
         $('#list').show();
       },
@@ -338,8 +339,8 @@
       floor_build(row){
         $('.build').hide();
         $('.floor').show();
-        $('.main_content_table').hide();
-        $('.main_content_bottom').hide();
+        $('.main_all_content .main_content_table').hide();
+        $('.main_all_content .main_content_bottom').hide();
         $('.plan').hide();
         $('.total').hide();
         $('.floor_wrap').show();
