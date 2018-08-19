@@ -28,6 +28,7 @@
 }
 /* 调整下拉框宽 */
 .upd-widht100{
+    display: inline-block !important;
     width: 100px !important;
 }
 .upd-widht150{

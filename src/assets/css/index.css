@@ -744,3 +744,18 @@ video:hover{
         position: relative;
         bottom: 3px;
     }
+
+    .newpiechar{
+        width: 100px;
+        height: 100px;
+        border:1px solid #999;
+        border-radius: 100%;
+        margin: 20px auto 0px;
+    }
+
+    .newpiechar p{
+        color:#fff;
+        text-align: center;
+        font-size: 24px;
+        margin-top: 30px;
+    }

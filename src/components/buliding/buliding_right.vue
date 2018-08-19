@@ -33,19 +33,18 @@
                     <!-- 已选择 -->
                     <div class="personinfo">
                             <p>
-                            <span class="size-20 font-blue">实验教学楼</span>
-                            <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                            <span class="size-20 font-blue">{{buildBaseInfo.name?buildBaseInfo.name:"暂无名称"}}</span>
+                            <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分{{buildTotalScore?buildTotalScore:"0"}}</span>
                             <span class="float-right">
-                                    <span class="bgbox-max bg-gray-333 font-gray-999 size-10">灭火设备</span>
+                                    <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property?buildBaseInfo.property:"无"}}</span>
                                 </span>
                             </p>
                             <p class="col-sm-7 text-left padding0">
                                 <span>
-                                    <i class="fas fa-industry"></i> 银海大道710-2号</span>
+                                    <i class="fas fa-industry"></i> {{buildBaseInfo.location?buildBaseInfo.location:"无"}}</span>
                             </p>
                             <P class="col-sm-5 text-right padding0">
                                 <span class="text-right">
-                                <span class="font-gray-999">2018.07.09 08:00:00</span>
                                 </span>
                             </P>                        
                     </div>
@@ -55,7 +54,7 @@
                       <div class="col-sm-4 font-gray-999 padding-right0">
                         <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                           <li>
-                            <h1 class="toolcount-p1">360</h1>
+                            <h1 class="toolcount-p1">{{buildBaseInfo.floors?buildBaseInfo.floors:"0"}}</h1>
                           </li>
                           <li>
                             <p class="size-10 ">Running State</p>
@@ -75,11 +74,11 @@
                           </li>
                           <li class="row text-center padding-right16 margin-top40">
                             <div class="col-sm-6 personnel-borderright">
-                              <p class="size-16 show font-white">4563</p>
+                              <p class="size-16 show font-white">{{buildBaseInfo.countRoom?buildBaseInfo.countRoom:"0"}}</p>
                               <p>房间数量</p>
                             </div>
                             <div class="col-sm-6 personnel-borderright">
-                              <p class="size-16 show font-white">538</p>
+                              <p class="size-16 show font-white">{{buildBaseInfo.floors?buildBaseInfo.floors:"0"}}</p>
                               <p>设备数量</p>
                             </div>
                           </li>
@@ -90,13 +89,13 @@
                 <section>
                     <h4 class="p-title margin-top30">统计</h4>
                     <div class="row cardinfo-style margin-top10 font-gray-999">
-                        <p class="col-sm-4">当前隐患数<span>3.5</span></p>
-                        <p class="col-sm-4">当前报警数<span>3.5</span></p>
-                        <p class="col-sm-4">当前危险品数<span>3.5</span></p>
-                        <p class="col-sm-4">历史隐患数<span>3.5</span></p>
-                        <p class="col-sm-4">历史报警数<span>3.5</span></p>
-                        <p class="col-sm-4">历史危险品数<span>3.5</span></p>
-                        <p class="col-sm-4">相关巡检路线<span>3.5</span></p>
+                        <p class="col-sm-4">当前隐患数<span>{{buildTroubleMap.NOWTROUBLE?buildTroubleMap.NOWTROUBLE:"0"}}</span></p>
+                        <p class="col-sm-4">当前报警数<span>{{buildAlarmMap.NOWALARM?buildAlarmMap.NOWALARM:"0"}}</span></p>
+                        <p class="col-sm-4">当前危险品数<span>{{buildTroubleMap.allDanger?buildTroubleMap.allDanger:"0"}}</span></p>
+                        <p class="col-sm-4">历史隐患数<span>{{buildTroubleMap.nowDanger?buildTroubleMap.nowDanger:"0"}}</span></p>
+                        <p class="col-sm-4">历史报警数<span>{{buildAlarmMap.ALLALARM?buildAlarmMap.ALLALARM:"0"}}</span></p>
+                        <p class="col-sm-4">历史危险品数<span>{{buildTroubleMap.ALLTROUBLE?buildTroubleMap.ALLTROUBLE:"0"}}</span></p>
+                        <p class="col-sm-4">相关巡检路线<span>{{buildPlanCount?buildPlanCount:"0"}}</span></p>
                     </div>
                 </section>
                 <section>
@@ -105,64 +104,55 @@
                         <div class="row textandimg-main margin-top20 size-12">
                             <div class="col-sm-6">
                                 <span>建筑用途 </span>
-                                <strong>公共 </strong>
+                                <strong>{{buildBaseInfo.property?buildBaseInfo.property:"暂无"}} </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑类型 </span>
-                                <strong>超高层</strong>
+                                <strong>{{buildBaseInfo.type?buildBaseInfo.type:"暂无"}}</strong>
                             </div>
 
                             <div class="col-sm-6">
                                 <span>建筑年份 </span>
-                                <strong>2014年 </strong>
+                                <strong>{{buidyear.substring(0,10)}} </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>结构类型 </span>
-                                <strong>钢混</strong>
+                                <strong>{{buildBaseInfo.structure?buildBaseInfo.structure:"暂无"}}</strong>
                             </div>
 
                             <div class="col-sm-6">
                                 <span>楼层数量 </span>
-                                <strong>14层</strong>
+                                <strong>{{buildBaseInfo.floors?buildBaseInfo.floors:"1"}}层</strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>房间数量 </span>
-                                <strong>112个</strong>
+                                <strong>{{buildBaseInfo.countRoom?buildBaseInfo.countRoom:"1"}}个</strong>
                             </div>
 
                             <div class="col-sm-6">
                                 <span>占地面积 </span>
-                                <strong>2354 m² </strong>
+                                <strong>{{buildBaseInfo.area?buildBaseInfo.area:"不详"}} m² </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑高度 </span>
-                                <strong>545m</strong>
+                                <strong>{{buildBaseInfo.heightOfBuilding?buildBaseInfo.heightOfBuilding:"不详"}}m</strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑经度 </span>
-                                <strong>12.54951 </strong>
+                                <strong>{{buildBaseInfo.pointX?buildBaseInfo.pointX:"未知"}} </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑维度 </span>
-                                <strong>26.6659</strong>
+                                <strong>{{buildBaseInfo.pointY?buildBaseInfo.pointY:"未知"}}</strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>管理单位 </span>
-                                <strong>中心小学 </strong>
+                                <strong>{{buildBaseInfo.unitName ? buildBaseInfo.unitName:"暂为空"}} </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>负 责 人 </span>
-                                <strong>赵堆船</strong>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <span>平 面 图 </span>
-                                <strong>按钮 </strong>
-                            </div>
-                            <div class="col-sm-6">
-                                <span>建筑标码 </span>
-                                <strong>按钮</strong>
-                            </div>                    
+                                <strong>{{buildBaseInfo.linkname?buildBaseInfo.linkname:"暂无"}}</strong>
+                            </div>                   
                         </div>
                     </div>
                 </section>
@@ -172,18 +162,17 @@
               <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
                 <div class="personinfo">
                     <p>
-                    <span class="size-20 font-blue">中心小学</span>
+                    <span class="size-20 font-blue">{{buildCountDataSocres.unitName ? buildCountDataSocres.unitName:'暂无名称'}}</span>
                     <span class="float-right">
-                            <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                            <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">{{buildCountDataSocres.buildingName ? buildCountDataSocres.buildingName:'暂无名称'}}</span>
                         </span>
                     </p>
                     <p class="col-sm-7 text-left padding0">
                         <span>
-                            <i class="fas fa-industry"></i> 中心小学</span>
+                            <i class="fas fa-industry"></i> {{buildCountDataSocres.totalScore ? buildCountDataSocres.totalScore:'0'}}</span>
                     </p>
                     <P class="col-sm-5 text-right padding0">
                         <span class="text-right">
-                        <span class="font-gray-999">2018.07.09 08:00:00</span>
                         </span>
                     </P>                        
                 </div>
@@ -193,32 +182,31 @@
                   <h4 class="p-title">
                     安全评分占比
                   </h4>
-                  <div id="pieb1" style="width: 100%;height:180px;margin: 0 auto;"></div>
-                </div>
-              </section>
-              <section>
-                <div class="toolcount margin-top10">
-                  <h4 class="p-title">
+					<div id="pieb1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+				</div>
+			</section>
+			<section>
+				<div class="toolcount margin-top10">
+					<h4 class="p-title">
                     建筑报警数量
                   </h4>
-                  <div id="axis1" style="width: 100%;height:180px;margin: 0 auto;"></div>
-                </div>
-              </section>
-              <section>
-                <div class="toolcount margin-top10">
-                  <h4 class="p-title">
+					<div id="axis1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+				</div>
+			</section>
+			<section>
+				<div class="toolcount margin-top10">
+					<h4 class="p-title">
                     建筑隐患数量
                     <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666" data-toggle="tooltip" title="全屏">
                       <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                     </span>
                   </h4>
-                  <div id="myChart1" style="width: 100%;height:180px;margin: 0 auto;"></div>
-                </div>
-              </section>
-          </section>
-        </div>
-      </template>
-
+					<div id="myChart1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+				</div>
+			</section>
+		</section>
+	</div>
+</template>
 
 <script>
 import{mapState} from "vuex";
@@ -260,7 +248,7 @@ export default {
       //点击接收的参数对象
       builddata: Object,
       getBuildIngAssess_parameter: {
-        unitId: 4,
+        unitId: null,
         beginTime: '2017-07-02',
         endTime: '2017-08-20'
       },
@@ -268,20 +256,55 @@ export default {
       //建筑安全评分级别
       buildAssessScore: Object,
       //建筑报警数折线图
-      buildAlarmCountAssess: Object,
+      buildAlarmCount: Object,
       //建筑隐患数折线图
-      getBuildIngAssess: Object
+      buildTroubleCount: Object,
+      buildCountDataSocres:Object,
+      buildDetailinfo:Object,
+      buildDetails_parameter:{
+        buildingId:324
+      },
+      buildPlanCount: Object,
+      buildTotalScore: Object,
+      buildAlarmMap: Object,
+      buildTroubleMap: Object,
+      buildBaseInfo: Object,
+      buidyear: "",
+      getunitid:Object
     };
   },
   computed:mapState([
-    'tobuilditem'
+    'tobuilditem',
+    'buildCountDataSocre',
+    'buildDetailinfos',
+    'unitid'
   ]),
   watch:{
-    // 所有巡检单位
+    // 建筑详情
     tobuilditem(){
       this.builddata =this.tobuilditem;
-      console.log("【建筑】——获取详情数据.......");
+      this.buildDetails_parameter.buildingId = this.builddata.id;
+      this.getBuildDetails();
     },
+    buildCountDataSocre(){
+      this.buildCountDataSocres=this.buildCountDataSocre;
+    },
+    buildDetailinfos(){
+      this.buildDetaiData=this.buildDetailinfos;
+      this.buildDetails_parameter.buildingId = this.buildDetaiData.buildingId;
+      this.getBuildDetails();
+    },
+    unitid(){
+      // console.log(this.queryAlarmData_parmar.unitId)
+      if(this.unitid!=0){
+        this.getunitid=this.unitid;
+      }else{
+        this.getunitid=null;
+      }
+      this.getBuildIngAssess_parameter=this.getunitid;
+      this.getData();
+      
+    }
   },
   methods: {
     moren() {
@@ -303,11 +326,14 @@ export default {
     getData() {
       // 请求统计数据
       this.$fetch("/api/building/getBuildIngAssess",this.getBuildIngAssess_parameter).then(response => {
-        console.log("【建筑】——请求统计数据:")
-        console.log(response.data);
         if (response.data) {
-           this.planInspectionCount = response.data;
-           
+           this.buildAssessScore = response.data.info.buildIngAssess;
+           this.buildAlarmCount = response.data.info.buildAlarm;
+           this.buildTroubleCount = response.data.info.buildTrouble;
+           //开始调用画图
+           this.drawPieChart("pieb1",this.buildAssessScore);
+           this.drawBarChart("axis1",this.buildAlarmCount);
+           this.drawBarChart("myChart1",this.buildTroubleCount);
         }
       });
     },
@@ -324,20 +350,20 @@ export default {
         legend: {
           orient: "vertical",
           left: "left",
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+          data: ["0-2", "2-4", "4-6", "6-8","8-10"]
         },
         series: [
           {
-            name: "访问来源",
+            name: "安全评分",
             type: "pie",
             radius: "55%",
             center: ["50%", "60%"],
             data: [
-              { value: 335, name: "直接访问" },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
-              { value: 135, name: "视频广告" },
-              { value: 1548, name: "搜索引擎" }
+              { value: 335, name: "0-2" },
+              { value: 310, name: "2-4" },
+              { value: 234, name: "4-6" },
+              { value: 135, name: "6-8" },
+              { value: 1548, name: "8-10" }
             ],
             itemStyle: {
               emphasis: {
@@ -354,6 +380,8 @@ export default {
     },
     //划饼状图
     drawBarChart(id,data){
+      let a = data.lineChartsDate;
+      let b = data.lineChartsCount;
          // 根据值判断柱子颜色的柱状图
       var option1 = {
         color: ["#3398DB"],
@@ -374,7 +402,7 @@ export default {
           {
             type: "category",
             show: true,
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "12"],
+            data: a,
             axisTick: {
               alignWithLabel: true
             }
@@ -395,10 +423,10 @@ export default {
         },
         series: [
           {
-            name: "直接访问",
+            name: "数量",
             type: "bar",
             barWidth: "60%",
-            data: [10, 52, 200, 334, 390, 330, 220, 192],
+            data: b,
             itemStyle: {
               normal: {
                 // 值显示在柱子顶部
@@ -442,13 +470,32 @@ export default {
       };
       let myChart2 = this.$echarts.init(document.getElementById(id));
       myChart2.setOption(option1);
+    },
+    getBuildDetails(){
+      this.$fetch(
+          "/api/building/queryBuildDetailInfo", 
+          this.buildDetails_parameter
+          ).then(response => {
+            if (response.data) {
+                let data = response.data;
+                this.buildPlanCount = data.buildStatsInfo.planCount;
+                this.buildTotalScore = data.buildStatsInfo.totalScore;
+                this.buildAlarmMap = data.buildStatsInfo.buildAlarmMap;
+                this.buildTroubleMap = data.buildStatsInfo.buildingTrouble;
+                this.buildBaseInfo = data.buildInfo;
+                this.buidyear = data.buildInfo.buildYear;
+            }
+        });
     }
   },
   mounted() {
+    if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+      this.getBuildIngAssess_parameter=sessionStorage.unitid;
+    }
+    if(sessionStorage.unitid==0){
+      this.getBuildIngAssess_parameter=null;
+    }
     this.getData();
-    this.drawPieChart("pieb1",null);
-    this.drawBarChart("axis1",null);
-    this.drawBarChart("myChart1",null);
   }
 };
 </script>

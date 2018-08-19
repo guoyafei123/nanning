@@ -50,6 +50,10 @@ var state={
   unitid:null,
   // 用户登录信息
   userinfo:Object,
+  // 传递最低评分单位
+  buildCountDataSocre:Object,
+  // 传递最低评分单位
+  buildDetailinfos:Object
 }
 
 var mutations={
@@ -171,6 +175,12 @@ var mutations={
   },
   userinfo(state,data){
     state.userinfo=data;
+  },
+  buildCountDataSocre(state,data){
+    state.buildCountDataSocre=data;
+  },
+  buildDetailinfos(state,data){
+    state.buildDetailinfos=data;
   },
 }
 
