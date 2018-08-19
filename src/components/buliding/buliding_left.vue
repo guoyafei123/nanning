@@ -5,7 +5,9 @@
               <div class="col-sm-6 font-gray-999 padding-right0">
                 <ul class="toolcount-left margin-bottom0 padding-left37" id="toolcount">
                   <li>
-                    <h1 class="toolcount-p1 margin-bottom0">26</h1>
+                    <h1 class="toolcount-p1 margin-bottom0">
+                      {{buildCountDataStats.TOTALBUILD ? buildCountDataStats.TOTALBUILD:"0"}}
+                    </h1>
                   </li>
                   <li>
                     <p class="size-18 font-blue">建筑数量</p>
@@ -16,11 +18,15 @@
                 <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
                   <li class="margin-top10">
                     <p class="set-width-50">木质结构</p>
-                    <p class="display-inline-block font-white font-italic size-14">452</p>
+                    <p class="display-inline-block font-white font-italic size-14">
+                      {{buildCountDataStats.STRUCTURE ? buildCountDataStats.STRUCTURE:"0"}}
+                    </p>
                   </li>
                   <li class="margin-top20">
                     <p class="set-width-50">高层建筑</p>
-                    <p class="display-inline-block font-yellow font-italic size-14">34</p>
+                    <p class="display-inline-block font-yellow font-italic size-14">
+                      {{buildCountDataStats.HIGHRISE ? buildCountDataStats.HIGHRISE:"0"}}
+                    </p>
                   </li>
                 </ul>
               </div>
@@ -35,10 +41,13 @@
                       <small class="font-red">
                         高风险建筑 安全评分最低
                       </small>
-                      <p class="size-12 font-yellow">XX单位-XXXXXXX楼</p>
+                      <p class="size-12 font-yellow">
+                        {{buildCountDataSocre.unitName}}
+                        -
+                        {{buildCountDataSocre.buildingName}}</p>
                     </div>
                     <div class="col-sm-5 padding-left0 text-left">
-                      <span class="size-40 font-red">2.6<i class="fas fa-chevron-circle-right size-20 margin-left10" data-toggle="tooltip" title="查看详情"></i>
+                      <span class="size-40 font-red">{{buildCountDataSocre.totalScore}}<i class="fas fa-chevron-circle-right size-20 margin-left10" data-toggle="tooltip" title="查看详情"></i>
                       </span>
                     </div>
                   </div>
@@ -79,172 +88,43 @@
                       </tr>
                       </thead>
                       <tbody id="">
-                      <tr>
-                        <td>实验室教学楼1号</td>
-                        <td>中心小学</td>
-                        <td>124</td>
-                        <td>318</td>
-                        <td>
-                          <a v-on:click="toitmeinfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>瑞和家园3号商业楼</td>
-                        <td>瑞和家园</td>
-                        <td>108</td>
-                        <td>424</td>
-                        <td>
-                          <a v-on:click="toiteminfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>瑞和家园1号商业楼</td>
-                        <td>瑞和家园</td>
-                        <td>108</td>
-                        <td>373</td>
-                        <td>
-                          <a v-on:click="toiteminfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>四年级教学楼</td>
-                        <td>中心小学</td>
-                        <td>20</td>
-                        <td>72</td>
-                        <td>
-                          <a v-on:click="toiteminfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>瑞和家园2号楼</td>
-                        <td>瑞和家园</td>
-                        <td>124</td>
-                        <td>318</td>
-                        <td>
-                          <a v-on:click="toiteminfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>瑞和家园2号楼</td>
-                        <td>瑞和家园</td>
-                        <td>88</td>
-                        <td>248</td>
-                        <td>
-                          <a v-on:click="toiteminfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>六年级教学楼</td>
-                        <td>中心小学</td>
-                        <td>12</td>
-                        <td>36</td>
-                        <td>
-                          <a v-on:click="toitmeinfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>二年级教学楼</td>
-                        <td>中心小学</td>
-                        <td>12</td>
-                        <td>89</td>
-                        <td>
-                          <a v-on:click="toitmeinfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>瑞和家园7号楼</td>
-                        <td>瑞和家园</td>
-                        <td>124</td>
-                        <td>364</td>
-                        <td>
-                          <a v-on:click="toitmeinfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>实验室教学楼12号</td>
-                        <td>中心小学</td>
-                        <td>68</td>
-                        <td>675</td>
-                        <td>
-                          <a v-on:click="toitmeinfo(item)">
-                            <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a @click="moren">
-                          <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      </tbody>
+                        <tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
+                          <td>{{item.name ? item.name:"暂无名称"}}</td>
+                          <td v-if="item.unitName">{{item.unitName}}</td>
+                          <td>{{item.floors ? item.floors:"0"}}</td>
+                          <td>{{item.countofbuilding?item.countofbuilding:"0"}}</td>
+                          <td>
+                            <a v-on:click="toitmeinfo(item)">
+                              <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
+                            </a>
+                          </td>
+                          <td>
+                            <a @click="moren">
+                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody> 
                     </table>
                 </li>
-                <li>
-                  <span class="size-12">分页</span>
-                </li>
+                 <li class="upd-pagin">
+                    <div>
+                      <el-pagination style="float: left;"
+                        small
+                        layout="total"
+                        :total="tableData.totalRow">
+                      </el-pagination>
+                      <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.queryBuildList_parameter.pageSize)}}页</span>
+                      <el-pagination style="float: right;background: transparent"
+                        small
+                        layout="prev, pager, next"
+                        :page-size="this.queryBuildList_parameter.pageSize"
+                        :total="tableData.totalRow" 
+                        current-page.sync="this.getAlarmList_parameter.currentPage"
+                        @current-change="handleCurrentChange">
+                      </el-pagination>
+                    </div>
+                  </li>
               </ul>
             </div>
           </section>
@@ -276,28 +156,23 @@
         }
       ],
       itemtrue: false,
-      //风险评估统计参数
+      //建筑统计参数
       build_buildCount_parameter:{
         unitId: 4
       },
-      //风险评估参数-返回
-      risk_riskCount: {
-        assessScore: "",
-        buildStats: "",
-        totalBuild: "",
-        structure: "",
-        highRisk: ""
-      },
+      //建筑统计返回对象
+      buildCountDataSocre: Object,
+      buildCountDataStats: Object,
       // 表格-请求
       queryBuildList_parameter: {
         unitId: '',
         property: null,
         structure: null,
-        currentPage: "1",
+        currentPage: 1,
         pageSize: 10
       },
       // 表格返回
-      tableData: Object,
+      tableData: Object
     };
   },
   methods: {
@@ -323,13 +198,13 @@
           "/api/building/queryBuildStatisInfo", 
           this.build_buildCount_parameter
           ).then(response => {
-          let data = response.data;
-          if (response.data) {
-              console.log("【建筑】——获取建筑统计数据:"); 
-              console.log(response.data);
-            
-          }
-      });
+            if (response.data) {
+                let data = response.data;
+                this.buildCountDataStats = response.data.buildStats,
+                this.buildCountDataSocre = response.data.assessScore
+                this.$store.commit("buildCountDataSocre", this.buildCountDataSocre);
+            }
+        });
     },
     // 获取表格
     getRiskTable() {
@@ -339,8 +214,6 @@
       ).then(response => {
           if (response) {
             this.tableData = response.data.pageBuildIng;
-            console.log("【建筑】——获取建筑表格列表数据:");
-            console.log(this.tableData);
           }
         })
         .then(err => {
@@ -348,12 +221,11 @@
         });
     },
     handleCurrentChange(val) {
-      console.log(`【建筑】——当前页:` + val);
       this.queryBuildList_parameter.currentPage = val;
       this.getTable();
     },
     //获取详情
-    toiteminfo(data) {
+    toitmeinfo(data) {
       this.itemdata = data;
       this.$store.commit("tobuilditem", this.itemdata);
     }
@@ -362,6 +234,7 @@
     this.$store.commit("route_path", this.$route.path);
     this.getRiskData();  
     this.getRiskTable(); 
+    
   }
 };
 </script>

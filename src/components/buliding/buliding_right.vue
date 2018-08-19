@@ -45,7 +45,6 @@
                             </p>
                             <P class="col-sm-5 text-right padding0">
                                 <span class="text-right">
-                                <span class="font-gray-999">2018.07.09 08:00:00</span>
                                 </span>
                             </P>                        
                     </div>
@@ -172,18 +171,17 @@
               <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
                 <div class="personinfo">
                     <p>
-                    <span class="size-20 font-blue">中心小学</span>
+                    <span class="size-20 font-blue">{{buildCountDataSocres.unitName}}</span>
                     <span class="float-right">
-                            <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                            <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">{{buildCountDataSocres.unitName}}.9</span>
                         </span>
                     </p>
                     <p class="col-sm-7 text-left padding0">
                         <span>
-                            <i class="fas fa-industry"></i> 中心小学</span>
+                            <i class="fas fa-industry"></i> {{buildCountDataSocres.unitName}}</span>
                     </p>
                     <P class="col-sm-5 text-right padding0">
                         <span class="text-right">
-                        <span class="font-gray-999">2018.07.09 08:00:00</span>
                         </span>
                     </P>                        
                 </div>
@@ -268,20 +266,29 @@ export default {
       //建筑安全评分级别
       buildAssessScore: Object,
       //建筑报警数折线图
-      buildAlarmCountAssess: Object,
+      buildAlarmCount: Object,
       //建筑隐患数折线图
-      getBuildIngAssess: Object
+      buildTroubleCount: Object,
+      buildCountDataSocres:Object,
+      buildDetails_parameter:{
+        buildingId:324
+      }
     };
   },
   computed:mapState([
-    'tobuilditem'
+    'tobuilditem',
+    'buildCountDataSocre'
   ]),
   watch:{
-    // 所有巡检单位
+    // 建筑详情
     tobuilditem(){
       this.builddata =this.tobuilditem;
-      console.log("【建筑】——获取详情数据.......");
+      this.buildDetails_parameter.buildingId = this.builddata.id;
+      this.getBuildDetails();
     },
+    buildCountDataSocre(){
+      this.buildCountDataSocres=this.buildCountDataSocre;
+    }
   },
   methods: {
     moren() {
@@ -303,11 +310,18 @@ export default {
     getData() {
       // 请求统计数据
       this.$fetch("/api/building/getBuildIngAssess",this.getBuildIngAssess_parameter).then(response => {
-        console.log("【建筑】——请求统计数据:")
-        console.log(response.data);
         if (response.data) {
-           this.planInspectionCount = response.data;
-           
+           this.buildAssessScore = response.data.buildIngAssess.buildIngAssess;
+           this.buildAlarmCount = response.data.buildIngAssess.buildAlarm;
+           this.buildTroubleCount = response.data.buildIngAssess.buildTrouble;
+  
+           console.log(this.buildAlarmCount.lineChartsDate);
+           console.log(this.buildAlarmCount.lineChartsCount)
+          
+           //开始调用画图
+           this.drawPieChart("pieb1",this.buildAssessScore);
+           this.drawBarChart("axis1",this.buildAlarmCount);
+           this.drawBarChart("myChart1",this.buildTroubleCount);
         }
       });
     },
@@ -324,20 +338,20 @@ export default {
         legend: {
           orient: "vertical",
           left: "left",
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+          data: ["0-2", "2-4", "4-6", "6-8","8-10"]
         },
         series: [
           {
-            name: "访问来源",
+            name: "安全评分",
             type: "pie",
             radius: "55%",
             center: ["50%", "60%"],
             data: [
-              { value: 335, name: "直接访问" },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
-              { value: 135, name: "视频广告" },
-              { value: 1548, name: "搜索引擎" }
+              { value: 335, name: "0-2" },
+              { value: 310, name: "2-4" },
+              { value: 234, name: "4-6" },
+              { value: 135, name: "6-8" },
+              { value: 1548, name: "8-10" }
             ],
             itemStyle: {
               emphasis: {
@@ -354,6 +368,10 @@ export default {
     },
     //划饼状图
     drawBarChart(id,data){
+      let a = data.lineChartsDate;
+      let b = data.lineChartsCount;
+      console.log(a);
+      console.log(b);
          // 根据值判断柱子颜色的柱状图
       var option1 = {
         color: ["#3398DB"],
@@ -374,7 +392,7 @@ export default {
           {
             type: "category",
             show: true,
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "12"],
+            data: a,
             axisTick: {
               alignWithLabel: true
             }
@@ -395,10 +413,10 @@ export default {
         },
         series: [
           {
-            name: "直接访问",
+            name: "数量",
             type: "bar",
             barWidth: "60%",
-            data: [10, 52, 200, 334, 390, 330, 220, 192],
+            data: b,
             itemStyle: {
               normal: {
                 // 值显示在柱子顶部
@@ -442,13 +460,22 @@ export default {
       };
       let myChart2 = this.$echarts.init(document.getElementById(id));
       myChart2.setOption(option1);
+    },
+    getBuildDetails(){
+      this.$fetch(
+          "/api/building/queryBuildDetailInfo", 
+          this.buildDetails_parameter
+          ).then(response => {
+            if (response.data) {
+                let data = response.data;
+                console.log("获取建筑详细信息---------------------->");
+                console.log(data);
+            }
+        });
     }
   },
   mounted() {
     this.getData();
-    this.drawPieChart("pieb1",null);
-    this.drawBarChart("axis1",null);
-    this.drawBarChart("myChart1",null);
   }
 };
 </script>
