@@ -42,12 +42,12 @@
                         高风险建筑 安全评分最低
                       </small>
                       <p class="size-12 font-yellow">
-                        {{buildCountDataSocre.unitName}}
+                        {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}
                         -
-                        {{buildCountDataSocre.buildingName}}</p>
+                        {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}}</p>
                     </div>
                     <div class="col-sm-5 padding-left0 text-left">
-                      <span class="size-40 font-red">{{buildCountDataSocre.totalScore}}<i class="fas fa-chevron-circle-right size-20 margin-left10" data-toggle="tooltip" title="查看详情"></i>
+                      <span class="size-40 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "0"}}<a @click="tobuildDetailinfo(buildCountDataSocre)"><i class="fas fa-chevron-circle-right size-20 margin-left10" data-toggle="tooltip" title="查看详情"></i></a>
                       </span>
                     </div>
                   </div>
@@ -90,7 +90,7 @@
                       <tbody id="">
                         <tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
                           <td>{{item.name ? item.name:"暂无名称"}}</td>
-                          <td v-if="item.unitName">{{item.unitName}}</td>
+                          <td v-if="item.unitName">{{item.unitName?item.unitName:"暂无单位"}}</td>
                           <td>{{item.floors ? item.floors:"0"}}</td>
                           <td>{{item.countofbuilding?item.countofbuilding:"0"}}</td>
                           <td>
@@ -158,22 +158,41 @@
       itemtrue: false,
       //建筑统计参数
       build_buildCount_parameter:{
-        unitId: 4
+        unitId: null
       },
       //建筑统计返回对象
       buildCountDataSocre: Object,
       buildCountDataStats: Object,
       // 表格-请求
       queryBuildList_parameter: {
-        unitId: '',
+        unitId: null,
         property: null,
         structure: null,
         currentPage: 1,
         pageSize: 10
       },
       // 表格返回
-      tableData: Object
+      tableData: Object,
+      getunitid:Object
     };
+  },
+  computed:mapState([
+    'unitid'
+  ]),
+  watch:{
+    unitid(){
+      // console.log(this.queryAlarmData_parmar.unitId)
+      if(this.unitid!=0){
+        this.getunitid=this.unitid;
+      }else{
+        this.getunitid=null;
+      }
+      this.build_buildCount_parameter.unitId=this.getunitid;
+      this.queryBuildList_parameter.unitId=this.getunitid;
+      this.getRiskData();  
+      this.getRiskTable(); 
+      
+    }
   },
   methods: {
     moren() {
@@ -228,9 +247,22 @@
     toitmeinfo(data) {
       this.itemdata = data;
       this.$store.commit("tobuilditem", this.itemdata);
+    },
+    tobuildDetailinfo(data) {
+      this.itemdata = data;
+      this.$store.commit("buildDetailinfos", this.itemdata);
     }
   },
   mounted() {
+    if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+      this.build_buildCount_parameter.unitId=sessionStorage.unitid;
+      this.queryBuildList_parameter.unitId=sessionStorage.unitid;
+    }
+    if(sessionStorage.unitid==0){
+      this.build_buildCount_parameter.unitId=null;
+      this.queryBuildList_parameter.unitId=null;
+    }
+
     this.$store.commit("route_path", this.$route.path);
     this.getRiskData();  
     this.getRiskTable(); 
