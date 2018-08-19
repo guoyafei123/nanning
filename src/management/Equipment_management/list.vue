@@ -1,5 +1,6 @@
 <template>
-  <div id="add-new">
+  <div id="add-new" class="add-map">
+    <!-- 表单 -->
     <aside>
       <!-- 标题 -->
       <div class="main_header clearFix">
@@ -147,6 +148,14 @@
         <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
+    <!-- 地图 -->
+    <aside>      
+        <div class="maps">
+          <div class="text-center padding-top120">
+            <h1 class="size-80 font-white">地图</h1>
+          </div>
+        </div>
+    </aside>
   </div>
 </template>
 
@@ -227,9 +236,10 @@
           }).then(response=>{
             if(response){
               console.log('新增成功...'+ JSON.stringify(response));
+              this.$router.push({path:'/Equipment_management/all'});
             }
           })
-          this.$router.push({path:'/Equipment_management/all'});
+          
         },
         back(){
           this.$router.push({path:'/Equipment_management/all'});

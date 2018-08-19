@@ -44,6 +44,8 @@ var state={
   toIndexLeftAlarmChar:Object,
   // 展示端风险
   toriskitem:false,
+  // 展示端建筑
+  tobuilditem:Object,
   // 全局权限
   unitid:null,
   // 用户登录信息
@@ -158,6 +160,10 @@ var mutations={
   // 展示端风险
   toriskitem(state,data){
     state.toriskitem=data;
+  },
+  // 展示端建筑
+  tobuilditem(state,data){
+    state.tobuilditem=data;
   },
   // 全局权限
   unitid(state,data){

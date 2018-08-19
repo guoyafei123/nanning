@@ -7,7 +7,7 @@
           <h2>发布消息</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Message_management/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Message_management/notice"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
       <section class="border-top-solid-333 margin-left15 margin-right15"></section>
@@ -16,47 +16,76 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">          
+        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="消息类型" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="选择消息类型" class="col-sm-4">
-              <el-option label="事业单位" value="事业单位"></el-option>
-              <el-option label="国家行政机关" value="国家行政机关"></el-option>
-              <el-option label="政府" value="政府"></el-option>
-              <el-option label="国有企业" value="国有企业"></el-option>
-              <el-option label="国有控股企业" value="国有控股企业"></el-option>
-              <el-option label="外资企业" value="外资企业"></el-option>
-              <el-option label="合资企业" value="合资企业"></el-option>
-              <el-option label="私营企业" value="私营企业"></el-option>
+            <el-select name="" v-model="form.property" placeholder="选择类型" class="col-sm-4">
+              <el-option label="公告" value="公告"></el-option>
+              <el-option label="活动" value="活动"></el-option>
+            </el-select>
+          </el-form-item> 
+          <el-form-item label="所属单位" class="not-null">
+            <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-4">
+              <!-- <el-option label="全部单位" value=""></el-option> -->
+              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="主题" class="not-null">
             <span class="hint-error">消息主题重复</span>
-            <el-input v-model="form.name" class="col-sm-6"></el-input>
+            <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="所属单位" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="请选择单位" class="col-sm-4">
-              <el-option label="事业单位" value="事业单位"></el-option>
-              <el-option label="国家行政机关" value="国家行政机关"></el-option>
-              <el-option label="政府" value="政府"></el-option>
-              <el-option label="国有企业" value="国有企业"></el-option>
-              <el-option label="国有控股企业" value="国有控股企业"></el-option>
-              <el-option label="外资企业" value="外资企业"></el-option>
-              <el-option label="合资企业" value="合资企业"></el-option>
-              <el-option label="私营企业" value="私营企业"></el-option>
-            </el-select>
+          <el-form-item label="活动时间" class="not-null">
+            <div class="block col-sm-12">
+            <el-date-picker 
+              v-model="value5"
+              type="datetimerange"
+              :picker-options="pickerOptions2"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期">
+            </el-date-picker>
+          </div>
           </el-form-item>
-          <el-form-item label="过期时间" class="col-sm-4">
-            <div class="block">
-              <el-date-picker
-                v-model="form.createTime"
-                type="date"
-                placeholder="选择日期"
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
+          <div class="col-sm-12">
+            <div class="row">                
+                <el-form-item label="重要性" class="not-null col-sm-4">
+                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
+                    <el-option label="重要" value=""></el-option>
+                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="预计人数" class="not-null col-sm-4">
+                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
+                    <el-option label="100" value=""></el-option>
+                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="危险源" class="not-null col-sm-4">
+                  <el-select v-model="form.unitId" placeholder="请选择" class="select">
+                    <el-option label="是" value=""></el-option>
+                    <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="明火" class="not-null col-sm-4">
+                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
+                    <el-option label="是" value=""></el-option>
+                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="禁烟" class="not-null col-sm-4">
+                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
+                    <el-option label="是" value=""></el-option>
+                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="场地空旷" class="not-null col-sm-4">
+                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
+                    <el-option label="是" value=""></el-option>
+                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
             </div>
-          </el-form-item>
-          <el-form-item label="描述" class="col-sm-12">
+          </div>          
+          <el-form-item label="内容" class="col-sm-12">
             <el-input
               type="textarea"
               :rows="6"
@@ -67,10 +96,30 @@
         </el-form>
       </div>
       <div class="main_footer">
-        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
-        <a class="btn-back" @click="back">返回</a>
+        <a class="btn-ok" data-toggle="modal" data-target="#mymodal"><i class="el-icon-circle-check-outline"></i> 提交</a>
+        <router-link to="/Message_management/notice" class="btn-back">返回</router-link>
       </div>
-    </aside>
+      <!-- 确认Modal -->
+      <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel2">提示</h4>
+              <h5 class="modal-p">该操作会立即生效并发送通知</h5>
+            </div>
+            <div class="modal-body text-center container-padding40">
+                  <h3 class="font-blue size-14">确认立刻发送该公告吗?</h3>
+                  <p class="font-white size-16">显示消息主题</p>
+            </div>
+            <div class="modal-footer">
+              <el-button type="danger" @click="btn" icon="icon iconfont icon-fasong-xian-" class="primary" data-dismiss="modal">发送</el-button>
+              <el-button class="back" data-dismiss="modal">取消</el-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>    
   </div>
 </template>
 
@@ -94,7 +143,36 @@
             }
           },
           isShow:false,
-          fileVerification:''//图片验证
+          fileVerification:'',//图片验证
+          // 时间区间
+          pickerOptions2: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        value5: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)]
         }
       },
       methods:{
@@ -176,9 +254,9 @@
             complete: function (e) {//只要完成即执行，最后执行
               // console.log(e) 
 
+              this.$router.push({path:'/Message_management/all'});
             }
           });
-          this.$router.push({path:'/Message_management/all'});
         },
         back(){
           this.$router.push({path:'/Message_management/all'});

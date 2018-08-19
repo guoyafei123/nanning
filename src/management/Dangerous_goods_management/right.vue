@@ -1,5 +1,6 @@
 <template>
   <div class="toolright">
+    <!-- 详情 -->
     <div class="plan">
       <section>
         <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Dangerous_goods_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
@@ -30,7 +31,7 @@
               </p>
               <P class="col-sm-5 text-right padding0">
                 <span class="text-right" v-if="this.trouble.status == 0">
-                  发现时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
+                  上报时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
                 </span>
                 <span class="text-right" v-if="this.trouble.status == 1">
                   解决时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
@@ -145,18 +146,20 @@
                       </ul>
                   </div>                  
                 </div>
-              </div>
-              <!-- 解决危险品 -->
-              <div class="textandimg margin-top20" v-if="this.trouble.status == 1">
+              </div>              
+      </section>
+      <section>
+      <!-- 解决危险品 -->
+              <div class="textandimg margin-top20 size-12" v-if="this.trouble.status == 1">
                 <h4 class="p-title">
                    <!-- {{ this.trouble.dangerName }} -->处理记录
                 </h4>
                 <div class="row textandimg-main margin-top20">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>解决人</span>
                       <strong v-html="this.trouble.reviewerName"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>解决时间 </span>
                       <strong v-html="this.trouble.reviewTime"></strong>
                   </div>                  
@@ -168,6 +171,7 @@
         </div>
       </section>
     </div>
+    <!-- 统计 -->
     <div class="total">
       <section class="mapTable" style="display: none;">
         <!-- 总数统计 -->
@@ -180,11 +184,11 @@
               <p class="size-18 font-blue">危险品总数</p>
             </li>
             <li>
-              <h1 class="toolcount-p1">6</h1>
+              <h1 class="toolcount-p1">{{totalList}}</h1>
             </li>
           </ul>
         </div>
-        <div class="toolbuildrate">
+        <div class="toolbuildrate bg-black">
           <div class="main_content_table">
             <el-table
               :data="tableData"
@@ -202,42 +206,42 @@
                 :show-overflow-tooltip="true"
                 label="危险品名称">
               </el-table-column>
-              <el-table-column
+              <!-- <<el-table-column
                 prop="unitName"
                 :show-overflow-tooltip="true"
                 label="所属单位">
               </el-table-column>
-              <el-table-column
+              el-table-column
                 prop="cont"
                 :show-overflow-tooltip="true"
                 label="位置">
-              </el-table-column>
-              <el-table-column
+              </el-table-column> -->
+              <!-- <el-table-column
                 prop="cont"
                 label="危险品简介">
-              </el-table-column>
+              </el-table-column> -->
               <el-table-column
                 prop="nickName"
                 label="上报人">
               </el-table-column>
-              <el-table-column
+              <!-- <el-table-column
                 prop="createTime"
                 :show-overflow-tooltip="true"
                 label="上报时间">
-              </el-table-column>
+              </el-table-column> -->
               <el-table-column 
                 prop="status"
                 label="状态">
                 <template slot-scope="scope">
                   <el-tag
                     :type="scope.row.status === 0 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==0'>未解决</el-tag>
+                    disable-transitions v-if='scope.row.status==0'>未解决 <i class="el-icon-warning font-red" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
                   <el-tag
                     :type="scope.row.status === 1 ? 'green' : 'red'"
                     disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
                 </template>
               </el-table-column>
-              <el-table-column
+              <!-- <el-table-column
                 prop="reviewerName"
                 :formatter="formatter"
                 label="解决人">
@@ -249,13 +253,13 @@
               <el-table-column
                 prop="treatment"
                 label="解决原因">
-              </el-table-column>
+              </el-table-column> -->
               <el-table-column
                 fixed="right"
                 label="操作">
                 <template slot-scope="scope">
-                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" class="btn-on">处理</button>
-                  <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+                  <button @click="start_plan(scope.row)" v-if='scope.row.status==0' data-toggle="modal" data-target="#mymodal" class="btn-check">处理</button>
+                  <!-- <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
                   <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
                 </template>
               </el-table-column>
@@ -285,14 +289,14 @@
             </div>
           </div>
         </div>
-        <!-- 编辑Modal -->
+        <!-- 解决Modal -->
         <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">解决危险品</h4>
-                <h5 class="modal-p font-blue">{{this.form.dangerName}}</h5>
+                <h4 class="modal-title" id="myModalLabel">解决</h4>
+                <h5 class="modal-p font-blue">{{dangerName}}</h5>
               </div>
               <div class="modal-body">
             <div class="main_content">
@@ -397,26 +401,6 @@
           </div>
               <div class="modal-footer">
                 <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
-                <el-button class="back" data-dismiss="modal">取消</el-button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 删除Modal -->
-        <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">提示</h4>
-                <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
-              </div>
-              <div class="modal-body text-center container-padding40">
-                <h3 class="font-red size-14">是否删除</h3>
-                <p class="font-white size-16">{{this.form.dangerName}}</p>
-              </div>
-              <div class="modal-footer">
-                <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
                 <el-button class="back" data-dismiss="modal">取消</el-button>
               </div>
             </div>

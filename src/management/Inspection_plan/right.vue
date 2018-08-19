@@ -30,7 +30,7 @@
             <div class="col-sm-4 font-gray-999 padding0">
               <ul class="toolcount-left margin-bottom0 padding-left15">
                 <li>
-                  <h1 class="toolcount-p1 font-yellow" v-html="this.inspectionPlan.amount">17</h1>
+                  <h1 class="toolcount-p1 font-white" v-html="this.inspectionPlan.amount">17</h1>
                 </li>
                 <li class="margin-top30">
                   <p class="size-10">Rated Counts</p>
@@ -119,15 +119,15 @@
           </div>
         </section>
         <!-- 路线日志 -->
-        <section>
-          <div class="table-responsive padding-top10 bg-black">
+        <section class="bg-black padding-top10">
+          <div class="table-responsive">
             <h4 class="p-title">操作日志</h4>
-            <div class="main_content_table">
+            <div class="main_content_table margin-top10">
               <el-table
                 :data="tableData"
                 border
                 :highlight-current-row="true"
-                style="height:235px;">
+                style="max-height:235px;">
                 <el-table-column
                   sortable
                   type="index"
@@ -177,114 +177,114 @@
     </div>
     <!-- 小列表 -->
     <div class="total" style="display: none;">
-      <!-- 总数统计 -->
-      <section class="toolcount clearfix">
-        <ul class="toolcount-left padding0 col-sm-3">
-          <li>
-            <p class="size-10 font-gray-666">Inspection Total</p>
-          </li>
-          <li>
-            <p class="size-18 font-blue">当前线路总数</p>
-          </li>
-          <li>
-            <h1 class="toolcount-p1">{{countInspectionPlanRelevant.countTotal}}</h1>
-          </li>
-        </ul>
-        <ul class="list-inline col-sm-9 text-left margin-top90 font-gray-666 size-12">
-          <li>
-            未激活 <span class="font-red">{{countInspectionPlanRelevant.countDisableTotal}}</span>
-          </li>
-          <li>
-            已激活 <span class="font-white">{{countInspectionPlanRelevant.countEnableTotal}}</span>
-          </li>
-          <li>
-            已删除 <span class="font-gray-ccc">{{countInspectionPlanRelevant.countDelete}}</span>
-          </li>
-          <li>
-            扫码打卡 <span class="font-blue">{{countInspectionPlanRelevant.countIssanCount}}</span>
-          </li>
-        </ul>
-      </section>
-      <!-- 主体 -->
-      <section class="mapTable">
-        <div class="toolbuildrate">
-          <!-- 表格 -->
-          <div class="main_content_table">
-            <el-table
-              :data="tableDataList"
-              border
-              :default-sort = "{prop: 'Serial_number', order: 'descending'}">
-              <el-table-column
-                type="index"
-                fixed="left"
-                sortable
-                prop="Serial_number"
-                label="序号">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="路线名称">
-              </el-table-column>
-              <el-table-column
-                prop="nodeCount"
-                label="节点数">
-              </el-table-column>
-              <el-table-column
-                prop="isScan" :formatter="formatScan"
-                label="扫码打卡">
-              </el-table-column>
-              <el-table-column :formatter="formatStatus"
-                prop="status"
-                label="路线状态">
-                <template slot-scope="scope" :formatter="formatStatus">
-                  <el-tag
-                    :type="scope.row.status === 1 ? 'green' : 'red'"
-                    disable-transitions v-if='scope.row.status==1'>已激活 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
-                  <el-tag
-                    :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==2'>未激活</el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column
-                fixed="right"
-                width="120"
-                label="操作">
-                <template slot-scope="scope">
-                  <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" v-if="scope.row.status==2" class="btn-on">开启</button>
-                  <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" v-if="scope.row.status==1" class="btn-off">关闭</button>
-                  <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2" v-if="scope.row.status==2"><i  class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
-                  <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no"><i class="el-icon-delete font-gray-666" data-toggle="tooltip" title="删除"></i></button>
-                  <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
-                </template> 
-              </el-table-column>
-            </el-table>
-          </div>
-          <!-- 分页 -->
-          <div class="main_content_bottom">
-            <div class="bottom_con">
-              <div class="float-left btn-system">
-                <a href="javascript:;">打印</a>
-                <a href="javascript:;">导出</a>
-                <a href="javascrip:;">导出二维码</a>
+        <!-- 总数统计 -->
+        <section class="toolcount clearfix">
+          <ul class="toolcount-left padding0 col-sm-3">
+            <li>
+              <p class="size-10 font-gray-666">Inspection Total</p>
+            </li>
+            <li>
+              <p class="size-18 font-blue">当前线路总数</p>
+            </li>
+            <li>
+              <h1 class="toolcount-p1">{{countInspectionPlanRelevant.countTotal}}</h1>
+            </li>
+          </ul>
+          <ul class="list-inline col-sm-9 text-left margin-top90 font-gray-666 size-12">
+            <li>
+              未激活 <span class="font-red">{{countInspectionPlanRelevant.countDisableTotal}}</span>
+            </li>
+            <li>
+              已激活 <span class="font-white">{{countInspectionPlanRelevant.countEnableTotal}}</span>
+            </li>
+            <li>
+              已删除 <span class="font-gray-ccc">{{countInspectionPlanRelevant.countDelete}}</span>
+            </li>
+            <li>
+              扫码打卡 <span class="font-blue">{{countInspectionPlanRelevant.countIssanCount}}</span>
+            </li>
+          </ul>
+        </section> 
+        <!-- 主体 -->
+        <section class="mapTable"> 
+          <div class="toolbuildrate">
+            <!-- 表格 -->
+            <div class="main_content_table">
+              <el-table
+                :data="tableDataList"
+                border
+                :default-sort = "{prop: 'Serial_number', order: 'descending'}">
+                <el-table-column
+                  type="index"
+                  fixed="left"
+                  sortable
+                  prop="Serial_number"
+                  label="序号">
+                </el-table-column>
+                <el-table-column
+                  prop="name"
+                  label="路线名称">
+                </el-table-column>
+                <el-table-column
+                  prop="nodeCount"
+                  label="节点数">
+                </el-table-column>
+                <el-table-column
+                  prop="isScan" :formatter="formatScan"
+                  label="扫码打卡">
+                </el-table-column>
+                <el-table-column :formatter="formatStatus"
+                  prop="status"
+                  label="路线状态">
+                  <template slot-scope="scope" :formatter="formatStatus">
+                    <el-tag
+                      :type="scope.row.status === 1 ? 'green' : 'red'"
+                      disable-transitions v-if='scope.row.status==1'>已激活 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+                    <el-tag
+                      :type="scope.row.status === 2 ? 'red' : 'green'"
+                      disable-transitions v-if='scope.row.status==2'>未激活</el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  fixed="right"
+                  width="120"
+                  label="操作">
+                  <template slot-scope="scope">
+                    <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal" v-if="scope.row.status==2" class="btn-on">开启</button>
+                    <button @click="stop_plan(scope.row)" data-toggle="modal" data-target="#mymodal3" v-if="scope.row.status==1" class="btn-off">关闭</button>
+                    <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2" v-if="scope.row.status==2"><i  class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+                    <button @click="delete_plan(scope.row)" v-if="scope.row.status==1" class="cursor-no"><i class="el-icon-delete font-gray-666" data-toggle="tooltip" title="删除"></i></button>
+                    <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
+                  </template> 
+                </el-table-column>
+              </el-table>
+            </div>
+            <!-- 分页 -->
+            <div class="main_content_bottom">
+              <div class="bottom_con">
+                <div class="float-left btn-system">
+                  <a href="javascript:;">打印</a>
+                  <a href="javascript:;">导出</a>
+                  <a href="javascrip:;">导出二维码</a>
+                </div>
+                <el-pagination
+                               @current-change="handleCurrent"
+                               :current-page="currentPage"
+                               :page-size="5"
+                               layout="prev, pager, next"
+                               :total="totalCount">
+                </el-pagination>
+                <span>{{pageCount}}页</span>
+                <el-pagination
+                               @current-change="handleCurrent"
+                               :current-page="currentPage"
+                               :page-size="5"
+                               layout="total"
+                               :total="totalCount">
+                </el-pagination>
               </div>
-              <el-pagination
-                             @current-change="handleCurrent"
-                             :current-page="currentPage"
-                             :page-size="5"
-                             layout="prev, pager, next"
-                             :total="totalCount">
-              </el-pagination>
-              <span>{{pageCount}}页</span>
-              <el-pagination
-                             @current-change="handleCurrent"
-                             :current-page="currentPage"
-                             :page-size="5"
-                             layout="total"
-                             :total="totalCount">
-              </el-pagination>
             </div>
           </div>
-        </div>
         <!-- 开启Modal -->
         <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">

@@ -186,10 +186,10 @@
               <p class="size-18 font-blue">当前设备总数</p>
             </li>
             <li>
-              <h1 class="toolcount-p1">569</h1>
+              <h1 class="toolcount-p1">{{totalList}}</h1>
             </li>
           </ul>
-          <ul class="list-unstyled col-sm-9 margin-top70 font-gray-666 size-12">
+          <!-- <ul class="list-unstyled col-sm-9 margin-top70 font-gray-666 size-12">
             <li>
               <span>室内设备</span> <strong class="font-gray-ccc">96</strong>
               <span>室外设备</span> <strong class="font-gray-ccc">126</strong>
@@ -200,10 +200,10 @@
               <span>灭火设备</span> <strong class="font-gray-ccc">96</strong>
               <span>监控设备</span> <strong class="font-gray-ccc">126</strong>
             </li>
-          </ul>
+          </ul> -->
         </section>
-        <!-- 列表 -->
-        <section class="mapTable">          
+        <section class="mapTable">
+          <!-- 列表 -->          
           <div class="toolbuildrate">
             <div class="main_content_table">
               <el-table
