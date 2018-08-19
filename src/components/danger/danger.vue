@@ -118,8 +118,8 @@
                           </td>
                           <td>{{item.createTime.substring(5)}}</td>
                           <td>
-                            <i data-toggle="tooltip" title="解决" v-if="item.status==1" class="icon iconfont icon-guanbi-xian- font-blue set-ciontop4" ></i>
-                            <i  data-toggle="tooltip" title="未解决" v-if="item.status==0" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 font-yellow set-ciontop4" ></i>
+                            <i data-toggle="tooltip" title="解决" v-if="item.status==1" class="icon iconfont icon-feirenweiyinsuyinhuan-mian-1 font-blue set-ciontop4" ></i>
+                            <i  data-toggle="tooltip" title="未解决" v-if="item.status==0" class="icon iconfont icon-yinhuan-mian- font-yellow set-ciontop4" ></i>
                           </td>
                           <td>
                             <a v-on:click="toitmeinfo(item)">

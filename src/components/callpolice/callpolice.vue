@@ -94,7 +94,7 @@
                             </td>
                             <td>{{(item.startTime).substring(5)}}</td>
                             <td>
-                              <i data-toggle="tooltip" title="关闭" v-if="item.status==1" class="icon iconfont icon-guanbi-xian- font-blue set-ciontop4" ></i>
+                              <i data-toggle="tooltip" title="关闭" v-if="item.status==1" class="icon iconfont icon-baojingjiechu-mian- font-blue set-ciontop4" ></i>
                               <i  data-toggle="tooltip" title="进行中" v-if="item.status==0" class="icon iconfont icon-huoqing-mian- font-red set-ciontop4" ></i>
                             </td>
                             <td >
@@ -221,14 +221,14 @@
                     <section>
                         <div class="toolcount">
                             <h4 class="p-title">报警情况</h4>
-                            <template>
+                            <!-- <template>
                               <div class="row margin-top20 padding-left10">
                                 <el-radio-group @change="callradio" v-model="radiovalue">
                                   <el-radio label="1" class="col-xs-3">报警率</el-radio>
                                   <el-radio label="2" class="col-xs-3">火情发生率</el-radio>
                                 </el-radio-group>
                               </div>                              
-                            </template>
+                            </template> -->
                             <div id="call_charpiemax" style="width: 100%;height:180px;margin: 0 auto;text-align: center;"></div>
                         </div>
                     </section>
@@ -522,7 +522,7 @@ export default {
     },
     callradio(){
       console.log(this.radiovalue);
-      this.getAlarmRate_parameter.type=this.radiovalue;
+      this.troubleCount.type=this.radiovalue;
       this.get_Pie();
     },
     getTable() {
@@ -563,6 +563,7 @@ export default {
         if (response) {
           console.log(response);
           this.ins_getAlarmCount = response.data.alarmCount;
+          console.log(this.ins_getAlarmCount);
           this.draw_piemin(
               "call_charpiemin",
               response.data.alarmCount
@@ -597,7 +598,7 @@ export default {
           this.draw_piemax(
             "call_charpiemax",
             this.ins_getAlarmRate,
-            this.getAlarmRate_parameter.type
+            1
           );
         }
       })
