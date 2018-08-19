@@ -33,15 +33,15 @@
                     <!-- 已选择 -->
                     <div class="personinfo">
                             <p>
-                            <span class="size-20 font-blue">实验教学楼</span>
-                            <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                            <span class="size-20 font-blue">{{buildBaseInfo.name}}</span>
+                            <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分{{buildTotalScore}}</span>
                             <span class="float-right">
-                                    <span class="bgbox-max bg-gray-333 font-gray-999 size-10">灭火设备</span>
+                                    <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property}}</span>
                                 </span>
                             </p>
                             <p class="col-sm-7 text-left padding0">
                                 <span>
-                                    <i class="fas fa-industry"></i> 银海大道710-2号</span>
+                                    <i class="fas fa-industry"></i> {{buildBaseInfo.location}}</span>
                             </p>
                             <P class="col-sm-5 text-right padding0">
                                 <span class="text-right">
@@ -54,7 +54,7 @@
                       <div class="col-sm-4 font-gray-999 padding-right0">
                         <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                           <li>
-                            <h1 class="toolcount-p1">360</h1>
+                            <h1 class="toolcount-p1">{{buildBaseInfo.floors}}</h1>
                           </li>
                           <li>
                             <p class="size-10 ">Running State</p>
@@ -74,11 +74,11 @@
                           </li>
                           <li class="row text-center padding-right16 margin-top40">
                             <div class="col-sm-6 personnel-borderright">
-                              <p class="size-16 show font-white">4563</p>
+                              <p class="size-16 show font-white">{{buildBaseInfo.countRoom}}</p>
                               <p>房间数量</p>
                             </div>
                             <div class="col-sm-6 personnel-borderright">
-                              <p class="size-16 show font-white">538</p>
+                              <p class="size-16 show font-white">{{buildBaseInfo.floors}}</p>
                               <p>设备数量</p>
                             </div>
                           </li>
@@ -89,13 +89,13 @@
                 <section>
                     <h4 class="p-title margin-top30">统计</h4>
                     <div class="row cardinfo-style margin-top10 font-gray-999">
-                        <p class="col-sm-4">当前隐患数<span>3.5</span></p>
-                        <p class="col-sm-4">当前报警数<span>3.5</span></p>
-                        <p class="col-sm-4">当前危险品数<span>3.5</span></p>
-                        <p class="col-sm-4">历史隐患数<span>3.5</span></p>
-                        <p class="col-sm-4">历史报警数<span>3.5</span></p>
-                        <p class="col-sm-4">历史危险品数<span>3.5</span></p>
-                        <p class="col-sm-4">相关巡检路线<span>3.5</span></p>
+                        <p class="col-sm-4">当前隐患数<span>{{buildTroubleMap.NOWTROUBLE}}</span></p>
+                        <p class="col-sm-4">当前报警数<span>{{buildAlarmMap.NOWALARM}}</span></p>
+                        <p class="col-sm-4">当前危险品数<span>{{buildTroubleMap.allDanger}}</span></p>
+                        <p class="col-sm-4">历史隐患数<span>{{buildTroubleMap.nowDanger}}</span></p>
+                        <p class="col-sm-4">历史报警数<span>{{buildAlarmMap.ALLALARM}}</span></p>
+                        <p class="col-sm-4">历史危险品数<span>{{buildTroubleMap.ALLTROUBLE}}</span></p>
+                        <p class="col-sm-4">相关巡检路线<span>{{buildPlanCount}}</span></p>
                     </div>
                 </section>
                 <section>
@@ -104,54 +104,54 @@
                         <div class="row textandimg-main margin-top20 size-12">
                             <div class="col-sm-6">
                                 <span>建筑用途 </span>
-                                <strong>公共 </strong>
+                                <strong>{{buildBaseInfo.property}} </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑类型 </span>
-                                <strong>超高层</strong>
+                                <strong>{{buildBaseInfo.type}}</strong>
                             </div>
 
                             <div class="col-sm-6">
                                 <span>建筑年份 </span>
-                                <strong>2014年 </strong>
+                                <strong>{{buidyear.substring(0,10)}} </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>结构类型 </span>
-                                <strong>钢混</strong>
+                                <strong>{{buildBaseInfo.structure}}</strong>
                             </div>
 
                             <div class="col-sm-6">
                                 <span>楼层数量 </span>
-                                <strong>14层</strong>
+                                <strong>{{buildBaseInfo.floors}}层</strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>房间数量 </span>
-                                <strong>112个</strong>
+                                <strong>{{buildBaseInfo.countRoom}}个</strong>
                             </div>
 
                             <div class="col-sm-6">
                                 <span>占地面积 </span>
-                                <strong>2354 m² </strong>
+                                <strong>{{buildBaseInfo.area}} m² </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑高度 </span>
-                                <strong>545m</strong>
+                                <strong>{{buildBaseInfo.heightOfBuilding}}m</strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑经度 </span>
-                                <strong>12.54951 </strong>
+                                <strong>{{buildBaseInfo.pointX}} </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑维度 </span>
-                                <strong>26.6659</strong>
+                                <strong>{{buildBaseInfo.pointY}}</strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>管理单位 </span>
-                                <strong>中心小学 </strong>
+                                <strong>{{buildBaseInfo.unitName ? buildBaseInfo.unitName:"暂为空"}} </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>负 责 人 </span>
-                                <strong>赵堆船</strong>
+                                <strong>{{buildBaseInfo.linkname}}</strong>
                             </div>
 
                             <div class="col-sm-6">
@@ -272,7 +272,13 @@ export default {
       buildCountDataSocres:Object,
       buildDetails_parameter:{
         buildingId:324
-      }
+      },
+      buildPlanCount: Object,
+      buildTotalScore: Object,
+      buildAlarmMap: Object,
+      buildTroubleMap: Object,
+      buildBaseInfo: Object,
+      buidyear: ""
     };
   },
   computed:mapState([
@@ -311,13 +317,9 @@ export default {
       // 请求统计数据
       this.$fetch("/api/building/getBuildIngAssess",this.getBuildIngAssess_parameter).then(response => {
         if (response.data) {
-           this.buildAssessScore = response.data.buildIngAssess.buildIngAssess;
-           this.buildAlarmCount = response.data.buildIngAssess.buildAlarm;
-           this.buildTroubleCount = response.data.buildIngAssess.buildTrouble;
-  
-           console.log(this.buildAlarmCount.lineChartsDate);
-           console.log(this.buildAlarmCount.lineChartsCount)
-          
+           this.buildAssessScore = response.data.info.buildIngAssess;
+           this.buildAlarmCount = response.data.info.buildAlarm;
+           this.buildTroubleCount = response.data.info.buildTrouble;
            //开始调用画图
            this.drawPieChart("pieb1",this.buildAssessScore);
            this.drawBarChart("axis1",this.buildAlarmCount);
@@ -370,8 +372,6 @@ export default {
     drawBarChart(id,data){
       let a = data.lineChartsDate;
       let b = data.lineChartsCount;
-      console.log(a);
-      console.log(b);
          // 根据值判断柱子颜色的柱状图
       var option1 = {
         color: ["#3398DB"],
@@ -468,8 +468,12 @@ export default {
           ).then(response => {
             if (response.data) {
                 let data = response.data;
-                console.log("获取建筑详细信息---------------------->");
-                console.log(data);
+                this.buildPlanCount = data.buildStatsInfo.planCount;
+                this.buildTotalScore = data.buildStatsInfo.totalScore;
+                this.buildAlarmMap = data.buildStatsInfo.buildAlarmMap;
+                this.buildTroubleMap = data.buildStatsInfo.buildingTrouble;
+                this.buildBaseInfo = data.buildInfo;
+                this.buidyear = data.buildInfo.buildYear;
             }
         });
     }
