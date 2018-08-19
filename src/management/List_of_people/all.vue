@@ -115,15 +115,12 @@
               class类not-null为必填标识,如需请加在<el-form-item>
               class类hint-error为错误提示
              -->             
-              <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+              <el-form class="row" :rules="rules" ref="form" :label-position="labelPosition" :model="form">
                 <el-form-item label="姓名" class="not-null">
                   <el-input v-model="form.nickName" class="col-sm-4"></el-input>
                 </el-form-item>
-                <el-form-item label="联系电话" class="not-null col-sm-4">
+                <el-form-item label="账号/手机号" class="not-null col-sm-4">
                   <el-input v-model="form.cellPhone" class=""></el-input>
-                </el-form-item>
-                <el-form-item label="账号" class="not-null col-sm-4">
-                  <el-input v-model="form.username" class=""></el-input>
                 </el-form-item>
                 <div class="col-sm-12">
                   <div class="row">
@@ -135,15 +132,14 @@
                       </el-form-item>
                       <el-form-item label="角色" class="not-null col-sm-4">
                         <el-select v-model="form.roleId" placeholder="选择角色" class="select">
-                          <el-option label="全部角色" value=""></el-option>
                           <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
                         </el-select>
                       </el-form-item>
                   </div>
                 </div>
-                <el-form-item label="职位" class="col-sm-4">
+                <!-- <el-form-item label="职位" class="col-sm-4">
                     <el-input v-model="form.position"></el-input>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="头像" class="not-null col-sm-12">
                   <div class="head-photo">
                     <input id="file" name="file" type="file" @change="file"/>
@@ -151,13 +147,13 @@
                       <i class="el-icon-plus"></i>
                     </div>
                   </div>
-                  <img :src="this.form.headImgUrl" :id="'up_img'+this.form.id" id="up_img" class="head-pic"/>
+                  <img :src="this.form.headImgUrl" :id="'up_img'+this.form.id"  class="head-pic"/>
                 </el-form-item>
               </el-form>
             </div>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-search" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-search" class="primary" >提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -187,9 +183,19 @@
 </template>
 
 <script>
-  import { realconsole } from '../../assets/js/management.js'
+  import { realconsole } from '../../assets/js/management.js';
+  import {isvalidPhone} from '../../assets/js/validate';
   export default {
     data() {
+      var validPhone=(rule, value,callback)=>{
+          if (!value){
+              callback(new Error('请输入电话号码'))
+          }else  if (!isvalidPhone(value)){
+            callback(new Error('请输入正确的11位手机号码'))
+          }else {
+              callback()
+          }
+      }
       return {
         labelPosition: 'top',
         unitId:'',
@@ -211,7 +217,12 @@
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
-        deviceName:''
+        deviceName:'',
+        rules: {
+          cellPhone: [
+            { required: true, trigger: 'blur', validator: validPhone }//这里需要用到全局变量
+          ]
+        }
       }
     },
     methods: {
@@ -276,44 +287,54 @@
           }
         })
       },
-      startRow(){
-        var file = "file";
-        var that = this;
-        $.ajaxFileUpload({
-            url: '/api/user/addOrUpdateUser', //用于文件上传的服务器端请求地址
-            /* secureuri : false, */ //一般设置为false
-            fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
-            data : {
-              'id':this.deviceIndex,
-              'nickName':this.form.nickName,
-              'username':this.form.username,
-              'position':this.form.position,
-              'unitId':this.form.unitId,
-              'cellPhone':this.form.cellPhone,
-              'roleId':this.form.roleId
-            },
-            type: 'POST',
-            dataType: "plain",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+      startRow(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            $('.primary').attr('data-dismiss','modal');
+            var file = "file";
+            var that = this;
+            $.ajaxFileUpload({
+                url: '/api/user/addOrUpdateUser', //用于文件上传的服务器端请求地址
+                /* secureuri : false, */ //一般设置为false
+                fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+                data : {
+                  'id':this.deviceIndex,
+                  'nickName':this.form.nickName,
+                  'username':this.form.cellPhone,
+                  'position':this.form.position,
+                  'unitId':this.form.unitId,
+                  'cellPhone':this.form.cellPhone,
+                  'roleId':this.form.roleId
+                },
+                type: 'POST',
+                dataType: "plain",
+                success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+                
             
-        
-            },
-            error: function (e) { //服务器响应失败处理函数
-              $.messager.alert('警告', "系统错误", "warning");
-            },
-            complete: function (e) {//只要完成即执行，最后执行
-              // console.log(e) 
-              that.tableList();
-              // console.log(that.tableData)
-              // that.$store.commit('unitNumber',that.deviceIndex);
-              
-              $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
-                $("#file").on("change", function(){  
-                  console.log($("#up_img"+that.form.id+""))
-                  $("#up_img"+that.form.id+"").attr("src", that.getObjectURL(document.getElementById('file')));      
-              });  
-            }
+                },
+                error: function (e) { //服务器响应失败处理函数
+                  $.messager.alert('警告', "系统错误", "warning");
+                },
+                complete: function (e) {//只要完成即执行，最后执行
+                  // console.log(e) 
+                  that.tableList();
+                  // console.log(that.tableData)
+                  // that.$store.commit('unitNumber',that.deviceIndex);
+                  
+                  $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
+                    $("#file").on("change", function(){  
+                      console.log($("#up_img"+that.form.id+""))
+                      $("#up_img"+that.form.id+"").attr("src", that.getObjectURL(document.getElementById('file')));      
+                  });  
+                }
+            });
+
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
         });
+        
       },
       delete_people(row){
         $('#mymodal2').css({

@@ -45,7 +45,8 @@ import Reserve_planListVue from '../management/Reserve_plan/list';
 import Reserve_planAllVue from '../management/Reserve_plan/all';
 import Message_managementVue from '../management/Message_management/Message_management';
 import Message_managementlistVue from '../management/Message_management/list';
-import Message_managementAllVue from '../management/Message_management/all';
+import Message_managementNoticeVue from '../management/Message_management/notice';
+import Message_managementActivityVue from '../management/Message_management/activity';
 import operationLogVue from '../management/operationLog/operationLog';
 import operationLog_AllVue from '../management/operationLog/all';
 import { registerDecorator } from 'handlebars';
@@ -171,8 +172,9 @@ export default new Router({
       component:Message_managementVue,
       children:[
         { path:'/Message_management/list',component:Message_managementlistVue},
-        { path:'/Message_management/all',component:Message_managementAllVue},
-        { path:'/Message_management',redirect:'/Message_management/all'}
+        { path:'/Message_management/activity',component:Message_managementActivityVue},
+        { path:'/Message_management/notice',component:Message_managementNoticeVue},
+        { path:'/Message_management',redirect:'/Message_management/notice'}
       ]
     },
     {

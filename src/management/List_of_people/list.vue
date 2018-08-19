@@ -16,16 +16,13 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+        <el-form class="row" :rules="rules" ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="姓名" class="not-null">
             <span class="hint-error">单位名称有误或重复</span>
             <el-input v-model="form.nickName" class="col-sm-4"></el-input>
           </el-form-item>          
-          <el-form-item label="联系电话" class="not-null col-sm-4">
-            <el-input v-model="form.cellPhone" class=""></el-input>
-          </el-form-item>
-          <el-form-item label="账号" class="not-null col-sm-4">
-            <el-input v-model="form.username" class=""></el-input>
+          <el-form-item label="账号/手机号" class="not-null col-sm-4">
+            <el-input v-model.number="form.cellPhone"></el-input>
           </el-form-item>
           <div class="col-sm-12">
             <div class="row">
@@ -37,15 +34,14 @@
                 </el-form-item>
                 <el-form-item label="角色" class="not-null col-sm-4">
                   <el-select v-model="form.roleId" placeholder="选择角色" class="select">
-                    <el-option label="全部角色" value=""></el-option>
                     <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
             </div>
           </div>
-          <el-form-item label="职位" class="col-sm-4">
+          <!-- <el-form-item label="职位" class="col-sm-4">
               <el-input v-model="form.position"></el-input>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="头像" class="not-null col-sm-12">
             <div class="head-photo">
               <input id="file" name="file" type="file" @change="file"/>
@@ -58,7 +54,7 @@
         </el-form>
       </div>
       <div class="main_footer">
-        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+        <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
         <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
@@ -66,8 +62,18 @@
 </template>
 
 <script>
+import {isvalidPhone} from '../../assets/js/validate';
     export default {
       data() {
+        var validPhone=(rule, value,callback)=>{
+            if (!value){
+                callback(new Error('请输入电话号码'))
+            }else  if (!isvalidPhone(value)){
+              callback(new Error('请输入正确的11位手机号码'))
+            }else {
+                callback()
+            }
+        }
         return {
           labelPosition: 'top',
           form: {
@@ -80,7 +86,12 @@
           },
           optionList:[],//单位列表
           roleList:[],//角色列表
-          isShow:false
+          isShow:false,
+          rules: {
+            cellPhone: [
+              { required: true, trigger: 'blur', validator: validPhone }//这里需要用到全局变量
+            ]
+          }
         }
       },
       methods:{
@@ -119,36 +130,45 @@
             }
             return imgURL;
         },
-        btn(){
-          var file = "file";
-          var that = this;
-          $.ajaxFileUpload({
-              url: '/api/user/addOrUpdateUser', //用于文件上传的服务器端请求地址
-              /* secureuri : false, */ //一般设置为false
-              fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
-              data : {
-                'nickName':this.form.nickName,
-                'username':this.form.username,
-                'position':this.form.position,
-                'unitId':this.form.unitId,
-                'cellPhone':this.form.cellPhone,
-                'roleId':this.form.roleId
-              },
-              type: 'POST',
-              dataType: "plain",
-              success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-              
-          
-              },
-              error: function (e) { //服务器响应失败处理函数
-                $.messager.alert('警告', "系统错误", "warning");
-              },
-              complete: function (e) {//只要完成即执行，最后执行
-                // console.log(e) 
-                that.$router.push({path:'/List_of_people/all'});
+        btn(formName){
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+                var file = "file";
+                var that = this;
+                $.ajaxFileUpload({
+                    url: '/api/user/addOrUpdateUser', //用于文件上传的服务器端请求地址
+                    /* secureuri : false, */ //一般设置为false
+                    fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+                    data : {
+                      'nickName':this.form.nickName,
+                      'username':this.form.cellPhone,
+                      'position':this.form.position,
+                      'unitId':this.form.unitId,
+                      'cellPhone':this.form.cellPhone,
+                      'roleId':this.form.roleId
+                    },
+                    type: 'POST',
+                    dataType: "plain",
+                    success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+                    
                 
-              }
+                    },
+                    error: function (e) { //服务器响应失败处理函数
+                      $.messager.alert('警告', "系统错误", "warning");
+                    },
+                    complete: function (e) {//只要完成即执行，最后执行
+                      // console.log(e) 
+                      that.$router.push({path:'/List_of_people/all'});
+                      
+                    }
+                });
+
+            } else {
+              console.log('error submit!!');
+              return false;
+            }
           });
+          
           
         },
         back(){

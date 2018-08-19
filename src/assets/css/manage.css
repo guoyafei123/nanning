@@ -290,18 +290,15 @@
   width:64px;
   height:28px;
   line-height: 28px;
-  color: #999;
-  border:1px solid #555;
+  color: #bad616;
+  border:1px solid #bad616;
   float: left;
 }
 .main_nav_tab a:first-child {
   border-right: none;
 }
-.main_nav_tab a.active,
-.main_nav_tab a:active,
-.main_nav_tab a:hover,
-.main_nav_tab a:focus,
-.main_nav_tab a:visited {
+.main_nav_tab a.router-link-active,
+.main_nav_tab a:hover{
   color: #000!important;
   background-color: #bad616;
   border:1px solid #bad616;
@@ -559,6 +556,20 @@
 	min-width: 120px;
 }
 /*新增表单*/
+#add-new .modal-dialog {
+    margin-top: 120px;
+}
+#add-new .el-date-editor .el-range-input {
+    background-color: transparent;
+    font-size: 12px;
+    color: #ccc!important;
+}
+.el-date-range-picker__time-header {
+   border-color: transparent!important;
+}
+.el-button--text {
+    color: #bad616;
+}
 #list-maps{
   height: 100%;
   width: 100%;
@@ -573,12 +584,25 @@
 }
 #add-new {
 	height: 100%;
+  width: 100%;
+  margin:0;
+  position: relative;
 }
 #add-new aside {
   width: 525px;
   height: 100%;
+  padding:0;
+  float: left;
   position: relative;
-  background: #111111;
+  background: #111;
+}
+#add-new.add-map aside:last-child {
+  width: -webkit-fill-available;
+  position: absolute;
+  left: 535px;
+  margin-right: 37px;
+  background: #000;
+  border: 4px solid #111;
 }
 .main_nav a {	
     border: none;
@@ -677,7 +701,7 @@
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  padding-right: 0;
+  padding-right: 20px;
 }
 .line-start label:before,
 .line-end label:before,
@@ -708,7 +732,7 @@
   font-size: 12px;
   padding-left:10px;
   padding-right:10px;
-  margin-right:10px;
+  margin-right:5px;
   color: #fff;
   border: 1px solid #222;
   background-color: transparent;

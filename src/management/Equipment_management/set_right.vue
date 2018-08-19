@@ -202,8 +202,8 @@
             </li>
           </ul> -->
         </section>
-        <!-- 列表 -->
-        <section class="mapTable">          
+        <section class="mapTable">
+          <!-- 列表 -->          
           <div class="toolbuildrate">
             <div class="main_content_table">
               <el-table

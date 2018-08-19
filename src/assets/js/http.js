@@ -38,7 +38,7 @@ export function fetch(url,params = {}){
         // 全局拦截tooltip提示
         $("[data-toggle='tooltip']").tooltip();
         // 全局拦截未登录调整login
-        if(response.data.errorCode=='20012'){
+        if(response.data.errorCode=='20012' || response.data.errorCode=='20013'){
           // alert('未登录')
           this.$router.push("/login");
           

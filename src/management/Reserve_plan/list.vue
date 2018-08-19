@@ -4,7 +4,7 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-plus"></i>
-          <h2>新增单位</h2>
+          <h2>新增预案</h2>
         </div>
         <div class="main_nav float-right">
           <router-link to="/Reserve_plan/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
@@ -17,12 +17,19 @@
           class类hint-error为错误提示
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="单位名称" class="not-null">
+          <el-form-item label="预案名称" class="not-null">
             <span class="hint-error">单位名称有误或重复</span>
-            <el-input v-model="form.name" class="col-sm-4"></el-input>
+            <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="单位性质" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="请选择单位" class="col-sm-4">
+          <el-form-item label="预案类型" class="not-null">
+            <el-select name="" v-model="form.property" placeholder="请选择" class="col-sm-4">
+              <el-option label="火灾预案" value="灭火预案"></el-option>
+              <el-option label="管理规定" value="管理规定"></el-option>
+              <el-option label="疏散示意图" value="疏散示意图"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="所属单位" class="not-null">
+            <el-select name="" v-model="form.property" placeholder="请选择" class="col-sm-4">
               <el-option label="事业单位" value="事业单位"></el-option>
               <el-option label="国家行政机关" value="国家行政机关"></el-option>
               <el-option label="政府" value="政府"></el-option>
@@ -32,26 +39,29 @@
               <el-option label="合资企业" value="合资企业"></el-option>
               <el-option label="私营企业" value="私营企业"></el-option>
             </el-select>
-          </el-form-item>          
-          <el-form-item label="法人代表" class="not-null col-sm-4">
-            <el-input v-model="form.corporation"></el-input>
           </el-form-item>
-          <el-form-item label="部门电话" class="not-null col-sm-4">
-            <el-input v-model="form.telephone"></el-input>
+          <el-form-item label="所属建筑" class="not-null col-sm-4">
+            <el-select name="" v-model="form.property" placeholder="请选择">
+              <el-option label="事业单位" value="事业单位"></el-option>
+              <el-option label="国家行政机关" value="国家行政机关"></el-option>
+              <el-option label="政府" value="政府"></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="单位人数" class="col-sm-4">
-            <el-input v-model="form.staffNum"></el-input>
+          <el-form-item label="所属楼层" class="not-null col-sm-4">
+            <el-select name="" v-model="form.property" placeholder="请选择">
+              <el-option label="事业单位" value="事业单位"></el-option>
+              <el-option label="国家行政机关" value="国家行政机关"></el-option>
+              <el-option label="政府" value="政府"></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="单位地址" class="not-null">
-            <el-input v-model="form.location" class="col-sm-8"></el-input>
+          <el-form-item label="所属房间" class="not-null col-sm-4">
+            <el-select name="" v-model="form.property" placeholder="请选择">
+              <el-option label="事业单位" value="事业单位"></el-option>
+              <el-option label="国家行政机关" value="国家行政机关"></el-option>
+              <el-option label="政府" value="政府"></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="消防负责人" class="not-null col-sm-4">
-            <el-input v-model="form.firemenName"></el-input>
-          </el-form-item>
-          <el-form-item label="消防负责人电话" class="not-null col-sm-4">
-            <el-input v-model="form.firemenTel"></el-input>
-          </el-form-item> 
-          <el-form-item label="单位图片" class="not-null col-sm-12">
+          <el-form-item label="预案附件" class="not-null col-sm-12">
             <div class="head-photo">
               <input id="file" name="file" type="file" @change="file"/>
               <div class="bg-gray-222 text-center">

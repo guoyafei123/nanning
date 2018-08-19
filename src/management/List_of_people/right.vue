@@ -43,7 +43,7 @@
                               <p class="size-10 set-scaleright">Personnel Info</p>
                             </li>
                             <li class="margin-top20">
-                              <p>注册时间:<strong class="font-white">{{ this.form.createTime }}</strong></p>
+                              <p>注册时间:<strong class="font-white">{{ createTime }}</strong></p>
                             </li>
                             <!-- <li class="row text-left">
                               <div class="col-sm-6">
@@ -88,10 +88,10 @@
                             <span>所属单位</span>
                             <strong v-html="this.form.unitName"></strong>
                         </div>
-                        <div class="col-sm-6">
+                        <!-- <div class="col-sm-6">
                             <span>职位 </span>
                             <strong v-html="this.form.position"></strong>
-                        </div>                                        
+                        </div> -->                                        
                       </div>
                 </div>
             </section>
@@ -178,6 +178,7 @@
         this.form.cellPhone = item.cellPhone ;
         this.form.roleName = item.roleName ;
         this.form.headImgUrl = item.headImgUrl ;
+        this.form.createTime = item.createTime ;
       }
     },
     computed:mapState([

@@ -8,26 +8,54 @@
                       <span>主题 </span>
                       <strong class="font-blue" v-html="this.name"></strong>
                   </div>
+                  <div class="col-sm-12">
+                      <span>活动时间 </span>
+                      <strong>系统公告</strong>
+                  </div>                  
                   <div class="col-sm-6">
                       <span>类型 </span>
                       <strong>系统公告</strong>
                   </div>
                   <div class="col-sm-6">
+                      <span>状态 </span>
+                      <strong v-html="this.name"></strong>
+                  </div>
+                  <div class="col-sm-6">
                       <span>所属单位 </span>
+                      <strong v-html="this.name"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>重要性 </span>
+                      <strong></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>预计人数 </span>
+                      <strong v-html="this.name"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>场地空旷 </span>
+                      <strong></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>危险源 </span>
+                      <strong v-html="this.name"></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>明火 </span>
+                      <strong></strong>
+                  </div>
+                  <div class="col-sm-6">
+                      <span>禁烟 </span>
                       <strong v-html="this.name"></strong>
                   </div>
                   <div class="col-sm-12">
                       <span>发布人 </span>
                       <strong v-html="this.firemenName"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>发布时间 </span>
                       <strong>2018-09-13 23:36:32</strong>
-                  </div>
-                  <div class="col-sm-6">
-                      <span>过期时间 </span>
-                      <strong>2018-09-13 23:36:32</strong>
-                  </div>                  
+                  </div>                
                   <div class="col-sm-12">
                       <span>内容 </span>
                       <div class="font-white margin-top10">随便写一段话吧，因为我也不知道该写些什么出来给大家看，智能凑字数，如果字数不够，我会用其他文字来代替，比如123456或456789，如果这还不够的话，我只能打省略号了。。。。。。

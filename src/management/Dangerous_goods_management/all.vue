@@ -113,10 +113,10 @@
             <template slot-scope="scope">
               <el-tag
                 :type="scope.row.status === 0 ? 'red' : 'green'"
-                disable-transitions v-if='scope.row.status==0'>未解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+                disable-transitions v-if='scope.row.status==0'>未解决 <i class="el-icon-warning font-red" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-red" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+                disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
             </template>
           </el-table-column>
           <el-table-column
@@ -356,7 +356,7 @@
         floorList:[],
         buildList:[],
         statusList:[
-          { name: '全部' , id:'' },
+          { name: '全部状态' , id:'' },
           { name:'未解决', id:0 },
           { name:'已解决', id:1 }
         ],
