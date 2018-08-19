@@ -74,9 +74,6 @@
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 padding-right5 clearfix">
 					<li>
-						<p class="font-gray-666 size-12">中心小学</p>
-					</li>
-					<li>
 						<p class="font-blue size-16">人员信息
 							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
                         <i class="icon iconfont icon-weibiaoti10 size-14"></i>

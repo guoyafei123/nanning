@@ -198,16 +198,6 @@
 		</section>
 		<!-- 统计 -->
 		<section class="per-lineinfo">
-			<section class="margin-top20">
-				<div class="personinfo">
-					<p>
-						<span class="size-20 font-blue">怀化市</span>
-					</p>
-					<p>
-						<span><i class="fas fa-industry"></i> 中心小学</span>
-					</p>
-				</div>
-			</section>
 			<section>
 				<div class="toolcount margin-top20">
 					<h4 class="p-title">人员统计</h4>
