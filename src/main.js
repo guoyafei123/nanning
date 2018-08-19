@@ -59,6 +59,10 @@ Vue.prototype.$qs=qs;
 import './assets/js/ajaxfileupload';
 //验证
 import './assets/js/validate';
+
+import './assets/css/zTreeStyleForDemo.css'
+import './assets/js/jquery.ztree.core'
+import './assets/js/jquery.ztree.excheck.min'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
