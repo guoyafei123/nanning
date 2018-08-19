@@ -1,6 +1,6 @@
 <template>
-  <div>
-      333
-  </div>
+	<div>
+		333
+	</div>
 
 </template>

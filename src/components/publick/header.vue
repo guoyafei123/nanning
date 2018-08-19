@@ -1,269 +1,269 @@
 <template>
-  <header id="header" class="position-fixed-top z-index-30">
-    <div class="header-main">
-    <div class="header-left margin-top30 position-left37 z-index-100">
-        <p class="font-white size-18 version-title"><!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
-            <span class="size-10 version-num">BETA3.0</span>
-        </p>
-        <el-select v-model="unitvalue" size="mini" @change="optionchange" style="width:600px;">
-            <el-option
-                  v-for="item in queryUnit"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-            </el-option>
-        </el-select>
-    </div>
-    <div class="header-middle font-gray-ccc">
-        <ul>
-            <li>
-                <canvas class="bg-none" id="header-canvas-people" width="50" height="50"></canvas>
-                <div class="display-inline-block">
-                    <p>
-                        <span class="font-blue">131</span>/
-                        <span>203</span>
-                    </p>
-                    <p class="size-12">人员在线</p>
-                </div>
-            </li>
-            <li>
-                <canvas class="bg-none" id="header-canvas-host" width="50" height="50"></canvas>
-                <div class="display-inline-block">
-                    <p>
-                        <span class="font-blue">88</span>/
-                        <span>106</span>
-                    </p>
-                    <p class="size-12">主机在线</p>
-                </div>
-            </li>
-            <li class="header-time">
-                <p class="font-blue size-12"> <i class="icon iconfont icon-qinglang-xian- size-14" data-toggle="tooltip" title="晴朗"></i><span>晴朗</span></p>
-                <p class="size-36 font-white" data-toggle="tooltip" title="2018年9月18日">09:50:55</p>
-            </li>
-            <li>
-                <canvas class="bg-none" id="header-canvas-cpu" width="50" height="50"></canvas>
-                <div class="display-inline-block">
-                    <p>
-                        <span>173</span>
-                    </p>
-                    <p class="size-12">建筑数量</p>
-                </div>
-            </li>
-            <li>
-                <canvas class="bg-none" id="header-canvas-memory" width="50" height="50"></canvas>
-                <div class="display-inline-block">
-                    <p>
-                        <span>3649</span>
-                    </p>
-                    <p class="size-12">设备数量</p>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="header-right margin-top30 font-gray-666">
-        <div class="header-head">            
-            <span class="">
+	<header id="header" class="position-fixed-top z-index-30">
+		<div class="header-main">
+			<div class="header-left margin-top30 position-left37 z-index-100">
+				<p class="font-white size-18 version-title">
+					<!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
+					<span class="size-10 version-num">BETA3.0</span>
+				</p>
+				<el-select v-model="unitvalue" size="mini" @change="optionchange" style="width:600px;">
+					<el-option v-for="item in queryUnit" :key="item.id" :label="item.name" :value="item.id">
+					</el-option>
+				</el-select>
+			</div>
+			<div class="header-middle font-gray-ccc">
+				<ul>
+					<li>
+						<canvas class="bg-none" id="header-canvas-people" width="50" height="50"></canvas>
+						<div class="display-inline-block">
+							<p>
+								<span class="font-blue">131</span>/
+								<span>203</span>
+							</p>
+							<p class="size-12">人员在线</p>
+						</div>
+					</li>
+					<li>
+						<canvas class="bg-none" id="header-canvas-host" width="50" height="50"></canvas>
+						<div class="display-inline-block">
+							<p>
+								<span class="font-blue">88</span>/
+								<span>106</span>
+							</p>
+							<p class="size-12">主机在线</p>
+						</div>
+					</li>
+					<li class="header-time">
+						<p class="font-blue size-12"> <i class="icon iconfont icon-qinglang-xian- size-14" data-toggle="tooltip" title="晴朗"></i><span>晴朗</span></p>
+						<p class="size-36 font-white" data-toggle="tooltip" title="2018年9月18日">09:50:55</p>
+					</li>
+					<li>
+						<canvas class="bg-none" id="header-canvas-cpu" width="50" height="50"></canvas>
+						<div class="display-inline-block">
+							<p>
+								<span>173</span>
+							</p>
+							<p class="size-12">建筑数量</p>
+						</div>
+					</li>
+					<li>
+						<canvas class="bg-none" id="header-canvas-memory" width="50" height="50"></canvas>
+						<div class="display-inline-block">
+							<p>
+								<span>3649</span>
+							</p>
+							<p class="size-12">设备数量</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="header-right margin-top30 font-gray-666">
+				<div class="header-head">
+					<span class="">
                 <div class="display-inline-block">
                     <el-dropdown trigger="click">
                       <span class="el-dropdown-link">
                         <span class="header-head-portrait">
                             <img src="../../assets/images/people.png" class="img-responsive img-circle">
                         </span>
-                        <span class="user-name">{{username}}</span>
-                        <span class="caret"></span>
-                      </span>
-                      <el-dropdown-menu slot="dropdown">                        
-                        <el-dropdown-item>签到</el-dropdown-item>
-                        <el-dropdown-item>操作记录</el-dropdown-item>
-                        <el-dropdown-item disabled>个人资料</el-dropdown-item>
-                        <el-dropdown-item disabled>修改密码</el-dropdown-item>
-                      </el-dropdown-menu>
-                    </el-dropdown>
-                </div>
-            </span>
-        </div>
-        <ul class="top-btn">
-            <li>
-                <span class="point"></span>
-                <a @click="showMessages()">
-                    <i class="icon iconfont icon-xiaoxi-mian--" data-toggle="tooltip" title="消息"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" data-toggle="tooltip" title="搜索">
-                    <i class="icon iconfont icon-sousuo-mian-"></i>
-                </a>
-            </li>            
-            <li>
-                <router-link to="/Unit_management" data-toggle="tooltip" title="管理">
-                    <i class="icon iconfont icon-shezhi-mian-"></i>
-                </router-link>
-            </li>
-            <li>
-                <a href="#" data-toggle="tooltip" title="九屏监控">
-                    <i class="icon iconfont icon-jiuping-mian-"></i>
-                </a>
-            </li>
-            <li>
-                <a @click="voice()" class="voice" data-toggle="tooltip" title="声音">
-                    <i class="icon iconfont icon-tongzhi-mian-"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" data-toggle="tooltip" title="帮助">
-                    <i class="icon iconfont icon-bangzhu-mian-"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<!-- 模态窗 -->
-<div class="modal fade" id="showmessages" aria-labelledby="messagesLabel" aria-hidden="true">
-    <!-- 消息中心 -->
-    <messages-vue></messages-vue>
-</div>
-</header>
+					<span class="user-name">{{username}}</span>
+					<span class="caret"></span>
+					</span>
+					<el-dropdown-menu slot="dropdown">
+						<el-dropdown-item>签到</el-dropdown-item>
+						<el-dropdown-item>操作记录</el-dropdown-item>
+						<el-dropdown-item disabled>个人资料</el-dropdown-item>
+						<el-dropdown-item disabled>修改密码</el-dropdown-item>
+					</el-dropdown-menu>
+					</el-dropdown>
+				</div>
+				</span>
+			</div>
+			<ul class="top-btn">
+				<li>
+					<span class="point"></span>
+					<a @click="showMessages()">
+						<i class="icon iconfont icon-xiaoxi-mian--" data-toggle="tooltip" title="消息"></i>
+					</a>
+				</li>
+				<li>
+					<a href="#" data-toggle="tooltip" title="搜索">
+						<i class="icon iconfont icon-sousuo-mian-"></i>
+					</a>
+				</li>
+				<li>
+					<router-link to="/Unit_management" data-toggle="tooltip" title="管理">
+						<i class="icon iconfont icon-shezhi-mian-"></i>
+					</router-link>
+				</li>
+				<li>
+					<a href="#" data-toggle="tooltip" title="九屏监控">
+						<i class="icon iconfont icon-jiuping-mian-"></i>
+					</a>
+				</li>
+				<li>
+					<a @click="voice()" class="voice" data-toggle="tooltip" title="声音">
+						<i class="icon iconfont icon-tongzhi-mian-"></i>
+					</a>
+				</li>
+				<li>
+					<a href="#" data-toggle="tooltip" title="帮助">
+						<i class="icon iconfont icon-bangzhu-mian-"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		</div>
+		<!-- 模态窗 -->
+		<div class="modal fade" id="showmessages" aria-labelledby="messagesLabel" aria-hidden="true">
+			<!-- 消息中心 -->
+			<messages-vue></messages-vue>
+		</div>
+	</header>
 
 </template>
 
 <script>
-import messagesVue from "./messages.vue";
-import{mapState} from "vuex";
-export default {
-  components: {
-    "messages-vue": messagesVue
-  },
-  // 选择器
-  data() {
-    return {
-      areavalue: "选项2",
-      unitvalue: "全部单位",
-      queryUnit:Object,
-      username:'-'
-    };
-  },
-  computed:mapState([
-        'userinfo',
-    ]),
-    watch:{
-        userinfo(){
-            // this.getuserinfo=this.userinfo;
-            // console.log(this.userinfo);
-        }
-    },
-  //其他
-  mounted() {
-    // console.log(this.userinfo);
+	import messagesVue from "./messages.vue";
+	import { mapState } from "vuex";
+	export default {
+		components: {
+			"messages-vue": messagesVue
+		},
+		// 选择器
+		data() {
+			return {
+				areavalue: "选项2",
+				unitvalue: "全部单位",
+				queryUnit: Object,
+				username: '-'
+			};
+		},
+		computed: mapState([
+			'userinfo',
+		]),
+		watch: {
+			userinfo() {
+				// this.getuserinfo=this.userinfo;
+				// console.log(this.userinfo);
+			}
+		},
+		//其他
+		mounted() {
+			// console.log(this.userinfo);
 
-    this.mini_go("header-canvas-people", 88.88);
-    this.mini_go("header-canvas-host", 88.88);
-    this.mini_go("header-canvas-cpu", 88.88);
-    this.mini_go("header-canvas-memory", 88.88);
-    $("[data-toggle='tooltip']").tooltip();
-    this.getunitlist();
-    this.getuserinfo();
+			this.mini_go("header-canvas-people", 88.88);
+			this.mini_go("header-canvas-host", 88.88);
+			this.mini_go("header-canvas-cpu", 88.88);
+			this.mini_go("header-canvas-memory", 88.88);
+			$("[data-toggle='tooltip']").tooltip();
+			this.getunitlist();
+			this.getuserinfo();
 
-  },
+		},
 
-  methods: {
-    // 显示模态窗
-    showMessages() {
-      $("#showmessages").modal("toggle");
-      $("#showmessages").on("show.bs.modal", function() {
-        $(".icon-xiaoxi-mian--").addClass("font-white");
-      });
-    },
-    // 开关声音
-    voice() {
-      $(".icon-tongzhi-mian-").toggleClass("font-blue");
-    },
+		methods: {
+			// 显示模态窗
+			showMessages() {
+				$("#showmessages").modal("toggle");
+				$("#showmessages").on("show.bs.modal", function() {
+					$(".icon-xiaoxi-mian--").addClass("font-white");
+				});
+			},
+			// 开关声音
+			voice() {
+				$(".icon-tongzhi-mian-").toggleClass("font-blue");
+			},
 
-    mini_go(id, num) {
-      //画底圆
-      //mini图配置
-      var canvas_mini = document.getElementById(id);
+			mini_go(id, num) {
+				//画底圆
+				//mini图配置
+				var canvas_mini = document.getElementById(id);
 
-      canvas_mini.width = canvas_mini.width;
-      canvas_mini.height = canvas_mini.height;
-      var cxt_mini = canvas_mini.getContext("2d");
-      cxt_mini.fillStyle = "rgba(255, 255, 255, 0)";
-      // cxt_mini.globalAlpha= (Math.sin(0) + 1) / 2;
-      var mini_width = canvas_mini.width;
-      var mini_height = canvas_mini.height;
-      var mini_r = mini_width / 2;
-      cxt_mini.translate(mini_width / 2, mini_height / 2);
-      var radi2_mini = mini_r * 0.855;
-      cxt_mini.rotate(5.5);
-      // 画底圆
-      cxt_mini.translate(-25, -25);
-      cxt_mini.translate(mini_width / 2, mini_height / 2);
-      cxt_mini.clearRect(0, 0, mini_width, mini_height);
-      cxt_mini.beginPath();
-      cxt_mini.lineWidth = 2;
-      cxt_mini.strokeStyle = "#fff";
-      cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI);
-      cxt_mini.stroke();
-      cxt_mini.closePath();
-      //画比例圆
-      cxt_mini.beginPath();
-      cxt_mini.lineWidth = 2;
-      cxt_mini.strokeStyle = "#bad616";
-      cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI * num, true);
-      cxt_mini.stroke();
-      cxt_mini.closePath();
-      //画斜杠
-      cxt_mini.beginPath();
-      cxt_mini.lineWidth = 2;
-      cxt_mini.strokeStyle = "#fff";
-      var moveto = mini_width * 0.133333333;
-      var lineto = mini_width * 0.377777777;
-      cxt_mini.moveTo(moveto, 0);
-      cxt_mini.lineTo(lineto, 0);
-      cxt_mini.stroke();
-      cxt_mini.closePath();
-    },
-    getunitlist() {
-      this.$fetch("api/unit/queryUnit")
-        .then(response => {
-            if (response) {
-            this.queryUnit = response.data.unitList;
-            console.log(this.queryUnit);
-            console.log(this.queryUnit.length);
-            if(this.queryUnit.length==1){
-                this.unitvalue=this.queryUnit[0].name;
-                this.$store.commit('unitid',this.queryUnit[0].id);
-            }else if(this.queryUnit.length>1){
-                if(sessionStorage.unitid){
-                    response.data.unitList.forEach(element => {
-                        if(element.id==sessionStorage.unitid){
-                            this.unitvalue=element.name;
-                            return;
-                        }
-                    });
-                }else{
-                    this.unitvalue='全部单位';
-                }
-                this.queryUnit.unshift({id:0,name:'全部单位'})
-                this.$store.commit('unitid',null);
-            }
-            }
-        })
-        .then(err => {
-            console.log(err);
-        });
-    },
-    optionchange(){
-        console.log(this.unitvalue);
-        sessionStorage.unitid=this.unitvalue;
-
-        this.$store.commit('unitid',this.unitvalue);
-    },
-    getuserinfo(){
-        this.username=localStorage.name
-    }
-  }
-};
+				canvas_mini.width = canvas_mini.width;
+				canvas_mini.height = canvas_mini.height;
+				var cxt_mini = canvas_mini.getContext("2d");
+				cxt_mini.fillStyle = "rgba(255, 255, 255, 0)";
+				// cxt_mini.globalAlpha= (Math.sin(0) + 1) / 2;
+				var mini_width = canvas_mini.width;
+				var mini_height = canvas_mini.height;
+				var mini_r = mini_width / 2;
+				cxt_mini.translate(mini_width / 2, mini_height / 2);
+				var radi2_mini = mini_r * 0.855;
+				cxt_mini.rotate(5.5);
+				// 画底圆
+				cxt_mini.translate(-25, -25);
+				cxt_mini.translate(mini_width / 2, mini_height / 2);
+				cxt_mini.clearRect(0, 0, mini_width, mini_height);
+				cxt_mini.beginPath();
+				cxt_mini.lineWidth = 2;
+				cxt_mini.strokeStyle = "#fff";
+				cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI);
+				cxt_mini.stroke();
+				cxt_mini.closePath();
+				//画比例圆
+				cxt_mini.beginPath();
+				cxt_mini.lineWidth = 2;
+				cxt_mini.strokeStyle = "#bad616";
+				cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI * num, true);
+				cxt_mini.stroke();
+				cxt_mini.closePath();
+				//画斜杠
+				cxt_mini.beginPath();
+				cxt_mini.lineWidth = 2;
+				cxt_mini.strokeStyle = "#fff";
+				var moveto = mini_width * 0.133333333;
+				var lineto = mini_width * 0.377777777;
+				cxt_mini.moveTo(moveto, 0);
+				cxt_mini.lineTo(lineto, 0);
+				cxt_mini.stroke();
+				cxt_mini.closePath();
+			},
+			getunitlist() {
+				this.$fetch("api/unit/queryUnit")
+					.then(response => {
+						if(response) {
+							this.queryUnit = response.data.unitList;
+							console.log(this.queryUnit);
+							console.log(this.queryUnit.length);
+							if(this.queryUnit.length == 1) {
+								this.unitvalue = this.queryUnit[0].name;
+								this.$store.commit('unitid', this.queryUnit[0].id);
+							} else if(this.queryUnit.length > 1) {
+								if(sessionStorage.unitid) {
+									response.data.unitList.forEach(element => {
+										if(element.id == sessionStorage.unitid) {
+											this.unitvalue = element.name;
+											return;
+										}
+									});
+								} else {
+									this.unitvalue = '全部单位';
+								}
+								this.queryUnit.unshift({
+									id: 0,
+									name: '全部单位'
+								})
+								this.$store.commit('unitid', null);
+							}
+						}
+					})
+					.then(err => {
+						console.log(err);
+					});
+			},
+			optionchange() {
+				console.log(this.unitvalue);
+				sessionStorage.unitid = this.unitvalue;
+				this.$store.commit('unitid', this.unitvalue);
+			},
+			getuserinfo() {
+				this.username = localStorage.name
+			}
+		}
+	};
 </script>
 
 <style scoped>
+
 </style>

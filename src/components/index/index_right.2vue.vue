@@ -1,7 +1,7 @@
 <template>
 	<div class="toolright font-gray-999">
 		<!-- 单位信息（地图联动） -->
-		<section class="unit-info border-solid-333 clearfix bg-black">			
+		<section class="unit-info border-solid-333 clearfix bg-black">
 			<ul class="list-unstyled">
 				<!-- 介绍 -->
 				<li class="position-relative">
@@ -27,7 +27,7 @@
 				<li>
 					<div class="pull-left">
 						<h4>段亚伟 <small>15600237854</small></h4>
-						<small>消防负责人</small>						
+						<small>消防负责人</small>
 					</div>
 					<div class="pull-right">
 						<article>
@@ -72,10 +72,11 @@
 		</section>
 		<!-- 实时报警 -->
 		<section class="early-warning margin-top30 clearfix">
-        	<span class="toolroute-rect bg-blue"></span>
+			<span class="toolroute-rect bg-blue"></span>
 			<div class="early-title">
-				<small>Early-Warning</small><el-button type="text" @click="centerDialogVisible = true">点击打开 Dialog</el-button>
-            	<h3>实时报警
+				<small>Early-Warning</small>
+				<el-button type="text" @click="centerDialogVisible = true">点击打开 Dialog</el-button>
+				<h3>实时报警
             		<a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
         		</h3>
 			</div>
@@ -372,46 +373,41 @@
 	</div>
 
 </template>
-<el-dialog
-  title="提示"
-  :visible.sync="centerDialogVisible"
-  width="30%"
-  center>
-  <earlyinfo-vue></earlyinfo-vue>
+<el-dialog title="提示" :visible.sync="centerDialogVisible" width="30%" center>
+	<earlyinfo-vue></earlyinfo-vue>
 </el-dialog>
-<script>	
-import earlyinfoVue from './earlyinfo.vue';
-export default {
-  components:{
-      'earlyinfo-vue':earlyinfoVue
-  },
-  // 数据接入
-  data() {
-    return {
-    	centerDialogVisible: false
-    }
-  },
-  // 调用方法 
-  methods: { 
-    // 实时警报列表展开/折叠
-  	openEarlyList(){
-  		$(".unit-info").slideToggle(
-  			function(){  			
-  			$(".unit-btn-close").toggle();
-  			$(".unit-btn-open").toggle();
-  			$(".early-warning").toggleClass("scrollheight");
-  		});
-  		
-  	},
-  	// 锁定/关闭
-     earlyTool(){
-            $(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
-     }
-  },
-  // 默认加载方法
-  mounted() {
+<script>
+	import earlyinfoVue from './earlyinfo.vue';
+	export default {
+		components: {
+			'earlyinfo-vue': earlyinfoVue
+		},
+		// 数据接入
+		data() {
+			return {
+				centerDialogVisible: false
+			}
+		},
+		// 调用方法 
+		methods: {
+			// 实时警报列表展开/折叠
+			openEarlyList() {
+				$(".unit-info").slideToggle(
+					function() {
+						$(".unit-btn-close").toggle();
+						$(".unit-btn-open").toggle();
+						$(".early-warning").toggleClass("scrollheight");
+					});
 
-  }
-};
+			},
+			// 锁定/关闭
+			earlyTool() {
+				$(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
+			}
+		},
+		// 默认加载方法
+		mounted() {
 
+		}
+	};
 </script>
