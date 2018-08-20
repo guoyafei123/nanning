@@ -53,7 +53,10 @@ var state={
   // 传递最低评分单位
   buildCountDataSocre:Object,
   // 传递最低评分单位
-  buildDetailinfos:Object
+  buildDetailinfos:Object,
+  // 预案统计左上角和右边echar共享
+  countUnitPlan:Object,
+  topersonitem:Object
 }
 
 var mutations={
@@ -169,6 +172,10 @@ var mutations={
   tobuilditem(state,data){
     state.tobuilditem=data;
   },
+  // 展示人员
+  topersonitem(state,data){
+    state.topersonitem=data;
+  },
   // 全局权限
   unitid(state,data){
     state.unitid=data;
@@ -181,6 +188,9 @@ var mutations={
   },
   buildDetailinfos(state,data){
     state.buildDetailinfos=data;
+  },
+  countUnitPlan(state,data){
+    state.countUnitPlan=data;
   },
 }
 
