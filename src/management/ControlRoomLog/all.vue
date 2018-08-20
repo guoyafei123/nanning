@@ -14,14 +14,16 @@
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
           <el-date-picker
-              v-model="value7"
+              v-model="timeValue"
               type="daterange"
               align="right"
               unlink-panels
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
-              :picker-options="pickerOptions2">
+              :picker-options="pickerOptions2"
+              format="yyyy 年 MM 月 dd 日"
+              value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form>
       </div>
@@ -73,6 +75,7 @@
           </el-table-column>
           <el-table-column
             prop="punchTime"
+            width="160px"
             label="打卡时间">
           </el-table-column>
         </el-table>
@@ -143,7 +146,7 @@
             }
           }]
         },
-        value7: ''
+        timeValue: ''
       }      
     },
     methods: {
@@ -178,8 +181,8 @@
             currentPager:this.currentPage4,
             pagerSize:10,
             unitId:this.operator,
-            beginTime:null,
-            endTime:null
+            beginTime:this.timeValue[0],
+            endTime:this.timeValue[1]
           }
         )
           .then(response => {
@@ -221,6 +224,10 @@
       operator(val,oldVal){
         this.operator = val ;
         console.log(this.operator);
+        this.tableList();
+      },
+      timeValue(val,oldVal){
+        this.timeValue = val ;
         this.tableList();
       }
     }
