@@ -49,6 +49,11 @@ import Message_managementNoticeVue from '../management/Message_management/notice
 import Message_managementActivityVue from '../management/Message_management/activity';
 import operationLogVue from '../management/operationLog/operationLog';
 import operationLog_AllVue from '../management/operationLog/all';
+import Authority_allocationVue from '../management/Authority_allocation/Authority_allocation';
+import Authority_allocation_AllVue from '../management/Authority_allocation/all';
+import Authority_allocation_AllocationVue from '../management/Authority_allocation/allocation';
+import ControlRoomLogVue from '../management/ControlRoomLog/ControlRoomLog';
+import ControlRoomLog_AllVue from '../management/ControlRoomLog/all';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -165,6 +170,23 @@ export default new Router({
       children:[
         { path:'/operationLog/all',component:operationLog_AllVue},
         { path:'/operationLog',redirect:'/operationLog/all'}
+      ]
+    },
+    {
+      path:'/ControlRoomLog',
+      component:ControlRoomLogVue,
+      children:[
+        { path:'/ControlRoomLog/all',component:ControlRoomLog_AllVue},
+        { path:'/ControlRoomLog',redirect:'/ControlRoomLog/all'}
+      ]
+    },
+    {
+      path:'/Authority_allocation',
+      component:Authority_allocationVue,
+      children:[
+        { path:'/Authority_allocation/all',component:Authority_allocation_AllVue},
+        { path:'/Authority_allocation/allocation/:id',component:Authority_allocation_AllocationVue},
+        { path:'/Authority_allocation',redirect:'/Authority_allocation/all'}
       ]
     },
     {

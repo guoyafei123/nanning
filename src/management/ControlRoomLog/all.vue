@@ -132,7 +132,7 @@
           }]
         },
         value7: ''
-      }
+      }      
     },
     methods: {
       btn_add(){

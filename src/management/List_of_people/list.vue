@@ -17,11 +17,11 @@
           class类hint-error为错误提示
          -->
         <el-form class="row" :rules="rules" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="姓名" class="not-null">
-            <span class="hint-error">单位名称有误或重复</span>
+          <el-form-item label="姓名" prop="nickName" class="not-null">
+            <!-- <span class="hint-error">单位名称有误或重复</span> -->
             <el-input v-model="form.nickName" class="col-sm-4"></el-input>
           </el-form-item>          
-          <el-form-item label="账号/手机号" class="not-null col-sm-4">
+          <el-form-item label="账号/手机号" prop="cellPhone" class="not-null col-sm-4">
             <el-input v-model.number="form.cellPhone"></el-input>
           </el-form-item>
           <div class="col-sm-12">
@@ -74,6 +74,15 @@ import {isvalidPhone} from '../../assets/js/validate';
                 callback()
             }
         }
+        var Name=(rule, value,callback)=>{
+            if (!value){
+                callback(new Error('请输入您的姓名'))
+            }else  if (!isName(value)){
+              callback(new Error('请输入正确的姓名'))
+            }else {
+                callback()
+            }
+        }
         return {
           labelPosition: 'top',
           form: {
@@ -90,6 +99,10 @@ import {isvalidPhone} from '../../assets/js/validate';
           rules: {
             cellPhone: [
               { required: true, trigger: 'blur', validator: validPhone }//这里需要用到全局变量
+            ],
+            nickName:[
+              { required: true, trigger: 'blur', validator: Name },
+              { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
             ]
           }
         }

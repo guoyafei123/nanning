@@ -138,7 +138,7 @@
     border-radius: 0;
   }
   .el-input__icon{
-    line-height: 28px;
+    line-height: 0;
   }
   .main_content_top{
     .el-button{
@@ -702,5 +702,33 @@ table th, table td{
 
 
 #operationLog .main_content_table .el-table .el-table__row td:last-child .cell, .main_content_table .el-table th:last-child .cell{
-  text-align:center!important;
+  text-align:left!important;
+}
+
+.allocation a{
+  // padding-left:20px;
+  width:70px;
+  height:30px;
+  line-height: 30px;
+  margin:0 auto;
+  border:1px solid #999;
+  box-sizing: border-box;
+  margin-top:10px;
+  text-align: center;
+  color: #fff;
+}
+.allocation a:hover{
+  // padding:3px 5px;
+  width:70px;
+  height:30px;
+  line-height: 30px;
+  margin:0 auto;
+  border:1px solid #bad616;
+  box-sizing: border-box;
+  margin-top:10px;
+  // display: inline;
+}
+
+.allocation .main_content_table .el-table .cell{
+  text-align: center;
 }
