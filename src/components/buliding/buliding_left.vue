@@ -191,6 +191,7 @@
       this.queryBuildList_parameter.unitId=this.getunitid;
       this.getRiskData();  
       this.getRiskTable(); 
+      
     }
   },
   methods: {

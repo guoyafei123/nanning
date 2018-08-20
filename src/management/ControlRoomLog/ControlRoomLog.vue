@@ -1,5 +1,5 @@
 <template>
-  <div class="row" id="allocation">
+  <div class="row" id="log">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->
@@ -12,6 +12,10 @@
     <section id="manage-center" class="position-fixed-left z-index-20">
       <main-vue></main-vue>
     </section> 
+    <!-- #右边 -->
+    <section id="right" class="position-fixed-right z-index-20">
+      <div class="overlay"></div>
+    </section>
     <div class="fix" @click="show" style="display:none;width:20px;height:60px;position: fixed;top:35%;left:0;background:#333;text-align:center;line-height: 60px;">
       <span style="font-size: 23px;
     display: block;

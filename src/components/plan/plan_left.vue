@@ -1,11 +1,11 @@
 <template>
 	<div class="toolleft margin-right0">
 		<section>
-			<div class="row toolcount">
-				<div class="col-sm-6 font-gray-999 padding-right0">
-					<ul class="toolcount-left margin-bottom0 padding-left37" id="toolcount">
+			<div class="toolcount">
+				<div class="set-width-50  font-gray-999 padding-right0">
+					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
 						<li>
-							<h1 class="toolcount-p1 font-blue">286</h1>
+							<h1 class="toolcount-p1 font-blue">{{countUnitPlan.sumofPlan}}</h1>
 						</li>
 						<li>
 							<p class="size-10">Plan-Total</p>
@@ -15,34 +15,36 @@
 						</li>
 					</ul>
 				</div>
-				<div class="col-sm-6 font-gray-999 padding-left0 padding-right0 size-12">
-					<ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
+				<div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
+					<ul class="padding-left0 margin-bottom0">
 						<li class="toolcount-right-title">
 							<p class="size-26 font-blue">预案统计</p>
 						</li>
-						<li>
-							<li class="margin-bottom10">
-								<p class="size-10">Plan-number</p>
+						<li class="margin-bottom10">
+							<p class="size-10">Plan-number</p>
+						</li>
+						<template v-for="item in countUnitPlan.numberOfPlanType">
+							<li v-if="item.type==1">
+								<p>火灾预案</p>
+								<p class="font-blue font-italic float-right size-14" >{{item.typeOfCount}}</p>
 							</li>
-							<li>
-								<p class="set-width-50">火灾预案</p>
-								<p class="display-inline-block font-red size-14">12</p>
+							<li v-if="item.type==2">
+								<p>管理规定</p>
+								<p class="font-blue font-italic float-right size-14" >{{item.typeOfCount}}</p>
 							</li>
-							<li>
-								<p class="set-width-50">管理规定</p>
-								<p class="display-inline-block font-yellow size-14">6</p>
+							<li v-if="item.type==3">
+								<p>疏散示意图</p>
+								<p class="font-blue font-italic float-right size-14" >{{item.typeOfCount}}</p>
 							</li>
-							<li>
-								<p class="set-width-50">疏散示意图</p>
-								<p class="display-inline-block font-blue size-14">268</p>
-							</li>
+						</template>
+						
 					</ul>
 				</div>
 			</div>
 		</section>
 		<!-- 趋势 -->
 		<section>
-			<div class="toolroute font-gray-ccc margin-left37 margin-top30">
+			<div class="toolroute font-gray-ccc margin-left37 margin-top20">
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 padding-right5 clearfix">
 					<li>
@@ -60,8 +62,8 @@
 							<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 							</el-option>
 						</el-select>
-						<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 " size="mini" v-model="value7" placeholder="全部类型" @change="tolineitem">
-							<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+						<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 " style="width:120px!important" size="mini" v-model="plantypevalue" placeholder="全部类型" @change="toplantypevalue">
+							<el-option v-for="item in plantype" :key="item.value" :label="item.label" :value="item.value">
 							</el-option>
 						</el-select>
 					</li>
@@ -71,58 +73,39 @@
 								<tr>
 									<th>预案名称</th>
 									<th>类型</th>
-									<th>所属建筑</th>
-									<th>所属单位</th>
+									<th>下载</th>
+									<th>查看</th>
 								</tr>
 							</thead>
 							<tbody id="">
-								<tr>
-									<td>火情确认须知</td>
-									<td>火灾预案</td>
-									<td>实验室教学楼</td>
-									<td>中心小学</td>
-								</tr>
-								<tr>
-									<td>单位灭火力量</td>
-									<td>火灾预案</td>
-									<td>-</td>
-									<td>中心小学</td>
-								</tr>
-								<tr>
-									<td>应急路线示意</td>
-									<td>疏散示意图</td>
-									<td>瑞和商业楼</td>
-									<td>瑞和家园</td>
-								</tr>
-								<tr>
-									<td>消防值班守则</td>
-									<td>管理规定</td>
-									<td>-</td>
-									<td>瑞和家园</td>
-								</tr>
-								<tr>
-									<td>火情确认须知</td>
-									<td>火灾预案</td>
-									<td>实验室教学楼</td>
-									<td>中心小学</td>
-								</tr>
-								<tr>
-									<td>单位灭火分布</td>
-									<td>火灾预案</td>
-									<td>-</td>
-									<td>中心小学</td>
-								</tr>
-								<tr>
-									<td>应急路线示意</td>
-									<td>疏散示意图</td>
-									<td>瑞和商业楼</td>
-									<td>瑞和家园</td>
+								<tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
+									<td>{{item.name ? item.name:"暂无名称"}}</td>
+									<td v-if="item.type==1">火灾预案</td>
+									<td v-if="item.type==2">管理规定</td>
+									<td v-if="item.type==3">疏散预案</td>
+									<td v-if="item.type==4">应急疏散示意图</td>
+									<td>
+										<a >
+											<i class="icon iconfont icon-shenbaozhong-mian- set-ciontop3" data-toggle="tooltip" title="查看详情"></i>
+										</a>
+									</td>
+									<td>
+										<a >
+											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+										</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>
 					</li>
-					<li>
-						<span class="size-12">分页</span>
+					<li class="upd-pagin">
+						<div>
+							<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+							</el-pagination>
+							<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.deletePlan_parameter.pageSize)}}页</span>
+							<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.deletePlan_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.getAlarmList_parameter.currentPage" @current-change="handleCurrentChange">
+							</el-pagination>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -149,16 +132,90 @@
 						label: "怀化市横县"
 					}
 				],
-
+				plantype: [{
+						value: "0",
+						label: "全部类型"
+					},
+					{
+						value: "1",
+						label: "火灾预案 "
+					},
+					{
+						value: "2",
+						label: "管理规定 "
+					},
+					{
+						value: "3",
+						label: "疏散预案 "
+					},
+					{
+						value: "4",
+						label: "应急疏散示意图 "
+					}
+				],
+				plantypevalue:'',
+				countUnitPlan_parameter:{
+					unitId:null,
+					buildingId:null
+				},
+				countUnitPlan:Object,
+				deletePlan_parameter: {
+					unitId: null,
+					property: null,
+					structure: null,
+					currentPage: 1,
+					pageSize: 10,
+					type:null,
+					buildingId:null
+				},
+				// 表格返回
+				tableData: Object,
 			};
 		},
 		methods: {
 			tolineitem() {
 
 			},
+			toplantypevalue(){
+				if(this.plantypevalue==0){
+					this.deletePlan_parameter.type=null;
+				}
+				this.deletePlan_parameter.type=this.plantypevalue;
+				this.getTable();
+			},
+			getplancount(){
+				this.$fetch(
+				"/api/plan/countUnitPlan", 
+				this.countUnitPlan_parameter
+				).then(response => {
+					if (response.data) {
+						this.countUnitPlan = response.data;
+						this.$store.commit("countUnitPlan", response.data);
+					}
+				});
+			},
+			getTable(){
+				this.$fetch(
+						"/api/plan/planList",
+						this.deletePlan_parameter
+					).then(response => {
+						if(response) {
+							this.tableData = response.data.pager;
+						}
+					})
+					.then(err => {
+						console.log(err);
+					});
+			},
+			handleCurrentChange(val) {
+				this.deletePlan_parameter.currentPage = val;
+				this.getTable();
+			},
+
 		},
 		mounted() {
-			this.$store.commit('route_path', this.$route.path);
+			this.getplancount();
+			this.getTable();
 		}
 	};
 </script>
