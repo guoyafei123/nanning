@@ -1,7 +1,7 @@
 // 跳转添加样式
 var pathname = window.location.pathname;
 console.log(pathname);
-// $("a[href='" + pathname + "']").parent().addClass("footer-nav-active");
+$("a[href='" + pathname + "']").parent().addClass("footer-nav-active");
 
 function mini_go(id, num) {
     //画底圆
