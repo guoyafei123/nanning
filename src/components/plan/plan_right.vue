@@ -23,17 +23,10 @@
 				</div>
 				<!-- 柱形图 -->
 				<div class="col-sm-12 margin-top20">
-					<div class="margin-bottom10">
-						<span class="bg-gray-999 font-black" style="width:100px; line-height: 24px;margin-right:6px;padding-left: 6px;display: inline-block;">火灾预案</span>
-					</div>
-					<div class="margin-bottom10">
-						<span class="bg-blue font-black" style="width:200px; line-height: 24px;margin-right:6px;padding-left: 6px;display: inline-block;">管理规定</span>
-						<span>总数 <span class="font-blue">85</span> 占比 <span class="font-blue">63.7%</span></span>
-					</div>
-					<div class="margin-bottom10">
-						<span class="bg-gray-333 font-black" style="min-width:80px; line-height: 24px;margin-right:6px;padding-left: 6px;display: inline-block;">疏散示意图</span>
-					</div>
+					<div id="myChart" style="width: 100%;height:100px;margin: 0 auto;"></div>
 				</div>
+
+				
 			</div>
 		</section>
 		<!-- 预案列表 -->
@@ -212,6 +205,7 @@
 </template>
 
 <script>
+	import{mapState} from "vuex";
 	export default {
 		data() {
 			return {
@@ -232,6 +226,14 @@
 				]
 			};
 		},
+		computed:mapState([
+			'countUnitPlan',
+		]),
+		watch:{
+			countUnitPlan(){
+				
+			}
+		},
 		methods: {
 			openEarlyList() {
 				$(".unit-info").slideToggle(function() {
@@ -239,8 +241,81 @@
 					$(".unit-btn-open").toggle();
 					$(".early-warning").toggleClass("scrollheight");
 				});
+			},
+			getchar(){
+				var option = {
+					tooltip: {
+						trigger: "axis",
+						axisPointer: {
+							// 坐标轴指示器，坐标轴触发有效
+							type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+						}
+					},
+					grid: {
+						left: "70",
+						right: "10",
+						bottom: "0",
+						top: "0"
+					},
+					xAxis: {
+						type: "value",
+						show: false
+					},
+					yAxis: {
+						type: "category",
+						data: ['疏散示意图','疏散预案','管理规定','火灾预案'],
+						show: true,
+						axisTick: {
+							show: false
+						},
+						axisLine: {
+							show: false
+						},
+						axisLine: {
+							lineStyle: {
+								color: "#999"
+							}
+						},
+						axisLabel: {
+							textStyle: {
+								color: '#fff'
+							}
+						},
+						z:10
+					},
+					series: [{
+						type: "bar",
+						label: {
+							normal: {
+								show: true,
+								position: "right",
+								color: "#ffffff"
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: function(params) {
+									if(params.value > 0 && params.value < 300) {
+										return "#666";
+									} else if(params.value >= 100 && params.value <= 600) {
+										return "#999";
+									} else if(params.value >= 200 && params.value <= 900) {
+										return "#ccc";
+									}
+									return "#bad616";
+								}
+							}
+						},
+						data: [220, 532, 1901,200]
+					}]
+				};
+				let myChart = this.$echarts.init(document.getElementById("myChart"));
+				myChart.setOption(option);
 			}
 		},
-		mounted() {}
+		mounted() {
+			console.log(this.countUnitPlan);
+			this.getchar();
+		}
 	};
 </script>

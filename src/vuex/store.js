@@ -53,7 +53,10 @@ var state={
   // 传递最低评分单位
   buildCountDataSocre:Object,
   // 传递最低评分单位
-  buildDetailinfos:Object
+  buildDetailinfos:Object,
+  // 预案统计左上角和右边echar共享
+  countUnitPlan:Object 
+
 }
 
 var mutations={
@@ -181,6 +184,9 @@ var mutations={
   },
   buildDetailinfos(state,data){
     state.buildDetailinfos=data;
+  },
+  countUnitPlan(state,data){
+    state.countUnitPlan=data;
   },
 }
 
