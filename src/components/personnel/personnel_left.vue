@@ -5,7 +5,7 @@
 				<div class="set-width-50  font-gray-999 padding-right0">
 					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
 						<li>
-							<h1 class="toolcount-p1 font-red" style="line-height:10px">12</h1>
+							<h1 class="toolcount-p1 font-red" style="line-height:10px">{{personAnalyseData.userCount?personAnalyseData.userCount:"0"}}</h1>
 						</li>
 						<li>
 							<p class="size-10">Alarm Number</p>
@@ -19,19 +19,19 @@
 					<ul class="padding-left0 margin-bottom0">
 						<li>
 							<p>人员总数</p>
-							<p class="font-blue font-italic float-right size-14">12</p>
+							<p class="font-blue font-italic float-right size-14">{{personAnalyseData.userOnlineCount?personAnalyseData.userOnlineCount:"0"}}</p>
 						</li>
 						<li>
 							<p>巡检员</p>
-							<p class="font-blue font-italic float-right size-14">12</p>
+							<p class="font-blue font-italic float-right size-14">{{personAnalyseData.inspectorCount?personAnalyseData.inspectorCount:"0"}}/{{personAnalyseData.inspectorOnlineCount?personAnalyseData.inspectorOnlineCount:"0"}}</p>
 						</li>
 						<li>
 							<p>管理员</p>
-							<p class="font-blue font-italic float-right size-14">12</p>
+							<p class="font-blue font-italic float-right size-14">{{personAnalyseData.administratorOnlineCount?personAnalyseData.administratorOnlineCount:"0"}}/{{personAnalyseData.administratorCount?personAnalyseData.administratorCount:"0"}}</p>
 						</li>
 						<li>
 							<p>待审核</p>
-							<p class="font-blue font-italic float-right size-14">12</p>
+							<p class="font-blue font-italic float-right size-14">{{personAnalyseData.auditingUserCount?personAnalyseData.auditingUserCount:"0"}}</p>
 						</li>
 					</ul>
 				</div>
@@ -46,10 +46,10 @@
 								<small class="font-blue">
                         执行任务最多
                       </small>
-								<p class="size-16">段亚伟</p>
+								<p class="size-16">{{personAnalyseMaxUser.inspectionUsername?personAnalyseMaxUser.inspectionUsername:"暂无名称"}}</p>
 							</div>
 							<div class="col-sm-5 padding0 text-left text-center">
-								<span class="size-24 font-white">24</span>
+								<span class="size-24 font-white">{{personAnalyseMaxUser.inspectionFinishAmount?personAnalyseMaxUser.inspectionFinishAmount:"0"}}</span>
 							</div>
 						</div>
 					</li>
@@ -59,10 +59,10 @@
 								<small class="font-blue">
                         发现隐患最多
                       </small>
-								<p class="size-16">段亚伟</p>
+								<p class="size-16">{{personAnalyseMaxUser.troubleNickName?personAnalyseMaxUser.troubleNickName:"暂无名称"}}</p>
 							</div>
 							<div class="col-sm-5 padding0 text-left text-center">
-								<span class="size-24 font-white">24</span>
+								<span class="size-24 font-white">{{personAnalyseMaxUser.troubleCount?personAnalyseMaxUser.troubleCount:"0"}}</span>
 							</div>
 						</div>
 					</li>
@@ -84,7 +84,6 @@
 						<table class="table table-responsive size-12 table-condensed toolroute-table margin-top10">
 							<thead>
 								<tr>
-									<th>序号</th>
 									<th>姓名</th>
 									<th>手机号</th>
 									<th>单位名称</th>
@@ -92,140 +91,14 @@
 									<th>操作</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>段亚伟</td>
-									<td>18601246987</td>
-									<td>瑞和家园</td>
+							<tbody id="">
+								<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
+									<td>{{item.nickName}}</td>
+									<td>{{item.cellPhone}}</td>
+									<td>{{item.unitName}}</td>
 									<td>
-										<i class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>王金</td>
-									<td>18601246987</td>
-									<td>中心小学</td>
-									<td>
-										<i class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>陈磊</td>
-									<td>18601246987</td>
-									<td>中心小学</td>
-									<td>
-										<i class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>王晓波</td>
-									<td>18601246987</td>
-									<td>瑞和家园</td>
-									<td>
-										<i class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>刘健</td>
-									<td>18601246987</td>
-									<td>中心小学</td>
-									<td>
-										<i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>6</td>
-									<td>魏世星</td>
-									<td>18601246987</td>
-									<td>瑞和家园</td>
-									<td>
-										<i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>7</td>
-									<td>崔幸福</td>
-									<td>18601246987</td>
-									<td>实验小学</td>
-									<td>
-										<i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>8</td>
-									<td>徐金玲</td>
-									<td>18601246987</td>
-									<td>实验小学</td>
-									<td>
-										<i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>9</td>
-									<td>刘杰</td>
-									<td>18601246987</td>
-									<td>瑞和家园</td>
-									<td>
-										<i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
-									</td>
-									<td>
-										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>10</td>
-									<td>赵堆船</td>
-									<td>18601246987</td>
-									<td>瑞和家园</td>
-									<td>
-										<i class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
+										<i v-if="item.online==true" class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
+										<i v-if="item.online==false" class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
 									</td>
 									<td>
 										<a @click="moren">
@@ -236,8 +109,14 @@
 							</tbody>
 						</table>
 					</li>
-					<li>
-						<span class="size-12">分页</span>
+					<li class="upd-pagin">
+						<div>
+							<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+							</el-pagination>
+							<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.queryPersonList_parameter.pageSize)}}页</span>
+							<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.queryPersonList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="handleCurrentChange">
+							</el-pagination>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -247,6 +126,7 @@
 
 <script>
 	import { mapState } from "vuex";
+	import HeaderVue from '../publick/header.vue';
 	export default {
 		data() {
 			return {
@@ -265,11 +145,87 @@
 				],
 
 				value7: "",
+				//建筑统计参数
+				personAnalyse_parameter:{
+					unitId: null
+				},
+				//建筑统计返回对象
+				personAnalyseData: Object,
+				personAnalyseMaxUser: Object,
+				// 表格-请求
+				queryPersonList_parameter: {
+					unitId: null,
+					structure: null,
+					currentPage: 1,
+					pageSize: 10
+				},
+				// 表格返回
+				tableData: Object,
+				getunitid:Object
 			}
 
 		},
+		computed: mapState([
+			'unitid'
+		]),
+		watch: {
+			unitid(){
+				// console.log(this.queryAlarmData_parmar.unitId)
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid=null;
+				}
+				this.personAnalyse_parameter.unitId=this.getunitid;
+				this.queryPersonList_parameter.unitId=this.getunitid;
+				this.getPersonData();  
+				this.getPersonTable(); 
+			}
+		},
 		methods: {
-			// 右侧
+			// 获取人员分析
+			getPersonData() {
+				this.$fetch(
+					"/api/user/userAnalyse", 
+					this.personAnalyse_parameter
+					).then(response => {
+						if (response.data) {
+							this.personAnalyseData = response.data.userAnalyse;
+							console.log("人员统计数据1-----0--0--0");
+							console.log(response.data.userAnalyse);
+						}
+				});
+				this.$fetch(
+					"/api/alarmstats/queryMaxUser",
+					this.personAnalyse_parameter
+					).then(response => {
+						if (response.data) {
+							console.log("人员统计数据2-----0--0--0");
+							console.log(response.data);
+							this.personAnalyseMaxUser = response.data.param;
+						}
+				});
+			},
+			// 获取表格
+			getPersonTable() {
+				this.$fetch(
+					"/api/user/query_unit_user",
+					this.queryPersonList_parameter
+				).then(response => {
+					if (response) {
+						this.tableData = response.data.pager;
+						console.log("人员表格列表-----0--0--0");
+						console.log(this.tableData);
+					}
+				}).then(err => {
+					console.log(err);
+				});
+			},
+			handleCurrentChange(val) {
+				this.queryPersonList_parameter.currentPage = val;
+				this.getPersonTable();
+			},
+		    // 右侧
 			moren() {
 				$(".per-iteminfo")
 					.addClass("display-block")
@@ -278,12 +234,15 @@
 					.addClass("display-none")
 					.removeClass("display-block");
 			},
-			tolineitem() {},
+			//获取详情
+			toitmeinfo(data) {
+				this.itemdata = data;
+				this.$store.commit("topersonitem", this.itemdata);
+			},
 		},
 		mounted() {
-
+			this.getPersonData();
+			this.getPersonTable();
 		},
-		computed: mapState([]),
-		watch: {},
 	}
 </script>

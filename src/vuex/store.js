@@ -172,6 +172,10 @@ var mutations={
   tobuilditem(state,data){
     state.tobuilditem=data;
   },
+  // 展示人员
+  topersonitem(state,data){
+    state.topersonitem=data;
+  },
   // 全局权限
   unitid(state,data){
     state.unitid=data;
