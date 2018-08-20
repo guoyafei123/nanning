@@ -191,8 +191,6 @@
 					).then(response => {
 						if (response.data) {
 							this.personAnalyseData = response.data.userAnalyse;
-							console.log("人员统计数据1-----0--0--0");
-							console.log(response.data.userAnalyse);
 						}
 				});
 				this.$fetch(
@@ -200,8 +198,6 @@
 					this.personAnalyse_parameter
 					).then(response => {
 						if (response.data) {
-							console.log("人员统计数据2-----0--0--0");
-							console.log(response.data);
 							this.personAnalyseMaxUser = response.data.param;
 						}
 				});
@@ -214,8 +210,6 @@
 				).then(response => {
 					if (response) {
 						this.tableData = response.data.pager;
-						console.log("人员表格列表-----0--0--0");
-						console.log(this.tableData);
 					}
 				}).then(err => {
 					console.log(err);

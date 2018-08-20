@@ -55,8 +55,8 @@ var state={
   // 传递最低评分单位
   buildDetailinfos:Object,
   // 预案统计左上角和右边echar共享
-  countUnitPlan:Object 
-
+  countUnitPlan:Object,
+  topersonitem:Object
 }
 
 var mutations={
