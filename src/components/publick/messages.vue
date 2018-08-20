@@ -4,7 +4,7 @@
 			<!-- 框架标题 -->
 			<div class="messages-title">
 				<h2>消息中心<small>messages</small></h2>
-				<a><i class="icon iconfont icon-fasong-xian- size-20" data-toggle="tooltip" title="发消息"></i></a>
+				<router-link to="../management/Message_management/list"><i class="icon iconfont icon-fasong-xian- size-20" data-toggle="tooltip" title="发消息"></i></router-link>
 			</div>
 			<!-- 标签 -->
 			<ul id="myTab" class="nav nav-tabs">

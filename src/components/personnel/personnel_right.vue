@@ -23,9 +23,10 @@
 			<section class="margin-top20">
 				<div class="personinfo">
 					<p>
-						<span class="size-20 font-blue">段亚伟</span>
+						<span class="size-20 font-blue">{{userInfo.nickName?userInfo.nickName:"暂为空"}}</span>
 						<span class="bgbox-min bg-gray-666 font-black size-10">巡检人员</span>
-						<span class="bgbox-min bg-blue font-black size-10">在线</span>
+						<span v-if="userInfo.online==true" class="bgbox-min bg-blue font-black size-10">在线</span>
+						<span v-if="userInfo.online==false" class="bgbox-min bg-blue font-black size-10">离线</span>
 						<span class="float-right">
                             <span class="bgbox-max bg-blue font-black size-10">
                                 <i class="icon iconfont icon-dianhua-mian- size-12"></i> 打电话</span>
@@ -34,10 +35,10 @@
 						</span>
 					</p>
 					<p class="col-sm-7 text-left padding0">
-						<span><i class="fas fa-industry"></i> 中心小学</span>
+						<span><i class="fas fa-industry"></i> {{userInfo.unitName?userInfo.unitName:"暂无单位"}}</span>
 					</p>
 					<p class="col-sm-5 text-right padding0">
-						注册时间:<strong class="font-gray-999"> 13:56:37</strong>
+						注册时间:<strong class="font-gray-999"> {{userRegistDate.substring(0,10)}}</strong>
 					</p>
 				</div>
 			</section>
@@ -47,11 +48,12 @@
 						<ul class="toolcount-left padding-left0" id="toolcount">
 							<li class="col-xs-offset-1 col-xs-10 margin-bottom10 padding-left5">
 								<!-- <h1 class="toolcount-p1">8.7</h1> -->
-								<img src="../../assets/images/head.jpg" class="img-responsive img-circle" alt="段亚伟">
+								<img :src="userInfo.headImgUrl" class="img-responsive img-circle" alt="段亚伟">
+								<!-- <img src=""+{{userInfo.headImgUrl?userInfo.headImgUrl:"../../assets/images/head.jpg"}}+"" class="img-responsive img-circle" alt="段亚伟"> -->
 							</li>
 							<li class="col-xs-offset-1 col-xs-10 padding-left5 text-center">
-								<h4 class="size-16 font-blue show">段亚伟</h4>
-								<span class="size-12 font-gray-999">男 25岁 河北<br>1861596479</span>
+								<h4 class="size-16 font-blue show">{{userInfo.nickName?userInfo.nickName:"暂为空"}}</h4>
+								<span class="size-12 font-gray-999"><br> {{userInfo.cellPhone}}</span>
 							</li>
 						</ul>
 					</div>
@@ -63,25 +65,25 @@
 								<p class="size-10 set-scaleright">Personnel Statistics</p>
 							</li>
 							<li class="margin-top10">
-								<p>巡检任务领取总数 <strong class="font-white">35</strong></p>
+								<p>巡检任务领取总数 <strong class="font-white">{{queryUserData.inspectionCount}}</strong></p>
 							</li>
 							<li class="margin-top0">
-								<p>巡检任务完成总数 <strong class="font-white">35</strong></p>
+								<p>巡检任务完成总数 <strong class="font-white">{{queryUserData.inspectionFinishCount}}</strong></p>
 							</li>
 							<li class="row text-left">
 								<div class="col-sm-5 padding-right0">
-									<p >报警次数 <strong class="font-red">23次</strong></p>
+									<p >报警次数 <strong class="font-red">{{queryUserData.alarmFindCount}}次</strong></p>
 								</div>
 								<div class="col-sm-7">
-									<p>报警确认次数 <strong class="font-blue">1227s</strong></p>
+									<p>报警确认次数 <strong class="font-blue">{{queryUserData.alarmConfirmCount}}</strong></p>
 								</div>
 							</li>
 							<li class="row text-left">
 								<div class="col-sm-5 padding-right0">
-									<p>隐患发现数 <strong class="font-red">23次</strong></p>
+									<p>隐患发现数 <strong class="font-red">{{queryUserData.unitTroubleFindCount}}次</strong></p>
 								</div>
 								<div class="col-sm-7">
-									<p>隐患解决数 <strong class="font-blue">1227s</strong></p>
+									<p>隐患解决数 <strong class="font-blue">{{queryUserData.troubleConfirmCount}}</strong></p>
 								</div>
 							</li>
 						</ul>
@@ -93,19 +95,19 @@
 					<div class="row">
 						<div class="col-sm-4">
 							<div class="newpiechar"> 
-								<p>25%</p>
+								<p>{{userTroubleRate}}%</p>
 							</div>
 							<p class="text-center font-gray-999 margin-top10">隐患发现占比</p>
 						</div>
 						<div class="col-sm-4">
 							<div class="newpiechar"> 
-								<p>25%</p>
+								<p>{{userInspectionRate}}%</p>
 							</div>
 							<p class="text-center font-gray-999 margin-top10">巡检完成占比</p>
 						</div>
 						<div class="col-sm-4">
 							<div class="newpiechar"> 
-								<p>25%</p>
+								<p>{{userTroubleDealRate}}%</p>
 							</div>
 							<p class="text-center font-gray-999 margin-top10">隐患解决占比</p>
 						</div>
@@ -120,76 +122,41 @@
                     </span></h4>
 					<div class="table-responsive">
 						<table class="table size-12 table-condensed toolroute-table margin-top10">
-							<tr>
-								<th>序号</th>
-								<th>巡检日期</th>
-								<th>路线名称</th>
-								<th>巡检统计</th>
-								<th>状态</th>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>08:26:36 09-23</td>
-								<td>控烟严格巡检</td>
-								<td>
-									<span class="font-blue">10</span>/30</td>
-								<td>
-									<a>
-										<i class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="正在巡检"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>08:26:36 09-23</td>
-								<td>控烟严格巡检</td>
-								<td>
-									<span class="font-blue">10</span>/30</td>
-								<td>
-									<a>
-										<i class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="正在巡检"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>08:26:36 09-23</td>
-								<td>控烟严格巡检</td>
-								<td>
-									<span class="font-blue">10</span>/30</td>
-								<td>
-									<a>
-										<i class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="正在巡检"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>08:26:36 09-23</td>
-								<td>控烟严格巡检</td>
-								<td>
-									<span class="font-blue">10</span>/30</td>
-								<td>
-									<a>
-										<i class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>08:26:36 09-23</td>
-								<td>控烟严格巡检</td>
-								<td>
-									<span class="font-blue">10</span>/30</td>
-								<td>
-									<a>
-										<i class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="5">分页</td>
-							</tr>
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>巡检日期</th>
+									<th>路线名称</th>
+									<th>巡检统计</th>
+									<th>状态</th>
+								</tr>
+							</thead>
+							<tbody id="">
+								<tr v-for="(item,index) in tableData.result">
+									<td>{{index}}</td>
+									<td>{{item.receiveTime}}</td>
+									<td>{{item.inspectionName}}</td>
+									<td>
+										<span class="font-blue">{{item.finishedAmount}}</span>/{{item.amount}}</td>
+									<td>
+										<a>
+											<i v-if="item.status==1" class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="已领取"></i>
+											<i v-if="item.status==2" class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="巡检中"></i>
+											<i v-if="item.status==3" class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
+											<i v-if="item.status==4" class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="未完成"></i>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+							<li class="upd-pagin">
+								<div>
+									<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+									</el-pagination>
+									<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.queryUserInspectionList_parameter.pageSize)}}页</span>
+									<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.queryUserInspectionList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryUserInspectionList_parameter.currentPage" @current-change="handleCurrentChange">
+									</el-pagination>
+								</div>
+							</li>
 						</table>
 
 					</div>
@@ -204,11 +171,11 @@
 					<div class="col-sm-7 font-gray-999 padding-right0 size-12">
 						<div class="row text-center margin-top80">
 							<div class="col-sm-6 personnel-borderright">
-								<p class="size-16 font-yellow">37</p>
+								<p class="size-16 font-yellow">{{queryUserCountData.inspectionPlanPeople?queryUserCountData.inspectionPlanPeople:"0"}}</p>
 								<p>巡检人员</p>
 							</div>
 							<div class="col-sm-6">
-								<p class="size-16 font-white">25</p>
+								<p class="size-16 font-white">{{queryUserCountData.Management?queryUserCountData.Management:"0"}}</p>
 								<p>管理人员</p>
 							</div>
 						</div>
@@ -224,13 +191,13 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="newpiechar"> 
-								<p>25%</p>
+								<p>{{inspectorActive==="NaN"?0:inspectorActive}}%</p>
 							</div>
 							<p class="text-center font-gray-999 margin-top10">巡检人员活跃度</p>
 						</div>
 						<div class="col-sm-6">
 							<div class="newpiechar"> 
-								<p>25%</p>
+								<p>{{inspectorExecuteRate==="NaN"?0:inspectorExecuteRate}}%</p>
 							</div>
 							<p class="text-center font-gray-999 margin-top10">巡检人员执行率</p>
 						</div>
@@ -308,10 +275,81 @@
 						}
 					]
 				},
+				queryUserCount_parameter:{
+					unitId: null,
+					beginTime: '2017-07-02',
+					endTime: '2018-08-20'
+				},
+				queryUserCountData:Object,
+				loginLineChartData:Object,
+				inspectorActive:null,
+				inspectorExecuteRate:null,
+				toPersonDetailInfo:Object,
+				queryUserData_parameter:{
+					userId:null
+				},
+				queryUserData:Object,
+				userInfo:Object,
+				userRegistDate:"",
+				userTroubleRate:null,
+				userInspectionRate:null,
+				userTroubleDealRate:null,
+				queryUserInspectionList_parameter:{
+					userId:null,
+					currentPage: 1,
+					pageSize: 10
+				},
+				tableData: Object,
 			}
 
 		},
+		computed: mapState([
+			'topersonitem',
+			'unitid'
+		]),
+		watch: {
+			// 人员详情
+			topersonitem(){
+				console.log("用户id：");
+				console.log(this.toPersonDetailInfo.id);
+				this.toPersonDetailInfo =this.topersonitem;
+				this.queryUserData_parameter.userId = this.toPersonDetailInfo.id;
+				this.queryUserInspectionList_parameter.userId = this.toPersonDetailInfo.id;
+				this.getPersonDetailInfo();
+				this.getPersionInpectionLog();
+			},
+			unitid(){
+				// console.log(this.queryAlarmData_parmar.unitId)
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid=null;
+				}
+				this.queryUserCount_parameter=this.getunitid;
+				this.getData();
+			}
+		},
 		methods: {
+			//获取人员右侧统计数据
+			getData(){
+				this.$fetch("/api/user/queryUserCount",this.queryUserCount_parameter).then(response => {
+					if (response.data) {
+						let data = response.data;
+						this.queryUserCountData = data.info;
+						this.loginLineChartData = data.info.loginLogLineChart;
+						//组装圆形图数据格式
+						this.drawLineChart("myChart",this.loginLineChartData);
+						this.drawPieChart("pieb1",this.queryUserCountData);
+						//计算人员确切率：
+						let inspectionPlanPeople = this.queryUserCountData.inspectionPlanPeople ? this.queryUserCountData.inspectionPlanPeople:0;
+						let loginPeople = this.queryUserCountData.loginPeople?this.queryUserCountData.loginPeople:1;
+						this.inspectorActive = Number((Number(inspectionPlanPeople) / Number(loginPeople)) * 100).toFixed(0);
+						let amount =  this.queryUserCountData.amount?this.queryUserCountData.amount:1;
+						let finish =  this.queryUserCountData.finish?this.queryUserCountData.finish:0;
+						this.inspectorExecuteRate = Number((Number(finish) / Number(amount)) * 100).toFixed(0);
+					}
+				});
+			}, 
 			jianzhu() {
 				$(".per-lineinfo")
 					.addClass("display-block")
@@ -320,12 +358,14 @@
 					.addClass("display-none")
 					.removeClass("display-block");
 			},
-			chart_one() {
+			drawLineChart(id,data) {
+				let a = data.lineChartsDate;
+				let b = data.lineChartsCount;
 				var option = {
 					xAxis: {
 						type: "category",
 						boundaryGap: false,
-						data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+						data:  a,
 						show: true,
 						axisLine: {
 							lineStyle: {
@@ -348,11 +388,6 @@
 							}
 						}
 					},
-					// 图例
-					legend: {
-						data: ["高", "低"]
-					},
-
 					// 调整实际显示的 margin
 					grid: {
 						y: 30,
@@ -363,8 +398,8 @@
 					},
 					// 数据
 					series: [{
-							data: [100, 499, 50, 1111, 45, 345, 907],
-							name: "低",
+							data: b,
+							name: "每日登录次数",
 							type: "line",
 							symbol: "none",
 							smooth: true,
@@ -372,22 +407,6 @@
 								colorStops: [{
 									offset: 0,
 									color: "#333"
-								}]
-							}
-						},
-						{
-							data: [300, 950, 900, 800, 700, 600, 700],
-							name: "高",
-							type: "line",
-							symbol: "none",
-							smooth: true,
-							areaStyle: {
-								normal: {}
-							},
-							color: {
-								colorStops: [{
-									offset: 0,
-									color: "rgba(255,255,255,0.3)" // 0% 处的颜色
 								}]
 							}
 						}
@@ -401,13 +420,19 @@
 						}
 					}
 				};
+				let myChart = this.$echarts.init(document.getElementById(id));
+				myChart.setOption(option);
+			},
+			drawPieChart(id,data) {
+				let management = data.Management ;
+				let inspector = data.inspector ;
 				var pie = {
 					tooltip: {
 						trigger: "item",
 						formatter: "{a} <br/>{b}: {c} ({d}%)"
 					},
 					series: [{
-						name: "访问来源",
+						name: "人员分类",
 						type: "pie",
 						selectedMode: "single",
 						radius: [0, "70%"],
@@ -423,31 +448,74 @@
 						},
 						color: ["#bad616", "#333"],
 						data: [{
-								value: 335,
-								name: "50%",
+								value: inspector,
+								name: "巡检人员",
 								selected: true
 							},
 							{
-								value: 679,
-								name: ""
+								value: management,
+								name: "管理人员"
 							}
 						]
 					}]
 				};
-				let myChart = this.$echarts.init(document.getElementById("myChart"));
-				myChart.setOption(option);
-				let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
+				let mypie1 = this.$echarts.init(document.getElementById(id));
 				mypie1.setOption(pie);
-			}
+			},
+			//获取人员详情数据
+			getPersonDetailInfo(){
+				this.$fetch("/api/alarmstats/queryUserData",this.queryUserData_parameter).then(response => {
+					if (response.data) {
+						let data = response.data;
+						this.queryUserData = data.info;
+						this.userInfo = data.info.user;
+						this.userRegistDate = this.userInfo.createTime;
+						//计算各类型占比
+						let unitTroubleFindCount = Number(Number(this.queryUserData.troubleFindCount?this.queryUserData.troubleFindCount:0) / Number(this.queryUserData.unitTroubleFindCount?this.queryUserData.unitTroubleFindCount:0)).toFixed(2);
+						let unitInspectionCount = Number(Number(this.queryUserData.inspectionFinishCount?this.queryUserData.inspectionFinishCount:0) / Number(this.queryUserData.unitInspectionCount?this.queryUserData.unitInspectionCount:0)).toFixed(2);
+						let unitTroubleConfirmCount = Number(Number(this.queryUserData.troubleConfirmCount?this.queryUserData.troubleConfirmCount:0)/Number(this.queryUserData.unitTroubleConfirmCount?this.queryUserData.unitTroubleConfirmCount:0)).toFixed(2);
+						if(unitTroubleFindCount  === "NaN"){
+							this.userTroubleRate =  0;
+						}else{
+							this.userTroubleRate =  Number(unitTroubleFindCount * 100).toFixed(0);
+						}
+						if(unitInspectionCount === "NaN"){
+							this.userInspectionRate = 0;
+						}else{
+							this.userInspectionRate = Number(unitInspectionCount * 100).toFixed(0);
+						}
+						if(unitTroubleConfirmCount  === "NaN"){
+						    this.userTroubleDealRate = 0;
+						}else{
+							this.userTroubleDealRate = Number(unitTroubleConfirmCount * 100).toFixed(0);
+						}	
+					}
+				});
+			},
+			//获取个人巡检记录
+			getPersionInpectionLog(){
+				this.$fetch("/api/inspection/queryUserInspectionData",this.queryUserInspectionList_parameter).then(response => {
+					if (response.data) {
+						let data = response.data;
+						this.tableData = data.inspectionPlanUserPager;
+					}
+				});
+			},
+			handleCurrentChange(val) {
+				this.queryUserInspectionList_parameter.currentPage = val;
+				this.getPersionInpectionLog();
+			},
 		},
 		mounted() {
 			// 左侧
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.queryUserCount_parameter=sessionStorage.unitid;
+			}
+			if(sessionStorage.unitid==0){
+				this.queryUserCount_parameter=null;
+			}
 			this.$store.commit('route_path', this.$route.path);
-			// 右侧
-			this.chart_one();
-
+			this.getData();
 		},
-		computed: mapState([]),
-		watch: {},
 	}
 </script>

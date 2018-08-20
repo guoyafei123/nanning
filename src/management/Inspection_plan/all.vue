@@ -275,9 +275,6 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//启用
-        $('#mymodal').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.inspectionIndex = row.id ;
       },
       startRow(){
@@ -294,9 +291,6 @@
 
       },
       delete_plan(row){//删除
-        $('#mymodal2').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.inspectionIndex = row.id ;
         this.inspectionName = row.name;
       },
@@ -308,9 +302,6 @@
         $('.total').hide();
       },
       stop_plan(row){//停用
-        $('#mymodal3').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.inspectionName = row.name;
         this.inspectionIndex = row.id ;
       },

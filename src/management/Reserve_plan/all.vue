@@ -248,10 +248,14 @@
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
+<<<<<<< HEAD
       start_plan(row,indexs){//修改预案
         $('#mymodal').css({
           "display":"flex","justify-content":"center" ,"align-items": "center"
         })
+=======
+      start_plan(row,indexs){//修改单位
+>>>>>>> d7e0af5d1ba7f7110e995f60fcfe664f40858806
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(this.deviceIndex == item.id){

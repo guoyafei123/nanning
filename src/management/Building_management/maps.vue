@@ -30,13 +30,13 @@
         </div>
         <div class="maps">
         <managementMap-vue></managementMap-vue>
-        </div>
         <div class="floorMap" style="display:none;">
           <img src="../../assets/images/floor.png">
         </div>
         <div class="roomMap" style="display:none;">
           <img src="../../assets/images/floor.png">
-        </div>  
+        </div> 
+        </div>         
       </div>
     </aside>    
   </div>

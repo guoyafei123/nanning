@@ -169,6 +169,9 @@
     background: #bad616!important;
     color: #000!important;
 }
+.main_header .btn_add:hover{
+  background: #cfef16!important;
+}
 .main_header a i{
     margin-right: 3px;
     font-size: 12px;
@@ -176,23 +179,25 @@
 
 
 /*表格*/
-#right .el-table--striped .el-table__body tr.el-table__row--striped.current-row td,
-#right .el-table__body tr.current-row>td,
-#right .el-table__body tr.hover-row.current-row>td,
-#right .el-table__body tr.hover-row.el-table__row--striped.current-row>td,
-#right .el-table__body tr.hover-row.el-table__row--striped>td,
-#right .el-table__body tr.hover-row>td {
-    background-color: #111;
+#right .el-table__body>tr.el-table__row {
+  background-color: #000;
 }
+/*#right .el-table--striped .el-table__body tr.el-table__row--striped.current-row:hover td,
+#right .el-table__body tr.current-row:hover>td,
+#right .el-table__body tr.hover-row.current-row:hover>td,
+#right .el-table__body tr.hover-row.el-table__row--striped.current-row:hover>td,
+#right .el-table__body tr.hover-row.el-table__row--striped:hover>td,
+#right .el-table__body tr.hover-row:hover>td {
+    background-color: #111;
+}*/
 .el-table--striped .el-table__body tr.el-table__row--striped.current-row td,
 .el-table__body tr.current-row>td,
 .el-table__body tr.hover-row.current-row>td,
 .el-table__body tr.hover-row.el-table__row--striped.current-row>td,
 .el-table__body tr.hover-row.el-table__row--striped>td,
 .el-table__body tr.hover-row>td {
-    background-color: #000;
+    background-color: #000!important;
 }
-
 .el-table th:first-child .cell,
 .el-table td:first-child .cell {
   text-align: center;
@@ -495,6 +500,7 @@
 }
 .modal-dialog {
 	height: 80%;
+  margin-top: 120px;
 }
 .modal-content {
 	height: initial;
@@ -559,10 +565,18 @@
 #add-new .modal-dialog {
     margin-top: 120px;
 }
+
+.main_content_top .el-date-editor .el-range-input,
 #add-new .el-date-editor .el-range-input {
     background-color: transparent;
     font-size: 12px;
     color: #ccc!important;
+}
+.el-date-editor .el-range-separator {
+  color: #666;
+  font-size: 12px;
+  height: 28px;
+  line-height: 28px;
 }
 .el-date-range-picker__time-header {
    border-color: transparent!important;
@@ -577,6 +591,7 @@
 #list-maps .maps {
   height: 86%;
   width: 100%;
+  position: relative;
 }
 #list-maps aside {
   width: 100%;
@@ -811,7 +826,8 @@
 #unit-manage .main_content_table {
     height: 84%;
 }
-#unit-manage .main_content_table thead {
+#unit-manage .main_content_table thead,
+#allocation .main_content_table thead {
     background-color: #222;
 }
 .badge-tip{
@@ -858,4 +874,150 @@
 }
 #manage-center .el-textarea {
   margin-top: 5px;
+}
+
+/*建筑管理*/
+#Build_management #right table.toolroute-table thead {
+  background-color: #111;
+}
+#Build_management #right table.toolroute-table {
+  background-color: #000;
+}
+#Build_management #right table.toolroute-table tr {
+  height: 40px;
+}
+#Build_management #right table.toolroute-table>tbody>tr>td,
+#Build_management #right table.toolroute-table>tbody>tr>th,
+#Build_management #right table.toolroute-table>tfoot>tr>td,
+#Build_management #right table.toolroute-table>tfoot>tr>th,
+#Build_management #right table.toolroute-table>thead>tr>td,
+#Build_management #right table.toolroute-table>thead>tr>th {
+/*  width: auto;
+  min-width: 40px;*/
+  text-align: right!important;
+  vertical-align: middle;
+  line-height: 40px;
+  height: 40px;
+  padding:0 10px!important;
+}
+#Build_management #right table.toolroute-table tr:hover td:first-child {
+  color: #fff!important;
+}
+#right .toolroute-table .btn-on {
+  width:60px;
+  height: 24px;
+  line-height: 24px;
+  display: inline-block;
+}
+#right .toolroute-table .btn-tool {
+  background-color: transparent;
+  border: 1px solid #666;
+  color: #ccc;
+
+}
+#right .toolroute-table .btn-tool:hover {
+  color: #fff;
+  border: 1px solid #999;
+}
+#right .toolroute-table i {
+  margin-left: 4px;
+  font-size: 14px;
+  line-height: 40px;
+  text-align: left;
+  color: #999;
+}
+
+#Build_management #right table.toolroute-table td.weixiugai{
+  color: #fff;
+}
+
+#Build_management #right table.toolroute-table td i.icon-danweiguanli-mian-1{
+  color: #fff;
+}
+.pmian-up {
+  margin-top: 6px;
+  width: 60px;
+  line-height: 24px;
+  height: 24px;
+  cursor: pointer;
+  text-align: center;
+}
+.xiugai_edit input[type="file"],.add input[type="file"] {
+    margin-top: 6px;
+    line-height: 17px;
+    height: 17px;
+    /*overflow-y: hidden;
+    cursor: pointer;
+    position: absolute;
+    filter:alpha(opacity=0);
+    -moz-opacity:0;
+    opacity:0; 
+    left:0px;
+    top: 0px;*/
+}
+.xiugai input,.add input.add-file,.unitroom input,.room-name input{
+  max-width:40px;
+  background-color: #000;
+  border: 1px solid #333;
+  line-height: 24px;
+  height: 24px;
+  margin: 6px auto;
+  text-align: center;
+  color: #fff;
+}
+.unitroom input {
+  max-width:80px;
+}
+.unitroom i {
+  font-size: 14px;
+  line-height: 24px;
+}
+.room-name input {
+  max-width:120px;
+}
+
+.table_ul li {
+  margin: 0;
+  padding:0;
+}
+.table_ul li>span,
+.table_ul li>span>i.fa-plus {
+  line-height: 22px;
+}
+
+.room_wrap tbody>tr {
+  border-bottom: 1px solid #111;
+}
+.room_wrap tr:hover i.icon-guanbi-mian- {
+  color: #f13131!important;
+}
+.room_wrap td li span {
+  color: #bad616;
+  line-height: 40px;
+}
+#Build_management #right .room_wrap table.toolroute-table>thead>tr>td,
+#Build_management #right .room_wrap table.toolroute-table>tfoot>tr>td {
+  text-align: center!important;
+}
+
+.add-unitroom {
+  color: #999;
+}
+.add-unitroom:hover {
+  color: #bad616;
+}
+.submit-unit a {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+.add-floor {
+  color: #bad616;
+}
+.submit-unit:hover,.submit-unit a:hover {
+  background-color: #cfef16!important;
+}
+.main_content_table .table-scroll {
+  max-height: 660px;
+  overflow-y: auto;
 }

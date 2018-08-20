@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- 主体 -->
-    <div class="main_all_content ">
+    <div class="main_all_content">
       <!-- 筛选 -->
       <div class="main_content_top">
         <el-form class="float-left">
@@ -129,12 +129,34 @@
           </el-pagination>
         </div>
       </div>
-      <div class="floorMap" style="display:none;">
-        <img src="../../assets/images/floor.png">
-      </div>
-      <div class="roomMap" style="display:none;">
-        <img src="../../assets/images/floor.png">
-      </div>
+      <div id="list-maps">
+          <div class="floorMap maps" style="display:none;">
+            <ul class="list-unstyled floor-item">
+                <li>14</li>
+                <li>13</li>
+                <li>10</li>
+                <li>11</li>
+                <li>10</li>
+                <li>9</li>
+                <li>8</li>
+                <li class="active">7</li>
+                <li>1</li>
+                <li>6</li>
+                <li>5</li>
+                <li>4</li>
+                <li>3</li>
+                <li>1</li>
+                <li>-1</li>
+                <li>-2</li>
+                <li>-3</li>
+                <li>-4</li>
+              </ul>
+            <img src="../../assets/images/floor.png" class="img-responsive">
+          </div>
+          <div class="roomMap maps" style="display:none;">
+            <img src="../../assets/images/floor.png" class="img-responsive">
+          </div>
+      </div>      
     </div>
     <!-- 编辑Modal -->
     <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -350,9 +372,6 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//修改建筑
-        $('#mymodal').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
@@ -414,9 +433,6 @@
         });
       },
       delete_plan(row){//删除
-        $('#mymodal2').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceIndex = row.id;
         this.deviceName = row.name;
       },

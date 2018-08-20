@@ -53,6 +53,8 @@ import operationLog_AllVue from '../management/operationLog/all';
 import Authority_allocationVue from '../management/Authority_allocation/Authority_allocation';
 import Authority_allocation_AllVue from '../management/Authority_allocation/all';
 import Authority_allocation_AllocationVue from '../management/Authority_allocation/allocation';
+import ControlRoomLogVue from '../management/ControlRoomLog/ControlRoomLog';
+import ControlRoomLog_AllVue from '../management/ControlRoomLog/all';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -170,6 +172,14 @@ export default new Router({
       children:[
         { path:'/operationLog/all',component:operationLog_AllVue},
         { path:'/operationLog',redirect:'/operationLog/all'}
+      ]
+    },
+    {
+      path:'/ControlRoomLog',
+      component:ControlRoomLogVue,
+      children:[
+        { path:'/ControlRoomLog/all',component:ControlRoomLog_AllVue},
+        { path:'/ControlRoomLog',redirect:'/ControlRoomLog/all'}
       ]
     },
     {

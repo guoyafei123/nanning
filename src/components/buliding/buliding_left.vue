@@ -241,7 +241,7 @@
     },
     handleCurrentChange(val) {
       this.queryBuildList_parameter.currentPage = val;
-      this.getTable();
+      this.getRiskTable();
     },
     //获取详情
     toitmeinfo(data) {
@@ -262,8 +262,7 @@
       this.build_buildCount_parameter.unitId=null;
       this.queryBuildList_parameter.unitId=null;
     }
-
-    this.$store.commit("route_path", this.$route.path);
+    
     this.getRiskData();  
     this.getRiskTable(); 
     

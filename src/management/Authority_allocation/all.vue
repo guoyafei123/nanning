@@ -1,8 +1,9 @@
 <template>
-  <section id="operationLog" class="allocation">
+  <section class="allocation">
+    <!-- 标题 -->
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-caozuorizhi-xian-"></i>
+        <i class="icon iconfont icon-kongzhitai_"></i>
         <h2>权限分配</h2>
       </div>
     </div>
@@ -21,13 +22,12 @@
           </el-table-column>
           <el-table-column
             prop="rname"
-            width="400px"
             label="组名称">
           </el-table-column>
           <el-table-column
             label="查看权限">
             <template slot-scope="scope">
-              <a @click="btn(scope.row.id)">查看</a>
+              <button @click="btn(scope.row.id)" class="btn-on">查看</button>
             </template>
           </el-table-column>
         </el-table>

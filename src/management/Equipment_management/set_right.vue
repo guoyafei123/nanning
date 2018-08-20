@@ -124,7 +124,11 @@
                   <div class="col-sm-12">
                       <span>投入时间 </span>
                       <strong v-html="this.device.startDate"></strong>
-                  </div>                                 
+                  </div>
+                  <div class="col-sm-6">
+                      <span>设备二维码 </span>
+                      <strong data-toggle="tooltip" title="设备二维码" class="font-blue">查看</strong>
+                  </div>
           </div>              
         </div>
       </section>
@@ -530,9 +534,6 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//修改
-        $('#mymodal').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(item.id == row.id){
@@ -601,9 +602,6 @@
         })
       },
       delete_plan(row){//删除
-        $('#mymodal2').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceName = row.name;
         this.deviceIndex = row.id;
       },

@@ -305,9 +305,6 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row,indexs){//修改单位
-        $('#mymodal').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceIndex = row.id ;
         
         this.tableData.forEach((item,index)=>{
