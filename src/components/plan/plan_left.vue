@@ -24,17 +24,9 @@
 							<p class="size-10">Plan-number</p>
 						</li>
 						<template v-for="item in countUnitPlan.numberOfPlanType">
-							<li v-if="item.type==1">
-								<p>火灾预案</p>
-								<p class="font-blue font-italic float-right size-14" >{{item.typeOfCount}}</p>
-							</li>
-							<li v-if="item.type==2">
-								<p>管理规定</p>
-								<p class="font-blue font-italic float-right size-14" >{{item.typeOfCount}}</p>
-							</li>
-							<li v-if="item.type==3">
-								<p>疏散示意图</p>
-								<p class="font-blue font-italic float-right size-14" >{{item.typeOfCount}}</p>
+							<li>
+								<p>{{item.typeName}}</p>
+								<p class="font-blue font-italic float-right size-14" >{{item.count}}</p>
 							</li>
 						</template>
 						
@@ -190,7 +182,7 @@
 				).then(response => {
 					if (response.data) {
 						this.countUnitPlan = response.data;
-						this.$store.commit("countUnitPlan", response.data);
+						this.$store.commit("countUnitPlan", this.countUnitPlan);
 					}
 				});
 			},
