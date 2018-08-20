@@ -5,7 +5,7 @@
 				<div class="set-width-50  font-gray-999 padding-right0">
 					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
 						<li>
-							<h1 class="toolcount-p1 font-blue">{{countUnitPlan.sumofPlan}}</h1>
+							<h1 class="toolcount-p1 font-blue">{{countUnitPlan.sumofPlan?countUnitPlan.sumofPlan:0}}</h1>
 						</li>
 						<li>
 							<p class="size-10">Plan-Total</p>
@@ -23,13 +23,28 @@
 						<li class="margin-bottom10">
 							<p class="size-10">Plan-number</p>
 						</li>
-						<template v-for="item in countUnitPlan.numberOfPlanType">
+						<!-- <template v-for="item in countUnitPlan.numberOfPlanType">
 							<li>
 								<p>{{item.typeName}}</p>
 								<p class="font-blue font-italic float-right size-14" >{{item.count}}</p>
 							</li>
-						</template>
-						
+						</template> -->
+						<li>
+							<p>火灾预案</p>
+							<p class="font-blue font-italic float-right size-14" >{{planbunlist.a?planbunlist.a:0}}</p>
+						</li>
+						<li>
+							<p>管理规定</p>
+							<p class="font-blue font-italic float-right size-14" >{{planbunlist.b?planbunlist.b:0}}</p>
+						</li>
+						<li>
+							<p>疏散预案</p>
+							<p class="font-blue font-italic float-right size-14" >{{planbunlist.d?planbunlist.d:0}}</p>
+						</li>
+						<li>
+							<p>应急疏散图</p>
+							<p class="font-blue font-italic float-right size-14" >{{planbunlist.c?planbunlist.c:0}}</p>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -50,8 +65,8 @@
 						</p>
 					</li>
 					<li>
-						<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="value7" placeholder="全部建筑" @change="tolineitem">
-							<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+						<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" style="width:120px!important" size="mini" v-model="queryPageBuildingListvalue_model" placeholder="全部建筑" @change="toqueryPageBuildingList">
+							<el-option v-for="item in queryPageBuildingList" :key="item.id" :label="item.name" :value="item.id">
 							</el-option>
 						</el-select>
 						<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 " style="width:120px!important" size="mini" v-model="plantypevalue" placeholder="全部类型" @change="toplantypevalue">
@@ -69,8 +84,8 @@
 									<th>查看</th>
 								</tr>
 							</thead>
-							<tbody id="">
-								<tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
+							<tbody v-if="tableData.result.length>0">
+								<tr v-for="(item,index) in tableData.result" >
 									<td>{{item.name ? item.name:"暂无名称"}}</td>
 									<td v-if="item.type==1">火灾预案</td>
 									<td v-if="item.type==2">管理规定</td>
@@ -82,15 +97,18 @@
 										</a>
 									</td>
 									<td>
-										<a >
+										<a v-on:click="toitmeinfo(item)">
 											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
 										</a>
 									</td>
 								</tr>
 							</tbody>
+							<tr  class="text-center">
+								<td></td>
+							</tr>
 						</table>
 					</li>
-					<li class="upd-pagin">
+					<li class="upd-pagin" v-if="tableData.result.length>0">
 						<div>
 							<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
 							</el-pagination>
@@ -99,6 +117,9 @@
 							</el-pagination>
 						</div>
 					</li>
+					<li v-if="tableData.result.length==0">
+						<p class="text-center font-red">暂无数据</p>
+					</li>
 				</ul>
 			</div>
 		</section>
@@ -106,6 +127,7 @@
 </template>
 
 <script>
+	import{mapState} from "vuex";
 	export default {
 		data() {
 			return {
@@ -146,6 +168,7 @@
 					}
 				],
 				plantypevalue:'',
+				queryPageBuildingListvalue_model:'',
 				countUnitPlan_parameter:{
 					unitId:null,
 					buildingId:null
@@ -162,17 +185,66 @@
 				},
 				// 表格返回
 				tableData: Object,
+				queryPageBuildingList_parameter:{
+					unitId:null,
+					currentPage:1,
+					pageSize:10000
+				},
+				queryPageBuildingList:Object,
+				planbunlist:{
+					a:0,
+					b:0,
+					c:0,
+					d:0
+				},
+				getunitid:null
 			};
 		},
+		computed:mapState([
+			'unitid'
+		]),
+		watch:{
+			unitid(){
+				// console.log(this.queryAlarmData_parmar.unitId)
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid=null;
+				}
+				this.countUnitPlan_parameter.unitId=this.getunitid;
+				this.queryPageBuildingList_parameter.unitId=this.getunitid;
+				this.deletePlan_parameter.unitId=this.getunitid;
+				this.getplancount();
+				this.getTable();
+				this.getBuild();
+			}
+		},
 		methods: {
-			tolineitem() {
-
+			planbunlists(data){
+				data.forEach(element => {
+					if(element.type==1){
+						this.planbunlist.a=element.count;
+					}
+					if(element.type==2){
+						this.planbunlist.b=element.count;
+					}
+					if(element.type==4){
+						this.planbunlist.c=element.count;
+					}
+					if(element.type==3){
+						this.planbunlist.d=element.count;
+					}
+				});
 			},
 			toplantypevalue(){
 				if(this.plantypevalue==0){
 					this.deletePlan_parameter.type=null;
 				}
 				this.deletePlan_parameter.type=this.plantypevalue;
+				this.getTable();
+			},
+			toqueryPageBuildingList(){
+				this.deletePlan_parameter.buildingId=this.queryPageBuildingListvalue_model;
 				this.getTable();
 			},
 			getplancount(){
@@ -183,6 +255,7 @@
 					if (response.data) {
 						this.countUnitPlan = response.data;
 						this.$store.commit("countUnitPlan", this.countUnitPlan);
+						this.planbunlists(this.countUnitPlan.numberOfPlanType);
 					}
 				});
 			},
@@ -199,15 +272,49 @@
 						console.log(err);
 					});
 			},
+			getBuild(){
+				this.queryPageBuildingList=Object;
+				this.$fetch(
+						"/api/building/queryPageBuildingList",
+						this.queryPageBuildingList_parameter
+					).then(response => {
+						if(response) {
+							this.queryPageBuildingList = response.data.pageBuildIng.result;
+							this.queryPageBuildingList.unshift({
+								id: 0,
+								name: '全部建筑'
+							})
+						}
+					})
+					.then(err => {
+						console.log(err);
+					});
+			},
 			handleCurrentChange(val) {
 				this.deletePlan_parameter.currentPage = val;
 				this.getTable();
 			},
+			
+			toitmeinfo(item){
+				this.$store.commit("topdf", item);
+			}
 
 		},
 		mounted() {
+
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.countUnitPlan_parameter.unitId=sessionStorage.unitid
+				this.queryPageBuildingList_parameter.unitId=sessionStorage.unitid
+				this.deletePlan_parameter.unitId=sessionStorage.unitid
+			}
+			if(sessionStorage.unitid==0){
+				this.countUnitPlan_parameter.unitId=null;
+				this.queryPageBuildingList_parameter.unitId=null;
+				this.deletePlan_parameter.unitId=null;
+			}
 			this.getplancount();
 			this.getTable();
+			this.getBuild();
 		}
 	};
 </script>

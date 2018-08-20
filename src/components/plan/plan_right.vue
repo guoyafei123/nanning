@@ -8,18 +8,18 @@
 				<div class="col-sm-7">
 					<div class="personinfo">
 						<p>
-							<span class="size-20 font-blue">中心小学</span>
-							<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+							<span class="size-20 font-blue">{{queryById.name !='Object' ?queryById.name:'全部单位'}}</span>
+							<!-- <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span> -->
 						</p>
 						<p>
-							<span><i class="el-icon-location"></i> 怀化市</span>
+							<span><i class="el-icon-location"></i> {{queryById.location?queryById.location:'-'}}</span>
 						</p>
 					</div>
 				</div>
 				<!-- 已选择单位预案总数 -->
 				<div class="col-sm-5 font-white text-right">
 					<i class="icon iconfont icon-navicon-yqgl size-12 font-blue"></i> 预案总数<br>
-					<span class="size-22 font-blue">174</span>
+					<span class="size-22 font-blue">{{planbunlist.e}}</span>
 				</div>
 				<!-- 柱形图 -->
 				<div class="col-sm-12 margin-top20">
@@ -36,28 +36,28 @@
 			<div class="early-title">
 				<small>Plan-List</small>
 				<h3>预案列表
-                              <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
-                          </h3>
+					<a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
+				</h3>
 			</div>
 			<!-- 选项卡 -->
 			<div class="early-tab plan-tab">
 				<ul class="col-lg-12 col-md-12 col-sm-12 early-menu list-inline margin-bottom0 nav nav-tabs">
-					<li class="col-lg-4 col-md-4 col-sm-4 active">
+					<li class="col-lg-4 col-md-4 col-sm-4 active" @click="plantype(1)">
 						<a href="#fireplan-list" data-toggle="tab">
-							<h4><span>2</span></h4>
+							<h4><span>{{planbunlist.a}}</span></h4>
 							<small>火灾预案</small>
 						</a>
 					</li>
-					<li class="col-lg-4 col-md-4 col-sm-4">
+					<li class="col-lg-4 col-md-4 col-sm-4" @click="plantype(2)">
 						<a href="#manageplan-list" data-toggle="tab">
-							<h4><span>4</span></h4>
+							<h4><span>{{planbunlist.b}}</span></h4>
 							<small>管理规定</small>
 						</a>
 					</li>
-					<li class="col-lg-4 col-md-4 col-sm-4">
+					<li class="col-lg-4 col-md-4 col-sm-4" @click="plantype(4)">
 						<a href="#sparseplan-list" data-toggle="tab">
-							<h4><span>4</span></h4>
-							<small>疏散示意图</small>
+							<h4><span>{{planbunlist.c}}</span></h4>
+							<small>应急疏散图</small>
 						</a>
 					</li>
 				</ul>
@@ -66,66 +66,72 @@
 					<div class="tab-pane fade in active" id="fireplan-list">
 						<ul class="list-inline">
 							<template v-for="item in this.queryPlans">
-								<li class="col-lg-4 col-md-4 col-sm-4">
+								<li class="col-lg-4 col-md-4 col-sm-4" @click="topdf(item)">
 									<figure>
-										<div class="plan-listimg"><img :src=item.url class="img-responsive" :alt=item.name></div>
+										<div class="plan-listimg">
+											
+											<img v-if="item.pattern!='pdf'" :src=item.url class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern=='pdf'" :src="item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
+										</div>
 										<div class="caption">
 											<h4 data-toggle="tooltip">{{item.name}}</h4>
 											<h5>{{item.unitName}}</h5>
 											<p>
 												<small>{{item.createTime.substring(5)}}</small>
-												<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+												<a @click="download(item)"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
 											</p>
 										</div>
 									</figure>
 								</li>
 							</template>
-							
-							
 						</ul>
 					</div>
 					<!-- 管理规定 -->
 					<div class="tab-pane fade" id="manageplan-list">
 						<ul class="list-inline">
-							<li class="col-lg-4 col-md-4 col-sm-4">
-								<figure>
-									<div class="plan-listimg"><img src="../../assets/images/plan/plan2.png" class="img-responsive" alt="消防值班守则"></div>
-									<div class="caption">
-										<h4 data-toggle="tooltip" title="消防值班守则">消防值班守则</h4>
-										<h5>中心小学</h5>
-										<p>
-											<small>2018-09-23</small>
-											<a href="#"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i></a>
-											<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
-										</p>
-									</div>
-								</figure>
-							</li>
-							<li class="col-sm-12">
-								<span class="font-white pull-right">分页</span>
-							</li>
+							<template v-for="item in this.queryPlans">
+								<li class="col-lg-4 col-md-4 col-sm-4" @click="topdf(item)">
+									<figure>
+										<div class="plan-listimg">
+											
+											<img v-if="item.pattern!='pdf'" :src=item.url class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern=='pdf'" :src="item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
+										</div>
+										<div class="caption">
+											<h4 data-toggle="tooltip">{{item.name}}</h4>
+											<h5>{{item.unitName}}</h5>
+											<p>
+												<small>{{item.createTime.substring(5)}}</small>
+												<a @click="download(item)"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+											</p>
+										</div>
+									</figure>
+								</li>
+							</template>
 						</ul>
 					</div>
 					<!-- 疏散示意图 -->
 					<div class="tab-pane fade" id="sparseplan-list">
 						<ul class="list-inline">
-							<li class="col-lg-4 col-md-4 col-sm-4">
-								<figure>
-									<div class="plan-listimg"><img src="../../assets/images/plan/plan3.png" class="img-responsive" alt="应急路线示意图"></div>
-									<div class="caption">
-										<h4 data-toggle="tooltip" title="应急路线示意图">应急路线示意图</h4>
-										<h5>瑞和家园</h5>
-										<p>
-											<small>2018-09-23</small>
-											<a href="#"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i></a>
-											<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
-										</p>
-									</div>
-								</figure>
-							</li>
-							<li class="col-sm-12">
-								<span class="font-white pull-right">分页</span>
-							</li>
+							<template v-for="item in this.queryPlans">
+								<li class="col-lg-4 col-md-4 col-sm-4" @click="topdf(item)">
+									<figure>
+										<div class="plan-listimg">
+											
+											<img v-if="item.pattern!='pdf'" :src=item.url class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern=='pdf'" :src="item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
+										</div>
+										<div class="caption">
+											<h4 data-toggle="tooltip">{{item.name}}</h4>
+											<h5>{{item.unitName}}</h5>
+											<p>
+												<small>{{item.createTime.substring(5)}}</small>
+												<a @click="download(item)"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+											</p>
+										</div>
+									</figure>
+								</li>
+							</template>
 						</ul>
 					</div>
 				</div>
@@ -155,21 +161,66 @@
 					}
 				],
 				queryPlan_parameter:{
-
+					unitId:null,
+					buildingId:null,
+					type:1
 				},
 				queryPlans:Object,
-				countUnitPlans:Object
+				countUnitPlans:Object,
+				planbunlist:{
+					a:0,
+					b:0,
+					c:0,
+					d:0,
+					e:0
+				},
+				getunitid:null,
+				queryById_parameter:{
+					unitId:null
+				},
+				queryById:Object
 			};
 		},
 		computed:mapState([
 			'countUnitPlan',
+			'unitid'
 		]),
 		watch:{
 			countUnitPlan(){
 				this.getchar("myChart",this.countUnitPlan.numberOfPlanType);
+				this.planbunlists(this.countUnitPlan.numberOfPlanType);
+			},
+			unitid(){
+				// console.log(this.queryAlarmData_parmar.unitId)
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid=null;
+				}
+				this.queryPlan_parameter.unitId=this.getunitid;
+				this.queryById_parameter.unitId=this.getunitid;
+				this.queryPlan();
+				this.queryByIds();
 			}
 		},
 		methods: {
+			planbunlists(data){
+				data.forEach(element => {
+					if(element.type==1){
+						this.planbunlist.a=element.count;
+					}
+					if(element.type==2){
+						this.planbunlist.b=element.count;
+					}
+					if(element.type==4){
+						this.planbunlist.c=element.count;
+					}
+					if(element.type==3){
+						this.planbunlist.d=element.count;
+					}
+				});
+				this.planbunlist.e=this.planbunlist.a+this.planbunlist.b+this.planbunlist.c+this.planbunlist.d;
+			},
 			openEarlyList() {
 				$(".unit-info").slideToggle(function() {
 					$(".unit-btn-close").toggle();
@@ -264,10 +315,53 @@
 					.then(err => {
 						console.log(err);
 					});
+			},
+			queryByIds(){
+				this.$fetch(
+						"/api/unit/queryById",
+						this.queryById_parameter
+					).then(response => {
+						if(response.errorCode==0) {
+							this.queryById = response.data.unit
+						}else{
+							this.queryById.name='全部单位'
+							this.queryById.location='-'
+						}
+					})
+					.then(err => {
+						console.log(err);
+					});
+			},
+			
+			topdf(item){
+				this.$store.commit("topdf", item);
+			},
+			download(item){
+				// window.open(url);
+				let aTag = document.createElement('a');
+				let blob = new Blob([item.url]);　　
+				aTag.download = item.name;
+				console.log(URL.createObjectURL(blob));　　
+				aTag.href = URL.createObjectURL(item.url);
+				aTag.click();　　　　　　
+				URL.revokeObjectURL(blob);
+			},
+			plantype(type){
+				this.queryPlan_parameter.type=type;
+				this.queryPlan();
 			}
 		},
 		mounted() {
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.queryPlan_parameter.unitId=sessionStorage.unitid;
+				this.queryById_parameter.unitId=sessionStorage.unitid;
+			}
+			if(sessionStorage.unitid==0){
+				this.queryPlan_parameter.unitId=null;
+				this.queryById_parameter.unitId=null;
+			}
 			this.queryPlan();
+			this.queryByIds();
 		}
 	};
 </script>
