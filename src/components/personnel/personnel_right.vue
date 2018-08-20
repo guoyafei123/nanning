@@ -308,10 +308,50 @@
 						}
 					]
 				},
+				queryUserCount_parameter:{
+					unitId: null,
+					beginTime: '2017-07-02',
+					endTime: '2018-08-20'
+				},
+				toPersonDetailInfo:Object,
 			}
 
 		},
+		computed: mapState([
+			'topersonitem',
+			'unitid'
+			]),
+		watch: {
+			// 建筑详情
+			topersonitem(){
+				this.toPersonDetailInfo =this.topersonitem;
+				console.log("获取人员详情数据-------->>>");
+				console.log(this.toPersonDetailInfo);
+				this.getPersonDetailInfo();
+			},
+			unitid(){
+				// console.log(this.queryAlarmData_parmar.unitId)
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid=null;
+				}
+				this.queryUserCount_parameter=this.getunitid;
+				this.getData();
+			}
+		},
 		methods: {
+			//获取人员右侧统计数据
+			getData(){
+				this.$fetch("/api/user/queryUserCount",this.queryUserCount_parameter).then(response => {
+					let data = response.data;
+					console.log("获取人员右侧统计数据");
+					console.log(data);
+					if (response.data) {
+						
+					}
+				});
+			}, 
 			jianzhu() {
 				$(".per-lineinfo")
 					.addClass("display-block")
@@ -438,16 +478,17 @@
 				myChart.setOption(option);
 				let mypie1 = this.$echarts.init(document.getElementById("pieb1"));
 				mypie1.setOption(pie);
-			}
+			},
+			//获取人员详情数据
+			getPersonDetailInfo(){
+				console.log("获取人员详情数据------------------>>>>>>>>>>>>>>>>>>");
+			},
 		},
 		mounted() {
 			// 左侧
 			this.$store.commit('route_path', this.$route.path);
 			// 右侧
 			this.chart_one();
-
 		},
-		computed: mapState([]),
-		watch: {},
 	}
 </script>

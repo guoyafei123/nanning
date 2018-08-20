@@ -191,7 +191,6 @@
       this.queryBuildList_parameter.unitId=this.getunitid;
       this.getRiskData();  
       this.getRiskTable(); 
-      
     }
   },
   methods: {
@@ -241,7 +240,7 @@
     },
     handleCurrentChange(val) {
       this.queryBuildList_parameter.currentPage = val;
-      this.getTable();
+      this.getRiskTable();
     },
     //获取详情
     toitmeinfo(data) {
