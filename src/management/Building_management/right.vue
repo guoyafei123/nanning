@@ -1,6 +1,6 @@
 <template>
   <div class="toolright z-index-20">
-    <div class="plan"  style="display: none;">
+    <div class="plan" style="display: none;">
       <a @click="back_first" class="btn-back" v-if="this.$route.path == '/Building_management/maps'"><i class="el-icon-arrow-left"></i>返回</a>
       <!-- 建筑名称 -->
       <section>        
@@ -120,6 +120,10 @@
                       <span>建筑年份 </span>
                       <strong v-html="this.form.timeYear"></strong>
                   </div>
+                  <div class="col-sm-6">
+                      <span>建筑平面图 </span>
+                      <strong data-toggle="tooltip" title="建筑平面图" class="font-blue">查看</strong>
+                  </div>
               </div>
         </div>
       </section>
@@ -220,8 +224,8 @@
             </div>
           </div>
         </div>
-        <!-- Modal -->
-        <div class="modal modal_form fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <!-- 修改建筑Modal -->
+        <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -293,6 +297,7 @@
             </div>
           </div>
         </div>
+        <!-- 删除Modal -->
         <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -316,97 +321,179 @@
     </div>
     <!-- 楼层管理 -->
     <div class="floor_wrap margin-top20" style="display:none;">
-      <div class="floor_header clearFix">
-        <a @click="floor_back" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
-        <h4 class="p-title">楼层管理 <span class="pull-right">{{ this.form.UnitName }}{{ this.form.BuildName }}</span> </h4>        
+      <a @click="floor_back" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
+      <!-- 建筑名称 -->
+      <section>        
+        <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
+                  <!-- 已选择 -->
+                  <div class="personinfo">
+                        <p>                       
+                        <span class="size-20 font-white"><i class="icon iconfont icon-danweiguanli-mian-1 size-20" data-toggle="tooltip" title="楼层管理"></i> 楼层管理</span>
+                        <span class="size-14 font-blue float-right">
+                                <i class="incon iconfont icon-jianzhuguanli-xian-"></i> {{this.form.BuildName}}
+                            </span>
+                        </p>
+                        <p class="col-sm-12 text-left padding0">
+                            <span>
+                                <i class="fas fa-industry"></i> {{this.form.UnitName}}{{this.form.BuildName}}</span>
+                        </p>
+                        <!-- <P class="col-sm-5 text-right padding0">
+                            <span class="text-right">
+                            最后更新：<span class="font-gray-999">{{this.createTime}}</span>
+                            </span>
+                        </P>  -->                       
+                  </div>
+        </div>
+      </section>
+      <!-- 列表 -->          
+      <div class="toolbuildrate">
+        <div class="main_content_table position-relative">
+          <div class="table-scroll">
+            <table class="table table-responsive size-12 table-condensed toolroute-table margin-top10 position-relative">
+              <thead>
+                <tr>
+                  <!-- <td class="col-sm-1 hide">序号</td> -->
+                  <td class="col-sm-2">楼层</td>
+                  <td class="col-sm-10 text-right">操作</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="add"  style="display:none;">
+                    <!-- <td class="col-sm-1 hide">{{ this.index+1 }}</td> -->
+                    <td class="col-sm-2">
+                      <input v-model.number="number" class="add-file" />
+                    </td>
+                    <td class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <input id="file" name="file"  type="file"/>
+                        </div>
+                        <div class="col-sm-6">
+                          <a @click="cancel" class="btn-false">取消</a>                          
+                          <a @click="sure" class="btn-sure">确定</a>                          
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr v-for="(item,index) in table_list">
+                    <!-- <td class="hide">{{ index+1 }}</td> -->
+                    <td class="weixiugai col-sm-2">{{ item.floorName }} 层</td>
+                    <td class="xiugai" style="display:none;">
+                      <input v-model.number="item.floorName"/>
+                    </td>
+                    <td class="col-sm-10 weixiugai_edit text-right">
+                      <!-- <img src="../../assets/images/u237.png"/> -->
+                      <i @click="room_build(item)" class="fas fa-home font-gray-999" data-toggle="tooltip" title="房间管理"></i>
+                      <i @click="xiugai(index)" class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i>
+                      <i @click="floor_delete(item,index)" class="el-icon-delete" data-toggle="tooltip" title="删除"></i>
+                    </td>
+                    <td class="xiugai_edit" style="display:none;">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <!-- <div class="position-relative">
+                            <div @click="showInputFileName()" class="pmian-up bg-gray-222">
+                            <i class="fa fa-plus"></i> 选取文件 <span class="showFileName"></span><span class="fileerrorTip"></span>
+                            </div> 
+                            <input id="file" name="file" type="file">
+                          </div>-->
+                          <input id="file" name="file" type="file">
+                        </div>
+                        <div class="col-sm-6">                          
+                          <a @click="xiugai_cancel(index)" class="btn-false">取消</a>
+                          <a @click="xiugai_sure(index)" class="btn-edit">确定</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>                            
+              </tbody>
+            </table>
+          </div>
+          <!-- 提交按钮 -->
+          <div class="submit-unit">
+            <a @click="add" class="btn-ok center-block">
+              <i class="el-icon-circle-check-outline"></i> 新增楼层</a>
+          </div>            
+        </div>          
       </div>
-      <div class="floor_title"><!-- 
-        <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}</h3> -->
-        <button class="btn_add" @click="add"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
-      </div>
-      <table class="table table-bordered ">
-        <thead>
-          <tr>
-            <td>序号</td>
-            <td>楼层</td>
-            <td>操作</td>
-          </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(item,index) in table_list">
-              <td>{{ index+1 }}</td>
-              <td class="weixiugai">{{ item.floorName }}</td>
-              <td class="xiugai" style="display:none;">
-                <input type="number" v-model="item.floorName" style="text-align:center;"/>
-              </td>
-              <td class="weixiugai_edit">
-                <!-- <img src="../../assets/images/u237.png"/> -->
-                <i @click="xiugai(index)" class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
-                <i @click="floor_delete(item,index)" class="fa fa-th-large font-gray-666" style="margin-right: 10px;"></i>
-                <button @click="room_build(item)" style="width:50px;height:22px;border:1px solid transparent;border-radius:5px;color: #ffffff;background-color: #0798db;line-height: 19px;margin:0;padding:0;font-size: 11px;text-align: center;margin-right:10px;">房间管理</button>
-              </td>
-              <td class="xiugai_edit" style="display:none;">
-                <input id="file" name="file" type="file" />
-                <button @click="xiugai_sure(index)" style="margin-left:15px;background: #6dff02d1;border-color: #6dff02d1;color: #000;" >确定</button>
-                <button @click="xiugai_cancel(index)" style="background: #f13131;border-color: #f13131;color: #ffffff;margin-left: 2px;">取消</button>
-              </td>
-            </tr>
-            <tr class="add"  style="display:none;">
-              <td>{{ this.index+1 }}</td>
-              <td style="width:120px;">
-                <input type="number" v-model="number" style="text-align:center;"/>
-              </td>
-              <td>
-                <input id="file" name="file"  type="file"/>
-                <button @click="sure" style="margin-left:15px;background: #6dff02d1;border-color: #6dff02d1;color: #000;">确定</button>
-                <button @click="cancel" style="background: #f13131;border-color: #f13131;color: #ffffff;margin-left: 2px;">取消</button>
-              </td>
-            </tr>          
-        </tbody>
-      </table>
     </div>
 
     <!-- 房间管理 -->
     <div class="room_wrap margin-top20" style="display:none;">
-      <div class="room_header clearFix">
-        <!-- <h2>房间管理</h2>
-        <span @click="room_back">返回</span> -->
-        <a @click="room_back" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
-        <h4 class="p-title">房间管理 <span class="pull-right">{{ this.form.UnitName }}{{ this.form.BuildName }}{{ this.floorName }}层</span> </h4>  
+      <a @click="room_back" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>      
+      <!-- 房间管理 -->
+      <section>        
+        <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
+                  <div class="personinfo">
+                        <p>                       
+                        <span class="size-20 font-white"><i class="fas fa-home size-20" data-toggle="tooltip" title="房间管理"></i> 房间管理</span>
+                        <span class="size-14 font-blue float-right">
+                                <i class="incon iconfont icon-jianzhuguanli-xian-"></i> {{ this.form.BuildName }}{{ this.floorName }}层
+                            </span>
+                        </p>
+                        <p class="col-sm-12 text-left padding0">
+                            <span>
+                                <i class="fas fa-industry"></i> {{ this.form.UnitName }}{{ this.form.BuildName }}{{ this.floorName }}层</span>
+                        </p>
+                        <!-- <P class="col-sm-5 text-right padding0">
+                            <span class="text-right">
+                            最后更新：<span class="font-gray-999">{{this.createTime}}</span>
+                            </span>
+                        </P>  -->                       
+                  </div>
+        </div>
+      </section>
+      <!-- 列表 -->          
+      <div class="toolbuildrate">
+        <div class="main_content_table">
+          <div class="table-scroll">
+            <table class="table table-responsive size-12 table-condensed toolroute-table margin-top10">
+            <thead v-if="this.floorRoomList.length != 0" class="table_top">
+              <tr>
+                <td class="col-sm-4">单元</td>
+                <td class="col-sm-8">房间</td>
+              </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in floorRoomList">
+                  <td class="unitroom col-sm-4">
+                    <!-- <span class="hint_error" @click="deleteUnit(item.unitBuilding,index,floorRoomList)" data-toggle="modal" data-target="#mymodalRoom"></span> -->
+                    <input type="text" v-model="item.unitBuilding" maxlength="6"/>
+                    <span data-toggle="modal" data-target="#mymodalRoom"><i class="icon iconfont icon-guanbi-mian- font-red" @click="deleteUnit(item.unitBuilding,index,floorRoomList)" data-toggle="tooltip" title="删除单元"></i></span>
+                  </td>
+                  <td class="room-name col-sm-8">
+                    <ul class="table_ul margin-top10">
+                      <li v-for="(key,indexs) in item.roomList">
+                          <i class="el-icon-location" data-toggle="tooltip" title="房间详情"></i>
+                          <input type="text" v-model="key.roomNumber" class="margin-left10 margin-right5" />
+                          <i @click="deleteRoom(floorRoomList[index].roomList[index],floorRoomList[index].roomList,indexs)" class="icon iconfont icon-guanbi-mian- font-red font-red" data-toggle="tooltip" title="删除房间"></i>
+                      </li>
+                      <li>
+                          <span @click="addRoom(item,index)"><i class="fa fa-plus size-12 font-blue" data-toggle="tooltip" title="添加房间"></i> 添加房间</span>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                    <tr>
+                      <td class="unitroom col-sm-4">
+                        <span @click="addUnit" class="add-unitroom"><i class="fa fa-plus size-12" data-toggle="tooltip" title="添加单元"></i> 添加单元</span>
+                      </td>
+                      <td class="room-name col-sm-8"></td>
+                    </tr>
+            </tfoot>
+          </table>
+        </div>
+      <!-- 提交按钮 -->
+      <div class="submit-unit">
+        <a @click="submitFloorRoomList" class="btn-ok center-block">
+          <i class="el-icon-circle-check-outline"></i> 提交并返回</a>
       </div>
-      <div class="room_title">
-        <!-- <h3>{{ this.form.UnitName }}{{ this.form.BuildName }}{{ this.floorName }}层</h3> -->
-        <button class="btn_add" @click="addUnit"><i class="fa fa-th-large font-gray-666 float-left"></i>新增</button>
-      </div>
-      <table class="table table-bordered ">
-        <thead v-if="this.floorRoomList.length != 0" class="table_top" >
-          <tr>
-            <td>单元</td>
-            <td>房间</td>
-          </tr>
-        </thead>
-        <tbody style="height:500px!important;overflow-y:auto;">
-            <tr v-for="(item,index) in floorRoomList">
-              <td style="min-width:100px;position:relative;" class="col-md-4">
-                <!-- <span class="hint_error" @click="deleteUnit(item.unitBuilding,index,floorRoomList)" data-toggle="modal" data-target="#mymodalRoom"></span> -->
-                <input type="text" v-model="item.unitBuilding" style="width:100px;height:30px;text-align:center;" maxlength="6"/>
-                <span class="hint_error" @click="deleteUnit(item.unitBuilding,index,floorRoomList)" data-toggle="modal" data-target="#mymodalRoom"></span>
-                
-              </td>
-              <td class="col-md-8">
-                <ul class="table_ul">
-                  <li v-for="(key,indexs) in item.roomList">
-                    <i class="fa fa-th-large font-gray-666 float-left"></i>
-                    <input type="text" v-model="key.roomNumber"/>
-                    <button @click="deleteRoom(floorRoomList[index].roomList[index],floorRoomList[index].roomList,indexs)" style="width:30px;height:30px;">X</button>
-                  </li>
-                  <li><button @click="addRoom(item,index)">添加房间</button></li>
-                </ul>
-              </td>
-            </tr>
-        </tbody>
-      </table>
-      <el-button @click="submitFloorRoomList" type="success" style="width:120px;margin:0 auto;display: flex;justify-content: center;font-size:16px;height:35px;line-height:35px;padding:0;">提交</el-button>
+    </div>
+  </div>
+
+    </div>
+      <!-- 删除 modal -->
       <div class="modal fade" id="mymodalRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabelRoom">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -415,9 +502,9 @@
                 <h4 class="modal-title" id="myModalLabelRoom">提示</h4>
                 <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
               </div>
-              <div class="modal-body" style="height:217px;">
-                <h2 style="text-align:center;font-size: 16px;color:#f13131;margin-top:30px;font-weight:bold;">是否删除</h2>
-                <p style="text-align: center;font-size: 16px; color: #fff;margin-top:20px;">{{ unitBuilding }}</p>
+              <div class="modal-body text-center container-padding40">
+                <h3 class="font-red size-14">是否删除</h3>
+                <p class="font-white size-16">{{ unitBuilding }}</p>
               </div>
               <div class="modal-footer">
                 <el-button type="danger" @click.native.prevent="deleteUnitRoom()" icon="el-icon-search" class="danger" data-dismiss="modal">删除</el-button>
@@ -425,8 +512,7 @@
               </div>
             </div>
           </div>
-        </div>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -472,6 +558,22 @@
     },
     
     methods: {
+    // 显示上传文件名
+    // showInputFileName(){
+    //   $(".pmian-up").on("change","input[type='file']",function(){
+    //     var filePath=$(this).val();
+    //     if(filePath.indexOf("jpg")!=-1 || filePath.indexOf("png")!=-1){
+    //         $(".fileerrorTip").html("").hide();
+    //         var arr=filePath.split('\\');
+    //         var fileName=arr[arr.length-1];
+    //         $(".showFileName").html(fileName);
+    //     }else{
+    //         $(".showFileName").html("");
+    //         $(".fileerrorTip").html("您未上传文件，或者您上传文件类型有误！").show();
+    //         return false 
+    //     }
+    // })
+    // },
 //楼层
       add(){
         $('.add').show();
@@ -765,9 +867,7 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//修改建筑
-        $('#mymodal').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
+        
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
@@ -825,9 +925,6 @@
         })
       },
       delete_plan(row){//删除
-        $('#mymodal2').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceIndex = row.id;
         this.deviceName = row.name;
       },

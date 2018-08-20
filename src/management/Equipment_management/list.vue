@@ -151,9 +151,23 @@
     <!-- 地图 -->
     <aside>      
         <div class="maps">
-          <div class="text-center padding-top120">
-            <h1 class="size-80 font-white">地图</h1>
-          </div>
+            <section class="position-relative">
+              <!-- 地图/平面图切换 -->
+              <div class="popup-map-min z-index-10">
+                <!-- 地图 -->
+                <div class="position-absolute-top">
+                  <img src="http://yhyimg.99xf.cn/xf/api/building_plan/25_1.jpg" alt="" class="img-responsive center-block">
+                </div>
+                <!-- icon -->
+                <div class="position-absolute-top popup-map-min-point">
+                  <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
+                </div>
+                <!-- 提示文字 -->
+                <h5>2D</h5>
+              </div>
+              <div>
+              </div>
+            </section>
         </div>
     </aside>
   </div>
