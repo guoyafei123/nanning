@@ -308,7 +308,7 @@
 			'unitid'
 		]),
 		watch: {
-			// 建筑详情
+			// 人员详情
 			topersonitem(){
 				console.log("用户id：");
 				console.log(this.toPersonDetailInfo.id);
@@ -508,8 +508,14 @@
 		},
 		mounted() {
 			// 左侧
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.queryUserCount_parameter=sessionStorage.unitid;
+			}
+			if(sessionStorage.unitid==0){
+				this.queryUserCount_parameter=null;
+			}
 			this.$store.commit('route_path', this.$route.path);
-
+			this.getData();
 		},
 	}
 </script>

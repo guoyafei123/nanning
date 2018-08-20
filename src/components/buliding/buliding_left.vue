@@ -262,8 +262,7 @@
       this.build_buildCount_parameter.unitId=null;
       this.queryBuildList_parameter.unitId=null;
     }
-
-    this.$store.commit("route_path", this.$route.path);
+    
     this.getRiskData();  
     this.getRiskTable(); 
     

@@ -235,6 +235,15 @@
 			},
 		},
 		mounted() {
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.personAnalyse_parameter.unitId=sessionStorage.unitid;
+				this.queryPersonList_parameter.unitId=sessionStorage.unitid;
+			}
+			if(sessionStorage.unitid==0){
+				this.personAnalyse_parameter.unitId=null;
+				this.queryPersonList_parameter.unitId=null;
+			}
+
 			this.getPersonData();
 			this.getPersonTable();
 		},
