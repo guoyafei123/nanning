@@ -19,6 +19,27 @@
 					<!-- 提示文字 -->
 					<h5>2D</h5>
 				</div>
+				<!-- 楼层导航 -->
+				<ul class="list-unstyled floor-item">
+					<li>14</li>
+					<li>13</li>
+	              <li>10</li>
+	              <li>11</li>
+	              <li>10</li>
+	              <li>9</li>
+	              <li>8</li>
+	              <li class="active">7</li>
+	              <li>1</li>
+	              <li>6</li>
+	              <li>5</li>
+	              <li>4</li>
+	              <li>3</li>
+	              <li>1</li>
+	              <li>-1</li>
+	              <li>-2</li>
+	              <li>-3</li>
+	              <li>-4</li>
+	            </ul>
 				<div>
 					<mapindex-vue></mapindex-vue>
 				</div>

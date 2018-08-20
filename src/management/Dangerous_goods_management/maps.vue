@@ -62,6 +62,9 @@
           </div>
         </div>
         <!-- 地图 -->
+        <div class="maps">
+        <managementMap-vue></managementMap-vue>
+        </div>
       </div>
     </aside>
   </div>
@@ -69,6 +72,7 @@
 </template>
 
 <script>
+  import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
@@ -86,6 +90,9 @@
         optionList:[]//全部单位列表
       
       }
+    },
+    components:{
+      'managementMap-vue': managementMapVue,
     },
     methods: {
       btn_add(){

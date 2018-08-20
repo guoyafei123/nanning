@@ -3,7 +3,7 @@
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-caozuorizhi-xian-"></i>
-        <h2>工作日志</h2>
+        <h2>控制室日常</h2>
       </div>
     </div>
     <div class="main_all_content">
@@ -14,14 +14,16 @@
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
           <el-date-picker
-              v-model="value7"
+              v-model="timeValue"
               type="daterange"
               align="right"
               unlink-panels
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
-              :picker-options="pickerOptions2">
+              :picker-options="pickerOptions2"
+              format="yyyy 年 MM 月 dd 日"
+              value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form>
       </div>
@@ -39,29 +41,42 @@
             label="序号">
           </el-table-column>
           <el-table-column
-            prop="operator"
-            label="操作人">
+            prop="punchUserNickname"
+            label="打卡人姓名">
           </el-table-column>
           <el-table-column
-            prop="ctime"
-            label="操作时间">
+            prop="punchRoleName"
+            label="打卡人角色">
           </el-table-column>
           <el-table-column
-            prop="fromIp"
-            label="操作Ip">
+            prop="punchUserPhone"
+            label="手机号">
           </el-table-column>
           <el-table-column
-            prop="moduleName"
-            label="操作模块">
+            prop="loginUserNickname"
+            label="登录人姓名">
           </el-table-column>
           <el-table-column
-            prop="content"
-            :show-overflow-tooltip="true"
-            label="操作内容">
+            prop="loginUnitName"
+            label="所属单位">
           </el-table-column>
           <el-table-column
-            prop="functionName"
-            label="操作">
+            prop="loginRoleName"
+            label="登录人角色">
+          </el-table-column>
+          <el-table-column
+            prop="loginUserPhone"
+            label="手机号">
+          </el-table-column>
+          <el-table-column
+            prop="status"
+            :formatter="statusFormat"
+            label="打卡状态">
+          </el-table-column>
+          <el-table-column
+            prop="punchTime"
+            width="160px"
+            label="打卡时间">
           </el-table-column>
         </el-table>
       </div>
@@ -131,7 +146,7 @@
             }
           }]
         },
-        value7: ''
+        timeValue: ''
       }      
     },
     methods: {
@@ -162,10 +177,12 @@
       },
       tableList(){
         this.$fetch(
-          "/api/operationLog/operationLogList",{
-            currentPager:this.currentPage4,
-            pagerSize:10,
-            unitId:this.operator
+          "/api/workPunch/queryPunch",{
+            currentPage:this.currentPage4,
+            pageSize:10,
+            unitId:this.operator,
+            beginTime:this.timeValue[0],
+            endTime:this.timeValue[1]
           }
         )
           .then(response => {
@@ -183,12 +200,20 @@
           .then(err => {
             // console.log(err);
           });
+      },
+      statusFormat(row, column) {
+        console.log(row.status)
+        if (row.status === 1) {
+          return '未打卡'
+        } else if (row.status === 2) {
+          return '已打卡'
+        }
       }
     },
     mounted(){
       realconsole();
       this.tableList();
-      this.operatorSearch();
+      this.operatorSearch() ;
     },
     watch:{
       currentPage4(val, oldVal){
@@ -199,6 +224,10 @@
       operator(val,oldVal){
         this.operator = val ;
         console.log(this.operator);
+        this.tableList();
+      },
+      timeValue(val,oldVal){
+        this.timeValue = val ;
         this.tableList();
       }
     }
