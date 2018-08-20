@@ -339,6 +339,11 @@ export default {
     },
     //划饼状图
     drawPieChart(id,data){
+      let a = data.zero;
+      let b = data.one;
+      let c = data.two;
+      let d = data.three;
+      let e = data.five;
       var pie = {
         title: {
           x: "center"
@@ -359,11 +364,11 @@ export default {
             radius: "55%",
             center: ["50%", "60%"],
             data: [
-              { value: 335, name: "0-2" },
-              { value: 310, name: "2-4" },
-              { value: 234, name: "4-6" },
-              { value: 135, name: "6-8" },
-              { value: 1548, name: "8-10" }
+              { value: a, name: "0-2" },
+              { value: b, name: "2-4" },
+              { value: c, name: "4-6" },
+              { value: d, name: "6-8" },
+              { value: e, name: "8-10" }
             ],
             itemStyle: {
               emphasis: {
