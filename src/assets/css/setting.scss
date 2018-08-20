@@ -138,7 +138,7 @@
     border-radius: 0;
   }
   .el-input__icon{
-    line-height: 28px;
+    line-height: 0;
   }
   .main_content_top{
     .el-button{
@@ -729,6 +729,6 @@ table th, table td{
   // display: inline;
 }
 
-.allocation .main_content_table .el-table .cell, .el-table th div{
+.allocation .main_content_table .el-table .cell{
   text-align: center;
 }
