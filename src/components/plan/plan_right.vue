@@ -3,7 +3,7 @@
 		<!-- 统计 -->
 		<section class="bulid-lineinfo">
 			<!-- 区域/单位统计 -->
-			<div class="row unit-info toolcount font-gray-999 size-12 margin-top0 clearfix">
+			<div class="row unit-info toolcount font-gray-999 size-12 margin-top0 clearfix margin-bottom50">
 				<!-- 已选择单位 -->
 				<div class="col-sm-7">
 					<div class="personinfo">
@@ -30,7 +30,7 @@
 			</div>
 		</section>
 		<!-- 预案列表 -->
-		<section class="early-warning margin-top20">
+		<section class="early-warning margin-top0">
 			<span class="toolroute-rect bg-blue"></span>
 			<!-- 标题 -->
 			<div class="early-title">
@@ -65,93 +65,23 @@
 					<!-- 火灾预案 -->
 					<div class="tab-pane fade in active" id="fireplan-list">
 						<ul class="list-inline">
-							<li class="col-lg-4 col-md-4 col-sm-4">
-								<figure>
-									<div class="plan-listimg"><img src="../../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
-									<div class="caption">
-										<h4 data-toggle="tooltip" title="火情确认须知">火情确认须知</h4>
-										<h5>中心小学</h5>
-										<p>
-											<small>2018-09-23</small>
-											<a href="#"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i></a>
-											<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
-										</p>
-									</div>
-								</figure>
-							</li>
-							<li class="col-lg-4 col-md-4 col-sm-4">
-								<figure>
-									<div class="plan-listimg"><img src="../../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
-									<div class="caption">
-										<h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
-										<h5>瑞和家园</h5>
-										<p>
-											<small>2018-09-23</small>
-											<a href="#"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i></a>
-											<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
-										</p>
-									</div>
-								</figure>
-							</li>
-							<li class="col-lg-4 col-md-4 col-sm-4">
-								<figure>
-									<div class="plan-listimg"><img src="../../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
-									<div class="caption">
-										<h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
-										<h5>瑞和家园</h5>
-										<p>
-											<small>2018-09-23</small>
-											<a href="#"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i></a>
-											<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
-										</p>
-									</div>
-								</figure>
-							</li>
-							<li class="col-lg-4 col-md-4 col-sm-4">
-								<figure>
-									<div class="plan-listimg"><img src="../../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
-									<div class="caption">
-										<h4 data-toggle="tooltip" title="火情确认须知">火情确认须知</h4>
-										<h5>中心小学</h5>
-										<p>
-											<small>2018-09-23</small>
-											<a href="#"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i></a>
-											<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
-										</p>
-									</div>
-								</figure>
-							</li>
-							<li class="col-lg-4 col-md-4 col-sm-4">
-								<figure>
-									<div class="plan-listimg"><img src="../../assets/images/plan/plan1.png" class="img-responsive" alt="火情确认须知"></div>
-									<div class="caption">
-										<h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
-										<h5>瑞和家园</h5>
-										<p>
-											<small>2018-09-23</small>
-											<a href="#"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i></a>
-											<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
-										</p>
-									</div>
-								</figure>
-							</li>
-							<li class="col-lg-4 col-md-4 col-sm-4">
-								<figure>
-									<div class="plan-listimg"><img src="../../assets/images/plan/plan2.png" class="img-responsive" alt="单位灭火力量分布"></div>
-									<div class="caption">
-										<h4 data-toggle="tooltip" title="单位灭火力量分布">单位灭火力量分布</h4>
-										<h5>瑞和家园</h5>
-										<p>
-											<small>2018-09-23</small>
-											<a href="#"><i class="el-icon-view" data-toggle="tooltip" title="预览"></i></a>
-											<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
-										</p>
-									</div>
-								</figure>
-							</li>
-							<li class="col-sm-12">
-								<span class="font-white pull-right">分页</span>
-							</li>
+							<template v-for="item in this.queryPlans">
+								<li class="col-lg-4 col-md-4 col-sm-4">
+									<figure>
+										<div class="plan-listimg"><img :src=item.url class="img-responsive" :alt=item.name></div>
+										<div class="caption">
+											<h4 data-toggle="tooltip">{{item.name}}</h4>
+											<h5>{{item.unitName}}</h5>
+											<p>
+												<small>{{item.createTime.substring(5)}}</small>
+												<a href="#"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+											</p>
+										</div>
+									</figure>
+								</li>
+							</template>
+							
+							
 						</ul>
 					</div>
 					<!-- 管理规定 -->
@@ -223,7 +153,12 @@
 						value: "选项3",
 						label: "怀化市横县"
 					}
-				]
+				],
+				queryPlan_parameter:{
+
+				},
+				queryPlans:Object,
+				countUnitPlans:Object
 			};
 		},
 		computed:mapState([
@@ -231,7 +166,7 @@
 		]),
 		watch:{
 			countUnitPlan(){
-				
+				this.getchar("myChart",this.countUnitPlan.numberOfPlanType);
 			}
 		},
 		methods: {
@@ -242,7 +177,12 @@
 					$(".early-warning").toggleClass("scrollheight");
 				});
 			},
-			getchar(){
+			getchar(id,data){
+				var a=[],b=[];
+				data.forEach(element => {
+					a.push(element.typeName);
+					b.push(element.count);
+				});
 				var option = {
 					tooltip: {
 						trigger: "axis",
@@ -263,7 +203,7 @@
 					},
 					yAxis: {
 						type: "category",
-						data: ['疏散示意图','疏散预案','管理规定','火灾预案'],
+						data: a,
 						show: true,
 						axisTick: {
 							show: false
@@ -295,27 +235,39 @@
 						itemStyle: {
 							normal: {
 								color: function(params) {
-									if(params.value > 0 && params.value < 300) {
+									if(params.value > 0 && params.value < 10) {
 										return "#666";
-									} else if(params.value >= 100 && params.value <= 600) {
+									} else if(params.value >= 10 && params.value <= 20) {
 										return "#999";
-									} else if(params.value >= 200 && params.value <= 900) {
+									} else if(params.value >= 20 && params.value <= 30) {
 										return "#ccc";
 									}
 									return "#bad616";
 								}
 							}
 						},
-						data: [220, 532, 1901,200]
+						data: b
 					}]
 				};
 				let myChart = this.$echarts.init(document.getElementById("myChart"));
 				myChart.setOption(option);
+			},
+			queryPlan(){
+				this.$fetch(
+						"/api/plan/queryPlan",
+						this.queryPlan_parameter
+					).then(response => {
+						if(response) {
+							this.queryPlans = response.data.prearranges;
+						}
+					})
+					.then(err => {
+						console.log(err);
+					});
 			}
 		},
 		mounted() {
-			console.log(this.countUnitPlan);
-			this.getchar();
+			this.queryPlan();
 		}
 	};
 </script>
