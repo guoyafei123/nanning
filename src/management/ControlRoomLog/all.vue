@@ -178,8 +178,8 @@
       tableList(){
         this.$fetch(
           "/api/workPunch/queryPunch",{
-            currentPager:this.currentPage4,
-            pagerSize:10,
+            currentPage:this.currentPage4,
+            pageSize:10,
             unitId:this.operator,
             beginTime:this.timeValue[0],
             endTime:this.timeValue[1]
