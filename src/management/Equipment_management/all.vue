@@ -412,9 +412,6 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//修改
-        $('#mymodal').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(item.id == row.id){
@@ -483,9 +480,6 @@
         })
       },
       delete_plan(row){//删除
-        $('#mymodal2').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceName = row.name;
         this.deviceIndex = row.id;
       },
