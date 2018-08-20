@@ -7,7 +7,7 @@
           <h2>建筑管理</h2>
         </div>
         <div class="main_nav float-right">
-          <span @click="btn_add" class="btn_add"><i class="fa fa-plus"></i>新增</span>
+          <router-link to="/Building_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
         </div>
       </div>
       <div class="main_all_content">
@@ -59,9 +59,7 @@
     },
     methods: {
       btn_add(){
-        $('#right').hide();
-        $('#manage-center').hide();
-        $('#list').show();
+        $('#right').css('display','none');
       },
       unitSearch(){
         this.$fetch(

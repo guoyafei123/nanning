@@ -31,10 +31,10 @@
             :show-overflow-tooltip="true"
             label="单位名称">
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="staffNum"
             label="单位人数">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="property"
             label="单位性质">
@@ -44,10 +44,10 @@
             :show-overflow-tooltip="true"
             label="单位地址">
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="telephone"
             label="部门电话">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="firemenName"
             label="消防负责人">
@@ -56,10 +56,10 @@
             prop="firemenTel"
             label="消防负责人电话">
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="corporation"
             label="法人代表">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             fixed="right"
             label="操作">
@@ -76,7 +76,6 @@
           <div class="float-left btn-system">
             <a href="javascript:;">打印</a>
             <a href="javascript:;">导出</a>
-            <a href="javascrip:;">导出二维码</a>
           </div>
           <el-pagination
                          @current-change="handleCurrentChange"
@@ -111,11 +110,11 @@
               class类hint-error为错误提示
              -->
              <div class="main_content">
-                <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-                  <el-form-item label="单位名称" class="not-null">
+                <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+                  <el-form-item label="单位名称" prop="name" class="not-null">
                     <el-input v-model="form.name" class="col-sm-4"></el-input>
                   </el-form-item>
-                  <el-form-item label="单位性质" class="not-null">
+                  <el-form-item label="单位性质" prop="property" class="not-null">
                     <el-select name="" v-model="form.property" placeholder="请选择结构" class="col-sm-4">
                       <el-option label="事业单位" value="事业单位"></el-option>
                       <el-option label="国家行政机关" value="国家行政机关"></el-option>
@@ -127,7 +126,7 @@
                       <el-option label="私营企业" value="私营企业"></el-option>
                     </el-select>
                   </el-form-item>
-                  <el-form-item label="法人代表" class="not-null col-sm-4">
+                  <!-- <el-form-item label="法人代表" class="not-null col-sm-4">
                     <el-input v-model="form.corporation"></el-input>
                   </el-form-item>
                   <el-form-item label="部门电话" class="not-null col-sm-4">
@@ -135,14 +134,14 @@
                   </el-form-item>
                   <el-form-item label="单位人数" class="col-sm-4">
                     <el-input v-model="form.staffNum"></el-input>
-                  </el-form-item>
-                  <el-form-item label="单位地址" class="not-null">
+                  </el-form-item> -->
+                  <el-form-item label="单位地址" prop="location" class="not-null">
                     <el-input v-model="form.location" class="col-sm-4"></el-input>
                   </el-form-item>                           
-                  <el-form-item label="消防负责人" class="not-null col-sm-4">
+                  <el-form-item label="消防负责人" prop="firemenName" class="not-null col-sm-4">
                     <el-input v-model="form.firemenName"></el-input>
                   </el-form-item>
-                  <el-form-item label="消防负责人电话" class="not-null col-sm-4">
+                  <el-form-item label="消防负责人电话" prop="firemenTel" class="not-null col-sm-4">
                     <el-input v-model="form.firemenTel"></el-input>
                   </el-form-item>
                   <el-form-item label="单位图片" class="not-null col-sm-12">
@@ -159,7 +158,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-circle-check-outline" class="primary">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -169,21 +168,49 @@
 </template>
 
 <script>
-  import { realconsole } from '../../assets/js/management.js'
+  import { realconsole } from '../../assets/js/management.js';
+  import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
   export default {
     data() {
+      var validPhone=(rule, value,callback)=>{
+          if (!value){
+            callback(new Error('请输入手机号码'))
+          }else  if (!isvalidPhone(value)){
+            callback(new Error('请输入正确的11位手机号码'))
+          }else {
+            callback()
+          }
+      }
+      var Name=(rule, value,callback)=>{
+          if (!value){
+            callback(new Error('请输入您的姓名'))
+          }else  if (!isName(value)){
+            callback(new Error('请输入正确的姓名'))
+          }else {
+            callback()
+          }
+      }
+      var validName=(rule, value,callback)=>{
+          if (!value){
+            callback(new Error('请输入单位名称'))
+          }else  if (!isvalidName(value)){
+            callback(new Error('请输入正确的单位名称'))
+          }else {
+            callback()
+          }
+      }
       return {
         labelPosition: 'top',
         form: {
           id:'',
           name:'',
           property:'',
-          staffNum:'',
+          // staffNum:'',
           location:'',
-          telephone:'',
+          // telephone:'',
           firemenName:'',
           firemenTel:'',          
-          corporation:'',
+          // corporation:'',
           point:{
             pointX:'',
             pointY:''
@@ -197,7 +224,24 @@
         deviceName:'',
         deviceIndexs:'',
         isShow:true,
-        fileVerification:''//验证图片
+        fileVerification:'',//验证图片
+        rules: {
+          name:[
+            { required: true, trigger: 'blur', validator: validName }
+          ],
+          property:[
+            { required: true, message: '请选择单位性质', trigger: 'change' }
+          ],
+          firemenName:[
+            { required: true, trigger: 'blur', validator: Name }
+          ],
+          location: [
+            { required: true, message: '请填写单位地址', trigger: 'blur' }//这里需要用到全局变量
+          ],
+          firemenTel:[
+            { required: true, trigger: 'blur', validator: validPhone }
+          ]
+        }
       }
     },
     methods: {
@@ -268,12 +312,12 @@
             this.form.id = item.id ;
             this.form.name = item.name ;
             this.form.property = item.property ;
-            this.form.staffNum = item.staffNum ;
+            // this.form.staffNum = item.staffNum ;
             this.form.location = item.location ;
-            this.form.telephone = item.telephone ;
+            // this.form.telephone = item.telephone ;
             this.form.firemenName = item.firemenName ;
             this.form.firemenTel = item.firemenTel ;
-            this.form.corporation = item.corporation ;
+            // this.form.corporation = item.corporation ;
             this.form.point.pointX = item.pointX ;
             this.form.point.pointY = item.pointY ;
           }
@@ -281,45 +325,54 @@
         // $("#up_img"+ this.form.id +"").attr("src","http://img.nanninglq.51play.com/xf/api/unit_img/"+ this.form.id +".jpg");
         console.log(this.form.id)
       },
-      startRow(){
-        var file = "file";
-        var that = this;
-        $.ajaxFileUpload({
-            url: '/api/unit/updateUnit', //用于文件上传的服务器端请求地址
-            /* secureuri : false, */ //一般设置为false
-            fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
-            data : {
-              'id':this.deviceIndex,
-              'name':this.form.name,
-              'property':this.form.property,
-              'staffNum':this.form.staffNum,
-              'location':this.form.location,
-              'telephone':this.form.telephone,
-              'firemenName':this.form.firemenName,
-              'firemenTel':this.form.firemenTel,
-              'corporation':this.form.corporation,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY
-            },
-            type: 'POST',
-            dataType: "plain",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+      startRow(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            var file = "file";
+            var that = this;
+            $.ajaxFileUpload({
+                url: '/api/unit/updateUnit', //用于文件上传的服务器端请求地址
+                /* secureuri : false, */ //一般设置为false
+                fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+                data : {
+                  'id':this.deviceIndex,
+                  'name':this.form.name,
+                  'property':this.form.property,
+                  // 'staffNum':this.form.staffNum,
+                  'location':this.form.location,
+                  // 'telephone':this.form.telephone,
+                  'firemenName':this.form.firemenName,
+                  'firemenTel':this.form.firemenTel,
+                  // 'corporation':this.form.corporation,
+                  'pointX':this.form.point.pointX,
+                  'pointY':this.form.point.pointY
+                },
+                type: 'POST',
+                dataType: "plain",
+                success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+                
             
-        
-            },
-            error: function (e) { //服务器响应失败处理函数
-              $.messager.alert('警告', "系统错误", "warning");
-            },
-            complete: function (e) {//只要完成即执行，最后执行
-              // console.log(e) 
-              that.tableList();
-              $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
-                $("#file").on("change", function(){  
-                  console.log($("#up_img"+that.form.id+""))
-                  $("#up_img"+ that.form.id +"").attr("src", that.getObjectURL(document.getElementById('file')));     
-                  console.log(that.form.id) 
-              });
-            }
+                },
+                error: function (e) { //服务器响应失败处理函数
+                  $.messager.alert('警告', "系统错误", "warning");
+                },
+                complete: function (e) {//只要完成即执行，最后执行
+                  // console.log(e) 
+                  
+                  $('.primary').attr('data-dismiss','modal');
+                  that.tableList();
+                  $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
+                    $("#file").on("change", function(){  
+                      console.log($("#up_img"+that.form.id+""))
+                      $("#up_img"+ that.form.id +"").attr("src", that.getObjectURL(document.getElementById('file')));     
+                      console.log(that.form.id) 
+                  });
+                }
+            });
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
         });
       },
       show3(row){//跳转
@@ -344,8 +397,8 @@
                   console.log(item.id)
                 }
                 if(item.id == this.deviceIndex){
-                  this.$store.commit('peopleTableData',item);
-                  // console.log(item)
+                  this.$store.commit('unitList',item);
+                  console.log(item)
                 }
               })
               if(this.totalList % 10 == 0){

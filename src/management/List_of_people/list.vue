@@ -26,13 +26,13 @@
           </el-form-item>
           <div class="col-sm-12">
             <div class="row">
-                <el-form-item label="所属单位" class="not-null col-sm-4">
+                <el-form-item label="所属单位" prop="unitId" class="not-null col-sm-4">
                   <el-select v-model="form.unitId" placeholder="选择单位" class="select">
                     <!-- <el-option label="全部单位" value=""></el-option> -->
                     <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="角色" class="not-null col-sm-4">
+                <el-form-item label="角色" prop="roleId" class="not-null col-sm-4">
                   <el-select v-model="form.roleId" placeholder="选择角色" class="select">
                     <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
                   </el-select>
@@ -62,25 +62,25 @@
 </template>
 
 <script>
-import {isvalidPhone} from '../../assets/js/validate';
+import { isvalidPhone,isName } from '../../assets/js/validate';
     export default {
       data() {
         var validPhone=(rule, value,callback)=>{
             if (!value){
-                callback(new Error('请输入电话号码'))
+              callback(new Error('请输入手机号码'))
             }else  if (!isvalidPhone(value)){
               callback(new Error('请输入正确的11位手机号码'))
             }else {
-                callback()
+              callback()
             }
         }
         var Name=(rule, value,callback)=>{
             if (!value){
-                callback(new Error('请输入您的姓名'))
+              callback(new Error('请输入您的姓名'))
             }else  if (!isName(value)){
               callback(new Error('请输入正确的姓名'))
             }else {
-                callback()
+              callback()
             }
         }
         return {
@@ -101,8 +101,13 @@ import {isvalidPhone} from '../../assets/js/validate';
               { required: true, trigger: 'blur', validator: validPhone }//这里需要用到全局变量
             ],
             nickName:[
-              { required: true, trigger: 'blur', validator: Name },
-              { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+              { required: true, trigger: 'blur', validator: Name }
+            ],
+            unitId:[
+              { required: true, message: '请选择单位', trigger: 'change' }
+            ],
+            roleId:[
+              { required: true, message: '请选择角色', trigger: 'change' }
             ]
           }
         }
