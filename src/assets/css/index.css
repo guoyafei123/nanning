@@ -196,6 +196,7 @@ p.toolcount-p2 {
 }
 .toolroute ul td,.toolroute ul th {
     padding-left: 5px!important;
+    text-align: left!important;
 }
 .toolroute ul li:first-child p {
     position: relative;
