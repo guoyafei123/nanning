@@ -595,6 +595,30 @@
   width: 100%;
   position: relative;
 }
+#manage_map {
+    height: 100%;
+    width: 100%;
+}
+.maps i.icon-shuidi- {
+    color: #bad616;
+    cursor: pointer;
+}
+.maps i.icon-shuidi->i {
+    color: #000;
+}
+.maps i.icon-shuidi->span {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #000;
+    font-size: 12px;
+    line-height: 34px;
+    width: 36px;
+}
+.maps i.icon-shuidi-:hover {
+    color: #f13131;
+}
+
 #list-maps aside {
   width: 100%;
   height: 100%;
