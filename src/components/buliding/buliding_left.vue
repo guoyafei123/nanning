@@ -173,7 +173,8 @@
       },
       // 表格返回
       tableData: Object,
-      getunitid:Object
+      getunitid:Object,
+      counts:1
     };
   },
   computed:mapState([
@@ -249,8 +250,10 @@
       this.$store.commit("tobuilditem", this.itemdata);
     },
     tobuildDetailinfo(data) {
+      this.counts++;
+      this.moren();
       this.itemdata = data;
-      this.$store.commit("buildDetailinfos", this.itemdata);
+      this.$store.commit("buildDetailinfos", [this.itemdata,this.counts]);
     }
   },
   mounted() {
@@ -262,7 +265,6 @@
       this.build_buildCount_parameter.unitId=null;
       this.queryBuildList_parameter.unitId=null;
     }
-    
     this.getRiskData();  
     this.getRiskTable(); 
     
