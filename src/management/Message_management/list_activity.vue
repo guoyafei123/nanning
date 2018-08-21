@@ -4,10 +4,10 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="icon iconfont icon-fasong-xian- size-20"></i>
-          <h2>发布消息</h2>
+          <h2>发布活动通知</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Message_management/notice"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Message_management/activity"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
       <section class="border-top-solid-333 margin-left15 margin-right15"></section>

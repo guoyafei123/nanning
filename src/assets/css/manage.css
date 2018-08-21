@@ -292,16 +292,18 @@
 }
 .main_nav_tab a {
   display: block;
-  width:64px;
+  width:auto;
   height:28px;
   line-height: 28px;
   color: #bad616;
   border:1px solid #bad616;
   float: left;
+  padding:0 5px;
 }
 .main_nav_tab a:first-child {
-  border-right: none;
+  border-right: 1px solid transparent;
 }
+
 .main_nav_tab a.router-link-active,
 .main_nav_tab a:hover{
   color: #000!important;

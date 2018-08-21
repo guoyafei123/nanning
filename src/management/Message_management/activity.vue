@@ -9,12 +9,12 @@
           </div>
           <!-- 切换 -->
           <div class="main_nav_tab position-absolute-top">
-            <router-link to="/Message_management/notice" class="active"><i class="icon iconfont icon-tongzhi-xian-"></i>公告</router-link>
-            <router-link to="/Message_management/activity"><i class="icon iconfont icon-huodong-xian-"></i>活动</router-link>
+            <router-link to="/Message_management/notice" class="active"><i class="icon iconfont icon-tongzhi-xian-"></i>系统公告</router-link>
+            <router-link to="/Message_management/activity"><i class="icon iconfont icon-huodong-xian-"></i>活动通知</router-link>
           </div>
           <!-- 发布 -->
           <div class="main_nav float-right">
-            <router-link to="/Message_management/list"><span class="btn_add" @click="btn_add"><i class="icon iconfont icon-fabu"></i>发布</span></router-link>
+            <router-link to="/Message_management/list_activity"><span class="btn_add" @click="btn_add"><i class="icon iconfont icon-fabu"></i>发布</span></router-link>
           </div>
       </div>
     <!-- 活动 -->

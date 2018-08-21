@@ -12,7 +12,7 @@
         <router-link to="/Reserve_plan/maps"><i class="icon iconfont icon-huodong-xian-"></i>应急疏散图</router-link>
       </div>  
       <div class="main_nav float-right">
-        <router-link to="/Reserve_plan/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
+        <router-link to="/Reserve_plan/list_map"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
       </div>
     </div>
     <!-- 主体 -->
@@ -20,7 +20,7 @@
       <!-- 筛选 -->
       <div class="main_content_top">
         <el-form ref="form" :model="form" class="float-left">
-          <el-select v-model="unit" placeholder="请选择单位" class="select">
+          <el-select v-model="unit" placeholder="全部单位" class="select">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
@@ -32,10 +32,6 @@
                 :label="item.name"
                 :value="item.id">
               </el-option>
-          </el-select>
-          <el-select v-model="type" placeholder="请选择预案类型" class="select">
-            <el-option label="全部预案类型" value=""></el-option>
-            <el-option v-for="item in planList" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form>
       </div>
@@ -64,8 +60,8 @@
             label="建筑名称">
           </el-table-column>
           <el-table-column
-            prop="name"
-            label="预案名称">
+            prop="floorNumber"
+            label="归属楼层">
           </el-table-column>
           <el-table-column
             prop="pattern"
@@ -185,18 +181,14 @@
         labelPosition: 'top',
         form: {
           id:'',
-          url:''
+          url:'',
+          unitId:'',
+          buildingId:''
         },
-        type:'',
         unit:'',
         building:'',
         buildList:[],
         optionList:[],
-        planList:[
-          { id:1, name:'火灾预案' },
-          { id:2, name:'管理规定' },
-          { id:3, name:'疏散预案' }
-        ],
         tableData: [],//单位列表
         page:null,//总页数
         currentPage4: 1,//当前页
@@ -211,7 +203,7 @@
       file(){
         var x = document.getElementById("file");
         if (!x || !x.value) return;
-        var patn = /\.jpg$|\.jpeg$|\.png$|\.pdf$|\.csv$|\.xls$|\.xlsx$|\.doc$|.txt/i;
+        var patn = /\.jpg$|\.jpeg$|\.png/i;
         if (!patn.test(x.value)) {
           this.fileVerification="文件类型不正确!!";
           x.value = "";
@@ -350,8 +342,7 @@
             pageSize:10,
             unitId:this.unit,
             buildingId:this.building,
-            type:this.type,
-            types:[1,2,3]
+            types:[4]
           }
         )
           .then(response => {
@@ -404,14 +395,6 @@
         this.tableList();
         this.buildSearch(this.unit);
       },
-      building(curVal,oldVal){
-        this.building = curVal;
-        this.tableList();
-      },
-      type(curVal,oldVal){
-        this.type = curVal ;
-        this.tableList();
-      },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
         console.log(this.currentPage4);
@@ -420,6 +403,6 @@
     }
   };
 </script>
-<style lang="scss" scoped>
+<style lang="scss" scoped>  
 
 </style>
