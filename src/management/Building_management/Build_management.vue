@@ -17,9 +17,6 @@
       <div class="overlay"></div>
       <set_right-vue></set_right-vue>
     </section>
-    <section id="list" style="display:none;">
-      <list-vue></list-vue>
-    </section>
     <div class="fix" @click="show" style="display:none;width:20px;height:60px;position: fixed;top:35%;left:0;background:#333;text-align:center;line-height: 60px;">
         <span style="font-size: 23px;
       display: block;
@@ -35,7 +32,6 @@
   import Set_leftVue from '../left.vue';
   import MainVue from '../main.vue';
   import Set_rightVue from './right.vue';
-  import ListVue from './list.vue';
   export default {
     methods:{
       show(){
@@ -50,8 +46,7 @@
       'header-vue':HeaderVue,
       'set_left-vue':Set_leftVue,
       'set_right-vue':Set_rightVue,
-      'main-vue':MainVue,
-      'list-vue':ListVue
+      'main-vue':MainVue
     }
   }
 </script>

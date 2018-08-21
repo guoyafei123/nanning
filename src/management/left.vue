@@ -34,7 +34,7 @@
             </li>
           </router-link>          
           <li class="system_title">风险防控</li>
-          <router-link to="/Unit_management">
+          <router-link to="/">
           <!-- Risk_Analysis -->
             <li>
               <i class="icon iconfont icon-fengxianfenxi-xian-"></i>

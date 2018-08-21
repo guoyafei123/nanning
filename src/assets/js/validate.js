@@ -5,11 +5,11 @@ export function isvalidPhone(str) {
 }
 //名称
 export function isvalidName(str){
-    const reg = /^.{3,20}$/;
+    const reg = /^.{2,30}$/;
     return reg.test(str)
 }
 //姓名
 export function isName(str){
-    const reg = /^[\u4e00-\u9fa5]{0,}$/;
+    const reg = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/;
     return reg.test(str)
 }

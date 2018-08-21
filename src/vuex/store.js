@@ -34,6 +34,8 @@ var state={
   dangerBuild:'',
   dangerFloor:'',
   dangerRoom:'',
+  //预案
+  unitPlan:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -56,6 +58,8 @@ var state={
   buildDetailinfos:Object,
   // 预案统计左上角和右边echar共享
   countUnitPlan:Object,
+  // pdf弹窗
+  topdf:Object,
   topersonitem:Object
 }
 
@@ -63,6 +67,9 @@ var mutations={
   //单位
   unitNum(state,data){
     state.unitNum = data;
+  },
+  unitList(state,data){
+    state.unitList = data;
   },
   //巡检
   region(state,data){
@@ -142,6 +149,10 @@ var mutations={
   dengerStatus(state,data){
     state.dengerStatus = data;
   },
+  //预案
+  unitPlan(state,data){
+    state.unitPlan = data;
+  },
   // 展示端的store
   setvuextest(state,data){
     state.setvuextest = data;
@@ -191,6 +202,9 @@ var mutations={
   },
   countUnitPlan(state,data){
     state.countUnitPlan=data;
+  },
+  topdf(state,data){
+    state.topdf=data;
   },
 }
 

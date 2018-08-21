@@ -18,47 +18,22 @@
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="预案名称" class="not-null">
-            <span class="hint-error">单位名称有误或重复</span>
             <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="预案类型" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="请选择" class="col-sm-4">
-              <el-option label="火灾预案" value="灭火预案"></el-option>
-              <el-option label="管理规定" value="管理规定"></el-option>
-              <el-option label="疏散示意图" value="疏散示意图"></el-option>
+          <el-form-item label="单位" class="not-null">
+            <el-select v-model="form.unitId" placeholder="全部单位"  class="col-sm-8">
+              <el-option v-for="item in form.optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="所属单位" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="请选择" class="col-sm-4">
-              <el-option label="事业单位" value="事业单位"></el-option>
-              <el-option label="国家行政机关" value="国家行政机关"></el-option>
-              <el-option label="政府" value="政府"></el-option>
-              <el-option label="国有企业" value="国有企业"></el-option>
-              <el-option label="国有控股企业" value="国有控股企业"></el-option>
-              <el-option label="外资企业" value="外资企业"></el-option>
-              <el-option label="合资企业" value="合资企业"></el-option>
-              <el-option label="私营企业" value="私营企业"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="所属建筑" class="not-null col-sm-4">
-            <el-select name="" v-model="form.property" placeholder="请选择">
-              <el-option label="事业单位" value="事业单位"></el-option>
-              <el-option label="国家行政机关" value="国家行政机关"></el-option>
-              <el-option label="政府" value="政府"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="所属楼层" class="not-null col-sm-4">
-            <el-select name="" v-model="form.property" placeholder="请选择">
-              <el-option label="事业单位" value="事业单位"></el-option>
-              <el-option label="国家行政机关" value="国家行政机关"></el-option>
-              <el-option label="政府" value="政府"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="所属房间" class="not-null col-sm-4">
-            <el-select name="" v-model="form.property" placeholder="请选择">
-              <el-option label="事业单位" value="事业单位"></el-option>
-              <el-option label="国家行政机关" value="国家行政机关"></el-option>
-              <el-option label="政府" value="政府"></el-option>
+          <el-form-item label="建筑" class="not-null">
+            <el-select
+                v-model="form.building"
+              placeholder="选择建筑"   class="col-sm-8">
+                <el-option
+                  v-for="item in form.buildList"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="预案附件" class="not-null col-sm-12">
@@ -89,17 +64,12 @@
           labelPosition: 'top',
           form: {
             name:'',
-            property:'',
-            staffNum:'',
-            location:'',
-            telephone:'',
-            firemenName:'',
-            firemenTel:'',          
-            corporation:'',
-            point:{
-              pointX:'',
-              pointY:''
-            }
+            unitId:'',
+            unitName:'',
+            building:'',
+            buildingName:'',
+            optionList:[],
+            buildList:[]
           },
           isShow:false,
           fileVerification:''//图片验证
@@ -109,7 +79,7 @@
         file(){
           var x = document.getElementById("file");
           if (!x || !x.value) return;
-          var patn = /\.jpg$|\.jpeg$|\.png$/i;
+          var patn = /\.jpg$|\.jpeg$|\.png$|\.pdf$|\.csv$|\.xls$|\.xlsx$|\.doc$|.txt/i;
           if (!patn.test(x.value)) {
             this.fileVerification="您选择的似乎不是图像文件!!";
             x.value = "";
@@ -153,24 +123,33 @@
             return imgURL;
         },
         btn(){
+          this.form.optionList.forEach(element => {
+            if(this.form.unitId = element.id){
+              this.form.unitName = element.name ;
+            }
+          });
+          this.form.buildList.forEach(element=>{
+            if(this.form.building == element.id){
+              this.form.buildingName = element.name ;
+            }
+          })
+          // console.log(this.form.name )
+          // console.log(this.form.unitId )
+          // console.log(this.form.unitName )
+          // console.log(this.form.building )
+          // console.log(this.form.buildingName )
           var file = "file";
-          
-          
+          var that = this ;
           $.ajaxFileUpload({
-            url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
+            url: '/api/plan/insertPlan', //用于文件上传的服务器端请求地址
             /* secureuri : false, */ //一般设置为false
             fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
             data : {
               'name':this.form.name,
-              'property':this.form.property,
-              'staffNum':this.form.staffNum,
-              'location':this.form.location,
-              'telephone':this.form.telephone,
-              'firemenName':this.form.firemenName,
-              'firemenTel':this.form.firemenTel,
-              'corporation':this.form.corporation,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY
+              'unitId':this.form.unitId,
+              'unitName':this.form.unitName,
+              'buildingId':this.form.building,
+              'buildingName':this.form.buildingName
             },
             type: 'POST',
             dataType: "plain",
@@ -183,7 +162,7 @@
             },
             complete: function (e) {//只要完成即执行，最后执行
               // console.log(e) 
-              this.$router.push({path:'/Reserve_plan/all'});
+              that.$router.push({path:'/Reserve_plan/all'});
             }
           });
           
@@ -191,17 +170,50 @@
         back(){
           this.$router.push({path:'/Reserve_plan/all'});
           $('#right').show();
+        },
+        unitSearch(){
+          this.$fetch(
+            "/api/unit/queryUnit"
+          )
+          .then(response => {
+            if (response) {
+              console.log(response);
+              this.form.optionList = response.data.unitList;
+              console.log(this.form.optionList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+          .then(err => {
+            // console.log(err);
+          });
+        },
+        buildSearch(unitId){
+          this.$fetch("/api/building/selectNode",{
+            unitId:unitId
+          }).then(response=>{
+            console.log('buildSearch:'+JSON.stringify(response));
+            if (response) {
+              this.form.buildList = response.data.list;
+              console.log(this.form.buildList);
+            }
+          })
         }
       },
       mounted(){
-        $('.el-scrollbar').css({
-            'background':'#000'
-        });
-        $('.el-select-dropdown').css('border-color','#333');
-        $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
+        this.unitSearch();
+      },
+      computed:{
+        unitId(){
+          return this.form.unitId;
+        }
+      },
+      watch:{
+        unitId(curVal,oldVal){
+          this.form.unitId = curVal;
+          this.buildSearch(this.form.unitId);
+        }
       }
     }
 </script>

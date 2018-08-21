@@ -121,33 +121,33 @@
             <h4 class="modal-title" id="myModalLabel">人员审核</h4>
           </div>
           <div class="modal-body">
-            <el-form ref="form" :label-position="labelPosition" :inline="true" :model="form">
-              <el-form-item label="姓名">
+            <el-form ref="form" :rules="rules" :label-position="labelPosition" :inline="true" :model="form">
+              <el-form-item label="姓名" prop="nickName">
                 <el-input v-model="form.nickName" :disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="职位">
+              <el-form-item label="职位" prop="position">
                 <el-input v-model="form.position" :disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="联系电话">
+              <el-form-item label="联系电话" prop="cellPhone">
                 <el-input v-model="form.cellPhone" :disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="审核意见">
+              <el-form-item label="审核意见" prop="review">
                 <el-radio v-model="review" label="1">通过</el-radio>
                 <el-radio v-model="review" label="2">未通过</el-radio>
               </el-form-item>
-              <el-form-item v-if="this.review == 1" label="角色">
+              <el-form-item v-if="this.review == 1" label="角色" prop="roleId">
                 <el-select v-model="form.roleId" placeholder="选择角色" class="select">
                   <el-option label="全部角色" value=""></el-option>
                   <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item v-if="this.review == 1" label="所属单位">
+              <el-form-item v-if="this.review == 1" label="所属单位" prop="unitId">
                 <el-select v-model="form.unitId" placeholder="选择单位" class="select">
                   <!-- <el-option label="全部单位" value=""></el-option> -->
                   <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item v-if="this.review == 2" label="审核说明">
+              <el-form-item v-if="this.review == 2" label="审核说明" prop="reviewContent">
                 <el-input
                   type="textarea"
                   :rows="2"
@@ -158,7 +158,7 @@
             </el-form>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -168,9 +168,28 @@
 </template>
 
 <script>
-  import { realconsole } from '../../assets/js/management.js'
+  import { realconsole } from '../../assets/js/management.js';
+  import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
   export default {
     data() {
+      var validPhone=(rule, value,callback)=>{
+          if (!value){
+            callback(new Error('请输入手机号码'))
+          }else  if (!isvalidPhone(value)){
+            callback(new Error('请输入正确的11位手机号码'))
+          }else {
+            callback()
+          }
+      }
+      var Name=(rule, value,callback)=>{
+          if (!value){
+            callback(new Error('请输入您的姓名'))
+          }else  if (!isName(value)){
+            callback(new Error('请输入正确的姓名'))
+          }else {
+            callback()
+          }
+      }
       return {
         labelPosition: 'left',
         unitId:'',
@@ -198,7 +217,30 @@
         totalList:null,//总条数
         deviceIndex:'',
         reviewContent:'',
-        review:''
+        review:'',
+        rules: {
+          nickName:[
+            { required: true, trigger: 'blur', validator: Name }
+          ],
+          position:[
+            { required: true, message: '请填写所在公司的职位', trigger: 'blur' }
+          ],
+          cellPhone:[
+            { required: true, trigger: 'blur', validator: validPhone }
+          ],
+          review: [
+            { required: true, message: '请选择处理意见', trigger: 'change' }//这里需要用到全局变量
+          ],
+          roleId:[
+            { required: true, message: '请选择角色', trigger: 'change' }
+          ],
+          unitId:[
+            { required: true, message: '请选择单位', trigger: 'change' }
+          ],
+          reviewContent:[
+            { required: true, message: '请填写审核意见、说明', trigger: ['change','blur'] }
+          ]
+        }
       }
     },
     methods: {
@@ -223,16 +265,23 @@
           }
         })
       },
-      startRow(){
-        this.$fetch("/api/user/addOrUpdateUser",{
-          'reviewContent':this.reviewContent,
-          'review':this.review,
-          'roleId':this.form.roleId,
-          'unitId':this.form.unitId,
-          'id':this.deviceIndex
-        }).then(response=>{
-          console.log(response)
-        })
+      startRow(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.$fetch("/api/user/addOrUpdateUser",{
+              'reviewContent':this.reviewContent,
+              'review':this.review,
+              'roleId':this.form.roleId,
+              'unitId':this.form.unitId,
+              'id':this.deviceIndex
+            }).then(response=>{
+              console.log(response)
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
       },
       show3(row){//跳转
         console.log(row.id);
