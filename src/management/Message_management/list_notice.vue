@@ -3,7 +3,7 @@
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
-          <i class="icon iconfont icon-fasong-xian- size-20"></i>
+          <i class="icon iconfont icon-fasong-xian- size-16"></i>
           <h2>发布系统公告</h2>
         </div>
         <div class="main_nav float-right">

@@ -74,7 +74,7 @@
               <el-date-picker
                 v-model="form.createTime"
                 type="datetime"
-                placeholder="选择日期"
+                placeholder="选择时间"
                 format="yyyy-MM-dd HH:mm:ss"
                 value-format="yyyy-MM-dd HH:mm:ss"
                 clearable>

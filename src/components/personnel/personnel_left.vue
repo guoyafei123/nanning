@@ -86,7 +86,7 @@
 								<tr>
 									<th>姓名</th>
 									<th>手机号</th>
-									<th>单位名称</th>
+									<th class="table-fixedwidth">单位名称</th>
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
@@ -95,7 +95,7 @@
 								<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
 									<td>{{item.nickName}}</td>
 									<td>{{item.cellPhone}}</td>
-									<td>{{item.unitName}}</td>
+									<td class="table-fixedwidth" data-toggle="tooltip" :title=item.unitName>{{item.unitName}}</td>
 									<td>
 										<i v-if="item.online==true" class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
 										<i v-if="item.online==false" class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
@@ -178,6 +178,7 @@
 				}
 				this.personAnalyse_parameter.unitId=this.getunitid;
 				this.queryPersonList_parameter.unitId=this.getunitid;
+				
 				this.getPersonData();  
 				this.getPersonTable(); 
 			}

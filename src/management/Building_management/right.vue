@@ -864,7 +864,7 @@
       },
       handleCurrentChange(val) {
         this.currentPage4 = val;
-        $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
+        // $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//修改建筑
         
@@ -967,9 +967,9 @@
               console.log(response);
               this.optionList = response.data.unitList;
               console.log(this.optionList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
+              // $(' .el-select-dropdown__item').mouseover(function(){
+              //   $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              // });
             }
           })
           .then(err => {

@@ -10,11 +10,11 @@
 			<template>
 				<div class="toolleft margin-right0">
 					<section>
-						<div class="row toolcount">
-							<div class="col-sm-6 font-gray-999 padding-right0">
-								<ul class="toolcount-left margin-bottom0 padding-left37" id="toolcount">
+						<div class="toolcount">
+							<div class="set-width-50  font-gray-999 padding-right0">
+								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
 									<li>
-										<h1 class="toolcount-p1">569{{ins_deviceCountByUnit.deviceTotal}}</h1>
+										<h1 class="toolcount-p1 font-red" >{{deviceCountByUnit.deviceTotal}}</h1>
 									</li>
 									<li>
 										<p class="size-10">Device Number</p>
@@ -24,27 +24,27 @@
 									</li>
 								</ul>
 							</div>
-							<div class="col-sm-6 font-gray-999 padding-left0 padding-right0 size-12">
-								<ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
+							<div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
+								<ul class="padding-left0 margin-bottom0">
 									<li>
-										<p class="set-width-50">室内设备</p>
-										<p class="display-inline-block font-gray-ccc font-italic size-14">637{{ins_deviceCountByUnit.innerCount}}</p>
+										<p>室内设备</p>
+										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.innerCount}}</p>
 									</li>
 									<li>
-										<p class="set-width-50">室外设备</p>
-										<p class="display-inline-block font-gray-ccc font-italic size-14">136{{ins_deviceCountByUnit.outsideCount}}</p>
+										<p>室外设备</p>
+										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.outsideCount}}</p>
 									</li>
 									<li>
-										<p class="set-width-50">灭火设备</p>
-										<p class="display-inline-block font-red font-italic size-14">167{{ins_deviceCountByUnit.outfireCount}}</p>
+										<p>灭火设备</p>
+										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.outfireCount}}</p>
 									</li>
 									<li>
-										<p class="set-width-50">预警设备</p>
-										<p class="display-inline-block font-yellow font-italic size-14">124{{ins_deviceCountByUnit.inductionCount}}</p>
+										<p>预警设备</p>
+										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.inductionCount}}</p>
 									</li>
 									<li>
-										<p class="set-width-50">安防设备</p>
-										<p class="display-inline-block font-blue font-italic size-14">36{{ins_deviceCountByUnit.safetyCount}}</p>
+										<p>安防设备</p>
+										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.safetyCount}}</p>
 									</li>
 								</ul>
 							</div>
@@ -55,9 +55,6 @@
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10 padding-right5 clearfix">
 								<li>
-									<p class="font-gray-666 size-12">中心小学</p>
-								</li>
-								<li>
 									<p class="font-blue size-16">设备信息
 										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
                       <i class="icon iconfont icon-weibiaoti10 size-12"></i>
@@ -65,16 +62,8 @@
 									</p>
 								</li>
 								<li>
-									<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位" @change="tolineitem">
-										<el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
-										</el-option>
-									</el-select>
-									<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部建筑" @change="tolineitem">
-										<el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
-										</el-option>
-									</el-select>
-									<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 pull-right" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部类别" @change="tolineitem">
-										<el-option v-for="item in ins_queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
+									<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" style="width:120px!important" size="mini" v-model="selectNodevalue_model" placeholder="全部建筑" @change="toselectNode">
+										<el-option v-for="item in selectNode" :key="item.id" :label="item.name" :value="item.id">
 										</el-option>
 									</el-select>
 								</li>
@@ -84,131 +73,25 @@
 											<tr>
 												<!-- <th >序号</th> -->
 												<th>设备名称</th>
-												<th>所属建筑</th>
-												<th>所属单位</th>
+												<th>归属建筑</th>
 												<th>设备类型</th>
 												<th>状态</th>
 												<th>查看</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>瑞和家园2号楼</td>
-												<td>瑞和家园</td>
-												<td class="dec-type"><i class="icon iconfont icon-qitimiehuoxitong-" data-toggle="tooltip" title="气体灭火系统"></i></td>
-												<td class="font-blue">正常</td>
+											<tr v-for="(item,index) in tableData.result" >
+												<td :title=item.name>{{item.name ? item.name:"暂无统计"}}</td>
+												<td>{{item.buildingName ? item.buildingName:"暂无统计"}}</td>
 												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
+													<i class="icon iconfont set-ciontop3" :class="iconByType[item.deviceTypeId]" :title="item.deviceTypeName"></i>
 												</td>
-											</tr>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>实验教学楼</td>
-												<td>中心小学</td>
-												<td class="dec-type"><i class="icon iconfont icon-ganyanqi-" data-toggle="tooltip" title="烟雾感应器"></i></td>
-												<td class="font-orange">故障</td>
-												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>瑞和写字楼</td>
-												<td>瑞和家园</td>
-												<td class="dec-type"><i class="icon iconfont icon-hongwaiyanhuoganying-" data-toggle="tooltip" title="声光报警器"></i></td>
-												<td class="font-yellow">隐患</td>
-												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>瑞和家园2号楼</td>
-												<td>瑞和家园</td>
-												<td class="dec-type"><i class="icon iconfont icon-qitimiehuoxitong-" data-toggle="tooltip" title="气体灭火系统"></i></td>
-												<td class="font-blue">正常</td>
-												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>实验教学楼</td>
-												<td>中心小学</td>
-												<td class="dec-type"><i class="icon iconfont icon-ganyanqi-" data-toggle="tooltip" title="烟雾感应器"></i></td>
-												<td class="font-orange">故障</td>
-												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>瑞和写字楼</td>
-												<td>瑞和家园</td>
-												<td class="dec-type"><i class="icon iconfont icon-hongwaiyanhuoganying-" data-toggle="tooltip" title="声光报警器"></i></td>
-												<td class="font-yellow">隐患</td>
-												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>瑞和家园2号楼</td>
-												<td>瑞和家园</td>
-												<td class="dec-type"><i class="icon iconfont icon-qitimiehuoxitong-" data-toggle="tooltip" title="气体灭火系统"></i></td>
-												<td class="font-blue">正常</td>
-												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>实验教学楼</td>
-												<td>中心小学</td>
-												<td class="dec-type"><i class="icon iconfont icon-ganyanqi-" data-toggle="tooltip" title="烟雾感应器"></i></td>
-												<td class="font-orange">故障</td>
-												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>AE12WD56W</td>
-												<td>瑞和写字楼</td>
-												<td>瑞和家园</td>
-												<td class="dec-type"><i class="icon iconfont icon-hongwaiyanhuoganying-" data-toggle="tooltip" title="声光报警器"></i></td>
-												<td class="font-yellow">隐患</td>
-												<td>
-													<a @click="moren">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
-													</a>
-												</td>
-											</tr>
-											<tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
-												<!-- <td>{{(deviceList_parameter.currentPage-1)*deviceList_parameter.pageSize+index+1}}</td> -->
-												<td>{{item.name}}</td>
-												<td>{{item.buildingName}}</td>
-												<td>{{item.deviceTypeName}}</td>
-												<td>{{item.status}}</td>
+												<td v-if="item.status==1" class="font-blue">正常</td>
+												<td v-if="item.status==2" class="font-yellow">故障</td>
+												<td v-if="item.status==3" class="font-red">警报</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+														<i class="fas fa-chevron-circle-right " data-toggle="tooltip" title="查看详情"></i>
 													</a>
 												</td>
 											</tr>
@@ -240,14 +123,8 @@
 					<!-- 筛选 -->
 					<section class="my-filter padding5 bg-gray-222 clearfix">
 						<!-- 单位筛选 -->
-						<div class="col-sm-3 padding0">
-							<el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="全部单位">
-								<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-								</el-option>
-							</el-select>
-						</div>
 						<!-- 日期筛选 -->
-						<div class="col-sm-9 padding0">
+						<div class="col-sm-12 padding0">
 							<div class="upd-elmdate">
 								<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
 								</el-date-picker>
@@ -273,38 +150,14 @@
 								</P>
 							</div>
 						</div>
-						<!-- <section>
-                    <div class="toolcount">
-                      <h4 class="p-title">设备统计</h4>
-                      <div class="col-sm-7  font-gray-999 padding-right0">
-                        <div class="row text-center margin-top70">
-                          <div class="col-sm-4 container-padding0 personnel-borderright">
-                            <p class="size-16 font-white">{{ins_alarmAndMalfunctionDeviceCount.deviceTotal}}</p>
-                            <p>设备总数</p>
-                          </div>
-                          <div class="col-sm-4 container-padding0 personnel-borderright">
-                            <p class="size-16 font-white">{{ins_alarmAndMalfunctionDeviceCount.malfunctionCount}}</p>
-                            <p>故障设备</p>
-                          </div>
-                          <div class="col-sm-4 container-padding0">
-                            <p class="size-16 font-white">{{ins_alarmAndMalfunctionDeviceCount.alaramCount}}</p>
-                            <p>报警设备</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-5 font-gray-999 padding-left0 padding-right0">
-                        <div id="call_charpiemin" style="width: 100%;height:150px;margin: 0 auto;"></div>
-                      </div>
-                    </div>
-                  </section> -->
 						<section>
 							<div class="toolcount margin-top20">
 								<h4 class="p-title">设备统计</h4>
 								<template>
 									<div class="padding-left15 margin-top20">
 										<el-radio-group @change="callradiopie" v-model="radiovaluepie">
-											<el-radio label="1">故障设备 {{ins_alarmAndMalfunctionDeviceCount.malfunctionCount}}</el-radio>
-											<el-radio label="2">报警设备 {{ins_alarmAndMalfunctionDeviceCount.alaramCount}}</el-radio>
+											<el-radio label="1">故障设备 {{alarmAndMalfunctionDeviceCount.malfunctionCount}}</el-radio>
+											<el-radio label="2">报警设备 {{alarmAndMalfunctionDeviceCount.alaramCount}}</el-radio>
 										</el-radio-group>
 									</div>
 								</template>
@@ -341,27 +194,22 @@
 					</section>
 					<!-- 详情 -->
 					<section class="dan-iteminfo overflow-scr display-none">
-						<a class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
+						<a class="btn-back" @click="moren"><i class="el-icon-arrow-left"></i>返回</a>
 						<div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
 							<!-- 已选择 -->
 							<div class="personinfo">
 								<p>
 									<span class="size-20 font-blue">
-                          <i class="icon iconfont icon-jiankong-mian- size-20" data-toggle="tooltip" title="监控摄像头"></i> <span>AE12WD56W</span>
+                          <i class="icon iconfont icon-jiankong-mian- size-20" data-toggle="tooltip" title="监控摄像头"></i> <span>{{deviceiteminfo.name}}</span>
 									</span>
 									<span class="float-right">
-                                <span class="bgbox-max bg-gray-333 font-gray-999 size-10">安防设备</span>
+                                <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{deviceiteminfo.deviceTypeName}}</span>
 									</span>
 								</p>
 								<p class="col-sm-7 text-left padding0">
 									<span>
-                                <i class="fas fa-industry"></i> 怀化市中心小学</span>
+                                <i class="fas fa-industry"></i> {{deviceiteminfo.location}}</span>
 								</p>
-								<P class="col-sm-5 text-right padding0">
-									<span class="text-right">
-                            最后更新：<span class="font-gray-999">2018.07.09 08:00:00</span>
-									</span>
-								</P>
 							</div>
 						</div>
 						<!-- 设备信息统计 -->
@@ -370,7 +218,11 @@
 								<div class="col-sm-4 font-gray-999 padding0">
 									<ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
 										<li>
-											<h1 class="toolcount-p1"><span class="font-blue"></span>正常</h1>
+											<h1 class="toolcount-p1" style="line-height: 55px;">
+												<span v-if="deviceiteminfo.status==1" class="font-blue size-48">正常</span>
+												<span v-if="deviceiteminfo.status==2" class="font-yellow size-48">故障</span>
+												<span v-if="deviceiteminfo.status==3" class="font-red size-48">警报</span>
+											</h1>
 										</li>
 										<li class="margin-top30">
 											<p class="size-10 ">Device Status</p>
@@ -389,24 +241,18 @@
 											<p class="size-10 set-scaleright">Repair Statistics</p>
 										</li>
 										<li class="margin-top10">
-											<p class="set-width-50">运行时长 <span class="font-blue">639 </span>天</p>
-											<p class="pull-right">
-												<a class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="查看监控摄像头">
-													<i class="icon iconfont icon-jiankong-mian-"></i> 监控</a>
-											</p>
+											<p class="set-width-50">运行时长 <span class="font-blue">
+												{{deviceiteminfodiff}}
+												</span>天</p>
 										</li>
 										<li class="row text-center padding-right16 margin-top10">
-											<div class="col-sm-4 personnel-borderright">
-												<p class="size-16 show font-red">18</p>
+											<div class="col-sm-6 personnel-borderright">
+												<p class="size-16 show font-red">{{deviceiteminfo.alarmCount?deviceiteminfo.alarmCount:'-'}}</p>
 												<p>报警次数</p>
 											</div>
-											<div class="col-sm-4 personnel-borderright">
-												<p class="size-16 show font-orange">6</p>
+											<div class="col-sm-6">
+												<p class="size-16 show font-white">{{deviceiteminfo.malfunctionCount?deviceiteminfo.malfunctionCount:'-'}}</p>
 												<p>故障次数</p>
-											</div>
-											<div class="col-sm-4">
-												<p class="size-16 show font-white">360</p>
-												<p>更换周期</p>
 											</div>
 										</li>
 									</ul>
@@ -418,50 +264,47 @@
 							<div class="textandimg margin-top30">
 								<h4 class="p-title">设备信息</h4>
 								<div class="row textandimg-main margin-top20 size-12">
-									<div class="col-sm-6">
+									<div class="col-sm-12">
 										<span>设备名称 </span>
-										<strong>AE12WD56W </strong>
+										<strong>{{deviceiteminfo.name?deviceiteminfo.name:'-'}} </strong>
 									</div>
 									<div class="col-sm-6">
 										<span>设备类型 </span>
-										<strong>监控摄像头</strong>
+										<strong>{{deviceiteminfo.deviceTypeName?deviceiteminfo.deviceTypeName:'-'}}</strong>
 									</div>
 
 									<div class="col-sm-6">
 										<span>投入时间 </span>
-										<strong>2015-10-17 </strong>
+										<strong>{{startDates.substring(0,10)}} </strong>
 									</div>
-									<div class="col-sm-6">
+									<div class="col-sm-12">
 										<span>设备标码 </span>
-										<strong>
-                                  <a href="" class="font-blue display-inline-block" data-toggle="tooltip" title="预览二维码">预览</a> 
-                                  <a href="" class="font-blue display-inline-block" data-toggle="tooltip" title="下载二维码">下载</a>
-                                </strong>
+										<strong>{{deviceiteminfo.mac?deviceiteminfo.mac:'-'}} </strong>
 									</div>
 									<div class="col-sm-12">
 										<span>设备位置 </span>
-										<strong>中心小学实验教学楼6层</strong>
+										<strong>{{deviceiteminfo.location?deviceiteminfo.location:'-'}} </strong>
 									</div>
 									<div class="col-sm-6">
 										<span>设备坐标 </span>
-										<strong>X:236 Y:678</strong>
+										<strong>{{xRates.substring(0,6)}},{{yRates.substring(0,6)}}</strong>
 									</div>
 
 									<div class="col-sm-6">
 										<span>离地高度 </span>
-										<strong>223cm</strong>
+										<strong>{{deviceiteminfo.fheight?deviceiteminfo.fheight:'-'}} </strong>
 									</div>
 									<div class="col-sm-6">
 										<span>距离顶部 </span>
-										<strong>65cm</strong>
+										<strong>{{deviceiteminfo.height?deviceiteminfo.height:'-'}} </strong>
 									</div>
 									<div class="col-sm-6">
 										<span>生产日期</span>
-										<strong>2015-09-27</strong>
+										<strong>{{deviceiteminfo.productDate?deviceiteminfo.productDate:'-'}} </strong>
 									</div>
 									<div class="col-sm-12">
 										<span>生产厂商 </span>
-										<strong>怀化市精密仪器有限公司 <a href="tel:0760693575" class="font-blue display-inline-block"  data-toggle="tooltip" title="拨打电话0760693575"><i class="icon iconfont icon-dianhua size-14"></i></a></strong>
+										<strong>{{deviceiteminfo.firm?deviceiteminfo.firm:'-'}} </strong>
 									</div>
 								</div>
 							</div>
@@ -473,15 +316,19 @@
 								<div class="row textandimg-main margin-top20 size-12">
 									<div class="col-sm-6">
 										<span>维保单位 </span>
-										<strong>中心小学 </strong>
+										<strong>{{deviceiteminfo.maintenanceUnit?deviceiteminfo.maintenanceUnit:'-'}}  </strong>
 									</div>
 									<div class="col-sm-6">
 										<span>维保人员 </span>
-										<strong>赵堆船 <a href="tel:13645678956" class="font-blue display-inline-block"  data-toggle="tooltip" title="拨打电话 13645678956"><i class="icon iconfont icon-dianhua size-14"></i></a></strong>
+										<strong>{{deviceiteminfo.maintenanceUser?deviceiteminfo.maintenanceUser:'-'}}  </strong>
+									</div>
+									<div class="col-sm-6">
+										<span>维保电话 </span>
+										<strong>{{deviceiteminfo.maintenancePhone?deviceiteminfo.maintenancePhone:'-'}}  </strong>
 									</div>
 									<div class="col-sm-6">
 										<span>更换周期 </span>
-										<strong><span class="font-blue">360</span>天</strong>
+										<strong><span class="font-blue">{{deviceiteminfo.lifeMonth?deviceiteminfo.lifeMonth:''}}</span>月</strong>
 									</div>
 								</div>
 							</div>
@@ -498,6 +345,8 @@
 	// import HeaderVue from "../publick/header.vue";
 	// import Infor_leftVue from './infor_left.vue';
 	// import Infor_rightVue from './infor_right.vue';
+	import moment from "moment";
+	import{mapState} from "vuex";
 	export default {
 		components: {
 			// "header-vue": HeaderVue
@@ -538,78 +387,140 @@
 					]
 				},
 				value7: "",
-				options: [{
-						value: "选项1",
-						label: "怀化市"
-					},
-					{
-						value: "选项2",
-						label: "怀化市兴宁区"
-					},
-					{
-						value: "选项3",
-						label: "怀化市横县"
-					}
-				],
-				ins_queryInspectionNameList: Object,
-				ins_queryInspectionNameListvalue: "全部建筑",
+				queryInspectionNameList: Object,
+				queryInspectionNameListvalue: "全部建筑",
 				// 表格-请求
 				deviceList_parameter: {
-					unitId: "4",
+					unitId: null,
 					currentPage: 1,
-					pageSize: 10
+					pageSize: 10,
+					buildingId:''
 				},
 				// 报警统计-请求
 				tableData: Object,
 				deviceCountByUnit_parameter: {
-					unitId: "4"
+					unitId: null
 				},
 
-				ins_deviceCountByUnit: Object,
+				deviceCountByUnit: Object,
 				// 报警数据统计
 				alarmAndMalfunctionDeviceCount_parameter: {
-					unitId: "4",
-					beginTime: "2018-06-01",
-					endTime: "2018-07-30",
+					unitId: null,
+					beginTime: null,
+					endTime: null,
 					type: 1
 				},
 				radiovalue: "1",
 				radiovaluehis: '1',
 				radiovaluepie: '1',
-				ins_alarmAndMalfunctionDeviceCount: Object,
+				alarmAndMalfunctionDeviceCount: Object,
 				// 饼图数据
 				queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter: {
-					unitId: '',
-					startTime: "",
-					endTime: "",
+					unitId: null,
+					startTime: null,
+					endTime: null,
 					type: 1
 				},
-				ins_queryDeviceMacfunctionOrAlarmOfTypeByTime: Object,
+				queryDeviceMacfunctionOrAlarmOfTypeByTime: Object,
 				// 折线图数据
 				trendLine_parameter: {
-					unitId: "",
-					startTime: "",
-					endTime: "",
+					unitId: null,
+					startTime: null,
+					endTime: null,
 					type: 1
 				},
-				ins_trendLine: Object,
-				// 报警详情
-				getAlarmDetail_parameter: {
-					alarmId: 555
+				trendLine: Object,
+				getAlarmDetail: Object,
+				infoShow: true,
+				iconByType:{
+					1:'icon-ranqiganying-mian-',
+					2:'icon-ganyanqi-',
+					3:'icon-wengan-',
+					4:'icon-hongwaiyanhuoganying-',
+					5:'icon-shuiyaganying-',
+					6:'icon-shineixiaohuoshuan-',
+					7:'icon-tuxiangxianshijiance-',
+					8:'icon-xiaofangshuanbaojinganniu-',
+					9:'icon-shengguangbaojingqi-',
+					10:'icon-xiaofangshuanbaojinganniu-',
+					11:'icon-xiaofangbeng-',
+					12:'icon-xiaofangyingjiguangbo-',
+					13:'icon-miehuoqi-mian-',
+					14:'icon-linpentou-',
+					15:'icon-qitimiehuoxitong-',
+					16:'icon-anquanchukou-',
+					17:'icon-xiaofangche-',
+					18:'icon-anquanchukou-',
+					19:'icon-shexiangtou-',
+					20:'icon-shuidai-',
+					21:'icon-dixiaxiaofangshuan-',
+					22:'icon-xiaofangbeng-',
+					23:'icon-xiaofangbeng-',
+					24:'icon-xiaofangbeng-',
+					25:'icon-xiaofangbeng-',
+					26:'icon-dixiaxiaofangshuan-',
+					27:'icon-xiaofangbeng-',
+					28:'icon-xiaofangbeng-',
+					29:'icon-yeweiji-',
+					30:'icon-xiaofangbeng-',
+					31:'icon-xiaofangbeng-',
+					32:'icon-miehuoqi-mian-',
+					33:'icon-miehuoqi-mian-',
+					34:'icon-shoudongbaojinganniu-',
 				},
-				ins_getAlarmDetail: Object,
-				infoShow: true
-			};
+				selectNode_parameter:{
+					unitId:null,
+					currentPage:1,
+					pageSize:10000
+				},
+				selectNode:Object,
+				selectNodevalue_model:'',
+				deviceiteminfo:Object,
+				deviceiteminfodiff:'',
+				xRates:'',
+				yRates:'',
+				startDates:''
+			}
+		},
+		computed:mapState([
+			'unitid'
+		]),
+		watch:{
+			unitid(){
+				// console.log(this.queryAlarmData_parmar.unitId)
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid='';
+				}
+
+				this.deviceList_parameter.unitId=this.getunitid;
+				this.deviceCountByUnit_parameter.unitId=this.getunitid;
+				this.alarmAndMalfunctionDeviceCount_parameter.unitId=this.getunitid;
+				this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.unitId=this.getunitid;
+				this.trendLine_parameter.unitId=this.getunitid;
+				this.selectNode_parameter.unitId=this.getunitid;
+				this.selectNodevalue_model='';
+				this.deviceList_parameter.buildingId='';
+				
+				this.getTable();
+				this.getData();
+				this.get_axis();
+				this.get_line();
+				this.get_pie();
+				this.getBuild();
+
+			}
 		},
 		methods: {
 
 			moren() {
 				$(".dan-iteminfo")
-					.addClass("display-block")
-					.removeClass("display-none");
-				$(".dan-lineinfo")
 					.addClass("display-none")
 					.removeClass("display-block");
+				$(".dan-lineinfo")
+					.addClass("display-block")
+					.removeClass("display-none");
 
 			},
 			toitmeinfo(item) {
@@ -620,24 +531,11 @@
 					.addClass("display-none")
 					.removeClass("display-block");
 				// 请求报警详情
-				let eventLevel = item.eventLevel;
-				console.log(item);
-				if(eventLevel == 0 || eventLevel == 2) {
-					this.infoShow = true;
-				} else {
-					this.infoShow = false;
-				}
-				this.getAlarmDetail_parameter.alarmId = item.id;
-				this.$fetch("/api/alarm/getAlarmDetail", this.getAlarmDetail_parameter)
-					.then(response => {
-						if(response) {
-							console.log(response);
-							this.ins_getAlarmDetail = response.data.alarm;
-						}
-					})
-					.then(err => {
-						console.log(err);
-					});
+				this.deviceiteminfo=item;
+				this.deviceiteminfodiff=moment(item.startDate).diff(moment(), 'days') - moment(item.startDate).diff(moment(), 'days')*2;
+				this.xRates=item.xRate+"";
+				this.yRates=item.yRate+"";
+				this.startDates=item.startDate+"";
 			},
 			handleCurrentChange(val) {
 				console.log(`当前页:` + val);
@@ -645,7 +543,7 @@
 				this.getTable();
 			},
 			tolineitem() {
-				console.log(this.ins_queryInspectionNameListvalue);
+				console.log(this.queryInspectionNameListvalue);
 				$("#lookroute").removeClass("upd-btn-dis");
 			},
 			callradio() {
@@ -685,7 +583,7 @@
 					.then(response => {
 						if(response) {
 							console.log(response);
-							this.ins_deviceCountByUnit = response.data;
+							this.deviceCountByUnit = response.data;
 
 						}
 					})
@@ -702,7 +600,7 @@
 					.then(response => {
 						if(response) {
 							console.log(response);
-							this.ins_alarmAndMalfunctionDeviceCount = response.data;
+							this.alarmAndMalfunctionDeviceCount = response.data;
 							// this.draw_piemin("call_charpiemin", response.data);
 							this.draw_piemax("call_charpiemax", response.data, this.alarmAndMalfunctionDeviceCount_parameter.type)
 						}
@@ -719,8 +617,8 @@
 					)
 					.then(response => {
 						if(response) {
-							this.ins_trendLine = response.data;
-							console.log(this.ins_trendLine);
+							this.trendLine = response.data;
+							console.log(this.trendLine);
 							this.draw_line("call_charline", response.data, this.trendLine_parameter.type);
 						}
 					})
@@ -736,10 +634,10 @@
 					)
 					.then(response => {
 						if(response) {
-							this.ins_queryDeviceMacfunctionOrAlarmOfTypeByTime = response.data.rate
+							this.queryDeviceMacfunctionOrAlarmOfTypeByTime = response.data.rate
 							this.draw_axis(
 								"call_charaxis",
-								this.ins_queryDeviceMacfunctionOrAlarmOfTypeByTime,
+								this.queryDeviceMacfunctionOrAlarmOfTypeByTime,
 								this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.type
 							);
 						}
@@ -747,6 +645,31 @@
 					.then(err => {
 						console.log(err);
 					});
+			},
+			getBuild(){
+				this.selectNode=Object;
+				this.$fetch(
+						"/api/building/selectNode",
+						this.selectNode_parameter
+					).then(response => {
+						if(response) {
+							this.selectNode = response.data.list;
+							this.selectNode.unshift({
+								id: 0,
+								name: '全部建筑'
+							})
+						}
+					})
+					.then(err => {
+						console.log(err);
+					});
+			},
+			toselectNode(){
+				this.deviceList_parameter.buildingId=this.selectNodevalue_model;
+				if(this.deviceList_parameter.buildingId==0){
+					this.deviceList_parameter.buildingId=null;
+				}
+				this.getTable();
 			},
 			draw_piemin(id, data) {
 				let a = data.peopleAlarm / data.alarmSum * 100;
@@ -1073,12 +996,30 @@
 			}
 		},
 		mounted() {
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.deviceList_parameter.unitId=sessionStorage.unitid;
+				this.deviceCountByUnit_parameter.unitId=sessionStorage.unitid;
+				this.alarmAndMalfunctionDeviceCount_parameter.unitId=sessionStorage.unitid;
+				this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.unitId=sessionStorage.unitid;
+				this.trendLine_parameter.unitId=sessionStorage.unitid;
+				this.selectNode_parameter.unitId=sessionStorage.unitid;
+			}
+			if(sessionStorage.unitid==0){
+				this.deviceList_parameter.unitId='';
+				this.deviceCountByUnit_parameter.unitId='';
+				this.alarmAndMalfunctionDeviceCount_parameter.unitId='';
+				this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.unitId='';
+				this.trendLine_parameter.unitId='';
+				this.selectNode_parameter.unitId='';
+			}
+
 			this.$store.commit('route_path', this.$route.path);
-			// this.getTable();
-			// this.getData();
+			this.getTable();
+			this.getData();
 			this.get_axis();
 			this.get_line();
 			this.get_pie();
+			this.getBuild();
 		}
 	};
 </script>
