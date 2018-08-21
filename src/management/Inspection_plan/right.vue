@@ -6,13 +6,13 @@
         <a @click="back_first" class="btn-back"><i class="el-icon-arrow-left"></i>返回</a>
         <!-- 路线标题 -->
         <section>            
-          <div class="personinfo">
+          <div class="personinfo margin-top20">
             <p>
               <span class="size-20 font-blue" v-html="this.inspectionPlan.name"></span>
               <span class="bgbox-min bg-gray-666 font-black size-10">{{ this.inspectionPlan.type == 1 ? '举报检查': this.inspectionPlan.type == 2 ? '活动检查':this.inspectionPlan.type == 3 ? '例行检查':this.inspectionPlan.type == 4 ? '复查':this.inspectionPlan.type == 5 ? '施工检查':this.inspectionPlan.type == 6 ? '解除临时查封':this.inspectionPlan.type == 7 ? '恢复工作检查':this.inspectionPlan.type == 8 ? '其他检查':'全部'}}</span>
               <span class="float-right">
                   <span class="bgbox-max bg-blue font-black size-10" v-if="this.inspectionPlan.status == 1">已激活</span>
-                  <span class="bgbox-max bg-red font-black size-10" style="padding:2px 5px;" v-if="this.inspectionPlan.status == 2">未激活</span>
+                  <span class="bgbox-max bg-red font-black size-10" v-if="this.inspectionPlan.status == 2">未激活</span>
               </span>
             </p>
             <p class="col-sm-7 text-left padding0">
