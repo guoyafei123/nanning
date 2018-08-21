@@ -131,7 +131,7 @@
 
                             <div class="col-sm-6">
                                 <span>占地面积 </span>
-                                <strong>{{buildBaseInfo.area?buildBaseInfo.area:"不详"}} m² </strong>
+                                <strong>{{buildBaseInfo.area?buildBaseInfo.area:"0"}} m² </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span>建筑高度 </span>
