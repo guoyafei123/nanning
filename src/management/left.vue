@@ -93,13 +93,13 @@
               <span data-toggle="tooltip" title="预案总数">36</span>
             </li>
           </router-link>
-          <router-link to="/operationLog">
+          <!-- <router-link to="/operationLog">
             <li>
               <i class="icon iconfont icon-caozuorizhi-xian-"></i>
               <h2>工作日志</h2>
               <span>6</span>
             </li>
-          </router-link>
+          </router-link> -->
           <router-link to="/ControlRoomLog">
             <li>
               <i class="icon iconfont icon-caozuorizhi-xian-"></i>

@@ -102,7 +102,7 @@
                       v-model="form.ProductionDay"
                       type="date"
                       placeholder="选择日期"
-                      format="yyyy 年 MM 月 dd 日"
+                      format="yyyy-MM-dd"
                       value-format="yyyy-MM-dd">
                     </el-date-picker>
                   </div>
@@ -113,7 +113,7 @@
                       v-model="form.startDate"
                       type="date"
                       placeholder="选择日期"
-                      format="yyyy 年 MM 月 dd 日"
+                      format="yyyy-MM-dd"
                       value-format="yyyy-MM-dd">
                     </el-date-picker>
                     </div>

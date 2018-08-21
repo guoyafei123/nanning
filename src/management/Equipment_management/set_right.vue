@@ -205,8 +205,9 @@
               <span>监控设备</span> <strong class="font-gray-ccc">126</strong>
             </li>
           </ul> -->
-        </section>
-        <section class="mapTable">
+        </section>        
+    </div>
+    <section class="mapTable">
           <!-- 列表 -->          
           <div class="toolbuildrate">
             <div class="main_content_table">
@@ -442,7 +443,6 @@
             </div>
           </div>
       </section>
-    </div>
   </div>
 </template>
 
@@ -516,10 +516,10 @@
       };
     },
     methods: {
-      back_first(){
-        $('.plan').hide();
-        $('.mapTable').show();
+      back_first(){        
         $('.total').show();
+        $('.mapTable').show();
+        $('.plan').hide();
         if(this.$route.path == '/Equipment_management/maps'){
           $('.mapTable').show();
           $('.total').show();
@@ -531,7 +531,7 @@
       },
       handleCurrentChange(val) {
         this.currentPage4 = val;
-        $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
+        // $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//修改
         this.deviceIndex = row.id ;
@@ -608,9 +608,9 @@
       show3(row){//跳转
         console.log(row.id);
         this.$store.commit('deviceId',row.id);
-        $('.plan').show();
-        $('.mapTable').hide();
+        $('.plan').show();        
         $('.total').hide();
+        $('.mapTable').hide();
       },
       deleteRow(){
            console.log(this.deviceIndex);
@@ -638,9 +638,9 @@
               console.log(response);
               this.optionList = response.data.unitList;
               console.log(this.optionList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
+              // $(' .el-select-dropdown__item').mouseover(function(){
+              //   $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              // });
             }
           })
           .then(err => {

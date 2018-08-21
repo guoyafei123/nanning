@@ -496,7 +496,7 @@
       },
       handleCurrentChange(val) {
         this.currentPage4 = val;
-        $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
+        // $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//修改
         this.deviceIndex = row.id ;
