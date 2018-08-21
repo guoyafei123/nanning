@@ -5,7 +5,7 @@
               <h4 class="p-title">单位详情</h4>
               <div class="row textandimg-main margin-top20 size-12">
                   <div class="col-sm-12 margin-bottom20 imgSrc">
-                      <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg'" :id="'up_img'+ this.id" class="img-responsive center-block" style="max-height: 140px;" />
+                      <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg?'+new Date().getTime()" :id="'up_img'+ this.id" class="img-responsive center-block" style="max-height: 140px;" />
                   </div>
                   <div class="col-sm-12">
                       <span>单位名称 </span>
@@ -106,12 +106,10 @@
     },
     mounted() {
       this.tableList();
-      this.right_list();
     },
     watch:{
         unitNum() {
             this.tableList();
-            this.right_list();
         },
         unitList(){
             this.id = '' ;
