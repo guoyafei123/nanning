@@ -23,8 +23,8 @@
 			<section class="margin-top20">
 				<div class="personinfo">
 					<p>
-						<span class="size-20 font-blue">{{userInfo.nickName?userInfo.nickName:"暂为空"}}</span>
-						<span class="bgbox-min bg-gray-666 font-black size-10">巡检员</span>
+						<span class="size-20 font-blue">{{userInfo.nickName?userInfo.nickName:"暂空"}}</span>
+						<span class="bgbox-min bg-gray-666 font-black size-10">{{userInfo.roleName?userInfo.roleName:"无"}}</span>
 						<span class="float-right">
 							<span v-if="userInfo.online==true" class="bgbox-max bg-blue font-black size-10">在线</span>
 							<span v-if="userInfo.online==false" class="bgbox-max bg-blue font-black size-10">离线</span>

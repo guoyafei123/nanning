@@ -293,13 +293,13 @@ export default {
     buildCountDataSocre(){
       this.buildCountDataSocres=this.buildCountDataSocre;
     },
+    
     buildDetailinfos(){
-      this.buildDetaiData=this.buildDetailinfos;
+      this.buildDetaiData=this.buildDetailinfos[0];
       this.buildDetails_parameter.buildingId = this.buildDetaiData.buildingId;
       this.getBuildDetails();
     },
     unitid(){
-      // console.log(this.queryAlarmData_parmar.unitId)
       if(this.unitid!=0){
         this.getunitid=this.unitid;
       }else{
