@@ -3,8 +3,8 @@
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
-          <i class="icon iconfont icon-fasong-xian- size-20"></i>
-          <h2>发布消息</h2>
+          <i class="icon iconfont icon-fasong-xian- size-16"></i>
+          <h2>发布系统公告</h2>
         </div>
         <div class="main_nav float-right">
           <router-link to="/Message_management/notice"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
@@ -17,74 +17,9 @@
           class类hint-error为错误提示
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="消息类型" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="选择类型" class="col-sm-4">
-              <el-option label="公告" value="公告"></el-option>
-              <el-option label="活动" value="活动"></el-option>
-            </el-select>
-          </el-form-item> 
-          <el-form-item label="所属单位" class="not-null">
-            <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-4">
-              <!-- <el-option label="全部单位" value=""></el-option> -->
-              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="主题" class="not-null">
-            <span class="hint-error">消息主题重复</span>
+          <el-form-item label="标题" class="not-null">
             <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="活动时间" class="not-null">
-            <div class="block col-sm-12">
-            <el-date-picker 
-              v-model="value5"
-              type="datetimerange"
-              :picker-options="pickerOptions2"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期">
-            </el-date-picker>
-          </div>
-          </el-form-item>
-          <div class="col-sm-12">
-            <div class="row">                
-                <el-form-item label="重要性" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="重要" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="预计人数" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="100" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="危险源" class="not-null col-sm-4">
-                  <el-select v-model="form.unitId" placeholder="请选择" class="select">
-                    <el-option label="是" value=""></el-option>
-                    <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="明火" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="是" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="禁烟" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="是" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="场地空旷" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="是" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-            </div>
-          </div>          
           <el-form-item label="内容" class="col-sm-12">
             <el-input
               type="textarea"
@@ -130,20 +65,8 @@
           labelPosition: 'top',
           form: {
             name:'',
-            property:'',
-            staffNum:'',
-            location:'',
-            telephone:'',
-            firemenName:'',
-            firemenTel:'',          
-            corporation:'',
-            point:{
-              pointX:'',
-              pointY:''
-            }
+            cont:''
           },
-          isShow:false,
-          fileVerification:'',//图片验证
           // 时间区间
           pickerOptions2: {
           shortcuts: [{

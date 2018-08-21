@@ -4,10 +4,10 @@
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
           <i class="fa fa-plus"></i>
-          <h2>新增预案</h2>
+          <h2>新增预案图</h2>
         </div>
         <div class="main_nav float-right">
-          <router-link to="/Reserve_plan/all"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
+          <router-link to="/Reserve_plan/maps"><span class="btn-back"><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
         </div>
       </div>
       <section class="border-top-solid-333 margin-left15 margin-right15"></section>
@@ -18,25 +18,33 @@
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="预案名称" class="not-null">
-            <el-input v-model="form.name" class="col-sm-6"></el-input>
+            <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
           <el-form-item label="单位" class="not-null">
-            <el-select v-model="form.unitId" placeholder="请选择单位"  class="col-sm-6">
+            <el-select v-model="form.unitId" placeholder="请选择单位"  class="col-sm-8">
               <el-option v-for="item in form.optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="建筑" class="not-null">
-            <el-select v-model="form.building" placeholder="请选择建筑" class="col-sm-6">
-              <el-option
-                v-for="item in form.buildList"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
+            <el-select
+                v-model="form.building"
+              placeholder="请选择建筑"   class="col-sm-8">
+                <el-option
+                  v-for="item in form.buildList"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="预案类型" class="not-null">
-            <el-select v-model="form.planId" placeholder="请选择预案类型" class="col-sm-6">
-              <el-option v-for="item in form.planList" :label="item.name" :value="item.id"></el-option>
+          <el-form-item label="楼层" class="not-null">
+            <el-select
+                v-model="form.floor"
+              placeholder="请选择楼层"   class="col-sm-8">
+                <el-option
+                  v-for="item in form.floorList"
+                  :label="item.floor+'层'"
+                  :value="item.id">
+                </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="预案附件" class="not-null col-sm-12">
@@ -71,14 +79,11 @@
             unitName:'',
             building:'',
             buildingName:'',
-            planId:'',
+            floor:'',
+            floorName:'',
             optionList:[],
             buildList:[],
-            planList:[
-              { id:1, name:'火灾预案' },
-              { id:2, name:'管理规定' },
-              { id:3, name:'疏散预案' }
-            ]
+            floorList:[]
           },
           isShow:false,
           fileVerification:''//图片验证
@@ -88,7 +93,7 @@
         file(){
           var x = document.getElementById("file");
           if (!x || !x.value) return;
-          var patn = /\.jpg$|\.jpeg$|\.png$|\.pdf$|\.csv$|\.xls$|\.xlsx$|\.doc$|.txt/i;
+          var patn = /\.jpg$|\.jpeg$|\.png$/i;
           if (!patn.test(x.value)) {
             this.fileVerification="您选择的似乎不是图像文件!!";
             x.value = "";
@@ -133,13 +138,18 @@
         },
         btn(){
           this.form.optionList.forEach(element => {
-            if(this.form.unitId == element.id){
+            if(this.form.unitId = element.id){
               this.form.unitName = element.name ;
             }
           });
           this.form.buildList.forEach(element=>{
             if(this.form.building == element.id){
               this.form.buildingName = element.name ;
+            }
+          })
+          this.form.floorList.forEach(element=>{
+            if(this.form.floor == element.id){
+              this.form.floorName = element.floor ;
             }
           })
           // console.log(this.form.name )
@@ -159,7 +169,9 @@
               'unitName':this.form.unitName,
               'buildingId':this.form.building,
               'buildingName':this.form.buildingName,
-              'type':this.form.planId
+              'floorId':this.form.floor,
+              'floorName':this.form.floorName,
+              'type':4
             },
             type: 'POST',
             dataType: "plain",
@@ -172,7 +184,7 @@
             },
             complete: function (e) {//只要完成即执行，最后执行
               // console.log(e) 
-              that.$router.push({path:'/Reserve_plan/all'});
+              that.$router.push({path:'/Reserve_plan/maps'});
               that.$message({
                 message: '恭喜你，添加预案成功',
                 type: 'success'
@@ -182,7 +194,7 @@
           
         },
         back(){
-          this.$router.push({path:'/Reserve_plan/all'});
+          this.$router.push({path:'/Reserve_plan/maps'});
           $('#right').show();
         },
         unitSearch(){
@@ -213,6 +225,17 @@
               console.log(this.form.buildList);
             }
           })
+        },
+        floorSearch(buildIngId){
+          this.$fetch("/api/building/selectNode",{
+            buildIngId:buildIngId
+          }).then(response=>{
+            console.log('floorSearch:'+response);
+            if (response) {
+              this.floorList = response.data.list;
+              console.log(this.floorList);
+            }
+          })
         }
       },
       mounted(){
@@ -221,13 +244,21 @@
       computed:{
         unitId(){
           return this.form.unitId;
+        },
+        building(){
+          return this.form.building;
         }
       },
       watch:{
         unitId(curVal,oldVal){
           this.form.unitId = curVal;
-          this.form.building = '';
+          this.form.building = '' ;
+          this.form.floor = '' ;
           this.buildSearch(this.form.unitId);
+        },
+        building(curVal,oldVal){
+          this.form.building = curVal;
+          this.floorSearch(this.form.building);
         }
       }
     }

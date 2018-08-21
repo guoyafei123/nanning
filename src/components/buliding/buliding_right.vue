@@ -54,13 +54,13 @@
                       <div class="col-sm-4 font-gray-999 padding-right0">
                         <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                           <li>
-                            <h1 class="toolcount-p1">{{buildBaseInfo.floors?buildBaseInfo.floors:"0"}}</h1>
+                            <h1 class="toolcount-p1">{{buildBaseInfo.countRoom?buildBaseInfo.countRoom:"0"}}</h1>
                           </li>
                           <li>
-                            <p class="size-10 ">Running State</p>
+                            <p class="size-10 ">Room Total</p>
                           </li>
                           <li>
-                            <p class="size-16 font-blue">楼层数量</p>
+                            <p class="size-16 font-blue">总房间数量</p>
                           </li>
                         </ul>
                       </div>
@@ -73,13 +73,17 @@
                             <p class="size-10 set-scaleright">Repair Statistics</p>
                           </li>
                           <li class="row text-center padding-right16 margin-top40">
-                            <div class="col-sm-6 personnel-borderright">
-                              <p class="size-16 show font-white">{{buildBaseInfo.countRoom?buildBaseInfo.countRoom:"0"}}</p>
-                              <p>房间数量</p>
+                            <div class="col-sm-4 personnel-borderright">
+                              <p class="size-16 show font-white">{{buildBaseInfo.floors?buildBaseInfo.floors:"0"}}</p>
+                              <p>楼层数量</p>
                             </div>
-                            <div class="col-sm-6 personnel-borderright">
+                            <div class="col-sm-4 personnel-borderright">
                               <p class="size-16 show font-white">{{buildBaseInfo.floors?buildBaseInfo.floors:"0"}}</p>
                               <p>设备数量</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="size-16 show font-white">{{buildBaseInfo.area?buildBaseInfo.area:"0"}}</p>
+                              <p>面积 m²</p>
                             </div>
                           </li>
                         </ul>
@@ -289,13 +293,13 @@ export default {
     buildCountDataSocre(){
       this.buildCountDataSocres=this.buildCountDataSocre;
     },
+    
     buildDetailinfos(){
-      this.buildDetaiData=this.buildDetailinfos;
+      this.buildDetaiData=this.buildDetailinfos[0];
       this.buildDetails_parameter.buildingId = this.buildDetaiData.buildingId;
       this.getBuildDetails();
     },
     unitid(){
-      // console.log(this.queryAlarmData_parmar.unitId)
       if(this.unitid!=0){
         this.getunitid=this.unitid;
       }else{

@@ -43,9 +43,12 @@ import Dangerous_goods_management_AllVue from '../management/Dangerous_goods_man
 import Dangerous_goods_management_MapsVue from '../management/Dangerous_goods_management/maps';
 import Reserve_planVue from '../management/Reserve_plan/Reserve_plan';
 import Reserve_planListVue from '../management/Reserve_plan/list';
+import Reserve_planList_MapVue from '../management/Reserve_plan/list_map';
 import Reserve_planAllVue from '../management/Reserve_plan/all';
+import Reserve_planMapsVue from '../management/Reserve_plan/maps';
 import Message_managementVue from '../management/Message_management/Message_management';
-import Message_managementlistVue from '../management/Message_management/list';
+import Message_managementlist_activityVue from '../management/Message_management/list_activity';
+import Message_managementlist_noticeVue from '../management/Message_management/list_notice';
 import Message_managementNoticeVue from '../management/Message_management/notice';
 import Message_managementActivityVue from '../management/Message_management/activity';
 import operationLogVue from '../management/operationLog/operationLog';
@@ -195,7 +198,8 @@ export default new Router({
       path:'/Message_management',
       component:Message_managementVue,
       children:[
-        { path:'/Message_management/list',component:Message_managementlistVue},
+        { path:'/Message_management/list_notice',component:Message_managementlist_noticeVue},
+        { path:'/Message_management/list_activity',component:Message_managementlist_activityVue},
         { path:'/Message_management/activity',component:Message_managementActivityVue},
         { path:'/Message_management/notice',component:Message_managementNoticeVue},
         { path:'/Message_management',redirect:'/Message_management/notice'}
@@ -206,7 +210,9 @@ export default new Router({
       component:Reserve_planVue,
       children:[
         { path:'/Reserve_plan/list',component:Reserve_planListVue},
+        { path:'/Reserve_plan/list_map',component:Reserve_planList_MapVue},
         { path:'/Reserve_plan/all',component:Reserve_planAllVue},
+        { path:'/Reserve_plan/maps',component:Reserve_planMapsVue},
         { path:'/Reserve_plan',redirect:'/Reserve_plan/all'}
       ]
     }

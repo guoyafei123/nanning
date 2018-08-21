@@ -6,6 +6,11 @@
         <i class="icon iconfont icon-yuanliebiao"></i>
         <h2>预案管理</h2>
       </div>
+      <!-- 切换 -->
+      <div class="main_nav_tab position-absolute-top">
+        <router-link to="/Reserve_plan/all" class="active"><i class="icon iconfont icon-tongzhi-xian-"></i>预案文档</router-link>
+        <router-link to="/Reserve_plan/maps"><i class="icon iconfont icon-huodong-xian-"></i>应急疏散图</router-link>
+      </div>  
       <div class="main_nav float-right">
         <router-link to="/Reserve_plan/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
       </div>
@@ -15,7 +20,7 @@
       <!-- 筛选 -->
       <div class="main_content_top">
         <el-form ref="form" :model="form" class="float-left">
-          <el-select v-model="unit" placeholder="全部单位" class="select">
+          <el-select v-model="unit" placeholder="请选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
@@ -27,6 +32,10 @@
                 :label="item.name"
                 :value="item.id">
               </el-option>
+          </el-select>
+          <el-select v-model="type" placeholder="请选择类型" class="select">
+            <el-option label="全部类型" value=""></el-option>
+            <el-option v-for="item in planList" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form>
       </div>
@@ -132,7 +141,7 @@
                         <i class="el-icon-plus"></i>
                       </div>
                     </div>
-                    <img v-show="isShow" :src="this.form.url" class="head-pic"/>
+                    <img v-show="isShow" :src="this.form.url" :id="'up_img'+this.form.id" class="head-pic"/>
                     <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
                   </el-form-item> 
                 </el-form>
@@ -175,14 +184,19 @@
       return {
         labelPosition: 'top',
         form: {
-          url:'',
-          unitId:'',
-          buildingId:''
+          id:'',
+          url:''
         },
+        type:'',
         unit:'',
         building:'',
         buildList:[],
         optionList:[],
+        planList:[
+          { id:1, name:'火灾预案' },
+          { id:2, name:'管理规定' },
+          { id:3, name:'疏散预案' }
+        ],
         tableData: [],//单位列表
         page:null,//总页数
         currentPage4: 1,//当前页
@@ -206,9 +220,11 @@
         }
         this.isShow = true ;
         this.fileVerification="";
-        $("#up_img"+this.form.id+"").attr("src",'');
+        // this.form.url='';
+        // $("#up_img"+this.form.id+"").attr("src",'');
         console.log(this.form.id)
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
+        // console.log(this.getObjectURL(document.getElementById('file')))
       },
       getObjectURL(node) {
           var imgURL = "";
@@ -252,6 +268,7 @@
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(this.deviceIndex == item.id){
+            this.form.id = item.id ;
             this.form.url = item.url ;
             console.log(this.form.url)
           }
@@ -278,7 +295,7 @@
             complete: function (e) {//只要完成即执行，最后执行
               console.log(e) 
               that.tableList();
-              $('.primary').attr('data-dismiss','modal');
+              
               $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                 $("#file").on("change", function(){  
                   console.log($("#up_img"+that.form.id+""))
@@ -287,6 +304,7 @@
               });
             }
         });
+        $('.primary').attr('data-dismiss','modal');
       },
       delete_plan(row){
         $('#mymodal2').css({
@@ -332,6 +350,7 @@
             pageSize:10,
             unitId:this.unit,
             buildingId:this.building,
+            type:this.type,
             types:[1,2,3]
           }
         )
@@ -385,6 +404,14 @@
         this.tableList();
         this.buildSearch(this.unit);
       },
+      building(curVal,oldVal){
+        this.building = curVal;
+        this.tableList();
+      },
+      type(curVal,oldVal){
+        this.type = curVal ;
+        this.tableList();
+      },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
         console.log(this.currentPage4);
@@ -393,5 +420,6 @@
     }
   };
 </script>
-<style lang="scss" scoped>  
+<style lang="scss" scoped>
+
 </style>

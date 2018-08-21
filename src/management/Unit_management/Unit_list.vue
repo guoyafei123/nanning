@@ -191,6 +191,7 @@
           this.$refs[formName].validate((valid) => {
             if (valid) {
               var file = "file";
+              var that = this;
               $.ajaxFileUpload({
                 url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
                 /* secureuri : false, */ //一般设置为false
@@ -218,7 +219,7 @@
                 },
                 complete: function (e) {//只要完成即执行，最后执行
                   // console.log(e) 
-                  this.$router.push({path:'/Unit_management/all'});
+                  that.$router.push({path:'/Unit_management/all'});
                 }
               });
             } else {

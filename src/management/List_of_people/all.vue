@@ -246,7 +246,6 @@
     methods: {
       file(){
         // console.log($("#file")[0].files[0].name)
-        this.headImgUrl='';
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
       },
       getObjectURL(node) {

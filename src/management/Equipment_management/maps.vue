@@ -67,6 +67,59 @@
         </div>
         <!-- 地图 -->
         <div class="maps">
+          <!-- 平面图楼层 -->
+          <ul class="list-unstyled floor-item" style="top: 120px">
+                <li>14</li>
+                <li>13</li>
+                <li>10</li>
+                <li>11</li>
+                <li>10</li>
+                <li>9</li>
+                <li>8</li>
+                <li class="active">7</li>
+                <li>1</li>
+                <li>6</li>
+                <li>5</li>
+                <li>4</li>
+                <li>3</li>
+                <li>1</li>
+                <li>-1</li>
+                <li>-2</li>
+                <li>-3</li>
+                <li>-4</li>
+              </ul>
+          <!-- 地图/平面图切换 -->
+              <div class="popup-map-min z-index-10">
+                <!-- 地图 -->
+                <div class="position-absolute-top">
+                  <img src="http://yhyimg.99xf.cn/xf/api/building_plan/25_1.jpg" alt="" class="img-responsive center-block">
+                </div>
+                <!-- icon -->
+                <div class="position-absolute-top popup-map-min-point">
+                  <i class="icon iconfont icon-shuidi-" data-toggle="tooltip" title="灭火器"><i class="icon iconfont icon-miehuoqi-mian-"></i></i>
+                </div>
+                <!-- 提示文字 -->
+                <h5>2D</h5>
+              </div>
+              <!-- icon -->
+                <div class="position-absolute-top popup-map-min-point z-index-100" style="top:120px; left:300px;">
+                  <el-tooltip content="液位计" placement="top" manual="ture">
+                    <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-yeweiji-"></i></i>
+                  </el-tooltip>  
+                </div>
+                <!-- icon -->
+                <div class="position-absolute-top popup-map-min-point z-index-100" style="top: 60px; left:200px;">
+                  <el-tooltip content="灭火器" placement="top">
+                    <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-miehuoqi-mian-"></i></i>
+                  </el-tooltip>  
+                </div>
+                <!-- 聚合 -->
+                <div class="position-absolute-top popup-map-min-point z-index-100" style="top: 100px; left:100px;">
+                  <el-tooltip placement="top">
+                    <div slot="content" class="text-center"><span class="font-blue">康健宝盛广场</span><br/>226个设备</div>
+                    <i class="icon iconfont icon-shuidi-"><span>226</span></i>
+                  </el-tooltip>                  
+                </div>
             <managementMap-vue></managementMap-vue>
         </div>
       </div>

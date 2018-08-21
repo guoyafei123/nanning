@@ -1,42 +1,38 @@
 <template>
   <section>
     <!-- 标题 -->
-      <div class="main_header position-relative clearFix">
-        <!-- 标题 -->
-          <div class="main_title float-left clearfix">
-            <i class="icon iconfont icon-huodong-xian-"></i>
-            <h2>活动管理</h2>
-          </div>
-          <!-- 切换 -->
-          <div class="main_nav_tab position-absolute-top">
-            <router-link to="/Message_management/notice" class="active"><i class="icon iconfont icon-tongzhi-xian-"></i>系统公告</router-link>
-            <router-link to="/Message_management/activity"><i class="icon iconfont icon-huodong-xian-"></i>活动通知</router-link>
-          </div>
-          <!-- 发布 -->
-          <div class="main_nav float-right">
-            <router-link to="/Message_management/list_activity"><span class="btn_add" @click="btn_add"><i class="icon iconfont icon-fabu"></i>发布</span></router-link>
-          </div>
+    <div class="main_header clearFix">
+      <div class="main_title float-left clearFix">
+        <i class="icon iconfont icon-yuanliebiao"></i>
+        <h2>预案管理</h2>
       </div>
-    <!-- 活动 -->
+      <!-- 切换 -->
+      <div class="main_nav_tab position-absolute-top">
+        <router-link to="/Reserve_plan/all" class="active"><i class="icon iconfont icon-tongzhi-xian-"></i>预案文档</router-link>
+        <router-link to="/Reserve_plan/maps"><i class="icon iconfont icon-huodong-xian-"></i>应急疏散图</router-link>
+      </div>  
+      <div class="main_nav float-right">
+        <router-link to="/Reserve_plan/list_map"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
+      </div>
+    </div>
+    <!-- 主体 -->
     <div class="main_all_content">
+      <!-- 筛选 -->
       <div class="main_content_top">
-        <!-- 筛选 -->
         <el-form ref="form" :model="form" class="float-left">
-          <el-select v-model="unit" placeholder="选择单位" class="select">
+          <el-select v-model="unit" placeholder="全部单位" class="select">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
-            <el-select
+          <el-select
               v-model="building"
-            placeholder="消息状态"  class="start">
-              <el-option label="进行中" value="0"></el-option>
-              <el-option label="已过期" value="0"></el-option>
+            placeholder="选择建筑"  class="start">
               <el-option
                 v-for="item in buildList"
                 :label="item.name"
                 :value="item.id">
               </el-option>
-            </el-select>
+          </el-select>
         </el-form>
       </div>
       <!-- 表格 -->
@@ -54,65 +50,40 @@
             label="序号">
           </el-table-column>
           <el-table-column
-            prop="name"
+            prop="unitName"
             :show-overflow-tooltip="true"
-            label="主题">
+            label="单位名称">
+          </el-table-column>
+          <el-table-column
+            prop="buildingName"
+            :show-overflow-tooltip="true"
+            label="建筑名称">
+          </el-table-column>
+          <el-table-column
+            prop="floorNumber"
+            label="归属楼层">
+          </el-table-column>
+          <el-table-column
+            prop="pattern"
+            label="格式">
+          </el-table-column>
+          <el-table-column
+            prop="createTime"
+            label="上传时间">
+          </el-table-column>
+          <el-table-column
+            prop="nickName"
+            label="上传人">
           </el-table-column>          
           <el-table-column
-            prop="property"
-            :show-overflow-tooltip="true"
-            label="活动时间">
-          </el-table-column>
-          <el-table-column
-            prop="firemenName"
-            label="类型">
-          </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="所属单位">
-          </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="重要性">
-          </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="预计人数">
-          </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="场地">
-          </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="危险源">
-          </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="明火">
-          </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="禁烟">
-          </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="状态">
-          </el-table-column>  
-          <el-table-column
-            prop="staffNum"
-            label="发布人">
-          </el-table-column>
-          <el-table-column
-            prop="property"
-            label="发布时间">
-          </el-table-column>        
-          <el-table-column
             fixed="right"
+            width="150px"
             label="操作">
             <template slot-scope="scope">
-              <!-- <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
-              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
+              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="修改"></i></button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <button><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="打印"></i></button>
+              <button><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="下载"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
@@ -124,7 +95,6 @@
           <div class="float-left btn-system">
             <a href="javascript:;">打印</a>
             <a href="javascript:;">导出</a>
-            <a href="javascrip:;">导出二维码</a>
           </div>
           <el-pagination
                          @current-change="handleCurrentChange"
@@ -150,7 +120,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">修改</h4>
+            <h4 class="modal-title" id="myModalLabel">修改预案</h4>
             <h5 class="modal-p font-blue">{{this.form.name}}</h5>
           </div>
           <div class="modal-body">
@@ -160,59 +130,46 @@
              -->
              <div class="main_content">
                 <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-                  <el-form-item label="单位名称" class="not-null">
-                    <el-input v-model="form.name" class="col-sm-4"></el-input>
-                  </el-form-item>
-                  <el-form-item label="单位性质" class="not-null">
-                    <el-select name="" v-model="form.property" placeholder="请选择结构" class="col-sm-4">
-                      <el-option label="事业单位" value="事业单位"></el-option>
-                      <el-option label="国家行政机关" value="国家行政机关"></el-option>
-                      <el-option label="政府" value="政府"></el-option>
-                      <el-option label="国有企业" value="国有企业"></el-option>
-                      <el-option label="国有控股企业" value="国有控股企业"></el-option>
-                      <el-option label="外资企业" value="外资企业"></el-option>
-                      <el-option label="合资企业" value="合资企业"></el-option>
-                      <el-option label="私营企业" value="私营企业"></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="法人代表" class="not-null col-sm-4">
-                    <el-input v-model="form.corporation"></el-input>
-                  </el-form-item>
-                  <el-form-item label="部门电话" class="not-null col-sm-4">
-                    <el-input v-model="form.telephone"></el-input>
-                  </el-form-item>
-                  <el-form-item label="单位人数" class="col-sm-4">
-                    <el-input v-model="form.staffNum"></el-input>
-                  </el-form-item>
-                  <el-form-item label="单位地址" class="not-null">
-                    <el-input v-model="form.location" class="col-sm-4"></el-input>
-                  </el-form-item>                           
-                  <el-form-item label="消防负责人" class="not-null col-sm-4">
-                    <el-input v-model="form.firemenName"></el-input>
-                  </el-form-item>
-                  <el-form-item label="消防负责人电话" class="not-null col-sm-4">
-                    <el-input v-model="form.firemenTel"></el-input>
-                  </el-form-item>
-                  <el-form-item label="单位图片" class="not-null col-sm-12">
+                  <el-form-item label="预案文件" class="not-null col-sm-12">
                     <div class="head-photo">
                       <input id="file" name="file" type="file" @change="file()" />
                       <div class="bg-gray-222 text-center">
                         <i class="el-icon-plus"></i>
                       </div>
                     </div>
-                    <img v-show="isShow" :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" class="head-pic"/>
+                    <img v-show="isShow" :src="this.form.url" :id="'up_img'+this.form.id" class="head-pic"/>
                     <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
                   </el-form-item> 
                 </el-form>
               </div>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
       </div>
     </div>
+    <!-- 删除 -->
+    <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
+          </div>
+          <div class="modal-body text-center container-padding40">
+            <h3 class="font-red size-14">是否删除</h3>
+            <p class="font-white size-16">{{ deviceName }}</p>
+          </div>
+          <div class="modal-footer">
+            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
+            <el-button class="back" data-dismiss="modal">取消</el-button>
+          </div>
+        </div>
+      </div>
+    </div>   
   </section>
 </template>
 
@@ -224,26 +181,20 @@
         labelPosition: 'top',
         form: {
           id:'',
-          name:'',
-          property:'',
-          staffNum:'',
-          location:'',
-          telephone:'',
-          firemenName:'',
-          firemenTel:'',          
-          corporation:'',
-          point:{
-            pointX:'',
-            pointY:''
-          }
+          url:'',
+          unitId:'',
+          buildingId:''
         },
+        unit:'',
+        building:'',
+        buildList:[],
+        optionList:[],
         tableData: [],//单位列表
         page:null,//总页数
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
         deviceName:'',
-        deviceIndexs:'',
         isShow:true,
         fileVerification:''//验证图片
       }
@@ -252,19 +203,20 @@
       file(){
         var x = document.getElementById("file");
         if (!x || !x.value) return;
-        var patn = /\.jpg$|\.jpeg$|\.png$/i;
+        var patn = /\.jpg$|\.jpeg$|\.png/i;
         if (!patn.test(x.value)) {
-          this.fileVerification="您选择的似乎不是图像文件!!";
+          this.fileVerification="文件类型不正确!!";
           x.value = "";
           this.isShow = false ;
-          
           return;
         }
         this.isShow = true ;
         this.fileVerification="";
-        $("#up_img"+this.form.id+"").attr("src",'');
+        // this.form.url='';
+        // $("#up_img"+this.form.id+"").attr("src",'');
         console.log(this.form.id)
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
+        // console.log(this.getObjectURL(document.getElementById('file')))
       },
       getObjectURL(node) {
           var imgURL = "";
@@ -306,58 +258,36 @@
       },
       start_plan(row,indexs){//修改单位
         this.deviceIndex = row.id ;
-        
         this.tableData.forEach((item,index)=>{
-          if(item.id == this.deviceIndex){
-            console.log(item.id);
+          if(this.deviceIndex == item.id){
             this.form.id = item.id ;
-            this.form.name = item.name ;
-            this.form.property = item.property ;
-            this.form.staffNum = item.staffNum ;
-            this.form.location = item.location ;
-            this.form.telephone = item.telephone ;
-            this.form.firemenName = item.firemenName ;
-            this.form.firemenTel = item.firemenTel ;
-            this.form.corporation = item.corporation ;
-            this.form.point.pointX = item.pointX ;
-            this.form.point.pointY = item.pointY ;
+            this.form.url = item.url ;
+            console.log(this.form.url)
           }
         })
-        // $("#up_img"+ this.form.id +"").attr("src","http://img.nanninglq.51play.com/xf/api/unit_img/"+ this.form.id +".jpg");
-        console.log(this.form.id)
       },
       startRow(){
         var file = "file";
         var that = this;
         $.ajaxFileUpload({
-            url: '/api/unit/updateUnit', //用于文件上传的服务器端请求地址
-            /* secureuri : false, */ //一般设置为false
+            url: '/api/plan/updatePlan', //用于文件上传的服务器端请求地址
             fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
             data : {
-              'id':this.deviceIndex,
-              'name':this.form.name,
-              'property':this.form.property,
-              'staffNum':this.form.staffNum,
-              'location':this.form.location,
-              'telephone':this.form.telephone,
-              'firemenName':this.form.firemenName,
-              'firemenTel':this.form.firemenTel,
-              'corporation':this.form.corporation,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY
+              'planId':this.deviceIndex
             },
             type: 'POST',
             dataType: "plain",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+            success: function (data) { //服务器成功响应处理函数 //服务器成功响应处理函数
             
-        
+            console.log(data)
             },
             error: function (e) { //服务器响应失败处理函数
               $.messager.alert('警告', "系统错误", "warning");
             },
             complete: function (e) {//只要完成即执行，最后执行
-              // console.log(e) 
+              console.log(e) 
               that.tableList();
+              
               $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                 $("#file").on("change", function(){  
                   console.log($("#up_img"+that.form.id+""))
@@ -366,16 +296,53 @@
               });
             }
         });
+        $('.primary').attr('data-dismiss','modal');
+      },
+      delete_plan(row){
+        $('#mymodal2').css({
+          "display":"flex","justify-content":"center" ,"align-items": "center"
+        })
+        this.deviceIndex = row.id;
+        this.deviceName = row.nickName;
+      },
+      deleteRow(){
+        this.$fetch("/api/plan/deletePlan",{
+          planId:this.deviceIndex
+        }).then(response=>{
+          console.log(response);
+          this.tableList();
+        })
       },
       show3(row){//跳转
-        console.log(row.id);
-        this.$store.commit('unitNum',row.id);
+        console.log(row);
+        this.$store.commit('unitPlan',row);
+      },
+      unitSearch(){
+        this.$fetch(
+          "/api/unit/queryUnit"
+        )
+        .then(response => {
+          if (response) {
+            console.log(response);
+            this.optionList = response.data.unitList;
+            console.log(this.optionList);
+            $(' .el-select-dropdown__item').mouseover(function(){
+              $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+            });
+          }
+        })
+        .then(err => {
+          // console.log(err);
+        });
       },
       tableList(){
         this.$fetch(
-          "/api/unit/queryPagerUnitList",{
-            currentPager:this.currentPage4,
-            pagerSize:10
+          "/api/plan/planList",{
+            currentPage:this.currentPage4,
+            pageSize:10,
+            unitId:this.unit,
+            buildingId:this.building,
+            types:[4]
           }
         )
           .then(response => {
@@ -385,11 +352,11 @@
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
-                  this.$store.commit('unitNum',item.id);
-                  console.log(item.id)
+                  this.$store.commit('unitPlan',item);
+                  console.log(item)
                 }
                 if(item.id == this.deviceIndex){
-                  this.$store.commit('peopleTableData',item);
+                  this.$store.commit('unitPlan',item);
                   // console.log(item)
                 }
               })
@@ -403,24 +370,39 @@
           .then(err => {
             // console.log(err);
           });
+      },
+      buildSearch(unitId){
+        this.$fetch("/api/building/selectNode",{
+          unitId:unitId
+        }).then(response=>{
+          console.log('buildSearch:'+JSON.stringify(response));
+          if (response) {
+            this.buildList = response.data.list;
+            console.log(this.buildList);
+          }
+        })
       }
     },
     mounted(){
       realconsole();
       this.tableList();
+      this.unitSearch();
       $('#right').show();
     },
     watch:{
+      unit(curVal,oldVal){
+        this.unit = curVal;
+        this.tableList();
+        this.buildSearch(this.unit);
+      },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
         console.log(this.currentPage4);
         this.tableList();
-      },
-      deviceIndexs(val,oldVal){
-        this.deviceIndexs = val;
       }
     }
   };
 </script>
 <style lang="scss" scoped>  
+
 </style>

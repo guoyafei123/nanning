@@ -15,7 +15,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
+				<div class="set-width-50 display-inline-block font-gray-999 toolcount-right size-12">
 					<ul class="padding-left0 margin-bottom0">
 						<li class="toolcount-right-title">
 							<p class="size-26 font-blue">预案统计</p>
@@ -51,7 +51,7 @@
 		</section>
 		<!-- 趋势 -->
 		<section>
-			<div class="toolroute font-gray-ccc margin-left37 margin-top20">
+			<div class="toolroute font-gray-ccc margin-left37 margin-top100">
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 padding-right5 clearfix">
 					<li>

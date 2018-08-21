@@ -135,8 +135,8 @@
 												</td>
 												<td>{{item.createTime.substring(5)}}</td>
 												<td>
-													<i data-toggle="tooltip" title="解决" v-if="item.status==1" class="icon iconfont icon-feirenweiyinsuyinhuan-mian-1 font-blue set-ciontop4"></i>
-													<i data-toggle="tooltip" title="未解决" v-if="item.status==0" class="icon iconfont icon-yinhuan-mian- font-yellow set-ciontop4"></i>
+													<i data-toggle="tooltip" title="解决" v-if="item.status==1" class="icon iconfont icon-yijiejue-xian- font-blue set-ciontop4"></i>
+													<i data-toggle="tooltip" title="未解决" v-if="item.status==0" class="icon iconfont icon-yinhuan-xian- font-yellow set-ciontop4"></i>
 												</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
@@ -149,10 +149,10 @@
 								</li>
 								<li class="upd-pagin">
 									<div>
-										<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+										<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 										</el-pagination>
-										<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.troubleList_parameter.pageSize)}}页</span>
-										<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.troubleList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.troubleList_parameter.currentPage" @current-change="handleCurrentChange">
+										<span>{{Math.ceil(tableData.totalRow/this.troubleList_parameter.pageSize)}}页</span>
+										<el-pagination class="pull-right"  small layout="prev, pager, next" :page-size="this.troubleList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.troubleList_parameter.currentPage" @current-change="handleCurrentChange">
 										</el-pagination>
 									</div>
 								</li>
@@ -178,32 +178,41 @@
 							</div>
 						</section>
 						<section class="row margin-top20 clearfix">
-							<!-- 已选择单位 -->
-							<div class="col-sm-7">
-								<div class="personinfo">
-									<p>
-										<span class="size-20 font-blue">中心小学</span>
-										<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
-									</p>
-									<p class="text-left padding0">
-										<span><i class="fas fa-industry"></i> 中心小学</span>
-									</p>
+								<!-- 已选择单位 -->
+								<div class="col-sm-7">
+									<div class="personinfo">
+										<p>
+											<span class="size-20 font-blue">中心小学</span>
+											<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+										</p>
+										<p class="text-left padding0">
+											<span><i class="fas fa-industry"></i> 中心小学</span>
+										</p>
+									</div>
 								</div>
-							</div>
-							<!-- 已选择单位巡检任务总数 -->
-							<div class="col-sm-5 font-white text-right size-12">
-								<i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 隐患总数<br>
-								<span class="size-22 font-blue">1746</span>
-							</div>
-						</section>
-						<section class="dan-lineinfo">
+								<!-- 已选择单位巡检任务总数 -->
+								<div class="col-sm-5 font-white text-right size-12">
+									<i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 隐患总数<br>
+									<span class="size-22 font-blue">1746</span>
+								</div>
+							</section>
+						<!-- 统计 -->
+						<section class="dan-lineinfo">							
 							<section>
-								<div class="toolcount">
+								<div class="toolcount margin-top20">
 									<h4 class="p-title">隐患统计</h4>
-									<div class="col-sm-7 font-gray-999 padding-right0 text-center margin-top50 size-12">
+									<div class="col-sm-8 font-gray-999 padding-right0 text-center margin-top20 size-12">
 										<div class="row">
+											<div class="col-sm-12 margin-bottom20 text-left">
+												<div class="row">
+												<p class="col-xs-3">危险品</p>
+												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p> 
+												<p class="col-xs-3">新增 <span class="font-white">{{dangerCount ? dangerCount.dangerNew:'0'}}</span></p>
+												<p class="col-xs-3">处理 <span class="font-blue">{{dangerCount ? dangerCount.dangerResolved:'0'}}</span></p>
+												</div>
+											</div>
 											<div class="col-sm-4 personnel-borderright">
-												<p class="size-16 font-white">
+												<p class="size-16 font-yellow">
 													<!-- {{troubleCount.troubleRatio.allCount}} -->
 													{{troubleRatio ? troubleRatio.allCount:'0'}}
 												</p>
@@ -217,7 +226,7 @@
 												<p>隐患发现</p>
 											</div>
 											<div class="col-sm-4">
-												<p class="size-16 font-white">
+												<p class="size-16 font-blue">
 													<!-- {{troubleCount.troubleCount.decideCount}} -->
 													{{troubleCount ? troubleCount.decideCount:'0'}}
 												</p>
@@ -225,7 +234,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-5 font-gray-999 text-right size-12">
+									<div class="col-sm-4 font-gray-999 text-right size-12">
 										<div id="dan_charpiemin" style="width: 100%;height:110px;text-align: right;"></div>
 									</div>
 								</div>
@@ -259,7 +268,7 @@
                     </div>
                     
                 </section> -->
-							<section>
+							<!-- <section>
 								<div class="row cardinfo-style margin-top0 font-gray-999">
 									<p class="col-sm-4">危险品总数 <span>
                       {{dangerCount ? dangerCount.dangerAll:'0'}}
@@ -271,7 +280,7 @@
                       {{dangerCount ? dangerCount.dangerResolved:'0'}}
                     </span></p>
 								</div>
-							</section>
+							</section> -->
 							<section>
 								<div class="toolcount margin-top30">
 									<h4 class="p-title">各类型隐患占比</h4>
@@ -292,40 +301,25 @@
 
 						<section class="dan-iteminfo display-none overflow-scr">
 							<a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
-							<!-- <section>
-                      <div class="personinfo">
-                          <p>
-                          <span class="size-20">A365 F57D 的设备详情</span>
-                          <span class="bgbox-min bg-gray-666 font-black">消防栓报警按钮</span>
-                          <span class="float-right">
-                                  <span class="bgbox-max bg-gray-333 font-gray-999 size-10">灭火设备</span>
-                              </span>
-                          </p>
-                          <p>
-                              <span>
-                                  <i class="fas fa-industry"></i> 良庆区中心小学</span>
-                          </p>
-                      </div>
-                  </section>-->
 							<section>
-								<div class="textandimg row imgs-nthof-block">
+								<div class="textandimg margin-top30 imgs-nthof-block">
 									<h4 class="p-title">隐患信息</h4>
-									<div class="row textandimg-main padding-left15">
+									<div class="row textandimg-main margin-top20 size-12">
 										<div class="col-sm-12">
-											<span class="size-12 font-gray-666">隐患类型 </span>
-											<span class="size-12 font-gray-999">{{troubleDetail.type}}</span>
+											<span>隐患类型 </span>
+											<strong>{{troubleDetail.type}}</strong>
 										</div>
 										<div class="col-sm-12">
-											<span class="size-12 font-gray-666">发现隐患时间 </span>
-											<span class="size-12 font-gray-999">{{troubleDetail.createTime}}</span>
+											<span>发现时间 </span>
+											<strong>{{troubleDetail.createTime}}</strong>
 										</div>
 										<div class="col-sm-12">
-											<span class="size-12 font-gray-666">隐患地点 </span>
-											<span class="size-12 font-gray-999">{{troubleDetail.unitName}}</span>
+											<span>隐患地点 </span>
+											<strong>{{troubleDetail.unitName}}</strong>
 										</div>
 										<div class="col-sm-12">
-											<span class="size-12 font-gray-666">隐患描述 </span>
-											<span class="size-12 font-gray-999">{{troubleDetail.cont}}</span>
+											<span>隐患描述 </span>
+											<strong>{{troubleDetail.cont}}</strong>
 										</div>
 										<div class="textandimg-img imgs-nthof">
 											<template v-for="item in troubleDetail.imgUrl">
@@ -343,16 +337,16 @@
 								</div>
 							</section>
 							<section>
-								<div class="textandimg row imgs-nthof-block ">
+								<div class="textandimg margin-top30 imgs-nthof-block ">
 									<h4 class="p-title">隐患解决</h4>
-									<div class="row textandimg-main padding-left15">
+									<div class="row textandimg-main margin-top20 size-12">
 										<div class="col-sm-12">
-											<span class="size-12 font-gray-666">解决人 </span>
-											<span class="size-12 font-gray-999">{{troubleDetail.nickName}}</span>
+											<span>解决人 </span>
+											<strong>{{troubleDetail.nickName}}</strong>
 										</div>
 										<div class="col-sm-12">
-											<span class="size-12 font-gray-666">隐患解决时间 </span>
-											<span class="size-12 font-gray-999">{{troubleDetail.reviewTime}}</span>
+											<span>隐患解决时间 </span>
+											<strong>{{troubleDetail.reviewTime}}</strong>
 										</div>
 										<div class="textandimg-img imgs-nthof">
 											<template v-for="item in troubleDetail.confirmUrls">
