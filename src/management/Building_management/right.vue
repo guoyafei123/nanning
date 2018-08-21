@@ -1159,13 +1159,17 @@
       },
       buildUnit(){
         this.tableList();
+      },
+      currentPage(){
+        this.currentPage4 = this.currentPage;
       }
     },
     computed:mapState([
       'buildUnit',
       'buildingId',
       'floorAdd',
-      'floorId'
+      'floorId',
+      'currentPage'
     ])
   }
 </script>

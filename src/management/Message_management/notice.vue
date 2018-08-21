@@ -130,7 +130,7 @@
       },
       tableList(){
         this.$fetch(
-          "/api/unit/queryPagerUnitList",{
+          "/api/event/getEventById",{
             currentPager:this.currentPage4,
             pagerSize:10
           }

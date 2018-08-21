@@ -451,7 +451,8 @@
       },
       show3(row){//跳转
         console.log(row.id);
-        this.$store.commit('floorAdd',2)
+        this.$store.commit('floorAdd',2);
+        this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('buildingId',row.id);
         $('.plan').show();
         $('.total').hide();
