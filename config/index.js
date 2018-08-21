@@ -12,14 +12,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/cas': {
-        target: 'http://cas.nanninglqys.51play.com/',//设置你调用的接口域名和端口号
+        target: 'http://cas.nanninglq.51play.com/',//设置你调用的接口域名和端口号
         changeOrigin: true,
         pathRewrite: {
           '^/cas': '/'
         }
       },
       '/api': {
-        target: 'http://api.nanninglqys.51play.com/',//设置你调用的接口域名和端口号
+        target: 'http://api.nanninglq.51play.com/',//设置你调用的接口域名和端口号
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'

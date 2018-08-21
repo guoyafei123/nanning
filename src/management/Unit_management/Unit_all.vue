@@ -151,7 +151,7 @@
                         <i class="el-icon-plus"></i>
                       </div>
                     </div>
-                    <img v-show="isShow" :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" class="head-pic"/>
+                    <img v-show="isShow" :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg?'+new Date().getTime()" :id="'up_img'+ this.form.id" class="head-pic"/>
                     <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
                   </el-form-item> 
                 </el-form>
@@ -222,7 +222,6 @@
         totalList:null,//总条数
         deviceIndex:'',
         deviceName:'',
-        deviceIndexs:'',
         isShow:true,
         fileVerification:'',//验证图片
         rules: {
@@ -356,7 +355,7 @@
                 complete: function (e) {//只要完成即执行，最后执行
                   // console.log(e) 
                   
-                  $('.primary').attr('data-dismiss','modal');
+                  
                   that.tableList();
                   $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                     $("#file").on("change", function(){  
@@ -366,6 +365,7 @@
                   });
                 }
             });
+            $('.primary').attr('data-dismiss','modal');
           } else {
             console.log('error submit!!');
             return false;
@@ -420,9 +420,6 @@
         this.currentPage4 = val;
         console.log(this.currentPage4);
         this.tableList();
-      },
-      deviceIndexs(val,oldVal){
-        this.deviceIndexs = val;
       }
     }
   };

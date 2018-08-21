@@ -132,7 +132,7 @@
                         <i class="el-icon-plus"></i>
                       </div>
                     </div>
-                    <img v-show="isShow" :src="this.form.url" class="head-pic"/>
+                    <img v-show="isShow" :src="this.form.url" :id="'up_img'+this.form.id" class="head-pic"/>
                     <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
                   </el-form-item> 
                 </el-form>
@@ -175,6 +175,7 @@
       return {
         labelPosition: 'top',
         form: {
+          id:'',
           url:'',
           unitId:'',
           buildingId:''
@@ -206,9 +207,11 @@
         }
         this.isShow = true ;
         this.fileVerification="";
-        $("#up_img"+this.form.id+"").attr("src",'');
+        // this.form.url='';
+        // $("#up_img"+this.form.id+"").attr("src",'');
         console.log(this.form.id)
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
+        // console.log(this.getObjectURL(document.getElementById('file')))
       },
       getObjectURL(node) {
           var imgURL = "";
@@ -252,6 +255,7 @@
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(this.deviceIndex == item.id){
+            this.form.id = item.id ;
             this.form.url = item.url ;
             console.log(this.form.url)
           }
@@ -278,7 +282,7 @@
             complete: function (e) {//只要完成即执行，最后执行
               console.log(e) 
               that.tableList();
-              $('.primary').attr('data-dismiss','modal');
+              
               $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                 $("#file").on("change", function(){  
                   console.log($("#up_img"+that.form.id+""))
@@ -287,6 +291,7 @@
               });
             }
         });
+        $('.primary').attr('data-dismiss','modal');
       },
       delete_plan(row){
         $('#mymodal2').css({
