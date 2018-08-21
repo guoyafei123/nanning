@@ -26,8 +26,8 @@
 						<span class="size-20 font-blue">{{userInfo.nickName?userInfo.nickName:"暂空"}}</span>
 						<span class="bgbox-min bg-gray-666 font-black size-10">{{userInfo.roleName?userInfo.roleName:"无"}}</span>
 						<span class="float-right">
-							<span v-if="userInfo.online==true" class="bgbox-max bg-blue font-black size-10">在线</span>
-							<span v-if="userInfo.online==false" class="bgbox-max bg-blue font-black size-10">离线</span>
+							<span v-if="toPersonDetailInfo.online==true" class="bgbox-max bg-blue font-black size-10">在线</span>
+							<span v-if="toPersonDetailInfo.online==false" class="bgbox-max bg-blue font-black size-10">离线</span>
                             <!-- <span class="bgbox-max bg-blue font-black size-10">
                                 <i class="icon iconfont icon-dianhua-mian- size-12"></i> 打电话</span>
 						<span class="bgbox-max bg-gray-333 font-gray-999 size-10">
