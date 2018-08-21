@@ -15,23 +15,23 @@
 						</li>
 					</ul>
 				</div>
-				<div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
+				<div class="set-width-50 display-inline-block font-gray-999 toolcount-right size-12">
 					<ul class="padding-left0 margin-bottom0">
 						<li>
 							<p>人员总数</p>
-							<p class="font-blue font-italic float-right size-14">{{personAnalyseData.userOnlineCount?personAnalyseData.userOnlineCount:"0"}}</p>
+							<p class="font-white float-right size-14">{{personAnalyseData.userOnlineCount?personAnalyseData.userOnlineCount:"0"}}</p>
 						</li>
 						<li>
 							<p>巡检员</p>
-							<p class="font-blue font-italic float-right size-14">{{personAnalyseData.inspectorCount?personAnalyseData.inspectorCount:"0"}}/{{personAnalyseData.inspectorOnlineCount?personAnalyseData.inspectorOnlineCount:"0"}}</p>
+							<p class="font-blue float-right size-14"><span class="font-blue">{{personAnalyseData.inspectorCount?personAnalyseData.inspectorCount:"0"}}</span>/{{personAnalyseData.inspectorOnlineCount?personAnalyseData.inspectorOnlineCount:"0"}}</p>
 						</li>
 						<li>
 							<p>管理员</p>
-							<p class="font-blue font-italic float-right size-14">{{personAnalyseData.administratorOnlineCount?personAnalyseData.administratorOnlineCount:"0"}}/{{personAnalyseData.administratorCount?personAnalyseData.administratorCount:"0"}}</p>
+							<p class="font-yellow float-right size-14"><span class="font-blue">{{personAnalyseData.administratorOnlineCount?personAnalyseData.administratorOnlineCount:"0"}}</span>/{{personAnalyseData.administratorCount?personAnalyseData.administratorCount:"0"}}</p>
 						</li>
 						<li>
 							<p>待审核</p>
-							<p class="font-blue font-italic float-right size-14">{{personAnalyseData.auditingUserCount?personAnalyseData.auditingUserCount:"0"}}</p>
+							<p class="font-red float-right size-14">{{personAnalyseData.auditingUserCount?personAnalyseData.auditingUserCount:"0"}}</p>
 						</li>
 					</ul>
 				</div>
@@ -41,28 +41,28 @@
 			<div class="toolcompanyrate margin-top40">
 				<ul class="row padding0 margin0 size-12 font-gray-999">
 					<li class="col-sm-6">
-						<div class="row margin0 padding0">
+						<div class="margin-left0 margin-right10 padding0 clearfix">
 							<div class="toolcompanyrate-char col-sm-7 padding0">
-								<small class="font-blue">
+								<small class="font-white">
                         执行任务最多
                       </small>
-								<p class="size-16">{{personAnalyseMaxUser.inspectionUsername?personAnalyseMaxUser.inspectionUsername:"暂无名称"}}</p>
+								<p class="size-16">{{personAnalyseMaxUser.inspectionUsername?personAnalyseMaxUser.inspectionUsername:"-"}}</p>
 							</div>
-							<div class="col-sm-5 padding0 text-left text-center">
-								<span class="size-24 font-white">{{personAnalyseMaxUser.inspectionFinishAmount?personAnalyseMaxUser.inspectionFinishAmount:"0"}}</span>
+							<div class="col-sm-5 padding0 text-right text-center">
+								<span class="size-30 font-white">{{personAnalyseMaxUser.inspectionFinishAmount?personAnalyseMaxUser.inspectionFinishAmount:"0"}}</span>
 							</div>
 						</div>
 					</li>
 					<li class="col-sm-6">
-						<div class="row margin0 padding0">
+						<div class="margin-left10 margin-right0 padding0 clearfix">
 							<div class="toolcompanyrate-char col-sm-7 padding0">
-								<small class="font-blue">
+								<small class="font-yellow">
                         发现隐患最多
                       </small>
-								<p class="size-16">{{personAnalyseMaxUser.troubleNickName?personAnalyseMaxUser.troubleNickName:"暂无名称"}}</p>
+								<p class="size-16">{{personAnalyseMaxUser.troubleNickName?personAnalyseMaxUser.troubleNickName:"-"}}</p>
 							</div>
-							<div class="col-sm-5 padding0 text-left text-center">
-								<span class="size-24 font-white">{{personAnalyseMaxUser.troubleCount?personAnalyseMaxUser.troubleCount:"0"}}</span>
+							<div class="col-sm-5 padding0 text-right text-center">
+								<span class="size-30 font-white">{{personAnalyseMaxUser.troubleCount?personAnalyseMaxUser.troubleCount:"260"}}</span>
 							</div>
 						</div>
 					</li>
@@ -86,7 +86,7 @@
 								<tr>
 									<th>姓名</th>
 									<th>手机号</th>
-									<th>单位名称</th>
+									<th class="table-fixedwidth">单位名称</th>
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
@@ -95,7 +95,7 @@
 								<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
 									<td>{{item.nickName}}</td>
 									<td>{{item.cellPhone}}</td>
-									<td>{{item.unitName}}</td>
+									<td class="table-fixedwidth" data-toggle="tooltip" :title=item.unitName>{{item.unitName}}</td>
 									<td>
 										<i v-if="item.online==true" class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
 										<i v-if="item.online==false" class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
@@ -111,10 +111,10 @@
 					</li>
 					<li class="upd-pagin">
 						<div>
-							<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+							<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 							</el-pagination>
-							<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.queryPersonList_parameter.pageSize)}}页</span>
-							<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.queryPersonList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="handleCurrentChange">
+							<span>{{Math.ceil(tableData.totalRow/this.queryPersonList_parameter.pageSize)}}页</span>
+							<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.queryPersonList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="handleCurrentChange">
 							</el-pagination>
 						</div>
 					</li>
@@ -178,6 +178,7 @@
 				}
 				this.personAnalyse_parameter.unitId=this.getunitid;
 				this.queryPersonList_parameter.unitId=this.getunitid;
+				
 				this.getPersonData();  
 				this.getPersonTable(); 
 			}

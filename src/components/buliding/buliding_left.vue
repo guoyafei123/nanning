@@ -22,7 +22,7 @@
                       {{buildCountDataStats.STRUCTURE ? buildCountDataStats.STRUCTURE:"0"}}
                     </p>
                   </li>
-                  <li class="margin-top20">
+                  <li class="margin-top10">
                     <p class="set-width-50">高层建筑</p>
                     <p class="display-inline-block font-yellow font-italic size-14">
                       {{buildCountDataStats.HIGHRISE ? buildCountDataStats.HIGHRISE:"0"}}
@@ -33,22 +33,23 @@
             </div>
           </section>
           <section>
-            <div class="toolcompanyrate margin-top20">
+            <div class="toolcompanyrate margin-top20" @click="tobuildDetailinfo(buildCountDataSocre)">
               <ul class="row padding0 margin0 size-12 font-gray-999">
                 <li class="col-sm-12">
                   <div class="row margin0 padding0">
-                    <div class="toolcompanyrate-char col-sm-7 padding-top10 padding-left5">
+                    <div class="toolcompanyrate-char col-sm-8 padding-top5 padding-left5">
                       <small class="font-red">
-                        高风险建筑 安全评分最低
+                        高风险建筑 [安全评分最低]
                       </small>
-                      <p class="size-12 font-yellow">
+                      <p class="size-14 font-white">
                         {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}
                         -
                         {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}}</p>
                     </div>
-                    <div class="col-sm-5 padding-left0 text-left">
-                      <span class="size-40 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "0"}}<a @click="tobuildDetailinfo(buildCountDataSocre)"><i class="fas fa-chevron-circle-right size-20 margin-left10" data-toggle="tooltip" title="查看详情"></i></a>
+                    <div class="col-sm-4 padding-left0 text-right">
+                      <span class="size-36 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "0"}}
                       </span>
+                      
 							</div>
 						</div>
 					</li>
@@ -109,13 +110,13 @@
                 </li>
                  <li class="upd-pagin">
                     <div>
-                      <el-pagination style="float: left;"
+                      <el-pagination class="pull-left" 
                         small
                         layout="total"
                         :total="tableData.totalRow">
                       </el-pagination>
-                      <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.queryBuildList_parameter.pageSize)}}页</span>
-                      <el-pagination style="float: right;background: transparent"
+                      <span>{{Math.ceil(tableData.totalRow/this.queryBuildList_parameter.pageSize)}}页</span>
+                      <el-pagination class="pull-right" 
                         small
                         layout="prev, pager, next"
                         :page-size="this.queryBuildList_parameter.pageSize"
@@ -173,7 +174,8 @@
       },
       // 表格返回
       tableData: Object,
-      getunitid:Object
+      getunitid:Object,
+      counts:1
     };
   },
   computed:mapState([
@@ -249,8 +251,10 @@
       this.$store.commit("tobuilditem", this.itemdata);
     },
     tobuildDetailinfo(data) {
+      this.counts++;
+      this.moren();
       this.itemdata = data;
-      this.$store.commit("buildDetailinfos", this.itemdata);
+      this.$store.commit("buildDetailinfos", [this.itemdata,this.counts]);
     }
   },
   mounted() {
@@ -262,7 +266,6 @@
       this.build_buildCount_parameter.unitId=null;
       this.queryBuildList_parameter.unitId=null;
     }
-    
     this.getRiskData();  
     this.getRiskTable(); 
     

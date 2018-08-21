@@ -33,8 +33,8 @@
                 :value="item.id">
               </el-option>
           </el-select>
-          <el-select v-model="type" placeholder="请选择预案类型" class="select">
-            <el-option label="全部预案类型" value=""></el-option>
+          <el-select v-model="type" placeholder="请选择类型" class="select">
+            <el-option label="全部类型" value=""></el-option>
             <el-option v-for="item in planList" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form>

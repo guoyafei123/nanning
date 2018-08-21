@@ -2,17 +2,10 @@
 	<div class="toolright">
 		<!-- 筛选 -->
 		<section class="my-filter padding5 bg-gray-222 clearfix">
-			<!-- 单位筛选 -->
-			<div class="col-sm-3 padding0">
-				<el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
-					<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-					</el-option>
-				</el-select>
-			</div>
 			<!-- 日期筛选 -->
-			<div class="col-sm-9 padding0">
+			<div class="col-sm-12 padding0">
 				<div class="upd-elmdate">
-					<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+					<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
 					</el-date-picker>
 				</div>
 			</div>
@@ -23,15 +16,15 @@
 			<section class="margin-top20">
 				<div class="personinfo">
 					<p>
-						<span class="size-20 font-blue">{{userInfo.nickName?userInfo.nickName:"暂为空"}}</span>
-						<span class="bgbox-min bg-gray-666 font-black size-10">巡检人员</span>
-						<span v-if="userInfo.online==true" class="bgbox-min bg-blue font-black size-10">在线</span>
-						<span v-if="userInfo.online==false" class="bgbox-min bg-blue font-black size-10">离线</span>
+						<span class="size-20 font-blue">{{userInfo.nickName?userInfo.nickName:"暂空"}}</span>
+						<span class="bgbox-min bg-gray-666 font-black size-10">{{userInfo.roleName?userInfo.roleName:"无"}}</span>
 						<span class="float-right">
-                            <span class="bgbox-max bg-blue font-black size-10">
+							<span v-if="toPersonDetailInfo.online==true" class="bgbox-max bg-blue font-black size-10">在线</span>
+							<span v-if="toPersonDetailInfo.online==false" class="bgbox-max bg-gray-666 font-black size-10">离线</span>
+                            <!-- <span class="bgbox-max bg-blue font-black size-10">
                                 <i class="icon iconfont icon-dianhua-mian- size-12"></i> 打电话</span>
 						<span class="bgbox-max bg-gray-333 font-gray-999 size-10">
-                                <i class="icon iconfont icon-xiaoxi-mian-- size-12"></i> 发消息</span>
+                                <i class="icon iconfont icon-xiaoxi-mian-- size-12"></i> 发消息</span> -->
 						</span>
 					</p>
 					<p class="col-sm-7 text-left padding0">
@@ -48,12 +41,12 @@
 						<ul class="toolcount-left padding-left0" id="toolcount">
 							<li class="col-xs-offset-1 col-xs-10 margin-bottom10 padding-left5">
 								<!-- <h1 class="toolcount-p1">8.7</h1> -->
-								<img :src="userInfo.headImgUrl" class="img-responsive img-circle" alt="段亚伟">
+								<img :src="userInfo.headImgUrl" class="img-responsive img-circle">
 								<!-- <img src=""+{{userInfo.headImgUrl?userInfo.headImgUrl:"../../assets/images/head.jpg"}}+"" class="img-responsive img-circle" alt="段亚伟"> -->
 							</li>
 							<li class="col-xs-offset-1 col-xs-10 padding-left5 text-center">
 								<h4 class="size-16 font-blue show">{{userInfo.nickName?userInfo.nickName:"暂为空"}}</h4>
-								<span class="size-12 font-gray-999"><br> {{userInfo.cellPhone}}</span>
+								<span class="size-12 font-gray-999">{{userInfo.cellPhone}}</span>
 							</li>
 						</ul>
 					</div>
@@ -63,53 +56,56 @@
 								<p class="size-18 font-white">个人数据</p>
 							<li>
 								<p class="size-10 set-scaleright">Personnel Statistics</p>
-							</li>
-							<li class="margin-top10">
-								<p>巡检任务领取总数 <strong class="font-white">{{queryUserData.inspectionCount}}</strong></p>
-							</li>
-							<li class="margin-top0">
-								<p>巡检任务完成总数 <strong class="font-white">{{queryUserData.inspectionFinishCount}}</strong></p>
-							</li>
-							<li class="row text-left">
-								<div class="col-sm-5 padding-right0">
-									<p >报警次数 <strong class="font-red">{{queryUserData.alarmFindCount}}次</strong></p>
+							</li>							
+							<li class="row text-left margin-top10">
+								<div class="col-sm-6 padding-right0">
+									<p >报警次数 <strong class="font-white">{{queryUserData.alarmFindCount}}次</strong></p>
 								</div>
-								<div class="col-sm-7">
-									<p>报警确认次数 <strong class="font-blue">{{queryUserData.alarmConfirmCount}}</strong></p>
+								<div class="col-sm-6">
+									<p>隐患发现数 <strong class="font-white">{{queryUserData.unitTroubleFindCount}}次</strong></p>
+								</div>
+								<div class="col-sm-12">
+									<p>巡检任务领取总数 <strong class="font-white">{{queryUserData.inspectionCount}}</strong></p>
 								</div>
 							</li>
-							<li class="row text-left">
-								<div class="col-sm-5 padding-right0">
-									<p>隐患发现数 <strong class="font-red">{{queryUserData.unitTroubleFindCount}}次</strong></p>
-								</div>
-								<div class="col-sm-7">
-									<p>隐患解决数 <strong class="font-blue">{{queryUserData.troubleConfirmCount}}</strong></p>
-								</div>
-							</li>
+							<li class="row text-center padding-right16 margin-top10">
+											<div class="col-sm-4 personnel-borderright">
+												<p class="size-16 show font-blue">{{queryUserData.inspectionFinishCount}}</p>
+												<p>任务完成数</p>
+											</div>
+											<div class="col-sm-4 personnel-borderright">
+												<p class="size-16 show font-red">{{queryUserData.alarmConfirmCount}}</p>
+												<p>报警确认数</p>
+											</div>
+											<div class="col-sm-4">
+												<p class="size-16 show font-yellow">{{queryUserData.troubleConfirmCount}}</p>
+												<p>隐患解决数</p>
+											</div>
+										</li>
 						</ul>
 					</div>
 				</div>
 			</section>
 			<section>
 				<div class="toolcount">
-					<div class="row">
+					<div class="row text-center font-gray-999 size-12">
 						<div class="col-sm-4">
 							<div class="newpiechar"> 
 								<p>{{userTroubleRate}}%</p>
 							</div>
-							<p class="text-center font-gray-999 margin-top10">隐患发现占比</p>
+							<p class="margin-top10">隐患发现占比</p>
 						</div>
 						<div class="col-sm-4">
 							<div class="newpiechar"> 
 								<p>{{userInspectionRate}}%</p>
 							</div>
-							<p class="text-center font-gray-999 margin-top10">巡检完成占比</p>
+							<p class="margin-top10">巡检完成占比</p>
 						</div>
 						<div class="col-sm-4">
 							<div class="newpiechar"> 
 								<p>{{userTroubleDealRate}}%</p>
 							</div>
-							<p class="text-center font-gray-999 margin-top10">隐患解决占比</p>
+							<p class="margin-top10">隐患解决占比</p>
 						</div>
 					</div>
 				</div>
@@ -124,36 +120,45 @@
 						<table class="table size-12 table-condensed toolroute-table margin-top10">
 							<thead>
 								<tr>
-									<th>序号</th>
 									<th>巡检日期</th>
 									<th>路线名称</th>
 									<th>巡检统计</th>
 									<th>状态</th>
 								</tr>
-							</thead>
-							<tbody id="">
+							</thead>							
+							<tbody>
 								<tr v-for="(item,index) in tableData.result">
-									<td>{{index}}</td>
 									<td>{{item.receiveTime}}</td>
 									<td>{{item.inspectionName}}</td>
 									<td>
 										<span class="font-blue">{{item.finishedAmount}}</span>/{{item.amount}}</td>
 									<td>
 										<a>
-											<i v-if="item.status==1" class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="已领取"></i>
+											<i v-if="item.status==1" class="fas fa-flag-checkered font-gray-999" data-toggle="tooltip" title="已领取"></i>
 											<i v-if="item.status==2" class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="巡检中"></i>
-											<i v-if="item.status==3" class="icon iconfont icon-queren1 font-gray-666" data-toggle="tooltip" title="已完成"></i>
-											<i v-if="item.status==4" class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="未完成"></i>
+											<i v-if="item.status==3" class="icon iconfont icon-queren1 font-white" data-toggle="tooltip" title="已完成"></i>
+											<i v-if="item.status==4" class="icon iconfont icon-guanbi-xian- font-gray-999" data-toggle="tooltip" title="未完成"></i>
+										</a>
+									</td>
+								</tr>
+								<tr>									
+									<td>2018-08-16 23:16:89</td>
+									<td>控烟巡检路线2</td>
+									<td>
+										<span class="font-blue">10</span>/20</td>
+									<td>
+										<a>
+											<i class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="巡检中"></i>
 										</a>
 									</td>
 								</tr>
 							</tbody>
 							<li class="upd-pagin">
 								<div>
-									<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+									<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 									</el-pagination>
-									<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.queryUserInspectionList_parameter.pageSize)}}页</span>
-									<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.queryUserInspectionList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryUserInspectionList_parameter.currentPage" @current-change="handleCurrentChange">
+									<span>{{Math.ceil(tableData.totalRow/this.queryUserInspectionList_parameter.pageSize)}}页</span>
+									<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.queryUserInspectionList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryUserInspectionList_parameter.currentPage" @current-change="handleCurrentChange">
 									</el-pagination>
 								</div>
 							</li>
@@ -170,12 +175,12 @@
 					<h4 class="p-title">人员统计</h4>
 					<div class="col-sm-7 font-gray-999 padding-right0 size-12">
 						<div class="row text-center margin-top80">
-							<div class="col-sm-6 personnel-borderright">
-								<p class="size-16 font-yellow">{{queryUserCountData.inspectionPlanPeople?queryUserCountData.inspectionPlanPeople:"0"}}</p>
+							<div class="col-sm-5 personnel-borderright">
+								<p class="size-16 font-blue">{{queryUserCountData.inspectionPlanPeople?queryUserCountData.inspectionPlanPeople:"0"}}</p>
 								<p>巡检人员</p>
 							</div>
-							<div class="col-sm-6">
-								<p class="size-16 font-white">{{queryUserCountData.Management?queryUserCountData.Management:"0"}}</p>
+							<div class="col-sm-5">
+								<p class="size-16 font-yellow">{{queryUserCountData.Management?queryUserCountData.Management:"0"}}</p>
 								<p>管理人员</p>
 							</div>
 						</div>
@@ -188,18 +193,18 @@
 			<section>
 				<div class="toolcount">
 					<h4 class="p-title">人员执勤</h4>
-					<div class="row">
+					<div class="row text-center font-gray-999 size-12">
 						<div class="col-sm-6">
 							<div class="newpiechar"> 
 								<p>{{inspectorActive==="NaN"?0:inspectorActive}}%</p>
 							</div>
-							<p class="text-center font-gray-999 margin-top10">巡检人员活跃度</p>
+							<p class="margin-top10">巡检人员活跃度</p>
 						</div>
 						<div class="col-sm-6">
 							<div class="newpiechar"> 
 								<p>{{inspectorExecuteRate==="NaN"?0:inspectorExecuteRate}}%</p>
 							</div>
-							<p class="text-center font-gray-999 margin-top10">巡检人员执行率</p>
+							<p class="margin-top10">巡检人员执行率</p>
 						</div>
 					</div>
 				</div>
@@ -275,6 +280,7 @@
 						}
 					]
 				},
+				dateValue: '',
 				queryUserCount_parameter:{
 					unitId: null,
 					beginTime: '2017-07-02',
@@ -330,6 +336,22 @@
 			}
 		},
 		methods: {
+			chooseTimeRange(t) {
+				this.dateValue = t;
+				console.log("获取到的时间为:------------");
+				//this.queryUserCount_parameter.beginTime = this.value7[0];
+				//this.queryUserCount_parameter.endTime = this.value7[1];
+				console.log(this.dateValue[0]);
+				console.log(this.dateValue[1]);
+				//TODO 重新发送请求
+
+			},
+			defaultTimeVaule() {
+				//TODO 设置默认时间
+				console.log("设置默认时间:------------");
+
+
+			},
 			//获取人员右侧统计数据
 			getData(){
 				this.$fetch("/api/user/queryUserCount",this.queryUserCount_parameter).then(response => {
@@ -515,6 +537,7 @@
 				this.queryUserCount_parameter=null;
 			}
 			this.$store.commit('route_path', this.$route.path);
+			this.defaultTimeVaule();
 			this.getData();
 		},
 	}

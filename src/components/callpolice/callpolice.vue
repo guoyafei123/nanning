@@ -87,15 +87,15 @@
 												<td v-if="item.nickName=='' || item.nickName==null">{{item.deviceTypeName}}</td>
 												<td v-if="item.nickName">{{item.nickName}}</td>
 												<td class="font-red " style="max-width:20px !important;">
-													<i data-toggle="tooltip" title="设备报警" v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="火情" v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="人工报警" v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="故障" v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-xian- set-ciontop3"></i>
+													<i data-toggle="tooltip" title="设备报警" v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-mian- font-red set-ciontop3"></i>
+													<i data-toggle="tooltip" title="火情" v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- font-blush set-ciontop3"></i>
+													<i data-toggle="tooltip" title="人工报警" v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-mian- font-red set-ciontop3"></i>
+													<i data-toggle="tooltip" title="故障" v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-mian- font-orange set-ciontop3"></i>
 												</td>
 												<td>{{(item.startTime).substring(5)}}</td>
 												<td>
-													<i data-toggle="tooltip" title="关闭" v-if="item.status==1" class="icon iconfont icon-baojingjiechu-mian- font-blue set-ciontop4"></i>
-													<i data-toggle="tooltip" title="进行中" v-if="item.status==0" class="icon iconfont icon-huoqing-mian- font-red set-ciontop4"></i>
+													<i data-toggle="tooltip" title="关闭" v-if="item.status==1" class="icon iconfont icon-guanbi2 font-gray-999 set-ciontop4"></i>
+													<i data-toggle="tooltip" title="进行中" v-if="item.status==0" class="icon iconfont icon-jingshi-xian- font-red set-ciontop4"></i>
 												</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)" data-toggle="tooltip" title="查看详情">
@@ -108,10 +108,10 @@
 								</li>
 								<li class="upd-pagin">
 									<div>
-										<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+										<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 										</el-pagination>
-										<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.getAlarmList_parameter.pageSize)}}页</span>
-										<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.getAlarmList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.getAlarmList_parameter.currentPage" @current-change="handleCurrentChange">
+										<span>{{Math.ceil(tableData.totalRow/this.getAlarmList_parameter.pageSize)}}页</span>
+										<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.getAlarmList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.getAlarmList_parameter.currentPage" @current-change="handleCurrentChange">
 										</el-pagination>
 									</div>
 								</li>
@@ -155,8 +155,8 @@
 							<span class="size-22 font-blue">1746</span>
 						</div>
 					</section>
-					<section class="dan-lineinfo margin-top10">
-						<div class="toolcount">
+					<section class="dan-lineinfo">
+						<div class="toolcount margin-top20">
 							<h4 class="p-title">报警统计</h4>
 							<div class="col-sm-7 font-gray-999 padding-right0 text-center margin-top50 size-12">
 								<div class="row" v-if="getAlarmCount">
@@ -245,27 +245,27 @@
                     </section>-->
 
 						<section>
-							<div class="textandimg row imgs-nthof-block">
+							<div class="textandimg margin-top20 imgs-nthof-block">
 								<h4 class="p-title">报警信息</h4>
-								<div class="row textandimg-main padding-left15">
+								<div class="row textandimg-main margin-top20 size-12">
 									<div class="col-sm-12">
-										<span class="size-12 font-gray-666">报警源 </span>
+										<span>报警源 </span>
 										<!-- <td v-if="getAlarmDetail.isUser==0">{{getAlarmDetail.deviceTypeName}}</td>
                             <td v-if="getAlarmDetail.isUser==1">{{getAlarmDetail.nickName}}</td> -->
-										<span class="size-12 font-gray-999" v-if="getAlarmDetail.userId==0">{{getAlarmDetail.deviceTypeName}}</span>
-										<span class="size-12 font-gray-999" v-if="getAlarmDetail.userId==1">{{getAlarmDetail.nickName}}</span>
+										<strong v-if="getAlarmDetail.userId==0">{{getAlarmDetail.deviceTypeName}}</strong>
+										<strong v-if="getAlarmDetail.userId==1">{{getAlarmDetail.nickName}}</strong>
 									</div>
 									<div class="col-sm-12">
-										<span class="size-12 font-gray-666">报警地点 </span>
-										<span class="size-12 font-gray-999">{{getAlarmDetail.unitName}}&nbsp;{{getAlarmDetail.buildingName}}&nbsp;{{getAlarmDetail.floorNumber}}&nbsp;{{getAlarmDetail.roomNumber}}</span>
+										<span>报警地点 </span>
+										<strong>{{getAlarmDetail.unitName}}&nbsp;{{getAlarmDetail.buildingName}}&nbsp;{{getAlarmDetail.floorNumber}}&nbsp;{{getAlarmDetail.roomNumber}}</strong>
 									</div>
 									<div class="col-sm-12">
-										<span class="size-12 font-gray-666">报警时间 </span>
-										<span class="size-12 font-gray-999">{{getAlarmDetail.startTime}}</span>
+										<span>报警时间 </span>
+										<strong>{{getAlarmDetail.startTime}}</strong>
 									</div>
 									<div class="col-sm-12">
-										<!-- <span class="size-12 font-gray-666">描述 </span> -->
-										<span class="size-12 font-gray-999">{{getAlarmDetail.remark}}</span>
+										<!-- <span>描述 </span> -->
+										<strong>{{getAlarmDetail.remark}}</strong>
 									</div>
 									<!-- <div class="textandimg-img imgs-nthof">
                             <template v-for="item in getAlarmDetail.imgUrl">
@@ -281,18 +281,18 @@
                           </div> -->
 								</div>
 								<h4 class="p-title">报警确认</h4>
-								<div class="row textandimg-main padding-left15">
+								<div class="row textandimg-main margin-top20 size-12">
 									<div class="col-sm-12">
-										<span class="size-12 font-gray-666">确认人 </span>
-										<span class="size-12 font-gray-999">{{getAlarmDetail.confirmNickName}}</span>
+										<span>确认人 </span>
+										<strong>{{getAlarmDetail.confirmNickName}}</strong>
 									</div>
 									<div class="col-sm-12">
-										<span class="size-12 font-gray-666">确认时间 </span>
-										<span class="size-12 font-gray-999">{{getAlarmDetail.confirmTime}}</span>
+										<span>确认时间 </span>
+										<strong>{{getAlarmDetail.confirmTime}}</strong>
 									</div>
 									<div class="col-sm-12">
-										<!-- <span class="size-12 font-gray-666">描述 </span> -->
-										<span class="size-12 font-gray-999">{{getAlarmDetail.confirmReason}}</span>
+										<!-- <span>描述 </span> -->
+										<strong>{{getAlarmDetail.confirmReason}}</strong>
 									</div>
 									<div class="textandimg-img imgs-nthof">
 										<template v-for="item in getAlarmDetail.imgUrl">
@@ -309,14 +309,14 @@
 								</div>
 								<template v-if="infoShow">
 									<h4 class="p-title">报警关闭</h4>
-									<div class="row textandimg-main padding-left15">
+									<div class="row textandimg-main margin-top20 size-12">
 										<div class="col-sm-12">
-											<span class="size-12 font-gray-666">关闭 </span>
-											<span class="size-12 font-gray-999">{{getAlarmDetail.cancelNickName}}</span>
+											<span>关闭 </span>
+											<strong>{{getAlarmDetail.cancelNickName}}</strong>
 										</div>
 										<div class="col-sm-12">
-											<span class="size-12 font-gray-666">关闭时间 </span>
-											<span class="size-12 font-gray-999">{{getAlarmDetail.cancelTime}}</span>
+											<span>关闭时间 </span>
+											<strong>{{getAlarmDetail.cancelTime}}</strong>
 										</div>
 										<!-- <div class="textandimg-img imgs-nthof">
                               <template v-for="item in getAlarmDetail.imgUrl">

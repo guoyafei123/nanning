@@ -15,7 +15,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
+				<div class="set-width-50 display-inline-block font-gray-999 toolcount-right size-12">
 					<ul class="padding-left0 margin-bottom0">
 						<li class="toolcount-right-title">
 							<p class="size-26 font-blue">预案统计</p>
@@ -51,7 +51,7 @@
 		</section>
 		<!-- 趋势 -->
 		<section>
-			<div class="toolroute font-gray-ccc margin-left37 margin-top20">
+			<div class="toolroute font-gray-ccc margin-left37 margin-top100">
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 padding-right5 clearfix">
 					<li>
@@ -65,8 +65,8 @@
 						</p>
 					</li>
 					<li>
-						<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" style="width:120px!important" size="mini" v-model="queryPageBuildingListvalue_model" placeholder="全部建筑" @change="toqueryPageBuildingList">
-							<el-option v-for="item in queryPageBuildingList" :key="item.id" :label="item.name" :value="item.id">
+						<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" style="width:120px!important" size="mini" v-model="selectNodevalue_model" placeholder="全部建筑" @change="toselectNode">
+							<el-option v-for="item in selectNode" :key="item.id" :label="item.name" :value="item.id">
 							</el-option>
 						</el-select>
 						<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5 " style="width:120px!important" size="mini" v-model="plantypevalue" placeholder="全部类型" @change="toplantypevalue">
@@ -168,7 +168,7 @@
 					}
 				],
 				plantypevalue:'',
-				queryPageBuildingListvalue_model:'',
+				selectNodevalue_model:'',
 				countUnitPlan_parameter:{
 					unitId:null,
 					buildingId:null
@@ -185,19 +185,17 @@
 				},
 				// 表格返回
 				tableData: Object,
-				queryPageBuildingList_parameter:{
+				selectNode_parameter:{
 					unitId:null,
-					currentPage:1,
-					pageSize:10000
 				},
-				queryPageBuildingList:Object,
+				selectNode:Object,
 				planbunlist:{
 					a:0,
 					b:0,
 					c:0,
 					d:0
 				},
-				getunitid:null
+				getunitid:''
 			};
 		},
 		computed:mapState([
@@ -209,11 +207,13 @@
 				if(this.unitid!=0){
 					this.getunitid=this.unitid;
 				}else{
-					this.getunitid=null;
+					this.getunitid='';
 				}
 				this.countUnitPlan_parameter.unitId=this.getunitid;
-				this.queryPageBuildingList_parameter.unitId=this.getunitid;
+				this.selectNode_parameter.unitId=this.getunitid;
 				this.deletePlan_parameter.unitId=this.getunitid;
+				this.selectNodevalue_model='';
+				this.deletePlan_parameter.buildingId='';
 				this.getplancount();
 				this.getTable();
 				this.getBuild();
@@ -243,8 +243,11 @@
 				this.deletePlan_parameter.type=this.plantypevalue;
 				this.getTable();
 			},
-			toqueryPageBuildingList(){
-				this.deletePlan_parameter.buildingId=this.queryPageBuildingListvalue_model;
+			toselectNode(){
+				this.deletePlan_parameter.buildingId=this.selectNodevalue_model;
+				if(this.deletePlan_parameter.buildingId==0){
+					this.deletePlan_parameter.buildingId=null;
+				}
 				this.getTable();
 			},
 			getplancount(){
@@ -273,14 +276,14 @@
 					});
 			},
 			getBuild(){
-				this.queryPageBuildingList=Object;
+				this.selectNode=Object;
 				this.$fetch(
-						"/api/building/queryPageBuildingList",
-						this.queryPageBuildingList_parameter
+						"/api/building/selectNode",
+						this.selectNode_parameter
 					).then(response => {
 						if(response) {
-							this.queryPageBuildingList = response.data.pageBuildIng.result;
-							this.queryPageBuildingList.unshift({
+							this.selectNode = response.data.list;
+							this.selectNode.unshift({
 								id: 0,
 								name: '全部建筑'
 							})
@@ -304,12 +307,12 @@
 
 			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
 				this.countUnitPlan_parameter.unitId=sessionStorage.unitid
-				this.queryPageBuildingList_parameter.unitId=sessionStorage.unitid
+				this.selectNode_parameter.unitId=sessionStorage.unitid
 				this.deletePlan_parameter.unitId=sessionStorage.unitid
 			}
 			if(sessionStorage.unitid==0){
 				this.countUnitPlan_parameter.unitId=null;
-				this.queryPageBuildingList_parameter.unitId=null;
+				this.selectNode_parameter.unitId=null;
 				this.deletePlan_parameter.unitId=null;
 			}
 			this.getplancount();

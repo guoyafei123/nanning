@@ -26,7 +26,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="建筑" class="not-null">
-            <el-select v-model="form.building" placeholder="请选择建筑" class="col-sm-8">
+            <el-select v-model="form.building" placeholder="请选择建筑" class="col-sm-6">
               <el-option
                 v-for="item in form.buildList"
                 :label="item.name"
