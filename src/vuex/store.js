@@ -58,6 +58,8 @@ var state={
   buildDetailinfos:Object,
   // 预案统计左上角和右边echar共享
   countUnitPlan:Object,
+  // pdf弹窗
+  topdf:Object,
   topersonitem:Object
 }
 
@@ -200,6 +202,9 @@ var mutations={
   },
   countUnitPlan(state,data){
     state.countUnitPlan=data;
+  },
+  topdf(state,data){
+    state.topdf=data;
   },
 }
 

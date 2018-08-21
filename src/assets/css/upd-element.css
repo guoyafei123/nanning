@@ -265,3 +265,14 @@
 .el-notification__closeBtn{
     color: #000!important;
 }
+
+.pdfstyle{
+    width: 52%;
+    min-width: 500px;
+    border-radius: 0;
+    background: #333;
+    border: none;
+} 
+.pdfstyle .el-message-box__title span{
+    color: #fff;
+}
