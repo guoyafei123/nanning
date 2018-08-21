@@ -2,17 +2,10 @@
 	<div class="toolright">
 		<!-- 筛选 -->
 		<section class="my-filter padding5 bg-gray-222 clearfix">
-			<!-- 单位筛选 -->
-			<div class="col-sm-3 padding0">
-				<el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
-					<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-					</el-option>
-				</el-select>
-			</div>
 			<!-- 日期筛选 -->
 			<div class="col-sm-9 padding0">
 				<div class="upd-elmdate">
-					<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+					<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
 					</el-date-picker>
 				</div>
 			</div>
@@ -287,6 +280,7 @@
 						}
 					]
 				},
+				dateValue: '',
 				queryUserCount_parameter:{
 					unitId: null,
 					beginTime: '2017-07-02',
@@ -342,6 +336,22 @@
 			}
 		},
 		methods: {
+			chooseTimeRange(t) {
+				this.dateValue = t;
+				console.log("获取到的时间为:------------");
+				//this.queryUserCount_parameter.beginTime = this.value7[0];
+				//this.queryUserCount_parameter.endTime = this.value7[1];
+				console.log(this.dateValue[0]);
+				console.log(this.dateValue[1]);
+				//TODO 重新发送请求
+
+			},
+			defaultTimeVaule() {
+				//TODO 设置默认时间
+				console.log("设置默认时间:------------");
+
+
+			},
 			//获取人员右侧统计数据
 			getData(){
 				this.$fetch("/api/user/queryUserCount",this.queryUserCount_parameter).then(response => {
@@ -527,6 +537,7 @@
 				this.queryUserCount_parameter=null;
 			}
 			this.$store.commit('route_path', this.$route.path);
+			this.defaultTimeVaule();
 			this.getData();
 		},
 	}
