@@ -184,7 +184,7 @@
               class类hint-error为错误提示
              -->
               <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-                <el-form-item label="危险品名称" class="not-null col-sm-8">
+                <!-- <el-form-item label="危险品名称" class="not-null col-sm-8">
                   <el-input v-model="form.dangerName" disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="所属单位" class="not-null col-sm-4">
@@ -252,11 +252,11 @@
                   <ul class="list-line">
                     <li class="col-sm-3"><img :src="this.form.imgUrl" class="img-responsive" /></li>
                   </ul>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="解决人" class="not-null">
                   <el-input v-model="form.reviewerName" disabled="true" class="not-null col-sm-6"></el-input>
                 </el-form-item>
-                <el-form-item label="解决时间" class="not-null col-sm-6">
+                <!-- <el-form-item label="解决时间" class="not-null col-sm-6">
                   <div class="block">
                     <el-date-picker
                       v-model="form.reviewTime"
@@ -267,7 +267,7 @@
                       value-format="yyyy-MM-dd">
                     </el-date-picker>
                   </div>
-                </el-form-item>               
+                </el-form-item>                -->
                 <el-form-item label="解决原因" class="not-null col-sm-12">
                   <el-input
                     type="textarea"
@@ -383,34 +383,31 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       start_plan(row){//处理
-        $('#mymodal').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(item.id == row.id){
             this.form.id = item.id ;
             this.form.dangerName = item.dangerName ;
-            this.form.unitId = item.unitId ;
-            this.form.unitName = item.unitName ;
-            this.form.buildingId = item.buildingId ;
-            if( this.form.buildingId == '0' &&  this.form.buildingId == 0){
-              this.form.buildingName = '室外' ;
-            }else{
-              this.form.buildingName = item.buildingName ;
-            }
-            this.form.floorId = item.floorId ;
-            this.form.floorNumber = item.floorNumber ;
-            this.form.roomId = item.roomId ;
-            this.form.roomNumber = item.roomNumber ;
-            this.form.point.pointX = item.pointX ;
-            this.form.point.pointY = item.pointY ;
-            this.form.nickName = item.nickName ;
-            this.form.createTime = item.createTime ;
+            // this.form.unitId = item.unitId ;
+            // this.form.unitName = item.unitName ;
+            // this.form.buildingId = item.buildingId ;
+            // if( this.form.buildingId == '0' &&  this.form.buildingId == 0){
+            //   this.form.buildingName = '室外' ;
+            // }else{
+            //   this.form.buildingName = item.buildingName ;
+            // }
+            // this.form.floorId = item.floorId ;
+            // this.form.floorNumber = item.floorNumber ;
+            // this.form.roomId = item.roomId ;
+            // this.form.roomNumber = item.roomNumber ;
+            // this.form.point.pointX = item.pointX ;
+            // this.form.point.pointY = item.pointY ;
+            // this.form.nickName = item.nickName ;
+            // this.form.createTime = item.createTime ;
             this.form.reviewerName = item.reviewerName ;
-            this.form.reviewTime = item.reviewTime ;
-            this.form.imgUrl = item.imgUrl ;
-            this.form.cont = item.cont ;
+            // this.form.reviewTime = item.reviewTime ;
+            // this.form.imgUrl = item.imgUrl ;
+            // this.form.cont = item.cont ;
             this.form.treatment = item.treatment ;
           }
         })
@@ -428,9 +425,6 @@
         })
       },
       delete_plan(row){//删除
-        $('#mymodal2').css({
-          "display":"flex","justify-content":"center" ,"align-items": "center"
-        })
         this.deviceName = row.name;
         this.deviceIndex = row.id;
       },

@@ -15,16 +15,19 @@
 			<Plan_right-vue></Plan_right-vue>
 		</section>
 		<!-- #右边 End-->
+		<Plan_pdf></Plan_pdf>
 	</div>
 </template>
 
 <script>
 	import Plan_leftVue from "./plan_left.vue";
 	import Plan_rightVue from "./plan_right.vue";
+	import Plan_pfg from "../publick/pdf.vue";
 	export default {
 		components: {
 			"Plan_left-vue": Plan_leftVue,
-			"Plan_right-vue": Plan_rightVue
+			"Plan_right-vue": Plan_rightVue,
+			"Plan_pdf": Plan_pfg
 		},
 		methods: {},
 		mounted() {

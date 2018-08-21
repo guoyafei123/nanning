@@ -16,12 +16,12 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="单位名称" class="not-null">
-            <span class="hint-error">单位名称有误或重复</span>
+        <el-form class="row" :rules="rules" ref="form" :label-position="labelPosition" :model="form">
+          <el-form-item label="单位名称" prop="name" class="not-null">
+            <!-- <span class="hint-error">单位名称有误或重复</span> -->
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
-          <el-form-item label="单位性质" class="not-null">
+          <el-form-item label="单位性质" prop="property" class="not-null">
             <el-select name="" v-model="form.property" placeholder="请选择单位" class="col-sm-4">
               <el-option label="事业单位" value="事业单位"></el-option>
               <el-option label="国家行政机关" value="国家行政机关"></el-option>
@@ -33,23 +33,23 @@
               <el-option label="私营企业" value="私营企业"></el-option>
             </el-select>
           </el-form-item>          
-          <el-form-item label="法人代表" class="not-null col-sm-4">
+          <!-- <el-form-item label="法人代表" prop="corporation" class="not-null col-sm-4">
             <el-input v-model="form.corporation"></el-input>
           </el-form-item>
-          <el-form-item label="部门电话" class="not-null col-sm-4">
+          <el-form-item label="部门电话" prop="telephone" class="not-null col-sm-4">
             <el-input v-model="form.telephone"></el-input>
           </el-form-item>
-          <el-form-item label="单位人数" class="col-sm-4">
+          <el-form-item label="单位人数" prop="staffNum" class="col-sm-4">
             <el-input v-model="form.staffNum"></el-input>
-          </el-form-item>
-          <el-form-item label="单位地址" class="not-null">
+          </el-form-item> -->
+          <el-form-item label="单位地址" prop="location" class="not-null">
             <el-input v-model="form.location" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="消防负责人" class="not-null col-sm-4">
+          <el-form-item label="消防负责人" prop="firemenName" class="not-null col-sm-4">
             <el-input v-model="form.firemenName"></el-input>
           </el-form-item>
-          <el-form-item label="消防负责人电话" class="not-null col-sm-4">
-            <el-input v-model="form.firemenTel"></el-input>
+          <el-form-item label="消防负责人电话" prop="firemenTel" class="not-null col-sm-4">
+            <el-input v-model.number="form.firemenTel"></el-input>
           </el-form-item> 
           <el-form-item label="单位图片" class="not-null col-sm-12">
             <div class="head-photo">
@@ -65,7 +65,7 @@
         </el-form>
       </div>
       <div class="main_footer">
-        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+        <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
         <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
@@ -73,26 +73,71 @@
 </template>
 
 <script>
+    import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
     export default {
       data() {
+        var validPhone=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入手机号码'))
+            }else  if (!isvalidPhone(value)){
+              callback(new Error('请输入正确的11位手机号码'))
+            }else {
+              callback()
+            }
+        }
+        var Name=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入您的姓名'))
+            }else  if (!isName(value)){
+              callback(new Error('请输入正确的姓名'))
+            }else {
+              callback()
+            }
+        }
+        var validName=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入单位名称'))
+            }else  if (!isvalidName(value)){
+              callback(new Error('请输入正确的单位名称'))
+            }else {
+              callback()
+            }
+        }
         return {
           labelPosition: 'top',
           form: {
             name:'',
             property:'',
-            staffNum:'',
+            // staffNum:'',
             location:'',
-            telephone:'',
+            // telephone:'',
             firemenName:'',
             firemenTel:'',          
-            corporation:'',
+            // corporation:'',
             point:{
               pointX:'',
               pointY:''
             }
           },
           isShow:false,
-          fileVerification:''//图片验证
+          fileVerification:'',//图片验证
+          rules: {
+            name:[
+              { required: true, trigger: 'blur', validator: validName }
+            ],
+            property:[
+              { required: true, message: '请选择单位性质', trigger: 'change' }
+            ],
+            firemenName:[
+              { required: true, trigger: 'blur', validator: Name }
+            ],
+            location: [
+              { required: true, message: '请填写单位地址', trigger: 'blur' }//这里需要用到全局变量
+            ],
+            firemenTel:[
+              { required: true, trigger: 'blur', validator: validPhone }
+            ]
+          }
         }
       },
       methods:{
@@ -142,41 +187,45 @@
             }
             return imgURL;
         },
-        btn(){
-          var file = "file";
-          
-          
-          $.ajaxFileUpload({
-            url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
-            /* secureuri : false, */ //一般设置为false
-            fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
-            data : {
-              'name':this.form.name,
-              'property':this.form.property,
-              'staffNum':this.form.staffNum,
-              'location':this.form.location,
-              'telephone':this.form.telephone,
-              'firemenName':this.form.firemenName,
-              'firemenTel':this.form.firemenTel,
-              'corporation':this.form.corporation,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY
-            },
-            type: 'POST',
-            dataType: "plain",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+        btn(formName){
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              var file = "file";
+              $.ajaxFileUpload({
+                url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
+                /* secureuri : false, */ //一般设置为false
+                fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+                data : {
+                  'name':this.form.name,
+                  'property':this.form.property,
+                  // 'staffNum':this.form.staffNum,
+                  'location':this.form.location,
+                  // 'telephone':this.form.telephone,
+                  'firemenName':this.form.firemenName,
+                  'firemenTel':this.form.firemenTel,
+                  // 'corporation':this.form.corporation,
+                  'pointX':this.form.point.pointX,
+                  'pointY':this.form.point.pointY
+                },
+                type: 'POST',
+                dataType: "plain",
+                success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+                
             
-        
-            },
-            error: function (e) { //服务器响应失败处理函数
-              $.messager.alert('警告', "系统错误", "warning");
-            },
-            complete: function (e) {//只要完成即执行，最后执行
-              // console.log(e) 
-              this.$router.push({path:'/Unit_management/all'});
+                },
+                error: function (e) { //服务器响应失败处理函数
+                  $.messager.alert('警告', "系统错误", "warning");
+                },
+                complete: function (e) {//只要完成即执行，最后执行
+                  // console.log(e) 
+                  this.$router.push({path:'/Unit_management/all'});
+                }
+              });
+            } else {
+              console.log('error submit!!');
+              return false;
             }
           });
-          
         },
         back(){
           this.$router.push({path:'/Unit_management/all'});
