@@ -29,6 +29,12 @@
           </div>
         </div>
         <div class="maps">
+          <!-- icon -->
+                <div class="position-absolute-top popup-map-min-point z-index-100"  style="top: 60px; left:200px;">
+                  <el-tooltip content="康健宝盛广场" placement="top">
+                    <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-jianzhu-xian-"></i></i>
+                  </el-tooltip>
+                </div>
         <managementMap-vue></managementMap-vue>
         <div class="floorMap" style="display:none;">
           <img src="../../assets/images/floor.png">
