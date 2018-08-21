@@ -250,7 +250,7 @@ p.toolcount-p2 {
 .toolroute-table tr:hover{
     background: rgba(255,255,255,.1)
 }
-.toolroute-table tr:hover i{
+.toolroute-table tr:hover td:last-child i{
     color: #bad616!important;
     cursor: pointer;
 }
