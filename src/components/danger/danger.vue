@@ -149,10 +149,10 @@
 								</li>
 								<li class="upd-pagin">
 									<div>
-										<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+										<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 										</el-pagination>
-										<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.troubleList_parameter.pageSize)}}页</span>
-										<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.troubleList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.troubleList_parameter.currentPage" @current-change="handleCurrentChange">
+										<span>{{Math.ceil(tableData.totalRow/this.troubleList_parameter.pageSize)}}页</span>
+										<el-pagination class="pull-right"  small layout="prev, pager, next" :page-size="this.troubleList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.troubleList_parameter.currentPage" @current-change="handleCurrentChange">
 										</el-pagination>
 									</div>
 								</li>

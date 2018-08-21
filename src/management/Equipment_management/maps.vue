@@ -67,6 +67,27 @@
         </div>
         <!-- 地图 -->
         <div class="maps">
+          <!-- 平面图楼层 -->
+          <ul class="list-unstyled floor-item" style="top: 120px">
+                <li>14</li>
+                <li>13</li>
+                <li>10</li>
+                <li>11</li>
+                <li>10</li>
+                <li>9</li>
+                <li>8</li>
+                <li class="active">7</li>
+                <li>1</li>
+                <li>6</li>
+                <li>5</li>
+                <li>4</li>
+                <li>3</li>
+                <li>1</li>
+                <li>-1</li>
+                <li>-2</li>
+                <li>-3</li>
+                <li>-4</li>
+              </ul>
           <!-- 地图/平面图切换 -->
               <div class="popup-map-min z-index-10">
                 <!-- 地图 -->

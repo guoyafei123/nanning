@@ -26,6 +26,9 @@
     border: 4px solid #222;
     border-top: 0;
 }
+.maps {
+    border: 4px solid #222;
+}
 /* 头部 */
 #header{
     width: 100%;
@@ -197,6 +200,10 @@ p.toolcount-p2 {
 .toolroute ul td,.toolroute ul th {
     padding-left: 5px!important;
     text-align: left!important;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .toolroute ul li:first-child p {
     position: relative;
@@ -318,7 +325,7 @@ p.toolcount-p2 {
     padding: 0px !important;
 }
 .toolcompanyrate ul>li>div{
-    padding: 6px !important;
+    padding: 6px 15px!important;
     background: #111;
     cursor: pointer;
 }
@@ -357,7 +364,22 @@ p.toolcount-p2 {
 .toolcompanyrate,.toolregionrate{
     margin-top: 30px;
 }
-
+.toolregionrate table th:first-child,
+.toolregionrate table td:first-child,
+.toolregionrate .upd-pagin {
+    padding-left: 10px!important;
+}
+.toolregionrate table th,
+.toolregionrate table td {
+    text-align: left!important;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.toolregionrate .toolroute-table i {
+    line-height: inherit!important;
+}
 .tablist-itemtitle{
     height: 24px;
     line-height: 24px;

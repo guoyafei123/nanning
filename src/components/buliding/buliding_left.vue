@@ -109,13 +109,13 @@
                 </li>
                  <li class="upd-pagin">
                     <div>
-                      <el-pagination style="float: left;"
+                      <el-pagination class="pull-left" 
                         small
                         layout="total"
                         :total="tableData.totalRow">
                       </el-pagination>
-                      <span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.queryBuildList_parameter.pageSize)}}页</span>
-                      <el-pagination style="float: right;background: transparent"
+                      <span>{{Math.ceil(tableData.totalRow/this.queryBuildList_parameter.pageSize)}}页</span>
+                      <el-pagination class="pull-right" 
                         small
                         layout="prev, pager, next"
                         :page-size="this.queryBuildList_parameter.pageSize"

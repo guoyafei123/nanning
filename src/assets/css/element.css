@@ -24,6 +24,13 @@
 .el-pager li.active {
   background-color: #222!important;
 }
+.upd-pagin {
+  margin-top: 24px;
+}
+.upd-pagin>div>span { 
+  line-height: 22px;
+  color: #666;
+}
 /*时间插件*/
 .el-picker-panel [slot=sidebar], .el-picker-panel__sidebar {
   background-color: #222!important;
