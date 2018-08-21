@@ -3,14 +3,14 @@
 		<!-- 筛选 -->
 		<section class="my-filter padding5 bg-gray-222 clearfix">
 			<!-- 单位筛选 -->
-			<div class="col-sm-3 padding0">
+			<!-- <div class="col-sm-3 padding0">
 				<el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
 					<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 					</el-option>
 				</el-select>
-			</div>
+			</div> -->
 			<!-- 日期筛选 -->
-			<div class="col-sm-9 padding0">
+			<div class="col-sm-12 padding0">
 				<div class="upd-elmdate">
 					<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
 					</el-date-picker>
