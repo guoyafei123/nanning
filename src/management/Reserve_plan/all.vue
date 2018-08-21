@@ -68,6 +68,11 @@
             label="预案名称">
           </el-table-column>
           <el-table-column
+            prop="type"
+            :formatter="formatter"
+            label="预案类型">
+          </el-table-column>
+          <el-table-column
             prop="pattern"
             label="格式">
           </el-table-column>
@@ -125,7 +130,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">修改预案</h4>
-            <h5 class="modal-p font-blue">{{this.form.name}}</h5>
+            <h5 class="modal-p font-blue">{{ deviceName }}</h5>
           </div>
           <div class="modal-body">
             <!--
@@ -208,10 +213,14 @@
       }
     },
     methods: {
+      formatter(row){
+        return row.type == 1 ? '火灾预案' : row.type == 2 ? '管理规定' : row.type == 3 ? '疏散预案' : '' ;
+      },
       file(){
         var x = document.getElementById("file");
         if (!x || !x.value) return;
-        var patn = /\.jpg$|\.jpeg$|\.png$|\.pdf$|\.csv$|\.xls$|\.xlsx$|\.doc$|.txt/i;
+        // var patn = /\.jpg$|\.jpeg$|\.png$|\.pdf$|\.csv$|\.xls$|\.xlsx$|\.doc$|.txt/i;
+        var patn = /\.jpg$|\.jpeg$|\.png$|\.pdf$/i;
         if (!patn.test(x.value)) {
           this.fileVerification="文件类型不正确!!";
           x.value = "";
@@ -264,8 +273,9 @@
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
-      start_plan(row,indexs){//修改单位
+      start_plan(row,indexs){//修改预案
         this.deviceIndex = row.id ;
+        this.deviceName = row.name ;
         this.tableData.forEach((item,index)=>{
           if(this.deviceIndex == item.id){
             this.form.id = item.id ;
@@ -345,14 +355,14 @@
       },
       tableList(){
         this.$fetch(
-          "/api/plan/planList",{
+          "/api/plan/planList?types=1&types=2&types=3",
+          {
             currentPage:this.currentPage4,
             pageSize:10,
             unitId:this.unit,
             buildingId:this.building,
-            type:this.type,
-            types:[1,2,3]
-          }
+            type:this.type
+          } 
         )
           .then(response => {
             console.log(response);

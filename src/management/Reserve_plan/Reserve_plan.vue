@@ -24,6 +24,7 @@
     transform: scale(1, 2.5);color: #fff;">&gt;</span>
     </div>
     <!-- #右边 End-->
+    <pdf-vue></pdf-vue>
   </div>
 </template>
 
@@ -32,6 +33,7 @@
   import leftVue from '../left.vue';
   import MainVue from '../main.vue';
   import rightVue from './right.vue';
+  import pdfVue from '../../components/publick/pdf.vue';
   export default {  
     data(){
       return{
@@ -51,7 +53,8 @@
       'header-vue':HeaderVue,
       'left-vue':leftVue,
       'right-vue':rightVue,
-      'main-vue':MainVue
+      'main-vue':MainVue,
+      'pdf-vue':pdfVue
     },
     watch:{
 
