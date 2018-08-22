@@ -301,8 +301,6 @@ export default {
       }else{
         this.getunitid=null;
       }
-
-      // this.$set(this.getBuildIngAssess_parameter,'unitId',this.getunitid)
       this.getBuildIngAssess_parameter.unitId=this.getunitid;
       this.getData();
       
@@ -329,11 +327,9 @@ export default {
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
         var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-        console.log(st+" 至 "+et);
         this.getBuildIngAssess_parameter.startTime = st;
-        console.log(this.getBuildIngAssess_parameter.startTime);
-				//TODO 重新发送请求
-				//this.getData();
+        this.getBuildIngAssess_parameter.endTime = et;
+				this.getData();
 		},
 		defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();

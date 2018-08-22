@@ -172,7 +172,7 @@
 						<section class="my-filter padding5 bg-gray-222 clearfix">
 							<div class="col-sm-12 padding0">
 								<div class="upd-elmdate">
-									<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+									<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
 									</el-date-picker>
 								</div>
 							</div>
@@ -380,6 +380,7 @@
 </template>
 
 <script>
+	import moment from "moment";
 	import HeaderVue from "../publick/header.vue";
 	import { mapState } from "vuex";
 	export default {
@@ -488,6 +489,36 @@
 			}
 		},
 		methods: {
+			chooseTimeRange(t) {
+				this.dateValue = t;
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+				this.troubleCount_parameter.beginTime = st;
+				this.troubleCount_parameter.endTime = et;
+				this.getData();
+			},
+			defaultTimeVaule() {
+				var startDate = this.getNowFormatDate();
+				this.dateValue = [startDate,startDate];
+			},
+			//获取当前时间：
+			getNowFormatDate(){
+				var date = new Date();
+				// var date_s = date.getTime();//转化为时间戳毫秒数
+				// date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
+			},
 			jianzhu() {
 				$(".dan-lineinfo")
 					.addClass("display-block")
@@ -799,6 +830,7 @@
 				this.troubleRate_parameter.unitId = null;
 			}
 			this.$store.commit("route_path", this.$route.path);
+			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
 		}
