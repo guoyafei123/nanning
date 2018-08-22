@@ -59,9 +59,9 @@
 			</div>
 		</section>
 		<section>
-			<div class="toolroute font-gray-999 margin-left37">
+			<div class="toolroute font-gray-999">
 				<span class="toolroute-rect bg-blue"></span>
-				<ul class="padding-left10 padding-right5 clearfix">
+				<ul class="padding-left10 clearfix">
 					<li>
 						<p class="font-gray-666 size-12">中心小学</p>
 					</li>

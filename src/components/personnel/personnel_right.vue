@@ -323,7 +323,6 @@
 				this.getPersionInpectionLog();
 			},
 			unitid(){
-				// console.log(this.queryAlarmData_parmar.unitId)
 				if(this.unitid!=0){
 					this.getunitid=this.unitid;
 				}else{
@@ -338,22 +337,18 @@
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-				console.log(st+" 至 "+et);
-				// this.queryUserCount_parameter.startTime=this.st;
-				// this.queryUserCount_parameter.endTime=this.et;
-				//TODO 重新发送请求
+				this.queryUserCount_parameter.startTime = st;
+				this.queryUserCount_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
-				// this.queryUserCount_parameter.startTime=this.startDate;
-				// this.queryUserCount_parameter.endTime=this.startDate;
 				this.dateValue = [startDate,startDate];
 			},
-			//获取当前时间
+			//获取当前时间：
 			getNowFormatDate(){
 				var date = new Date();
- 				// var date_s = date.getTime();//转化为时间戳毫秒数
+				// var date_s = date.getTime();//转化为时间戳毫秒数
 				// date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
 				var seperator1 = "-";
 				var year = date.getFullYear();
@@ -548,10 +543,10 @@
 		mounted() {
 			// 左侧
 			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
-				this.queryUserCount_parameter=sessionStorage.unitid;
+				this.queryUserCount_parameter.unitId=sessionStorage.unitid;
 			}
 			if(sessionStorage.unitid==0){
-				this.queryUserCount_parameter=null;
+				this.queryUserCount_parameter.unitId==null;
 			}
 			this.$store.commit('route_path', this.$route.path);
 			this.defaultTimeVaule();

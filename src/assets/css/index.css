@@ -19,7 +19,7 @@
 }
 .open-center {
     left: 0!important;
-    padding-left: 37px;
+    padding-left: 20px;
 }
 #unit-manage #manage-center {
     /*padding-bottom: 39px;*/
@@ -58,6 +58,8 @@
 }
 .version-title{
     margin-bottom:4px!important;
+    font-size: 18px;
+    color: #fff;
 }
 .version-num{
     position: relative;
@@ -82,6 +84,7 @@
     top: 0px;
     width: 100%;
     margin-top: 10px;
+    color: #ccc;
 }
 .header-middle ul li{
     display: inline-block;
@@ -143,7 +146,7 @@
 }
 .toolleft {
     margin-top: 120px;
-    padding-left:37px;
+    padding-left:20px;
     padding-right: 10px;
     height: auto;
 }
@@ -301,7 +304,7 @@ p.toolcount-p2 {
 
 /* 右边 */
 .toolright{
-    padding: 120px 37px 0px 20px;
+    padding: 120px 20px 0px 20px;
     height: 100%;
 }
 
@@ -746,7 +749,7 @@ video:hover{
     }
 
     .cardinfo-style p{
-        padding: 0px 10px 0px 0px;
+        padding: 0px 2px 0px 0px;
         font-size: 12px;
         margin-top:10px;
     }

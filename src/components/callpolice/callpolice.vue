@@ -1,5 +1,5 @@
 <template>
-	<div class="row">
+	<div class="row" id="callpolice">
 		<!-- #头部 -->
 		<!-- <header-vue></header-vue> -->
 		<!-- #头部 End-->
@@ -47,9 +47,9 @@
 						</div>
 					</section>
 					<section>
-						<div class="toolroute font-gray-ccc margin-left37">
+						<div class="toolroute font-gray-ccc">
 							<span class="toolroute-rect bg-blue"></span>
-							<ul class="padding-left10 padding-right5 clearfix">
+							<ul class="padding-left10 clearfix">
 								<li>
 									<p class="font-gray-666 size-12">中心小学</p>
 								</li>
@@ -131,7 +131,7 @@
 					<section class="my-filter padding5 bg-gray-222 clearfix">
 						<div class="col-sm-12 padding0">
 							<div class="upd-elmdate">
-								<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+								<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
 								</el-date-picker>
 							</div>
 						</div>
@@ -348,6 +348,7 @@
 </template>
 
 <script>
+	import moment from "moment";
 	import HeaderVue from "../publick/header.vue";
 	import { mapState } from "vuex";
 	// import Call_leftVue from './call_left.vue';
@@ -393,7 +394,7 @@
 						}
 					]
 				},
-				value7: "",
+				dateValue: "",
 
 				queryInspectionNameList: Object,
 				queryInspectionNameListvalue: "全部状态",
@@ -453,6 +454,37 @@
 			}
 		},
 		methods: {
+			chooseTimeRange(t) {
+				this.dateValue = t;
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+				this.getAlarmCount_parameter.beginTime = st;
+				this.getAlarmCount_parameter.endTime = et;
+				this.getData();
+			},
+			defaultTimeVaule() {
+				var startDate = this.getNowFormatDate();
+				this.dateValue = [startDate,startDate];
+			},
+			//获取当前时间：
+			getNowFormatDate(){
+				var date = new Date();
+				// var date_s = date.getTime();//转化为时间戳毫秒数
+				// date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
+			},
+
 			// tab切换  
 			// 实时警报列表展开/折叠
 			openEarlyList() {
@@ -809,6 +841,7 @@
 				this.getAlarmCount_parameter.unitId = null;
 			}
 			this.$store.commit('route_path', this.$route.path);
+			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
 			$("[data-toggle='tooltip']").tooltip();

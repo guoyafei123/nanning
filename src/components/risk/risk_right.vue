@@ -2,17 +2,10 @@
 	<div class="toolright">
 		<!-- 筛选 -->
 		<section class="my-filter padding5 bg-gray-222 clearfix">
-			<!-- 单位筛选 -->
-			<div class="col-sm-3 padding0">
-				<el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="瑞和家园">
-					<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-					</el-option>
-				</el-select>
-			</div>
 			<!-- 日期筛选 -->
 			<div class="col-sm-9 padding0">
 				<div class="upd-elmdate">
-					<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+					<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
 					</el-date-picker>
 				</div>
 			</div>
@@ -116,6 +109,7 @@
 </template>
 
 <script>
+	import moment from "moment";
 	import { mapState } from "vuex";
 	export default {
 
@@ -153,7 +147,7 @@
 						}
 					]
 				},
-				value7: "",
+				dateValue: "",
 				options: [{
 						value: "选项1",
 						label: "怀化市"
@@ -205,6 +199,34 @@
 		},
 
 		methods: {
+			chooseTimeRange(t) {
+				this.dateValue = t;
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+				this.queryTrendMapGraph_parameter.startTime = st;
+				this.queryTrendMapGraph_parameter.endTime = et;
+				this.getData();
+			},
+			defaultTimeVaule() {
+				var startDate = this.getNowFormatDate();
+				this.dateValue = [startDate,startDate];
+			},
+			//获取当前时间：
+			getNowFormatDate(){
+				var date = new Date();
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
+			},
 			getData() {
 				// 请求统计数据
 				this.$fetch("/api/inspection/planInspectionCount").then(response => {
@@ -427,7 +449,9 @@
 			// 右侧图表
 			this.drawPieChart("axis1", null);
 			this.drawLineChart("myChart", null);
+			this.defaultTimeVaule();
 			//this.getData();
+			
 		}
 	};
 </script>

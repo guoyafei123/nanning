@@ -1,5 +1,5 @@
 <template>
-	<div class="row">
+	<div class="row" id="danger">
 		<!-- #头部 -->
 		<!-- <header-vue></header-vue> -->
 		<!-- #头部 End-->
@@ -90,7 +90,7 @@
 					<section>
 						<div class="toolroute font-gray-ccc margin-left37">
 							<span class="toolroute-rect bg-blue"></span>
-							<ul class="padding-left10 padding-right5">
+							<ul class="padding-left10">
 								<li>
 									<p class="font-gray-666 size-12">中心小学</p>
 								</li>
@@ -172,7 +172,7 @@
 						<section class="my-filter padding5 bg-gray-222 clearfix">
 							<div class="col-sm-12 padding0">
 								<div class="upd-elmdate">
-									<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+									<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
 									</el-date-picker>
 								</div>
 							</div>
@@ -380,6 +380,7 @@
 </template>
 
 <script>
+	import moment from "moment";
 	import HeaderVue from "../publick/header.vue";
 	import { mapState } from "vuex";
 	export default {
@@ -461,8 +462,7 @@
 				// 折线图数据
 				troubleRate_parameter: {
 					unitId: null,
-					beginTime: "2018-06-21",
-					endTime: "2019-07-12",
+					dateType: "1"
 				},
 				troubleRate: Object,
 				// 隐患详情
@@ -488,6 +488,36 @@
 			}
 		},
 		methods: {
+			chooseTimeRange(t) {
+				this.dateValue = t;
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+				this.troubleCount_parameter.beginTime = st;
+				this.troubleCount_parameter.endTime = et;
+				this.getData();
+			},
+			defaultTimeVaule() {
+				var startDate = this.getNowFormatDate();
+				this.dateValue = [startDate,startDate];
+			},
+			//获取当前时间：
+			getNowFormatDate(){
+				var date = new Date();
+				// var date_s = date.getTime();//转化为时间戳毫秒数
+				// date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
+			},
 			jianzhu() {
 				$(".dan-lineinfo")
 					.addClass("display-block")
@@ -565,13 +595,12 @@
 							this.draw_piemin("dan_charpiemin", this.troubleCount);
 							this.draw_piemax("dan_charpiemax", this.troubleRatio);
 						}
-					})
-					.then(err => {
+					}).then(err => {
 						console.log(err);
 					});
-
-				// 请求折线图数据
-				this.$fetch("/api/trouble/troubleRate", this.troubleRate_parameter)
+				// FIXME 已更改为日月年格式需要重新接 
+				// 请求折线图数据 
+				this.$fetch("/api/trouble/queryTroubleLineChart", this.troubleRate_parameter)
 					.then(response => {
 						if(response) {
 							this.troubleRate = response.data;
@@ -799,6 +828,7 @@
 				this.troubleRate_parameter.unitId = null;
 			}
 			this.$store.commit("route_path", this.$route.path);
+			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
 		}

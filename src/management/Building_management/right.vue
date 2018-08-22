@@ -116,7 +116,7 @@
                       <span>总楼层 </span>
                       <strong v-html="this.form.floor"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>建筑年份 </span>
                       <strong v-html="this.form.timeYear"></strong>
                   </div>
@@ -148,7 +148,7 @@
     <div class="font-white total" style="display:none;">
       <!-- 总数统计 -->
         <section class="toolcount clearfix">
-          <ul class="toolcount-left padding0 col-sm-3">
+          <ul class="toolcount-left padding0">
             <li>
               <p class="size-10 font-gray-666">Building Total</p>
             </li>

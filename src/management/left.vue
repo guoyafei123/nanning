@@ -9,7 +9,7 @@
             </el-tooltip>
           </router-link>
           <el-tooltip class="item" content="收起导航" placement="top">
-          <a class="span_show margin-top20">            
+          <a class="span_show">
               <i class="el-icon-arrow-left"></i> 收起                       
           </a>
         </el-tooltip> 

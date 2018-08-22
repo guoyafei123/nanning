@@ -66,7 +66,8 @@
         firemenName:'',
         firemenTel:'',          
         // corporation:'',
-        tableData:[]
+        tableData:[],
+        currentPage:1
       }
     },
     methods: {

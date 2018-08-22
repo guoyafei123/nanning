@@ -9,22 +9,23 @@
                       {{buildCountDataStats.TOTALBUILD ? buildCountDataStats.TOTALBUILD:"0"}}
                     </h1>
                   </li>
+                  <li><p class="size-10">Buliding Total</p></li>
                   <li>
-                    <p class="size-18 font-blue">建筑数量</p>
+                    <p class="size-18 font-blue">建筑总数</p>
                   </li>
                 </ul> 
               </div>
               <div class="col-sm-6 font-gray-999 padding-left0 padding-right0 size-12">
                 <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
-                  <li class="margin-top10">
+                  <li class="margin-top60">
                     <p class="set-width-50">木质结构</p>
-                    <p class="display-inline-block font-white font-italic size-14">
+                    <p class="display-inline-block font-white size-14">
                       {{buildCountDataStats.STRUCTURE ? buildCountDataStats.STRUCTURE:"0"}}
                     </p>
                   </li>
-                  <li class="margin-top10">
+                  <li>
                     <p class="set-width-50">高层建筑</p>
-                    <p class="display-inline-block font-yellow font-italic size-14">
+                    <p class="display-inline-block font-yellow size-14">
                       {{buildCountDataStats.HIGHRISE ? buildCountDataStats.HIGHRISE:"0"}}
                     </p>
                   </li>
@@ -33,7 +34,7 @@
             </div>
           </section>
           <section>
-            <div class="toolcompanyrate margin-top20" @click="tobuildDetailinfo(buildCountDataSocre)">
+            <div class="toolcompanyrate margin-top30" @click="tobuildDetailinfo(buildCountDataSocre)">
               <ul class="row padding0 margin0 size-12 font-gray-999">
                 <li class="col-sm-12">
                   <div class="row margin0 padding0">
@@ -57,9 +58,9 @@
 			</div>
 		</section>
 		<section>
-			<div class="toolroute font-gray-ccc margin-left37 margin-top20">
+			<div class="toolroute font-gray-ccc margin-top30">
 				<span class="toolroute-rect bg-blue"></span>
-				<ul class="padding-left10 padding-right5 clearfix">
+				<ul class="padding-left10 clearfix">
 					<li>
 						<p class="font-gray-666 size-12">中心小学</p>
 					</li>

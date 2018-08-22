@@ -182,7 +182,7 @@
     <div class="total" style="display: none;">      
         <!-- 总数统计 -->
         <section class="toolcount clearfix">
-          <ul class="toolcount-left padding0 col-sm-3">
+          <ul class="toolcount-left padding0">
             <li>
               <p class="size-10 font-gray-666">Device Total</p>
             </li>
