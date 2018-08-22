@@ -628,25 +628,25 @@ header,
 }
 
 table{
-    overflow: hidden;
+    /* overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
-    cursor: pointer;
+    cursor: pointer; */
 }
 .table-responsive{
-    overflow-x: hidden !important;
+    /* overflow-x: hidden !important; */
 }
 .table-fixedwidth{
-    overflow: hidden !important;
+    /* overflow: hidden !important;
     text-overflow:ellipsis !important;
-    white-space: nowrap !important;
+    white-space: nowrap !important; */
 }
 table th,table td{
-    max-width: 100px !important;
-    text-align: center !important;
+    /* max-width: 100px !important; */
+    /* text-align: center !important; */
 }
 .mini-table td{
-    overflow:hidden; text-overflow:ellipsis;
+    /* overflow:hidden; text-overflow:ellipsis; */
 }
 
 

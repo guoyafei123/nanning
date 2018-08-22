@@ -60,7 +60,9 @@ var state={
   countUnitPlan:Object,
   // pdf弹窗
   topdf:Object,
-  topersonitem:Object
+  topersonitem:Object,
+  // 综合页面传入报警和隐患详情
+  aleamAndtroubleInfo:Object,
 }
 
 var mutations={
@@ -205,6 +207,10 @@ var mutations={
   },
   topdf(state,data){
     state.topdf=data;
+  },
+  aleamAndtroubleInfo(state,data){
+    state.aleamAndtroubleInfo=data;
+    console.log(state.aleamAndtroubleInfo);
   },
 }
 
