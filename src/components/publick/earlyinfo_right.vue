@@ -5,28 +5,30 @@
 			<ul class="list-unstyled">
 				<!-- 介绍 -->
 				<li class="position-relative">
-					<div class="position-absolute-bottom clearfix">
-						<!-- 单位信息 -->
-						<article class="unit-brief white-space col-sm-10">
-							<h3>南宁市良庆区</h3>
-							<small><i class="el-icon-location"></i> 广西省南宁市良庆区银海大道710-2号</small>
-						</article>
-						<!-- 安全评分 -->
-						<article class="unit-score">
-							<span class="badge bg-blue position-absolute-right size-10">安全评分</span>
-							<!-- 分数 -->
-							<h1 class="font-red">2.<sub>6</sub></h1>
-							<!-- 上升下降标识 -->
-							<small class="font-white"><i class="fas fa-arrow-down" title="下降"></i></small>
-						</article>
-					</div>
+					<template>
+						<div class="position-absolute-bottom clearfix">
+							<!-- 单位信息 -->
+							<article class="unit-brief white-space col-sm-10" v-if="queryUnitInfo_parmar.unitId!=0">
+								<h3 class="size-20">{{queryUnitInfoinfo.name}}</h3>
+								<small><i class="el-icon-location"></i> {{queryUnitInfoinfo.location}}</small>
+							</article>
+							<!-- 安全评分 -->
+							<article class="unit-score" v-if="queryUnitInfo_parmar.unitId!=0">
+								<span class="badge bg-blue position-absolute-right">安全评分</span>
+								<!-- 分数 -->
+								<h1 class="font-red">12</h1>
+								<!-- 上升下降标识 -->
+								<!-- <small class="font-white"><i class="fas fa-arrow-down" data-toggle="tooltip" title="下降"></i></small> -->
+							</article>
+						</div>
+					</template>
 					<!-- 单位图片 -->
-					<img src="../../assets/images/jpg01.jpg" class="img-responsive center-block" alt="单位图片">
+					<img :src="queryUnitInfoimg" :onerror="defaultImg" class="img-responsive center-block" alt="单位图片">
 				</li>
 				<!-- 统计1 -->
 				<li>
 					<div class="pull-left">
-						<h4>段亚伟 <small>15600237854</small></h4>
+						<h4>{{queryUnitInfoinfo.firemenName}} </h4>
 						<small>消防负责人</small>
 					</div>
 					<div class="pull-right">
@@ -182,3 +184,72 @@
 		</section>
 	</div>
 </template>
+
+<script>
+	import{mapState} from "vuex";
+	export default {
+		data(){
+			return{
+				aleamAndtroubleInfos:Object,
+				queryUnitInfoimg:require('../../assets/images/jpg01.jpg'),
+				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"',
+				queryUnitInfo_parmar:{
+					unitId:0
+				},
+				queryUnitInfo:Object,
+				queryUnitInfoinfo:Object,
+				getUnitsSynthesis_parmar:{
+					unitId:null
+				},
+				getUnitsSynthesis
+			}
+		},
+		computed:mapState([
+			'aleamAndtroubleInfo'
+		]),
+		watch:{
+			aleamAndtroubleInfo(){
+				this.fn();
+			}
+		},
+		methods: {
+			fn(){
+				this.aleamAndtroubleInfos=this.aleamAndtroubleInfo[0];
+				// alert(this.aleamAndtroubleInfos[0].unitName)
+				this.queryUnitInfo_parmar.unitId=this.aleamAndtroubleInfos.unitId;
+				this.getqueryUnitInfo();
+				this.getgetUnitsSynthesis();
+			},
+			getqueryUnitInfo() {
+				this.$fetch(
+					"/api/unit/queryUnitInfo",
+					this.queryUnitInfo_parmar
+				).then(response => {
+					if(response.data) {
+						this.queryUnitInfo = response.data;
+						this.queryUnitInfoinfo=response.data.unitInfo
+						
+						if(this.queryUnitInfo_parmar.unitId==null || this.queryUnitInfo_parmar.unitId==0){
+							this.queryUnitInfoimg = require('../../assets/images/jpg01.jpg');
+						}else{
+							this.queryUnitInfoimg = 'http://img.nanninglq.51play.com/xf/api/unit_img/'+this.queryUnitInfo_parmar.unitId+'.jpg';
+						}
+					}
+				});
+			},
+			getgetUnitsSynthesis() {
+				this.$fetch(
+					"/api/unit/getUnitsSynthesis",
+					this.getUnitsSynthesis_parmar
+				).then(response => {
+					if(response.data) {
+						this.getUnitsSynthesis = response.data.result;
+					}
+				});
+			},
+		},
+		mounted(){
+			this.fn();
+		}
+	}
+</script>

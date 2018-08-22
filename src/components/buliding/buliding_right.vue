@@ -6,7 +6,7 @@
                 <div class="col-sm-9 padding0">
                 <div class="upd-elmdate">
                     <el-date-picker
-                    v-model="value7"
+                    v-model="dateValue"
                     size="mini"
                     type="daterange"
                     align="right"
@@ -14,7 +14,8 @@
                     range-separator="至"
                     start-placeholder="开始日期"
                     end-placeholder="结束日期"
-                    :picker-options="pickerOptions2">
+                    :picker-options="pickerOptions2"
+                    @change="chooseTimeRange">
                     </el-date-picker>
                 </div>
                 </div>
@@ -206,6 +207,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import{mapState} from "vuex";
 export default {
   data() {
@@ -242,12 +244,13 @@ export default {
           }
         ]
       },
+      dateValue: '',
       //点击接收的参数对象
       builddata: Object,
       getBuildIngAssess_parameter: {
         unitId: null,
-        beginTime: '2017-07-02',
-        endTime: '2017-08-20'
+        startTime: "2018-06-01",
+				endTime: "2018-08-09"
       },
       getBuildIngAssess: Object,
       //建筑安全评分级别
@@ -298,7 +301,7 @@ export default {
       }else{
         this.getunitid=null;
       }
-      this.getBuildIngAssess_parameter=this.getunitid;
+      this.getBuildIngAssess_parameter.unitId=this.getunitid;
       this.getData();
       
     }
@@ -320,6 +323,36 @@ export default {
         .addClass("display-none")
         .removeClass("display-block");
     },
+    chooseTimeRange(t) {
+				this.dateValue = t;
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+        var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+        this.getBuildIngAssess_parameter.startTime = st;
+        this.getBuildIngAssess_parameter.endTime = et;
+				this.getData();
+		},
+		defaultTimeVaule() {
+				var startDate = this.getNowFormatDate();
+				this.dateValue = [startDate,startDate];
+		},
+		//获取当前时间：
+		getNowFormatDate(){
+				var date = new Date();
+ 				// var date_s = date.getTime();//转化为时间戳毫秒数
+				// date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
+		},
     getData() {
       // 请求统计数据
       this.$fetch("/api/building/getBuildIngAssess",this.getBuildIngAssess_parameter).then(response => {
@@ -500,11 +533,12 @@ export default {
   },
   mounted() {
     if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
-      this.getBuildIngAssess_parameter=sessionStorage.unitid;
+      this.getBuildIngAssess_parameter.unitId=sessionStorage.unitid;
     }
     if(sessionStorage.unitid==0){
-      this.getBuildIngAssess_parameter=null;
+      this.getBuildIngAssess_parameter.unitId=null;
     }
+    this.defaultTimeVaule();
     this.getData();
   }
 };
