@@ -54,6 +54,11 @@
             label="序号">
           </el-table-column>
           <el-table-column
+            prop="name"
+            :show-overflow-tooltip="true"
+            label="预案名称">
+          </el-table-column>
+          <el-table-column
             prop="unitName"
             :show-overflow-tooltip="true"
             label="单位名称">
@@ -62,11 +67,7 @@
             prop="buildingName"
             :show-overflow-tooltip="true"
             label="建筑名称">
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="预案名称">
-          </el-table-column>
+          </el-table-column>          
           <el-table-column
             prop="pattern"
             label="格式">

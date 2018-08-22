@@ -1,5 +1,5 @@
 <template>
-  <div class="row" id="log">
+  <div class="row" id="ControlRoomLog">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->
@@ -16,13 +16,9 @@
     <section id="right" class="position-fixed-right z-index-20">
       <div class="overlay"></div>
     </section>
-    <div class="fix" @click="show" style="display:none;width:20px;height:60px;position: fixed;top:35%;left:0;background:#333;text-align:center;line-height: 60px;">
-      <span style="font-size: 23px;
-    display: block;
-    font-weight: normal;
-    transform: scale(1, 2.5);color: #fff;">&gt;</span>
-    </div>
     <!-- #右边 End-->
+    <!-- 收起导航 -->
+    <div class="fix" @click="hide_left"><i class="el-icon-arrow-right"></i></div>
   </div>
 </template>
 
@@ -39,10 +35,10 @@
       }
     },
     methods:{
-      show(){
-        $('main').css('margin-left','17.58%');
-        $("#left").css('width','17.58%');
-        $('.show_left').slideToggle(1000,function(){
+      hide_left(){
+        $('#manage-center').removeClass('open-center');
+        $("#left").addClass('open-left'); 
+        $('.show_left').animate({'left':'toggle'},200,function(){
           $('.fix').hide();
         });
       }

@@ -186,7 +186,7 @@
                   <h4 class="p-title">
                     安全评分占比
                   </h4>
-					<div id="pieb1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+					<div id="pieb1" class="margin-top10" style="width: 100%;height:180px;margin: 0 auto;"></div>
 				</div>
 			</section>
 			<section>
@@ -359,7 +359,8 @@ export default {
         legend: {
           orient: "vertical",
           left: "left",
-          data: ["0-2", "2-4", "4-6", "6-8","8-10"]
+          data: ["0-2", "2-4", "4-6", "6-8","8-10"],
+          
         },
         series: [
           {
@@ -367,18 +368,25 @@ export default {
             type: "pie",
             radius: "55%",
             center: ["50%", "60%"],
+            label: {
+              normal: {                
+                color:"#fff",
+                fontsize:"10px"
+              }
+            },
             data: [
               { value: a, name: "0-2" },
               { value: b, name: "2-4" },
               { value: c, name: "4-6" },
               { value: d, name: "6-8" },
-              { value: e, name: "8-10" }
+              { value: e, name: "8-10" }             
             ],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)"
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+
               }
             }
           }
