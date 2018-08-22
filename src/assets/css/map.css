@@ -142,45 +142,52 @@
 .shadow-red{box-shadow:inset 0px 0px 100px #f13131}
 
 .alarm-item{
-    animation: alarmani 6s ease-out  infinite;
+    animation: alarmani 12s ease-out 4s infinite ;
 }
 .alarm-item1{
-    animation: alarmani 6s ease-out 5s infinite;
+    animation: alarmani 12s ease-out 3s infinite ;
 }
 .alarm-item2{
-    animation: alarmani 6s ease-out 4s infinite;
+    animation: alarmani 12s ease-out 2s infinite ;
 }
 .alarm-item3{
-    animation: alarmani 6s ease-out 3s infinite;
+    animation: alarmani 12s ease-out 1s infinite ;
 }
 .alarm-item4{
-    animation: alarmani 6s ease-out 2s infinite;
+    animation: alarmani 12s ease-out 0s infinite ;
 }
-.alarm-item5{
-    animation: alarmani 6s ease-out 1s infinite;
-}
+/* .alarm-item5{
+    animation: alarmani 20s ease-out 0s infinite ;
+} */
 
 @keyframes alarmani
 {
     0% {width: 0%;height: 0%;}
     10%{width: 50%;height: 50%;}
+    50%{width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
     100% {width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
 }
 
 @-moz-keyframes alarmani
 {
-    from {width: 0%;height: 0%;}
-    to {width: 100%;height: 100%;}
+    0% {width: 0%;height: 0%;}
+    10%{width: 50%;height: 50%;}
+    25%{width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
+    100% {width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
 }
 
 @-webkit-keyframes alarmani
 {
-    from {width: 0%;height: 0%;}
-    to {width: 100%;height: 100%;}
+    0% {width: 0%;height: 0%;}
+    10%{width: 50%;height: 50%;}
+    25%{width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
+    100% {width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
 }
 
 @-o-keyframes alarmani
 {
-    from {width: 0%;height: 0%;}
-    to {width: 100%;height: 100%;}
+    0% {width: 0%;height: 0%;}
+    10%{width: 50%;height: 50%;}
+    25%{width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
+    100% {width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
 }

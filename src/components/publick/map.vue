@@ -655,9 +655,6 @@
                 <span class="alarm-ani alarm-item4 ` +
 					style_shadow +
 					`"></span>
-                <span class="alarm-ani alarm-item5 ` +
-					style_shadow +
-					`"></span>
                 <span class="alarm-min ` +
 					style_bg +
 					`"></span>
