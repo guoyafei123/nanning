@@ -599,6 +599,9 @@
         console.log(this.currentPage4);
         this.tableList();
       },
+      currentPage(){
+        this.currentPage4 = this.currentPage ;
+      },
       form:{
       
         handler(curVal,oldVal){
@@ -661,7 +664,8 @@
     computed:mapState([
       'form',
       'region',
-      'inspectionId'
+      'inspectionId',
+      'currentPage'
     ])
   }
 </script>

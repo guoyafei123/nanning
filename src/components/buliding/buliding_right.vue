@@ -6,7 +6,7 @@
                 <div class="col-sm-9 padding0">
                 <div class="upd-elmdate">
                     <el-date-picker
-                    v-model="value7"
+                    v-model="dateValue"
                     size="mini"
                     type="daterange"
                     align="right"
@@ -14,7 +14,8 @@
                     range-separator="至"
                     start-placeholder="开始日期"
                     end-placeholder="结束日期"
-                    :picker-options="pickerOptions2">
+                    :picker-options="pickerOptions2"
+                    @change="chooseTimeRange">
                     </el-date-picker>
                 </div>
                 </div>
@@ -179,7 +180,7 @@
                   <h4 class="p-title">
                     安全评分占比
                   </h4>
-					<div id="pieb1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+					<div id="pieb1" class="margin-top10" style="width: 100%;height:180px;margin: 0 auto;"></div>
 				</div>
 			</section>
 			<section>
@@ -206,6 +207,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import{mapState} from "vuex";
 export default {
   data() {
@@ -242,12 +244,13 @@ export default {
           }
         ]
       },
+      dateValue: '',
       //点击接收的参数对象
       builddata: Object,
       getBuildIngAssess_parameter: {
         unitId: null,
-        beginTime: '2017-07-02',
-        endTime: '2017-08-20'
+        startTime: "2018-06-01",
+				endTime: "2018-08-09"
       },
       getBuildIngAssess: Object,
       //建筑安全评分级别
@@ -320,6 +323,36 @@ export default {
         .addClass("display-none")
         .removeClass("display-block");
     },
+    chooseTimeRange(t) {
+				this.dateValue = t;
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+        var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+        console.log(st+" 至 "+et);
+				//TODO 重新发送请求
+				//this.getData();
+		},
+		defaultTimeVaule() {
+				var startDate = this.getNowFormatDate();
+				this.dateValue = [startDate,startDate];
+		},
+		//获取当前时间：
+		getNowFormatDate(){
+				var date = new Date();
+ 				// var date_s = date.getTime();//转化为时间戳毫秒数
+				// date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
+		},
     getData() {
       // 请求统计数据
       this.$fetch("/api/building/getBuildIngAssess",this.getBuildIngAssess_parameter).then(response => {
@@ -352,7 +385,8 @@ export default {
         legend: {
           orient: "vertical",
           left: "left",
-          data: ["0-2", "2-4", "4-6", "6-8","8-10"]
+          data: ["0-2", "2-4", "4-6", "6-8","8-10"],
+          
         },
         series: [
           {
@@ -360,18 +394,25 @@ export default {
             type: "pie",
             radius: "55%",
             center: ["50%", "60%"],
+            label: {
+              normal: {                
+                color:"#fff",
+                fontsize:"10px"
+              }
+            },
             data: [
               { value: a, name: "0-2" },
               { value: b, name: "2-4" },
               { value: c, name: "4-6" },
               { value: d, name: "6-8" },
-              { value: e, name: "8-10" }
+              { value: e, name: "8-10" }             
             ],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)"
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+
               }
             }
           }
@@ -497,6 +538,7 @@ export default {
     if(sessionStorage.unitid==0){
       this.getBuildIngAssess_parameter=null;
     }
+    this.defaultTimeVaule();
     this.getData();
   }
 };

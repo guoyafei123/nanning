@@ -16,87 +16,71 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="消息类型" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="选择类型" class="col-sm-4">
-              <el-option label="公告" value="公告"></el-option>
-              <el-option label="活动" value="活动"></el-option>
-            </el-select>
-          </el-form-item> 
-          <el-form-item label="所属单位" class="not-null">
-            <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-4">
+        <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+          <el-form-item label="所属单位" prop="unitId" class="not-null">
+            <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-8">
               <!-- <el-option label="全部单位" value=""></el-option> -->
-              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+              <el-option v-for="item in form.optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="主题" class="not-null">
-            <span class="hint-error">消息主题重复</span>
+          <el-form-item label="建筑" prop="buildingId" class="not-null">
+            <el-select v-model="form.buildingId" placeholder="请选择建筑" class="col-sm-8">
+              <el-option
+                v-for="item in form.buildList"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="活动名称" prop="name" class="not-null">
             <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="活动时间" class="not-null">
-            <div class="block col-sm-12">
-            <el-date-picker 
-              v-model="value5"
-              type="datetimerange"
-              :picker-options="pickerOptions2"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期">
+          <el-form-item label="举办时间" prop="startTime" class="not-null col-sm-8">
+            <el-date-picker
+              v-model="form.startTime"
+              type="datetime"
+              placeholder="选择日期时间">
             </el-date-picker>
-          </div>
           </el-form-item>
           <div class="col-sm-12">
             <div class="row">                
-                <el-form-item label="重要性" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="重要" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                <el-form-item label="活动重要性" prop="levels" class="not-null col-sm-6">
+                  <el-select v-model="form.levels" placeholder="请选择活动重要性" class="select">
+                    <el-option v-for="item in form.levelsList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="预计人数" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="100" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                <el-form-item label="参加人数" prop="activeUserNumber" class="not-null col-sm-6">
+                  <el-input v-model="form.activeUserNumber" placeholder="请输入参加人数（示例：1~3）"></el-input>
+                </el-form-item>
+                <el-form-item label="活动是否禁烟" prop="smoking" class="not-null col-sm-6">
+                  <el-select v-model="form.smoking" placeholder="请选择" class="select">
+                    <el-option v-for="item in form.smokingList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="危险源" class="not-null col-sm-4">
-                  <el-select v-model="form.unitId" placeholder="请选择" class="select">
-                    <el-option label="是" value=""></el-option>
-                    <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                <el-form-item label="是否有明火" prop="fire" class="not-null col-sm-6">
+                  <el-select v-model="form.fire" placeholder="请选择" class="select">
+                    <el-option v-for="item in form.fireList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="明火" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="是" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="禁烟" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="是" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="场地空旷" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                    <el-option label="是" value=""></el-option>
-                    <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
+                <el-form-item label="引入危险源" prop="dangerSource" class="not-null col-sm-6">
+                  <el-select v-model="form.dangerSource" placeholder="请选择" class="select">
+                    <el-option v-for="item in form.dangerSourceList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
             </div>
           </div>          
-          <el-form-item label="内容" class="col-sm-12">
+          <el-form-item label="活动内容" prop="content" class="not-null col-sm-12">
             <el-input
               type="textarea"
               :rows="6"
               placeholder="请输入内容"
-              v-model="form.cont">
+              v-model="form.content">
             </el-input>
           </el-form-item>                 
         </el-form>
       </div>
       <div class="main_footer">
-        <a class="btn-ok" data-toggle="modal" data-target="#mymodal"><i class="el-icon-circle-check-outline"></i> 提交</a>
+        <a class="btn-ok" @click="btn_ok('form')"><i class="el-icon-circle-check-outline"></i> 提交</a>
         <router-link to="/Message_management/notice" class="btn-back">返回</router-link>
       </div>
       <!-- 确认Modal -->
@@ -109,8 +93,8 @@
               <h5 class="modal-p">该操作会立即生效并发送通知</h5>
             </div>
             <div class="modal-body text-center container-padding40">
-                  <h3 class="font-blue size-14">确认立刻发送该公告吗?</h3>
-                  <p class="font-white size-16">显示消息主题</p>
+                  <h3 class="font-blue size-14">确认立刻发送该活动通知吗?</h3>
+                  <p class="font-white size-16">{{ this.form.title }}</p>
             </div>
             <div class="modal-footer">
               <el-button type="danger" @click="btn" icon="icon iconfont icon-fasong-xian-" class="primary" data-dismiss="modal">发送</el-button>
@@ -124,154 +108,169 @@
 </template>
 
 <script>
+import { isvalidName } from '../../assets/js/validate';
     export default {
       data() {
+        var validName=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入活动名称'))
+            }else  if (!isvalidName(value)){
+              callback(new Error('请输入正确的活动名称'))
+            }else {
+              callback()
+            }
+        }
         return {
           labelPosition: 'top',
           form: {
+            unitId:'',
+            unitName:'',
+            optionList:[],
             name:'',
-            property:'',
-            staffNum:'',
-            location:'',
-            telephone:'',
-            firemenName:'',
-            firemenTel:'',          
-            corporation:'',
-            point:{
-              pointX:'',
-              pointY:''
-            }
+            levels:'',
+            levelsList:[
+              { id:1,name:'囯事重要活动' },
+              { id:2,name:'民事重要活动' },
+              { id:3,name:'民事一般活动' }
+            ],
+            content:'',
+            startTime:'',
+            buildingId:'',
+            buildingName:'',
+            buildList:[],
+            activeUserNumber:'',
+            smoking:'',
+            smokingList:[
+              { id:1,name:'是' },
+              { id:2,name:'否' }
+            ],
+            fire:'',
+            fireList:[
+              { id:1,name:'有' },
+              { id:2,name:'无' }
+            ],
+            dangerSource:'',
+            dangerSourceList:[
+              { id:1,name:'多' },
+              { id:2,name:'中' },
+              { id:3,name:'少'}
+            ]
           },
-          isShow:false,
-          fileVerification:'',//图片验证
-          // 时间区间
-          pickerOptions2: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
-        value5: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)]
+          rules: {
+            unitId:[
+              { required: true, message: '请选择单位', trigger: 'change' }
+            ],
+            buildingId:[
+              { required: true, message: '请选择建筑', trigger: 'change' }
+            ],
+            name:[
+              { required: true, trigger: 'blur', validator: validName }
+            ],
+            startTime:[
+              { type: 'date', required: true, message: '选择活动时间', trigger: 'change' }
+            ],
+            levels:[
+              { required: true, message: '请选择活动重要性', trigger: 'change' }
+            ],
+            activeUserNumber:[
+              { required: true, message: '请输入参加人数', trigger: 'blur' }
+            ],
+            smoking:[
+              { required: true, message: '请选择该活动是否禁烟', trigger: 'change' }
+            ],
+            fire:[
+              { required: true, message: '请确认是否有明火', trigger: 'change' }
+            ],
+            dangerSource:[
+              { required: true, message: '请确认引入危险源', trigger: 'change' }
+            ],
+            content:[
+              { required: true, message: '请填写公告内容', trigger: 'blur' }
+            ]
+          }
         }
       },
       methods:{
-        file(){
-          var x = document.getElementById("file");
-          if (!x || !x.value) return;
-          var patn = /\.jpg$|\.jpeg$|\.png$/i;
-          if (!patn.test(x.value)) {
-            this.fileVerification="您选择的似乎不是图像文件!!";
-            x.value = "";
-            this.isShow = false ;
-            $("#up_img").attr("src",'');
-            return;
-          }
-          this.isShow = true ;
-          $("#up_img").attr("src", this.getObjectURL($("#file")[0]));
-          this.fileVerification="";
-        },
-        getObjectURL(node) {
-            var imgURL = "";
-            try {
-                var file = null;
-                if (node.files && node.files[0]) {
-                    file = node.files[0];
-                } else if (node.files && node.files.item(0)) {
-                    file = node.files.item(0);
-                }
-                //Firefox 因安全性问题已无法直接通过input[file].value 获取完整的文件路径
-                try {
-                    //Firefox7.0
-                    imgURL = file.getAsDataURL();
-                    //alert("//Firefox7.0"+imgRUL);
-                } catch (e) {
-                    //Firefox8.0以上
-                    imgURL = window.URL.createObjectURL(file);
-                    //alert("//Firefox8.0以上"+imgRUL);
-                }
-            } catch (e) {      //这里不知道怎么处理了，如果是遨游的话会报这个异常
-                //支持html5的浏览器,比如高版本的firefox、chrome、ie10
-                if (node.files && node.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        imgURL = e.target.result;
-                    };
-                    reader.readAsDataURL(node.files[0]);
-                }
-            }
-            return imgURL;
-        },
-        btn(){
-          var file = "file";
-          
-          
-          $.ajaxFileUpload({
-            url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
-            /* secureuri : false, */ //一般设置为false
-            fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
-            data : {
-              'name':this.form.name,
-              'property':this.form.property,
-              'staffNum':this.form.staffNum,
-              'location':this.form.location,
-              'telephone':this.form.telephone,
-              'firemenName':this.form.firemenName,
-              'firemenTel':this.form.firemenTel,
-              'corporation':this.form.corporation,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY
-            },
-            type: 'POST',
-            dataType: "plain",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-            
-        
-            },
-            error: function (e) { //服务器响应失败处理函数
-              $.messager.alert('警告', "系统错误", "warning");
-            },
-            complete: function (e) {//只要完成即执行，最后执行
-              // console.log(e) 
-
-              this.$router.push({path:'/Message_management/all'});
+        btn_ok(formName){
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              $('.btn-ok').attr('data-toggle','modal');
+              $('.btn-ok').attr('data-target','#mymodal')
+            } else {
+              this.$message.error('请把信息填写完整！！');
+              return false;
             }
           });
         },
+        btn(){
+          this.form.optionList.forEach((item,index)=>{
+            if(item.id == this.form.unitId){
+              this.form.unitName = item.name ;
+            }
+          });
+          this.form.buildList.forEach((item,index)=>{
+            if(item.id == this.form.buildingId){
+              this.form.buildingName = item.name ;
+            }
+          })
+          this.$fetch("/api/event/sendEventMessage",{
+            name:this.form.name,
+            levels:this.form.levels,
+            activeUserNumber:this.form.activeUserNumber,
+            startTime:this.form.startTime,
+            smoking:this.form.smoking,
+            fire:this.form.fire,
+            dangerSource:this.form.dangerSource,
+            content:this.form.content,
+            unitId:this.form.unitId,
+            unitName:this.form.unitName,
+            buildingId:this.form.buildingId,
+            buildingName:this.form.buildingName
+          }).then(res=>{
+            console.log(res);
+            this.$router.push({path:'/Message_management/activity'});
+            this.$message({
+              message: '发布系统公告成功！！',
+              type: 'success'
+            });
+          })
+        },
         back(){
-          this.$router.push({path:'/Message_management/all'});
+          this.$router.push({path:'/Message_management/activity'});
           $('#right').show();
+        },
+        unitSearch(){
+          this.$fetch(
+            "/api/unit/queryUnit"
+          )
+          .then(response => {
+            if (response) {
+              console.log(response);
+              this.form.optionList = response.data.unitList;
+              console.log(this.form.optionList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+          .then(err => {
+            // console.log(err);
+          });
+        },
+         buildSearch(unitId){
+          this.$fetch("/api/building/selectNode",{
+            unitId:unitId
+          }).then(response=>{
+            console.log('buildSearch:'+JSON.stringify(response));
+            if (response) {
+              this.form.buildList = response.data.list;
+              console.log(this.form.buildList);
+            }
+          })
         }
       },
       mounted(){
-        $('.el-scrollbar').css({
-            'background':'#000'
-        });
-        $('.el-select-dropdown').css('border-color','#333');
-        $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
+       this.unitSearch();
       }
     }
 </script>

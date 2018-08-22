@@ -54,20 +54,12 @@
           <el-table-column
             prop="name"
             :show-overflow-tooltip="true"
-            label="主题">
-          </el-table-column>
-          <el-table-column
-            prop="firemenName"
-            label="类型">
+            label="标题">
           </el-table-column>
           <el-table-column
             prop="telephone"
             label="所属单位">
           </el-table-column>
-          <el-table-column
-            prop="telephone"
-            label="状态">
-          </el-table-column>  
           <el-table-column
             prop="staffNum"
             label="发布人">
@@ -115,21 +107,6 @@
     data() {
       return {
         labelPosition: 'top',
-        form: {
-          id:'',
-          name:'',
-          property:'',
-          staffNum:'',
-          location:'',
-          telephone:'',
-          firemenName:'',
-          firemenTel:'',          
-          corporation:'',
-          point:{
-            pointX:'',
-            pointY:''
-          }
-        },
         value4: '',
         tableData: [],//单位列表
         page:null,//总页数
@@ -153,7 +130,7 @@
       },
       tableList(){
         this.$fetch(
-          "/api/unit/queryPagerUnitList",{
+          "/api/event/getEventById",{
             currentPager:this.currentPage4,
             pagerSize:10
           }

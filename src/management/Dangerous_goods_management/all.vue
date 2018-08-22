@@ -430,6 +430,7 @@
       },
       show3(row){//跳转
         console.log(row.id);
+        this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('dangerId',row.id);
         $('.plan').show();
         $('.mapTable').hide();

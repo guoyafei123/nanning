@@ -16,16 +16,16 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="预案名称" class="not-null">
+        <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+          <el-form-item label="预案名称" prop="name" class="not-null">
             <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="单位" class="not-null">
+          <el-form-item label="单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="请选择单位"  class="col-sm-8">
               <el-option v-for="item in form.optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="建筑" class="not-null">
+          <el-form-item label="建筑" prop="building" class="not-null">
             <el-select
                 v-model="form.building"
               placeholder="请选择建筑"   class="col-sm-8">
@@ -36,7 +36,7 @@
                 </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="楼层" class="not-null">
+          <el-form-item label="楼层" prop="floor" class="not-null">
             <el-select
                 v-model="form.floor"
               placeholder="请选择楼层"   class="col-sm-8">
@@ -61,7 +61,7 @@
         </el-form>
       </div>
       <div class="main_footer">
-        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+        <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
         <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
@@ -69,8 +69,18 @@
 </template>
 
 <script>
+  import { isvalidName } from '../../assets/js/validate';
     export default {
       data() {
+        var validName=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入预案名称'))
+            }else  if (!isvalidName(value)){
+              callback(new Error('请输入正确的预案名称'))
+            }else {
+              callback()
+            }
+        }
         return {
           labelPosition: 'top',
           form: {
@@ -86,14 +96,28 @@
             floorList:[]
           },
           isShow:false,
-          fileVerification:''//图片验证
+          fileVerification:'',//图片验证
+          rules:{
+            name:[
+              { require:true, trigger: 'blur', validator: validName }
+            ],
+            unitId:[
+              { required: true, message: '请选择单位', trigger: 'change' }
+            ],
+            building:[
+              { required: true, message: '请选择建筑', trigger: 'change' }
+            ],
+            floor:[
+              { required: true, message: '请选择楼层', trigger: 'change' }
+            ]
+          }
         }
       },
       methods:{
         file(){
           var x = document.getElementById("file");
           if (!x || !x.value) return;
-          var patn = /\.jpg$|\.jpeg$|\.png$/i;
+          var patn = /\.jpg$|\.jpeg$|\.png$|\.pdf$/i;
           if (!patn.test(x.value)) {
             this.fileVerification="您选择的似乎不是图像文件!!";
             x.value = "";
@@ -136,59 +160,66 @@
             }
             return imgURL;
         },
-        btn(){
-          this.form.optionList.forEach(element => {
-            if(this.form.unitId = element.id){
-              this.form.unitName = element.name ;
-            }
-          });
-          this.form.buildList.forEach(element=>{
-            if(this.form.building == element.id){
-              this.form.buildingName = element.name ;
-            }
-          })
-          this.form.floorList.forEach(element=>{
-            if(this.form.floor == element.id){
-              this.form.floorName = element.floor ;
-            }
-          })
-          // console.log(this.form.name )
-          // console.log(this.form.unitId )
-          // console.log(this.form.unitName )
-          // console.log(this.form.building )
-          // console.log(this.form.buildingName )
-          var file = "file";
-          var that = this ;
-          $.ajaxFileUpload({
-            url: '/api/plan/insertPlan', //用于文件上传的服务器端请求地址
-            /* secureuri : false, */ //一般设置为false
-            fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
-            data : {
-              'name':this.form.name,
-              'unitId':this.form.unitId,
-              'unitName':this.form.unitName,
-              'buildingId':this.form.building,
-              'buildingName':this.form.buildingName,
-              'floorId':this.form.floor,
-              'floorName':this.form.floorName,
-              'type':4
-            },
-            type: 'POST',
-            dataType: "plain",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-            
-        
-            },
-            error: function (e) { //服务器响应失败处理函数
-              $.messager.alert('警告', "系统错误", "warning");
-            },
-            complete: function (e) {//只要完成即执行，最后执行
-              // console.log(e) 
-              that.$router.push({path:'/Reserve_plan/maps'});
-              that.$message({
-                message: '恭喜你，添加预案成功',
-                type: 'success'
+        btn(formName){
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              this.form.optionList.forEach(element => {
+                if(this.form.unitId = element.id){
+                  this.form.unitName = element.name ;
+                }
               });
+              this.form.buildList.forEach(element=>{
+                if(this.form.building == element.id){
+                  this.form.buildingName = element.name ;
+                }
+              })
+              this.form.floorList.forEach(element=>{
+                if(this.form.floor == element.id){
+                  this.form.floorName = element.floor ;
+                }
+              })
+              // console.log(this.form.name )
+              // console.log(this.form.unitId )
+              // console.log(this.form.unitName )
+              // console.log(this.form.building )
+              // console.log(this.form.buildingName )
+              var file = "file";
+              var that = this ;
+              $.ajaxFileUpload({
+                url: '/api/plan/insertPlan', //用于文件上传的服务器端请求地址
+                /* secureuri : false, */ //一般设置为false
+                fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
+                data : {
+                  'name':this.form.name,
+                  'unitId':this.form.unitId,
+                  'unitName':this.form.unitName,
+                  'buildingId':this.form.building,
+                  'buildingName':this.form.buildingName,
+                  'floorId':this.form.floor,
+                  'floorName':this.form.floorName,
+                  'type':4
+                },
+                type: 'POST',
+                dataType: "plain",
+                success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+                
+            
+                },
+                error: function (e) { //服务器响应失败处理函数
+                  $.messager.alert('警告', "系统错误", "warning");
+                },
+                complete: function (e) {//只要完成即执行，最后执行
+                  // console.log(e) 
+                  that.$router.push({path:'/Reserve_plan/maps'});
+                  that.$message({
+                    message: '恭喜你，添加预案成功',
+                    type: 'success'
+                  });
+                }
+              });
+          } else {
+              console.log('error submit!!');
+              return false;
             }
           });
           

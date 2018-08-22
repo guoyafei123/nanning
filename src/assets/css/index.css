@@ -12,6 +12,14 @@
     margin-top: 120px;
     max-height: 78%;
     height: -webkit-fill-available;
+    transition: left .5s;
+    -moz-transition: left .5s; /* Firefox 4 */
+    -webkit-transition: left .5s; /* Safari 和 Chrome */
+    -o-transition: left .5s; /* Opera */
+}
+.open-center {
+    left: 0!important;
+    padding-left: 37px;
 }
 #unit-manage #manage-center {
     /*padding-bottom: 39px;*/
@@ -744,7 +752,8 @@ video:hover{
     }
     .cardinfo-style span{
         float: right !important;
-        color: #bad616
+        color: #bad616;
+        margin-right:30px;
     }
     
     /* 综合页面css */

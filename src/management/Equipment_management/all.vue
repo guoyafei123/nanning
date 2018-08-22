@@ -130,6 +130,7 @@
           </el-table-column>
           <el-table-column
             fixed="right"
+            width="140px"
             label="操作">
             <template slot-scope="scope">
               <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
@@ -484,6 +485,7 @@
       },
       show3(row){//跳转
         console.log(row.id);
+        this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('deviceId',row.id);
         $('.plan').show();
         $('.mapTable').hide();

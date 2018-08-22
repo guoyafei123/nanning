@@ -775,6 +775,9 @@
       },
       roomDevice(){
         this.tableList();
+      },
+      currentPage(){
+        this.currentPage4 = this.currentPage ;
       }
     },
     computed:mapState([
@@ -782,7 +785,8 @@
       'buildDevice',
       'floorDevice',
       'roomDevice',
-      'dangerId'
+      'dangerId',
+      'currentPage'
     ])
   }
 </script>
