@@ -246,8 +246,8 @@ export default {
       builddata: Object,
       getBuildIngAssess_parameter: {
         unitId: null,
-        beginTime: '2017-07-02',
-        endTime: '2017-08-20'
+        startTime: "2018-06-01",
+				endTime: "2018-08-09"
       },
       getBuildIngAssess: Object,
       //建筑安全评分级别

@@ -5,7 +5,7 @@
 			<!-- 日期筛选 -->
 			<div class="col-sm-12 padding0">
 				<div class="upd-elmdate">
-					<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
+					<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
 					</el-date-picker>
 				</div>
 			</div>
@@ -59,26 +59,26 @@
 							</li>							
 							<li class="row text-left margin-top10">
 								<div class="col-sm-6 padding-right0">
-									<p >报警次数 <strong class="font-white">{{queryUserData.alarmFindCount}}次</strong></p>
+									<p >报警次数 <strong class="font-white">{{queryUserData.alarmFindCount?queryUserData.alarmFindCount:"0"}}次</strong></p>
 								</div>
 								<div class="col-sm-6">
-									<p>隐患发现数 <strong class="font-white">{{queryUserData.unitTroubleFindCount}}次</strong></p>
+									<p>隐患发现数 <strong class="font-white">{{queryUserData.unitTroubleFindCount?queryUserData.unitTroubleFindCount:"0"}}次</strong></p>
 								</div>
 								<div class="col-sm-12">
-									<p>巡检任务领取总数 <strong class="font-white">{{queryUserData.inspectionCount}}</strong></p>
+									<p>巡检任务领取总数 <strong class="font-white">{{queryUserData.inspectionCount?queryUserData.inspectionCount:"0"}}</strong></p>
 								</div>
 							</li>
 							<li class="row text-center padding-right16 margin-top10">
 											<div class="col-sm-4 personnel-borderright">
-												<p class="size-16 show font-blue">{{queryUserData.inspectionFinishCount}}</p>
+												<p class="size-16 show font-blue">{{queryUserData.inspectionFinishCount?queryUserData.inspectionFinishCount:"0"}}</p>
 												<p>任务完成数</p>
 											</div>
 											<div class="col-sm-4 personnel-borderright">
-												<p class="size-16 show font-red">{{queryUserData.alarmConfirmCount}}</p>
+												<p class="size-16 show font-red">{{queryUserData.alarmConfirmCount?queryUserData.alarmConfirmCount:"0"}}</p>
 												<p>报警确认数</p>
 											</div>
 											<div class="col-sm-4">
-												<p class="size-16 show font-yellow">{{queryUserData.troubleConfirmCount}}</p>
+												<p class="size-16 show font-yellow">{{queryUserData.troubleConfirmCount?queryUserData.troubleConfirmCount:"0"}}</p>
 												<p>隐患解决数</p>
 											</div>
 										</li>
@@ -224,6 +224,7 @@
 </template>
 
 <script>
+	import moment from "moment";
 	import { mapState } from "vuex";
 	// import Per_leftVue from './per_left.vue';
 	// import Per_rightVue from './per_right.vue';
@@ -235,7 +236,6 @@
 		data() {
 			return {
 				// 右侧
-				value7: '',
 				options: [{
 						value: "选项1",
 						label: "怀化市"
@@ -283,8 +283,8 @@
 				dateValue: '',
 				queryUserCount_parameter:{
 					unitId: null,
-					beginTime: '2017-07-02',
-					endTime: '2018-08-20'
+					startTime: "2018-06-01",
+					endTime: "2018-08-09"
 				},
 				queryUserCountData:Object,
 				loginLineChartData:Object,
@@ -297,7 +297,7 @@
 				queryUserData:Object,
 				userInfo:Object,
 				userRegistDate:"",
-				userTroubleRate:null,
+				userTroubleRate:null, 
 				userInspectionRate:null,
 				userTroubleDealRate:null,
 				queryUserInspectionList_parameter:{
@@ -316,8 +316,6 @@
 		watch: {
 			// 人员详情
 			topersonitem(){
-				console.log("用户id：");
-				console.log(this.toPersonDetailInfo.id);
 				this.toPersonDetailInfo =this.topersonitem;
 				this.queryUserData_parameter.userId = this.toPersonDetailInfo.id;
 				this.queryUserInspectionList_parameter.userId = this.toPersonDetailInfo.id;
@@ -337,23 +335,49 @@
 		},
 		methods: {
 			chooseTimeRange(t) {
+				// console.log(this.queryUserCount_parameter.startTime);
 				this.dateValue = t;
 				console.log("获取到的时间为:------------");
-				//this.queryUserCount_parameter.beginTime = this.value7[0];
-				//this.queryUserCount_parameter.endTime = this.value7[1];
-				console.log(this.dateValue[0]);
-				console.log(this.dateValue[1]);
-				//TODO 重新发送请求
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');;
+				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');;
+				console.log(st);
+				
 
+				// this.queryUserCount_parameter.startTime = st;
+				// this.queryUserCount_parameter.endTime =et;
+				
+				//TODO 重新发送请求
+				this.getData();
 			},
 			defaultTimeVaule() {
 				//TODO 设置默认时间
 				console.log("设置默认时间:------------");
-
-
+				//获取当前时间：
+				var startDate = this.getNowFormatDate(-7);
+				var endDate = this.getNowFormatDate(0);
+				this.dateValue = [startDate,endDate];
+			},
+			//获取给当前时间添加或减去days天：
+			getNowFormatDate(days){
+				var date = new Date();
+ 				var date_s = date.getTime();//转化为时间戳毫秒数
+				date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
 			},
 			//获取人员右侧统计数据
 			getData(){
+				// console.log(this.queryUserCount_parameter.beginTime);
 				this.$fetch("/api/user/queryUserCount",this.queryUserCount_parameter).then(response => {
 					if (response.data) {
 						let data = response.data;
