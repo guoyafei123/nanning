@@ -24,7 +24,7 @@
 									</li>
 								</ul>
 							</div>
-							<div class="set-width-50 display-inline-block font-gray-999 toolcount-right">
+							<div class="set-width-50 display-inline-block size-12 font-gray-999 toolcount-right">
 								<ul class="padding-left0 margin-bottom0">
 									<li>
 										<p>室内设备</p>
@@ -51,7 +51,7 @@
 						</div>
 					</section>
 					<section>
-						<div class="toolroute font-gray-ccc margin-left37 margin-top100">
+						<div class="toolroute font-gray-ccc margin-top100">
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10 clearfix">
 								<li>
@@ -140,14 +140,14 @@
 									<span class="size-20 font-blue">中心小学</span>
 									<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
 								</p>
-								<p class="col-sm-7 text-left padding0">
+								<p class="text-left padding0">
 									<span><i class="el-icon-location"></i> 怀化市银海大道710-2号</span>
 								</p>
-								<P class="col-sm-5 text-right padding0">
+								<!-- <P class="col-sm-5 text-right padding0">
 									<span class="text-right">
                             录入时间：<span class="font-gray-999">2018.07.09 08:00:00</span>
 									</span>
-								</P>
+								</P> -->
 							</div>
 						</div>
 						<section>

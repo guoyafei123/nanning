@@ -3,25 +3,6 @@
 /* 媒体查询 */
 
 /*宽度*/
-@media (min-width: 768px) and (max-width:1679px){
-    .main_aside {
-        margin-top: -20px;
-    }
-    .main_aside a, .el-table .cell {
-        line-height: 32px!important;
-        height: 32px!important;
-        display: block;
-    }
-    .main_aside a>li * {
-        line-height: 32px;
-    }
-    .main_aside a>li>span{
-        margin: 6px 0!important;
-    }
-    .manage-menu .main_aside ul>li {
-        margin-top: 10px;
-    }
-}
 @media (min-width: 768px) and (max-width:1440px){
     /*管理端*/
     #unit-manage #left,
@@ -95,6 +76,12 @@
         font-size: 48px;
         line-height: 48px;
     }
+    .header-middle {
+        width: 87%;
+    }
+    .version-title {
+        font-size: 13px;
+    }
 }
 @media (min-width: 1441px) and (max-width:1679px){
     /*管理端*/
@@ -160,6 +147,12 @@
     #right .toolcount-p1 {
         font-size: 48px;
         line-height: 48px;
+    }
+    .header-middle {
+        width: 90%;
+    }
+    .version-title {
+        font-size: 15px;
     }
 }
 @media (min-width: 1680px) and (max-width:1919px){
@@ -227,9 +220,16 @@
         font-size: 54px;
         line-height: 54px;
     }
+    .header-middle {
+        width: 91%;
+    }
 }
 @media (min-width: 1920px) and (max-width:2229px){
     /*管理端*/
+    #dangerous #right .toolcount-p1 {
+        font-size: 44px;
+        line-height: 44px;
+    }  
     #unit-manage #left,
     #Reserve_plan #left,
     #Personnel_review #left,
@@ -294,7 +294,7 @@
     #right .toolcount-p1 {
         font-size: 60px;
         line-height: 60px;
-    }
+    }    
 }
 @media (min-width: 2560px) {
     /*管理端*/
@@ -356,6 +356,9 @@
     }
     #right{
         width: 19%;
+    }
+    .header-middle {
+        width: 96%;
     }
 }
 /*高度*/

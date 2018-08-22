@@ -14,7 +14,7 @@
 
 		</section>
 		<section>
-			<div class="toolroute font-gray-ccc margin-left37">
+			<div class="toolroute font-gray-ccc">
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 clearfix">
 					<li>

@@ -2,7 +2,7 @@
 	<header id="header" class="position-fixed-top z-index-30">
 		<div class="header-main">
 			<div class="header-left margin-top30 position-left20 z-index-100">
-				<p class="font-white size-18 version-title">
+				<p class="version-title">
 					<!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
 					<span class="size-10 version-num">BETA3.0</span>
 				</p>
@@ -11,7 +11,7 @@
 					</el-option>
 				</el-select>
 			</div>
-			<div class="header-middle font-gray-ccc">
+			<div class="header-middle">
 				<ul>
 					<li>
 						<canvas class="bg-none" id="header-canvas-people" width="50" height="50"></canvas>

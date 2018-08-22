@@ -60,7 +60,7 @@
                   </ul>
               </div>
               <div class="col-md-7 padding0">
-                  <ul class="toolcount-right margin-bottom0 size-12">
+                  <ul class="row toolcount-right margin-bottom0 size-12">
                       <li>
                           <p class="size-18 font-white">信息概览</p>
                       </li>
@@ -75,20 +75,20 @@
                             </span>
                           </p>
                       </li>
-                      <li class="row text-left padding-right16 margin-top15">
-                          <div class="col-sm-5 personnel-borderright" v-if="this.trouble.status == 0">
+                      <li class="text-left padding-right16 margin-top15">
+                          <div class="col-sm-4 personnel-borderright" v-if="this.trouble.status == 0">
                               <p class="size-16 show font-red">{{this.trouble.nickName}}</p>
                               <p>上报人</p>
                           </div>
-                          <div class="col-sm-5 personnel-borderright" v-if="this.trouble.status == 1">
+                          <div class="col-sm-4 personnel-borderright" v-if="this.trouble.status == 1">
                               <p class="size-16 show font-blue">{{this.trouble.nickName}}</p>
                               <p>解决人</p>
                           </div>
-                          <div class="col-sm-7" v-if="this.trouble.status == 0">
+                          <div class="col-sm-8" v-if="this.trouble.status == 0">
                               <p class="size-12 show font-white">{{this.trouble.createTime}}</p>
                               <p>上报时间</p>
                           </div>
-                          <div class="col-sm-7" v-if="this.trouble.status == 1">
+                          <div class="col-sm-8" v-if="this.trouble.status == 1">
                               <p class="size-12 show font-white">{{this.trouble.createTime}}</p>
                               <p>解决时间</p>
                           </div>
@@ -131,7 +131,7 @@
                     <span>上报人</span>
                     <strong v-html="this.trouble.nickName"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>上报时间</span>
                       <strong v-html="this.trouble.createTime"></strong>
                   </div>
@@ -176,7 +176,7 @@
       <section class="mapTable" style="display: none;">
         <!-- 总数统计 -->
         <div class="toolcount clearfix">
-          <ul class="toolcount-left padding0 col-sm-3">
+          <ul class="toolcount-left padding0">
             <li>
               <p class="size-10 font-gray-666">Dangerous Total</p>
             </li>

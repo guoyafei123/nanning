@@ -147,8 +147,11 @@
 /*中间主列表*/
 #Build_management #right .size-10,
 #equipment #right .size-10,
-#dangerous #right .size-10 {
+#dangerous #right .size-10{
     margin-left: -5px;
+}
+#dangerous #right .set-scaleright{
+    margin-left: -1px;
 }
 #Inspection_plan #right .size-10 {
     margin-left: -2px;

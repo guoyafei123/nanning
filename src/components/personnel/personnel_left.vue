@@ -70,7 +70,7 @@
 			</div>
 		</section>
 		<section>
-			<div class="toolroute font-gray-ccc margin-left37 margin-top40">
+			<div class="toolroute font-gray-ccc margin-top40">
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 clearfix">
 					<li>
