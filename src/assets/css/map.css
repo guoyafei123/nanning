@@ -142,19 +142,19 @@
 .shadow-red{box-shadow:inset 0px 0px 100px #f13131}
 
 .alarm-item{
-    animation: alarmani 12s ease-out 4s infinite ;
+    animation: alarmani 10s ease-out 4s infinite ;
 }
 .alarm-item1{
-    animation: alarmani 12s ease-out 3s infinite ;
+    animation: alarmani 10s ease-out 3s infinite ;
 }
 .alarm-item2{
-    animation: alarmani 12s ease-out 2s infinite ;
+    animation: alarmani 10s ease-out 2s infinite ;
 }
 .alarm-item3{
-    animation: alarmani 12s ease-out 1s infinite ;
+    animation: alarmani 10s ease-out 1s infinite ;
 }
 .alarm-item4{
-    animation: alarmani 12s ease-out 0s infinite ;
+    animation: alarmani 10s ease-out 0s infinite ;
 }
 /* .alarm-item5{
     animation: alarmani 20s ease-out 0s infinite ;
