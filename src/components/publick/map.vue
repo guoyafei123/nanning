@@ -660,7 +660,9 @@
 					`"></span>
                 <span class="alarm-min ` +
 					style_bg +
-					`"></span>
+					`">
+					
+					</span>
                 <span class="alarm-max ` +
 					style_border +
 					`"></span>
