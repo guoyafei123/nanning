@@ -455,12 +455,15 @@
 				// alert(this.aleamAndtroubleInfos.id)
 				let a = new Date(this.aleamAndtroubleInfos.startTime).getTime();
 				let confrimTime = this.aleamAndtroubleInfos.confirmTime;
-				var b = new Date().getTime();
+				let b = new Date().getTime();
 				if(confrimTime != null){
 					b = new Date(confrimTime).getTime();
 				}
-				let d = moment(b - a);
-				this.aleamAndtroubleInfoTime = d.format("HH:mm:ss");
+        var du = moment.duration(b - a, 'ms'),
+          hours = du.get('hours'),
+          mins = du.get('minutes'),
+          ss = du.get('seconds');
+				this.aleamAndtroubleInfoTime = hours + ':' + mins + ':' + ss;
 				
 				this.getqueryUnitInfo();
 				this.getgetUnitsSynthesis();

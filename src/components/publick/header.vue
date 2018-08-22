@@ -79,9 +79,9 @@
 					</span>
 					<el-dropdown-menu slot="dropdown">
 						<el-dropdown-item>签到</el-dropdown-item>
-						<el-dropdown-item>操作记录</el-dropdown-item>
-						<el-dropdown-item disabled>个人资料</el-dropdown-item>
-						<el-dropdown-item disabled>修改密码</el-dropdown-item>
+						<el-dropdown-item><router-link to="/operationLog">操作日志</router-link></el-dropdown-item>
+						<el-dropdown-item @click="modal_per()">个人信息</el-dropdown-item>
+						<el-dropdown-item>注销</el-dropdown-item>
 					</el-dropdown-menu>
 					</el-dropdown>
 				</div>
@@ -134,10 +134,30 @@
 			</ul>
 		</div>
 		</div>
-		<!-- 模态窗 -->
+		<!-- 消息模态窗 -->
 		<div class="modal fade" id="showmessages" aria-labelledby="messagesLabel" aria-hidden="true">
 			<!-- 消息中心 -->
 			<messages-vue></messages-vue>
+		</div>
+		<!-- 个人信息模态窗 -->
+		<div class="modal fade" id="modal_per" aria-labelledby="modal_perLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		          <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		            <h4 class="modal-title" id="myModalLabel2">提示</h4>
+		            <h5 class="modal-p">该操作并不影响之前的统计数据</h5>
+		          </div>
+		          <div class="modal-body text-center container-padding40">
+		            <h3 class="font-red size-14">是否删除</h3>
+		            <p class="font-white size-16">66666</p>
+		          </div>
+		          <div class="modal-footer">
+		            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
+		            <el-button class="back" data-dismiss="modal">取消</el-button>
+		          </div>
+		        </div>
+		      </div>
 		</div>
 	</header>
 
@@ -148,7 +168,7 @@
 	import { mapState } from "vuex";
 	export default {
 		components: {
-			"messages-vue": messagesVue
+			"messages-vue": messagesVue,
 		},
 		// 选择器
 		data() {
@@ -183,7 +203,11 @@
 		},
 
 		methods: {
-			// 显示模态窗
+			// 显示消息模态窗
+			modal_per() {
+				$("#modal_per").modal();
+			},
+			// 显示消息模态窗
 			showMessages() {
 				$("#showmessages").modal("toggle");
 				$("#showmessages").on("show.bs.modal", function() {
