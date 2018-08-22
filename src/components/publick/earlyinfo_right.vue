@@ -78,7 +78,7 @@
 											<var>
 							<p class="col-sm-8">
 							<template v-if="aleamAndtroubleInfos.userId!=0 || aleamAndtroubleInfos.userId!=null">
-								<i class="icon iconfont icon-xunjianyuan-mian-"><span>{{aleamAndtroubleInfos.confirmNickName}}</span></i>
+								<i class="icon iconfont icon-xunjianyuan-mian-"><span>{{aleamAndtroubleInfos.nickName}}</span></i>
 								<i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>
 							</template>
 							<template v-if="aleamAndtroubleInfos.userId==0 || aleamAndtroubleInfos.userId==null">
@@ -147,8 +147,8 @@
 				<div class="textandimg margin-top20">
 					<h4 class="p-title">报警发起
 						<span class="float-right">
-							<span class="bgbox-min bg-blue font-black size-10">
-							<i class="icon iconfont icon-jiankong-mian-"></i> 监控</span>
+							<!-- <span class="bgbox-min bg-blue font-black size-10">
+							<i class="icon iconfont icon-jiankong-mian-"></i> 监控</span> -->
 						</span>
 					</h4>
 					<div class="row textandimg-main margin-top20 size-12">
@@ -183,10 +183,10 @@
 								{{aleamAndtroubleInfos.roomNumber==null ? '' :aleamAndtroubleInfos.roomNumber}}
 							</strong>
 						</div>
-						<div class="col-sm-7">
+						<!-- <div class="col-sm-7">
 							<span>确 认 人 </span>
-							<strong>{{aleamAndtroubleInfos.confirmNickName}}</strong>
-						</div>
+							<strong>{{aleamAndtroubleInfos.confirmNickName?aleamAndtroubleInfos.confirmNickName:'-'}}</strong>
+						</div> -->
 						<div class="col-sm-5">
 							<span>响应时间 </span>
 							<strong class="font-blue">
@@ -197,54 +197,66 @@
 							<span>报警描述 </span>
 							<strong>
                           <span class="bgbox-voice bg-blue font-black">
-                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span>
-                          <span>有事没事报个警震惊一些愚蠢的人类</span>
+                              <!-- <i class="icon iconfont icon-tongzhi-xian-"></i> 32S -->
+							  </span>
+                          <span>{{aleamAndtroubleInfos.remark?aleamAndtroubleInfos.remark:'-'}}</span>
                       </strong>
 						</div>
-						<div class="textandimg-img">
-							<div class="col-sm-3">
-								<img src="../../assets/images/123.jpg">
-							</div>
-							<div class="col-sm-3">
-								<img src="../../assets/images/456.jpg">
-							</div>
+						<div class="textandimg-img imgs-nthof">
+							<template v-for="item in getAlarmDetails.addAlarmImgList">
+								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
+									<video :src="item" width="100%" controls="controls"></video>
+								</div>
+							</template>
+							<template v-for="item in getAlarmDetails.addAlarmImgList">
+								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
+									<img :src="item">
+								</div>
+							</template>
 						</div>
 					</div>
 				</div>
 			</section>
 			<section>
-				<div class="textandimg margin-top20">
+				<div class="textandimg margin-top20" v-if="aleamAndtroubleInfos.eventLevel==2">
 					<h4 class="p-title">报警确认</h4>
 					<div class="row textandimg-main margin-top20 size-12">
 						<div class="col-sm-7">
 							<span>确认人 </span>
-							<strong>段亚伟(巡检员)</strong>
+							<strong>{{aleamAndtroubleInfos.confirmNickName}}</strong>
 						</div>
-						<div class="col-sm-5">
+						<!-- <div class="col-sm-5">
 							<span>指派给 </span>
-							<strong>赵堆船(无响应)</strong>
-						</div>
+							<strong>{{aleamAndtroubleInfos.confirmNickName}}</strong>
+						</div> -->
 						<div class="col-sm-12">
 							<span>解除时长 </span>
-							<strong class="font-blue">1小时32分</strong>
+							<strong class="font-blue">{{aleamAndtroubleInfoTimeconfirm}}刘健</strong>
 						</div>
 						<div class="col-sm-12">
 							<span>反馈信息 </span>
 							<strong>
-                          <span class="bgbox-voice bg-blue font-black">
-                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span>
-                          <span>设备质量不行,乱报警</span>
+                          <!-- <span class="bgbox-voice bg-blue font-black">
+                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span> -->
+                          <span>{{aleamAndtroubleInfos.confirmReason}}</span>
                       </strong>
 						</div>
-						<div class="textandimg-img">
-							<div class="col-sm-3">
-								<img src="../../assets/images/478.jpg">
-							</div>
+						<div class="textandimg-img imgs-nthof">
+							<template v-for="item in getAlarmDetails.confirmAlarmImgList">
+								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
+									<video :src="item" width="100%" controls="controls"></video>
+								</div>
+							</template>
+							<template v-for="item in getAlarmDetails.confirmAlarmImgList">
+								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
+									<img :src="item">
+								</div>
+							</template>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section>
+			<!-- <section>
 				<div class="textandimg margin-top20">
 					<h4 class="p-title">报警关闭</h4>
 					<div class="row textandimg-main margin-top20 size-12">
@@ -258,7 +270,7 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 		</section>
 
 		<section v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) == 'undefined'" class="call-iteminfo margin-top10 size-12">
@@ -272,40 +284,67 @@
 					</h4>
 					<div class="row textandimg-main margin-top20 size-12">
 						<div class="col-sm-7">
-							<span>警 报 源 </span>
-							<strong>A365F57D (烟雾感应器)</strong>
+							<span>隐 患 源 </span>
+							<strong class="size-12">
+								{{aleamAndtroubleInfos.idCode}}
+							</strong>
 						</div>
 						<div class="col-sm-5">
-							<span>报警类型 </span>
-							<strong>设备</strong>
+							<span>隐患类型 </span>
+							<strong>
+								<template v-if="aleamAndtroubleInfos.type==1">
+								<i class="icon iconfont icon-sunhuai-mian- size-12"><span>损坏</span></i>
+								</template>
+								<template v-if="aleamAndtroubleInfos.type==2">
+								<i class="icon iconfont icon-feirenweiyinsuyinhuan-mian- size-12"><span>人为风险</span></i>
+								</template>
+								<template v-if="aleamAndtroubleInfos.type==3">
+								<i class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 size-12"><span>非人为风险</span></i>
+								</template>
+								<template v-if="aleamAndtroubleInfos.type==4">
+								<i class="icon iconfont icon-queshi-mian- size-12"><span>缺失</span></i>
+								</template>
+								<template v-if="aleamAndtroubleInfos.type==5">
+								<i class="icon iconfont icon-weixianpin-mian- size-12"><span>危险品</span></i>
+								</template>
+							</strong>
 						</div>
 						<div class="col-sm-12">
 							<span>发生地点 </span>
-							<strong>良庆区中心小学01号楼301室</strong>
+							<strong>
+								{{aleamAndtroubleInfos.unitName==null ? '' :aleamAndtroubleInfos.unitName}}
+								{{aleamAndtroubleInfos.buildingName==null ? '' :aleamAndtroubleInfos.buildingName}}
+								{{aleamAndtroubleInfos.floorNumber==null ? '' :aleamAndtroubleInfos.floorNumber+'层'}}
+								{{aleamAndtroubleInfos.roomNumber==null ? '' :aleamAndtroubleInfos.roomNumber}}
+							</strong>
 						</div>
 						<div class="col-sm-7">
 							<span>确 认 人 </span>
-							<strong>段亚伟</strong>
+							<strong>{{aleamAndtroubleInfos.nickName}}</strong>
 						</div>
 						<div class="col-sm-5">
 							<span>响应时间 </span>
-							<strong class="font-blue">10小时32分</strong>
+							<strong class="font-blue">刘健</strong>
 						</div>
 						<div class="col-sm-12">
-							<span>报警描述 </span>
+							<span>隐患描述 </span>
 							<strong>
-                          <span class="bgbox-voice bg-blue font-black">
-                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span>
-                          <span>有事没事报个警震惊一些愚蠢的人类</span>
+                          <!-- <span class="bgbox-voice bg-blue font-black">
+                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span> -->
+                          <span>{{aleamAndtroubleInfos.cont}}</span>
                       </strong>
 						</div>
-						<div class="textandimg-img">
-							<div class="col-sm-3">
-								<img src="../../assets/images/123.jpg">
-							</div>
-							<div class="col-sm-3">
-								<img src="../../assets/images/456.jpg">
-							</div>
+						<div class="textandimg-img imgs-nthof" v-if="troubleDetails.imgUrl">
+							<template v-for="item in troubleDetails.imgUrl">
+								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
+									<video :src="item" width="100%" controls="controls"></video>
+								</div>
+							</template>
+							<template v-for="item in troubleDetails.imgUrl">
+								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
+									<img :src="item">
+								</div>
+							</template>
 						</div>
 					</div>
 				</div>
@@ -316,33 +355,40 @@
 					<div class="row textandimg-main margin-top20 size-12">
 						<div class="col-sm-7">
 							<span>确认人 </span>
-							<strong>段亚伟(巡检员)</strong>
+							<strong>{{aleamAndtroubleInfos.reviewerName?aleamAndtroubleInfos.reviewerName:'-'}}</strong>
 						</div>
-						<div class="col-sm-5">
+						<!-- <div class="col-sm-5">
 							<span>指派给 </span>
 							<strong>赵堆船(无响应)</strong>
-						</div>
+						</div> -->
 						<div class="col-sm-12">
 							<span>解除时长 </span>
-							<strong class="font-blue">1小时32分</strong>
+							<strong class="font-blue">刘健</strong>
 						</div>
 						<div class="col-sm-12">
 							<span>反馈信息 </span>
 							<strong>
-                          <span class="bgbox-voice bg-blue font-black">
-                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span>
-                          <span>设备质量不行,乱报警</span>
+                          <!-- <span class="bgbox-voice bg-blue font-black">
+                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span> -->
+                          <span>{{aleamAndtroubleInfos.treatment?aleamAndtroubleInfos.treatment:'-'}}</span>
                       </strong>
 						</div>
-						<div class="textandimg-img">
-							<div class="col-sm-3">
-								<img src="../../assets/images/478.jpg">
-							</div>
+						<div class="textandimg-img imgs-nthof" v-if="troubleDetails.confirmUrls">
+							<template v-for="item in troubleDetails.confirmUrls">
+								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
+									<video :src="item" width="100%" controls="controls"></video>
+								</div>
+							</template>
+							<template v-for="item in troubleDetails.confirmUrls">
+								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
+									<img :src="item">
+								</div>
+							</template>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section>
+			<!-- <section>
 				<div class="textandimg margin-top20">
 					<h4 class="p-title">隐患关闭</h4>
 					<div class="row textandimg-main margin-top20 size-12">
@@ -356,7 +402,7 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 		</section>
 	</div>
 </template>
@@ -379,7 +425,16 @@
 					unitId: null
 				},
 				getUnitsSynthesis: Object,
-				aleamAndtroubleInfoTime:''
+				aleamAndtroubleInfoTime:'',
+				aleamAndtroubleInfoTimeconfirm:'',
+				getAlarmDetail_parmar:{
+					alarmId:null
+				},
+				getAlarmDetails:Object,
+				troubleDetail_parmar:{
+					troubleId:null
+				},
+				troubleDetails:Object
 			}
 		},
 		computed: mapState([
@@ -395,7 +450,9 @@
 				this.aleamAndtroubleInfos = this.aleamAndtroubleInfo[0];
 				this.queryUnitInfo_parmar.unitId = this.aleamAndtroubleInfos.unitId;
 				this.getUnitsSynthesis_parmar.unitId = this.aleamAndtroubleInfos.unitId;
-				// this.aleamAndtroubleInfoTime=moment(this.aleamAndtroubleInfos.confirmTime).diff(this.aleamAndtroubleInfos.startTime, 'minutes')
+				this.getAlarmDetail_parmar.alarmId=this.aleamAndtroubleInfos.id;
+				this.troubleDetail_parmar.troubleId=this.aleamAndtroubleInfos.id;
+				// alert(this.aleamAndtroubleInfos.id)
 				let a = new Date(this.aleamAndtroubleInfos.startTime).getTime();
 				let confrimTime = this.aleamAndtroubleInfos.confirmTime;
 				var b = new Date().getTime();
@@ -407,6 +464,15 @@
 				
 				this.getqueryUnitInfo();
 				this.getgetUnitsSynthesis();
+				if((typeof this.aleamAndtroubleInfos['countOfAlarm']) != 'undefined'){
+					// 报警详情
+					this.getAlarmDetail();
+				}else{
+					// 隐患详情
+					this.troubleDetail();
+				}
+				
+				
 			},
 			getqueryUnitInfo() {
 				this.$fetch(
@@ -431,6 +497,26 @@
 				).then(response => {
 					if(response.data) {
 						this.getUnitsSynthesis = response.data.result;
+					}
+				});
+			},
+			getAlarmDetail() {
+				this.$fetch(
+					"/api/alarm/getAlarmDetail",
+					this.getAlarmDetail_parmar
+				).then(response => {
+					if(response.data) {
+						this.getAlarmDetails = response.data.alarm;
+					}
+				});
+			},
+			troubleDetail() {
+				this.$fetch(
+					"/api/trouble/troubleDetail",
+					this.troubleDetail_parmar
+				).then(response => {
+					if(response.data) {
+						this.troubleDetails = response.data.trouble;
 					}
 				});
 			},
