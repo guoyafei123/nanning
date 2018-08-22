@@ -301,7 +301,9 @@ export default {
       }else{
         this.getunitid=null;
       }
-      this.getBuildIngAssess_parameter=this.getunitid;
+
+      // this.$set(this.getBuildIngAssess_parameter,'unitId',this.getunitid)
+      this.getBuildIngAssess_parameter.unitId=this.getunitid;
       this.getData();
       
     }
@@ -328,6 +330,8 @@ export default {
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
         var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
         console.log(st+" 至 "+et);
+        this.getBuildIngAssess_parameter.startTime = st;
+        console.log(this.getBuildIngAssess_parameter.startTime);
 				//TODO 重新发送请求
 				//this.getData();
 		},
@@ -533,10 +537,10 @@ export default {
   },
   mounted() {
     if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
-      this.getBuildIngAssess_parameter=sessionStorage.unitid;
+      this.getBuildIngAssess_parameter.unitId=sessionStorage.unitid;
     }
     if(sessionStorage.unitid==0){
-      this.getBuildIngAssess_parameter=null;
+      this.getBuildIngAssess_parameter.unitId=null;
     }
     this.defaultTimeVaule();
     this.getData();

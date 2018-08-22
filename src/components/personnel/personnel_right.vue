@@ -329,7 +329,7 @@
 				}else{
 					this.getunitid=null;
 				}
-				this.queryUserCount_parameter=this.getunitid;
+				this.queryUserCount_parameter.unitId=this.getunitid;
 				this.getData();
 			}
 		},
