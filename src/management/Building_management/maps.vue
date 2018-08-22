@@ -28,24 +28,30 @@
           <router-link to="/Building_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
           </div>
         </div>
-        <div class="maps">
+        <div class="maps map">
         <managementMap-vue></managementMap-vue>
         </div>
-        <div class="maps" style="display:none;">
-        <div class="floorMap">
-          <img src="../../assets/images/floor.png">
+        
+        <div class="floorMap maps" style="display:none;">
+          <ul class="list-unstyled floor-item">
+              <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+          </ul> 
+          <img :src="this.svgUrl" class="img-responsive">
         </div>
-        <div class="roomMap" style="display:none;">
-          <img src="../../assets/images/floor.png">
-        </div> 
-        </div>         
+        <div class="roomMap maps" style="display:none;">
+          <ul class="list-unstyled floor-item">
+              <li>{{ this.floorName }}</li>
+          </ul> 
+          <img :src="this.roomSvgUrl" class="img-responsive">
+        </div>
       </div>
     </aside>
     
   </div>
 </template>
 
-<script>  
+<script> 
+ import{ mapState } from "vuex";
   import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
   export default {
@@ -54,13 +60,25 @@
         buildUnit:null,//选择单位,
         floorId:'',
         optionList:[],//全部单位列表,
-        floorList:[]//楼层列表
+        floorList:[],//楼层列表
+        svgUrl:'',
+        table_list:[],
+        floorName:'',
+        roomSvgUrl:'',
       }
     },
     components:{
       'managementMap-vue': managementMapVue,
     },
     methods: {
+      floor_btn(id){
+        console.log(id)
+        this.table_list.forEach((item)=>{
+          if(item.id == id){
+            this.svgUrl = item.svgUrl ;
+          }
+        })
+      },
       btn_add(){
         $('#right').css('display','none');
       },
@@ -81,6 +99,24 @@
           .then(err => {
             // console.log(err);
           });
+      },
+      findPageBuildIngFloor(){
+        console.log(this.buildingId)
+        this.$fetch("/api/building/findPageBuildIngFloor",{
+          pageIndex:1,
+          pageSize:1000,
+          buildingId:this.buildingId
+        }).then(response=>{
+          console.log(response.data.pageBuildIng.result);
+          this.table_list = response.data.pageBuildIng.result;
+          this.table_list.forEach(item=>{
+             if(this.floorId == item.floor){
+                this.roomSvgUrl = item.svgUrl ;
+                this.floorName = item.floorName ;
+             }
+          })
+         
+        })
       }
     },
     watch:{
@@ -103,13 +139,22 @@
         this.buildUnit = curVal;
         console.log(this.buildUnit);
         this.$store.commit('buildUnit',this.buildUnit);
+      },
+      buildingId(){
+        this.findPageBuildIngFloor();
       }
     },
     mounted(){
       realconsole();
       this.unitSearch();
+      this.findPageBuildIngFloor();
       this.$store.commit('route_path',this.$route.path);
-    }
+    },
+    
+     computed:mapState([
+       'buildingId',
+       'floorId'
+    ])
   };
 </script>
 <style lang="scss" scoped>

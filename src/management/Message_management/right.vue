@@ -158,7 +158,7 @@
       }
     },
     computed:mapState([
-      'unitNum',
+      'noticeId',
       'peopleTableData'
     ])
   }

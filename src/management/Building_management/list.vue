@@ -31,7 +31,7 @@
               <el-select name="" v-model="form.structure" placeholder="请选择结构">
                 <el-option label="砖混" value="砖混"></el-option>
                 <el-option label="钢结构" value="钢结构"></el-option>
-                <el-option label="玻璃" value="玻璃"></el-option>
+                <el-option label="木质" value="木质"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="建筑性质" prop="property" class="not-null col-sm-6">
@@ -45,7 +45,7 @@
               <div class="block">
                 <el-date-picker
                   v-model="form.timeYear"
-                  type="date"
+                  type="year"
                   placeholder="选择年份"
                   format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd">
@@ -55,7 +55,7 @@
             <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-6">
               <el-input v-model.number="form.area"></el-input>
             </el-form-item>
-            <el-form-item label="高度 (cm)" prop="height" class="not-null col-sm-6">
+            <el-form-item label="高度 (m)" prop="height" class="not-null col-sm-6">
               <el-input v-model.number="form.height"></el-input>
             </el-form-item>
             <el-form-item label="总楼层" prop="floor" class="not-null col-sm-6">

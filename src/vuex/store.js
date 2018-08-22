@@ -38,6 +38,8 @@ var state={
   dangerRoom:'',
   //预案
   unitPlan:'',
+  //消息
+  noticeId:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -159,6 +161,11 @@ var mutations={
   //预案
   unitPlan(state,data){
     state.unitPlan = data;
+  },
+
+  //消息
+  noticeId(state,data){
+    state.noticeId = data ;
   },
   // 展示端的store
   setvuextest(state,data){

@@ -61,7 +61,7 @@
           </el-table-column>
           <el-table-column
             prop="area"
-            label="占地面积 (㎡)">
+            label="占地面积(㎡)">
           </el-table-column>
           <el-table-column
             prop="heightOfBuilding"
@@ -69,7 +69,7 @@
           </el-table-column>
           <el-table-column
             prop="floors"
-            label="楼层数">
+            label="总楼层">
           </el-table-column>
           <el-table-column
             prop="structure"
@@ -132,29 +132,15 @@
       <div id="list-maps">
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li>14</li>
-                <li>13</li>
-                <li>10</li>
-                <li>11</li>
-                <li>10</li>
-                <li>9</li>
-                <li>8</li>
-                <li class="active">7</li>
-                <li>1</li>
-                <li>6</li>
-                <li>5</li>
-                <li>4</li>
-                <li>3</li>
-                <li>1</li>
-                <li>-1</li>
-                <li>-2</li>
-                <li>-3</li>
-                <li>-4</li>
-              </ul>
-            <img src="../../assets/images/floor.png" class="img-responsive">
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+            </ul> 
+            <img :src="this.svgUrl" class="img-responsive">
           </div>
           <div class="roomMap maps" style="display:none;">
-            <img src="../../assets/images/floor.png" class="img-responsive">
+            <ul class="list-unstyled floor-item">
+                <li>{{ this.floorName }}</li>
+            </ul> 
+            <img :src="this.roomSvgUrl" class="img-responsive">
           </div>
       </div>      
     </div>
@@ -263,6 +249,7 @@
   </section>
 </template>
 <script>
+  import{ mapState } from "vuex"
   import { realconsole } from '../../assets/js/management.js';
   import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
   export default {
@@ -323,6 +310,10 @@
         totalList:null,//总条数
         deviceIndex:'',
         deviceName:'',
+        svgUrl:'',
+        table_list:[],
+        floorName:'',
+        roomSvgUrl:'',
         rules: {
           buildName:[
             { required: true, trigger: 'blur', validator: validName }
@@ -364,6 +355,14 @@
       }
     },
     methods: {
+      floor_btn(id){
+        console.log(id)
+        this.table_list.forEach((item)=>{
+          if(item.id == id){
+            this.svgUrl = item.svgUrl ;
+          }
+        })
+      },
       btn_add(){
         $('#right').css('display','none');
       },
@@ -448,6 +447,9 @@
         $('.floorMap').show();
         this.$store.commit('floorAdd',1);
         this.$store.commit('buildingId',row.id);
+        this.$store.commit('currentPage',this.currentPage4);
+        this.deviceIndex = row.id;
+        this.findPageBuildIngFloor();
       },
       show3(row){//跳转
         console.log(row.id);
@@ -526,6 +528,24 @@
           .then(err => {
             // console.log(err);
           });
+      },
+      findPageBuildIngFloor(){
+        // console.log(this.buildingId)
+        this.$fetch("/api/building/findPageBuildIngFloor",{
+          pageIndex:1,
+          pageSize:1000,
+          buildingId:this.deviceIndex
+        }).then(response=>{
+          console.log(response.data.pageBuildIng.result);
+          this.table_list = response.data.pageBuildIng.result;
+          this.table_list.forEach(item=>{
+             if(this.floorId == item.floor){
+                this.roomSvgUrl = item.svgUrl ;
+                this.floorName = item.floorName ;
+             }
+          })
+         
+        })
       }
     },
     mounted(){
@@ -556,7 +576,10 @@
         this.buildUnit = val;
         this.tableBuildList();
       }
-    }
+    },
+     computed:mapState([
+       'floorId'
+    ])
   };
 </script>
 

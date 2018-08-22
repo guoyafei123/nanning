@@ -182,7 +182,7 @@
     <div class="total" style="display: none;">      
         <!-- 总数统计 -->
         <section class="toolcount clearfix">
-          <ul class="toolcount-left padding0">
+          <ul class="toolcount-left padding0 col-sm-5">
             <li>
               <p class="size-10 font-gray-666">Device Total</p>
             </li>
@@ -666,8 +666,9 @@
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               console.log(this.tableData)
+              this.$store.commit('DeviceMap',this.tableData);
               if(this.$route.path == '/Equipment_management/all'){
-                $('.plan').show()
+                $('.plan').show();
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
                     console.log(item);
@@ -775,7 +776,7 @@
           console.log(val);
           if(this.$route.path == '/Equipment_management/maps'){
             this.tableList();
-            this.$store.commit('DeviceMap',this.tableData);
+            
           }
         },
         // 深度观察监听
