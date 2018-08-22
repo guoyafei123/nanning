@@ -1,7 +1,7 @@
 <template>
 	<header id="header" class="position-fixed-top z-index-30">
 		<div class="header-main">
-			<div class="header-left margin-top30 position-left37 z-index-100">
+			<div class="header-left margin-top30 position-left20 z-index-100">
 				<p class="font-white size-18 version-title">
 					<!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
 					<span class="size-10 version-num">BETA3.0</span>

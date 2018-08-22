@@ -3,21 +3,21 @@
 /*左侧导航*/
 .fix,.fix-left {
   display:none;
-  width:60px;
-  height:60px;
-  position: fixed;
-  top:40%;
-  left:-30px;
-  background-color:#333;
-  text-align:center;
-  line-height: 60px;
-  border-top-right-radius:50%;
-  border-bottom-right-radius:50%; 
-  font-size: 24px;
-  color: #bad616;
-  padding-left: 24px;
-  cursor: pointer;
-  z-index: 90;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 40%;
+    left: -20px;
+    background-color: #333;
+    text-align: center;
+    line-height: 40px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    font-size: 18px;
+    color: #bad616;
+    padding-left: 16px;
+    cursor: pointer;
+    z-index: 90;
 }
 .fix-left {
   display: block;
@@ -26,14 +26,20 @@
   background-color: #bad616;
   color: #000;
 }
+/*左侧导航*/
 .manage-menu {
   padding-right: 0!important;
+}
+
+.manage-menu-title>div {
+        padding-left: 0;
 }
 .manage-menu-title a {
     cursor: pointer;
     color: #fff;
 }
 .manage-menu-title h1 {
+  padding-right: 0;
   font-size: 80px;
   line-height: 70px;
   letter-spacing: 10px;
@@ -53,7 +59,6 @@
     line-height:0;
 }
 .manage-menu i.iconfont {
-  font-size: 18px;
   color: #999;
 }
 .manage-menu .main_aside{
@@ -93,11 +98,12 @@
   width: 50%;
   text-align: left;
   display: block;
-    color: #fff;
-    font-size: 14px;
+  color: #fff;
+  margin-left: 6px;
+  font-size: 12px;
 }
 .main_aside a>li>span{
-  float: right;
+    float: right;
     text-align: right;
     line-height: 20px!important;
     font-size:12px;
@@ -144,7 +150,7 @@
 #dangerous #right .size-10 {
     margin-left: -5px;
 }
-#inspection #right .size-10 {
+#Inspection_plan #right .size-10 {
     margin-left: -2px;
 }
 
@@ -233,10 +239,10 @@
   text-align: left;
 }
 
-#inspection #right .has-gutter th:nth-last-child(2) .cell{
+#Inspection_plan #right .has-gutter th:nth-last-child(2) .cell{
   text-align: right!important;
 }
-#inspection #right .el-table__row td:last-child .cell{
+#Inspection_plan #right .el-table__row td:last-child .cell{
   color: #fff;
 }
 #right .el-table--border th:first-child .cell,
@@ -642,6 +648,7 @@
   height: 86%;
   width: 100%;
   position: relative;
+  background-color: #111;
 }
 #manage_map {
     height: 100%;
@@ -689,7 +696,7 @@
   width: -webkit-fill-available;
   position: absolute;
   left: 535px;
-  margin-right: 37px;
+  margin-right: 20px;
   background: #000;
 }
 .main_nav a { 
@@ -1091,4 +1098,13 @@
 .main_content_table .table-scroll {
   max-height: 660px;
   overflow-y: auto;
+}
+.el-table__body-wrapper {
+  height: 94.2%!important;
+}
+.is-scrolling-middle::-webkit-scrollbar {
+  width: 4px;height:4px;
+}
+.el-table__fixed,.el-table__fixed-right {
+  background-color: #111;
 }

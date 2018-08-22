@@ -228,7 +228,7 @@ h4.p-title:before {
     margin-bottom: 0;
 }
 .header-right {
-    right: 10px;
+    right: 0px;
 }
 .header-head {    
     position: relative;
@@ -254,7 +254,7 @@ h4.p-title:before {
 
 .top-btn li {
     text-align: right;
-    padding-left: 30px!important;
+    padding-left: 24px!important;
     padding-right: 0!important;
 }
 .top-btn li:first-child {
@@ -538,7 +538,7 @@ span.point {
 .unit-info li:last-child {
 }
 .unit-info li:last-child article {
-    width: 25%;
+    width: 33.3%;
     float: left;
     line-height: 26px;
 }
@@ -901,3 +901,20 @@ a.min-map-cloase:hover {
 #early .floor-item {
     top: 120px;
 }
+
+.unit-info li:nth-child(2) h4 {
+        font-size: 16px;
+    }
+    .unit-info li:nth-child(2) article { 
+        padding:0 6px; 
+    }
+    #risk #right .cardinfo-style [class*="col-"],
+    #risk #right .cardinfo-style [class^="col-"],
+    #right .toolcount .row [class*="col-"],
+    #right .toolcount .row [class^="col-"]{
+        padding:0 6px; 
+    }
+    #risk #right .cardinfo-style [class*="col-"] span,
+    #risk #right .cardinfo-style [class^="col-"] span{
+        margin-right: 4px;
+    }

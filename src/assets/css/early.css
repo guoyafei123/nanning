@@ -344,6 +344,9 @@
         content: "\e62c";
     }
 /*报警详情*/
+#early #right {
+    background-color: #000;
+}
 #early #common-cont {
     padding-left: 0;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="row" id="inspection">
+  <div class="row" id="Inspection_plan">
     <!-- #头部 -->
     <header-vue></header-vue>
     <!-- #头部 End-->
