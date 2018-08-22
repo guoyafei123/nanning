@@ -175,6 +175,9 @@ footer .el-button:hover,footer .el-button:focus {
     color: #999;
     border-top: 1px solid #111;
 }
+.el-dropdown-menu__item a {
+  color: #999;
+}
 .el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover {
     color: #fff;
     background-color: #000; 
