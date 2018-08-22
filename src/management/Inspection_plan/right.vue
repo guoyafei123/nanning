@@ -179,7 +179,7 @@
     <div class="total" style="display: none;">
         <!-- 总数统计 -->
         <section class="toolcount clearfix">
-          <ul class="toolcount-left padding0 col-sm-3">
+          <ul class="toolcount-left padding0 col-sm-5 col-md-4">
             <li>
               <p class="size-10 font-gray-666">Inspection Total</p>
             </li>
@@ -190,7 +190,7 @@
               <h1 class="toolcount-p1">{{countInspectionPlanRelevant.countTotal}}</h1>
             </li>
           </ul>
-          <ul class="list-inline col-sm-9 text-left margin-top90 font-gray-666 size-12">
+          <ul class="list-inline col-sm-7 col-md-8 text-left margin-top60 font-gray-666 size-12">
             <li>
               未激活 <span class="font-red">{{countInspectionPlanRelevant.countDisableTotal}}</span>
             </li>

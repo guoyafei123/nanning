@@ -1,5 +1,5 @@
 <template>
-	<div class="row">
+	<div class="row" id="callpolice">
 		<!-- #头部 -->
 		<!-- <header-vue></header-vue> -->
 		<!-- #头部 End-->
@@ -47,7 +47,7 @@
 						</div>
 					</section>
 					<section>
-						<div class="toolroute font-gray-ccc margin-left37">
+						<div class="toolroute font-gray-ccc">
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10 clearfix">
 								<li>
@@ -295,12 +295,12 @@
 										<strong>{{getAlarmDetail.confirmReason}}</strong>
 									</div>
 									<div class="textandimg-img imgs-nthof">
-										<template v-for="item in getAlarmDetail.imgUrl">
+										<template v-for="item in getAlarmDetail.addAlarmImgList">
 											<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
 												<video :src="item" width="100%" controls="controls"></video>
 											</div>
 										</template>
-										<template v-for="item in getAlarmDetail.imgUrl">
+										<template v-for="item in getAlarmDetail.addAlarmImgList">
 											<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
 												<img :src="item">
 											</div>
@@ -460,7 +460,6 @@
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
 				this.getAlarmCount_parameter.beginTime = st;
 				this.getAlarmCount_parameter.endTime = et;
-				this.getTable();
 				this.getData();
 			},
 			defaultTimeVaule() {

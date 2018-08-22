@@ -30,7 +30,9 @@
 .manage-menu {
   padding-right: 0!important;
 }
-
+.manage-menu-title {
+  height: 100px;
+}
 .manage-menu-title>div {
         padding-left: 0;
 }
@@ -40,8 +42,8 @@
 }
 .manage-menu-title h1 {
   padding-right: 0;
-  font-size: 80px;
-  line-height: 70px;
+  font-size: 88px;
+  line-height: 88px;
   letter-spacing: 10px;
   color: #fff;
 }
@@ -62,7 +64,9 @@
   color: #999;
 }
 .manage-menu .main_aside{
-    width:100%;
+    width: 100%;
+    height: 140px;
+    /*margin-top: 38px;*/
 }
 .manage-menu .main_aside ul{
     width:100%;
@@ -147,8 +151,11 @@
 /*中间主列表*/
 #Build_management #right .size-10,
 #equipment #right .size-10,
-#dangerous #right .size-10 {
+#dangerous #right .size-10{
     margin-left: -5px;
+}
+#dangerous #right .set-scaleright{
+    margin-left: -1px;
 }
 #Inspection_plan #right .size-10 {
     margin-left: -2px;
@@ -156,7 +163,7 @@
 
 .main_header {
     width:100%;
-    height:56px;
+    height:60px;
     padding:0 15px;
     background-color: #111;
   }
@@ -168,7 +175,7 @@
     margin-right:10px;
   }
   .main_title h2{
-    line-height: 56px;
+    line-height: 60px;
     color: #fff;
     font-size: 14px;
   }
@@ -223,6 +230,7 @@
 #right .el-table__body tr.hover-row:hover>td {
     background-color: #111;
 }*/
+
 .el-table--striped .el-table__body tr.el-table__row--striped.current-row td,
 .el-table__body tr.current-row>td,
 .el-table__body tr.hover-row.current-row>td,
@@ -279,12 +287,7 @@
 .main_all_content .maps {
   height: 100%;
 }
-.main_content_table table thead {
-  margin-bottom: 11px;
-}
-.main_content_table table {
-  margin-top:0px;
-}
+
 .main_content_table .el-table td:last-child .cell,
 .main_content_table .el-table th:last-child .cell{
   text-align: right!important;
@@ -390,10 +393,10 @@
     background: #222222;
   }
   .main_content_table{
-        width: 100%;
+    width: 100%;
     background-color: transparent;
     height: 81%;
-    margin-top: 11px;
+    /*padding-top: 16px;*/
 }
   .main_content_bottom{
     width:100%;
@@ -705,7 +708,7 @@
 }
 .main_nav a span {
   display: block;
-  margin-top: 15px;
+  margin-top: 17px;
   width: 64px!important;
   height: 28px!important;
   line-height: 28px!important;

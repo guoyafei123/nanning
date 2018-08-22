@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="main_aside">
-        <ul class="margin-top50 list-unstyled">
+        <ul class="list-unstyled">
           <li class="system_title">系统管理</li>
           <router-link to="/Unit_management">
             <li>

@@ -609,12 +609,19 @@ span.point {
     padding: 0;
     display: block;
 }
-
+#callpolice p.size-10,
+#danger p.size-10,
 .toolcompanyrate-char p.size-10,
-#inspection p.size-10,
 #building p.size-10,
 #personnel p.size-10,
+#inspection .toolcount-right-explain p.size-10
 #plan p.size-10{
+    margin-left: -4px;
+}
+#inspection .toolcount-left p.size-10 {
+    margin-left: -7px;
+}
+#plan p.size-10 {
     margin-left: -4px;
 }
 /*设备*/

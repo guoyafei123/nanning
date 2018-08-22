@@ -109,11 +109,11 @@
                                 <strong>{{buildBaseInfo.type?buildBaseInfo.type:"暂无"}}</strong>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <span>建筑年份 </span>
                                 <strong>{{buidyear.substring(0,10)}} </strong>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <span>结构类型 </span>
                                 <strong>{{buildBaseInfo.structure?buildBaseInfo.structure:"暂无"}}</strong>
                             </div>
@@ -143,16 +143,25 @@
                                 <span>建筑维度 </span>
                                 <strong>{{buildBaseInfo.pointY?buildBaseInfo.pointY:"未知"}}</strong>
                             </div>
-                            <div class="col-sm-6">
-                                <span>管理单位 </span>
-                                <strong>{{buildBaseInfo.unitName ? buildBaseInfo.unitName:"暂为空"}} </strong>
-                            </div>
-                            <div class="col-sm-6">
-                                <span>负 责 人 </span>
-                                <strong>{{buildBaseInfo.linkname?buildBaseInfo.linkname:"暂无"}}</strong>
-                            </div>                   
+                                              
                         </div>
                     </div>
+                    <!-- 安防信息 -->
+                    <section>
+                      <div class="textandimg margin-top30">
+                            <h4 class="p-title">安防信息</h4>
+                            <div class="row textandimg-main margin-top20 size-12">
+                                <div class="col-sm-12">
+                                      <span>管理单位 </span>
+                                      <strong>{{buildBaseInfo.unitName ? buildBaseInfo.unitName:"暂为空"}} </strong>
+                                  </div>
+                                <div class="col-sm-12">                                   
+                                    <span>消防负责人 </span>
+                                    <strong>{{buildBaseInfo.linkname?buildBaseInfo.linkname:"暂无"}}</strong>
+                                </div>                 
+                              </div>
+                        </div>
+                    </section>
                 </section>
             </section>
             <!-- 统计 -->

@@ -1,5 +1,5 @@
 <template>
-	<div class="row">
+	<div class="row" id="danger">
 		<!-- #头部 -->
 		<!-- <header-vue></header-vue> -->
 		<!-- #头部 End-->
@@ -462,8 +462,7 @@
 				// 折线图数据
 				troubleRate_parameter: {
 					unitId: null,
-					beginTime: "2018-06-21",
-					endTime: "2019-07-12",
+					dateType: "1"
 				},
 				troubleRate: Object,
 				// 隐患详情
@@ -596,13 +595,12 @@
 							this.draw_piemin("dan_charpiemin", this.troubleCount);
 							this.draw_piemax("dan_charpiemax", this.troubleRatio);
 						}
-					})
-					.then(err => {
+					}).then(err => {
 						console.log(err);
 					});
-
-				// 请求折线图数据
-				this.$fetch("/api/trouble/troubleRate", this.troubleRate_parameter)
+				// FIXME 已更改为日月年格式需要重新接 
+				// 请求折线图数据 
+				this.$fetch("/api/trouble/queryTroubleLineChart", this.troubleRate_parameter)
 					.then(response => {
 						if(response) {
 							this.troubleRate = response.data;
