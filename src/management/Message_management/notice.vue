@@ -52,20 +52,20 @@
             label="序号">
           </el-table-column>
           <el-table-column
-            prop="name"
+            prop="title"
             :show-overflow-tooltip="true"
             label="标题">
           </el-table-column>
           <el-table-column
-            prop="telephone"
+            prop="senderUnitName"
             label="所属单位">
           </el-table-column>
           <el-table-column
-            prop="staffNum"
+            prop="senderName"
             label="发布人">
           </el-table-column>
           <el-table-column
-            prop="property"
+            prop="sendTime"
             label="发布时间">
           </el-table-column>        
           <el-table-column
@@ -106,6 +106,7 @@
   export default {
     data() {
       return {
+        unit:'',
         labelPosition: 'top',
         value4: '',
         tableData: [],//单位列表
@@ -113,7 +114,8 @@
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
-        deviceName:''
+        deviceName:'',
+        optionList:[]
       }
     },
     methods: {
@@ -126,13 +128,16 @@
       },
       show3(row){//跳转
         console.log(row.id);
-        this.$store.commit('unitNum',row.id);
+        this.$store.commit('noticeId',row.id);
       },
       tableList(){
         this.$fetch(
-          "/api/event/getEventById",{
-            currentPager:this.currentPage4,
-            pagerSize:10
+          "/api/event/querySystemMessage",{
+            currentPage:this.currentPage4,
+            pageSize:10,
+            unitId:this.unit,
+            startTime:this.value4[0],
+            endTime:this.value4[1]
           }
         )
           .then(response => {
@@ -142,7 +147,7 @@
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
-                  this.$store.commit('unitNum',item.id);
+                  this.$store.commit('noticeId',item.id);
                   console.log(item.id)
                 }
                 if(item.id == this.deviceIndex){
@@ -160,10 +165,29 @@
           .then(err => {
             // console.log(err);
           });
-      }
+      },
+      unitSearch(){
+          this.$fetch(
+            "/api/unit/queryUnit"
+          )
+          .then(response => {
+            if (response) {
+              console.log(response);
+              this.optionList = response.data.unitList;
+              console.log(this.optionList);
+              $(' .el-select-dropdown__item').mouseover(function(){
+                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
+              });
+            }
+          })
+          .then(err => {
+            // console.log(err);
+          });
+        }
     },
     mounted(){
       realconsole();
+      this.unitSearch();
       this.tableList();
       $('#right').show();
     },
@@ -171,6 +195,14 @@
       currentPage4(val, oldVal){
         this.currentPage4 = val;
         console.log(this.currentPage4);
+        this.tableList();
+      },
+      unit(val,oldVal){
+        this.unit = val ;
+        this.tableList();
+      },
+      value4(val,oldVal){
+        this.value4 = val ;
         this.tableList();
       }
     }

@@ -9,9 +9,9 @@
                   <div class="personinfo">
                         <p>                       
                         <span class="size-20 font-blue">{{this.form.BuildName}}</span>
-                        <span class="float-right">
+                        <!-- <span class="float-right">
                                 <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
-                            </span>
+                            </span> -->
                         </p>
                         <p class="col-sm-7 text-left padding0">
                             <span>
@@ -33,7 +33,7 @@
                       <li>
                           <h1 class="toolcount-p1"><span class="font-blue"></span>114</h1>
                       </li>
-                      <li class="margin-top30">
+                      <li class="margin-top20">
                           <p class="size-10 ">Room Total</p>
                       </li>
                       <li>
@@ -46,19 +46,19 @@
                       <li>
                           <p class="size-18 font-white">信息统计</p>
                       </li>
-                      <li class="margin-bottom5">
+                      <li class="margin-bottom30">
                           <p class="size-10 set-scaleright">Buliding Statistics</p>
                       </li>
-                      <li class="margin-top10">
+                      <!-- <li class="margin-top10">
                           <p>消防负责人 <span class="font-white">{{this.form.name}} {{this.form.phone}}</span></p>
-                      </li>
+                      </li> -->
                       <li class="row text-center padding-right16 margin-top10">
                           <div class="col-sm-4 personnel-borderright">
                               <p class="size-16 show font-white">{{this.form.area}}</p>
                               <p>面积 m²</p> 
                           </div>
                           <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-white">13{{this.form.height}}</p>
+                              <p class="size-16 show font-white">{{this.form.height}}</p>
                               <p>高度 m</p>
                           </div>
                           <div class="col-sm-4">                              
@@ -105,32 +105,32 @@
                   
                   <div class="col-sm-6">
                       <span>占地面积 </span>
-                      <strong v-html="this.form.area"></strong>
+                      <strong v-html="this.form.area+'㎡'"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>高 度 </span>
-                      <strong v-html="this.form.height"></strong>
+                      <strong v-html="this.form.height+'m'"></strong>
                   </div>
 
                   <div class="col-sm-6">
                       <span>总楼层 </span>
                       <strong v-html="this.form.floor"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>建筑年份 </span>
                       <strong v-html="this.form.timeYear"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <!-- <div class="col-sm-6">
                       <span>建筑平面图 </span>
                       <strong data-toggle="tooltip" title="建筑平面图" class="font-blue">查看</strong>
-                  </div>
+                  </div> -->
               </div>
         </div>
       </section>
       <!-- 安防信息 -->
       <section>
         <div class="textandimg margin-top30">
-              <h4 class="p-title">安防信息</h4>
+              <h4 class="p-title">消防信息</h4>
               <div class="row textandimg-main margin-top20 size-12">
                   <div class="col-sm-12">
                       <span>消防负责人 </span>
@@ -692,7 +692,7 @@
         $('.total').hide();
         $('.floor_wrap').hide();
         $('.room_wrap').show();
-        $('.maps').hide();
+        $('.map').hide();
         $('.floorMap').hide();
         $('.roomMap').show();
         this.floorName = item.floorName ;
@@ -711,7 +711,7 @@
         $('.floor_wrap').show();
         $('.room_wrap').hide();
         $('.floorMap').show();
-        $('.maps').hide();
+        $('.map').hide();
         $('.floorMap').show();
         this.$store.commit('floorAdd',1);
         this.$store.commit('buildingId',row.id);
@@ -819,7 +819,7 @@
           
           $('.main_all_content .main_content_table').show();
           $('.main_all_content .main_content_bottom').show();
-          $('.maps').show();
+          $('.map').show();
           $('.floorMap').hide();
           $('.roomMap').hide();
         }else{
@@ -846,7 +846,7 @@
           $('.main_all_content .main_content_table').show();
           $('.main_all_content .main_content_bottom').show();
           $('.room_wrap').hide();  
-          $('.maps').hide();
+          $('.map').hide();
           $('.floorMap').show();
           $('.roomMap').hide();
         }else{
@@ -989,7 +989,8 @@
             if (response.data.pageBuildIng) {
               this.totalList = response.data.pageBuildIng.totalRow;
               this.tableData = response.data.pageBuildIng.result;
-              console.log(this.tableData)
+              console.log(this.tableData);
+              this.$store.commit('tableData',this.tableData);
               if(this.$route.path == '/Building_management/all'){
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
@@ -1039,6 +1040,7 @@
         $('.total').hide();
         $('.floor_wrap').hide();
         $('.room_wrap').hide();
+        this.findPageBuildIngFloor();
       }
     },
     watch:{
@@ -1051,7 +1053,6 @@
             $('.floor_wrap').hide();
             $('.room_wrap').hide();
             this.tableList();
-            this.$store.commit('tableData',this.tableData);
           }
           if(this.$route.path == '/Building_management/all'){
             $('.total').hide();
@@ -1092,7 +1093,7 @@
             $('.plan').hide();
             $('.total').hide();
             $('.floor_wrap').show();
-            $('.maps').hide();
+            $('.map').hide();
             this.tableData.forEach((item,index)=>{
               if(item.id == this.buildingId){
                 // console.log(item);

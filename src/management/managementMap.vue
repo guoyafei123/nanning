@@ -262,42 +262,45 @@
         legend_landmark(content, id) {
           var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-jianzhu-xian-"></i></i></div>`;
           return html;
+        },
+        tableDatas(){
+          this.tableData.forEach(item => {
+            console.log(item.pointX);
+            console.log(item.pointY);
+            this.mp.addOverlay(this.addlandmark(item.id,item.name,[item.pointX,item.pointY]));
+            $("#map" + item.id).click(()=>{
+              $('.build').hide();
+              $('.floor').show();
+              $('.main_all_content .main_content_table').hide();
+              $('.main_all_content .main_content_bottom').hide();
+              $('.plan').hide();
+              $('.total').hide();
+              $('.floor_wrap').show();
+              $('.room_wrap').hide();
+              $('.floorMap').show();
+              $('.map').hide();
+              this.$store.commit('buildingId',item.id);
+            });
+          })
+        },
+        DeviceMaps(){
+          
         }
       },
       
       watch:{
         tableData(){
+          this.mp.clearOverlays();
           if(this.route_path == '/Building_management/maps'){
-            this.tableData.forEach(item => {
-              console.log(item.pointX);
-              console.log(item.pointY);
-              this.mp.addOverlay(this.addlandmark(item.id,item.name,[item.pointX,item.pointY]));
-              $("#map" + item.id).click(()=>{
-                $('.build').hide();
-                $('.floor').show();
-                $('.main_all_content .main_content_table').hide();
-                $('.main_all_content .main_content_bottom').hide();
-                $('.plan').hide();
-                $('.total').hide();
-                $('.floor_wrap').show();
-                $('.room_wrap').hide();
-                $('.floorsMap').show();
-                $('.maps').hide();
-                this.$store.commit('buildingId',item.id);
-              });
-            })
+            this.tableDatas()
           }
-          
         },
-        // DeviceMap(){
-        //   if(this.route_path == '/Equipment_management/maps'){
-        //     this.DeviceMap.forEach(item => {
-        //       console.log(item.pointX);
-        //       console.log(item.pointY);
-        //       this.mp.addOverlay(this.addlandmark(item.name,item.status,[item.pointX,item.pointY]));
-        //     })
-        //   }
-        // },
+        DeviceMap(){
+          this.mp.clearOverlays();
+          if(this.route_path == '/Equipment_management/maps'){
+            this.DeviceMaps();
+          }
+        },
         // InspectionMap(){
         //   if(this.route_path=='/Inspection_plan/maps'){
             
