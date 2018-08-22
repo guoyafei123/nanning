@@ -379,8 +379,10 @@
 			<div id="audioBox"></div>
 		</template>
 		<!-- 弹窗 -->
-		<el-dialog title="" :visible.sync="dialogVisible" top="120px" style="background-color: rgba(0,0,0,1);">
-			<a class="go-back" @click="dialogVisible = false" data-toggle="tooltip" title="关闭"><i class="el-icon-circle-close-outline size-24"></i></a>
+		<el-dialog title="" :visible.sync="dialogVisible" top="120px">
+			<el-tooltip class="item" content="收起导航" placement="top">
+				<a class="go-back" @click="dialogVisible = false"><i class="el-icon-circle-close-outline size-24"></i></a>
+				</el-tooltip>
 			<earlyinfo-vue></earlyinfo-vue>
 		</el-dialog>
 	</div>
