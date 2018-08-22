@@ -690,6 +690,8 @@
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
 				this.queryTrendMapGraph_parameter.startTime = st;
 				this.queryTrendMapGraph_parameter.endTime = et;
+				this.queryPlanDetails_parameter.beginTime = st;
+				this.queryPlanDetails_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {

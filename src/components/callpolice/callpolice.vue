@@ -460,7 +460,6 @@
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
 				this.getAlarmCount_parameter.beginTime = st;
 				this.getAlarmCount_parameter.endTime = et;
-				this.getTable();
 				this.getData();
 			},
 			defaultTimeVaule() {

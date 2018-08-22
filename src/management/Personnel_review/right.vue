@@ -144,7 +144,8 @@
           reviewTime:'',
           headImgUrl:''
         },
-        tableData:[]
+        tableData:[],
+        currentPage:1
       }
     },
     

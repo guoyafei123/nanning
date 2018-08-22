@@ -217,62 +217,51 @@
           mmapArr[divId] = mmap;
           return mmap;
         },
-        addlandmark(name,value,p){
-          // console.log(2222222)
-          let that=this;
-          function landmark(point, name, value){
-          this._point = point;
-          this._name = name;
-          this._value = value;
-          }
-          landmark.prototype = new BMap.Overlay();
-          landmark.prototype.initialize = function(map){
-            this._map = map;
-            var div = this._div = document.createElement('div');
-            $(div).addClass('landmark_marker')
-            div.style.position = "absolute";
-
-            $(div).append(that.legend_landmark(this._name, this._value));
-            map.getPanes().labelPane.appendChild(div);
-            return div;
-          }
-          landmark.prototype.draw = function(){
-            var mmap = this._map;
-            var pixel = mmap.pointToOverlayPixel(this._point);
-            this._div.style.left = pixel.x - 0 + "px";
-            this._div.style.top  = pixel.y - 0 + "px";
-          }
-          var marker= new landmark(new BMap.Point(p[0],p[1]), name,value);
-          return marker;
-        },
-        addMarker(mmap,point,html){
-          var pt = new BMap.Point(point[0],point[1]);
-          var myIcon = new BMap.Icon(html, new BMap.Size(300,127));
-          var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-          mmap.addOverlay(marker2); 
-        },
-        // 创建自定义marker-建筑标志和值
-        legend_landmark(name, value) {
-          // console.log(1111111)
-          var style;
-          if (value <= 1) {
-            style = 'bg-blue';
-          } else if (value <= 2) {
-            style = 'bg-yellow';
-          } else if (value <= 9) {
-            style = 'bg-orange';
-          } else {
-            style = 'bg-red';
+        addlandmark(id, value, p) {
+          let that = this;
+          // let map=this.getMapToDiv('allmap');
+          function landmark(marker,  value) {
+            marker.addEventListener("click", function () {
+              console.info("长富宫");
+            });
+            this._marker = marker;
+            this._point = marker.getPosition();
+            this._value = value;
+            this._id = id;
           }
           
-          var html = `
-            <div class="legend-landmark font-block" style="top:-88px;left:-20px">
-                <span class="landmark-rect ` + style + `"></span>
-                <span class="marker-name">` + name + `</span><br/>
-                <span class="font-block ` + style + `">` + value + `</span>
-            </div>
-          `
-        return html;
+          landmark.prototype = new BMap.Overlay();
+          landmark.prototype.initialize = function(map) {
+            this._map = map;
+            var div = (this._div = document.createElement("div"));
+            $(div).addClass("landmark_marker");
+            div.style.position = "absolute";
+
+            $(div).append(that.legend_landmark( this._value, this._id));
+            map.getPanes().labelPane.appendChild(div);
+            return div;
+          };
+
+          
+            
+          landmark.prototype.draw = function() {
+            var map = this._map;
+            var pixel = map.pointToOverlayPixel(this._point);
+            this._div.style.left = pixel.x - 0 + "px";
+            this._div.style.top = pixel.y - 0 + "px";
+          };
+
+          
+          var marker = new landmark(new BMap.Marker(new BMap.Point(p[0], p[1])),value);
+          
+          
+          
+          
+          return marker;
+        },
+        legend_landmark(content, id) {
+          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-jianzhu-xian-"></i></i></div>`;
+          return html;
         }
       },
       
@@ -282,32 +271,42 @@
             this.tableData.forEach(item => {
               console.log(item.pointX);
               console.log(item.pointY);
-              this.mp.addOverlay(this.addlandmark(item.name,item.status,[item.pointX,item.pointY]));
+              this.mp.addOverlay(this.addlandmark(item.id,item.name,[item.pointX,item.pointY]));
+              $("#map" + item.id).click(()=>{
+                $('.build').hide();
+                $('.floor').show();
+                $('.main_all_content .main_content_table').hide();
+                $('.main_all_content .main_content_bottom').hide();
+                $('.plan').hide();
+                $('.total').hide();
+                $('.floor_wrap').show();
+                $('.room_wrap').hide();
+                $('.floorsMap').show();
+                $('.maps').hide();
+                this.$store.commit('buildingId',item.id);
+              });
             })
           }
+          
         },
-        DeviceMap(){
-          if(this.route_path == '/Equipment_management/maps'){
-            this.DeviceMap.forEach(item => {
-              console.log(item.pointX);
-              console.log(item.pointY);
-              this.mp.addOverlay(this.addlandmark(item.name,item.status,[item.pointX,item.pointY]));
-            })
-          }
-        },
-        InspectionMap(){
-          if(this.route_path=='/Inspection_plan/maps'){
+        // DeviceMap(){
+        //   if(this.route_path == '/Equipment_management/maps'){
+        //     this.DeviceMap.forEach(item => {
+        //       console.log(item.pointX);
+        //       console.log(item.pointY);
+        //       this.mp.addOverlay(this.addlandmark(item.name,item.status,[item.pointX,item.pointY]));
+        //     })
+        //   }
+        // },
+        // InspectionMap(){
+        //   if(this.route_path=='/Inspection_plan/maps'){
             
-          }
-        },
-        route_path(){
-          this.mp.clearOverlays();
-        },
+        //   }
+        // },
       },
       mounted(){
         var mapStates = this.getMapToDiv('manage_map');
         this.mp = mapStates;
-        
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
       },
       computed:mapState([
