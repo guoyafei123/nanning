@@ -70,7 +70,7 @@
 					<section>
 						<div class="toolroute font-gray-999 margin-left37">
 							<span class="toolroute-rect bg-blue"></span>
-							<ul class="padding-left10 padding-right5 clearfix">
+							<ul class="padding-left10 clearfix">
 								<li>
 									<p class="font-gray-666 size-12">中心小学</p>
 								</li>
@@ -155,7 +155,7 @@
 						<div class="col-sm-9 padding0">
 							<section>
 								<div class="upd-elmdate">
-									<el-date-picker v-model="value7" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+									<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
 									</el-date-picker>
 								</div>
 							</section>
@@ -547,6 +547,7 @@
 </template>
 
 <script>
+	import moment from "moment";
 	import HeaderVue from "../publick/header.vue";
 	// import Ins_leftVue from "./ins_left.vue";
 	// import Ins_rightVue from "./ins_right.vue";
@@ -580,7 +581,7 @@
 						}
 					}]
 				},
-				value7: '',
+				dateValue: '',
 				//巡检统计参数
 				planInspectionCount_parameter: {},
 				//巡检统计参数-返回
@@ -683,6 +684,34 @@
 			// "ins_right-vue": Ins_rightVue
 		},
 		methods: {
+			chooseTimeRange(t) {
+				this.dateValue = t;
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+				this.queryTrendMapGraph_parameter.startTime = st;
+				this.queryTrendMapGraph_parameter.endTime = et;
+				this.getData();
+			},
+			defaultTimeVaule() {
+				var startDate = this.getNowFormatDate();
+				this.dateValue = [startDate,startDate];
+			},
+			//获取当前时间：
+			getNowFormatDate(){
+				var date = new Date();
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
+			},
 			getData() {
 				// 请求巡检统计
 				this.$fetch("/api/inspection/planInspectionCount").then(response => {
@@ -1119,6 +1148,7 @@
 		},
 		mounted() {
 			this.$store.commit('route_path', this.$route.path);
+			this.defaultTimeVaule();
 			this.getData();
 			this.getTable();
 			this.getmap_queryUnitBuildList();

@@ -1,8 +1,8 @@
 <template>
-  <section id="operationLog">
-    <div class="main_header clearFix">
+  <section>
+    <div class="main_header">
       <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-caozuorizhi-xian-"></i>
+        <i class="icon iconfont icon-kongzhitai_" style="margin-right: 26px;"></i>
         <h2>控制室日常</h2>
       </div>
     </div>

@@ -4,9 +4,15 @@
         <h1 class="col-xs-8">管理</h1>
         <div class="col-xs-3 padding-right0 text-right">
           <router-link to="/operationLog">
-          <i class="icon iconfont icon-caozuorizhi-xian-" data-toggle="tooltip" title="工作日志"></i>
+            <el-tooltip class="item" content="工作日志" placement="top">
+              <i class="icon iconfont icon-caozuorizhi-xian-"></i>
+            </el-tooltip>
           </router-link>
-          <a class="span_show margin-top20" data-toggle="tooltip" title="收起导航"><i class="el-icon-arrow-left"></i>收起</a>
+          <el-tooltip class="item" content="收起导航" placement="top">
+          <a class="span_show">
+              <i class="el-icon-arrow-left"></i> 收起                       
+          </a>
+        </el-tooltip> 
         </div>
       </div>
       <div class="main_aside">
@@ -102,7 +108,7 @@
           </router-link> -->
           <router-link to="/ControlRoomLog">
             <li>
-              <i class="icon iconfont icon-caozuorizhi-xian-"></i>
+              <i class="icon iconfont icon-kongzhitai_"></i>
               <h2>控制室日常</h2>
               <span>6</span>
             </li>
@@ -123,9 +129,9 @@
           //     'animation-fill-mode': 'forwards'
           // })
           // console.log(1)
-          $('.show_left').slideToggle(1000,function(){
-            $('#left').css('width','0');
-          $('main').css('margin-left','0');
+          $('.show_left').animate({'left':'toggle'},200,function(){
+            $('#left').removeClass('open-left');
+            $('#manage-center').addClass('open-center');
             $('.fix').show();
           });
 

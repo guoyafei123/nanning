@@ -56,15 +56,39 @@
 </template>
 
 <script>
+	import{mapState} from "vuex";
 	import HeaderVue from './header.vue';
 	import earlyinfo_rightVue from './earlyinfo_right.vue';
 	import MapVue from './mapindex.vue';
+
 	export default {
 		components: {
 			'header-vue': HeaderVue,
 			'earlyinfo_right-vue': earlyinfo_rightVue,
 			'mapindex-vue': MapVue
+		},
+		data(){
+			return{
+				aleamAndtroubleInfos:Object
+			}
+		},
+		computed:mapState([
+			'aleamAndtroubleInfo'
+		]),
+		watch:{
+			aleamAndtroubleInfo(){
+				this.fn();
+			}
+		},
+		methods: {
+			fn(){
+				this.aleamAndtroubleInfos=this.aleamAndtroubleInfo
+				this.$store.commit("aleamAndtroubleInfos", [this.aleamAndtroubleInfo,this.tounpdateIndex++]);
+				// alert(this.aleamAndtroubleInfo[0].unitName);
+			}
+		},
+		mounted(){
+			this.fn();
 		}
-
 	}
 </script>

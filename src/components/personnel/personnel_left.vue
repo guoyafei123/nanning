@@ -72,7 +72,7 @@
 		<section>
 			<div class="toolroute font-gray-ccc margin-left37 margin-top40">
 				<span class="toolroute-rect bg-blue"></span>
-				<ul class="padding-left10 padding-right5 clearfix">
+				<ul class="padding-left10 clearfix">
 					<li>
 						<p class="font-blue size-16">人员信息
 							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">

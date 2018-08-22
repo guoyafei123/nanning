@@ -434,6 +434,7 @@
 					this._div.style.top = pixel.y - 0 + "px";
 				};
 				var marker = new landmark(new BMap.Point(p[0], p[1]), name, value);
+				
 				return marker;
 			},
 			addpeople(img, value, p) {
@@ -561,7 +562,7 @@
 
 				var html =
 					`
-            <div class="legend-landmark font-block" style="top:-88px;left:-20px">
+            <div   class="legend-landmark font-block" style="top:-88px;left:-20px">
                 <span class="landmark-rect ` +
 					style +
 					`"></span>
@@ -574,7 +575,8 @@
 					value +
 					`</span>
             </div>
-          `;
+		  `;
+		  		
 				return html;
 			},
 			legend_people(img, value) {
@@ -666,10 +668,18 @@
           `;
 				return html;
 			},
+			attribute(){
+				alert("marker的位置是");    
+			},
 			path_index() {
+				var  markers=this.addlandmark("红花园工业园1号楼", "3", [110.574494, 27.905342])
 				this.mp.addOverlay(
-					this.addlandmark("红花园工业园1号楼", "3", [110.574494, 27.905342])
+					markers
 				);
+				markers.addEventListener("click",function(){
+					alert(1);
+				});
+
 				this.mp.addOverlay(
 					this.addlandmark("红花园工业园2号楼", "3", [110.574907, 27.905837])
 				);

@@ -29,11 +29,19 @@
           </div>
         </div>
         <div class="maps">
-          <managementMap-vue></managementMap-vue>
-        
-        </div>            
+        <managementMap-vue></managementMap-vue>
+        </div>
+        <div class="maps" style="display:none;">
+        <div class="floorMap">
+          <img src="../../assets/images/floor.png">
+        </div>
+        <div class="roomMap" style="display:none;">
+          <img src="../../assets/images/floor.png">
+        </div> 
+        </div>         
       </div>
-    </aside>    
+    </aside>
+    
   </div>
 </template>
 

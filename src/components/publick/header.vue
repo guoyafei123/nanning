@@ -1,7 +1,7 @@
 <template>
 	<header id="header" class="position-fixed-top z-index-30">
 		<div class="header-main">
-			<div class="header-left margin-top30 position-left37 z-index-100">
+			<div class="header-left margin-top30 position-left20 z-index-100">
 				<p class="font-white size-18 version-title">
 					<!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
 					<span class="size-10 version-num">BETA3.0</span>
@@ -33,10 +33,18 @@
 							<p class="size-12">主机在线</p>
 						</div>
 					</li>
+					<el-tooltip class="item" placement="top">
+					<div slot="content" class="text-center">2018年9月18日<br>晴朗</div>
 					<li class="header-time">
-						<p class="font-blue size-12"> <i class="icon iconfont icon-qinglang-xian- size-14" data-toggle="tooltip" title="晴朗"></i><span>晴朗</span></p>
-						<p class="size-36 font-white" data-toggle="tooltip" title="2018年9月18日">09:50:55</p>
+						
+							<p class="font-blue size-12">							
+									<i class="icon iconfont icon-qinglang-xian- size-14"></i><span>晴朗</span>
+							</p>
+							<p class="size-36 font-white">
+								09:50:55
+							</p>						
 					</li>
+					</el-tooltip>
 					<li>
 						<canvas class="bg-none" id="header-canvas-cpu" width="50" height="50"></canvas>
 						<div class="display-inline-block">
@@ -83,32 +91,44 @@
 				<li>
 					<span class="point"></span>
 					<a @click="showMessages()">
-						<i class="icon iconfont icon-xiaoxi-mian--" data-toggle="tooltip" title="消息"></i>
+						<el-tooltip class="item" content="消息" placement="top">
+							<i class="icon iconfont icon-xiaoxi-mian--"></i>
+						</el-tooltip>
 					</a>
 				</li>
 				<li>
-					<a href="#" data-toggle="tooltip" title="搜索">
-						<i class="icon iconfont icon-sousuo-mian-"></i>
+					<a href="#">
+						<el-tooltip class="item" content="搜索" placement="top">
+							<i class="icon iconfont icon-sousuo-mian-"></i>
+						</el-tooltip>
 					</a>
 				</li>
 				<li>
-					<router-link to="/Unit_management" data-toggle="tooltip" title="管理">
-						<i class="icon iconfont icon-shezhi-mian-"></i>
+					<router-link to="/Unit_management">
+						<el-tooltip class="item" content="管理" placement="top">
+							<i class="icon iconfont icon-shezhi-mian-"></i>
+						</el-tooltip>
 					</router-link>
 				</li>
 				<li>
-					<a href="#" data-toggle="tooltip" title="九屏监控">
-						<i class="icon iconfont icon-jiuping-mian-"></i>
+					<a href="#">
+						<el-tooltip class="item" content="九屏监控" placement="top">
+							<i class="icon iconfont icon-jiuping-mian-"></i>
+						</el-tooltip>
 					</a>
 				</li>
 				<li>
-					<a @click="voice()" class="voice" data-toggle="tooltip" title="声音">
-						<i class="icon iconfont icon-tongzhi-mian-"></i>
+					<a @click="voice()" class="voice">
+						<el-tooltip class="item" content="声音" placement="top">
+							<i class="icon iconfont icon-tongzhi-mian-"></i>
+						</el-tooltip>
 					</a>
 				</li>
 				<li>
-					<a href="#" data-toggle="tooltip" title="帮助">
-						<i class="icon iconfont icon-bangzhu-mian-"></i>
+					<a href="#">
+						<el-tooltip class="item" content="帮助" placement="top">
+							<i class="icon iconfont icon-bangzhu-mian-"></i>
+						</el-tooltip>
 					</a>
 				</li>
 			</ul>
