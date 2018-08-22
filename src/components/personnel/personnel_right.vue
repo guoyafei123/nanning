@@ -335,33 +335,26 @@
 		},
 		methods: {
 			chooseTimeRange(t) {
-				// console.log(this.queryUserCount_parameter.startTime);
 				this.dateValue = t;
-				console.log("获取到的时间为:------------");
-				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');;
-				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');;
-				console.log(st);
-				
-
-				// this.queryUserCount_parameter.startTime = st;
-				// this.queryUserCount_parameter.endTime =et;
-				
+				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+				console.log(st+" 至 "+et);
+				// this.queryUserCount_parameter.startTime=this.st;
+				// this.queryUserCount_parameter.endTime=this.et;
 				//TODO 重新发送请求
 				this.getData();
 			},
 			defaultTimeVaule() {
-				//TODO 设置默认时间
-				console.log("设置默认时间:------------");
-				//获取当前时间：
-				var startDate = this.getNowFormatDate(-7);
-				var endDate = this.getNowFormatDate(0);
-				this.dateValue = [startDate,endDate];
+				var startDate = this.getNowFormatDate();
+				// this.queryUserCount_parameter.startTime=this.startDate;
+				// this.queryUserCount_parameter.endTime=this.startDate;
+				this.dateValue = [startDate,startDate];
 			},
-			//获取给当前时间添加或减去days天：
-			getNowFormatDate(days){
+			//获取当前时间
+			getNowFormatDate(){
 				var date = new Date();
- 				var date_s = date.getTime();//转化为时间戳毫秒数
-				date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
+ 				// var date_s = date.getTime();//转化为时间戳毫秒数
+				// date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
 				var seperator1 = "-";
 				var year = date.getFullYear();
 				var month = date.getMonth() + 1;
