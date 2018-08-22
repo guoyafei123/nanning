@@ -17,14 +17,13 @@
       <div class="overlay"></div>
       <right-vue></right-vue>
     </section>
-    <div class="fix" @click="show" style="display:none;width:20px;height:60px;position: fixed;top:35%;left:0;background:#333;text-align:center;line-height: 60px;">
-      <span style="font-size: 23px;
-    display: block;
-    font-weight: normal;
-    transform: scale(1, 2.5);color: #fff;">&gt;</span>
-    </div>
     <!-- #右边 End-->
+<<<<<<< HEAD
+    <!-- 收起导航 -->
+    <div class="fix" @click="hide_left"><i class="el-icon-arrow-right"></i></div>
+=======
     <pdf-vue></pdf-vue>
+>>>>>>> bc1238f6130e2396e9de4326f7e280adcfd1f8b5
   </div>
 </template>
 
@@ -41,10 +40,10 @@
       }
     },
     methods:{
-      show(){
-        $('main').css('margin-left','17.58%');
-        $("#left").css('width','17.58%'); 
-        $('.show_left').slideToggle(1000,function(){
+      hide_left(){
+        $('#manage-center').removeClass('open-center');
+        $("#left").addClass('open-left'); 
+        $('.show_left').animate({'left':'toggle'},200,function(){
           $('.fix').hide();
         });
       }

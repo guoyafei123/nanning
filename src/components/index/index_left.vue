@@ -248,7 +248,9 @@
 						radius: [0, "70%"],
 						label: {
 							normal: {
-								position: "inner"
+								position: "inner",
+								color:"#000",
+								fontsize:"10px"
 							}
 						},
 						labelLine: {

@@ -1,13 +1,37 @@
 @charset "utf-8";
 
 /*左侧导航*/
+.fix,.fix-left {
+  display:none;
+  width:60px;
+  height:60px;
+  position: fixed;
+  top:40%;
+  left:-30px;
+  background-color:#333;
+  text-align:center;
+  line-height: 60px;
+  border-top-right-radius:50%;
+  border-bottom-right-radius:50%; 
+  font-size: 24px;
+  color: #bad616;
+  padding-left: 24px;
+  cursor: pointer;
+  z-index: 90;
+}
+.fix-left {
+  display: block;
+}
+.fix:hover,.fix:focus,.fix-left:hover,.fix-left:focus {
+  background-color: #bad616;
+  color: #000;
+}
 .manage-menu {
   padding-right: 0!important;
 }
 .manage-menu-title a {
-    display: block;
-    cursor: pointer!important;
-    color: #ccc!important;
+    cursor: pointer;
+    color: #fff;
 }
 .manage-menu-title h1 {
   font-size: 80px;
@@ -15,9 +39,9 @@
   letter-spacing: 10px;
   color: #fff;
 }
-.manage-menu-title a:hover,.manage-menu-title a.active {
-    color: #bad616!important;
-    text-decoration: none!important;
+.manage-menu-title a:hover,.manage-menu-title a.active,.manage-menu-title a:hover i {
+    color: #bad616;
+    text-decoration: none;
 }
 .system_title {
   font-size: 12px;

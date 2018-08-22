@@ -12,8 +12,11 @@
     #min-map {
         right: 400px;
     }
-    #left{
+    #left {
         width: 300px;
+    }
+    .open-left{
+        width: 300px!important;
     }
     #right {
         width: 400px;
@@ -21,7 +24,9 @@
     #manage-center {
         width: 100%;
         left: 300px;
-        margin-right: 400px;
+    }
+    .open-center {
+        width: 100%!important;
     }
     .header-middle{
         margin-top: 74px;
@@ -35,8 +40,11 @@
     #min-map {
         right: 29%;
     }
-    #left{
+    #left {
         width: 20%;
+    }
+    .open-left{
+        width: 20%!important;
     }
     #right{
         width: 24%;
@@ -44,6 +52,9 @@
     #manage-center {
         width: 56%;
         left: 20%;
+    }
+    .open-center {
+        width: 76%!important;
     }
     .header-middle{
         margin-top: 18px;
@@ -63,12 +74,18 @@
     #left{
         width: 17%;
     }
+    .open-left{
+        width: 17%!important;
+    }
     #right{
         width: 20%;
     }
     #manage-center {
         width: 63%;
         left: 17%;
+    }
+    .open-center {
+        width: 80%!important;
     }
 }
 
