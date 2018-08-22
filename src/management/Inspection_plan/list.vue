@@ -21,7 +21,7 @@
          -->
         <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="路线名称" class="not-null">
-            <span class="hint-error">单位名称有误或重复</span>
+            <!-- <span class="hint-error">单位名称有误或重复</span> -->
             <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
           <el-form-item label="选择单位" class="not-null">
@@ -487,6 +487,18 @@
             }
           })
         },
+        equipmentSearchOut(unit,buildingId){
+          this.$fetch("/api/building/selectNode",{
+            unitId:unit,
+            buildingId:buildingId
+          }).then(response=>{
+            console.log('equipmentSearch:'+response);
+            if (response) {
+              this.equipmentList = response.data.list;
+              // console.log(this.equipmentList);
+            }
+          })
+        },
         buildSearchs(unitId){
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
@@ -531,6 +543,18 @@
             }
           })
         },
+        equipmentSearchsOut(unit,buildIngId){
+          this.$fetch("/api/building/selectNode",{
+            unitId:unit,
+            buildingId:buildingId
+          }).then(response=>{
+            console.log('equipmentSearchs:'+response);
+            if (response) {
+              this.equipmentLists = response.data.list;
+              // console.log(this.equipmentLists);
+            }
+          })
+        },
         buildSearchNode(unitId){
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
@@ -567,6 +591,18 @@
         equipmentSearchNode(roomId){
           this.$fetch("/api/building/selectNode",{
             roomId:roomId
+          }).then(response=>{
+            console.log('equipmentSearchNode:'+response);
+            if (response) {
+              this.equipmentListNode = response.data.list;
+              // console.log(this.equipmentListNode);
+            }
+          })
+        },
+        equipmentSearchNodeOut(unit,buildingId){
+          this.$fetch("/api/building/selectNode",{
+            unitId:unit,
+            buildingId:buildingId
           }).then(response=>{
             console.log('equipmentSearchNode:'+response);
             if (response) {
@@ -640,7 +676,7 @@
             $('.startRoom').hide();
             $('.startDevice').show();
             this.equipment = '';
-            this.equipmentSearch(this.building);
+            this.equipmentSearchOut(this.region1,this.building);
           }
         },
         floor(curVal,oldVal){
@@ -674,7 +710,7 @@
             $('.endRoom').hide();
             $('.endDevice').show();
             this.equipments = '';
-            this.equipmentSearchs(this.buildings);
+            this.equipmentSearchsOut(this.region1,this.buildings);
           }
         },
         floors(curVal,oldVal){
@@ -708,7 +744,7 @@
             $('.NodeRoom').hide();
             $('.NodeDevice').show();
             this.equipmentNode = '';
-            this.equipmentSearchNode(this.buildingNode);
+            this.equipmentSearchNodeOut(this.region1,this.buildingNode);
           }
         },
         floorNode(curVal,oldVal){

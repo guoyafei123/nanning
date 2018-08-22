@@ -5,6 +5,8 @@ Vue.use(Vuex);
 var state={
   //单位
   unitNum:'',
+  unitList:[],
+  currentPage:'',
   //巡检
   region:'',
   inspectionId:'',
@@ -70,6 +72,9 @@ var mutations={
   },
   unitList(state,data){
     state.unitList = data;
+  },
+  currentPage(state,data){
+    state.currentPage = data;
   },
   //巡检
   region(state,data){

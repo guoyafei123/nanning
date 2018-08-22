@@ -364,6 +364,7 @@
       },
       show3(row){//跳转
         console.log(row.id);
+        this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('unitNumber',row.id);
       },
       unitSearch(){

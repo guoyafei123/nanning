@@ -137,7 +137,7 @@
       tableList(){
         this.$fetch(
           "/api/user/queryPagerUserList",{
-            currentPager:this.currentPage4,
+            currentPager:this.currentPage,
             pagerSize:10
           }
         )
@@ -183,7 +183,8 @@
     },
     computed:mapState([
       'unitNumber',
-      'peopleTableData'
+      'peopleTableData',
+      'currentPage'
     ])
   }
 </script>

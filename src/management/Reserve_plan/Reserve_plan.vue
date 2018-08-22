@@ -18,8 +18,12 @@
       <right-vue></right-vue>
     </section>
     <!-- #右边 End-->
+<<<<<<< HEAD
     <!-- 收起导航 -->
     <div class="fix" @click="hide_left"><i class="el-icon-arrow-right"></i></div>
+=======
+    <pdf-vue></pdf-vue>
+>>>>>>> bc1238f6130e2396e9de4326f7e280adcfd1f8b5
   </div>
 </template>
 
@@ -28,6 +32,7 @@
   import leftVue from '../left.vue';
   import MainVue from '../main.vue';
   import rightVue from './right.vue';
+  import pdfVue from '../../components/publick/pdf.vue';
   export default {  
     data(){
       return{
@@ -47,7 +52,8 @@
       'header-vue':HeaderVue,
       'left-vue':leftVue,
       'right-vue':rightVue,
-      'main-vue':MainVue
+      'main-vue':MainVue,
+      'pdf-vue':pdfVue
     },
     watch:{
 

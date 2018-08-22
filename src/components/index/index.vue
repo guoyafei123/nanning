@@ -39,18 +39,7 @@
 
 			var strcookie = document.cookie; //获取cookie字符串
 			var arrcookie = strcookie.split("; "); //分割
-			//遍历匹配
-			// for ( var i = 0; i < arrcookie.length; i++) {
-			//   var arr = arrcookie[i].split("=");
-			//   if (arr[0] == ticket){
-			//     alert('有');
-			//   }else{
-			//     alert('没有');
-			//   }
-			// }
 			console.log(strcookie);
-			// UM_distinctid=16492fb08aa103-077faa85b2954b-5b193413-1aeaa0-16492fb08ab146; Hm_lvt_af3bcae330acc9d3f90536b76c35fec9=1531474283,1531884236,1532920252,1533121090; u=%E5%BE%B7%E7%8E%9B%E8%A5%BF%E4%BA%9A
-
 		}
 
 	}

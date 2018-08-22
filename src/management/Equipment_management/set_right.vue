@@ -865,6 +865,9 @@
       },
       equipmentDevice(){
         this.tableList();
+      },
+      currentPage(){
+        this.currentPage4 = this.currentPage;
       }
     },
     computed:mapState([
@@ -873,7 +876,8 @@
       'floorDevice',
       'roomDevice',
       'equipmentDevice',
-      'deviceId'
+      'deviceId',
+      'currentPage'
     ])
   }
 </script>

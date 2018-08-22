@@ -2,13 +2,6 @@
         <div class="toolright">
           <!-- 筛选 -->
             <section class="my-filter padding5 bg-gray-222 clearfix">
-                <!-- 单位筛选 -->
-                <div class="col-sm-3 padding0">
-                <el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="value7" placeholder="全部单位">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
-                </div>
                 <!-- 日期筛选 -->
                 <div class="col-sm-9 padding0">
                 <div class="upd-elmdate">

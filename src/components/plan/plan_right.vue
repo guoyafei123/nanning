@@ -78,7 +78,7 @@
 											<h5>{{item.unitName}}</h5>
 											<p>
 												<small>{{item.createTime.substring(5)}}</small>
-												<a @click="download(item)"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+												<a :href="item.url+'?filename='+item.name+'.'+item.pattern"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
 											</p>
 										</div>
 									</figure>
@@ -102,7 +102,7 @@
 											<h5>{{item.unitName}}</h5>
 											<p>
 												<small>{{item.createTime.substring(5)}}</small>
-												<a @click="download(item)"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+												<a :href="item.url+'?filename='+item.name+'.'+item.pattern"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
 											</p>
 										</div>
 									</figure>
@@ -126,7 +126,7 @@
 											<h5>{{item.unitName}}</h5>
 											<p>
 												<small>{{item.createTime.substring(5)}}</small>
-												<a @click="download(item)"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+												<a :href="item.url+'?filename='+item.name+'.'+item.pattern"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
 											</p>
 										</div>
 									</figure>
