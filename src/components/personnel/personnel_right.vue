@@ -287,7 +287,7 @@
 					endTime: "2018-08-09"
 				},
 				queryUserCountData:Object,
-				loginLineChartData:Object,
+				onlineLineChartData:Object,
 				inspectorActive:null,
 				inspectorExecuteRate:null,
 				toPersonDetailInfo:Object,
@@ -370,9 +370,9 @@
 					if (response.data) {
 						let data = response.data;
 						this.queryUserCountData = data.info;
-						this.loginLineChartData = data.info.loginLogLineChart;
+						this.onlineLineChartData = data.info.onlineLineCharts;
 						//组装圆形图数据格式
-						this.drawLineChart("myChart",this.loginLineChartData);
+						this.drawLineChart("myChart",this.onlineLineChartData);
 						this.drawPieChart("pieb1",this.queryUserCountData);
 						//计算人员确切率：
 						let inspectionPlanPeople = this.queryUserCountData.inspectionPlanPeople ? this.queryUserCountData.inspectionPlanPeople:0;
