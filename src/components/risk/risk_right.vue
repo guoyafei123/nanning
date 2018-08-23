@@ -178,7 +178,7 @@
 				//风险详情
 				queryRiskDetails_parameter: {
 					inspectionPlanId: 486,
-					beginTime: '2018-06-01',
+					startTime: '2018-06-01',
 					endTime: '2018-08-09'
 				},
 				riskAssessDetails: Object,
@@ -209,6 +209,8 @@
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.queryTrendMapGraph_parameter.startTime = startDate;
+				this.queryTrendMapGraph_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -451,7 +453,7 @@
 			this.drawLineChart("myChart", null);
 			this.defaultTimeVaule();
 			//this.getData();
-			
+
 		}
 	};
 </script>

@@ -198,7 +198,7 @@
                                   </template>
                               </div>
                             </div>
-                        </div>                        
+                        </div>
                     </section> -->
 						<section>
 							<div class="toolcount">
@@ -209,7 +209,7 @@
                                   <el-radio label="1" class="col-xs-3">报警率</el-radio>
                                   <el-radio label="2" class="col-xs-3">火情发生率</el-radio>
                                 </el-radio-group>
-                              </div>                              
+                              </div>
                             </template> -->
 								<div id="call_charpiemax" style="width: 100%;height:180px;margin: 0 auto;text-align: center;"></div>
 							</div>
@@ -414,7 +414,7 @@
 				// 报警数据统计
 				getAlarmCount_parameter: {
 					unitId: null,
-					beginTime: null,
+					startTime: null,
 					endTime: null
 				},
 				radiovalue: '1',
@@ -422,7 +422,7 @@
 				// 折线图数据
 				getHistoryAlarmRate_parameter: {
 					unitId: null,
-					type: 1
+          dateType: 1
 				},
 				getHistoryAlarmRate: Object,
 				// 报警详情
@@ -458,12 +458,14 @@
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-				this.getAlarmCount_parameter.beginTime = st;
+				this.getAlarmCount_parameter.startTime = st;
 				this.getAlarmCount_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.getAlarmCount_parameter.startTime = startDate;
+				this.getAlarmCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -485,7 +487,7 @@
 				return currentdate;
 			},
 
-			// tab切换  
+			// tab切换
 			// 实时警报列表展开/折叠
 			openEarlyList() {
 				$(".unit-info").slideToggle(
@@ -854,7 +856,7 @@
 		position: relative;
 		z-index: 22;
 	}
-	
+
 	.line-height50 {
 		line-height: 50px;
 	}

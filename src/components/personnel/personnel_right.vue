@@ -56,7 +56,7 @@
 								<p class="size-18 font-white">个人数据</p>
 							<li>
 								<p class="size-10 set-scaleright">Personnel Statistics</p>
-							</li>							
+							</li>
 							<li class="row text-left margin-top10">
 								<div class="col-sm-6 padding-right0">
 									<p >报警次数 <strong class="font-white">{{queryUserData.alarmFindCount?queryUserData.alarmFindCount:"0"}}次</strong></p>
@@ -90,19 +90,19 @@
 				<div class="toolcount">
 					<div class="row text-center font-gray-999 size-12">
 						<div class="col-sm-4">
-							<div class="newpiechar"> 
+							<div class="newpiechar">
 								<p>{{userTroubleRate}}%</p>
 							</div>
 							<p class="margin-top10">隐患发现占比</p>
 						</div>
 						<div class="col-sm-4">
-							<div class="newpiechar"> 
+							<div class="newpiechar">
 								<p>{{userInspectionRate}}%</p>
 							</div>
 							<p class="margin-top10">巡检完成占比</p>
 						</div>
 						<div class="col-sm-4">
-							<div class="newpiechar"> 
+							<div class="newpiechar">
 								<p>{{userTroubleDealRate}}%</p>
 							</div>
 							<p class="margin-top10">隐患解决占比</p>
@@ -125,7 +125,7 @@
 									<th>巡检统计</th>
 									<th>状态</th>
 								</tr>
-							</thead>							
+							</thead>
 							<tbody>
 								<tr v-for="(item,index) in tableData.result">
 									<td>{{item.receiveTime}}</td>
@@ -141,7 +141,7 @@
 										</a>
 									</td>
 								</tr>
-								<tr>									
+								<tr>
 									<td>2018-08-16 23:16:89</td>
 									<td>控烟巡检路线2</td>
 									<td>
@@ -195,13 +195,13 @@
 					<h4 class="p-title">人员执勤</h4>
 					<div class="row text-center font-gray-999 size-12">
 						<div class="col-sm-6">
-							<div class="newpiechar"> 
+							<div class="newpiechar">
 								<p>{{inspectorActive==="NaN"?0:inspectorActive}}%</p>
 							</div>
 							<p class="margin-top10">巡检人员活跃度</p>
 						</div>
 						<div class="col-sm-6">
-							<div class="newpiechar"> 
+							<div class="newpiechar">
 								<p>{{inspectorExecuteRate==="NaN"?0:inspectorExecuteRate}}%</p>
 							</div>
 							<p class="margin-top10">巡检人员执行率</p>
@@ -297,7 +297,7 @@
 				queryUserData:Object,
 				userInfo:Object,
 				userRegistDate:"",
-				userTroubleRate:null, 
+				userTroubleRate:null,
 				userInspectionRate:null,
 				userTroubleDealRate:null,
 				queryUserInspectionList_parameter:{
@@ -343,6 +343,8 @@
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.queryUserCount_parameter.startTime = startDate;
+				this.queryUserCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -365,7 +367,7 @@
 			},
 			//获取人员右侧统计数据
 			getData(){
-				// console.log(this.queryUserCount_parameter.beginTime);
+				// console.log(this.queryUserCount_parameter.startTime);
 				this.$fetch("/api/user/queryUserCount",this.queryUserCount_parameter).then(response => {
 					if (response.data) {
 						let data = response.data;
@@ -383,7 +385,7 @@
 						this.inspectorExecuteRate = Number((Number(finish) / Number(amount)) * 100).toFixed(0);
 					}
 				});
-			}, 
+			},
 			jianzhu() {
 				$(".per-lineinfo")
 					.addClass("display-block")
@@ -522,7 +524,7 @@
 						    this.userTroubleDealRate = 0;
 						}else{
 							this.userTroubleDealRate = Number(unitTroubleConfirmCount * 100).toFixed(0);
-						}	
+						}
 					}
 				});
 			},

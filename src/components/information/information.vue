@@ -532,6 +532,12 @@
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.alarmAndMalfunctionDeviceCount_parameter.startTime = startDate;
+				this.alarmAndMalfunctionDeviceCount_parameter.endTime = startDate;
+				this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.startTime = startDate;
+				this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.endTime = startDate;
+				this.trendLine_parameter.startTime = startDate;
+				this.trendLine_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：

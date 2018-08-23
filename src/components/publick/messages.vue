@@ -12,13 +12,14 @@
       <!-- 标签 -->
       <ul id="myTab" class="nav nav-tabs">
         <li class="active">
-          <a href="#system">系统<span class="point" v-if="getStarts.SysStart"><!-- 新消息提示 --></span> </a>
+          <a href="#system" @click="this.queryMessageSys">系统<span class="point"
+                                                                  v-if="getStarts.SysStart"><!-- 新消息提示 --></span> </a>
         </li>
         <li>
-          <a href="#warning">警报<span class="point" v-if="getStarts.alarmStart"><!-- 新消息提示 --></span></a>
+          <a href="#warning" @click="this.queryMessageAlarm">警报<span class="point" v-if="getStarts.alarmStart"><!-- 新消息提示 --></span></a>
         </li>
         <li>
-          <a href="#dangers">隐患<span class="point" v-if="getStarts.troubleStart"><!-- 新消息提示 --></span></a>
+          <a href="#dangers" @click="this.queryMessageTrouble">隐患<span class="point" v-if="getStarts.troubleStart"><!-- 新消息提示 --></span></a>
         </li>
       </ul>
     </div>
@@ -36,9 +37,15 @@
       <!-- 系统消息 -->
       <div class="tab-pane fade in active" id="system">
         <ul>
-          <li v-for="item in getMessageDateSys" :class="[item.type===6?'activity':'system',
+          <li v-for="item in getMessageDateSys" :key="item.id" :class="[item.type===6?'activity':'system',
           item.status===1?'unread':'' ]">
-            <h3 @click="showTabcont(item)"><span v-show="item.type==6">{{item.senderName}}</span>{{item.title}}</h3>
+            <h3 @click="showTabcont(item)" v-if="item.type===6">
+              <!--<span v-if="item.type===6">{{item.senderName}}</span>-->
+              {{item.title}}
+            </h3>
+            <h3 @click="reedMsg(item)" v-if="item.type===7">
+              {{item.title}}
+            </h3>
             <small v-if="item.type==6">活动通知<span>{{item.sendTime}}</span></small>
             <small v-if="item.type==7">系统公告<span>{{item.sendTime}}</span></small>
           </li>
@@ -49,9 +56,9 @@
         <ul>
           <li class="warning " :class="item.status===1?'unread':''" v-for="item in getMessageDateAlarm">
             <h3 @click="reedMsg(item)">{{item.title}}</h3>
-            <small>
-              <!--<i class="icon iconfont icon-xunjianyuan-mian-"><span></span></i>
-              <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.senderName}}</span></i>-->
+            <small><!--
+              <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
+              <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>-->
               <span>{{item.sendTime}}</span>
             </small>
           </li>
@@ -64,8 +71,8 @@
           <li class="dangers" :class="item.status===1?'unread':''" v-for="item in getMessageDateTrouble">
             <h3 @click="reedMsg(item)">{{item.title}}</h3>
             <small>
-              <!--  <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.senderName}}</span></i>
-                <i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>-->
+              <!--  <i class="icon iconfont icon-shebei-mian-"><span>A365F57A89D</span></i>
+                <i class="icon iconfont icon-miehuoqi-mian-"><span>烟雾感应器</span></i>-->
               <span>{{item.sendTime}}</span>
             </small>
           </li>
@@ -136,7 +143,7 @@
         getMessageDateTrouble: Object,
         getMessageDate_param: {
           currentPage: 1,
-          pageSize: 20,
+          pageSize: 999,
         },
         //显示未读状态
         getStarts: {
@@ -176,9 +183,6 @@
         if (data.status === 1) {
           this.rendMessage_param.messageId = data.id
           this.rendMessage()
-          this.queryMessageSys()
-          this.queryMessageAlarm()
-          this.queryMessageTrouble()
         }
       },
       // 返回列表
@@ -186,7 +190,7 @@
         $('#myTabContent').removeClass('hide')
         $('#TabCont').removeClass('show')
       },
-      //查询活动详情
+      //查看活动详情
       getEventById() {
         this.$fetch('/api/event/getEventById', this.getEventById_param)
           .then(response => {
@@ -217,7 +221,6 @@
             console.log(err)
           })
       },
-
       //报警消息
       queryMessageAlarm() {
         let types = [1, 2, 3]
@@ -236,6 +239,7 @@
             console.log(err)
           })
       },
+
       //隐患消息
       queryMessageTrouble() {
         let types = 4
@@ -260,6 +264,9 @@
           .then(response => {
             if (response) {
               console.log(response)
+              this.queryMessageSys()
+              this.queryMessageAlarm()
+              this.queryMessageTrouble()
             }
           })
           .then(err => {

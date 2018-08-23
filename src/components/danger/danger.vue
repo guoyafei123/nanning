@@ -196,7 +196,7 @@
 								</div>
 							</section>
 						<!-- 统计 -->
-						<section class="dan-lineinfo">							
+						<section class="dan-lineinfo">
 							<section>
 								<div class="toolcount margin-top20">
 									<h4 class="p-title">隐患统计</h4>
@@ -205,7 +205,7 @@
 											<div class="col-sm-12 margin-bottom20 text-left">
 												<div class="row">
 												<p class="col-xs-3">危险品</p>
-												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p> 
+												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p>
 												<p class="col-xs-3">新增 <span class="font-white">{{dangerCount ? dangerCount.dangerNew:'0'}}</span></p>
 												<p class="col-xs-3">处理 <span class="font-blue">{{dangerCount ? dangerCount.dangerResolved:'0'}}</span></p>
 												</div>
@@ -265,7 +265,7 @@
                           </div>
                         </div>
                     </div>
-                    
+
                 </section> -->
 							<!-- <section>
 								<div class="row cardinfo-style margin-top0 font-gray-999">
@@ -290,7 +290,12 @@
 								<div class="toolcount margin-top20">
 									<h4 class="p-title">隐患历史趋势
                           <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                            <i class="icon iconfont icon-weibiaoti10 size-12"></i>
+                            <span class="indexdateabox alarmdate">
+								<b class="indexdateactive">日</b>
+								<b>月</b>
+								<b>年</b>
+							</span>
+							<!-- <i class="icon iconfont icon-weibiaoti10 size-12"></i> -->
                           </span>
                         </h4>
 									<div id="dan_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
@@ -449,7 +454,7 @@
 				// 饼图数据
 				troubleCount_parameter: {
 					unitId: null,
-					beginTime: "2018-07-01",
+					startTime: "2018-07-01",
 					endTime: "2019-07-12"
 				},
 				// troubleCount:Object,
@@ -462,6 +467,7 @@
 					dateType: "1"
 				},
 				troubleRate: Object,
+				dangerRate:Object,
 				// 隐患详情
 				troubleDetail_parameter: {
 					troubleId: 156
@@ -489,12 +495,14 @@
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-				this.troubleCount_parameter.beginTime = st;
+				this.troubleCount_parameter.startTime = st;
 				this.troubleCount_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.troubleCount_parameter.startTime = startDate;
+				this.troubleCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -595,13 +603,15 @@
 					}).then(err => {
 						console.log(err);
 					});
-				// FIXME 已更改为日月年格式需要重新接 
-				// 请求折线图数据 
+				// FIXME 已更改为日月年格式需要重新接
+				// 请求折线图数据
 				this.$fetch("/api/trouble/queryTroubleLineChart", this.troubleRate_parameter)
 					.then(response => {
 						if(response) {
 							this.troubleRate = response.data;
+							this.dangerRate = response.data;
 							console.log(this.troubleRate);
+							console.log(this.dangerRate);
 							this.draw_line("dan_charline", response.data.troubleRate);
 						}
 					})
@@ -741,21 +751,24 @@
 				chars.setOption(char);
 			},
 			draw_line(id, data) {
-				// 巡检完成率历史趋势曲线图
-				// let data = response.data.result.dateMap;
-				let a = [],
-					b = [];
-				for(var value in data) {
-					a.push(value);
-					b.push(data[value]);
-				}
-				console.log(a);
-				console.log(b);
-				var char = {
+				var option = {
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data:['邮件营销','联盟广告','视频广告']
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						top:'20%',
+						containLabel: true
+					},
 					xAxis: {
 						type: "category",
 						boundaryGap: false,
-						data: a,
+						data: ['周一','周二','周三','周四','周五','周六','周日'],
 						show: true,
 						axisLine: {
 							lineStyle: {
@@ -779,38 +792,34 @@
 						}
 					},
 
-					// 调整实际显示的 margin
-					grid: {
-						y: 30,
-						x2: 10,
-						y2: 30,
-						x: 40,
-						borderWidth: 1
-					},
-					// 数据
-					series: [{
-						data: b,
-						type: "line",
-						symbol: "none",
-						smooth: true,
-						color: {
-							colorStops: [{
-								offset: 0,
-								color: "#999"
-							}]
+					// data: 
+					series: [
+						{
+							name:'邮件营销',
+							type: "line",
+							symbol: "none",
+							smooth: true,
+							data:[120, 132, 101, 134, 90, 230, 210]
+						},
+						{
+							name:'联盟广告',
+							type: "line",
+							symbol: "none",
+							smooth: true,
+							data:[220, 182, 191, 234, 290, 330, 310]
+						},
+						{
+							name:'视频广告',
+							type: "line",
+							symbol: "none",
+							smooth: true,
+							data:[150, 232, 201, 154, 190, 330, 410]
 						}
-					}],
-					tooltip: {
-						enterable: true,
-						trigger: "axis",
-						axisPointer: {
-							// 坐标轴指示器，坐标轴触发有效
-							type: "line" // 默认为直线，可选为：'line' | 'shadow'
-						}
-					}
+					]
 				};
+
 				let charf = this.$echarts.init(document.getElementById(id));
-				charf.setOption(char);
+				charf.setOption(option);
 			}
 		},
 		mounted() {
@@ -828,6 +837,23 @@
 			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
+
+
+			$('.alarmdate b').click(function() {
+				$(this).addClass('indexdateactive').siblings().removeClass('indexdateactive');
+				var value = $(this).html();
+				if(value == '日') {
+					// that.alarmtext = '今日';
+					// that.queryAlarmData_parmar.dateType = 1;
+				} else if(value == '月') {
+					// that.alarmtext = '本月';
+					// that.queryAlarmData_parmar.dateType = 2;
+				} else if(value == '年') {
+					// that.alarmtext = '本年';
+					// that.queryAlarmData_parmar.dateType = 3;
+				}
+				// that.getalarm();
+			})
 		}
 	};
 </script>
