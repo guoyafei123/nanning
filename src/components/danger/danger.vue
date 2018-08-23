@@ -197,7 +197,7 @@
 								</div>
 							</section>
 						<!-- 统计 -->
-						<section class="dan-lineinfo">							
+						<section class="dan-lineinfo">
 							<section>
 								<div class="toolcount margin-top20">
 									<h4 class="p-title">隐患统计</h4>
@@ -206,7 +206,7 @@
 											<div class="col-sm-12 margin-bottom20 text-left">
 												<div class="row">
 												<p class="col-xs-3">危险品</p>
-												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p> 
+												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p>
 												<p class="col-xs-3">新增 <span class="font-white">{{dangerCount ? dangerCount.dangerNew:'0'}}</span></p>
 												<p class="col-xs-3">处理 <span class="font-blue">{{dangerCount ? dangerCount.dangerResolved:'0'}}</span></p>
 												</div>
@@ -266,7 +266,7 @@
                           </div>
                         </div>
                     </div>
-                    
+
                 </section> -->
 							<!-- <section>
 								<div class="row cardinfo-style margin-top0 font-gray-999">
@@ -452,7 +452,7 @@
 				// 饼图数据
 				troubleCount_parameter: {
 					unitId: null,
-					beginTime: "2018-07-01",
+					startTime: "2018-07-01",
 					endTime: "2019-07-12"
 				},
 				// troubleCount:Object,
@@ -492,13 +492,13 @@
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-				this.troubleCount_parameter.beginTime = st;
+				this.troubleCount_parameter.startTime = st;
 				this.troubleCount_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
-				this.troubleCount_parameter.beginTime = startDate;
+				this.troubleCount_parameter.startTime = startDate;
 				this.troubleCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
@@ -600,8 +600,8 @@
 					}).then(err => {
 						console.log(err);
 					});
-				// FIXME 已更改为日月年格式需要重新接 
-				// 请求折线图数据 
+				// FIXME 已更改为日月年格式需要重新接
+				// 请求折线图数据
 				this.$fetch("/api/trouble/queryTroubleLineChart", this.troubleRate_parameter)
 					.then(response => {
 						if(response) {

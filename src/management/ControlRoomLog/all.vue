@@ -32,7 +32,7 @@
           :data="tableData"
           border
           :highlight-current-row="true"
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}"> 
+          :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             prop="Serial_number"
             type="index"
@@ -147,7 +147,7 @@
           }]
         },
         timeValue: ''
-      }      
+      }
     },
     methods: {
       btn_add(){
@@ -181,7 +181,7 @@
             currentPage:this.currentPage4,
             pageSize:10,
             unitId:this.operator,
-            beginTime:this.timeValue[0],
+            startTime:this.timeValue[0],
             endTime:this.timeValue[1]
           }
         )
