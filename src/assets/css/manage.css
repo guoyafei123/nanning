@@ -398,12 +398,12 @@
   .main_content_table{
     width: 100%;
     background-color: transparent;
-    height: 81%;
+    height: auto;
     /*padding-top: 16px;*/
 }
   .main_content_bottom{
     width:100%;
-    height:auto;    
+    height:40px;    
   }
  .btn_active button{
     background-color: #bad616;

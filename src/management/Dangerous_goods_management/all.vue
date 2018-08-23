@@ -487,7 +487,7 @@
             floorId:this.floor,
             roomId:this.room,
             currentPage:this.currentPage4,
-            pageSize:10,
+            pageSize:14,
             status:this.status
           }
         )

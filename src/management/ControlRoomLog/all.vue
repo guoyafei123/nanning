@@ -179,7 +179,7 @@
         this.$fetch(
           "/api/workPunch/queryPunch",{
             currentPage:this.currentPage4,
-            pageSize:10,
+            pageSize:14,
             unitId:this.operator,
             beginTime:this.timeValue[0],
             endTime:this.timeValue[1]

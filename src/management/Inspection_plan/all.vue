@@ -83,7 +83,7 @@
             <template slot-scope="scope" >
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.status==1'>已激活 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+                disable-transitions v-if='scope.row.status==1'>已激活</el-tag>
               <el-tag
                 :type="scope.row.status === 2 ? 'red' : 'green'"
                 disable-transitions v-if='scope.row.status==2'>未激活</el-tag>
@@ -354,7 +354,7 @@
         this.$fetch(
           "/api/admin/inspection/queryInspectionPlanList",{
             currentPage:this.currentPage4,
-            pageSize:10,
+            pageSize:14,
             unitId:this.form.region1,
             type:this.form.region2,
             status:this.form.region3
