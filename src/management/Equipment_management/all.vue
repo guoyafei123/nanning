@@ -542,7 +542,7 @@
             floorId:this.floor,
             roomId:this.room,
             currentPage:this.currentPage4,
-            pageSize:9
+            pageSize:14
           }
         )
           .then(response => {

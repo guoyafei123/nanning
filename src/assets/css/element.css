@@ -368,7 +368,7 @@ header .el-input--mini .el-input__inner:hover {
 #header .el-select{
   top: -4px;
   min-width: 26%;
-  max-width: 30%;
+  max-width: 42%;
 }
 header .el-select .el-input .el-select__caret {
     color: #bad616;

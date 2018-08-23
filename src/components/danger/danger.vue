@@ -4,7 +4,7 @@
 		<!-- <header-vue></header-vue> -->
 		<!-- #头部 End-->
 		<!-- #左边 -->
-		<section id="left" class="position-fixed-left container-padding5 z-index-20">
+		<section id="left" class="position-fixed-left z-index-20">
 			<div class="overlay"></div>
 			<template>
 				<div class="toolleft margin-right0">
@@ -164,10 +164,9 @@
 		</section>
 		<!-- #左边 End-->
 		<!-- #右边 -->
-		<section id="right" class="position-fixed-right container-padding5 z-index-20">
+		<section id="right" class="position-fixed-right z-index-20">
 			<div class="overlay"></div>
-			<template>
-				<div class="">
+			<template>				
 					<div class="toolright">
 						<section class="my-filter padding5 bg-gray-222 clearfix">
 							<div class="col-sm-12 padding0">
@@ -374,8 +373,6 @@
 						<!-- <button @click="moren">详情</button> -->
 						<!-- <button @click="jianzhu">统计</button> -->
 					</div>
-				</div>
-
 			</template>
 
 		</section>

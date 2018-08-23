@@ -123,7 +123,7 @@
 		</section>
 		<!-- #左边 End-->
 		<!-- #右边 -->
-		<section id="right" class="position-fixed-right container-padding5 z-index-20">
+		<section id="right" class="position-fixed-right z-index-20">
 			<div class="overlay"></div>
 			<!-- <call_right-vue></call_right-vue> -->
 			<template>

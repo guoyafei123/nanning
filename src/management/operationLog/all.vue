@@ -164,7 +164,7 @@
         this.$fetch(
           "/api/operationLog/operationLogList",{
             currentPager:this.currentPage4,
-            pagerSize:10,
+            pagerSize:14,
             unitId:this.operator
           }
         )

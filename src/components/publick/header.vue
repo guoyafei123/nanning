@@ -6,7 +6,7 @@
 					<!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
 					<span class="size-10 version-num">BETA3.0</span>
 				</p>
-				<el-select v-model="unitvalue" size="mini" @change="optionchange" style="width:600px;">
+				<el-select v-model="unitvalue" size="mini" @change="optionchange">
 					<el-option v-for="item in queryUnit" :key="item.id" :label="item.name" :value="item.id">
 					</el-option>
 				</el-select>

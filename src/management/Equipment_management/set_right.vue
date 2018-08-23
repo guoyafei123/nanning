@@ -659,7 +659,7 @@
             floorId:this.floorDevice,
             roomId:this.roomDevice,
             currentPage:this.currentPage4,
-            pageSize:9
+            pageSize:11
           }
         )
           .then(response => {
