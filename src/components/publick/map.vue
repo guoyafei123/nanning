@@ -812,6 +812,7 @@
 			// function showInfo(e){
 			// 	alert(e.point.lng + ", " + e.point.lat);
 			// }
+			
 			// map.addEventListener("click", this.showInfo);
 
 			map.addEventListener("zoomend", function(evt) {

@@ -459,10 +459,10 @@
 				if(confrimTime != null){
 					b = new Date(confrimTime).getTime();
 				}
-        var du = moment.duration(b - a, 'ms'),
-          hours = du.get('hours'),
-          mins = du.get('minutes'),
-          ss = du.get('seconds');
+				var du = moment.duration(b - a, 'ms'),
+				hours = du.get('hours'),
+				mins = du.get('minutes'),
+				ss = du.get('seconds');
 				this.aleamAndtroubleInfoTime = hours + ':' + mins + ':' + ss;
 				
 				this.getqueryUnitInfo();

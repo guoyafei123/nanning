@@ -188,7 +188,7 @@
               </el-table-column>
               <el-table-column
                 fixed="right"
-                width="140"
+                width="110"
                 label="操作">
                 <template slot-scope="scope">
                   <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
@@ -210,6 +210,7 @@
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
                             :page-size="10"
+                            small
                             layout="prev, pager, next"
                             :total="totalList">
               </el-pagination>
@@ -742,6 +743,15 @@
         this.RoomChild = item ;
       },
       deleteUnitRoom(){
+        // 删除提示
+        this.$message({
+          dangerouslyUseHTMLString: true,
+          message: '<strong> 删除成功</strong>',
+          center: true,
+          showClose: true,
+          iconClass:'el-icon-circle-check',
+          customClass:'del-notification'
+        });
         this.$fetch("/api/building/deleteByFloorUnit",{
           floorUnit:this.unitBuilding,
           floorId:this.floorId

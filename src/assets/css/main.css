@@ -228,7 +228,7 @@ h4.p-title:before {
     margin-bottom: 0;
 }
 .header-right {
-    right: 0px;
+    right: 15px;
 }
 .header-head {    
     position: relative;
@@ -427,6 +427,7 @@ span.point {
     position: relative;
     left: 10px;
     margin-left: -15px;
+    margin-bottom: 6px;
 }
 .unit-brief h3 {
     font-size: 24px;
@@ -475,8 +476,8 @@ span.point {
 /*单位信息*/
 .unit-info li:first-child>div{
     width: 100%;
-    height: 100px;
-    padding-top: 44px;
+    height: auto;
+    padding-top: 30px;
     border-bottom: 1px solid #333;
     background: -moz-linear-gradient(top,rgba(0, 0, 0, 0),rgba(0, 0, 0, .4),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9));
     background: -o-linear-gradient(top,rgba(0, 0, 0, 0),rgba(0, 0, 0, .4),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9));
@@ -885,7 +886,8 @@ a.min-map-cloase:hover {
     border-right-width:1px;
     margin: 20px;
     z-index: 99;
-    height: 72.3%;
+    height: auto;
+    max-height: 72.3%;
     overflow-y: auto;
 }
 .floor-item li {
@@ -925,3 +927,7 @@ a.min-map-cloase:hover {
     #risk #right .cardinfo-style [class^="col-"] span{
         margin-right: 4px;
     }
+
+#camera {
+    padding: 120px 20px 0;
+}

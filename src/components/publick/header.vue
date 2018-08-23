@@ -78,10 +78,10 @@
 					<span class="caret"></span>
 					</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>签到</el-dropdown-item>
-						<el-dropdown-item><router-link to="/operationLog">操作日志</router-link></el-dropdown-item>
-						<el-dropdown-item @click="modal_per()">个人信息</el-dropdown-item>
-						<el-dropdown-item>注销</el-dropdown-item>
+						<el-dropdown-item><i class="icon iconfont icon-huiyuanquerendaodian size-14"></i> 签到</el-dropdown-item>
+						<el-dropdown-item><router-link to="/operationLog"><i class="icon iconfont icon-caozuorizhi-xian- size-14"></i> 操作日志</router-link></el-dropdown-item>
+						<el-dropdown-item @click="modal_per()"><i class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</el-dropdown-item>
+						<el-dropdown-item><i class="icon iconfont icon-guanbi2 size-14"></i> 注销</el-dropdown-item>
 					</el-dropdown-menu>
 					</el-dropdown>
 				</div>
@@ -112,11 +112,18 @@
 				</li>
 				<li>
 					<a href="#">
+						<el-tooltip class="item" content="添加警报" placement="top">
+							<i class="icon iconfont icon-jingshi-xian-"></i>
+						</el-tooltip>
+					</a>
+				</li>
+				<!-- <li>
+					<a href="#">
 						<el-tooltip class="item" content="九屏监控" placement="top">
 							<i class="icon iconfont icon-jiuping-mian-"></i>
 						</el-tooltip>
 					</a>
-				</li>
+				</li> -->
 				<li>
 					<a @click="voice()" class="voice">
 						<el-tooltip class="item" content="声音" placement="top">
@@ -153,7 +160,7 @@
 		            <p class="font-white size-16">66666</p>
 		          </div>
 		          <div class="modal-footer">
-		            <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
+		            <el-button type="danger" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
 		            <el-button class="back" data-dismiss="modal">取消</el-button>
 		          </div>
 		        </div>
@@ -205,7 +212,7 @@
 		methods: {
 			// 显示消息模态窗
 			modal_per() {
-				$("#modal_per").modal();
+				$("#modal_per").modal('show');
 			},
 			// 显示消息模态窗
 			showMessages() {

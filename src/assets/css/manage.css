@@ -154,6 +154,9 @@
 #dangerous #right .size-10{
     margin-left: -5px;
 }
+#equipment #right .toolcount-right .set-scaleright{
+    margin-left: -1px;
+}
 #dangerous #right .set-scaleright{
     margin-left: -1px;
 }
@@ -1110,4 +1113,26 @@
 }
 .el-table__fixed,.el-table__fixed-right {
   background-color: #111;
+}
+#right .el-table__fixed,#right .el-table__fixed-right {
+  background-color: #000;
+}
+/*消息提示*/
+.edit-ok-notification,
+.del-notification {
+  top: 20px;
+  color: #000;
+  font-size: 20px;
+  border-radius: 50px;
+}
+.edit-ok-notification {
+  background-color: rgba(186,214,22,.9);
+}
+.del-notification {
+  background-color: rgba(241,49,49,.9);
+}
+
+#unit-manage #right .unit-info li,
+#unit-manage #right .unit-info li:first-child>div {
+  border: none;
 }
