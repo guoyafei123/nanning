@@ -1,3 +1,24 @@
+/*MessageBox 弹框*/
+.el-message-box {
+  background-color: #111;
+  border: 1px solid #333;
+}
+.el-message-box__message p {
+  color: #fff;
+}
+.el-message-box__title {
+  color: #f13131;
+}
+.el-message-box__btns .el-button {
+    color: #000;
+    background-color: #bad616;
+    border-color: #bad616;
+    border-radius: 0;
+}
+.el-message-box__btns .el-button:hover {
+    background-color: #cfef16;
+    border-color: #cfef16;
+}
 /*横幅消息*/
 .el-notification__content .notify-left {
     line-height: 40px;
