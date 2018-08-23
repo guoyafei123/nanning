@@ -231,7 +231,7 @@
 						</div> -->
 						<div class="col-sm-12">
 							<span>解除时长 </span>
-							<strong class="font-blue">{{aleamAndtroubleInfoTimeconfirm}}刘健</strong>
+							<strong class="font-blue">{{aleamAndtroubleInfoTimeconfirm}}</strong>
 						</div>
 						<div class="col-sm-12">
 							<span>反馈信息 </span>
@@ -354,7 +354,7 @@
 					<h4 class="p-title">隐患确认</h4>
 					<div class="row textandimg-main margin-top20 size-12">
 						<div class="col-sm-7">
-							<span>确认人 </span>
+							<span>解除人 </span>
 							<strong>{{aleamAndtroubleInfos.reviewerName?aleamAndtroubleInfos.reviewerName:'-'}}</strong>
 						</div>
 						<!-- <div class="col-sm-5">
@@ -363,7 +363,7 @@
 						</div> -->
 						<div class="col-sm-12">
 							<span>解除时长 </span>
-							<strong class="font-blue">刘健</strong>
+							<strong class="font-blue">{{relieveTroubleTime}}</strong>
 						</div>
 						<div class="col-sm-12">
 							<span>反馈信息 </span>
@@ -434,7 +434,9 @@
 				troubleDetail_parmar:{
 					troubleId:null
 				},
-				troubleDetails:Object
+				troubleDetails:Object,
+        relieveTroubleTime : ''
+
 			}
 		},
 		computed: mapState([
@@ -453,26 +455,42 @@
 				this.getAlarmDetail_parmar.alarmId=this.aleamAndtroubleInfos.id;
 				this.troubleDetail_parmar.troubleId=this.aleamAndtroubleInfos.id;
 				// alert(this.aleamAndtroubleInfos.id)
-				let a = new Date(this.aleamAndtroubleInfos.startTime).getTime();
-				let confrimTime = this.aleamAndtroubleInfos.confirmTime;
-				let b = new Date().getTime();
-				if(confrimTime != null){
-					b = new Date(confrimTime).getTime();
-				}
-				var du = moment.duration(b - a, 'ms'),
-				hours = du.get('hours'),
-				mins = du.get('minutes'),
-				ss = du.get('seconds');
-				this.aleamAndtroubleInfoTime = hours + ':' + mins + ':' + ss;
-				
 				this.getqueryUnitInfo();
 				this.getgetUnitsSynthesis();
 				if((typeof this.aleamAndtroubleInfos['countOfAlarm']) != 'undefined'){
 					// 报警详情
 					this.getAlarmDetail();
+          let a = new Date(this.aleamAndtroubleInfos.startTime).getTime();
+          let confrimTime = this.aleamAndtroubleInfos.confirmTime;
+          let b = new Date().getTime();
+          if(confrimTime != null){
+            b = new Date(confrimTime).getTime();
+          }
+          let responseMillisecond = moment.duration(b - a, 'ms')
+          let responseTime = responseMillisecond.get('hours') +':' + responseMillisecond.get('minutes') + ':' + responseMillisecond.get('seconds');
+          this.aleamAndtroubleInfoTime = responseTime; //设置响应时长
+          let cancelTime = this.aleamAndtroubleInfos.cancelTime;//
+          let relieveTime = '';
+          if(cancelTime != null){
+            b = new Date(cancelTime).getTime();
+            let cancelMillisecond = moment.duration(b - a, 'ms');
+            relieveTime = cancelMillisecond.get('hours') +':' + cancelMillisecond.get('minutes') + ':' + cancelMillisecond.get('seconds');
+          }
+          this.aleamAndtroubleInfoTimeconfirm = relieveTime; //设置解除时长
 				}else{
 					// 隐患详情
 					this.troubleDetail();
+          let a = new Date(this.aleamAndtroubleInfos.createTime).getTime();
+          let reviewTime = this.aleamAndtroubleInfos.reviewTime;
+          let b = new Date().getTime();
+          let responseTime = '-';
+          if(reviewTime != null){
+            b = new Date(reviewTime).getTime();
+            let responseMillisecond = moment.duration(b - a, 'ms')
+            responseTime = responseMillisecond.get('hours') +':' + responseMillisecond.get('minutes') + ':' + responseMillisecond.get('seconds');
+          }
+
+          this.relieveTroubleTime = responseTime;
 				}
 				
 				
