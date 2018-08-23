@@ -606,6 +606,7 @@
 					</div>
 					`;
 				return html;
+				// 
 			},
 			legend_alarm(img, value, size) {
 				var style_bg;
@@ -631,7 +632,7 @@
 				var pointdiv = size / 2 - size;
 				var html =
 					`
-					<div class="legend-alarm" style="top:` +
+					<div onmouseover="" class="legend-alarm" style="top:` +
 							pointdiv +
 							`px;left:` +
 							pointdiv +
@@ -655,9 +656,10 @@
 						<span class="alarm-ani alarm-item4 ` +
 							style_shadow +
 							`"></span>
-						<span class="alarm-min ` +
+						<span class="icon iconfont alarm-min map-alarm ` +
 							style_bg +
-							`"></span>
+							`">
+							</span>
 						<span class="alarm-max ` +
 							style_border +
 							`"></span>
@@ -666,17 +668,19 @@
 				return html;
 			},
 			attribute(){
-				alert("marker的位置是");    
+				// alert("marker的位置是");    
 			},
 			path_index() {
-				var  markers=this.addlandmark("红花园工业园1号楼", "3", [110.574494, 27.905342])
+				var  markers=this.addlandmark("红花园工业园1号楼", "3", [110.566804,27.906523])
 				this.mp.addOverlay(
 					markers
 				);
 				markers.addEventListener("click",function(){
-					alert(1);
+					// alert(1);
 				});
-
+				this.mp.addOverlay(
+					this.addpeople(require("../../assets/images/people.png"), "3", [110.576578,27.901798])
+				);
 				this.mp.addOverlay(
 					this.addlandmark("红花园工业园2号楼", "3", [110.574907, 27.905837])
 				);
@@ -812,7 +816,7 @@
 			// function showInfo(e){
 			// 	alert(e.point.lng + ", " + e.point.lat);
 			// }
-			
+
 			// map.addEventListener("click", this.showInfo);
 
 			map.addEventListener("zoomend", function(evt) {
