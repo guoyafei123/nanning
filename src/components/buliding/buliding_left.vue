@@ -38,19 +38,16 @@
               <ul class="row padding0 margin0 size-12 font-gray-999">
                 <li class="col-sm-12">
                   <div class="row margin0 padding0">
-                    <div class="toolcompanyrate-char col-sm-8 padding-top5 padding-left5">
+                    <div class="toolcompanyrate-char col-sm-9 padding-left5">
                       <small class="font-red">
-                        高风险建筑 [安全评分最低]
+                        高风险建筑
                       </small>
-                      <p class="size-14 font-white">
-                        {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}
-                        -
-                        {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}}</p>
+                      <p class="size-14 font-gray-ccc">
+                        {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}} <small class="font-gray-999">- {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}</small></p>
                     </div>
-                    <div class="col-sm-4 padding-left0 text-right">
-                      <span class="size-36 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "0"}}
-                      </span>
-                      
+                    <div class="col-sm-3 text-center">
+                      <span class="size-36 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "-"}}</span>
+                      <small>安全评分</small>
 							</div>
 						</div>
 					</li>
@@ -62,12 +59,14 @@
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 clearfix">
 					<li>
-						<p class="font-gray-666 size-12">中心小学</p>
-					</li>
+            <p class="font-gray-666 size-10">Buliding Info</p>
+          </li>
 					<li>
 						<p class="font-blue size-16">建筑信息
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" slot="reference">
+                      <el-tooltip content="全屏" placement="top">
+                          <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+                        </el-tooltip>
                     </span>
                   </p>
                 </li>
@@ -91,18 +90,32 @@
                       </thead>
                       <tbody id="">
                         <tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
-                          <td>{{item.name ? item.name:"暂无名称"}}</td>
-                          <td v-if="item.unitName">{{item.unitName?item.unitName:"暂无单位"}}</td>
+                          <td>
+                            <el-tooltip placement="top">
+                              <div slot="content">{{item.name == null ? '-' : item.name}}</div>
+                              <span>{{item.name == null ? '-' : item.name}}</span>
+                            </el-tooltip>
+                          </td>
+                          <td v-if="item.unitName">
+                            <el-tooltip placement="top">
+                              <div slot="content">{{item.unitName == null ? '-' : item.unitName}}</div>
+                              <span>{{item.unitName == null ? '-' : item.unitName}}</span>
+                            </el-tooltip>
+                          </td>
                           <td>{{item.floors ? item.floors:"0"}}</td>
                           <td>{{item.countofbuilding?item.countofbuilding:"0"}}</td>
                           <td>
                             <a v-on:click="toitmeinfo(item)">
-                              <i class="el-icon-location" data-toggle="tooltip" title="查看位置"></i>
+                              <el-tooltip content="查看位置" placement="top">
+                              <i class="el-icon-location"></i>
+                              </el-tooltip>
                             </a>
                           </td>
                           <td>
                             <a @click="moren">
-                              <i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+                              <el-tooltip content="查看详情" placement="top">
+                                <i class="fas fa-chevron-circle-right"></i>
+                              </el-tooltip>
                             </a>
                           </td>
                         </tr>
@@ -129,6 +142,17 @@
                   </li>
               </ul>
             </div>
+<!-- 全屏 -->
+<el-popover
+  placement="right"
+  width="400"
+  trigger="click">
+  <el-table :data="gridData">
+    <el-table-column width="150" property="date" label="日期"></el-table-column>
+    <el-table-column width="100" property="name" label="姓名"></el-table-column>
+    <el-table-column width="300" property="address" label="地址"></el-table-column>
+  </el-table>
+</el-popover>
           </section>
         </div>
       </template>
@@ -142,6 +166,25 @@
   },
   data() {
     return {
+      // 表格
+      gridData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }],
+      // 单位
       value7: "",
       options: [
         {

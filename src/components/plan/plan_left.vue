@@ -8,7 +8,7 @@
 							<h1 class="toolcount-p1 font-blue">{{countUnitPlan.sumofPlan?countUnitPlan.sumofPlan:0}}</h1>
 						</li>
 						<li>
-							<p class="size-10">Plan-Total</p>
+							<p class="size-10">Plan Total</p>
 						</li>
 						<li>
 							<p class="size-18 font-blue">当前预案总数</p>
@@ -21,7 +21,7 @@
 							<p class="size-26 font-blue">预案统计</p>
 						</li>
 						<li class="margin-bottom10">
-							<p class="size-10">Plan-number</p>
+							<p class="size-10">Plan number</p>
 						</li>
 						<!-- <template v-for="item in countUnitPlan.numberOfPlanType">
 							<li>
@@ -55,13 +55,15 @@
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 clearfix">
 					<li>
-						<p class="font-gray-666 size-12">中心小学</p>
+						<p class="font-gray-666 size-10">Plan Info</p>
 					</li>
 					<li>
 						<p class="font-blue size-16">预案信息
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-14"></i>
-                    </span>
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+					            <el-tooltip content="全屏" placement="top">
+						            <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+						        </el-tooltip>
+					        </span>
 						</p>
 					</li>
 					<li>
@@ -86,19 +88,26 @@
 							</thead>
 							<tbody v-if="tableData.result.length>0">
 								<tr v-for="(item,index) in tableData.result" >
-									<td>{{item.name ? item.name:"暂无名称"}}</td>
+									<td>
+										<el-tooltip placement="top">
+											<div slot="content">{{item.name ? item.name:"暂无名称"}}</div>
+											<span>{{item.name ? item.name:"暂无名称"}}</span>
+										</el-tooltip>
+									</td>
 									<td v-if="item.type==1">火灾预案</td>
 									<td v-if="item.type==2">管理规定</td>
 									<td v-if="item.type==3">疏散预案</td>
-									<td v-if="item.type==4">应急疏散示意图</td>
+									<td v-if="item.type==4">应急疏散图</td>
 									<td>
-										<a >
-											<i class="icon iconfont icon-shenbaozhong-mian- set-ciontop3" data-toggle="tooltip" title="查看详情"></i>
-										</a>
+										<el-tooltip content="下载" placement="top">
+											<i class="fas fa-download size-10"></i>
+										</el-tooltip>
 									</td>
 									<td>
 										<a v-on:click="toitmeinfo(item)">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+											<el-tooltip content="查看详情" placement="top">
+												<i class="fas fa-chevron-circle-right"></i>
+											</el-tooltip>
 										</a>
 									</td>
 								</tr>
@@ -110,10 +119,10 @@
 					</li>
 					<li class="upd-pagin" v-if="tableData.result.length>0">
 						<div>
-							<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+							<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 							</el-pagination>
-							<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.deletePlan_parameter.pageSize)}}页</span>
-							<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.deletePlan_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.getAlarmList_parameter.currentPage" @current-change="handleCurrentChange">
+							<span>{{Math.ceil(tableData.totalRow/this.deletePlan_parameter.pageSize)}}页</span>
+							<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.deletePlan_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.getAlarmList_parameter.currentPage" @current-change="handleCurrentChange">
 							</el-pagination>
 						</div>
 					</li>

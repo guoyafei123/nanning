@@ -122,10 +122,10 @@
                     disable-transitions v-if='scope.row.status==1'>正常</el-tag>
                   <el-tag
                     :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==2'>故障<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
+                    disable-transitions v-if='scope.row.status==2'>故障</el-tag>
                   <el-tag
                     :type="scope.row.status === 2 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==3'>警报<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
+                    disable-transitions v-if='scope.row.status==3'>警报</el-tag>
                 </template>
           </el-table-column>
           <el-table-column
@@ -542,7 +542,7 @@
             floorId:this.floor,
             roomId:this.room,
             currentPage:this.currentPage4,
-            pageSize:9
+            pageSize:14
           }
         )
           .then(response => {

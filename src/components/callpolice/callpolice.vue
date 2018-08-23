@@ -51,13 +51,15 @@
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10 clearfix">
 								<li>
-									<p class="font-gray-666 size-12">中心小学</p>
+									<p class="font-gray-666 size-10">Alarm Info</p>
 								</li>
 								<li>
 									<p class="font-blue size-16">报警信息
-										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                                  <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                              </span>
+										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+					                      <el-tooltip content="全屏" placement="top">
+						                        <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+						                    </el-tooltip>
+					                    </span>
 									</p>
 								</li>
 								<li>
@@ -87,19 +89,38 @@
 												<td v-if="item.nickName=='' || item.nickName==null">{{item.deviceTypeName}}</td>
 												<td v-if="item.nickName">{{item.nickName}}</td>
 												<td class="font-red " style="max-width:20px !important;">
-													<i data-toggle="tooltip" title="设备报警" v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-mian- font-red set-ciontop3"></i>
-													<i data-toggle="tooltip" title="火情" v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- font-blush set-ciontop3"></i>
-													<i data-toggle="tooltip" title="人工报警" v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-mian- font-red set-ciontop3"></i>
-													<i data-toggle="tooltip" title="故障" v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-mian- font-orange set-ciontop3"></i>
+													<el-tooltip content="设备报警" placement="top">
+														<i v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-xian- font-red set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="火情" placement="top">
+														<i v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- font-blush set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="人工报警" placement="top">
+														<i v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-xian- font-red set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="故障" placement="top">
+														<i v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-xian-font-orange set-ciontop3"></i>
+													</el-tooltip>
 												</td>
-												<td>{{(item.startTime).substring(5)}}</td>
 												<td>
-													<i data-toggle="tooltip" title="关闭" v-if="item.status==1" class="icon iconfont icon-guanbi2 font-gray-999 set-ciontop4"></i>
-													<i data-toggle="tooltip" title="进行中" v-if="item.status==0" class="icon iconfont icon-jingshi-xian- font-red set-ciontop4"></i>
+													<el-tooltip placement="top">
+														<div slot="content">{{item.startTime}}</div>
+														<span>{{(item.startTime).substring(10)}}</span>
+													</el-tooltip>
 												</td>
 												<td>
-													<a v-on:click="toitmeinfo(item)" data-toggle="tooltip" title="查看详情">
-														<i class="fas fa-chevron-circle-right"></i>
+													<el-tooltip content="已关闭" placement="top">
+														<i v-if="item.status==1" class="icon iconfont icon-guanbi2 font-gray-999 set-ciontop4"></i>
+													</el-tooltip>
+													<el-tooltip content="报警中" placement="top">
+														<i v-if="item.status==0" class="icon iconfont icon-jingshi-xian- font-red set-ciontop4"></i>
+													</el-tooltip>
+												</td>
+												<td>
+													<a v-on:click="toitmeinfo(item)">
+														<el-tooltip content="查看详情" placement="top">
+							                             	<i class="fas fa-chevron-circle-right"></i>
+							                             </el-tooltip>
 													</a>
 												</td>
 											</tr>
@@ -123,7 +144,7 @@
 		</section>
 		<!-- #左边 End-->
 		<!-- #右边 -->
-		<section id="right" class="position-fixed-right container-padding5 z-index-20">
+		<section id="right" class="position-fixed-right z-index-20">
 			<div class="overlay"></div>
 			<!-- <call_right-vue></call_right-vue> -->
 			<template>
@@ -198,7 +219,7 @@
                                   </template>
                               </div>
                             </div>
-                        </div>                        
+                        </div>
                     </section> -->
 						<section>
 							<div class="toolcount">
@@ -209,7 +230,7 @@
                                   <el-radio label="1" class="col-xs-3">报警率</el-radio>
                                   <el-radio label="2" class="col-xs-3">火情发生率</el-radio>
                                 </el-radio-group>
-                              </div>                              
+                              </div>
                             </template> -->
 								<div id="call_charpiemax" style="width: 100%;height:180px;margin: 0 auto;text-align: center;"></div>
 							</div>
@@ -218,6 +239,11 @@
 							<div class="toolcount margin-top20">
 								<h4 class="p-title">报警历史趋势
                             <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+							<span class="indexdateabox alarmdate">
+								<b class="indexdateactive">日</b>
+								<b>月</b>
+								<b>年</b>
+							</span>
                               <i class="icon iconfont icon-weibiaoti10 size-12"></i>
                             </span>
                             </h4>
@@ -414,7 +440,7 @@
 				// 报警数据统计
 				getAlarmCount_parameter: {
 					unitId: null,
-					beginTime: null,
+					startTime: null,
 					endTime: null
 				},
 				radiovalue: '1',
@@ -422,7 +448,7 @@
 				// 折线图数据
 				getHistoryAlarmRate_parameter: {
 					unitId: null,
-					type: 1
+         			dateType: 1
 				},
 				getHistoryAlarmRate: Object,
 				// 报警详情
@@ -458,12 +484,14 @@
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-				this.getAlarmCount_parameter.beginTime = st;
+				this.getAlarmCount_parameter.startTime = st;
 				this.getAlarmCount_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.getAlarmCount_parameter.startTime = startDate;
+				this.getAlarmCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -485,7 +513,7 @@
 				return currentdate;
 			},
 
-			// tab切换  
+			// tab切换
 			// 实时警报列表展开/折叠
 			openEarlyList() {
 				$(".unit-info").slideToggle(
@@ -602,7 +630,9 @@
 					.then(err => {
 						console.log(err);
 					});
-
+					this.getHistoryAlarmRateV();
+			},
+			getHistoryAlarmRateV(){
 				// 请求折线图数据
 				this.$fetch("/api/alarm/getHistoryAlarmRate", this.getHistoryAlarmRate_parameter)
 					.then(response => {
@@ -750,25 +780,53 @@
 					}]
 				};
 				let chars = this.$echarts.init(document.getElementById(id));
-				// chars.setOption({});
 				chars.setOption(char);
 			},
 			draw_line(id, data) {
 				// 巡检完成率历史趋势曲线图
-				// let data = response.data.result.dateMap;
-				let a = [],
-					b = [];
-				for(var value in data) {
-					a.push(value);
-					b.push(data[value]);
+				let lineDate = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"];
+				let lineCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+				var tempDate = lineDate;
+				var deviceBugTemp = data.deviceBugLineCharts;
+				var deviceAlarmTemp = data.deviceAlarmLineCharts;
+				var fireTemp = data.fireLineCharts;
+				
+				var deviceBuglineDate = deviceBugTemp.lineDate;
+				var deviceBuglineCount = deviceBugTemp.lineCount;
+				var deviceAlarmlineDate = deviceAlarmTemp.lineDate;
+				var deviceAlarmlineCount = deviceAlarmTemp.lineCount;
+				var firelineDate = fireTemp.lineDate;
+				var firelineCount = fireTemp.lineCount;
+				if(deviceBuglineDate == null){
+					deviceBuglineDate = lineDate;
+					deviceBuglineCount = lineCount;
 				}
-				// console.log(a);
-				// console.log(b);
-				var char = {
+				if(deviceAlarmlineDate == null){
+					deviceAlarmlineDate = lineDate;
+					deviceAlarmlineCount = lineCount;
+				}
+				if(firelineDate == null){
+					firelineDate = lineDate;
+					firelineCount = lineCount;
+				}
+				var option = {
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data:['故障','报警','火情']
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						top:'20%',
+						containLabel: true
+					},
 					xAxis: {
 						type: "category",
 						boundaryGap: false,
-						data: a,
+						data: firelineDate,
 						show: true,
 						axisLine: {
 							lineStyle: {
@@ -792,42 +850,36 @@
 						}
 					},
 
-					// 调整实际显示的 margin
-					grid: {
-						y: 30,
-						x2: 10,
-						y2: 30,
-						x: 40,
-						borderWidth: 1
-					},
-					// 数据
-					series: [{
-						data: b,
-						type: "line",
-						symbol: "none",
-						smooth: true,
-						color: {
-							colorStops: [{
-								offset: 0,
-								color: "#999"
-							}]
+					// data: 
+					series: [
+						{
+							name:'故障',
+							type: "line",
+							symbol: "none",
+							smooth: true,
+							data:deviceBuglineCount
+						},
+						{
+							name:'报警',
+							type: "line",
+							symbol: "none",
+							smooth: true,
+							data:deviceAlarmlineCount
+						},
+						{
+							name:'火情',
+							type: "line",
+							symbol: "none",
+							smooth: true,
+							data:firelineCount
 						}
-					}],
-					tooltip: {
-						enterable: true,
-						trigger: "axis",
-						axisPointer: {
-							// 坐标轴指示器，坐标轴触发有效
-							type: "line" // 默认为直线，可选为：'line' | 'shadow'
-						}
-					}
+					]
 				};
 				let charf = this.$echarts.init(document.getElementById(id));
-				charf.setOption(char);
+				charf.setOption(option);
 			},
 		},
 		mounted() {
-			// alert(sessionStorage.unitid);
 			if(sessionStorage.unitid != undefined || sessionStorage.unitid != '') {
 				this.getAlarmList_parameter.unitId = sessionStorage.unitid;
 				this.queryAlarmStats_parameter.unitId = sessionStorage.unitid;
@@ -845,6 +897,19 @@
 			this.getTable();
 			this.getData();
 			$("[data-toggle='tooltip']").tooltip();
+			let that = this;
+			$('.alarmdate b').click(function() {
+				$(this).addClass('indexdateactive').siblings().removeClass('indexdateactive');
+				var value = $(this).html();
+				if(value == '日') {
+					that.getHistoryAlarmRate_parameter.dateType = 1;
+				} else if(value == '月') {
+					that.getHistoryAlarmRate_parameter.dateType = 2;
+				} else if(value == '年') {
+					that.getHistoryAlarmRate_parameter.dateType = 3;
+				}
+				that.getHistoryAlarmRateV();
+			})
 		}
 	};
 </script>
@@ -854,7 +919,7 @@
 		position: relative;
 		z-index: 22;
 	}
-	
+
 	.line-height50 {
 		line-height: 50px;
 	}

@@ -26,7 +26,7 @@
       </section>
       <!-- 路线信息 -->
         <section>
-          <div class="row toolcount margin-top20">
+          <div class="row toolcount margin-top10">
             <div class="col-sm-4 font-gray-999 padding0">
               <ul class="toolcount-left margin-bottom0 padding-left15">
                 <li>
@@ -49,10 +49,10 @@
                   <p class="size-10 set-scaleright">Inspection Info</p>
                 </li>
                 <li class="margin-top10">
-                  添加人&#x3000;&#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createUserName"></span>
+                  发布人&#x3000;&#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createUserName"></span>
                 </li>
                 <li>
-                  添加时间 &#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createTime"></span>
+                  发布时间 &#x3000;<span class="font-gray-ccc" v-html="this.inspectionPlan.createTime"></span>
                 </li>
                 <li class="row text-center padding-right16 margin-top10">
                   <div class="col-sm-4 container-padding0 personnel-borderright">
@@ -74,7 +74,7 @@
         </section>
         <!-- 节点信息 -->
         <section>
-          <div class="toolbuildrate margin-top30">
+          <div class="toolbuildrate margin-top20">
             <h4 class="p-title">路线详情 </h4>
             <div class="container-padding20 clearfix">
               <div class="panel-group tablist-item position-relative" id="accordion" role="tablist" aria-multiselectable="true">
@@ -119,7 +119,7 @@
           </div>
         </section>
         <!-- 路线日志 -->
-        <section class="bg-black padding-top10">
+        <section class="bg-black">
           <div class="table-responsive">
             <h4 class="p-title">操作日志</h4>
             <div class="main_content_table margin-top10">
@@ -507,7 +507,7 @@
         this.$fetch(
           "/api/admin/inspection/queryInspectionPlanList",{
             currentPage:this.currentPage,
-            pageSize:10,
+            pageSize:11,
             unitId:this.form.region1,
             type:this.form.region2,
             status:this.form.region3

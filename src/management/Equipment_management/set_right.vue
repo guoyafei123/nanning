@@ -13,21 +13,21 @@
                   <div class="personinfo">
                         <p>                       
                         <span class="size-20 font-blue">
-                          <i class="icon iconfont icon-jiankong-mian- size-20" data-toggle="tooltip" title="监控摄像头"></i> <span>{{ this.device.name }}</span>
+                          <!-- <i class="icon iconfont icon-jiankong-mian- size-20"></i> <span> -->{{ this.device.name }}</span>
                         </span>
                         <span class="float-right">
                                 <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{this.device.deviceTypeName}}</span>
                             </span>
                         </p>
-                        <p class="col-sm-7 text-left padding0">
+                        <p class="col-sm-12 text-left padding0">
                             <span>
-                                <i class="fas fa-industry"></i> 怀化市中心小学</span>
+                                <i class="el-icon-location"></i> {{this.device.location}}</span>
                         </p>
-                        <P class="col-sm-5 text-right padding0">
+                        <!-- <P class="col-sm-5 text-right padding0">
                             <span class="text-right">
                             最后更新：<span class="font-gray-999">2018.07.09 08:00:00</span>
                             </span>
-                        </P>                        
+                        </P>  -->                       
                   </div>
         </div>
       </section>
@@ -37,7 +37,11 @@
               <div class="col-sm-4 font-gray-999 padding0">
                   <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
-                          <h1 class="toolcount-p1"><span class="font-blue"></span>正常</h1>
+                          <h1 class="toolcount-p1">
+                            <span class="font-blue" v-if='this.device.status==1'>正常</span>
+                            <span class="font-orange" v-if='this.device.status==2'>故障</span>
+                            <span class="font-red" v-if='this.device.status==3'>警报</span>
+                          </h1>
                       </li>
                       <li class="margin-top30">
                           <p class="size-10 ">Device Status</p>
@@ -56,24 +60,24 @@
                           <p class="size-10 set-scaleright">Repair Statistics</p>
                       </li>
                       <li class="margin-top10">
-                          <p class="set-width-50">运行时长 <span class="font-blue">639 </span>天</p>
-                          <p class="pull-right">
+                          <p class="set-width-100">投入时间 <span class="font-white">{{this.device.startDate}}</span></p>
+                          <!-- <p class="pull-right">
                               <a class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="查看监控摄像头">
                                     <i class="icon iconfont icon-jiankong-mian-"></i> 监控</a>
-                          </p>
+                          </p> -->
                       </li>
                       <li class="row text-center padding-right16 margin-top10">
                           <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-red">18</p>
-                              <p>报警次数</p>
-                          </div>
+                              <p class="size-16 show font-blue">18</p>
+                              <p>运行(天)</p>
+                          </div>                          
                           <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-orange">6</p>
-                              <p>故障次数</p>
+                              <p class="size-16 show font-white">{{this.device.lifeMonth}}</p>
+                              <p>更换周期</p>
                           </div>
                           <div class="col-sm-4">
-                              <p class="size-16 show font-white">360</p>
-                              <p>更换周期</p>
+                              <p class="size-16 show font-white" v-html="this.device.maintenanceUnit == null ? '-' : this.device.maintenanceUnit"></p>
+                              <p>维保人员</p>
                           </div>
                       </li>
                   </ul>
@@ -84,7 +88,7 @@
       <section>
         <div class="textandimg margin-top20">
           <h4 class="p-title">设备详情<!-- <span class="pull-right font-blue">{{ this.device.name }}</span> --></h4>
-          <div class="row textandimg-main margin-top20 size-12">
+          <div class="row textandimg-main margin-top10 size-12">
                   <div class="col-sm-12">
                       <span>设备名称</span>
                       <strong v-html="this.device.name"></strong>
@@ -104,22 +108,21 @@
                   </div>                  
                   <div class="col-sm-6">
                       <span>距离顶部 </span>
-                      <strong v-html="this.device.height"></strong> 
-                      <b> cm</b>
+                      <strong v-html="this.device.height+'cm'"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>离地高度</span>
-                      <strong v-html="this.device.fheight"></strong> 
-                      <b> cm</b>
+                      <strong v-html="this.device.fheight+'cm'"></strong> 
                   </div>                  
                   <div class="col-sm-6">
                       <span>设备状态</span>
-                      <strong v-html="this.device.status"></strong>
+                      <strong class="font-blue" v-if='this.device.status==1'>正常</strong>
+                      <strong class="font-orange" v-if='this.device.status==2'>故障</strong>
+                      <strong class="font-red" v-if='this.device.status==3'>警报</strong>
                   </div>  
                   <div class="col-sm-6">
                       <span>运行时长 </span>
-                      <strong v-html="this.device.timeYear"></strong>
-                      <b> 天</b>
+                      <strong v-html="this.device.timeYear+'天'"></strong>
                   </div>  
                   <div class="col-sm-12">
                       <span>投入时间 </span>
@@ -134,9 +137,9 @@
       </section>
       <!-- 生产信息 -->
       <section>
-        <div class="textandimg margin-top30">
+        <div class="textandimg margin-top10">
               <h4 class="p-title">生产信息</h4>
-              <div class="row textandimg-main margin-top20 size-12">
+              <div class="row textandimg-main margin-top10 size-12">
                   <div class="col-sm-6">
                       <span>生产厂商 </span>
                       <strong v-html="this.device.firm"></strong>
@@ -154,9 +157,9 @@
       </section>  
       <!-- 维保信息 -->
       <section>
-        <div class="textandimg margin-top30">
+        <div class="textandimg margin-top10">
               <h4 class="p-title">维保信息</h4>
-              <div class="row textandimg-main margin-top20 size-12">
+              <div class="row textandimg-main margin-top10 size-12">
                   <div class="col-sm-6">
                       <span>维保单位 </span>
                       <strong v-html="this.device.maintenanceUnit"></strong>
@@ -656,7 +659,7 @@
             floorId:this.floorDevice,
             roomId:this.roomDevice,
             currentPage:this.currentPage4,
-            pageSize:9
+            pageSize:11
           }
         )
           .then(response => {

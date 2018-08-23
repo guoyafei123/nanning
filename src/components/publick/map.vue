@@ -562,50 +562,81 @@
 
 				var html =
 					`
-            <div   class="legend-landmark font-block" style="top:-88px;left:-20px">
-                <span class="landmark-rect ` +
-					style +
-					`"></span>
-                <span class="marker-name">` +
-					name +
-					`</span><br/>
-                <span class="font-block ` +
-					style +
-					`">` +
-					value +
-					`</span>
-            </div>
-		  `;
+					<div   class="legend-landmark font-block" style="top:-88px;left:-20px">
+						<span class="landmark-rect ` +
+							style +
+							`"></span>
+						<span class="marker-name">` +
+							name +
+							`</span><br/>
+						<span class="font-block ` +
+							style +
+							`">` +
+							value +
+							`</span>
+					</div>
+				`;
 		  		
 				return html;
 			},
+			// value=1 || 2 ->人物头像
+			// value=3 建筑
+
 			legend_people(img, value) {
 				var style;
 				var trian;
-				if(value <= 1) {
+				var icon;
+				if(value == 1) {
 					style = "bg-gray-ccc";
 					trian = "people-trianlixian";
-				} else if(value <= 2) {
+				} else if(value == 2) {
 					style = "bg-blue";
 					trian = "people-trianzaixian";
+				} else if(value == 3) {
+					style = "bg-orange";
+					trian = "people-orange";
+					icon="map-build"
+				} else if(value == 4) {
+					style = "bg-orange";
+					trian = "people-yellow";
+					icon='map-build'
 				}
+				
 
 				var html =
-					`
-          <div class="legend-people ` +
-					style +
-					`" style="top:-60px;left:-25px">
-              <div>
-                  <img src="` +
-					img +
-					`">
-              </div>
-              <span class="` +
-					trian +
-					`"></span>
-          </div>
-          `;
+								`
+					<div class="legend-people ` +
+								style +
+								`" style="top:-60px;left:-25px">
+						<div>
+							<img src="` +
+								img +
+								`">
+						</div>
+						<span class="` +
+								trian +
+								`"></span>
+					</div>
+					`;
+				if(value>2){
+					html =
+								`
+					<div class="legend-people ` +
+								style +
+								`" style="top:-60px;left:-25px">
+						<div>
+							<span class="icon iconfont mapdander ` +
+							icon +
+							`"></span>
+						</div>
+						<span class="` +
+								trian +
+								`"></span>
+					</div>
+					`;
+				}
 				return html;
+				// 
 			},
 			legend_alarm(img, value, size) {
 				var style_bg;
@@ -631,55 +662,58 @@
 				var pointdiv = size / 2 - size;
 				var html =
 					`
-            <div class="legend-alarm" style="top:` +
-					pointdiv +
-					`px;left:` +
-					pointdiv +
-					`px;width:` +
-					size +
-					`px;height:` +
-					size +
-					`px">
-                <span class="alarm-ani alarm-item ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item1 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item2 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item3 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item4 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item5 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-min ` +
-					style_bg +
-					`"></span>
-                <span class="alarm-max ` +
-					style_border +
-					`"></span>
-            </div>
-          `;
+					<div onmouseover="" class="legend-alarm" style="top:` +
+							pointdiv +
+							`px;left:` +
+							pointdiv +
+							`px;width:` +
+							size +
+							`px;height:` +
+							size +
+							`px">
+						<span class="alarm-ani alarm-item ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item1 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item2 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item3 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item4 ` +
+							style_shadow +
+							`"></span>
+						<span class="icon iconfont alarm-min map-fire ` +
+							style_bg +
+							`">
+							</span>
+						<span class="alarm-max ` +
+							style_border +
+							`"></span>
+					</div>
+				`;
 				return html;
 			},
 			attribute(){
-				alert("marker的位置是");    
+				// alert("marker的位置是");    
 			},
 			path_index() {
-				var  markers=this.addlandmark("红花园工业园1号楼", "3", [110.574494, 27.905342])
+				var  markers=this.addlandmark("红花园工业园1号楼", "3", [110.566804,27.906523])
 				this.mp.addOverlay(
 					markers
 				);
 				markers.addEventListener("click",function(){
-					alert(1);
+					// alert(1);
 				});
-
+				this.mp.addOverlay(
+					this.addpeople(require("../../assets/images/people.png"), "1", [110.576578,27.901798])
+				);
+				this.mp.addOverlay(
+					this.addpeople(require("../../assets/images/people.png"), "3", [110.576578,27.903798])
+				);
 				this.mp.addOverlay(
 					this.addlandmark("红花园工业园2号楼", "3", [110.574907, 27.905837])
 				);
@@ -800,6 +834,9 @@
 				this.mp.addOverlay(
 					this.addlandmark("红花园村", "1", [110.562726, 27.897616])
 				);
+			},
+			showInfo(e){
+				alert(e.point.lng + ", " + e.point.lat);
 			}
 		},
 		mounted() {
@@ -808,6 +845,12 @@
 			var that = this;
 			// var
 			this.path_index();
+
+			// function showInfo(e){
+			// 	alert(e.point.lng + ", " + e.point.lat);
+			// }
+
+			// map.addEventListener("click", this.showInfo);
 
 			map.addEventListener("zoomend", function(evt) {
 				that.listenerScale =
@@ -855,6 +898,5 @@
 		height: 100% !important;
 		position: absolute !important;
 		background-color: rgb(31, 31, 31) !important;
-		/**bottom: 1px;*/
 	}
 </style>

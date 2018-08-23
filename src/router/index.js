@@ -16,6 +16,7 @@ import BulidVue from '../components/buliding/buliding';
 import PlanVue from '../components/plan/plan';
 import Cookie from '../components/publick/cookie';
 import MinmapVue from '../components/publick/min_map';
+import CameraVue from '../components/camera/camera';
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
@@ -99,10 +100,12 @@ export default new Router({
       path:'/plan',component:PlanVue
     },
     {
-      path:'/cookie',component:Cookie
+      path:'/camera',component:CameraVue
     },
-    
-    
+    {
+      path:'/cookie',component:Cookie
+    },    
+    // 管理端
     {
       path:'/Unit_management',
       component:Unit_managementVue,

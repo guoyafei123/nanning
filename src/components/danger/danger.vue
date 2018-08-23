@@ -4,7 +4,7 @@
 		<!-- <header-vue></header-vue> -->
 		<!-- #头部 End-->
 		<!-- #左边 -->
-		<section id="left" class="position-fixed-left container-padding5 z-index-20">
+		<section id="left" class="position-fixed-left z-index-20">
 			<div class="overlay"></div>
 			<template>
 				<div class="toolleft margin-right0">
@@ -24,25 +24,25 @@
 									<li>
 										<p>今日隐患发现数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.countTrouble ? queryTroubleStats.countTrouble:'暂无'}}
+											{{queryTroubleStats.countTrouble ? queryTroubleStats.countTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>今日隐患解决数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.solveTrouble ? queryTroubleStats.solveTrouble:'暂无'}}
+											{{queryTroubleStats.solveTrouble ? queryTroubleStats.solveTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室内隐患数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.outdoorTrouble ?queryTroubleStats.outdoorTrouble:'暂无'}}
+											{{queryTroubleStats.outdoorTrouble ?queryTroubleStats.outdoorTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室外隐患数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.indoorTrouble ? queryTroubleStats.indoorTrouble:'暂无'}}
+											{{queryTroubleStats.indoorTrouble ? queryTroubleStats.indoorTrouble:'0'}}
 										</p>
 									</li>
 								</ul>
@@ -61,26 +61,26 @@
 									<li>
 										<p>今日危险品新增</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.countDangerousGoods ? queryTroubleStats.countDangerousGoods:'暂无'}}
+											{{queryTroubleStats.countDangerousGoods ? queryTroubleStats.countDangerousGoods:'0'}}
 
 										</p>
 									</li>
 									<li>
 										<p>今日危险品处理</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.solveDangerousGoods ? queryTroubleStats.solveDangerousGoods:'暂无'}}
+											{{queryTroubleStats.solveDangerousGoods ? queryTroubleStats.solveDangerousGoods:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室内危险品数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.indoorDangerousGoods ? queryTroubleStats.indoorDangerousGoods:'暂无'}}
+											{{queryTroubleStats.indoorDangerousGoods ? queryTroubleStats.indoorDangerousGoods:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室外危险品数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.outdoorDangerousGoods ? queryTroubleStats.outdoorDangerousGoods:'暂无'}}
+											{{queryTroubleStats.outdoorDangerousGoods ? queryTroubleStats.outdoorDangerousGoods:'0'}}
 										</p>
 									</li>
 								</ul>
@@ -92,13 +92,15 @@
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10">
 								<li>
-									<p class="font-gray-666 size-12">中心小学</p>
+									<p class="font-gray-666 size-10">Dangers Info</p>
 								</li>
 								<li>
 									<p class="font-blue size-16">隐患信息
-										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                                  <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                              </span>
+										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" slot="reference">
+					                      <el-tooltip content="全屏" placement="top">
+					                          <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+					                        </el-tooltip>
+					                    </span>
 									</p>
 								</li>
 								<li>
@@ -126,21 +128,42 @@
 											<tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
 												<!-- <td>{{(troubleList_parameter.currentPage-1)*troubleList_parameter.pageSize+index+1}}</td> -->
 												<td>{{item.nickName}}</td>
-												<td class="font-yellow">
-													<i data-toggle="tooltip" title="损坏" v-if="item.type==1" class="icon iconfont icon-sunhuai-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="人为风险" v-if="item.type==2" class="icon iconfont icon-weiyinsuyinhuan-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="非人为风险" v-if="item.type==3" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 set-ciontop3"></i>
-													<i data-toggle="tooltip" title="缺失" v-if="item.type==4" class="icon iconfont icon-queshi-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="危险品" v-if="item.type==5" class="icon iconfont icon-weixianpin-xian- set-ciontop3"></i>
+												<td class="font-yellow">													
+													<el-tooltip content="损坏" placement="top">
+													<i v-if="item.type==1" class="icon iconfont icon-sunhuai-xian- set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="人为风险" placement="top">
+													<i v-if="item.type==2" class="icon iconfont icon-weiyinsuyinhuan-xian- set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="非人为风险" placement="top">
+													<i v-if="item.type==3" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="缺失" placement="top">
+													<i v-if="item.type==4" class="icon iconfont icon-queshi-xian- set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="危险品" placement="top">
+													<i v-if="item.type==5" class="icon iconfont icon-weixianpin-xian- set-ciontop3"></i>
+													</el-tooltip>
 												</td>
-												<td>{{item.createTime.substring(5)}}</td>
 												<td>
-													<i data-toggle="tooltip" title="解决" v-if="item.status==1" class="icon iconfont icon-yijiejue-xian- font-blue set-ciontop4"></i>
-													<i data-toggle="tooltip" title="未解决" v-if="item.status==0" class="icon iconfont icon-yinhuan-xian- font-yellow set-ciontop4"></i>
+													<el-tooltip placement="top">
+														<div slot="content">{{item.createTime}}</div>
+														<span>{{(item.createTime).substring(10)}}</span>
+													</el-tooltip>
+												</td>
+												<td>
+													<el-tooltip content="已解决" placement="top">
+														<i v-if="item.status==1" class="icon iconfont icon-yijiejue-xian- font-blue set-ciontop4"></i>
+													</el-tooltip>
+													<el-tooltip content="未解决" placement="top">
+														<i v-if="item.status==0" class="icon iconfont icon-yinhuan-xian- font-yellow set-ciontop4"></i>
+													</el-tooltip>
 												</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+														<el-tooltip content="查看详情" placement="top">
+							                             	<i class="fas fa-chevron-circle-right"></i>
+							                             </el-tooltip>
 													</a>
 												</td>
 											</tr>
@@ -164,10 +187,9 @@
 		</section>
 		<!-- #左边 End-->
 		<!-- #右边 -->
-		<section id="right" class="position-fixed-right container-padding5 z-index-20">
+		<section id="right" class="position-fixed-right z-index-20">
 			<div class="overlay"></div>
-			<template>
-				<div class="">
+			<template>				
 					<div class="toolright">
 						<section class="my-filter padding5 bg-gray-222 clearfix">
 							<div class="col-sm-12 padding0">
@@ -197,7 +219,7 @@
 								</div>
 							</section>
 						<!-- 统计 -->
-						<section class="dan-lineinfo">							
+						<section class="dan-lineinfo">
 							<section>
 								<div class="toolcount margin-top20">
 									<h4 class="p-title">隐患统计</h4>
@@ -206,7 +228,7 @@
 											<div class="col-sm-12 margin-bottom20 text-left">
 												<div class="row">
 												<p class="col-xs-3">危险品</p>
-												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p> 
+												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p>
 												<p class="col-xs-3">新增 <span class="font-white">{{dangerCount ? dangerCount.dangerNew:'0'}}</span></p>
 												<p class="col-xs-3">处理 <span class="font-blue">{{dangerCount ? dangerCount.dangerResolved:'0'}}</span></p>
 												</div>
@@ -266,7 +288,7 @@
                           </div>
                         </div>
                     </div>
-                    
+
                 </section> -->
 							<!-- <section>
 								<div class="row cardinfo-style margin-top0 font-gray-999">
@@ -291,7 +313,12 @@
 								<div class="toolcount margin-top20">
 									<h4 class="p-title">隐患历史趋势
                           <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                            <i class="icon iconfont icon-weibiaoti10 size-12"></i>
+                            <span class="indexdateabox alarmdate">
+								<b class="indexdateactive">日</b>
+								<b>月</b>
+								<b>年</b>
+							</span>
+							<!-- <i class="icon iconfont icon-weibiaoti10 size-12"></i> -->
                           </span>
                         </h4>
 									<div id="dan_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
@@ -369,8 +396,6 @@
 						<!-- <button @click="moren">详情</button> -->
 						<!-- <button @click="jianzhu">统计</button> -->
 					</div>
-				</div>
-
 			</template>
 
 		</section>
@@ -432,7 +457,7 @@
 						}
 					]
 				},
-				value7: "",
+				dateValue: "",
 
 				queryInspectionNameList: Object,
 				queryInspectionNameListvalue: "全部类型",
@@ -452,7 +477,7 @@
 				// 饼图数据
 				troubleCount_parameter: {
 					unitId: null,
-					beginTime: "2018-07-01",
+					startTime: "2018-07-01",
 					endTime: "2019-07-12"
 				},
 				// troubleCount:Object,
@@ -462,9 +487,10 @@
 				// 折线图数据
 				troubleRate_parameter: {
 					unitId: null,
-					dateType: "1"
+					dateType: 1
 				},
 				troubleRate: Object,
+				dangerRate:Object,
 				// 隐患详情
 				troubleDetail_parameter: {
 					troubleId: 156
@@ -492,12 +518,14 @@
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-				this.troubleCount_parameter.beginTime = st;
+				this.troubleCount_parameter.startTime = st;
 				this.troubleCount_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.troubleCount_parameter.startTime = startDate;
+				this.troubleCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -587,7 +615,7 @@
 				// 请求隐患饼图数据
 				this.$fetch("/api/trouble/troubleCount", this.troubleCount_parameter)
 					.then(response => {
-						if(response) {
+						if(response.data) {
 							this.troubleCount = response.data;
 							this.troubleRatio = response.data.troubleRatio;
 							this.dangerCount = response.data.dangerCount;
@@ -598,17 +626,16 @@
 					}).then(err => {
 						console.log(err);
 					});
-				// FIXME 已更改为日月年格式需要重新接 
-				// 请求折线图数据 
+				this.getTroubleRate();
+			},	
+			getTroubleRate(){
 				this.$fetch("/api/trouble/queryTroubleLineChart", this.troubleRate_parameter)
 					.then(response => {
-						if(response) {
-							this.troubleRate = response.data;
-							console.log(this.troubleRate);
-							this.draw_line("dan_charline", response.data.troubleRate);
+						if(response.data) {
+							let data = response.data;
+							this.draw_line("dan_charline", data);
 						}
-					})
-					.then(err => {
+					}).then(err => {
 						console.log(err);
 					});
 			},
@@ -744,21 +771,40 @@
 				chars.setOption(char);
 			},
 			draw_line(id, data) {
-				// 巡检完成率历史趋势曲线图
-				// let data = response.data.result.dateMap;
-				let a = [],
-					b = [];
-				for(var value in data) {
-					a.push(value);
-					b.push(data[value]);
+				let lineDate = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"];
+				let lineCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+				var troubleRateTemp = data.result.troubleLineChart;
+				var dangerRateTemp = data.result.dangerLineCharts;
+				var toubleDate = troubleRateTemp.lineDate;
+				var toubleCount = troubleRateTemp.lineCount;
+				var dangerDate = dangerRateTemp.lineDate;
+				var dangerCount = dangerRateTemp.lineCount;
+				if(dangerDate == null){
+					dangerDate = lineDate ;
+					dangerCount = lineCount ;
 				}
-				console.log(a);
-				console.log(b);
-				var char = {
+				if(toubleDate == null){
+					toubleDate = lineDate ;
+					toubleCount = lineCount ;
+				}
+				var option = {
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data:['危险品','隐患']
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						top:'20%',
+						containLabel: true
+					},
 					xAxis: {
 						type: "category",
 						boundaryGap: false,
-						data: a,
+						data: toubleDate,
 						show: true,
 						axisLine: {
 							lineStyle: {
@@ -782,38 +828,27 @@
 						}
 					},
 
-					// 调整实际显示的 margin
-					grid: {
-						y: 30,
-						x2: 10,
-						y2: 30,
-						x: 40,
-						borderWidth: 1
-					},
-					// 数据
-					series: [{
-						data: b,
-						type: "line",
-						symbol: "none",
-						smooth: true,
-						color: {
-							colorStops: [{
-								offset: 0,
-								color: "#999"
-							}]
+					// data: 
+					series: [
+						{
+							name:'危险品',
+							type: "line",
+							symbol: "none",
+							smooth: true,
+							data:dangerCount
+						},
+						{
+							name:'隐患',
+							type: "line",
+							symbol: "none",
+							smooth: true,
+							data:toubleCount
 						}
-					}],
-					tooltip: {
-						enterable: true,
-						trigger: "axis",
-						axisPointer: {
-							// 坐标轴指示器，坐标轴触发有效
-							type: "line" // 默认为直线，可选为：'line' | 'shadow'
-						}
-					}
+					]
 				};
+
 				let charf = this.$echarts.init(document.getElementById(id));
-				charf.setOption(char);
+				charf.setOption(option);
 			}
 		},
 		mounted() {
@@ -831,6 +866,19 @@
 			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
+			let that = this;
+			$('.alarmdate b').click(function() {
+				$(this).addClass('indexdateactive').siblings().removeClass('indexdateactive');
+				var value = $(this).html();
+				if(value == '日') {
+					that.troubleRate_parameter.dateType = 1;
+				} else if(value == '月') {
+					that.troubleRate_parameter.dateType = 2;
+				} else if(value == '年') {
+					that.troubleRate_parameter.dateType = 3;
+				}
+				that.getTroubleRate();
+			})
 		}
 	};
 </script>

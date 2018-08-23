@@ -1,5 +1,8 @@
 <template>
-	<div id="mapindex" class="xzmap"></div>
+	<div class="mmp">
+		<!-- <div id="mapindex" class="xzmap"></div> -->
+	</div>
+	
 </template>
 
 <script>
@@ -7,16 +10,49 @@
 	export default {
 		data() {
 			return {
+				getunitid: null,
+				queryUnit: {
+					unitId: null
+				},
 				maxroom: 19,
-				minroom: 15,
+				minroom: 14,
 				zoom: 16,
-				point: [108.363609, 22.815612],
-				mp: Object
+				point: [110.574008, 27.906355],
+				mp: Object,
+				alarms: Object,
+				listenerScale: 500,
+				alarmsArray: [],
+				troubleArray: [],
+				routepath: "",
+				scale: {
+					19: 20,
+					18: 50,
+					17: 100,
+					16: 200,
+					15: 400,
+					14: 1000,
+					13: 2000,
+					12: 5000,
+					11: 10000,
+					10: 20000,
+					9: 25000,
+					8: 50000,
+					7: 100000,
+					6: 200000,
+					5: 500000,
+					4: 1000000,
+					3: 2000000
+				},
+				alarmsize: 500,
+				maps:'',
+
+				aleamAndtroubleInfos:Object
 			}
 		},
 
 		methods: {
 			getMapToDiv(divId) {
+				alert(1);
 				var MAP_STYLE_SMALL = [{
 						"featureType": "land",
 						"elementType": "all",
@@ -195,7 +231,7 @@
 				];
 				var MAP_CENTER_POINT = new BMap.Point(this.point[0], this.point[1]);
 				var mapArr = {};
-				var map_id = ['right_top_map', 'mapindex'];
+				// var map_id = ['right_top_map', 'mapindex'];
 				var map = mapArr[divId];
 				if(map != null && map != undefined && map_id.indexOf(divId) > -1) {
 					return map;
@@ -227,21 +263,22 @@
 				landmark.prototype = new BMap.Overlay();
 				landmark.prototype.initialize = function(map) {
 					this._map = map;
-					var div = this._div = document.createElement('div');
-					$(div).addClass('landmark_marker')
+					var div = (this._div = document.createElement("div"));
+					$(div).addClass("landmark_marker");
 					div.style.position = "absolute";
 
 					$(div).append(that.legend_landmark(this._name, this._value));
 					map.getPanes().labelPane.appendChild(div);
 					return div;
-				}
+				};
 				landmark.prototype.draw = function() {
 					var map = this._map;
 					var pixel = map.pointToOverlayPixel(this._point);
 					this._div.style.left = pixel.x - 0 + "px";
 					this._div.style.top = pixel.y - 0 + "px";
-				}
+				};
 				var marker = new landmark(new BMap.Point(p[0], p[1]), name, value);
+				
 				return marker;
 			},
 			addpeople(img, value, p) {
@@ -255,20 +292,20 @@
 				people.prototype = new BMap.Overlay();
 				people.prototype.initialize = function(map) {
 					this._map = map;
-					var div = this._div = document.createElement('div');
-					$(div).addClass('landmark_marker')
+					var div = (this._div = document.createElement("div"));
+					$(div).addClass("landmark_marker");
 					div.style.position = "absolute";
 
 					$(div).append(that.legend_people(this._img, this._value));
 					map.getPanes().labelPane.appendChild(div);
 					return div;
-				}
+				};
 				people.prototype.draw = function() {
 					var map = this._map;
 					var pixel = map.pointToOverlayPixel(this._point);
 					this._div.style.left = pixel.x - 0 + "px";
 					this._div.style.top = pixel.y - 0 + "px";
-				}
+				};
 				var marker = new people(new BMap.Point(p[0], p[1]), img, value);
 				return marker;
 			},
@@ -285,36 +322,36 @@
 				alarm.prototype = new BMap.Overlay();
 				alarm.prototype.initialize = function(map) {
 					this._map = map;
-					var div = this._div = document.createElement('div');
-					$(div).addClass('landmark_marker')
+					var div = (this._div = document.createElement("div"));
+					$(div).addClass("landmark_marker");
 					div.style.position = "absolute";
 					$(div).append(that.legend_alarm(this._img, this._value, this._size));
 
 					map.getPanes().labelPane.appendChild(div);
 					return div;
-				}
+				};
 				alarm.prototype.draw = function() {
 					var map = this._map;
 					var pixel = map.pointToOverlayPixel(this._point);
 					this._div.style.left = pixel.x - 0 + "px";
 					this._div.style.top = pixel.y - 0 + "px";
-				}
+				};
 				var l = size * 0.54;
 				var marker = new alarm(new BMap.Point(p[0], p[1]), img, value, l);
-				var circle = new BMap.Circle(new BMap.Point(p[0], p[1]), size, {});
-				var fillcolor = '#bad616';
+				var circle = new BMap.Circle(new BMap.Point(p[0], p[1]), 500, {});
+				var fillcolor = "#bad616";
 				if(value <= 3) {
-					fillcolor = '#bad616';
+					fillcolor = "#bad616";
 				} else if(value <= 6) {
-					fillcolor = '#c69e00';
+					fillcolor = "#c69e00";
 				} else if(value <= 9) {
-					fillcolor = '#ff7800';
+					fillcolor = "#ff7800";
 				} else {
-					fillcolor = '#f13131';
+					fillcolor = "#f13131";
 				}
 
 				circle.setStrokeStyle("dashed");
-				circle.setFillColor('rgba(0,0,0,0 )');
+				circle.setFillColor("rgba(0,0,0,0 )");
 				circle.setStrokeWeight(1);
 				circle.setStrokeColor(fillcolor);
 				return [marker, circle];
@@ -329,19 +366,28 @@
 				}); // 创建标注
 				map.addOverlay(marker2);
 			},
-			addline(array) {
+			addline(array, type) {
 				var pois = [];
 				for(var i = 0; i < array.length; i++) {
-					pois.push(new BMap.Point(array[i][0], array[i][1]))
+					pois.push(new BMap.Point(array[i][0], array[i][1]));
 				}
-
+				var fillcolor = "";
+				if(type == 1) {
+					fillcolor = "#bad616";
+				} else if(type == 2) {
+					fillcolor = "#c69e00";
+				} else if(type == 3) {
+					fillcolor = "#ff7800";
+				} else {
+					fillcolor = "#ccc";
+				}
 				var polyline = new BMap.Polyline(pois, {
 					enableEditing: false, //是否启用线编辑，默认为false
 					enableClicking: true, //是否响应点击事件，默认为true
 					// icons:[icons],
-					strokeWeight: '2', //折线的宽度，以像素为单位
+					strokeWeight: "2", //折线的宽度，以像素为单位
 					strokeOpacity: 1, //折线的透明度，取值范围0 - 1
-					strokeColor: "#bad616" //折线颜色
+					strokeColor: fillcolor //折线颜色
 				});
 				return polyline;
 			},
@@ -349,43 +395,60 @@
 			legend_landmark(name, value) {
 				var style;
 				if(value <= 1) {
-					style = 'bg-blue';
+					style = "bg-blue";
 				} else if(value <= 2) {
-					style = 'bg-yellow';
+					style = "bg-yellow";
 				} else if(value <= 9) {
-					style = 'bg-orange';
+					style = "bg-orange";
 				} else {
-					style = 'bg-red';
+					style = "bg-red";
 				}
 
-				var html = `
-            <div class="legend-landmark font-block" style="top:-88px;left:-20px">
-                <span class="landmark-rect ` + style + `"></span>
-                <span class="marker-name">` + name + `</span><br/>
-                <span class="font-block ` + style + `">` + value + `</span>
-            </div>
-          `
+				var html =
+					`
+					<div   class="legend-landmark font-block" style="top:-88px;left:-20px">
+						<span class="landmark-rect ` +
+							style +
+							`"></span>
+						<span class="marker-name">` +
+							name +
+							`</span><br/>
+						<span class="font-block ` +
+							style +
+							`">` +
+							value +
+							`</span>
+					</div>
+				`;
+		  		
 				return html;
 			},
 			legend_people(img, value) {
 				var style;
 				var trian;
 				if(value <= 1) {
-					style = 'bg-gray-ccc';
-					trian = 'people-trianlixian';
+					style = "bg-gray-ccc";
+					trian = "people-trianlixian";
 				} else if(value <= 2) {
-					style = 'bg-blue';
-					trian = 'people-trianzaixian';
+					style = "bg-blue";
+					trian = "people-trianzaixian";
 				}
 
-				var html = `
-          <div class="legend-people ` + style + `" style="top:-60px;left:-25px">
-              <div>
-                  <img src="` + img + `">
-              </div>
-              <span class="` + trian + `"></span>
-          </div>
-          `
+				var html =
+								`
+					<div class="legend-people ` +
+								style +
+								`" style="top:-60px;left:-25px">
+						<div>
+							<img src="` +
+								img +
+								`">
+						</div>
+						<span class="` +
+								trian +
+								`"></span>
+					</div>
+					`;
 				return html;
 			},
 			legend_alarm(img, value, size) {
@@ -393,118 +456,170 @@
 				var style_border;
 				var style_shadow;
 				if(value <= 3) {
-					style_bg = 'bg-blue';
-					style_border = 'border-blue';
-					style_shadow = 'shadow-blue'
+					style_bg = "bg-blue";
+					style_border = "border-blue";
+					style_shadow = "shadow-blue";
 				} else if(value <= 6) {
-					style_bg = 'bg-yellow';
-					style_border = 'border-yellow';
-					style_shadow = 'shadow-yellow'
+					style_bg = "bg-yellow";
+					style_border = "border-yellow";
+					style_shadow = "shadow-yellow";
 				} else if(value <= 9) {
-					style_bg = 'bg-orange';
-					style_border = 'border-orange';
-					style_shadow = 'shadow-orange'
+					style_bg = "bg-orange";
+					style_border = "border-orange";
+					style_shadow = "shadow-orange";
 				} else {
-					style_bg = 'bg-red';
-					style_border = 'border-red';
-					style_shadow = 'shadow-red'
+					style_bg = "bg-red";
+					style_border = "border-red";
+					style_shadow = "shadow-red";
 				}
 				var pointdiv = size / 2 - size;
-				var html = `
-          <div class="legend-alarm" style="top:` + pointdiv + `px;left:` + pointdiv + `px;width:` + size + `px;height:` + size + `px">
-              <span class="alarm-ani alarm-item ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item1 ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item2 ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item3 ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item4 ` + style_shadow + `"></span>
-              <span class="alarm-ani alarm-item5 ` + style_shadow + `"></span>
-              <span class="alarm-min ` + style_bg + `"></span>
-              <span class="alarm-max ` + style_border + `"></span>
-          </div>
-        `
+				var html =
+					`
+					<div class="legend-alarm" style="top:` +
+							pointdiv +
+							`px;left:` +
+							pointdiv +
+							`px;width:` +
+							size +
+							`px;height:` +
+							size +
+							`px">
+						<span class="alarm-ani alarm-item ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item1 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item2 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item3 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item4 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-min ` +
+							style_bg +
+							`"></span>
+						<span class="alarm-max ` +
+							style_border +
+							`"></span>
+					</div>
+				`;
 				return html;
+			},
+			attribute(){
+				alert("marker的位置是");    
+			},
+			path_index() {
+				var  markers=this.addlandmark("红花园工业园1号楼", "3", [110.574494, 27.905342])
+				this.mp.addOverlay(
+					markers
+				);
+				markers.addEventListener("click",function(){
+					alert(1);
+				});
+
+				this.mp.addOverlay(
+					this.addlandmark("红花园工业园2号楼", "3", [110.574907, 27.905837])
+				);
+				this.mp.addOverlay(
+					this.addlandmark("五里排", "1", [110.56976, 27.909667])
+				);
+				this.mp.addOverlay(
+					this.addlandmark("林翠山公园", "1", [110.584321, 27.910753])
+				);
+				this.mp.addOverlay(
+					this.addlandmark("蒋家冲", "1", [110.568709, 27.900633])
+				);
+				this.mp.addOverlay(
+					this.addlandmark("溆水外滩", "1", [110.58734, 27.90199])
+				);
+				this.mp.addOverlay(
+					this.addlandmark("罗家湾", "1", [110.579686, 27.91179])
+				);
+				this.mp.addOverlay(
+					this.addlandmark("三坝塘", "1", [110.571494, 27.913881])
+				);
+				this.mp.addOverlay(
+					this.addlandmark("红花园村", "1", [110.562726, 27.897616])
+				);
+			},
+			fn(){
+        let map =this.getMapToDiv('mapindex');
+				this.aleamAndtroubleInfos=this.aleamAndtroubleInfo[0];
+				map.clearOverlays();
+        map.setCenter(new BMap.Point(this.aleamAndtroubleInfos.pointX, this.aleamAndtroubleInfos.pointY));
+				let alarms = this.addalarm("银湖海岸城1", "12", this.listenerScale, [
+					this.aleamAndtroubleInfos.pointX,
+					this.aleamAndtroubleInfos.pointY
+				]);
+        map.addOverlay(alarms[0]);
+        map.addOverlay(alarms[1]);
+				
+				
 			}
 
 		},
 		computed: mapState([
-			'queryUnitBuildList',
-			'queryInspectionLineList'
+			'aleamAndtroubleInfo'
 		]),
 		watch: {
-			// 所有巡检单位
-			queryUnitBuildList() {
-				this.queryUnitBuildList.unitBuildList.forEach(element => {
-					this.mp.addOverlay(this.addlandmark(element.name, element.status, [element.pointX, element.pointY]))
-				});
-			},
-
-			// 正在巡检的路线
-			queryInspectionLineList() {
-				this.queryInspectionLineList.inspectionLineList.forEach(element => {
-					if(element.inspectionNodeUserList != 0) {
-						let array = []
-						element.inspectionNodeUserList.forEach(item => {
-							if(item.xRate != null || item.xRate != '' || item.xRate != 0 || item.xRate != 1) {
-								this.mp.addOverlay(this.addlandmark(item.buildingName, item.status, [item.xRate, item.yRate]))
-								array.push([item.xRate, item.yRate]);
-								this.mp.addOverlay(this.addline(array));
-
-							}
-						})
-					}
-					// this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
-					console.log(element.buildingName);
-				});
+			aleamAndtroubleInfo() {
+				this.fn();
 			}
 		},
+		destroyed(){
+			$('#mapindex').remove();
+		},
 		mounted() {
-			var map = this.getMapToDiv('mapindex');
-			this.mp = map;
-			var alarmsize = 500;
-			var alarmsize1 = 1000;
-			var that = this;
-			var scale = {
-				19: 20,
-				18: 50,
-				17: 100,
-				16: 200,
-				15: 400
-			}
-			// map.addOverlay(this.addlandmark("银湖",'3',[108.378000,22.795000]))
-			// map.addOverlay(this.addlandmark("银湖海",'6',[108.385000,22.795000]))
-			// map.addOverlay(this.addlandmark("银湖海岸",'9',[108.381257,22.801501]))
-			// map.addOverlay(this.addlandmark("银湖海岸城",'12',[108.385257,22.805501]))
-			// map.addOverlay(this.addpeople("银湖海岸城1",'2',[108.382500,22.799300]))
-			// var alarm=this.addalarm("银湖海岸城1",'6',alarmsize,[108.385000,22.795000]);
-			// map.addOverlay(alarm[0])
-			// map.addOverlay(alarm[1])
-
-			// var alarm1=this.addalarm("银湖海岸城1",'12',alarmsize1,[108.385257,22.805501]);
-			// map.addOverlay(alarm1[0])
-			// map.addOverlay(alarm1[1])
-
-			// map.addEventListener("zoomend", function(evt){
-			//   var listenerScale = scale[that.zoom] / scale[map.getZoom()] * alarmsize ;
-			//   map.removeOverlay(alarm[0])
-			//   alarm=that.addalarm("银湖海岸城1",'6',listenerScale,[108.385000,22.795000])
-			//   map.addOverlay(alarm[0])
-
-			//   var listenerScale1 = scale[that.zoom] / scale[map.getZoom()] * alarmsize1 ;
-			//   map.removeOverlay(alarm1[0])
-			//   alarm1=that.addalarm("银湖海岸城1",'12',listenerScale1,[108.385257,22.805501])
-			//   map.addOverlay(alarm1[0])
-			// });
-			// var linearray = [
-			//   [108.378000,22.795000],
-			//   [108.385000,22.795000],
-			//   [108.381257,22.801501],
-			//   [108.385257,22.805501]
-			// ];
-			// map.addOverlay(this.addline(linearray));
-			if(typeof module === 'object') {
-				window.jQuery = window.$ = module.exports;
-			};
-		}
+      this.fn();
+    }
+		// 	var map ='';
+		// 	map=this.getMapToDiv('mapindex');
+		// 	this.mp = map;
+		// 	var that = this;
+		//
+		// 	this.path_index();
+		//
+    //
+		// 	map.addEventListener("zoomend", function(evt) {
+		// 		that.listenerScale =
+		// 			that.scale[that.zoom] / that.scale[map.getZoom()] * that.alarmsize;
+		// 		// alert(that.routepath)
+		// 		console.log(that.alarmsArray);
+		// 		for(var i = 0; i < that.alarmsArray.length; i++) {
+		// 			map.removeOverlay(that.alarmsArray[i][0]);
+		// 			map.removeOverlay(that.alarmsArray[i][2]);
+		// 			that.alarmsArray[i][0] = that.addalarm(
+		// 				"银湖海岸城1",
+		// 				"12",
+		// 				that.listenerScale, [that.alarmsArray[i][1].pointX, that.alarmsArray[i][1].pointY]
+		// 			)[0];
+		// 			// console.log(newalarm);
+		// 			map.addOverlay(that.alarmsArray[i][0]);
+		// 			map.addOverlay(that.alarmsArray[i][2]);
+		// 		}
+    //
+		// 		for(var i = 0; i < that.troubleArray.length; i++) {
+		// 			map.removeOverlay(that.troubleArray[i][0]);
+		// 			map.removeOverlay(that.troubleArray[i][2]);
+		// 			that.troubleArray[i][0] = that.addalarm(
+		// 				"银湖海岸城1",
+		// 				"5",
+		// 				that.listenerScale, [that.troubleArray[i][1].pointX, that.troubleArray[i][1].pointY]
+		// 			)[0];
+		// 			// console.log(newalarm);
+		// 			map.addOverlay(that.troubleArray[i][0]);
+		// 			map.addOverlay(that.troubleArray[i][2]);
+		// 		}
+		// 	});
+    //
+		// 	if(typeof module === 'object') {
+		// 		window.jQuery = window.$ = module.exports;
+		// 	};
+		// }
 	}
 </script>
 

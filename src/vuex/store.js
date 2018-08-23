@@ -233,7 +233,6 @@ var mutations={
   },
   aleamAndtroubleInfo(state,data){
     state.aleamAndtroubleInfo=data;
-    console.log(state.aleamAndtroubleInfo);
   },
 }
 

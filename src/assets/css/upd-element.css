@@ -50,7 +50,6 @@
 }
 .upd-pagin>div{
     position: relative;
-    bottom: 20px;
 }
 .upd-pagin .el-pagination{
     position: relative;

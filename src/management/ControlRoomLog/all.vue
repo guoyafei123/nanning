@@ -32,7 +32,7 @@
           :data="tableData"
           border
           :highlight-current-row="true"
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}"> 
+          :default-sort = "{prop: 'Serial_number', order: 'descending'}">
           <el-table-column
             prop="Serial_number"
             type="index"
@@ -147,7 +147,7 @@
           }]
         },
         timeValue: ''
-      }      
+      }
     },
     methods: {
       btn_add(){
@@ -179,9 +179,9 @@
         this.$fetch(
           "/api/workPunch/queryPunch",{
             currentPage:this.currentPage4,
-            pageSize:10,
+            pageSize:14,
             unitId:this.operator,
-            beginTime:this.timeValue[0],
+            startTime:this.timeValue[0],
             endTime:this.timeValue[1]
           }
         )

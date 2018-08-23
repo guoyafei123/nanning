@@ -303,7 +303,8 @@
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
-      start_plan(row,indexs){//修改单位
+      start_plan(row,indexs){        
+        //修改单位
         this.deviceIndex = row.id ;
         
         this.tableData.forEach((item,index)=>{
@@ -326,6 +327,15 @@
         console.log(this.form.id)
       },
       startRow(formName){
+        // 修改成功提示
+        this.$message({
+          dangerouslyUseHTMLString: true,
+          message: '<strong> 修改成功</strong>',
+          center: true,
+          showClose: true,
+          iconClass:'el-icon-circle-check',
+          customClass:'edit-ok-notification'
+        });
         this.$refs[formName].validate((valid) => {
           if (valid) {
             var file = "file";
@@ -385,7 +395,7 @@
         this.$fetch(
           "/api/unit/queryPagerUnitList",{
             currentPager:this.currentPage4,
-            pagerSize:10
+            pagerSize:14
           }
         )
           .then(response => {

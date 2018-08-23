@@ -72,13 +72,15 @@
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10 clearfix">
 								<li>
-									<p class="font-gray-666 size-12">中心小学</p>
+									<p class="font-gray-666 size-10">Inspection Mission</p>
 								</li>
 								<li>
-									<p class="font-blue size-16">巡检路线
-										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                        <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span>
+									<p class="font-blue size-16">巡检任务
+										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" slot="reference">
+					                      <el-tooltip content="全屏" placement="top">
+					                          <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+					                        </el-tooltip>
+					                    </span>
 									</p>
 								</li>
 								<li>
@@ -263,7 +265,7 @@
 												<div class="panel-body padding0">
 													<ul class="size-12 font-gray-999 tablist-itemul">
 														<li v-for="item in ins_queryPlanUserDetails.listNode">
-															<span>{{item.buildingName}} 
+															<span>{{item.buildingName}}
                                   <span class="float-right">
                                     <i class="icon iconfont icon-yinhuan-xian- font-yellow size-14 text-left"></i>
                                     <span class="font-blue">{{item.inspectionPlanUserId}} </span>/<span class="font-yellow">{{item.buildingId}}</span>
@@ -664,7 +666,7 @@
 				ins_queryPlanUserDetails: Object,
 				queryPlanDetails_parameter: {
 					inspectionPlanId: 486,
-					beginTime: '2018-06-01',
+					startTime: '2018-06-01',
 					endTime: '2018-08-09'
 				},
 				ins_queryPlanDetails: Object,
@@ -690,12 +692,16 @@
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
 				this.queryTrendMapGraph_parameter.startTime = st;
 				this.queryTrendMapGraph_parameter.endTime = et;
-				this.queryPlanDetails_parameter.beginTime = st;
+				this.queryPlanDetails_parameter.startTime = st;
 				this.queryPlanDetails_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.queryTrendMapGraph_parameter.startTime = startDate;
+				this.queryTrendMapGraph_parameter.endTime = startDate;
+				this.queryPlanDetails_parameter.startTime = startDate;
+				this.queryPlanDetails_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -873,7 +879,7 @@
 
 					//       // let data = response.data.result.dateMap;
 					//       // let a=[],b=[];
-					//       // for (var value in data) {			
+					//       // for (var value in data) {
 					//       //   a.push(value);
 					//       //   b.push(data[value]);
 					//       // }
@@ -1164,7 +1170,7 @@
 		position: relative;
 		z-index: 22;
 	}
-	
+
 	.padding-right16 {
 		padding-right: 16px;
 	}

@@ -11,7 +11,7 @@
 #manage-center {
     margin-top: 120px;
     max-height: 78%;
-    height: -webkit-fill-available;
+    height: auto;
     transition: left .5s;
     -moz-transition: left .5s; /* Firefox 4 */
     -webkit-transition: left .5s; /* Safari 和 Chrome */
