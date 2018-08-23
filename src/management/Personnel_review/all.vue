@@ -328,7 +328,7 @@
         this.$fetch(
           "/api/user/queryPagerUserList",{
             currentPager:this.currentPage4,
-            pagerSize:10,
+            pagerSize:14,
             unitId:this.unitId,
             review:this.reviewId,
             flag:1

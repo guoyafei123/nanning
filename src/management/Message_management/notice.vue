@@ -134,7 +134,7 @@
         this.$fetch(
           "/api/event/querySystemMessage",{
             currentPage:this.currentPage4,
-            pageSize:10,
+            pageSize:14,
             unitId:this.unit,
             startTime:this.value4[0],
             endTime:this.value4[1]
