@@ -62,7 +62,7 @@
       <!-- 隐患消息 -->
       <div class="tab-pane fade" id="dangers">
         <ul>
-          <li class="dangers unread" v-for="mes in getMessageDateTrouble">
+          <li class="dangers" :class="mes.type==1?'unread':''" v-for="mes in getMessageDateTrouble">
             <h3 @click="reedMsg(mes)">{{mes.title}}</h3>
             <!--<small>
               <i class="icon iconfont icon-xunjianyuan-mian-"><span>段亚伟</span></i>

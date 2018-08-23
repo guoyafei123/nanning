@@ -562,20 +562,20 @@
 
 				var html =
 					`
-            <div   class="legend-landmark font-block" style="top:-88px;left:-20px">
-                <span class="landmark-rect ` +
-					style +
-					`"></span>
-                <span class="marker-name">` +
-					name +
-					`</span><br/>
-                <span class="font-block ` +
-					style +
-					`">` +
-					value +
-					`</span>
-            </div>
-		  `;
+					<div   class="legend-landmark font-block" style="top:-88px;left:-20px">
+						<span class="landmark-rect ` +
+							style +
+							`"></span>
+						<span class="marker-name">` +
+							name +
+							`</span><br/>
+						<span class="font-block ` +
+							style +
+							`">` +
+							value +
+							`</span>
+					</div>
+				`;
 		  		
 				return html;
 			},
@@ -591,20 +591,20 @@
 				}
 
 				var html =
-					`
-          <div class="legend-people ` +
-					style +
-					`" style="top:-60px;left:-25px">
-              <div>
-                  <img src="` +
-					img +
-					`">
-              </div>
-              <span class="` +
-					trian +
-					`"></span>
-          </div>
-          `;
+								`
+					<div class="legend-people ` +
+								style +
+								`" style="top:-60px;left:-25px">
+						<div>
+							<img src="` +
+								img +
+								`">
+						</div>
+						<span class="` +
+								trian +
+								`"></span>
+					</div>
+					`;
 				return html;
 			},
 			legend_alarm(img, value, size) {
@@ -631,38 +631,38 @@
 				var pointdiv = size / 2 - size;
 				var html =
 					`
-            <div class="legend-alarm" style="top:` +
-					pointdiv +
-					`px;left:` +
-					pointdiv +
-					`px;width:` +
-					size +
-					`px;height:` +
-					size +
-					`px">
-                <span class="alarm-ani alarm-item ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item1 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item2 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item3 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-ani alarm-item4 ` +
-					style_shadow +
-					`"></span>
-                <span class="alarm-min ` +
-					style_bg +
-					`"></span>
-                <span class="alarm-max ` +
-					style_border +
-					`"></span>
-            </div>
-          `;
+					<div class="legend-alarm" style="top:` +
+							pointdiv +
+							`px;left:` +
+							pointdiv +
+							`px;width:` +
+							size +
+							`px;height:` +
+							size +
+							`px">
+						<span class="alarm-ani alarm-item ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item1 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item2 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item3 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-ani alarm-item4 ` +
+							style_shadow +
+							`"></span>
+						<span class="alarm-min ` +
+							style_bg +
+							`"></span>
+						<span class="alarm-max ` +
+							style_border +
+							`"></span>
+					</div>
+				`;
 				return html;
 			},
 			attribute(){
@@ -797,6 +797,9 @@
 				this.mp.addOverlay(
 					this.addlandmark("红花园村", "1", [110.562726, 27.897616])
 				);
+			},
+			showInfo(e){
+				alert(e.point.lng + ", " + e.point.lat);
 			}
 		},
 		mounted() {
@@ -805,6 +808,11 @@
 			var that = this;
 			// var
 			this.path_index();
+
+			// function showInfo(e){
+			// 	alert(e.point.lng + ", " + e.point.lat);
+			// }
+			// map.addEventListener("click", this.showInfo);
 
 			map.addEventListener("zoomend", function(evt) {
 				that.listenerScale =
@@ -852,6 +860,5 @@
 		height: 100% !important;
 		position: absolute !important;
 		background-color: rgb(31, 31, 31) !important;
-		/**bottom: 1px;*/
 	}
 </style>

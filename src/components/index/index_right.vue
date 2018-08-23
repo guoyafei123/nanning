@@ -436,14 +436,6 @@
 				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"'
 			};
 		},
-		// sockets:{
-		//   connect: function(){  //这里是监听connect事件
-		//     this.socketid=this.$socket.id
-		//   },
-		//   customEmit: function(val){
-		//     console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
-		//   }
-		// },
 		computed: mapState(["torightdata", "unitid", "userinfo"]),
 		watch: {
 			torightdata() {
@@ -480,6 +472,7 @@
 				});
 			},
 			connect() {
+				sessionStorage.socketcode=1;
 				var that = this;
 				console.log("去链接。。。");
 				var socket = new sockjs("http://api.nanninglq.51play.com/socket");
@@ -730,6 +723,9 @@
 			this.getgetUnitsSynthesis();
 			this.getqueryAlarmIng(1);
 			this.getqueryUnitInfo();
+			if(sessionStorage.socketcode!=1){
+				alert('创建socket')
+			}
 			this.connect();
 			this.getmp3();
 			
