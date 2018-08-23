@@ -84,7 +84,7 @@
 			fn(){
 				this.aleamAndtroubleInfos=this.aleamAndtroubleInfo
 				this.$store.commit("aleamAndtroubleInfos", [this.aleamAndtroubleInfo,this.tounpdateIndex++]);
-				// alert(this.aleamAndtroubleInfo[0].unitName);
+				// alert(this.aleamAndtroubleInfos.id+'-'+this.aleamAndtroubleInfo.pointY);
 			}
 		},
 		mounted(){
