@@ -75,6 +75,12 @@
 .people-trianzaixian{
     border-top: 10px solid rgba(186,214,22,1)!important;
 }
+.people-orange{
+    border-top: 10px solid rgba(255,120,0,1)!important;
+}
+.people-yellow{
+    border-top: 10px solid rgba(255,204,0,1)!important;
+}
 .legend-people div{
     width: 100%;
     height: 100%;
@@ -84,6 +90,12 @@
 .legend-people img{
     width: 100%;
 }
+/* .legend-people .mapdander{
+    display: inline-block;
+    width: 
+} */
+
+
 
 /* 报警图例 */
 .legend-alarm{
@@ -202,26 +214,36 @@
     100% {width: 100%;height: 100%;box-shadow:inset 0px 0px 0px}
 }
 
+/* 火情 */
 .map-fire:before{
-    content: "\E620";
+    content: "\e684";
     position: absolute;
-    left: 7px;
-    top: 4px;
-    font-size: 18px;
+    left: 4px;
+    bottom: 0px;
+    font-size: 24px;
 }
 
+/* 报警 */
 .map-warning:before{
-    content: "\E620";
+    content: "\e620";
     position: absolute;
-    left: 7px;
-    top: 4px;
-    font-size: 18px;
+    left: 4px;
+    bottom: 0px;
+    font-size: 24px;
 }
-
-.map-fault:before{
-    content: "\E620";
+/* 故障 */
+.map-dangers:before{
+    content: "\e685a";
     position: absolute;
-    left: 7px;
-    top: 4px;
-    font-size: 18px;
+    left: 4px;
+    bottom: 0px;
+    font-size: 24px;
+}
+/* 建筑 */
+.map-build:before{
+    content: "\e64f";
+    position: absolute;
+    right: -21px;
+    bottom: 4px;
+    font-size: 40px;
 }
