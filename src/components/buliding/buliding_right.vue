@@ -341,7 +341,9 @@ export default {
 				this.getData();
 		},
 		defaultTimeVaule() {
-				var startDate = this.getNowFormatDate();
+        var startDate = this.getNowFormatDate();
+        this.getBuildIngAssess_parameter.startTime = startDate;
+        this.getBuildIngAssess_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 		},
 		//获取当前时间：

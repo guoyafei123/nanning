@@ -343,6 +343,8 @@
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.queryUserCount_parameter.startTime = startDate;
+				this.queryUserCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
