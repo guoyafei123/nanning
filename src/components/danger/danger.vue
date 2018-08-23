@@ -470,6 +470,7 @@
 					dateType: "1"
 				},
 				troubleRate: Object,
+				dangerRate:Object,
 				// 隐患详情
 				troubleDetail_parameter: {
 					troubleId: 156
@@ -611,7 +612,9 @@
 					.then(response => {
 						if(response) {
 							this.troubleRate = response.data;
+							this.dangerRate = response.data;
 							console.log(this.troubleRate);
+							console.log(this.dangerRate);
 							this.draw_line("dan_charline", response.data.troubleRate);
 						}
 					})
