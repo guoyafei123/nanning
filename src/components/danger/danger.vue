@@ -24,25 +24,25 @@
 									<li>
 										<p>今日隐患发现数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.countTrouble ? queryTroubleStats.countTrouble:'暂无'}}
+											{{queryTroubleStats.countTrouble ? queryTroubleStats.countTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>今日隐患解决数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.solveTrouble ? queryTroubleStats.solveTrouble:'暂无'}}
+											{{queryTroubleStats.solveTrouble ? queryTroubleStats.solveTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室内隐患数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.outdoorTrouble ?queryTroubleStats.outdoorTrouble:'暂无'}}
+											{{queryTroubleStats.outdoorTrouble ?queryTroubleStats.outdoorTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室外隐患数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.indoorTrouble ? queryTroubleStats.indoorTrouble:'暂无'}}
+											{{queryTroubleStats.indoorTrouble ? queryTroubleStats.indoorTrouble:'0'}}
 										</p>
 									</li>
 								</ul>
@@ -61,26 +61,26 @@
 									<li>
 										<p>今日危险品新增</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.countDangerousGoods ? queryTroubleStats.countDangerousGoods:'暂无'}}
+											{{queryTroubleStats.countDangerousGoods ? queryTroubleStats.countDangerousGoods:'0'}}
 
 										</p>
 									</li>
 									<li>
 										<p>今日危险品处理</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.solveDangerousGoods ? queryTroubleStats.solveDangerousGoods:'暂无'}}
+											{{queryTroubleStats.solveDangerousGoods ? queryTroubleStats.solveDangerousGoods:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室内危险品数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.indoorDangerousGoods ? queryTroubleStats.indoorDangerousGoods:'暂无'}}
+											{{queryTroubleStats.indoorDangerousGoods ? queryTroubleStats.indoorDangerousGoods:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室外危险品数</p>
 										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
-											{{queryTroubleStats.outdoorDangerousGoods ? queryTroubleStats.outdoorDangerousGoods:'暂无'}}
+											{{queryTroubleStats.outdoorDangerousGoods ? queryTroubleStats.outdoorDangerousGoods:'0'}}
 										</p>
 									</li>
 								</ul>
@@ -92,13 +92,15 @@
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10">
 								<li>
-									<p class="font-gray-666 size-12">中心小学</p>
+									<p class="font-gray-666 size-10">Dangers Info</p>
 								</li>
 								<li>
 									<p class="font-blue size-16">隐患信息
-										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                                  <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                              </span>
+										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" slot="reference">
+					                      <el-tooltip content="全屏" placement="top">
+					                          <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+					                        </el-tooltip>
+					                    </span>
 									</p>
 								</li>
 								<li>
@@ -126,21 +128,42 @@
 											<tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
 												<!-- <td>{{(troubleList_parameter.currentPage-1)*troubleList_parameter.pageSize+index+1}}</td> -->
 												<td>{{item.nickName}}</td>
-												<td class="font-yellow">
-													<i data-toggle="tooltip" title="损坏" v-if="item.type==1" class="icon iconfont icon-sunhuai-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="人为风险" v-if="item.type==2" class="icon iconfont icon-weiyinsuyinhuan-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="非人为风险" v-if="item.type==3" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 set-ciontop3"></i>
-													<i data-toggle="tooltip" title="缺失" v-if="item.type==4" class="icon iconfont icon-queshi-xian- set-ciontop3"></i>
-													<i data-toggle="tooltip" title="危险品" v-if="item.type==5" class="icon iconfont icon-weixianpin-xian- set-ciontop3"></i>
+												<td class="font-yellow">													
+													<el-tooltip content="损坏" placement="top">
+													<i v-if="item.type==1" class="icon iconfont icon-sunhuai-xian- set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="人为风险" placement="top">
+													<i v-if="item.type==2" class="icon iconfont icon-weiyinsuyinhuan-xian- set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="非人为风险" placement="top">
+													<i v-if="item.type==3" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="缺失" placement="top">
+													<i v-if="item.type==4" class="icon iconfont icon-queshi-xian- set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="危险品" placement="top">
+													<i v-if="item.type==5" class="icon iconfont icon-weixianpin-xian- set-ciontop3"></i>
+													</el-tooltip>
 												</td>
-												<td>{{item.createTime.substring(5)}}</td>
 												<td>
-													<i data-toggle="tooltip" title="解决" v-if="item.status==1" class="icon iconfont icon-yijiejue-xian- font-blue set-ciontop4"></i>
-													<i data-toggle="tooltip" title="未解决" v-if="item.status==0" class="icon iconfont icon-yinhuan-xian- font-yellow set-ciontop4"></i>
+													<el-tooltip placement="top">
+														<div slot="content">{{item.createTime}}</div>
+														<span>{{(item.createTime).substring(10)}}</span>
+													</el-tooltip>
+												</td>
+												<td>
+													<el-tooltip content="已解决" placement="top">
+														<i v-if="item.status==1" class="icon iconfont icon-yijiejue-xian- font-blue set-ciontop4"></i>
+													</el-tooltip>
+													<el-tooltip content="未解决" placement="top">
+														<i v-if="item.status==0" class="icon iconfont icon-yinhuan-xian- font-yellow set-ciontop4"></i>
+													</el-tooltip>
 												</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+														<el-tooltip content="查看详情" placement="top">
+							                             	<i class="fas fa-chevron-circle-right"></i>
+							                             </el-tooltip>
 													</a>
 												</td>
 											</tr>

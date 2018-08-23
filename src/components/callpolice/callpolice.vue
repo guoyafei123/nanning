@@ -51,13 +51,15 @@
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10 clearfix">
 								<li>
-									<p class="font-gray-666 size-12">中心小学</p>
+									<p class="font-gray-666 size-10">Alarm Info</p>
 								</li>
 								<li>
 									<p class="font-blue size-16">报警信息
-										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                                  <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                              </span>
+										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+					                      <el-tooltip content="全屏" placement="top">
+						                        <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+						                    </el-tooltip>
+					                    </span>
 									</p>
 								</li>
 								<li>
@@ -87,19 +89,38 @@
 												<td v-if="item.nickName=='' || item.nickName==null">{{item.deviceTypeName}}</td>
 												<td v-if="item.nickName">{{item.nickName}}</td>
 												<td class="font-red " style="max-width:20px !important;">
-													<i data-toggle="tooltip" title="设备报警" v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-mian- font-red set-ciontop3"></i>
-													<i data-toggle="tooltip" title="火情" v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- font-blush set-ciontop3"></i>
-													<i data-toggle="tooltip" title="人工报警" v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-mian- font-red set-ciontop3"></i>
-													<i data-toggle="tooltip" title="故障" v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-mian- font-orange set-ciontop3"></i>
+													<el-tooltip content="设备报警" placement="top">
+														<i v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-xian- font-red set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="火情" placement="top">
+														<i v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- font-blush set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="人工报警" placement="top">
+														<i v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-xian- font-red set-ciontop3"></i>
+													</el-tooltip>
+													<el-tooltip content="故障" placement="top">
+														<i v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-xian-font-orange set-ciontop3"></i>
+													</el-tooltip>
 												</td>
-												<td>{{(item.startTime).substring(5)}}</td>
 												<td>
-													<i data-toggle="tooltip" title="关闭" v-if="item.status==1" class="icon iconfont icon-guanbi2 font-gray-999 set-ciontop4"></i>
-													<i data-toggle="tooltip" title="进行中" v-if="item.status==0" class="icon iconfont icon-jingshi-xian- font-red set-ciontop4"></i>
+													<el-tooltip placement="top">
+														<div slot="content">{{item.startTime}}</div>
+														<span>{{(item.startTime).substring(10)}}</span>
+													</el-tooltip>
 												</td>
 												<td>
-													<a v-on:click="toitmeinfo(item)" data-toggle="tooltip" title="查看详情">
-														<i class="fas fa-chevron-circle-right"></i>
+													<el-tooltip content="已关闭" placement="top">
+														<i v-if="item.status==1" class="icon iconfont icon-guanbi2 font-gray-999 set-ciontop4"></i>
+													</el-tooltip>
+													<el-tooltip content="报警中" placement="top">
+														<i v-if="item.status==0" class="icon iconfont icon-jingshi-xian- font-red set-ciontop4"></i>
+													</el-tooltip>
+												</td>
+												<td>
+													<a v-on:click="toitmeinfo(item)">
+														<el-tooltip content="查看详情" placement="top">
+							                             	<i class="fas fa-chevron-circle-right"></i>
+							                             </el-tooltip>
 													</a>
 												</td>
 											</tr>

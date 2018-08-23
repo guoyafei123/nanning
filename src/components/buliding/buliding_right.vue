@@ -33,14 +33,14 @@
                                     <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property?buildBaseInfo.property:"无"}}</span>
                                 </span>
                             </p>
-                            <p class="col-sm-7 text-left padding0">
+                            <p class="col-sm-12 text-left padding0">
                                 <span>
                                     <i class="fas fa-industry"></i> {{buildBaseInfo.location?buildBaseInfo.location:"无"}}</span>
                             </p>
-                            <P class="col-sm-5 text-right padding0">
+                            <!-- <P class="col-sm-5 text-right padding0">
                                 <span class="text-right">
                                 </span>
-                            </P>                        
+                            </P>  -->
                     </div>
                 </div>
                 <section>

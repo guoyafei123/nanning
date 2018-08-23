@@ -72,13 +72,15 @@
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10 clearfix">
 								<li>
-									<p class="font-gray-666 size-12">中心小学</p>
+									<p class="font-gray-666 size-10">Inspection Mission</p>
 								</li>
 								<li>
-									<p class="font-blue size-16">巡检路线
-										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                        <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span>
+									<p class="font-blue size-16">巡检任务
+										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" slot="reference">
+					                      <el-tooltip content="全屏" placement="top">
+					                          <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+					                        </el-tooltip>
+					                    </span>
 									</p>
 								</li>
 								<li>

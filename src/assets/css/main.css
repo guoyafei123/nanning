@@ -210,7 +210,10 @@ h4.p-title:before {
     background-color: rgba(186,214,22,1);
 }
 /*风险评估*/
-#risk .toolleft table tr>td.safe{
+#risk .toolleft table tr>th.safe,
+#risk .toolleft table tr>th.risk,
+#risk .toolleft table tr>td.safe,
+#risk .toolleft table tr>td.risk {
     text-align: center!important;
 }
 #risk .toolleft table tr>td.safe .bgbox-max {
@@ -947,4 +950,11 @@ a.min-map-cloase:hover {
 }
 #building #left .toolcompanyrate  div>p {
     line-height: 24px;
+}
+
+#left .toolroute .table{
+    margin-bottom: 0px;
+}
+#left .toolroute li p.size-10 {
+    margin-left: -5px;
 }

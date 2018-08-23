@@ -11,7 +11,6 @@
 			</div>
 		</section>
 		<section class="risk-lineinfo">
-
 			<section v-show="itemtrue==false">
 				<div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
 					<!-- 已选择 -->
