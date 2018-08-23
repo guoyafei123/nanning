@@ -437,7 +437,7 @@
 						}
 					]
 				},
-				value7: "",
+				dateValue: "",
 
 				queryInspectionNameList: Object,
 				queryInspectionNameListvalue: "全部类型",
@@ -467,7 +467,7 @@
 				// 折线图数据
 				troubleRate_parameter: {
 					unitId: null,
-					dateType: "1"
+					dateType: 1
 				},
 				troubleRate: Object,
 				dangerRate:Object,
@@ -595,7 +595,7 @@
 				// 请求隐患饼图数据
 				this.$fetch("/api/trouble/troubleCount", this.troubleCount_parameter)
 					.then(response => {
-						if(response) {
+						if(response.data) {
 							this.troubleCount = response.data;
 							this.troubleRatio = response.data.troubleRatio;
 							this.dangerCount = response.data.dangerCount;
@@ -606,19 +606,16 @@
 					}).then(err => {
 						console.log(err);
 					});
-				// FIXME 已更改为日月年格式需要重新接
-				// 请求折线图数据
+				this.getTroubleRate();
+			},	
+			getTroubleRate(){
 				this.$fetch("/api/trouble/queryTroubleLineChart", this.troubleRate_parameter)
 					.then(response => {
-						if(response) {
-							this.troubleRate = response.data;
-							this.dangerRate = response.data;
-							console.log(this.troubleRate);
-							console.log(this.dangerRate);
-							this.draw_line("dan_charline", response.data.troubleRate);
+						if(response.data) {
+							let data = response.data;
+							this.draw_line("dan_charline", data);
 						}
-					})
-					.then(err => {
+					}).then(err => {
 						console.log(err);
 					});
 			},
@@ -754,12 +751,28 @@
 				chars.setOption(char);
 			},
 			draw_line(id, data) {
+				let lineDate = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"];
+				let lineCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+				var troubleRateTemp = data.result.troubleLineChart;
+				var dangerRateTemp = data.result.dangerLineCharts;
+				var toubleDate = troubleRateTemp.lineDate;
+				var toubleCount = troubleRateTemp.lineCount;
+				var dangerDate = dangerRateTemp.lineDate;
+				var dangerCount = dangerRateTemp.lineCount;
+				if(dangerDate == null){
+					dangerDate = lineDate ;
+					dangerCount = lineCount ;
+				}
+				if(toubleDate == null){
+					toubleDate = lineDate ;
+					toubleCount = lineCount ;
+				}
 				var option = {
 					tooltip: {
 						trigger: 'axis'
 					},
 					legend: {
-						data:['邮件营销','联盟广告','视频广告']
+						data:['危险品','隐患']
 					},
 					grid: {
 						left: '3%',
@@ -771,7 +784,7 @@
 					xAxis: {
 						type: "category",
 						boundaryGap: false,
-						data: ['周一','周二','周三','周四','周五','周六','周日'],
+						data: toubleDate,
 						show: true,
 						axisLine: {
 							lineStyle: {
@@ -798,25 +811,18 @@
 					// data: 
 					series: [
 						{
-							name:'邮件营销',
+							name:'危险品',
 							type: "line",
 							symbol: "none",
 							smooth: true,
-							data:[120, 132, 101, 134, 90, 230, 210]
+							data:dangerCount
 						},
 						{
-							name:'联盟广告',
+							name:'隐患',
 							type: "line",
 							symbol: "none",
 							smooth: true,
-							data:[220, 182, 191, 234, 290, 330, 310]
-						},
-						{
-							name:'视频广告',
-							type: "line",
-							symbol: "none",
-							smooth: true,
-							data:[150, 232, 201, 154, 190, 330, 410]
+							data:toubleCount
 						}
 					]
 				};
@@ -840,22 +846,18 @@
 			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
-
-
+			let that = this;
 			$('.alarmdate b').click(function() {
 				$(this).addClass('indexdateactive').siblings().removeClass('indexdateactive');
 				var value = $(this).html();
 				if(value == '日') {
-					// that.alarmtext = '今日';
-					// that.queryAlarmData_parmar.dateType = 1;
+					that.troubleRate_parameter.dateType = 1;
 				} else if(value == '月') {
-					// that.alarmtext = '本月';
-					// that.queryAlarmData_parmar.dateType = 2;
+					that.troubleRate_parameter.dateType = 2;
 				} else if(value == '年') {
-					// that.alarmtext = '本年';
-					// that.queryAlarmData_parmar.dateType = 3;
+					that.troubleRate_parameter.dateType = 3;
 				}
-				// that.getalarm();
+				that.getTroubleRate();
 			})
 		}
 	};
