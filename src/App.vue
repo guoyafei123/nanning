@@ -65,10 +65,14 @@
       // alert(this.$route.path);
       // this.$router.path
       // 
+
     },
     methods: {
       
     },
+    created(){
+      sessionStorage.socketcode=0;
+    }
   }
 </script>
 

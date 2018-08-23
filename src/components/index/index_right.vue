@@ -433,7 +433,7 @@
 				queryUnitInfo:Object,
 				queryUnitInfoinfo:Object,
 				queryUnitInfoimg:require('../../assets/images/jpg01.jpg'),
-				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"'
+				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"',
 			};
 		},
 		computed: mapState(["torightdata", "unitid", "userinfo"]),
@@ -472,10 +472,11 @@
 				});
 			},
 			connect() {
-				sessionStorage.socketcode=1;
+				// alert(typeof this.socket);
 				var that = this;
 				console.log("去链接。。。");
 				var socket = new sockjs("http://api.nanninglq.51play.com/socket");
+				// alert(typeof this.socket);
 				var stompClient = Stomp.over(socket);
 				stompClient.connect({},
 					function(frame) {
@@ -505,6 +506,7 @@
 
 							// console.log(data);
 						});
+						sessionStorage.socketcode=1;
 						console.log("创建链接完成。。。");
 					},
 					function(e) {
@@ -711,25 +713,35 @@
 				this.getUnitsSynthesis_parmar.unitId = sessionStorage.unitid;
 				this.queryAlarmIng_parmar.unitId = sessionStorage.unitid;
 				this.queryUnitInfo_parmar.unitId=sessionStorage.unitid;
+				if(sessionStorage.unitid==undefined){
+					this.queryUnitInfo_parmar.unitId=0;
+				}
+				
 			}
 			if(sessionStorage.unitid == 0) {
 				this.getUnitsSynthesis_parmar.unitId = null;
 				this.queryAlarmIng_parmar.unitId = null;
 				this.queryUnitInfo_parmar.unitId=0;
 			}
+
 			this.socketIs++;
 			// realconsole();
 
 			this.getgetUnitsSynthesis();
 			this.getqueryAlarmIng(1);
 			this.getqueryUnitInfo();
+			// alert(sessionStorage.socketcode);
 			if(sessionStorage.socketcode!=1){
-				alert('创建socket')
+				this.connect();
 			}
-			this.connect();
-			this.getmp3();
 			
-			// this.getuserinfo();
-		}
+			// onload(()=>{
+			// 	alert(123);
+			// })
+			this.getmp3();
+
+		},
+		
+		
 	};
 </script>
