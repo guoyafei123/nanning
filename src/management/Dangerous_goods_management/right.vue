@@ -625,7 +625,7 @@
             floorId:this.dangerFloor,
             roomId:this.dangerRoom,
             currentPage:this.currentPage4,
-            pageSize:10,
+            pageSize:11,
             status:this.dengerStatus
           }
         )

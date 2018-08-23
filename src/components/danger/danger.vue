@@ -4,7 +4,7 @@
 		<!-- <header-vue></header-vue> -->
 		<!-- #头部 End-->
 		<!-- #左边 -->
-		<section id="left" class="position-fixed-left container-padding5 z-index-20">
+		<section id="left" class="position-fixed-left z-index-20">
 			<div class="overlay"></div>
 			<template>
 				<div class="toolleft margin-right0">
@@ -164,10 +164,9 @@
 		</section>
 		<!-- #左边 End-->
 		<!-- #右边 -->
-		<section id="right" class="position-fixed-right container-padding5 z-index-20">
+		<section id="right" class="position-fixed-right z-index-20">
 			<div class="overlay"></div>
-			<template>
-				<div class="">
+			<template>				
 					<div class="toolright">
 						<section class="my-filter padding5 bg-gray-222 clearfix">
 							<div class="col-sm-12 padding0">
@@ -197,7 +196,7 @@
 								</div>
 							</section>
 						<!-- 统计 -->
-						<section class="dan-lineinfo">							
+						<section class="dan-lineinfo">
 							<section>
 								<div class="toolcount margin-top20">
 									<h4 class="p-title">隐患统计</h4>
@@ -206,7 +205,7 @@
 											<div class="col-sm-12 margin-bottom20 text-left">
 												<div class="row">
 												<p class="col-xs-3">危险品</p>
-												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p> 
+												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p>
 												<p class="col-xs-3">新增 <span class="font-white">{{dangerCount ? dangerCount.dangerNew:'0'}}</span></p>
 												<p class="col-xs-3">处理 <span class="font-blue">{{dangerCount ? dangerCount.dangerResolved:'0'}}</span></p>
 												</div>
@@ -266,7 +265,7 @@
                           </div>
                         </div>
                     </div>
-                    
+
                 </section> -->
 							<!-- <section>
 								<div class="row cardinfo-style margin-top0 font-gray-999">
@@ -374,8 +373,6 @@
 						<!-- <button @click="moren">详情</button> -->
 						<!-- <button @click="jianzhu">统计</button> -->
 					</div>
-				</div>
-
 			</template>
 
 		</section>
@@ -437,7 +434,7 @@
 						}
 					]
 				},
-				value7: "",
+				dateValue: "",
 
 				queryInspectionNameList: Object,
 				queryInspectionNameListvalue: "全部类型",
@@ -457,7 +454,7 @@
 				// 饼图数据
 				troubleCount_parameter: {
 					unitId: null,
-					beginTime: "2018-07-01",
+					startTime: "2018-07-01",
 					endTime: "2019-07-12"
 				},
 				// troubleCount:Object,
@@ -467,9 +464,10 @@
 				// 折线图数据
 				troubleRate_parameter: {
 					unitId: null,
-					dateType: "1"
+					dateType: 1
 				},
 				troubleRate: Object,
+				dangerRate:Object,
 				// 隐患详情
 				troubleDetail_parameter: {
 					troubleId: 156
@@ -497,13 +495,13 @@
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-				this.troubleCount_parameter.beginTime = st;
+				this.troubleCount_parameter.startTime = st;
 				this.troubleCount_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
-				this.troubleCount_parameter.beginTime = startDate;
+				this.troubleCount_parameter.startTime = startDate;
 				this.troubleCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
@@ -594,7 +592,7 @@
 				// 请求隐患饼图数据
 				this.$fetch("/api/trouble/troubleCount", this.troubleCount_parameter)
 					.then(response => {
-						if(response) {
+						if(response.data) {
 							this.troubleCount = response.data;
 							this.troubleRatio = response.data.troubleRatio;
 							this.dangerCount = response.data.dangerCount;
@@ -605,17 +603,16 @@
 					}).then(err => {
 						console.log(err);
 					});
-				// FIXME 已更改为日月年格式需要重新接 
-				// 请求折线图数据 
+				this.getTroubleRate();
+			},	
+			getTroubleRate(){
 				this.$fetch("/api/trouble/queryTroubleLineChart", this.troubleRate_parameter)
 					.then(response => {
-						if(response) {
-							this.troubleRate = response.data;
-							console.log(this.troubleRate);
-							this.draw_line("dan_charline", response.data.troubleRate);
+						if(response.data) {
+							let data = response.data;
+							this.draw_line("dan_charline", data);
 						}
-					})
-					.then(err => {
+					}).then(err => {
 						console.log(err);
 					});
 			},
@@ -751,12 +748,28 @@
 				chars.setOption(char);
 			},
 			draw_line(id, data) {
+				let lineDate = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"];
+				let lineCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+				var troubleRateTemp = data.result.troubleLineChart;
+				var dangerRateTemp = data.result.dangerLineCharts;
+				var toubleDate = troubleRateTemp.lineDate;
+				var toubleCount = troubleRateTemp.lineCount;
+				var dangerDate = dangerRateTemp.lineDate;
+				var dangerCount = dangerRateTemp.lineCount;
+				if(dangerDate == null){
+					dangerDate = lineDate ;
+					dangerCount = lineCount ;
+				}
+				if(toubleDate == null){
+					toubleDate = lineDate ;
+					toubleCount = lineCount ;
+				}
 				var option = {
 					tooltip: {
 						trigger: 'axis'
 					},
 					legend: {
-						data:['邮件营销','联盟广告','视频广告']
+						data:['危险品','隐患']
 					},
 					grid: {
 						left: '3%',
@@ -768,7 +781,7 @@
 					xAxis: {
 						type: "category",
 						boundaryGap: false,
-						data: ['周一','周二','周三','周四','周五','周六','周日'],
+						data: toubleDate,
 						show: true,
 						axisLine: {
 							lineStyle: {
@@ -795,25 +808,18 @@
 					// data: 
 					series: [
 						{
-							name:'邮件营销',
+							name:'危险品',
 							type: "line",
 							symbol: "none",
 							smooth: true,
-							data:[120, 132, 101, 134, 90, 230, 210]
+							data:dangerCount
 						},
 						{
-							name:'联盟广告',
+							name:'隐患',
 							type: "line",
 							symbol: "none",
 							smooth: true,
-							data:[220, 182, 191, 234, 290, 330, 310]
-						},
-						{
-							name:'视频广告',
-							type: "line",
-							symbol: "none",
-							smooth: true,
-							data:[150, 232, 201, 154, 190, 330, 410]
+							data:toubleCount
 						}
 					]
 				};
@@ -837,22 +843,18 @@
 			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
-
-
+			let that = this;
 			$('.alarmdate b').click(function() {
 				$(this).addClass('indexdateactive').siblings().removeClass('indexdateactive');
 				var value = $(this).html();
 				if(value == '日') {
-					// that.alarmtext = '今日';
-					// that.queryAlarmData_parmar.dateType = 1;
+					that.troubleRate_parameter.dateType = 1;
 				} else if(value == '月') {
-					// that.alarmtext = '本月';
-					// that.queryAlarmData_parmar.dateType = 2;
+					that.troubleRate_parameter.dateType = 2;
 				} else if(value == '年') {
-					// that.alarmtext = '本年';
-					// that.queryAlarmData_parmar.dateType = 3;
+					that.troubleRate_parameter.dateType = 3;
 				}
-				// that.getalarm();
+				that.getTroubleRate();
 			})
 		}
 	};

@@ -547,19 +547,17 @@
 				);
 			},
 			fn(){
-				
+        let map =this.getMapToDiv('mapindex');
+        console.log(map);
 				this.aleamAndtroubleInfos=this.aleamAndtroubleInfo[0];
-				
-				// alert(this.aleamAndtroubleInfos.pointX+'-'+this.aleamAndtroubleInfos.pointY);
-				this.mp.clearOverlays();
-				this.path_index();
-				this.mp.setCenter(new BMap.Point(this.aleamAndtroubleInfos.pointX, this.aleamAndtroubleInfos.pointY));
+				map.clearOverlays();
+        map.setCenter(new BMap.Point(this.aleamAndtroubleInfos.pointX, this.aleamAndtroubleInfos.pointY));
 				let alarms = this.addalarm("银湖海岸城1", "12", this.listenerScale, [
 					this.aleamAndtroubleInfos.pointX,
 					this.aleamAndtroubleInfos.pointY
 				]);
-				this.mp.addOverlay(alarms[0]);
-				this.mp.addOverlay(alarms[1]);
+        map.addOverlay(alarms[0]);
+        map.addOverlay(alarms[1]);
 				
 				
 			}
@@ -577,54 +575,52 @@
 			$('#mapindex').remove();
 		},
 		mounted() {
-			$('.mmp').append('<div id="mapindex" class="xzmap"></div>');
-			var map;
-			setTimeout(() => {
-				map=this.getMapToDiv('mapindex');
-				this.mp = map;
-				var that = this;
-				
-				this.path_index();
-				this.fn();
-				map.addEventListener("zoomend", function(evt) {
-				that.listenerScale =
-					that.scale[that.zoom] / that.scale[map.getZoom()] * that.alarmsize;
-				// alert(that.routepath)
-				console.log(that.alarmsArray);
-				for(var i = 0; i < that.alarmsArray.length; i++) {
-					map.removeOverlay(that.alarmsArray[i][0]);
-					map.removeOverlay(that.alarmsArray[i][2]);
-					that.alarmsArray[i][0] = that.addalarm(
-						"银湖海岸城1",
-						"12",
-						that.listenerScale, [that.alarmsArray[i][1].pointX, that.alarmsArray[i][1].pointY]
-					)[0];
-					// console.log(newalarm);
-					map.addOverlay(that.alarmsArray[i][0]);
-					map.addOverlay(that.alarmsArray[i][2]);
-				}
-
-				for(var i = 0; i < that.troubleArray.length; i++) {
-					map.removeOverlay(that.troubleArray[i][0]);
-					map.removeOverlay(that.troubleArray[i][2]);
-					that.troubleArray[i][0] = that.addalarm(
-						"银湖海岸城1",
-						"5",
-						that.listenerScale, [that.troubleArray[i][1].pointX, that.troubleArray[i][1].pointY]
-					)[0];
-					// console.log(newalarm);
-					map.addOverlay(that.troubleArray[i][0]);
-					map.addOverlay(that.troubleArray[i][2]);
-				}
-			});
-			}, 100);
-
-			
-
-			if(typeof module === 'object') {
-				window.jQuery = window.$ = module.exports;
-			};
-		}
+      this.fn();
+    }
+		// 	var map ='';
+		// 	map=this.getMapToDiv('mapindex');
+		// 	this.mp = map;
+		// 	var that = this;
+		//
+		// 	this.path_index();
+		//
+    //
+		// 	map.addEventListener("zoomend", function(evt) {
+		// 		that.listenerScale =
+		// 			that.scale[that.zoom] / that.scale[map.getZoom()] * that.alarmsize;
+		// 		// alert(that.routepath)
+		// 		console.log(that.alarmsArray);
+		// 		for(var i = 0; i < that.alarmsArray.length; i++) {
+		// 			map.removeOverlay(that.alarmsArray[i][0]);
+		// 			map.removeOverlay(that.alarmsArray[i][2]);
+		// 			that.alarmsArray[i][0] = that.addalarm(
+		// 				"银湖海岸城1",
+		// 				"12",
+		// 				that.listenerScale, [that.alarmsArray[i][1].pointX, that.alarmsArray[i][1].pointY]
+		// 			)[0];
+		// 			// console.log(newalarm);
+		// 			map.addOverlay(that.alarmsArray[i][0]);
+		// 			map.addOverlay(that.alarmsArray[i][2]);
+		// 		}
+    //
+		// 		for(var i = 0; i < that.troubleArray.length; i++) {
+		// 			map.removeOverlay(that.troubleArray[i][0]);
+		// 			map.removeOverlay(that.troubleArray[i][2]);
+		// 			that.troubleArray[i][0] = that.addalarm(
+		// 				"银湖海岸城1",
+		// 				"5",
+		// 				that.listenerScale, [that.troubleArray[i][1].pointX, that.troubleArray[i][1].pointY]
+		// 			)[0];
+		// 			// console.log(newalarm);
+		// 			map.addOverlay(that.troubleArray[i][0]);
+		// 			map.addOverlay(that.troubleArray[i][2]);
+		// 		}
+		// 	});
+    //
+		// 	if(typeof module === 'object') {
+		// 		window.jQuery = window.$ = module.exports;
+		// 	};
+		// }
 	}
 </script>
 

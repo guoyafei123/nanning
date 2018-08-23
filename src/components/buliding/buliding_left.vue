@@ -38,19 +38,16 @@
               <ul class="row padding0 margin0 size-12 font-gray-999">
                 <li class="col-sm-12">
                   <div class="row margin0 padding0">
-                    <div class="toolcompanyrate-char col-sm-8 padding-top5 padding-left5">
+                    <div class="toolcompanyrate-char col-sm-9 padding-left5">
                       <small class="font-red">
-                        高风险建筑 [安全评分最低]
+                        高风险建筑
                       </small>
-                      <p class="size-14 font-white">
-                        {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}
-                        -
-                        {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}}</p>
+                      <p class="size-14 font-gray-ccc">
+                        {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}} <small class="font-gray-999">- {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}</small></p>
                     </div>
-                    <div class="col-sm-4 padding-left0 text-right">
-                      <span class="size-36 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "0"}}
-                      </span>
-                      
+                    <div class="col-sm-3 text-center">
+                      <span class="size-36 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "-"}}</span>
+                      <small>安全评分</small>
 							</div>
 						</div>
 					</li>
@@ -129,10 +126,6 @@
                   </li>
               </ul>
             </div>
-          </section>
-        </div>
-      </template>
-
 <!-- 全屏 -->
 <el-popover
   placement="right"
@@ -144,6 +137,10 @@
     <el-table-column width="300" property="address" label="地址"></el-table-column>
   </el-table>
 </el-popover>
+          </section>
+        </div>
+      </template>
+
 <script>
   import{mapState} from "vuex";
   import HeaderVue from '../publick/header.vue';
