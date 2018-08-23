@@ -341,14 +341,14 @@
 
 
           if(this.building !== 0 && this.building !== '0'){//起点
-            this.startNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
+            this.inspectionNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
           }else{
-            this.startNodes.push({sorting:0,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipment,deviceName:equipmentListName});
+            this.inspectionNodes.push({sorting:0,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipment,deviceName:equipmentListName});
           }
           if(this.buildings !== 0 && this.buildings !== '0'){//终点
-            this.endNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
+            this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
           }else{
-            this.endNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
+            this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
           }
           console.log(this.endNodes);
 
@@ -618,14 +618,9 @@
               unitName = item.name;
             }
           });
+          var inspectionNodes = { name:this.form.name,type:this.form.region2,unitId:this.region1,unitName:unitName,inspectionNodes:this.inspectionNodes };
           this.$fetch("/api/admin/inspection/insertInspectionPlan",{
-            name:this.form.name,
-            type:this.form.region2,
-            unitId:this.region1,
-            unitName:unitName,
-            startNodes:this.startNodes,
-            endNodes:this.endNodes,
-            inspectionNodes:this.inspectionNodes,
+            inspectionPlan:inspectionNodes,
             headers: {'Content-Type': 'application/json'}
           }).then(response=>{
             console.log(response);
