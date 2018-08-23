@@ -490,7 +490,7 @@
         equipmentSearchOut(unit,buildingId){
           this.$fetch("/api/building/selectNode",{
             unitId:unit,
-            buildingId:buildingId
+            buildIngId:buildingId
           }).then(response=>{
             console.log('equipmentSearch:'+response);
             if (response) {
@@ -546,7 +546,7 @@
         equipmentSearchsOut(unit,buildIngId){
           this.$fetch("/api/building/selectNode",{
             unitId:unit,
-            buildingId:buildingId
+            buildIngId:buildIngId
           }).then(response=>{
             console.log('equipmentSearchs:'+response);
             if (response) {
@@ -602,7 +602,7 @@
         equipmentSearchNodeOut(unit,buildingId){
           this.$fetch("/api/building/selectNode",{
             unitId:unit,
-            buildingId:buildingId
+            buildIngId:buildingId
           }).then(response=>{
             console.log('equipmentSearchNode:'+response);
             if (response) {
@@ -625,7 +625,8 @@
             unitName:unitName,
             startNodes:this.startNodes,
             endNodes:this.endNodes,
-            inspectionNodes:this.inspectionNodes
+            inspectionNodes:this.inspectionNodes,
+            headers: {'Content-Type': 'application/json'}
           }).then(response=>{
             console.log(response);
             console.log(this.startNodes);
@@ -676,6 +677,7 @@
             $('.startRoom').hide();
             $('.startDevice').show();
             this.equipment = '';
+            console.log(this.building)
             this.equipmentSearchOut(this.region1,this.building);
           }
         },
@@ -731,7 +733,7 @@
         },
         buildingNode(curVal,oldVal){
           this.buildingNode = curVal ;
-          // console.log(this.building);
+          console.log(this.building);
           if(this.buildingNode !== 0 && this.buildingNode !== '0'){
             $('.NodeFloor').show();
             $('.NodeDevice').hide();

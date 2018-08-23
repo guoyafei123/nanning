@@ -135,7 +135,7 @@ import managementMapVue from '../managementMap';
         equipmentList:[],
         optionList:[],//全部单位列表
         svgUrl:'',
-        table_list:[],
+        table_list:[]
       }
     },
     components:{
@@ -157,14 +157,7 @@ import managementMapVue from '../managementMap';
           buildingId:this.buildUnit
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
-          this.table_list = response.data.pageBuildIng.result;
-          this.table_list.forEach(item=>{
-             if(this.floorId == item.floor){
-                this.roomSvgUrl = item.svgUrl ;
-                this.floorName = item.floorName ;
-             }
-          })
-         
+          this.table_list = response.data.pageBuildIng.result;         
         })
       },
       btn_add(){

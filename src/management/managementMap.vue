@@ -345,13 +345,7 @@
           }
         },
         DeviceList(){
-          if(this.DeviceList == '0' && this.DeviceList == 0){
-            $('.map').show();
-            $('.floorMap').hide();
-          }else{
-            $('.map').hide();
-            $('.floorMap').show();
-          }
+          
         }
         // InspectionMap(){
         //   if(this.route_path=='/Inspection_plan/maps'){

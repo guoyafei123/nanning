@@ -303,10 +303,11 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
       },
       methods:{
         floor_btn(id){
-          console.log(id)
           this.table_list.forEach((item)=>{
             if(item.id == id){
               this.svgUrl = item.svgUrl ;
+              this.form.floorId = item.floor ;
+              this.form.floorNumber = item.floorName ;
             }
           })
         },
@@ -318,12 +319,6 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           }).then(response=>{
             console.log(response.data.pageBuildIng.result);
             this.table_list = response.data.pageBuildIng.result;
-            this.table_list.forEach(item=>{
-              if(this.floorId == item.floor){
-                  this.roomSvgUrl = item.svgUrl ;
-                  this.floorName = item.floorName ;
-              }
-            })
           })
         },
         btn(formName){
@@ -468,6 +463,13 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.form.buildingId = curVal;
           console.log(this.form.buildingId);
           this.findPageBuildIngFloor();
+          if(this.form.buildingId == '0' && this.form.buildingId == 0){
+            $('.map').show();
+            $('.floorMap').hide();
+          }else{
+            $('.map').hide();
+            $('.floorMap').show();
+          }
           this.form.floorId = '';
           this.form.roomId = '';
           this.form.floorNumber = '';
@@ -485,6 +487,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
+          this.form.floor_btn(this.form.floorId);
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }
