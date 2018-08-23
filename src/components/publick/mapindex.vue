@@ -1,5 +1,8 @@
 <template>
-	<div id="mapindex" class="xzmap"></div>
+	<div class="mmp">
+		<!-- <div id="mapindex" class="xzmap"></div> -->
+	</div>
+	
 </template>
 
 <script>
@@ -41,7 +44,7 @@
 					3: 2000000
 				},
 				alarmsize: 500,
-
+				maps:'',
 
 				aleamAndtroubleInfos:Object
 			}
@@ -49,6 +52,7 @@
 
 		methods: {
 			getMapToDiv(divId) {
+				alert(1);
 				var MAP_STYLE_SMALL = [{
 						"featureType": "land",
 						"elementType": "all",
@@ -569,16 +573,20 @@
 				this.fn();
 			}
 		},
+		destroyed(){
+			$('#mapindex').remove();
+		},
 		mounted() {
-			var map ='';
-			map=this.getMapToDiv('mapindex');
-			this.mp = map;
-			var that = this;
-			
-			this.path_index();
-			this.fn();
-
-			map.addEventListener("zoomend", function(evt) {
+			$('.mmp').append('<div id="mapindex" class="xzmap"></div>');
+			var map;
+			setTimeout(() => {
+				map=this.getMapToDiv('mapindex');
+				this.mp = map;
+				var that = this;
+				
+				this.path_index();
+				this.fn();
+				map.addEventListener("zoomend", function(evt) {
 				that.listenerScale =
 					that.scale[that.zoom] / that.scale[map.getZoom()] * that.alarmsize;
 				// alert(that.routepath)
@@ -609,6 +617,9 @@
 					map.addOverlay(that.troubleArray[i][2]);
 				}
 			});
+			}, 100);
+
+			
 
 			if(typeof module === 'object') {
 				window.jQuery = window.$ = module.exports;

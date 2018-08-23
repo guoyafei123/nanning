@@ -579,16 +579,29 @@
 		  		
 				return html;
 			},
+			// value=1 || 2 ->人物头像
+			// value=3 建筑
+
 			legend_people(img, value) {
 				var style;
 				var trian;
-				if(value <= 1) {
+				var icon;
+				if(value == 1) {
 					style = "bg-gray-ccc";
 					trian = "people-trianlixian";
-				} else if(value <= 2) {
+				} else if(value == 2) {
 					style = "bg-blue";
 					trian = "people-trianzaixian";
+				} else if(value == 3) {
+					style = "bg-orange";
+					trian = "people-orange";
+					icon="map-build"
+				} else if(value == 4) {
+					style = "bg-orange";
+					trian = "people-yellow";
+					icon='map-build'
 				}
+				
 
 				var html =
 								`
@@ -605,6 +618,23 @@
 								`"></span>
 					</div>
 					`;
+				if(value>2){
+					html =
+								`
+					<div class="legend-people ` +
+								style +
+								`" style="top:-60px;left:-25px">
+						<div>
+							<span class="icon iconfont mapdander ` +
+							icon +
+							`"></span>
+						</div>
+						<span class="` +
+								trian +
+								`"></span>
+					</div>
+					`;
+				}
 				return html;
 				// 
 			},
@@ -656,7 +686,7 @@
 						<span class="alarm-ani alarm-item4 ` +
 							style_shadow +
 							`"></span>
-						<span class="icon iconfont alarm-min map-alarm ` +
+						<span class="icon iconfont alarm-min map-fire ` +
 							style_bg +
 							`">
 							</span>
@@ -679,7 +709,10 @@
 					// alert(1);
 				});
 				this.mp.addOverlay(
-					this.addpeople(require("../../assets/images/people.png"), "3", [110.576578,27.901798])
+					this.addpeople(require("../../assets/images/people.png"), "1", [110.576578,27.901798])
+				);
+				this.mp.addOverlay(
+					this.addpeople(require("../../assets/images/people.png"), "3", [110.576578,27.903798])
 				);
 				this.mp.addOverlay(
 					this.addlandmark("红花园工业园2号楼", "3", [110.574907, 27.905837])
