@@ -465,6 +465,7 @@
 					dateType: "1"
 				},
 				troubleRate: Object,
+				dangerRate:Object,
 				// 隐患详情
 				troubleDetail_parameter: {
 					troubleId: 156
@@ -606,7 +607,9 @@
 					.then(response => {
 						if(response) {
 							this.troubleRate = response.data;
+							this.dangerRate = response.data;
 							console.log(this.troubleRate);
+							console.log(this.dangerRate);
 							this.draw_line("dan_charline", response.data.troubleRate);
 						}
 					})
@@ -748,14 +751,11 @@
 			draw_line(id, data) {
 				// 巡检完成率历史趋势曲线图
 				// let data = response.data.result.dateMap;
-				let a = [],
-					b = [];
+				let a = [], b = [];
 				for(var value in data) {
 					a.push(value);
 					b.push(data[value]);
 				}
-				console.log(a);
-				console.log(b);
 				var char = {
 					xAxis: {
 						type: "category",
