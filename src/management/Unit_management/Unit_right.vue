@@ -1,12 +1,33 @@
 <template>
-  <div class="toolright">
+  <div class="toolright padding-top90">
+    <section class="unit-info bg-black">
+      <ul class="list-unstyled">
+        <li class="position-relative">
+            <div class="position-absolute-bottom clearfix">
+              <!-- 单位信息 -->
+              <article class="unit-brief white-space col-sm-10">
+                <h3 class="size-20">{{this.name}}</h3>
+                <small><i class="el-icon-location"></i> {{this.location}}</small>
+              </article>
+            </div>
+          <!-- 单位图片 -->
+          <div class="imgSrc">
+            <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg?'+new Date().getTime()" :id="'up_img'+ this.id" class="img-responsive center-block" />
+          </div>
+        </li>
+        <!-- 统计1 -->
+        <li>
+          <div class="pull-left">
+            <h4>{{this.firemenName}} <small>{{this.firemenTel}}</small></h4>
+            <small>消防负责人</small>
+          </div>
+        </li>
+      </ul>
+    </section>
     <!-- 单位信息 -->
-    <section class="textandimg margin-top20">
+    <section class="textandimg margin-top30">
               <h4 class="p-title">单位详情</h4>
               <div class="row textandimg-main margin-top20 size-12">
-                  <div class="col-sm-12 margin-bottom20 imgSrc">
-                      <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg?'+new Date().getTime()" :id="'up_img'+ this.id" class="img-responsive center-block" style="max-height: 140px;" />
-                  </div>
                   <div class="col-sm-12">
                       <span>单位名称 </span>
                       <strong v-html="this.name"></strong>

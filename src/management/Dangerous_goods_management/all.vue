@@ -113,10 +113,20 @@
             <template slot-scope="scope">
               <el-tag
                 :type="scope.row.status === 0 ? 'red' : 'green'"
-                disable-transitions v-if='scope.row.status==0'>未解决 <i class="el-icon-warning font-red" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+                disable-transitions v-if='scope.row.status==0'>未解决 
+                <el-tooltip placement="top">
+                  <div slot="content" class="text-center">{{scope.row.nickName}}<br/>于{{scope.row.createTime}}上报</div>
+                  <i class="fas fa-exclamation-circle font-red"></i>
+                </el-tooltip>
+                </el-tag>
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
+                disable-transitions v-if='scope.row.status==1'>已解决 
+                <el-tooltip placement="top">
+                  <div slot="content" class="text-center">{{scope.row.reviewerName}}<br/>于{{ scope.row.reviewTime }}解决</div>
+                  <i class="fas fa-check-circle font-blue"></i>
+                </el-tooltip>
+              </el-tag>
             </template>
           </el-table-column>
           <el-table-column

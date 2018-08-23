@@ -34,7 +34,7 @@
                   上报时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
                 </span>
                 <span class="text-right" v-if="this.trouble.status == 1">
-                  解决时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
+                  解决时间：<span class="font-gray-999">{{this.trouble.reviewTime}}</span>
                 </span>
               </P>
           </div>         
@@ -68,8 +68,8 @@
                           <p class="size-10 set-scaleright">Dangerous info</p>
                       </li>
                       <li class="margin-top10">
-                          <p>位置
-                            <span class="font-white">
+                          <p><i class="el-icon-location"></i> 
+                            <span>
                               <strong v-if="this.trouble.buildingName == '室外'">室外</strong>
                               <strong v-else><span v-if="this.trouble.buildingName != '' && this.trouble.buildingName != null">{{ this.trouble.buildingName }} 建筑</span><span v-if="this.trouble.floorNumber != '' && this.trouble.floorNumber != null">{{ this.trouble.floorNumber }} 楼层</span><span v-if="this.trouble.roomNumber != '' && this.trouble.roomNumber != null">{{ this.trouble.roomNumber }} 房间</span></strong>
                             </span>
@@ -81,7 +81,7 @@
                               <p>上报人</p>
                           </div>
                           <div class="col-sm-4 personnel-borderright" v-if="this.trouble.status == 1">
-                              <p class="size-16 show font-blue">{{this.trouble.nickName}}</p>
+                              <p class="size-16 show font-blue">{{this.trouble.reviewerName}}</p>
                               <p>解决人</p>
                           </div>
                           <div class="col-sm-8" v-if="this.trouble.status == 0">
@@ -89,7 +89,7 @@
                               <p>上报时间</p>
                           </div>
                           <div class="col-sm-8" v-if="this.trouble.status == 1">
-                              <p class="size-12 show font-white">{{this.trouble.createTime}}</p>
+                              <p class="size-12 show font-white">{{ this.trouble.reviewTime}}</p>
                               <p>解决时间</p>
                           </div>
                       </li>
@@ -233,13 +233,23 @@
                 prop="status"
                 label="状态">
                 <template slot-scope="scope">
-                  <el-tag
-                    :type="scope.row.status === 0 ? 'red' : 'green'"
-                    disable-transitions v-if='scope.row.status==0'>未解决 <i class="el-icon-warning font-red" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
-                  <el-tag
-                    :type="scope.row.status === 1 ? 'green' : 'red'"
-                    disable-transitions v-if='scope.row.status==1'>已解决 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
-                </template>
+                <el-tag
+                  :type="scope.row.status === 0 ? 'red' : 'green'"
+                  disable-transitions v-if='scope.row.status==0'>未解决 
+                  <el-tooltip placement="top">
+                    <div slot="content" class="text-center">{{scope.row.nickName}}<br/>于{{scope.row.createTime}}上报</div>
+                    <i class="fas fa-exclamation-circle font-red"></i>
+                  </el-tooltip>
+                  </el-tag>
+                <el-tag
+                  :type="scope.row.status === 1 ? 'green' : 'red'"
+                  disable-transitions v-if='scope.row.status==1'>已解决 
+                  <el-tooltip placement="top">
+                    <div slot="content" class="text-center">{{scope.row.reviewerName}}<br/>于{{ scope.row.reviewTime }}解决</div>
+                    <i class="fas fa-check-circle font-blue"></i>
+                  </el-tooltip>
+                </el-tag>
+              </template>
               </el-table-column>
               <!-- <el-table-column
                 prop="reviewerName"

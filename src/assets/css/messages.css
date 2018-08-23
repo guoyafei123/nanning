@@ -2,8 +2,8 @@
 /*消息弹窗*/
 #messages {
     position: absolute;
-    right: 48px;
-    top: 60px;
+    right: 24px;
+    top: 50px;
     padding-left:15px;
     padding-right: 15px;
     width: 400px;
