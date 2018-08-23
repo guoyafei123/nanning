@@ -548,7 +548,6 @@
 			},
 			fn(){
         let map =this.getMapToDiv('mapindex');
-        console.log(map);
 				this.aleamAndtroubleInfos=this.aleamAndtroubleInfo[0];
 				map.clearOverlays();
         map.setCenter(new BMap.Point(this.aleamAndtroubleInfos.pointX, this.aleamAndtroubleInfos.pointY));
