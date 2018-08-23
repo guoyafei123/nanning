@@ -66,7 +66,7 @@
 					</li>
 					<li>
 						<p class="font-blue size-16">建筑信息
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" slot="reference" data-toggle="tooltip" title="全屏">
                       <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                     </span>
                   </p>
@@ -133,6 +133,17 @@
         </div>
       </template>
 
+<!-- 全屏 -->
+<el-popover
+  placement="right"
+  width="400"
+  trigger="click">
+  <el-table :data="gridData">
+    <el-table-column width="150" property="date" label="日期"></el-table-column>
+    <el-table-column width="100" property="name" label="姓名"></el-table-column>
+    <el-table-column width="300" property="address" label="地址"></el-table-column>
+  </el-table>
+</el-popover>
 <script>
   import{mapState} from "vuex";
   import HeaderVue from '../publick/header.vue';
@@ -142,6 +153,25 @@
   },
   data() {
     return {
+      // 表格
+      gridData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }],
+      // 单位
       value7: "",
       options: [
         {
