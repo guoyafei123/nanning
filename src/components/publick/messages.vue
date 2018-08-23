@@ -36,39 +36,38 @@
       <!-- 系统消息 -->
       <div class="tab-pane fade in active" id="system">
         <ul>
-          <li v-for="mes in getMessageDateNotice" class="activity unread">
-            <h3 @click="showTabcont(mes) "><span>{{mes.name}}</span>{{mes.content}}</h3>
-            <small>活动通知<span>{{mes.createTime}}</span></small>
-          </li>
-          <li v-for="mes in getMessageDateBulletin" class="system unread">
-            <h3 @click="reedMsg(mes)">{{mes.title}}</h3>
-            <small>系统公告<span>{{mes.sendTime}}</span></small>
+          <li v-for="item in getMessageDateSys" :class="[item.type===6?'activity':'system',
+          item.status===1?'unread':'' ]">
+            <h3 @click="showTabcont(item)"><span v-show="item.type==6">{{item.senderName}}</span>{{item.title}}</h3>
+            <small v-if="item.type==6">活动通知<span>{{item.sendTime}}</span></small>
+            <small v-if="item.type==7">系统公告<span>{{item.sendTime}}</span></small>
           </li>
         </ul>
       </div>
       <!-- 警报消息 -->
       <div class="tab-pane fade" id="warning">
         <ul>
-          <li class="warning unread" v-for="mes in getMessageDateAlarm">
-            <h3 @click="reedMsg(mes)">{{mes.title}}</h3>
-            <!--<small>
-              <i class="icon iconfont icon-xunjianyuan-mian-"><span></span></i>
-              <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{mes.senderName}}</span></i>
-              <span>15:23:67</span>
-            </small>-->
+          <li class="warning " :class="item.status===1?'unread':''" v-for="item in getMessageDateAlarm">
+            <h3 @click="reedMsg(item)">{{item.title}}</h3>
+            <small>
+              <!--<i class="icon iconfont icon-xunjianyuan-mian-"><span></span></i>
+              <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.senderName}}</span></i>-->
+              <span>{{item.sendTime}}</span>
+            </small>
           </li>
         </ul>
-      </div>`
+      </div>
+
       <!-- 隐患消息 -->
       <div class="tab-pane fade" id="dangers">
         <ul>
-          <li class="dangers unread" v-for="mes in getMessageDateTrouble">
-            <h3 @click="reedMsg(mes)">{{mes.title}}</h3>
-            <!--<small>
-              <i class="icon iconfont icon-xunjianyuan-mian-"><span>段亚伟</span></i>
-              <i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>
-              <span>15:23:67</span>
-            </small>-->
+          <li class="dangers" :class="item.status===1?'unread':''" v-for="item in getMessageDateTrouble">
+            <h3 @click="reedMsg(item)">{{item.title}}</h3>
+            <small>
+              <!--  <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.senderName}}</span></i>
+                <i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>-->
+              <span>{{item.sendTime}}</span>
+            </small>
           </li>
         </ul>
       </div>
@@ -132,13 +131,12 @@
           eventId: null
         },
         //查询消息列表
-        getMessageDateBulletin: Object,
-        getMessageDateNotice: Object,
+        getMessageDateSys: Object,
         getMessageDateAlarm: Object,
         getMessageDateTrouble: Object,
         getMessageDate_param: {
           currentPage: 1,
-          pageSize: 6,
+          pageSize: 20,
         },
         //显示未读状态
         getStarts: {
@@ -169,14 +167,18 @@
         console.log(data.id);
         $('#TabCont').addClass('show')
         $('#myTabContent').addClass('hide')
-        this.getEventById_param.eventId = data.id;
+        this.getEventById_param.eventId = data.referenceId;
         this.getEventById()
+        this.reedMsg(data)
       },
 
       reedMsg(data) {
         if (data.status === 1) {
           this.rendMessage_param.messageId = data.id
           this.rendMessage()
+          this.queryMessageSys()
+          this.queryMessageAlarm()
+          this.queryMessageTrouble()
         }
       },
       // 返回列表
@@ -198,26 +200,17 @@
           })
       },
       //系统消息
-      //活动通知消息列表
-      queryMessageSysNotice() {
-        this.$fetch('/api/event/queryEventMessage', this.getMessageDate_param)
+      queryMessageSys() {
+        let types = [6, 7]
+        this.$fetch('/api/user/queryMessage?types=' + types, this.getMessageDate_param)
           .then(response => {
             if (response) {
               console.log(response)
-              this.getMessageDateNotice = response.data.pager.result
-            }
-          })
-          .then(err => {
-            console.log(err)
-          })
-      },
-      //系统公告消息列表
-      queryMessageSysBulletin() {
-        this.$fetch('/api/event/querySystemMessage', this.getMessageDate_param)
-          .then(response => {
-            if (response) {
-              console.log(response)
-              this.getMessageDateBulletin = response.data.pager.result
+              this.getMessageDateSys = response.data.pager.result
+              let sysUnReadCount = response.data.sysUnReadCount;
+              if (sysUnReadCount > 0) {
+                this.getStarts.SysStart = true;
+              }
             }
           })
           .then(err => {
@@ -277,11 +270,10 @@
     // 默认加载方法
     mounted() {
       $('[data-toggle=\'tooltip\']').tooltip()
-      this.showTab(),
-        this.queryMessageSysNotice(),
-        this.queryMessageSysBulletin(),
-        this.queryMessageAlarm(),
-        this.queryMessageTrouble();
+      this.showTab()
+      this.queryMessageSys()
+      this.queryMessageAlarm()
+      this.queryMessageTrouble()
     }
   }
 </script>
