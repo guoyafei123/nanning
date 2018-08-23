@@ -31,7 +31,7 @@
               <el-select name="" v-model="form.structure" placeholder="请选择结构">
                 <el-option label="砖混" value="砖混"></el-option>
                 <el-option label="钢结构" value="钢结构"></el-option>
-                <el-option label="木质" value="木质"></el-option>
+                <el-option label="木质结构" value="木质结构"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="建筑性质" prop="property" class="not-null col-sm-6">
@@ -84,15 +84,15 @@
       <!-- 地图 -->
       <aside>      
           <div class="maps">
-            <div class="text-center padding-top120">
-              <h1 class="size-80 font-white">地图</h1>
-            </div>
+              <managementMap-vue></managementMap-vue>
           </div>
       </aside>
     </div>
 </template>
 
 <script>
+import{ mapState } from "vuex"
+import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
     export default {
       data() {
@@ -184,8 +184,11 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           }
         }
       },
+      components:{
+        'managementMap-vue': managementMapVue,
+      },
       methods:{
-        btn(formName){
+        btn(){
           this.$refs[formName].validate((valid) => {
             if (valid) {
               this.optionList.forEach((item,index)=>{
@@ -246,17 +249,18 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         }
       },
       mounted(){
-        $('.el-scrollbar').css({
-            'background':'#000'
-        });
-        $('.el-select-dropdown').css('border-color','#333');
-        $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
-
         this.unitSearch();
-      }
+      },
+      watch:{
+        buildPoint(){
+          this.form.point.pointX = this.buildPoint[0];
+          this.form.point.pointY = this.buildPoint[1];
+          console.log(this.form.point.pointX)
+        }
+      },
+      computed:mapState([
+        'buildPoint'
+      ])
     }
 </script>
 

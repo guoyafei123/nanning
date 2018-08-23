@@ -19,18 +19,18 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-          <el-form-item label="危险品名称" class="not-null">
-            <span class="hint-error">设备名称有误或重复</span>
+        <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+          <el-form-item label="危险品名称" prop="name" class="not-null">
+            <!-- <span class="hint-error">设备名称有误或重复</span> -->
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
-          <el-form-item label="所属单位" class="not-null">
+          <el-form-item label="所属单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="位置" class="not-null">
+          <el-form-item label="位置" prop="buildingId" class="not-null">
             <el-select
               v-model="form.buildingId"
             placeholder="选择建筑"  class="start col-sm-4">
@@ -60,16 +60,16 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="坐标">
+          <el-form-item label="坐标" prop="pointX">
             <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
             <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
           </el-form-item>
 
-          <el-form-item label="上报人" class="not-null col-sm-4">
+          <el-form-item label="上报人" prop="nickName" class="not-null col-sm-4">
             <el-input v-model="form.nickName"></el-input>
           </el-form-item>
 
-          <el-form-item label="上报时间" class="not-null col-sm-8">
+          <el-form-item label="上报时间" prop="createTime" class="not-null col-sm-8">
             <div class="block">
               <el-date-picker
                 v-model="form.createTime"
@@ -97,7 +97,7 @@
               </el-form-item>
             </div>
           </div>          
-          <el-form-item label="描述" class="col-sm-12">
+          <el-form-item label="描述" prop="cont" class="col-sm-12">
             <el-input
               type="textarea"
               :rows="3"
@@ -108,7 +108,7 @@
         </el-form>
       </div>
       <div class="main_footer">
-        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+        <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
         <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
@@ -124,8 +124,28 @@
 </template>
 
 <script>
+
+import { isName,isvalidName } from '../../assets/js/validate';
     export default {
       data() {
+        var Name=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入上报人姓名'))
+            }else  if (!isName(value)){
+              callback(new Error('请输入正确的上报人姓名'))
+            }else {
+              callback()
+            }
+        }
+        var validName=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入危险品名称'))
+            }else  if (!isvalidName(value)){
+              callback(new Error('请输入正确的危险品名称'))
+            }else {
+              callback()
+            }
+        }
         return {
           labelPosition: 'top',
           index:1,
@@ -153,7 +173,30 @@
             cont:''
           },
           optionList:[],//全部单位列表
-          files:["file"]
+          files:["file"],
+          rules: {
+            name:[
+              { required: true, trigger: 'blur', validator: validName }
+            ],
+            unitId:[
+              { required: true, message: '请选择单位', trigger: 'change' }
+            ],
+            pointX:[
+              { required: true,  trigger: 'blur', message: '请输入坐标' }
+            ],
+            buildingId: [
+              { required: true, message: '请选择设备位置', trigger: 'change' }
+            ],
+            nickName:[
+              { required: true, trigger: 'blur', validator: Name }
+            ],
+            createTime:[
+              { required: true, trigger: 'change', message: '请选择上报时间' }
+            ],
+            cont:[
+              { required: true, trigger: 'blur', message: '请填写内容' }
+            ]
+          }
         }
       },
       methods:{
@@ -165,52 +208,58 @@
           $(".mainmenuone ul").append("<li style='margin-bottom:10px;'><input type='file' name='file"+this.index+"'/></li>");
           console.log(this.files)
         },
-        btn(){
-          console.log(111)
-          var files =this.files;
-          var that = this ;
-          // console.log(files)
-          $.ajaxFileUpload({
-            url: '/api/trouble/insertTrouble',
-            // secureuri: false,
-            fileElementId:files,
-            data : {
-              'type':5,
-              'levels':3,
-              'dangerName':this.form.name,
-              'unitId':this.form.unitId,
-              'unitName':this.form.unitName,
-              'buildingId':this.form.buildingId,
-              'buildingName':this.form.buildingName,
-              'floorId':this.form.floorId,
-              'floorNumber':this.form.floorNumber,
-              'roomId':this.form.roomId,
-              'roomNumber':this.form.roomNumber,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY,
-              'nickName':this.form.nickName,
-              'createTime':this.form.createTime,
-              'cont':this.form.cont
-            },
-            type: 'POST',
-            dataType: "json",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-            
-        
-            },
-            error: function (e) { //服务器响应失败处理函数
-              $.messager.alert('警告', "系统错误", "warning");
-            },
-            complete: function (e) {//只要完成即执行，最后执行
-              // console.log(e) 
-                // $("#file").replaceWith('<input id="file" name="file" type="file"/>');  
+        btn(formName){
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              console.log(111)
+              var files =this.files;
+              var that = this ;
+              // console.log(files)
+              $.ajaxFileUpload({
+                url: '/api/trouble/insertTrouble',
+                // secureuri: false,
+                fileElementId:files,
+                data : {
+                  'type':5,
+                  'levels':3,
+                  'dangerName':this.form.name,
+                  'unitId':this.form.unitId,
+                  'unitName':this.form.unitName,
+                  'buildingId':this.form.buildingId,
+                  'buildingName':this.form.buildingName,
+                  'floorId':this.form.floorId,
+                  'floorNumber':this.form.floorNumber,
+                  'roomId':this.form.roomId,
+                  'roomNumber':this.form.roomNumber,
+                  'pointX':this.form.point.pointX,
+                  'pointY':this.form.point.pointY,
+                  'nickName':this.form.nickName,
+                  'createTime':this.form.createTime,
+                  'cont':this.form.cont
+                },
+                type: 'POST',
+                dataType: "json",
+                success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
                 
-              // });
-              that.$router.push({path:'/Dangerous_goods_management/all'});
-            }
             
+                },
+                error: function (e) { //服务器响应失败处理函数
+                  $.messager.alert('警告', "系统错误", "warning");
+                },
+                complete: function (e) {//只要完成即执行，最后执行
+                  // console.log(e) 
+                    // $("#file").replaceWith('<input id="file" name="file" type="file"/>');  
+                    
+                  // });
+                  that.$router.push({path:'/Dangerous_goods_management/all'});
+                }
+                
+              });
+          } else {
+              console.log('error submit!!');
+              return false;
+            }
           });
-          
         },
         back(){
           this.$router.push({path:'/Dangerous_goods_management/all'});
@@ -333,14 +382,6 @@
         }
       },
       mounted(){
-        $('.el-scrollbar').css({
-            'background':'#000'
-        });
-        $('.el-select-dropdown').css('border-color','#333');
-        $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
         this.unitSearch();
       }
     }

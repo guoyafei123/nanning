@@ -27,6 +27,7 @@
           </el-form-item>
           <el-form-item label="所属单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
+              <el-option label="全部" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -149,30 +150,22 @@
     </aside>
     <!-- 地图 -->
     <aside>      
-        <div class="maps">
-            <section class="position-relative">
-              <!-- 地图/平面图切换 -->
-              <div class="popup-map-min z-index-10">
-                <!-- 地图 -->
-                <div class="position-absolute-top">
-                  <img src="http://yhyimg.99xf.cn/xf/api/building_plan/25_1.jpg" alt="" class="img-responsive center-block">
-                </div>
-                <!-- icon -->
-                <div class="position-absolute-top popup-map-min-point">
-                  <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-early"></i></i>
-                </div>
-                <!-- 提示文字 -->
-                <h5>2D</h5>
-              </div>
-              <div>
-              </div>
-            </section>
-        </div>
+      <div class="maps map">
+          <managementMap-vue></managementMap-vue>
+      </div>
+      <div class="floorMap maps" style="display:none;">
+        <ul class="list-unstyled floor-item" style="top: 120px">
+            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+        </ul> 
+        <img :src="this.svgUrl" class="img-responsive">
+      </div>
     </aside>
   </div>
 </template>
 
 <script>
+import{ mapState } from "vuex";
+import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
     export default {
       data() {
@@ -187,7 +180,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         }
         var Name=(rule, value,callback)=>{
             if (!value){
-              callback(new Error('请输入您的姓名'))
+              callback(new Error('请输入生产商的姓名'))
             }else  if (!isName(value)){
               callback(new Error('请输入正确的姓名'))
             }else {
@@ -249,7 +242,8 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             phone:'',
             controlId:''
           },
-          unit:null,//选择单位
+          svgUrl:'',
+          table_list:[],
           optionList:[],//全部单位列表
           equipmentList:[],
           rules: {
@@ -304,7 +298,34 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           }
         }
       },
+      components:{
+        'managementMap-vue': managementMapVue,
+      },
       methods:{
+        floor_btn(id){
+          console.log(id)
+          this.table_list.forEach((item)=>{
+            if(item.id == id){
+              this.svgUrl = item.svgUrl ;
+            }
+          })
+        },
+        findPageBuildIngFloor(){
+          this.$fetch("/api/building/findPageBuildIngFloor",{
+            pageIndex:1,
+            pageSize:1000,
+            buildingId:this.form.buildingId
+          }).then(response=>{
+            console.log(response.data.pageBuildIng.result);
+            this.table_list = response.data.pageBuildIng.result;
+            this.table_list.forEach(item=>{
+              if(this.floorId == item.floor){
+                  this.roomSvgUrl = item.svgUrl ;
+                  this.floorName = item.floorName ;
+              }
+            })
+          })
+        },
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
@@ -413,6 +434,9 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         }
       },
       computed:{
+        ...mapState([
+          'buildPoint'
+        ]),
         unitId(){
           return this.form.unitId;
         },
@@ -442,7 +466,8 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
-          console.log(this.form.buildingId)
+          console.log(this.form.buildingId);
+          this.findPageBuildIngFloor();
           this.form.floorId = '';
           this.form.roomId = '';
           this.form.floorNumber = '';
@@ -456,6 +481,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               this.form.buildingName = '室外';
             }
           })
+          this.$store.commit('DeviceList',this.form.buildingId);
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
@@ -486,19 +512,16 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               console.log(this.form.deviceTypeName);
             }
           })
+        },
+        buildPoint(){
+          this.form.point.pointX = this.buildPoint[0];
+          this.form.point.pointY = this.buildPoint[1];
         }
       },
       mounted(){
-        $('.el-scrollbar').css({
-            'background':'#000'
-        });
-        $('.el-select-dropdown').css('border-color','#333');
-        $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
         this.equipmentSearch();
         this.unitSearch();
+        $("#right").hide();
       }
     }
 </script>

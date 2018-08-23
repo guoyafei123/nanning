@@ -128,7 +128,9 @@
       },
       show3(row){//跳转
         console.log(row.id);
-        this.$store.commit('unitNum',row.id);
+        this.$store.commit('currentPage',this.currentPage4);
+        this.$store.commit('noticeId',row.id);
+        this.$store.commit('unitNotice',this.unit);
       },
       tableList(){
         this.$fetch(
@@ -147,12 +149,10 @@
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
+                  this.$store.commit('currentPage',this.currentPage4);
                   this.$store.commit('noticeId',item.id);
+                  this.$store.commit('unitNotice',this.unit);
                   console.log(item.id)
-                }
-                if(item.id == this.deviceIndex){
-                  this.$store.commit('peopleTableData',item);
-                  // console.log(item)
                 }
               })
               if(this.totalList % 10 == 0){

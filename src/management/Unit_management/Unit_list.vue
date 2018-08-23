@@ -1,5 +1,5 @@
 <template>
-  <div id="add-new">
+  <div id="add-new" class="add-map">
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
@@ -45,6 +45,10 @@
           <el-form-item label="单位地址" prop="location" class="not-null">
             <el-input v-model="form.location" class="col-sm-8"></el-input>
           </el-form-item>
+          <el-form-item label="经纬度" class="not-null">
+            <el-input v-model="form.point.pointX" class="col-sm-6"></el-input>
+            <el-input v-model="form.point.pointY" class="col-sm-6"></el-input>
+          </el-form-item>   
           <el-form-item label="消防负责人" prop="firemenName" class="not-null col-sm-4">
             <el-input v-model="form.firemenName"></el-input>
           </el-form-item>
@@ -69,10 +73,18 @@
         <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
+    <!-- 地图 -->
+      <aside>      
+          <div class="maps">
+              <managementMap-vue></managementMap-vue>
+          </div>
+      </aside>
   </div>
 </template>
 
 <script>
+    import{ mapState } from "vuex";
+    import managementMapVue from '../managementMap';
     import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
     export default {
       data() {
@@ -139,6 +151,9 @@
             ]
           }
         }
+      },
+      components:{
+        'managementMap-vue': managementMapVue,
       },
       methods:{
         file(){
@@ -234,15 +249,18 @@
         }
       },
       mounted(){
-        $('.el-scrollbar').css({
-            'background':'#000'
-        });
-        $('.el-select-dropdown').css('border-color','#333');
-        $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
-      }
+        $('#right').hide();
+      },
+      watch:{
+        buildPoint(){
+          this.form.point.pointX = this.buildPoint[0];
+          this.form.point.pointY = this.buildPoint[1];
+          console.log(this.form.point.pointX)
+        }
+      },
+      computed:mapState([
+        'buildPoint'
+      ])
     }
 </script>
 

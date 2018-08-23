@@ -702,6 +702,7 @@
       },
       unitId(curVal,oldVal){
         this.form.unitId = curVal;
+        console.log(curVal)
         this.formBuildSearch(this.form.unitId);
       },
       buildingId(curVal,oldVal){
