@@ -498,6 +498,8 @@
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.troubleCount_parameter.beginTime = startDate;
+				this.troubleCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：

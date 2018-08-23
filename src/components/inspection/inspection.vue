@@ -696,6 +696,10 @@
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.queryTrendMapGraph_parameter.startTime = startDate;
+				this.queryTrendMapGraph_parameter.endTime = startDate;
+				this.queryPlanDetails_parameter.beginTime = startDate;
+				this.queryPlanDetails_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：

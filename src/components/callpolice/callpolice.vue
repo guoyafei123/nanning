@@ -464,6 +464,8 @@
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
+				this.getAlarmCount_parameter.beginTime = startDate;
+				this.getAlarmCount_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
