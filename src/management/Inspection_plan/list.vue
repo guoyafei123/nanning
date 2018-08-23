@@ -619,9 +619,13 @@
             }
           });
           var inspectionNodes = { name:this.form.name,type:this.form.region2,unitId:this.region1,unitName:unitName,inspectionNodes:this.inspectionNodes };
-          this.$fetch("/api/admin/inspection/insertInspectionPlan",{
+          this.$post("/api/admin/inspection/insertInspectionPlan",{
             inspectionPlan:inspectionNodes
-          }).then(response=>{
+          },{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response=>{
             console.log(response);
             console.log(this.startNodes);
             console.log(this.endNodes);
