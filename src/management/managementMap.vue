@@ -254,7 +254,7 @@
         addlandmarker(id, value, p) {
           let that = this;
           // let map=this.getMapToDiv('allmap');
-          function landmark(marker,  value) {
+          function landmark(marker,value) {
             this._marker = marker;
             this._point = marker.getPosition();
             this._value = value;
@@ -281,8 +281,10 @@
           var marker = new landmark(new BMap.Marker(new BMap.Point(p[0], p[1])),value);
           return marker;
         },
-        legend_landmarker(content, id) {
-          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.unitName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
+        legend_landmarker(content,id) {
+          
+            var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.unitName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
+          
           return html;
         },
         tableDatas(){
@@ -327,6 +329,12 @@
           // alert(e.point.lng + ", " + e.point.lat);
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat])
           this.mp.addOverlay(this.addlandmark('','',[e.point.lng,e.point.lat]));
+        },
+        showInfoDevice(e){
+          this.mp.clearOverlays();
+          // alert(e.point.lng + ", " + e.point.lat);
+          this.$store.commit('buildPoint',[e.point.lng,e.point.lat])
+          this.mp.addOverlay(this.addlandmarker('','',[e.point.lng,e.point.lat]));
         }
       },
       
@@ -363,7 +371,7 @@
           this.mp.addEventListener("click", this.showInfo);
         }
         if(this.$route.path == '/Equipment_management/list'){
-          this.mp.addEventListener("click", this.showInfo);
+          this.mp.addEventListener("click", this.showInfoDevice);
         }
         if(this.$route.path == '/Equipment_management/maps'){
           this.mp.clearOverlays();

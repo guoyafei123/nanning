@@ -483,7 +483,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               this.form.buildingName = '室外';
             }
           })
-          this.$store.commit('DeviceList',this.form.buildingId);
+         
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
@@ -509,6 +509,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         },
         equipmentId(curVal,oldVal){
           this.form.equipmentId = curVal ;
+          this.$store.commit('DeviceList',this.form.equipmentId);
           this.equipmentList.forEach((item,index)=>{
             if(item.id == this.form.equipmentId){
               this.form.deviceTypeName = item.name ;
