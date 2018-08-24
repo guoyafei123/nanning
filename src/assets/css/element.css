@@ -631,3 +631,6 @@ header .el-select-dropdown__item:last-child {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.el-form-item.is-error .el-input__validateIcon {
+  color: #f13131;
+}

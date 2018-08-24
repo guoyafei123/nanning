@@ -19,7 +19,7 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+        <el-form class="row" ref="form" status-icon :label-position="labelPosition" :model="form">
           <el-form-item label="路线名称" class="not-null">
             <!-- <span class="hint-error">单位名称有误或重复</span> -->
             <el-input v-model="form.name" class="col-sm-8"></el-input>
@@ -619,10 +619,8 @@
             }
           });
           var inspectionNodes = { name:this.form.name,type:this.form.region2,unitId:this.region1,unitName:unitName,inspectionNodes:this.inspectionNodes };
-          this.$post("/api/admin/inspection/insertInspectionPlan",{
-            inspectionPlan:inspectionNodes
-          },{
-        headers: {
+          this.$post("/api/admin/inspection/insertInspectionPlan",inspectionNodes,{
+          headers: {
             'Content-Type': 'application/json'
         }
     }).then(response=>{
