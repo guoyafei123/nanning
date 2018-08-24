@@ -11,7 +11,7 @@
 					<section>
 						<div class="toolcount">
 							<div class="set-width-50 font-gray-999 padding-right0 size-12">
-								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
+								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 									<li>
 										<h1 class="toolcount-p1 font-yellow">0</h1>
 									</li>
@@ -23,25 +23,25 @@
 									</li>
 									<li>
 										<p>今日隐患发现数</p>
-										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
+										<p class="font-yellow float-right size-14" v-if='queryTroubleStats'>
 											{{queryTroubleStats.countTrouble ? queryTroubleStats.countTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>今日隐患解决数</p>
-										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
+										<p class="font-blue float-right size-14" v-if='queryTroubleStats'>
 											{{queryTroubleStats.solveTrouble ? queryTroubleStats.solveTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室内隐患数</p>
-										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
+										<p class="font-gray-ccc float-right size-14" v-if='queryTroubleStats'>
 											{{queryTroubleStats.outdoorTrouble ?queryTroubleStats.outdoorTrouble:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室外隐患数</p>
-										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
+										<p class="font-gray-ccc float-right size-14" v-if='queryTroubleStats'>
 											{{queryTroubleStats.indoorTrouble ? queryTroubleStats.indoorTrouble:'0'}}
 										</p>
 									</li>
@@ -60,26 +60,26 @@
 									</li>
 									<li>
 										<p>今日危险品新增</p>
-										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
+										<p class="font-yellow float-right size-14" v-if='queryTroubleStats'>
 											{{queryTroubleStats.countDangerousGoods ? queryTroubleStats.countDangerousGoods:'0'}}
 
 										</p>
 									</li>
 									<li>
 										<p>今日危险品处理</p>
-										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
+										<p class="font-blue float-right size-14" v-if='queryTroubleStats'>
 											{{queryTroubleStats.solveDangerousGoods ? queryTroubleStats.solveDangerousGoods:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室内危险品数</p>
-										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
+										<p class="font-gray-ccc float-right size-14" v-if='queryTroubleStats'>
 											{{queryTroubleStats.indoorDangerousGoods ? queryTroubleStats.indoorDangerousGoods:'0'}}
 										</p>
 									</li>
 									<li>
 										<p>室外危险品数</p>
-										<p class="font-blue font-italic float-right size-14" v-if='queryTroubleStats'>
+										<p class="font-gray-ccc float-right size-14" v-if='queryTroubleStats'>
 											{{queryTroubleStats.outdoorDangerousGoods ? queryTroubleStats.outdoorDangerousGoods:'0'}}
 										</p>
 									</li>

@@ -20,13 +20,13 @@
           <el-form-item label="预案名称" prop="name" class="not-null">
             <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="单位" prop="unitId" class="not-null">
-            <el-select v-model="form.unitId" placeholder="请选择单位"  class="col-sm-8">
+          <el-form-item label="所属单位" prop="unitId" class="not-null">
+            <el-select v-model="form.unitId" placeholder="请选择单位"  class="col-sm-4">
               <el-option v-for="item in form.optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="建筑">
-            <el-select v-model="form.building" placeholder="请选择建筑" class="col-sm-6">
+          <el-form-item label="所属建筑">
+            <el-select v-model="form.building" placeholder="请选择" class="col-sm-4">
               <el-option
                 v-for="item in form.buildList"
                 :label="item.name"
@@ -35,7 +35,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="预案类型" prop="planId" class="not-null">
-            <el-select v-model="form.planId" placeholder="请选择预案类型" class="col-sm-8">
+            <el-select v-model="form.planId" placeholder="请选择" class="col-sm-4">
               <el-option v-for="item in form.planList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>

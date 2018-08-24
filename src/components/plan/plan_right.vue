@@ -78,7 +78,11 @@
 											<h5>{{item.unitName}}</h5>
 											<p>
 												<small>{{item.createTime.substring(5)}}</small>
-												<a :href="item.url+'?filename='+item.name+'.'+item.pattern"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+												<a :href="item.url+'?filename='+item.name+'.'+item.pattern">
+													<el-tooltip content="下载" placement="top">
+														<i class="el-icon-download"></i>
+													</el-tooltip>
+												</a>
 											</p>
 										</div>
 									</figure>
@@ -280,7 +284,7 @@
 							normal: {
 								show: true,
 								position: "right",
-								color: "#ffffff"
+								color: "#bad616"
 							}
 						},
 						itemStyle: {

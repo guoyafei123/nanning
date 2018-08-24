@@ -234,7 +234,7 @@
 				</div>
 			</section>
 			<section>
-				<div class="toolcount margin-top20">
+				<div class="toolcount margin-top20 clearfix">
 					<h4 class="p-title">巡检统计</h4>
 					<div class="col-sm-7 font-gray-999 padding-right0 size-12">
 						<div class="row text-center margin-top30">
@@ -256,12 +256,12 @@
 						</div>
 					</div>
 					<div class="col-sm-5 font-gray-999 padding-left0 padding-right0">
-						<div id="ins_charCount" style="width: 100%;height:150px;margin: 0 auto;"></div>
+						<div id="ins_charCount" style="width: 100%;height:100px;margin: 0 auto;"></div>
 					</div>
 				</div>
 			</section>
 			<section>
-				<div class="toolcount position-relative">
+				<div class="toolcount clearfix">
 					<h4 class="p-title">路线巡检任务完成</h4>
 					<el-select class="upd-elselect upd-elselect-border upd-widht150 margin-top20 margin-left10" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="请选择">
 						<el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
@@ -277,7 +277,7 @@
 				</div>
 			</section>
 			<section>
-				<div class="toolcount margin-top10">
+				<div class="toolcount margin-top10 clearfix">
 					<h4 class="p-title">巡检完成率历史趋势
                     <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
                       <i class="icon iconfont icon-weibiaoti10 size-12"></i>

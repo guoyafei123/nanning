@@ -13,7 +13,7 @@
     <div class="main_all_content">
       <div class="main_content_top">
         <!-- 筛选 -->
-        <el-form ref="form" :model="form" class="float-left">
+        <el-form ref="form" status-icon :model="form" class="float-left">
           <el-select v-model="unit" placeholder="选择单位" class="select">
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
@@ -95,6 +95,7 @@
           </el-table-column>
           <el-table-column
             prop="cont"
+            :show-overflow-tooltip="true"
             label="危险品简介">
           </el-table-column>
           <el-table-column
@@ -140,6 +141,7 @@
           </el-table-column>
           <el-table-column
             prop="treatment"
+            :show-overflow-tooltip="true"
             label="解决原因">
           </el-table-column>
           <el-table-column
@@ -193,7 +195,7 @@
               class类not-null为必填标识,如需请加在<el-form-item>
               class类hint-error为错误提示
              -->
-              <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+              <el-form class="row" ref="form" status-icon :rules="rules"  :label-position="labelPosition" :model="form">
                 <!-- <el-form-item label="危险品名称" class="not-null col-sm-8">
                   <el-input v-model="form.dangerName" disabled="true"></el-input>
                 </el-form-item>
@@ -263,9 +265,9 @@
                     <li class="col-sm-3"><img :src="this.form.imgUrl" class="img-responsive" /></li>
                   </ul>
                 </el-form-item> -->
-                <el-form-item label="解决人" class="not-null">
+                <!-- <el-form-item label="解决人" class="not-null">
                   <el-input v-model="form.reviewerName" disabled="true" class="not-null col-sm-6"></el-input>
-                </el-form-item>
+                </el-form-item> -->
                 <!-- <el-form-item label="解决时间" class="not-null col-sm-6">
                   <div class="block">
                     <el-date-picker

@@ -3,7 +3,7 @@
           <!-- 筛选 -->
             <section class="my-filter padding5 bg-gray-222 clearfix">
                 <!-- 日期筛选 -->
-                <div class="col-sm-9 padding0">
+                <div class="col-sm-12 padding0">
                 <div class="upd-elmdate">
                     <el-date-picker
                     v-model="dateValue"
@@ -87,12 +87,12 @@
                 <section>
                     <h4 class="p-title margin-top30">统计</h4>
                     <div class="row cardinfo-style margin-top10 font-gray-999">
-                        <p class="col-sm-4">当前隐患数<span>{{buildTroubleMap.NOWTROUBLE?buildTroubleMap.NOWTROUBLE:"0"}}</span></p>
-                        <p class="col-sm-4">当前报警数<span>{{buildAlarmMap.NOWALARM?buildAlarmMap.NOWALARM:"0"}}</span></p>
-                        <p class="col-sm-4">当前危险品数<span>{{buildTroubleMap.allDanger?buildTroubleMap.allDanger:"0"}}</span></p>
-                        <p class="col-sm-4">历史隐患数<span>{{buildTroubleMap.nowDanger?buildTroubleMap.nowDanger:"0"}}</span></p>
-                        <p class="col-sm-4">历史报警数<span>{{buildAlarmMap.ALLALARM?buildAlarmMap.ALLALARM:"0"}}</span></p>
-                        <p class="col-sm-4">历史危险品数<span>{{buildTroubleMap.ALLTROUBLE?buildTroubleMap.ALLTROUBLE:"0"}}</span></p>
+                        <p class="col-sm-4">当前隐患数<span class="font-yellow">{{buildTroubleMap.NOWTROUBLE?buildTroubleMap.NOWTROUBLE:"0"}}</span></p>
+                        <p class="col-sm-4">当前报警数<span class="font-red">{{buildAlarmMap.NOWALARM?buildAlarmMap.NOWALARM:"0"}}</span></p>
+                        <p class="col-sm-4">当前危险品数<span class="font-yellow">{{buildTroubleMap.allDanger?buildTroubleMap.allDanger:"0"}}</span></p>
+                        <p class="col-sm-4">历史隐患数<span class="font-white">{{buildTroubleMap.nowDanger?buildTroubleMap.nowDanger:"0"}}</span></p>
+                        <p class="col-sm-4">历史报警数<span class="font-white">{{buildAlarmMap.ALLALARM?buildAlarmMap.ALLALARM:"0"}}</span></p>
+                        <p class="col-sm-4">历史危险品数<span class="font-white">{{buildTroubleMap.ALLTROUBLE?buildTroubleMap.ALLTROUBLE:"0"}}</span></p>
                         <p class="col-sm-4">相关巡检路线<span>{{buildPlanCount?buildPlanCount:"0"}}</span></p>
                     </div>
                 </section>
@@ -155,10 +155,14 @@
                                       <span>管理单位 </span>
                                       <strong>{{buildBaseInfo.unitName ? buildBaseInfo.unitName:"暂为空"}} </strong>
                                   </div>
-                                <div class="col-sm-12">                                   
+                                <div class="col-sm-6">                                   
                                     <span>消防负责人 </span>
                                     <strong>{{buildBaseInfo.linkname?buildBaseInfo.linkname:"暂无"}}</strong>
-                                </div>                 
+                                </div>
+                                <div class="col-sm-6">                                   
+                                    <span>联系电话 </span>
+                                    <strong>{{buildBaseInfo.phone?buildBaseInfo.phone:"暂无"}}</strong>
+                                </div>               
                               </div>
                         </div>
                     </section>
@@ -174,14 +178,14 @@
                             <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">{{buildCountDataSocres.buildingName ? buildCountDataSocres.buildingName:'暂无名称'}}</span>
                         </span>
                     </p>
-                    <p class="col-sm-7 text-left padding0">
+                    <p class="col-sm-12 text-left padding0">
                         <span>
                             <i class="fas fa-industry"></i> {{buildCountDataSocres.totalScore ? buildCountDataSocres.totalScore:'0'}}</span>
                     </p>
-                    <P class="col-sm-5 text-right padding0">
+                    <!-- <P class="col-sm-5 text-right padding0">
                         <span class="text-right">
                         </span>
-                    </P>                        
+                    </P> -->                        
                 </div>
               </div>
               <section>
@@ -189,15 +193,15 @@
                   <h4 class="p-title">
                     安全评分占比
                   </h4>
-					<div id="pieb1" class="margin-top10" style="width: 100%;height:180px;margin: 0 auto;"></div>
-				</div>
+        					<div id="pieb1" class="margin-top10" style="width: 100%;height:160px;margin: 0 auto;"></div>
+        				</div>
 			</section>
 			<section>
 				<div class="toolcount margin-top10">
 					<h4 class="p-title">
                     建筑报警数量
                   </h4>
-					<div id="axis1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+					<div id="axis1" style="width: 100%;height:160px;margin: 0 auto;"></div>
 				</div>
 			</section>
 			<section>
@@ -208,7 +212,7 @@
                       <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                     </span>
                   </h4>
-					<div id="myChart1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+					<div id="myChart1" style="width: 100%;height:160px;margin: 0 auto;"></div>
 				</div>
 			</section>
 		</section>

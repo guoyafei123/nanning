@@ -22,7 +22,7 @@
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
           <el-form-item label="单位性质" prop="property" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="请选择单位" class="col-sm-4">
+            <el-select name="" v-model="form.property" placeholder="请选择" class="col-sm-4">
               <el-option label="事业单位" value="事业单位"></el-option>
               <el-option label="国家行政机关" value="国家行政机关"></el-option>
               <el-option label="政府" value="政府"></el-option>
@@ -46,8 +46,8 @@
             <el-input v-model="form.location" class="col-sm-8"></el-input>
           </el-form-item>
           <el-form-item label="经纬度" class="not-null">
-            <el-input v-model="form.point.pointX" class="col-sm-6"></el-input>
-            <el-input v-model="form.point.pointY" class="col-sm-6"></el-input>
+            <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
+            <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
           </el-form-item>   
           <el-form-item label="消防负责人" prop="firemenName" class="not-null col-sm-4">
             <el-input v-model="form.firemenName"></el-input>

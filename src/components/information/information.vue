@@ -11,10 +11,10 @@
 				<div class="toolleft margin-right0">
 					<section>
 						<div class="toolcount">
-							<div class="set-width-50  font-gray-999 padding-right0">
-								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
+							<div class="set-width-50 font-gray-999 padding-right0">
+								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 									<li>
-										<h1 class="toolcount-p1 font-red" >{{deviceCountByUnit.deviceTotal}}</h1>
+										<h1 class="toolcount-p1 font-white" >{{deviceCountByUnit.deviceTotal}}</h1>
 									</li>
 									<li>
 										<p class="size-10">Device Number</p>
@@ -28,23 +28,23 @@
 								<ul class="padding-left0 margin-bottom0">
 									<li>
 										<p>室内设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.innerCount}}</p>
+										<p class="font-gray-ccc float-right size-14" >{{deviceCountByUnit.innerCount}}</p>
 									</li>
 									<li>
 										<p>室外设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.outsideCount}}</p>
+										<p class="font-gray-ccc float-right size-14" >{{deviceCountByUnit.outsideCount}}</p>
 									</li>
 									<li>
 										<p>灭火设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.outfireCount}}</p>
+										<p class="font-blue float-right size-14" >{{deviceCountByUnit.outfireCount}}</p>
 									</li>
 									<li>
 										<p>预警设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.inductionCount}}</p>
+										<p class="font-blue float-right size-14" >{{deviceCountByUnit.inductionCount}}</p>
 									</li>
 									<li>
 										<p>安防设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.safetyCount}}</p>
+										<p class="font-blue float-right size-14" >{{deviceCountByUnit.safetyCount}}</p>
 									</li>
 								</ul>
 							</div>
@@ -266,13 +266,18 @@
 												</span>天</p>
 										</li>
 										<li class="row text-center padding-right16 margin-top10">
-											<div class="col-sm-6 personnel-borderright">
+											<div class="col-sm-4 personnel-borderright">
 												<p class="size-16 show font-red">{{deviceiteminfo.alarmCount?deviceiteminfo.alarmCount:'-'}}</p>
 												<p>报警次数</p>
 											</div>
-											<div class="col-sm-6">
+											<div class="col-sm-4 personnel-borderright">
 												<p class="size-16 show font-white">{{deviceiteminfo.malfunctionCount?deviceiteminfo.malfunctionCount:'-'}}</p>
 												<p>故障次数</p>
+											</div>
+											<div class="col-sm-4">
+												<p class="size-16 show font-blue">
+												{{deviceiteminfo.lifeMonth?deviceiteminfo.lifeMonth:'-'}}</p>
+												<p>更换周期</p>
 											</div>
 										</li>
 									</ul>
@@ -296,16 +301,12 @@
 									<div class="col-sm-6">
 										<span>投入时间 </span>
 										<strong>{{startDates.substring(0,10)}} </strong>
-									</div>
-									<div class="col-sm-12">
-										<span>设备标码 </span>
-										<strong>{{deviceiteminfo.mac?deviceiteminfo.mac:'-'}} </strong>
-									</div>
+									</div>									
 									<div class="col-sm-12">
 										<span>设备位置 </span>
 										<strong>{{deviceiteminfo.location?deviceiteminfo.location:'-'}} </strong>
 									</div>
-									<div class="col-sm-6">
+									<div class="col-sm-12">
 										<span>设备坐标 </span>
 										<strong>{{xRates.substring(0,6)}},{{yRates.substring(0,6)}}</strong>
 									</div>
@@ -319,12 +320,16 @@
 										<strong>{{deviceiteminfo.height?deviceiteminfo.height:'-'}} </strong>
 									</div>
 									<div class="col-sm-6">
+										<span>生产厂商 </span>
+										<strong>{{deviceiteminfo.firm?deviceiteminfo.firm:'-'}} </strong>
+									</div>
+									<div class="col-sm-6">
 										<span>生产日期</span>
 										<strong>{{deviceiteminfo.productDate?deviceiteminfo.productDate:'-'}} </strong>
 									</div>
 									<div class="col-sm-12">
-										<span>生产厂商 </span>
-										<strong>{{deviceiteminfo.firm?deviceiteminfo.firm:'-'}} </strong>
+										<span>物理地址 </span>
+										<strong>{{deviceiteminfo.mac?deviceiteminfo.mac:'-'}} </strong>
 									</div>
 								</div>
 							</div>
@@ -348,7 +353,7 @@
 									</div>
 									<div class="col-sm-6">
 										<span>更换周期 </span>
-										<strong><span class="font-blue">{{deviceiteminfo.lifeMonth?deviceiteminfo.lifeMonth:''}}</span>月</strong>
+										<strong><span class="font-blue">{{deviceiteminfo.lifeMonth?deviceiteminfo.lifeMonth:'-'}}</span></strong>
 									</div>
 								</div>
 							</div>

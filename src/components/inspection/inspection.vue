@@ -12,7 +12,7 @@
 					<section>
 						<div class="toolcount">
 							<div class="set-width-50 font-gray-999 padding-right0 size-12">
-								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
+								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 									<li>
 										<p class="toolcount-p1">0</p>
 										<li>
@@ -23,15 +23,15 @@
 										</li>
 										<li class="margin-top20">
 											<p>巡检路线</p>
-											<p class="font-italic float-right size-14">{{ins_planInspectionCount.plancount}}</p>
+											<p class="font-white float-right size-14">{{ins_planInspectionCount.plancount}}</p>
 										</li>
 										<li>
 											<p>巡检中</p>
-											<p class="font-blue font-italic float-right size-14">{{ins_planInspectionCount.planing}}</p>
+											<p class="font-blue float-right size-14">{{ins_planInspectionCount.planing}}</p>
 										</li>
 										<li>
 											<p>巡检人数</p>
-											<p class="font-blue font-italic float-right size-14">{{ins_planInspectionCount.plansum}}</p>
+											<p class="font-gray-ccc float-right size-14">{{ins_planInspectionCount.plansum}}</p>
 										</li>
 								</ul>
 							</div>
@@ -45,23 +45,23 @@
 									</li>
 									<li>
 										<p>今日完成率</p>
-										<p class="font-italic float-right size-14">{{ins_planInspectionCount.dayRate}}</p>
+										<p class="float-right size-14 font-gray-ccc">{{ins_planInspectionCount.dayRate}}</p>
 									</li>
 									<li>
 										<p>近7日</p>
-										<p class="font-italic float-right size-14">{{ins_planInspectionCount.weekRate}}</p>
+										<p class="float-right size-14 font-gray-ccc">{{ins_planInspectionCount.weekRate}}</p>
 									</li>
 									<li>
 										<p>近30日</p>
-										<p class="font-italic float-right size-14">{{ins_planInspectionCount.monthRate}}</p>
+										<p class="float-right size-14 font-gray-ccc">{{ins_planInspectionCount.monthRate}}</p>
 									</li>
 									<li>
 										<p>历史统计</p>
-										<p class="font-italic float-right size-14">{{ins_planInspectionCount.historyRate}}</p>
+										<p class="float-right size-14 font-gray-ccc">{{ins_planInspectionCount.historyRate}}</p>
 									</li>
 									<li>
 										<p class="margin-bottom0">隐患发现率</p>
-										<p class="font-orange font-italic margin-bottom0 float-right size-14">{{ins_planInspectionCount.troubleRate}}</p>
+										<p class="font-orange margin-bottom0 float-right size-14">{{ins_planInspectionCount.troubleRate}}</p>
 									</li>
 								</ul>
 							</div>
@@ -415,7 +415,7 @@
 									</el-option>
 								</el-select>
 
-								<div id="ins_charCompletion" style="width: 100%;height:200px;margin: 0 auto;"></div>
+								<div id="ins_charCompletion" style="width: 100%;height:180px;margin: 0 auto;"></div>
 								<div class="toolcount-value">
 									<template v-if="ins_queryTrendPieGraph">
 										<p class="font-gray-999 size-12">额定完成次数:<span class="font-gray-ccc">{{ins_queryTrendPieGraph.amount}}</span>次</p>
@@ -430,7 +430,7 @@
                       <i class="icon iconfont icon-weibiaoti10 size-12"></i>
                     </span>
                   </h4>
-								<div id="ins_charHistoricaltrend" style="width: 100%;height:180px;margin: 0 auto;"></div>
+								<div id="ins_charHistoricaltrend" style="width: 100%;height:160px;margin: 0 auto;"></div>
 							</div>
 						</section>
 					</section>
