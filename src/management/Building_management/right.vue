@@ -397,7 +397,7 @@
                             </div> 
                             <input id="file" name="file" type="file">
                           </div>-->
-                          <input id="file" name="file" type="file">
+                          <input id="up_file" name="file" type="file">
                         </div>
                         <div class="col-sm-6">                          
                           <a @click="xiugai_cancel(index)" class="btn-false">取消</a>
@@ -640,7 +640,7 @@
             $('.xiugai:eq('+indexs+')').hide();
             $('.weixiugai_edit:eq('+indexs+')').show();
             $('.xiugai_edit:eq('+indexs+')').hide();
-            var file = "file";
+            var file = "up_file";
             $.ajaxFileUpload({
                 url: '/api/building/updateBuildingFloor', //用于文件上传的服务器端请求地址
                 /* secureuri : false, */ //一般设置为false
