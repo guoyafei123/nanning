@@ -5,7 +5,7 @@
 				<div class="set-width-50  font-gray-999 padding-right0">
 					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
 						<li>
-							<h1 class="toolcount-p1 font-red" style="line-height:10px">{{personAnalyseData.userCount?personAnalyseData.userCount:"0"}}</h1>
+							<h1 class="toolcount-p1 font-red" style="line-height:10px">{{personAnalyseData.userOnlineCount?personAnalyseData.userOnlineCount:"0"}}</h1>
 						</li>
 						<li>
 							<p class="size-10">Number of online</p>
@@ -19,7 +19,7 @@
 					<ul class="padding-left0 margin-bottom0">
 						<li>
 							<p>人员总数</p>
-							<p class="font-white float-right size-14">{{personAnalyseData.userOnlineCount?personAnalyseData.userOnlineCount:"0"}}</p>
+							<p class="font-white float-right size-14">{{personAnalyseData.userCount?personAnalyseData.userCount:"0"}}</p>
 						</li>
 						<li>
 							<p>巡检员</p>
