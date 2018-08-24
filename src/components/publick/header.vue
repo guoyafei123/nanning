@@ -78,9 +78,9 @@
 					<span class="caret"></span>
 					</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item><i class="icon iconfont icon-huiyuanquerendaodian size-14"></i> 签到</el-dropdown-item>
+						<el-dropdown-item><span @click="signIn = true"><i class="icon iconfont icon-huiyuanquerendaodian size-14"></i> 打卡</span></el-dropdown-item>						
+						<el-dropdown-item><span @click="personnelInfo = true"><i class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</span></el-dropdown-item>
 						<el-dropdown-item><router-link to="/operationLog"><i class="icon iconfont icon-caozuorizhi-xian- size-14"></i> 操作日志</router-link></el-dropdown-item>
-						<el-dropdown-item @click="modal_per()"><i class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</el-dropdown-item>
 						<el-dropdown-item><i class="icon iconfont icon-guanbi2 size-14"></i> 注销</el-dropdown-item>
 					</el-dropdown-menu>
 					</el-dropdown>
@@ -146,26 +146,55 @@
 			<!-- 消息中心 -->
 			<messages-vue></messages-vue>
 		</div>
-		<!-- 个人信息模态窗 -->
-		<div class="modal fade" id="modal_per" aria-labelledby="modal_perLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-		        <div class="modal-content">
-		          <div class="modal-header">
-		            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            <h4 class="modal-title" id="myModalLabel2">提示</h4>
-		            <h5 class="modal-p">该操作并不影响之前的统计数据</h5>
-		          </div>
-		          <div class="modal-body text-center container-padding40">
-		            <h3 class="font-red size-14">是否删除</h3>
-		            <p class="font-white size-16">66666</p>
-		          </div>
-		          <div class="modal-footer">
-		            <el-button type="danger" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
-		            <el-button class="back" data-dismiss="modal">取消</el-button>
-		          </div>
-		        </div>
-		      </div>
-		</div>
+		<!-- 个人信息弹窗 -->
+		<el-dialog show-close :visible.sync="personnelInfo" width="30%" center >
+		  <div class="dialog-header">
+		  	<h3 class="el-dialog__title">个人信息</h3>
+		  	<small class="font-blue">瑞和家园</small>
+		  	<button type="button" class="el-dialog__headerbtn" @click="personnelInfo = false">
+		  		<i class="el-dialog__close el-icon el-icon-close"></i>
+		  	</button>
+		  </div>
+		  <div class="dialog-content text-center clearfix">
+		  	<div class="myhead">
+		  		<img src="../../assets/images/head.jpg" class="img-responsive img-circle center-block">
+		  		<h3>王晓波</h3>
+		  		<h4>职位：<span>管理员</span></h4><h4>账号：<span>15600923071</span></h4>
+		  	</div>
+		  	<ul class="mytotal list-inline col-sm-12">
+		  		<li><h2 class="font-blue">329</h2><p>总在线时长(h)</p></li>
+		  		<li><h2 class="font-red">5</h2><p>处理报警数(次)</p></li>
+		  		<li><h2 class="font-yellow">17</h2><p>处理隐患数(次)</p></li>
+		  	</ul>
+		  </div>
+		  <span slot="footer" class="dialog-footer">
+		    <el-button @click="personnelInfo = false">关 闭</el-button>
+		  </span>
+		</el-dialog>
+		<!-- 签到弹窗 -->
+		<el-dialog show-close :visible.sync="signIn" width="30%" center >
+		  <div class="dialog-header">
+		  	<h3 class="el-dialog__title">工作考勤</h3>
+		  	<small class="font-blue">瑞和家园</small>
+		  	<button type="button" class="el-dialog__headerbtn" @click="signIn = false">
+		  		<i class="el-dialog__close el-icon el-icon-close"></i>
+		  	</button>
+		  </div>
+		  <div class="dialog-content text-center clearfix">
+		  	<h2 class="font-blue margin-bottom20" style="display: none;"><i class="el-icon-circle-check-outline size-100"></i><br>今日已打卡</h2>
+		  	<div class="myhead">		
+		  		<img src="../../assets/images/QR.png" class="img-responsive center-block qrcode">
+		  		<h2 class="font-red margin-top20">今日尚未打卡</h2>
+		  		<h4>二维码<span class="font-blue">2分钟</span>更新一次，请使用<span class="font-blue">智慧消防APP</span>扫一扫打卡</h4>		  		
+		  	</div>		  	
+		  	<div class="mytotal margin-top10">
+		  		<h5>本月未打卡 <span class="font-red">3</span>次</h5>
+		  	</div>
+		  </div>
+		  <span slot="footer" class="dialog-footer">
+		    <el-button @click="signIn = false">关 闭</el-button>
+		  </span>
+		</el-dialog>
 	</header>
 
 </template>
@@ -180,6 +209,10 @@
 		// 选择器
 		data() {
 			return {
+			// 弹窗	
+				signIn: false,	
+				personnelInfo: false,
+
 				areavalue: "选项2",
 				unitvalue: "全部单位",
 				queryUnit: Object,

@@ -1,23 +1,78 @@
-/*MessageBox 弹框*/
-.el-message-box {
+
+/*弹框*/
+.el-dialog {
+  padding: 20px 0!important;
+  border-radius: 0;
+  border-color: transparent!important;
+}
+.el-dialog__body {
+  color: #999;
+  max-height: 500px;
+  height: auto;
+  overflow-y: hidden;
+  padding:0!important;
+}
+.dialog-header,.el-dialog__footer {  
+    display: flow-root;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.dialog-header {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #222222;
+}
+.el-dialog__footer {
+  padding: 20px 0 0;
+  border-top: 1px solid #222222;
+}
+.dialog-header .el-dialog__title {
+  font-size: 24px;
+  color: #ffffff;
+  text-align: center;
+  text-indent: 15px;
+  letter-spacing: 10px;
+  margin: 0 auto;
+  line-height: 1.42857143;
+}
+.el-dialog .el-button {
+    width: 120px;
+    height: 36px;
+    line-height: 36px!important;
+    padding:0;
+}
+.el-dialog__headerbtn i{
+  color: #fff!important;
+    text-shadow: none;
+    opacity: 1;
+    font-size: 24px;
+}
+.el-dialog__headerbtn :hover {
+  color: #bad616!important;
+}
+.el-message-box,.el-dialog {
   background-color: #111;
   border: 1px solid #333;
 }
-.el-message-box__message p {
+.el-message-box__message p,.el-dialog p {
   color: #fff;
 }
 .el-message-box__title {
   color: #f13131;
 }
-.el-message-box__btns .el-button {
+.el-message-box__btns .el-button,.el-dialog .el-button {
     color: #000;
     background-color: #bad616;
     border-color: #bad616;
     border-radius: 0;
+    text-decoration: none;
+  transition: background 0.3s;
+  -webkit-transition: background 0.3s;
 }
-.el-message-box__btns .el-button:hover {
+.el-message-box__btns .el-button:hover,.el-dialog .el-button:hover {
     background-color: #cfef16;
     border-color: #cfef16;
+    color: #000;
 }
 /*横幅消息*/
 .el-notification__content .notify-left {
