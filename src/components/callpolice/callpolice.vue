@@ -173,7 +173,7 @@
 						<!-- 已选择单位巡检任务总数 -->
 						<div class="col-sm-5 font-white text-right size-12">
 							<i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 报警总数<br>
-							<span class="size-22 font-blue">1746</span>
+							<span class="size-22 font-blue">{{getAlarmCount.alarmSum}}</span>
 						</div>
 					</section>
 					<section class="dan-lineinfo">

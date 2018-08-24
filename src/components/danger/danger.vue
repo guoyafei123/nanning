@@ -194,7 +194,7 @@
 						<section class="my-filter padding5 bg-gray-222 clearfix">
 							<div class="col-sm-12 padding0">
 								<div class="upd-elmdate">
-									<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+									<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
 									</el-date-picker>
 								</div>
 							</div>
@@ -215,7 +215,7 @@
 								<!-- 已选择单位巡检任务总数 -->
 								<div class="col-sm-5 font-white text-right size-12">
 									<i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 隐患总数<br>
-									<span class="size-22 font-blue">1746</span>
+									<span class="size-22 font-blue">{{troubleRatio ? troubleRatio.allCount:'0'}}</span>
 								</div>
 							</section>
 						<!-- 统计 -->
