@@ -584,7 +584,7 @@
         this.index++;
         $('.add').hide();
         this.floor_index = this.index;
-        console.log(this.floor_index)
+        console.log(this.floor_index);
         var file = "file";
         let array={ 'buildingId': this.buildingId, 'floor': this.floor_index, 'floorName': this.number}
               
@@ -613,11 +613,12 @@
         this.number = '' ;
         var file = document.getElementById('file');
         file.outerHTML = file.outerHTML;
-        
+        this.$store.commit('Refresh',this.Refresh);
       },
       cancel(){
         $('.add').hide();
         this.number = '' ;
+        
       },
       xiugai(indexs){
         this.table_list.forEach((item,index)=>{
@@ -664,6 +665,7 @@
             });
           }
         })
+        this.$store.commit('Refresh',this.Refresh);
       },
       xiugai_cancel(indexs){
         this.table_list.forEach((item,index)=>{

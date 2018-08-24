@@ -103,8 +103,8 @@
 						</el-tooltip>
 					</a>
 				</li>
-				<li>
-					<router-link to="/Unit_management">
+				<li >
+					<router-link to="/Unit_management" @click.native="management">
 						<el-tooltip class="item" content="管理" placement="top">
 							<i class="icon iconfont icon-shezhi-mian-"></i>
 						</el-tooltip>
@@ -310,6 +310,9 @@
 			},
 			getuserinfo() {
 				this.username = localStorage.name
+			},
+			management(){
+				this.$store.commit('mapShow',false);
 			}
 		}
 	};

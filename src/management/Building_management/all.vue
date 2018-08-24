@@ -132,7 +132,7 @@
       <div id="list-maps">
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
             </ul> 
             <img :src="this.svgUrl" class="img-responsive">
           </div>
@@ -283,7 +283,7 @@
       }
       return {
         labelPosition: 'top',
-
+        active:'',
         form: {
           unitId:'',
           unitName:'',
@@ -356,10 +356,12 @@
     },
     methods: {
       floor_btn(id){
-        console.log(id)
+        console.log(id);
+        this.active = id ;
         this.table_list.forEach((item)=>{
           if(item.id == id){
             this.svgUrl = item.svgUrl ;
+            
           }
         })
       },
@@ -538,13 +540,16 @@
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;
-          this.table_list.forEach(item=>{
+          this.table_list.forEach((item,index)=>{
+            if(index == this.table_list.length-1){
+              this.svgUrl = item.svgUrl ;
+              this.active = item.id ;
+            }
              if(this.floorId == item.floor){
                 this.roomSvgUrl = item.svgUrl ;
                 this.floorName = item.floorName ;
              }
           })
-         
         })
       }
     },
@@ -575,10 +580,14 @@
       buildUnit(val,oldVal){
         this.buildUnit = val;
         this.tableBuildList();
+      },
+      Refresh(){
+        this.findPageBuildIngFloor();
       }
     },
      computed:mapState([
-       'floorId'
+       'floorId',
+       'Refresh'
     ])
   };
 </script>
