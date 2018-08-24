@@ -507,6 +507,7 @@
           this.mp.clearOverlays();
           this.DeviceMaps();
         }
+        this.$store.commit('iconByType',this.iconByType)
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
       },
       computed:mapState([

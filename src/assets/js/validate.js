@@ -13,3 +13,8 @@ export function isName(str){
     const reg = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/;
     return reg.test(str)
 }
+//坐标
+export function isLng(str){
+    const reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;
+    return reg.test(str)
+}
