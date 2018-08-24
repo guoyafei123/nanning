@@ -273,6 +273,24 @@ import { isvalidName } from '../../assets/js/validate';
       },
       mounted(){
        this.unitSearch();
+      },
+      computed:{
+        unitId(){
+          return this.form.unitId ;
+        },
+        buildingId(){
+          return this.form.buildingId ;
+        }
+      },
+      watch:{
+        unitId(val,oldVal){
+          this.form.unitId = val ;
+          this.buildSearch(this.form.unitId);
+        },
+        buildingId(val,oldVal){
+          this.form.buildingId = val ;
+          
+        }
       }
     }
 </script>
