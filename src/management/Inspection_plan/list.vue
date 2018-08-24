@@ -622,10 +622,10 @@
           this.$post("/api/admin/inspection/insertInspectionPlan",{
             inspectionPlan:inspectionNodes
           },{
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(response=>{
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          }).then(response=>{
             console.log(response);
             console.log(this.startNodes);
             console.log(this.endNodes);
