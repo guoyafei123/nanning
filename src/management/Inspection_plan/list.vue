@@ -19,19 +19,19 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" status-icon :label-position="labelPosition" :model="form">
+        <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form" >
           <el-form-item label="路线名称" class="not-null">
             <!-- <span class="hint-error">单位名称有误或重复</span> -->
-            <el-input v-model="form.name" class="col-sm-8"></el-input>
+            <el-input v-model="form.name" class="col-sm-10"></el-input>
           </el-form-item>
-          <el-form-item label="选择单位" class="not-null">
-            <el-select v-model="region1" placeholder="选择单位" class="select col-sm-4">
+          <el-form-item label="所属单位" class="not-null">
+            <el-select v-model="region1" placeholder="请选择" class="select col-sm-4">
               <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="巡检类型" class="not-null">
-            <el-select v-model="form.region2" placeholder="巡检类型" class="select col-sm-4">
+            <el-select v-model="form.region2" placeholder="请选择" class="select col-sm-4">
               <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>

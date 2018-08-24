@@ -27,13 +27,13 @@
           <div class="col-sm-12">
             <div class="row">
                 <el-form-item label="所属单位" prop="unitId" class="not-null col-sm-4">
-                  <el-select v-model="form.unitId" placeholder="选择单位" class="select">
+                  <el-select v-model="form.unitId" placeholder="请选择" class="select">
                     <!-- <el-option label="全部单位" value=""></el-option> -->
                     <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="角色" prop="roleId" class="not-null col-sm-4">
-                  <el-select v-model="form.roleId" placeholder="选择角色" class="select">
+                  <el-select v-model="form.roleId" placeholder="请选择" class="select">
                     <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>

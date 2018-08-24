@@ -28,8 +28,8 @@
 				<!-- 统计1 -->
 				<li>
 					<div class="pull-left">
-						<h4 v-if="queryUnitInfo_parmar.unitId!=0">{{queryUnitInfoinfo.firemenName}} </h4>
-						<h4 v-if="queryUnitInfo_parmar.unitId==0">-</h4>
+						<h4 v-if="queryUnitInfo_parmar.unitId!=0">{{queryUnitInfoinfo.firemenName}} <small>{{queryUnitInfoinfo.firemenTel}}</small></h4>
+						<h4 v-if="queryUnitInfo_parmar.unitId==0">暂无</h4>
 						<small>消防负责人</small>
 					</div>
 					<div class="pull-right">
@@ -54,12 +54,12 @@
 					</article>
 					<article>
 						建筑总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.BUILDINGCOUNT}}</span>
+					</article>					
+					<article>
+						预案总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.PREARRANGECOUNT}}</span>
 					</article>
 					<article>
 						设备总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.DEVICECOUNT}}</span>
-					</article>
-					<article>
-						预案总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.PREARRANGECOUNT}}</span>
 					</article>
 					<article>
 						人员总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.STAFFNUM}}</span>

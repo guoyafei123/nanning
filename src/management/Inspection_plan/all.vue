@@ -143,7 +143,7 @@
               </div>
           </div>
           <div class="modal-body text-left container-padding40">            
-            <el-form ref="form" :label-position="labelPosition" :model="form">              
+            <el-form ref="form" status-icon :label-position="labelPosition" :model="form">              
               <el-form-item size="small"
                   label="每日额定完成次数"
                   prop="age">

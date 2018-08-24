@@ -110,9 +110,9 @@
               class类hint-error为错误提示
              -->
              <div class="main_content">
-                <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+                <el-form class="row" status-icon ref="form" :rules="rules" :label-position="labelPosition" :model="form">
                   <el-form-item label="单位名称"  prop="name" class="not-null">
-                    <el-input v-model="form.name" class="col-sm-4" :disabled="true"></el-input>
+                    <el-input v-model="form.name" class="col-sm-4"></el-input>
                   </el-form-item>
                   <el-form-item label="单位性质" prop="property" class="not-null">
                     <el-select name="" v-model="form.property" :disabled="true" placeholder="请选择结构" class="col-sm-4">
@@ -136,11 +136,11 @@
                     <el-input v-model="form.staffNum"></el-input>
                   </el-form-item> -->
                   <el-form-item label="单位地址"  prop="location" class="not-null">
-                    <el-input v-model="form.location" :disabled="true" class="col-sm-4"></el-input>
+                    <el-input v-model="form.location" class="col-sm-4"></el-input>
                   </el-form-item>  
                   <el-form-item label="经纬度" class="not-null">
-                    <el-input v-model="form.point.pointX == 0 ? '-' : form.point.pointX" :disabled="true" class="col-sm-6"></el-input>
-                    <el-input v-model="form.point.pointY == 0 ? '-' : form.point.pointY" :disabled="true" class="col-sm-6"></el-input>
+                    <el-input v-model="form.point.pointX == 0 ? '-' : form.point.pointX" :disabled="true" class="col-sm-4"></el-input>
+                    <el-input v-model="form.point.pointY == 0 ? '-' : form.point.pointY" :disabled="true" class="col-sm-4"></el-input>
                   </el-form-item>                          
                   <el-form-item label="消防负责人" prop="firemenName" class="not-null col-sm-4">
                     <el-input v-model="form.firemenName"></el-input>

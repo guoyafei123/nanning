@@ -314,7 +314,7 @@
               class类not-null为必填标识,如需请加在<el-form-item>
               class类hint-error为错误提示
              -->
-              <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+              <el-form class="row" ref="form" status-icon :label-position="labelPosition" :model="form">
                 <!-- <el-form-item label="危险品名称" class="not-null col-sm-8">
                   <el-input v-model="form.dangerName" disabled="true"></el-input>
                 </el-form-item>

@@ -3,7 +3,7 @@
           <section>
             <div class="row toolcount">
               <div class="col-sm-6 font-gray-999 padding-right0">
-                <ul class="toolcount-left margin-bottom0 padding-left37" id="toolcount">
+                <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                   <li>
                     <h1 class="toolcount-p1 margin-bottom0">
                       {{buildCountDataStats.TOTALBUILD ? buildCountDataStats.TOTALBUILD:"0"}}
