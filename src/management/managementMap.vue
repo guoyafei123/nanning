@@ -397,7 +397,7 @@
               });
             })
             this.buildingOut = res.data.buildingOut ;
-            console.log(this.buildingOut)
+            console.log(this.buildingOut);
             this.buildingOut.forEach(item=>{
               this.mp.addOverlay(this.addlandmarkerType(item.id,item,[item.pointX,item.pointY],item.deviceTypeId));
               $(document).on('click', "#map"+item.id,()=>{
