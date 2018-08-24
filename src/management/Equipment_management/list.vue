@@ -71,9 +71,11 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="坐标" prop="pointX">
-            <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
-            <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
+          <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
+            <el-input placeholder="X,Y" v-model="form.point" class="col-sm-4"></el-input>
+          </el-form-item>
+          <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
+            <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-4"></el-input>
           </el-form-item>
           <div class="col-sm-12">
             <div class="row">
@@ -156,7 +158,7 @@
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
-        <img  id="imgPic" :src="this.svgUrl" class="img-responsive" @click="addDevice()">
+        <img id="imgPic" :src="this.svgUrl" class="img-responsive" @click="addDevice()">
       </div>
     </aside>
   </div>
@@ -165,7 +167,7 @@
 <script>
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
-import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
+import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
 import { getTopLeftRate } from '../../assets/js/imgPoint';
     export default {
       data() {
@@ -205,6 +207,15 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
               callback()
             }
         }
+        var Lng=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入坐标'))
+            }else  if (!isLng(value)){
+              callback(new Error('请输入正确的坐标点'))
+            }else {
+              callback()
+            }
+        }
         return {
           labelPosition: 'top',
           form:{
@@ -223,12 +234,8 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             roomList:[],
             floorList:[],
             buildList:[],
-            point:{
-              pointX:'',
-              pointY:'',
-              xRate:'',
-              yRate:''
-            },
+            point:'',
+            Rate:'',
             PhysicalAddress:'',
             startDate:'',
             lifeMonth:'',
@@ -295,8 +302,11 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
               { required: true, trigger: 'blur', message: '请输入更换周期' },
               { type: 'number', message: '必须为数字值'}
             ],
-            pointX:[
-              { required: true, trigger: 'blur', message: '请填写经纬度' }
+            point:[
+              { required: true, trigger: 'blur', validator: Lng }
+            ],
+            Rate:[
+              { required: true, trigger: 'blur', message: '请填写平面图坐标' }
             ]
           }
         }
@@ -339,10 +349,10 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
                 'roomNumber':this.form.roomNumber,
                 'deviceTypeId':this.form.equipmentId,
                 'deviceTypeName':this.form.deviceTypeName,
-                'pointX':this.form.point.pointX,
-                'pointY':this.form.point.pointY,
-                'xRate':this.form.point.xRate,
-                'yRate':this.form.point.yRate,
+                'pointX':this.form.point[0],
+                'pointY':this.form.point[1],
+                'xRate':this.form.Rate[0],
+                'yRate':this.form.Rate[1],
                 'mac':this.form.PhysicalAddress,
                 'startDate':this.form.startDate,
                 'height':this.form.RoofHeight,
@@ -431,7 +441,9 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           })
         },
         addDevice(){
-          alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
+          // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
+          this.form.Rate = [getTopLeftRate().leftRate,getTopLeftRate().topRate];
+          console.log(this.form.Rate)
         }
       },
       computed:{
@@ -469,6 +481,8 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           this.form.buildingId = curVal;
           console.log(this.form.buildingId);
           this.findPageBuildIngFloor();
+          this.form.point = '' ;
+          this.form.Rate = '' ;
           if(this.form.buildingId == '0' && this.form.buildingId == 0){
             $('.map').show();
             $('.floorMap').hide();
@@ -543,8 +557,7 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           })
         },
         buildPoint(){
-          this.form.point.pointX = this.buildPoint[0];
-          this.form.point.pointY = this.buildPoint[1];
+          this.form.point = this.buildPoint;
         }
       },
       mounted(){
