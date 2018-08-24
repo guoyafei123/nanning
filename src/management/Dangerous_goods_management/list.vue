@@ -26,7 +26,6 @@
           </el-form-item>
           <el-form-item label="所属单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="请选择" class="select selectUnit col-sm-4">
-              <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -114,17 +113,22 @@
     </aside>
     <!-- 地图 -->
     <aside>      
-        <div class="maps">
-          <div class="text-center padding-top120">
-            <h1 class="size-80 font-white">地图</h1>
-          </div>
-        </div>
+      <div class="maps map">
+          <managementMap-vue></managementMap-vue>
+      </div>
+      <div class="floorMap maps" style="display:none;">
+        <ul class="list-unstyled floor-item" style="top: 120px">
+            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+        </ul> 
+        <img :src="this.svgUrl" class="img-responsive">
+      </div>
     </aside>
   </div>
 </template>
 
 <script>
-
+import{ mapState } from "vuex";
+import managementMapVue from '../managementMap';
 import { isName,isvalidName } from '../../assets/js/validate';
     export default {
       data() {
@@ -196,10 +200,34 @@ import { isName,isvalidName } from '../../assets/js/validate';
             cont:[
               { required: true, trigger: 'blur', message: '请填写内容' }
             ]
-          }
+          },
+          svgUrl:'',
+          table_list:[]
         }
       },
+      components:{
+        'managementMap-vue': managementMapVue,
+      },
       methods:{
+        floor_btn(id){
+          this.table_list.forEach((item)=>{
+            if(item.id == id){
+              this.svgUrl = item.svgUrl ;
+              this.form.floorId = item.floor ;
+              this.form.floorNumber = item.floorName ;
+            }
+          })
+        },
+        findPageBuildIngFloor(){
+          this.$fetch("/api/building/findPageBuildIngFloor",{
+            pageIndex:1,
+            pageSize:1000,
+            buildingId:this.form.buildingId
+          }).then(response=>{
+            console.log(response.data.pageBuildIng.result);
+            this.table_list = response.data.pageBuildIng.result;
+          })
+        },
         add11(){
           this.index++;
           console.log(this.index)
@@ -318,6 +346,9 @@ import { isName,isvalidName } from '../../assets/js/validate';
         }
       },
       computed:{
+        ...mapState([
+          'buildPoint'
+        ]),
         unitId(){
           return this.form.unitId;
         },
@@ -344,12 +375,20 @@ import { isName,isvalidName } from '../../assets/js/validate';
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
-          console.log(this.form.buildingId)
+          console.log(this.form.buildingId);
+          this.findPageBuildIngFloor();
           this.form.floorId = '';
           this.form.roomId = '';
           this.form.floorNumber = '';
           this.form.roomNumber = '';
           this.formFloorSearch(this.form.buildingId);
+          if(this.form.buildingId == '0' && this.form.buildingId == 0){
+            $('.map').show();
+            $('.floorMap').hide();
+          }else{
+            $('.map').hide();
+            $('.floorMap').show();
+          }
           this.form.buildList.forEach((item,index)=>{
             if(item.id == this.form.buildingId){
               this.form.buildingName = item.name ;
@@ -361,6 +400,7 @@ import { isName,isvalidName } from '../../assets/js/validate';
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
+          
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }
@@ -368,6 +408,8 @@ import { isName,isvalidName } from '../../assets/js/validate';
             if(item.id == this.form.floorId){
               this.form.floorNumber = item.floorName ;
               console.log(this.form.floorNumber);
+              
+              this.floor_btn(this.form.floorId);
             }
           })
         },
@@ -379,10 +421,15 @@ import { isName,isvalidName } from '../../assets/js/validate';
               console.log(this.form.roomNumber);
             }
           })
+        },
+        buildPoint(){
+          this.form.point.pointX = this.buildPoint[0];
+          this.form.point.pointY = this.buildPoint[1];
         }
       },
       mounted(){
         this.unitSearch();
+        $("#right").hide();
       }
     }
 </script>

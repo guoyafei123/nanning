@@ -300,7 +300,7 @@
               pointY:''
           }
         },
-        buildUnit:'',//选择单位
+        buildUnit:null,//选择单位
         floorId:'',
         optionList:[],//全部单位列表
         floorList:[],//楼层列表

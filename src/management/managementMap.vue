@@ -362,6 +362,42 @@
           
           return html;
         },
+        addlandmarkDanger(id, value, p) {
+          let that = this;
+          // let map=this.getMapToDiv('allmap');
+          function landmark(marker,value) {
+            this._marker = marker;
+            this._point = marker.getPosition();
+            this._value = value;
+            this._id = id;
+          }
+          
+          landmark.prototype = new BMap.Overlay();
+          landmark.prototype.initialize = function(map) {
+            this._map = map;
+            var div = (this._div = document.createElement("div"));
+            $(div).addClass("landmark_marker");
+            div.style.position = "absolute";
+
+            $(div).append(that.legend_landmarkDanger( this._value, this._id));
+            map.getPanes().labelPane.appendChild(div);
+            return div;
+          };
+          landmark.prototype.draw = function() {
+            var map = this._map;
+            var pixel = map.pointToOverlayPixel(this._point);
+            this._div.style.left = pixel.x - 0 + "px";
+            this._div.style.top = pixel.y - 0 + "px";
+          };
+          var marker = new landmark(new BMap.Marker(new BMap.Point(p[0], p[1])),value);
+          return marker;
+        },
+        legend_landmarkDanger(content,id) {
+          
+          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.name }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i></div>`;
+          
+          return html;
+        },
         tableDatas(){
           this.tableData.forEach(item => {
             console.log(item.pointX);
@@ -421,9 +457,15 @@
         showInfoDevice(e){
           this.mp.clearOverlays();
           // alert(e.point.lng + ", " + e.point.lat);
-          this.$store.commit('buildPoint',[e.point.lng,e.point.lat])
+          this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
           this.mp.addOverlay(this.addlandmarkerType('','',[e.point.lng,e.point.lat],this.DeviceList));
-        }
+        },
+        showInfoDanger(e){
+          this.mp.clearOverlays();
+          // alert(e.point.lng + ", " + e.point.lat);
+          this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
+          this.mp.addOverlay(this.addlandmarkDanger('','',[e.point.lng,e.point.lat]));
+        },
       },
       
       watch:{
@@ -457,6 +499,9 @@
         }
         if(this.$route.path == '/Equipment_management/list'){
           this.mp.addEventListener("click", this.showInfoDevice);
+        }
+        if(this.$route.path == '/Dangerous_goods_management/list'){
+          this.mp.addEventListener("click", this.showInfoDanger);
         }
         if(this.$route.path == '/Equipment_management/maps'){
           this.mp.clearOverlays();
