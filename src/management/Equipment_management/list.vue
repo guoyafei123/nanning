@@ -156,7 +156,7 @@
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
-        <img :src="this.svgUrl" class="img-responsive">
+        <img  id="imgPic" :src="this.svgUrl" class="img-responsive" @click="addDevice()">
       </div>
     </aside>
   </div>
@@ -166,6 +166,7 @@
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
+import { getTopLeftRate } from '../../assets/js/imgPoint';
     export default {
       data() {
         var validPhone=(rule, value,callback)=>{
@@ -428,6 +429,9 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               console.log(this.form.roomList);
             }
           })
+        },
+        addDevice(){
+          alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
         }
       },
       computed:{
@@ -471,6 +475,25 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           }else{
             $('.map').hide();
             $('.floorMap').show();
+            $("#imgPic").on("load",function(){
+              var winwidth = window.screen.width;
+              var winheight = window.screen.height;
+              var fjwidth = $('#imgPic').width();
+              var fjheight = $('#imgPic').height();
+              var newwidth=0;
+              var newheight=0;
+              if(fjwidth>winwidth || fjheight>winheight){
+                var ratewid = fjwidth/winwidth;
+                var ratehei = fjheight/winheight;
+                if(ratewid>ratehei){
+                  $("#imgPic").width(winwidth);
+                  $("#imgPic").height(winheight/ratewid);
+                }else{
+                  $("#imgPic").height(winheight);
+                  $("#imgPic").width(winwidth/ratehei);
+                }
+              }
+            });
           }
           this.form.floorId = '';
           this.form.roomId = '';
