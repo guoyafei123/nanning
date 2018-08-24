@@ -367,7 +367,9 @@
 								<div class="personinfo">
 									<p>
 										<span class="size-20 font-blue">中心小学</span>
-										<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+										<el-tooltip content="安全评分" placement="top">
+										<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
+									</el-tooltip>
 									</p>
 									<p class="text-left padding0">
 										<span><i class="fas fa-industry"></i> 中心小学</span>

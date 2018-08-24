@@ -11,7 +11,7 @@
         <!-- 标题 -->
           <div class="personinfo">
               <p>
-                <span class="size-20 font-red" v-if="this.trouble.status == 0">
+                <span class="size-20 font-yellow" v-if="this.trouble.status == 0">
                   <i class="icon iconfont icon-weixianpin-mian- size-20" data-toggle="tooltip" title="危险品"></i>
                   <span>{{ this.trouble.dangerName }}</span>
                 </span>
@@ -20,7 +20,7 @@
                   <span>{{ this.trouble.dangerName }}</span>
                 </span>
                 <span class="float-right font-black size-10">
-                  <span class="bgbox-max bg-red" v-if="this.trouble.status == 0">未解决</span>
+                  <span class="bgbox-max bg-yellow" v-if="this.trouble.status == 0">未解决</span>
                   <span class="bgbox-max bg-blue" v-if="this.trouble.status == 1">已解决</span>
                 </span>
               </p>
@@ -47,7 +47,7 @@
                   <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                           <h1 class="toolcount-p1 cn-status">
-                            <span class="font-red" v-if="this.trouble.status == 0">未解决</span>
+                            <span class="font-yellow" v-if="this.trouble.status == 0">未解决</span>
                             <span class="font-blue" v-if="this.trouble.status == 1">已解决</span>
                           </h1>
                       </li>
@@ -77,7 +77,7 @@
                       </li>
                       <li class="text-left padding-right16 margin-top15">
                           <div class="col-sm-4 personnel-borderright" v-if="this.trouble.status == 0">
-                              <p class="size-16 show font-red">{{this.trouble.nickName}}</p>
+                              <p class="size-16 show font-yellow">{{this.trouble.nickName}}</p>
                               <p>上报人</p>
                           </div>
                           <div class="col-sm-4 personnel-borderright" v-if="this.trouble.status == 1">
@@ -98,24 +98,24 @@
           </div>
       </section>
       <!-- 危险品详情 -->
-      <section>        
+      <section class="alarm-info">
           <div class="textandimg margin-top20 size-12">
               <h4 class="p-title">
                  <!-- {{ this.trouble.dangerName }} -->上报详情
               </h4>
-              <div class="row textandimg-main margin-top20">
-                <div class="col-sm-6">
+              <div class="row textandimg-main margin-top10">
+                <div class="col-sm-12">
                       <span>名称</span>
                       <strong v-html="this.trouble.dangerName"></strong>
+                  </div>                  
+                  <div class="col-sm-6">
+                      <span>所属单位</span>
+                      <strong v-html="this.trouble.unitName"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>状态</span>
-                      <strong class="font-red" v-if="this.trouble.status == 0">未解决</strong>
+                      <strong class="font-yellow" v-if="this.trouble.status == 0">未解决</strong>
                       <strong class="font-blue"  v-if="this.trouble.status == 1">已解决</strong>
-                  </div>
-                  <div class="col-sm-12">
-                      <span>所属单位</span>
-                      <strong v-html="this.trouble.unitName"></strong>
                   </div>
                   <div class="col-sm-12">
                       <span>位置</span>
@@ -136,7 +136,7 @@
                       <strong v-html="this.trouble.createTime"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span>简介 </span>
+                      <span>描述 </span>
                       <strong v-html="this.trouble.cont"></strong>
                   </div>
                   <div class="col-sm-12">
@@ -146,9 +146,7 @@
                       </ul>
                   </div>                  
                 </div>
-              </div>              
-      </section>
-      <section>
+              </div>
       <!-- 解决危险品 -->
               <div class="textandimg margin-top20 size-12" v-if="this.trouble.status == 1">
                 <h4 class="p-title">

@@ -248,10 +248,10 @@
                   <el-form-item label="建筑地址">
                     <el-input v-model="form.address"></el-input>
                   </el-form-item>
-                  <el-form-item label="占地面积（m^2）">
+                  <el-form-item label="占地面积 (㎡)">
                     <el-input v-model="form.area"></el-input>
                   </el-form-item>
-                  <el-form-item label="高度">
+                  <el-form-item label="高度 (m)">
                     <el-input v-model="form.height"></el-input>
                   </el-form-item>
                   <el-form-item label="总楼层">

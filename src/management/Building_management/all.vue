@@ -61,7 +61,7 @@
           </el-table-column>
           <el-table-column
             prop="area"
-            label="占地面积(㎡)">
+            label="占地面积 (㎡)">
           </el-table-column>
           <el-table-column
             prop="heightOfBuilding"
@@ -204,7 +204,7 @@
               <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-4">
                 <el-input v-model.number="form.area"></el-input>
               </el-form-item>
-              <el-form-item label="高度 (cm)" prop="height" class="not-null col-sm-4">
+              <el-form-item label="高度 (m)" prop="height" class="not-null col-sm-4">
                 <el-input v-model.number="form.height"></el-input>
               </el-form-item>
               <el-form-item label="总楼层" prop="floor" class="not-null col-sm-4">
