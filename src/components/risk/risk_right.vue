@@ -11,7 +11,6 @@
 			</div>
 		</section>
 		<section class="risk-lineinfo">
-
 			<section v-show="itemtrue==false">
 				<div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
 					<!-- 已选择 -->
@@ -19,7 +18,9 @@
 						<p>
 							<span class="size-20 font-blue">中心小学</span>
 							<span class="float-right">
-                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+								<el-tooltip content="安全评分" placement="top">
+			                          <span class="bgbox-max bg-blue font-black size-10">评分6.9</span>
+			                      </el-tooltip>
 							</span>
 						</p>
 						<p class="col-sm-5 text-left padding0">

@@ -584,11 +584,7 @@
         this.index++;
         $('.add').hide();
         this.floor_index = this.index;
-<<<<<<< HEAD
-        //console.log(this.floor_index)
-=======
-        console.log(this.floor_index);
->>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
+
         var file = "file";
         let array={ 'buildingId': this.buildingId, 'floor': this.floor_index, 'floorName': this.number}
               

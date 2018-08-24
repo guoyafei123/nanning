@@ -128,13 +128,19 @@
       },
       show3(row){//跳转
 <<<<<<< HEAD
+<<<<<<< HEAD
         //console.log(row.id);
         this.$store.commit('unitNum',row.id);
 =======
+=======
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
         console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('noticeId',row.id);
         this.$store.commit('unitNotice',this.unit);
+<<<<<<< HEAD
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
+=======
 >>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
       },
       tableList(){
@@ -157,12 +163,18 @@
                   this.$store.commit('currentPage',this.currentPage4);
                   this.$store.commit('noticeId',item.id);
 <<<<<<< HEAD
+<<<<<<< HEAD
                   //console.log(item.id)
                 }
                 if(item.id == this.deviceIndex){
                   this.$store.commit('peopleTableData',item);
                   // //console.log(item)
                 }
+=======
+                  this.$store.commit('unitNotice',this.unit);
+                  console.log(item.id)
+                }
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
 =======
                   this.$store.commit('unitNotice',this.unit);
                   console.log(item.id)

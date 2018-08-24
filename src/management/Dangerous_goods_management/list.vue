@@ -247,47 +247,6 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           $(".mainmenuone ul").append("<li style='margin-bottom:10px;'><input type='file' name='file"+this.index+"'/></li>");
           //console.log(this.files)
         },
-<<<<<<< HEAD
-        btn(){
-          //console.log(111)
-          var files =this.files;
-          var that = this ;
-          // //console.log(files)
-          $.ajaxFileUpload({
-            url: '/api/trouble/insertTrouble',
-            // secureuri: false,
-            fileElementId:files,
-            data : {
-              'type':5,
-              'levels':3,
-              'dangerName':this.form.name,
-              'unitId':this.form.unitId,
-              'unitName':this.form.unitName,
-              'buildingId':this.form.buildingId,
-              'buildingName':this.form.buildingName,
-              'floorId':this.form.floorId,
-              'floorNumber':this.form.floorNumber,
-              'roomId':this.form.roomId,
-              'roomNumber':this.form.roomNumber,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY,
-              'nickName':this.form.nickName,
-              'createTime':this.form.createTime,
-              'cont':this.form.cont
-            },
-            type: 'POST',
-            dataType: "json",
-            success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-            
-        
-            },
-            error: function (e) { //服务器响应失败处理函数
-              $.messager.alert('警告', "系统错误", "warning");
-            },
-            complete: function (e) {//只要完成即执行，最后执行
-              // //console.log(e) 
-                // $("#file").replaceWith('<input id="file" name="file" type="file"/>');  
-=======
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
@@ -333,8 +292,6 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
                   // });
                   that.$router.push({path:'/Dangerous_goods_management/all'});
                 }
->>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
-                
               });
           } else {
               console.log('error submit!!');
@@ -433,12 +390,6 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
-<<<<<<< HEAD
-          //console.log(this.form.buildingId)
-=======
-          console.log(this.form.buildingId);
-          this.findPageBuildIngFloor();
->>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
           this.form.floorId = '';
           this.form.roomId = '';
           this.form.floorNumber = '';
@@ -488,13 +439,6 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           this.form.floorList.forEach((item,index)=>{
             if(item.id == this.form.floorId){
               this.form.floorNumber = item.floorName ;
-<<<<<<< HEAD
-              //console.log(this.form.floorNumber);
-=======
-              console.log(this.form.floorNumber);
-              
-              this.floor_btn(this.form.floorId);
->>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
             }
           })
         },

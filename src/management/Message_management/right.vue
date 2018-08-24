@@ -143,12 +143,38 @@
           if (response.data.pager) {
             this.tableData = response.data.pager.result;
 <<<<<<< HEAD
+<<<<<<< HEAD
             // //console.log(this.tableData);
             
 =======
             // console.log(this.tableData);
 >>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
             this.right_list();
+=======
+            // console.log(this.tableData);
+            this.right_list();
+          }
+        })
+        .then(err => {
+          // console.log(err);
+        });
+      },
+      EventMessage(){
+        this.$fetch(
+          "/api/event/queryEventMessage",{
+            currentPage:this.currentPage,
+            pageSize:10,
+            unitId:this.unitNotice
+          }
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.pager) {
+            this.tableData = response.data.pager.result;
+            // console.log(this.tableData);
+            
+            this.Event_list();
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
           }
         })
         .then(err => {
@@ -206,6 +232,7 @@
         deep: true
       },
 <<<<<<< HEAD
+<<<<<<< HEAD
       peopleTableData(){
         this.id = '' ;
         this.name = '' ;
@@ -228,6 +255,8 @@
         this.firemenTel = item.firemenTel ;
         this.corporation = item.corporation ;
 =======
+=======
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
       noticeId(){
         if(this.$route.path == '/Message_management/notice'){
           this.tableList();
@@ -235,6 +264,9 @@
         if(this.$route.path == '/Message_management/activity'){
           this.EventMessage();
         }
+<<<<<<< HEAD
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
+=======
 >>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
       }
     },

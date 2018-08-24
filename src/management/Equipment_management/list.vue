@@ -480,8 +480,11 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
 <<<<<<< HEAD
+<<<<<<< HEAD
           //console.log(this.form.buildingId)
 =======
+=======
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
           console.log(this.form.buildingId);
           this.findPageBuildIngFloor();
           this.form.point = '' ;
@@ -512,6 +515,9 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
               }
             });
           }
+<<<<<<< HEAD
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
+=======
 >>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
           this.form.floorId = '';
           this.form.roomId = '';

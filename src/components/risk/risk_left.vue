@@ -18,13 +18,15 @@
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 clearfix">
 					<li>
-						<p class="font-gray-666 size-12">中心小学</p>
+						<p class="font-gray-666 size-10">Risk Info</p>
 					</li>
 					<li>
 						<p class="font-blue size-16">风险评估
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span>
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+					            <el-tooltip content="全屏" placement="top">
+						            <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+						        </el-tooltip>
+					        </span>
 						</p>
 					</li>
 					<li>
@@ -32,7 +34,6 @@
 							<table class="table size-12 table-condensed toolroute-table margin-top10">
 								<thead>
 									<tr>
-										<th>序号</th>
 										<th>建筑名称</th>
 										<th>所属单位</th>
 										<th class="safe">安全评分</th>
@@ -42,142 +43,280 @@
 								</thead>
 								<tbody>
 									<tr @click="toiteminfo(1)">
-										<td>1</td>
 										<td>瑞和家园3号楼</td>
-										<td>瑞和家园</td>
-										<td class="safe">
-											<span class="bgbox-max bg-red font-black" data-toggle="tooltip" title="安全评分">1.9</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>瑞和家园</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">91.86%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-red font-black">1.9</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>91.86%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr @click="toiteminfo(2)">
-										<td>2</td>
-										<td>实验教学楼7号</td>
-										<td>实验小学</td>
-										<td class="safe">
-											<span class="bgbox-max bg-orange font-black" data-toggle="tooltip" title="安全评分">2.7</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>实验教学</span>
+											</el-tooltip>
+										楼7号</td>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>实验小学</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">73.14%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-orange font-black">2.7</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>73.14%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr @click="toiteminfo(3)">
-										<td>3</td>
 										<td>三年级教学楼</td>
-										<td>实验小学</td>
-										<td class="safe">
-											<span class="bgbox-max bg-orange font-black" data-toggle="tooltip" title="安全评分">3.3</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>实验小学</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">65.89%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-orange font-black">3.3</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>65.89%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr>
-										<td>4</td>
 										<td>二年级教学楼</td>
-										<td>实验小学</td>
-										<td class="safe">
-											<span class="bgbox-max bg-yellow font-black" data-toggle="tooltip" title="安全评分">4.3</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>实验小学</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">56.92%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-yellow font-black">4.3</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>56.92%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr>
-										<td>5</td>
 										<td>瑞和家园8号</td>
-										<td>瑞和家园</td>
-										<td class="safe">
-											<span class="bgbox-max bg-yellow font-black" data-toggle="tooltip" title="安全评分">4.8</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>瑞和家园</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">54.73%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-yellow font-black">4.8</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>54.73%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr>
-										<td>6</td>
 										<td>三年级教学楼</td>
-										<td>实验小学</td>
-										<td class="safe">
-											<span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">7.7</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>实验小学</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">31.74%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-blue font-black">7.7</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>31.74%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr>
-										<td>7</td>
 										<td>瑞和家园7号</td>
-										<td>瑞和家园</td>
-										<td class="safe">
-											<span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">8.4</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>瑞和家园</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">23.86%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-blue font-black">8.4</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>23.86%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr>
-										<td>8</td>
 										<td>瑞和家园12号</td>
-										<td>瑞和家园</td>
-										<td class="safe">
-											<span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">8.7</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>瑞和家园</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">20.47%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-blue font-black">8.7</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>20.47%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr>
-										<td>9</td>
 										<td>五年级教学楼</td>
-										<td>实验小学</td>
-										<td class="safe">
-											<span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">9.0</span>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>实验小学</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">13.07%</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-blue font-black">9.0</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>13.07%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>
 									<tr>
-										<td>10</td>
-										<td>一年级教学楼</td>
-										<td>实验小学</td>
-										<td class="safe">
-											<span class="bgbox-max bg-blue font-black" data-toggle="tooltip" title="安全评分">9.2</span>
+										<td>
+											<el-tooltip content="一年级教学楼" placement="top">
+												<span>一年级教学楼</span>
+											</el-tooltip>
 										</td>
-										<td class="risk">10.35%</td>
+										<td>
+											<el-tooltip content="单位名称" placement="top">
+												<span>实验小学</span>
+											</el-tooltip>
+										</td>
+										<td class="safe">
+											<el-tooltip placement="top">
+												<div slot="content">安全评分 8.0</div>
+												<span class="bgbox-max bg-blue font-black">9.2</span>
+											</el-tooltip>
+										</td>
+										<td class="risk">
+											<el-tooltip placement="top">
+												<div slot="content">风险系数 20.56%</div>
+												<span>10.35%</span>
+											</el-tooltip>
+										</td>
 										<td>
 											<a @click="moren">
-												<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="查看详情"></i>
+												<el-tooltip content="查看详情" placement="top">
+													<i class="fas fa-chevron-circle-right"></i>
+												</el-tooltip>
 											</a>
 										</td>
 									</tr>

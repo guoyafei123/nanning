@@ -39,15 +39,16 @@
         <ul>
           <li v-for="item in getMessageDateSys" :key="item.id" :class="[item.type===6?'activity':'system',
           item.status===1?'unread':'' ]">
+            <h3 @click="reedMsg(item)" v-if="item.type===5">
+              "{{item.title}}"
+              <span v-if="item.type===6">{{item.senderName}}</span>
+            </h3>
             <h3 @click="showTabcont(item)" v-if="item.type===6">
-              <!--<span v-if="item.type===6">{{item.senderName}}</span>-->
-              {{item.title}}
+
+              "{{item.title}}"
             </h3>
-            <h3 @click="reedMsg(item)" v-if="item.type===7">
-              {{item.title}}
-            </h3>
+            <small v-if="item.type==5">系统公告<span>{{item.sendTime}}</span></small>
             <small v-if="item.type==6">活动通知<span>{{item.sendTime}}</span></small>
-            <small v-if="item.type==7">系统公告<span>{{item.sendTime}}</span></small>
           </li>
         </ul>
       </div>
@@ -205,7 +206,7 @@
       },
       //系统消息
       queryMessageSys() {
-        let types = [6, 7]
+        let types = [5,6]
         this.$fetch('/api/user/queryMessage?types=' + types, this.getMessageDate_param)
           .then(response => {
             if (response) {

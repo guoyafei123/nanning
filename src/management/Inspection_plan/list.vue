@@ -730,7 +730,11 @@
         buildingNode(curVal,oldVal){
           this.buildingNode = curVal ;
 <<<<<<< HEAD
+<<<<<<< HEAD
           // //console.log(this.building);
+=======
+          console.log(this.building);
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
 =======
           console.log(this.building);
 >>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
