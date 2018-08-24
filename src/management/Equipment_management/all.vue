@@ -335,6 +335,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
@@ -377,7 +378,7 @@
 
 
         
-        unit:'',//选择单位
+        unit:null,//选择单位
         building:'',//选择建筑
         floor:'',
         room:'',
@@ -669,9 +670,10 @@
       },
       unit(curVal,oldVal){
         this.unit = curVal;
-        this.tableList();
+        
         this.buildSearch(this.unit);
         this.$store.commit('Unit',this.unit);
+        this.tableList();
       },
       building(curVal,oldVal){
         this.building = curVal ;
@@ -724,6 +726,9 @@
       },
       equipmentId(curVal,oldVal){
         this.form.equipmentId = curVal;
+      },
+      Refresh(){
+        // this.floor
       }
     },
     mounted(){
@@ -736,6 +741,9 @@
       if(this.$route.path == '/Equipment_management/all'){
         $('.mapTable').hide();
       }
-    }
+    },
+    computed:mapState([
+      'Refresh'
+    ])
   };
 </script>

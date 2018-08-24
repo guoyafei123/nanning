@@ -397,7 +397,7 @@
                             </div> 
                             <input id="file" name="file" type="file">
                           </div>-->
-                          <input id="file" name="file" type="file">
+                          <input id="up_file" name="file" type="file">
                         </div>
                         <div class="col-sm-6">                          
                           <a @click="xiugai_cancel(index)" class="btn-false">取消</a>
@@ -584,7 +584,7 @@
         this.index++;
         $('.add').hide();
         this.floor_index = this.index;
-        console.log(this.floor_index)
+        console.log(this.floor_index);
         var file = "file";
         let array={ 'buildingId': this.buildingId, 'floor': this.floor_index, 'floorName': this.number}
               
@@ -613,11 +613,12 @@
         this.number = '' ;
         var file = document.getElementById('file');
         file.outerHTML = file.outerHTML;
-        
+        this.$store.commit('Refresh',this.Refresh);
       },
       cancel(){
         $('.add').hide();
         this.number = '' ;
+        
       },
       xiugai(indexs){
         this.table_list.forEach((item,index)=>{
@@ -628,6 +629,7 @@
             $('.xiugai_edit:eq('+indexs+')').show();
           }
         })
+        // console.log(indexs);
       },
       xiugai_sure(indexs){
         // console.log(indexs);
@@ -639,7 +641,7 @@
             $('.xiugai:eq('+indexs+')').hide();
             $('.weixiugai_edit:eq('+indexs+')').show();
             $('.xiugai_edit:eq('+indexs+')').hide();
-            var file = "file";
+            var file = "up_file";
             $.ajaxFileUpload({
                 url: '/api/building/updateBuildingFloor', //用于文件上传的服务器端请求地址
                 /* secureuri : false, */ //一般设置为false
@@ -664,6 +666,7 @@
             });
           }
         })
+        this.$store.commit('Refresh',this.Refresh);
       },
       xiugai_cancel(indexs){
         this.table_list.forEach((item,index)=>{

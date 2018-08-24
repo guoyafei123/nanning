@@ -38,7 +38,6 @@
           </el-form-item>
           <el-form-item label="所属单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="请选择" class="select selectUnit col-sm-4">
-              <el-option label="全部" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>          
@@ -72,7 +71,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="坐标">
+          <el-form-item label="坐标" prop="pointX">
             <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
             <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
           </el-form-item>
@@ -157,7 +156,7 @@
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
-        <img :src="this.svgUrl" class="img-responsive">
+        <img  id="imgPic" :src="this.svgUrl" class="img-responsive" @click="addDevice()">
       </div>
     </aside>
   </div>
@@ -167,6 +166,7 @@
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
+import { getTopLeftRate } from '../../assets/js/imgPoint';
     export default {
       data() {
         var validPhone=(rule, value,callback)=>{
@@ -294,6 +294,9 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             Retroperiod:[
               { required: true, trigger: 'blur', message: '请输入更换周期' },
               { type: 'number', message: '必须为数字值'}
+            ],
+            pointX:[
+              { required: true, trigger: 'blur', message: '请填写经纬度' }
             ]
           }
         }
@@ -426,6 +429,9 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               console.log(this.form.roomList);
             }
           })
+        },
+        addDevice(){
+          alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
         }
       },
       computed:{
@@ -469,6 +475,25 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           }else{
             $('.map').hide();
             $('.floorMap').show();
+            $("#imgPic").on("load",function(){
+              var winwidth = window.screen.width;
+              var winheight = window.screen.height;
+              var fjwidth = $('#imgPic').width();
+              var fjheight = $('#imgPic').height();
+              var newwidth=0;
+              var newheight=0;
+              if(fjwidth>winwidth || fjheight>winheight){
+                var ratewid = fjwidth/winwidth;
+                var ratehei = fjheight/winheight;
+                if(ratewid>ratehei){
+                  $("#imgPic").width(winwidth);
+                  $("#imgPic").height(winheight/ratewid);
+                }else{
+                  $("#imgPic").height(winheight);
+                  $("#imgPic").width(winwidth/ratehei);
+                }
+              }
+            });
           }
           this.form.floorId = '';
           this.form.roomId = '';
@@ -487,7 +512,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
-          this.form.floor_btn(this.form.floorId);
+          this.floor_btn(this.form.floorId);
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }

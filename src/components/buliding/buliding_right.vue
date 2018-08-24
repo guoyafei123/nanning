@@ -308,9 +308,13 @@ export default {
     },
     
     buildDetailinfos(){
-      this.buildDetaiData=this.buildDetailinfos[0];
-      this.buildDetails_parameter.buildingId = this.buildDetaiData.buildingId;
-      this.getBuildDetails();
+      if(this.buildDetailinfos[0] == null){
+        this.jianzhu();
+      }else{
+        this.buildDetaiData=this.buildDetailinfos[0];
+        this.buildDetails_parameter.buildingId = this.buildDetaiData.buildingId;
+        this.getBuildDetails();
+      }
     },
     unitid(){
       if(this.unitid!=0){

@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 var state={
+  mapShow:true,
   //单位
   unitNum:'',
   unitList:[],
@@ -28,6 +29,7 @@ var state={
   floorAdd:'',
   floorId:'',
   buildPoint:'',
+  Refresh:'',
   //人员
   unitNumber:'',
   peopleTableData:'',
@@ -73,6 +75,9 @@ var state={
 }
 
 var mutations={
+  mapShow(state,data){
+    state.mapShow = data ;
+  },
   //单位
   unitNum(state,data){
     state.unitNum = data;
@@ -139,6 +144,9 @@ var mutations={
   },
   buildPoint(state,data){
     state.buildPoint = data ;
+  },
+  Refresh(state,data){
+    state.Refresh = data ;
   },
   //人员
   unitNumber(state,data){
@@ -233,7 +241,7 @@ var mutations={
   },
   aleamAndtroubleInfo(state,data){
     state.aleamAndtroubleInfo=data;
-  },
+  }
 }
 
 export default new Vuex.Store({
