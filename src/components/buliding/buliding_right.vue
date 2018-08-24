@@ -489,11 +489,11 @@ export default {
                   position: "top",
                   textStyle: {
                     color: function(params) {
-                      if (params.value > 0 && params.value < 100) {
+                      if (params.value > 0 && params.value < 2) {
                         return "#333333";
-                      } else if (params.value >= 100 && params.value <= 200) {
+                      } else if (params.value >= 2 && params.value <= 5) {
                         return "#666666";
-                      } else if (params.value >= 200 && params.value <= 300) {
+                      } else if (params.value >= 5 && params.value <= 10) {
                         return "#999999";
                       }
                       return "#bad616";
@@ -508,11 +508,11 @@ export default {
                   }
                 },
                 color: function(params) {
-                  if (params.value > 0 && params.value < 100) {
+                  if (params.value > 0 && params.value < 2) {
                     return "#333333";
-                  } else if (params.value >= 100 && params.value <= 200) {
+                  } else if (params.value >= 2 && params.value <= 5) {
                     return "#666666";
-                  } else if (params.value >= 200 && params.value <= 300) {
+                  } else if (params.value >= 5 && params.value <= 10) {
                     return "#999999";
                   }
                   return "#bad616";
