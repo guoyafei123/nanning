@@ -19,19 +19,19 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+        <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form" >
           <el-form-item label="路线名称" class="not-null">
             <!-- <span class="hint-error">单位名称有误或重复</span> -->
-            <el-input v-model="form.name" class="col-sm-8"></el-input>
+            <el-input v-model="form.name" class="col-sm-10"></el-input>
           </el-form-item>
-          <el-form-item label="选择单位" class="not-null">
-            <el-select v-model="region1" placeholder="选择单位" class="select col-sm-4">
+          <el-form-item label="所属单位" class="not-null">
+            <el-select v-model="region1" placeholder="请选择" class="select col-sm-4">
               <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="巡检类型" class="not-null">
-            <el-select v-model="form.region2" placeholder="巡检类型" class="select col-sm-4">
+            <el-select v-model="form.region2" placeholder="请选择" class="select col-sm-4">
               <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -341,14 +341,14 @@
 
 
           if(this.building !== 0 && this.building !== '0'){//起点
-            this.startNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
+            this.inspectionNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
           }else{
-            this.startNodes.push({sorting:0,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipment,deviceName:equipmentListName});
+            this.inspectionNodes.push({sorting:0,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipment,deviceName:equipmentListName});
           }
           if(this.buildings !== 0 && this.buildings !== '0'){//终点
-            this.endNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
+            this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
           }else{
-            this.endNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
+            this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
           }
           //console.log(this.endNodes);
 
@@ -490,7 +490,7 @@
         equipmentSearchOut(unit,buildingId){
           this.$fetch("/api/building/selectNode",{
             unitId:unit,
-            buildingId:buildingId
+            buildIngId:buildingId
           }).then(response=>{
             //console.log('equipmentSearch:'+response);
             if (response) {
@@ -546,7 +546,7 @@
         equipmentSearchsOut(unit,buildIngId){
           this.$fetch("/api/building/selectNode",{
             unitId:unit,
-            buildingId:buildingId
+            buildIngId:buildIngId
           }).then(response=>{
             //console.log('equipmentSearchs:'+response);
             if (response) {
@@ -602,7 +602,7 @@
         equipmentSearchNodeOut(unit,buildingId){
           this.$fetch("/api/building/selectNode",{
             unitId:unit,
-            buildingId:buildingId
+            buildIngId:buildingId
           }).then(response=>{
             //console.log('equipmentSearchNode:'+response);
             if (response) {
@@ -618,14 +618,11 @@
               unitName = item.name;
             }
           });
-          this.$fetch("/api/admin/inspection/insertInspectionPlan",{
-            name:this.form.name,
-            type:this.form.region2,
-            unitId:this.region1,
-            unitName:unitName,
-            startNodes:this.startNodes,
-            endNodes:this.endNodes,
-            inspectionNodes:this.inspectionNodes
+          var inspectionNodes = { name:this.form.name,type:this.form.region2,unitId:this.region1,unitName:unitName,inspectionNodes:this.inspectionNodes };
+          this.$post("/api/admin/inspection/insertInspectionPlan",inspectionNodes,{
+            headers: {
+              'Content-Type': 'application/json'
+            }
           }).then(response=>{
             //console.log(response);
             //console.log(this.startNodes);
@@ -676,6 +673,7 @@
             $('.startRoom').hide();
             $('.startDevice').show();
             this.equipment = '';
+            console.log(this.building)
             this.equipmentSearchOut(this.region1,this.building);
           }
         },
@@ -731,7 +729,11 @@
         },
         buildingNode(curVal,oldVal){
           this.buildingNode = curVal ;
+<<<<<<< HEAD
           // //console.log(this.building);
+=======
+          console.log(this.building);
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
           if(this.buildingNode !== 0 && this.buildingNode !== '0'){
             $('.NodeFloor').show();
             $('.NodeDevice').hide();

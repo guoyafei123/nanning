@@ -16,9 +16,9 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+        <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
           <el-form-item label="所属单位" prop="unitId" class="not-null">
-            <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-8">
+            <el-select v-model="form.unitId" placeholder="请选择" class="select col-sm-4">
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -125,8 +125,10 @@ import { isvalidName } from '../../assets/js/validate';
             //console.log(res);
             this.$router.push({path:'/Message_management/notice'});
             this.$message({
-              message: '发布系统公告成功！！',
-              type: 'success'
+              message: '发布成功！！',
+              type: 'success',
+              iconClass: 'el-icon-circle-check',
+              customClass:'edit-ok-notification'
             });
           })
         },

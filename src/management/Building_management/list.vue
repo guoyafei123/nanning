@@ -16,32 +16,32 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-          <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+          <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
             <el-form-item label="建筑名称" prop="BuildName" class="not-null">
               <!-- <span class="hint-error">建筑名称有误或重复</span> -->
-              <el-input v-model="form.BuildName" class="col-sm-6"></el-input>
+              <el-input v-model="form.BuildName" class="col-sm-8"></el-input>
             </el-form-item>
             <el-form-item label="所属单位" prop="unitId" class="not-null">
-              <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-6">
+              <el-select v-model="form.unitId" placeholder="请选择" class="select col-sm-4">
                 <!-- <el-option label="全部单位" value=""></el-option> -->
                 <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="建筑结构" prop="structure" class="not-null col-sm-6">
-              <el-select name="" v-model="form.structure" placeholder="请选择结构">
+            <el-form-item label="建筑结构" prop="structure" class="not-null col-sm-4">
+              <el-select name="" v-model="form.structure" placeholder="请选择">
                 <el-option label="砖混" value="砖混"></el-option>
                 <el-option label="钢结构" value="钢结构"></el-option>
-                <el-option label="木质" value="木质"></el-option>
+                <el-option label="木质结构" value="木质结构"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="建筑性质" prop="property" class="not-null col-sm-6">
-              <el-select v-model="form.property" placeholder="建筑性质">
+            <el-form-item label="建筑性质" prop="property" class="not-null col-sm-4">
+              <el-select v-model="form.property" placeholder="请选择">
                 <el-option label="居住" value="居住"></el-option>
                 <el-option label="公共" value="公共"></el-option>
                 <el-option label="工业" value="工业"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="建成年份" prop="timeYear" class="not-null col-sm-6">
+            <el-form-item label="建成年份" prop="timeYear" class="not-null col-sm-4">
               <div class="block">
                 <el-date-picker
                   v-model="form.timeYear"
@@ -52,26 +52,26 @@
                 </el-date-picker>
               </div>
             </el-form-item>
-            <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-6">
+            <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-4">
               <el-input v-model.number="form.area"></el-input>
             </el-form-item>
-            <el-form-item label="高度 (m)" prop="height" class="not-null col-sm-6">
+            <el-form-item label="高度 (m)" prop="height" class="not-null col-sm-4">
               <el-input v-model.number="form.height"></el-input>
             </el-form-item>
-            <el-form-item label="总楼层" prop="floor" class="not-null col-sm-6">
+            <el-form-item label="总楼层" prop="floor" class="not-null col-sm-4">
               <el-input v-model.number="form.floor"></el-input>
             </el-form-item>
             <el-form-item label="建筑地址" prop="address" class="not-null">
-              <el-input v-model="form.address" class="col-sm-12"></el-input>
+              <el-input v-model="form.address" class="col-sm-8"></el-input>
             </el-form-item>
-            <el-form-item label="经纬度" class="not-null">
-              <el-input v-model="form.point.pointX" class="col-sm-6"></el-input>
-              <el-input v-model="form.point.pointY" class="col-sm-6"></el-input>
+            <el-form-item label="经纬度" prop="pointX" class="not-null">
+              <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
+              <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
             </el-form-item>          
-            <el-form-item label="消防负责人" prop="name" class="not-null col-sm-6">
+            <el-form-item label="消防负责人" prop="name" class="not-null col-sm-4">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="消防负责人电话" prop="phone" class="not-null col-sm-6">
+            <el-form-item label="消防负责人电话" prop="phone" class="not-null col-sm-4">
               <el-input v-model.number="form.phone"></el-input>
             </el-form-item>          
           </el-form>        
@@ -84,15 +84,15 @@
       <!-- 地图 -->
       <aside>      
           <div class="maps">
-            <div class="text-center padding-top120">
-              <h1 class="size-80 font-white">地图</h1>
-            </div>
+              <managementMap-vue></managementMap-vue>
           </div>
       </aside>
     </div>
 </template>
 
 <script>
+import{ mapState } from "vuex"
+import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
     export default {
       data() {
@@ -172,6 +172,9 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               { required: true, trigger: 'blur', message: '请输入总楼层' },
               { type: 'number', message: '必须为数字值'}
             ],
+            pointX:[
+              { required: true, trigger: 'blur', message: '请填写经纬度' }
+            ],
             address:[
               { required: true, trigger: 'blur', message: '请填写建筑地址' }
             ],
@@ -183,6 +186,9 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             ]
           }
         }
+      },
+      components:{
+        'managementMap-vue': managementMapVue,
       },
       methods:{
         btn(formName){
@@ -246,17 +252,18 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         }
       },
       mounted(){
-        $('.el-scrollbar').css({
-            'background':'#000'
-        });
-        $('.el-select-dropdown').css('border-color','#333');
-        $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
-
         this.unitSearch();
-      }
+      },
+      watch:{
+        buildPoint(){
+          this.form.point.pointX = this.buildPoint[0];
+          this.form.point.pointY = this.buildPoint[1];
+          console.log(this.form.point.pointX)
+        }
+      },
+      computed:mapState([
+        'buildPoint'
+      ])
     }
 </script>
 

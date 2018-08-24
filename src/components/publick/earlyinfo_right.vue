@@ -196,9 +196,9 @@
 						<div class="col-sm-12">
 							<span>报警描述 </span>
 							<strong>
-                          <span class="bgbox-voice bg-blue font-black">
-                              <!-- <i class="icon iconfont icon-tongzhi-xian-"></i> 32S -->
-							  </span>
+                          <!-- <span class="bgbox-voice bg-blue font-black">
+                              <i class="icon iconfont icon-tongzhi-xian-"></i> 32S
+							  </span> -->
                           <span>{{aleamAndtroubleInfos.remark?aleamAndtroubleInfos.remark:'-'}}</span>
                       </strong>
 						</div>

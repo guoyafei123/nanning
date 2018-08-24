@@ -297,7 +297,7 @@
                 </div>
                 <div class="modal-body">
                   <div class="main_content">
-                    <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+                    <el-form class="row" status-icon ref="form" :label-position="labelPosition" :model="form">
                       <el-form-item label="设备名称">
                         <span class="hint-error">设备名称有误或重复</span>
                         <el-input v-model="form.name" class="col-sm-4"></el-input>

@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 var state={
+  iconByType:'',
+  mapShow:true,
   //单位
   unitNum:'',
   unitList:[],
@@ -20,12 +22,15 @@ var state={
   roomDevice:'',
   equipmentDevice:'',
   DeviceMap:[],
+  DeviceList:'',
   //建筑
   buildUnit:'',
   buildingId:'',
   tableData:[],
   floorAdd:'',
   floorId:'',
+  buildPoint:'',
+  Refresh:'',
   //人员
   unitNumber:'',
   peopleTableData:'',
@@ -40,6 +45,7 @@ var state={
   unitPlan:'',
   //消息
   noticeId:'',
+  unitNotice:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -74,6 +80,12 @@ var state={
 }
 
 var mutations={
+  iconByType(state,data){
+    state.iconByType = data ;
+  },
+  mapShow(state,data){
+    state.mapShow = data ;
+  },
   //单位
   unitNum(state,data){
     state.unitNum = data;
@@ -119,6 +131,9 @@ var mutations={
   DeviceMap(state,data){
     state.DeviceMap = data ;
   },
+  DeviceList(state,data){
+    state.DeviceList = data ;
+  },
   //建筑
   buildUnit(state,data){
     state.buildUnit = data;
@@ -135,7 +150,12 @@ var mutations={
   floorId(state,data){
     state.floorId = data ;
   },
-
+  buildPoint(state,data){
+    state.buildPoint = data ;
+  },
+  Refresh(state,data){
+    state.Refresh = data ;
+  },
   //人员
   unitNumber(state,data){
     state.unitNumber = data ;
@@ -170,6 +190,9 @@ var mutations={
   //消息
   noticeId(state,data){
     state.noticeId = data ;
+  },
+  unitNotice(state,data){
+    state.unitNotice = data ;
   },
   // 展示端的store
   setvuextest(state,data){
@@ -227,10 +250,14 @@ var mutations={
   },
   aleamAndtroubleInfo(state,data){
     state.aleamAndtroubleInfo=data;
+<<<<<<< HEAD
   },
   mapAllUnit(state,data){
     state.mapAllUnit=data;
   },
+=======
+  }
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
 }
 
 export default new Vuex.Store({

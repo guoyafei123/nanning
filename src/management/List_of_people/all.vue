@@ -115,7 +115,7 @@
               class类not-null为必填标识,如需请加在<el-form-item>
               class类hint-error为错误提示
              -->             
-              <el-form class="row" :rules="rules" ref="form" :label-position="labelPosition" :model="form">
+              <el-form class="row" status-icon :rules="rules" ref="form" :label-position="labelPosition" :model="form">
                 <el-form-item label="姓名" prop="nickName" class="not-null">
                   <el-input v-model="form.nickName" class="col-sm-4"></el-input>
                 </el-form-item>

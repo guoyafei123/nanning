@@ -11,6 +11,7 @@
         </div>
       </div>
       <div class="main_all_content">
+        <!-- 筛选 -->
         <div class="main_content_top">
           <el-form class="float-left">
             <el-select v-model="buildUnit" placeholder="选择单位" class="select build">
@@ -18,7 +19,7 @@
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
             <!-- 楼层管理 -->
-            <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="width:150px;display:none;">
+            <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="display:none;margin-left: 15px;">
               <el-option label="全部楼层" value=""></el-option>
               <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -35,14 +36,19 @@
         <div class="floorMap maps" style="display:none;">
           <ul class="list-unstyled floor-item">
               <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
-          </ul> 
+          </ul>
+          <div>
+            <!-- <img src="../../assets/images/floor.png" class="img-responsive"> -->
           <img :src="this.svgUrl" class="img-responsive">
+          </div>          
         </div>
         <div class="roomMap maps" style="display:none;">
           <ul class="list-unstyled floor-item">
               <li>{{ this.floorName }}</li>
-          </ul> 
-          <img :src="this.roomSvgUrl" class="img-responsive">
+          </ul>
+          <div>
+            <img :src="this.roomSvgUrl" class="img-responsive">
+          </div>
         </div>
       </div>
     </aside>

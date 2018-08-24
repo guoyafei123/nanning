@@ -231,6 +231,9 @@
     .header-middle {
         width: 91%;
     }
+    .early-list li article h5 {
+        width: 64%;
+    }
 }
 @media (min-width: 1920px) and (max-width:2229px){
     /*管理端*/
@@ -309,6 +312,10 @@
     .unit-info li:nth-child(2) article {
         padding: 0 10px;
     }
+    .early-list li article h5 {
+        width: 66%;
+    }
+    
 }
 @media (min-width: 2560px) {
     /*管理端*/
@@ -384,6 +391,12 @@
     .unit-info li:nth-child(2) article {
         padding: 0 12px;
     }
+    .early-list li article h5 {
+        width: 72%;
+    }
+    .early-list li article h4 a {
+        padding-left: 12px;
+    }
 }
 /*高度*/
 @media screen and (min-height: 1440px){
@@ -405,6 +418,10 @@
     .manage-menu-title {
       height: 140px;
     }
+    #add-new {
+      height: 781px!important;
+    }
+    
 }
 @media screen and (min-height: 1080px){
     /*.el-table__body-wrapper {
@@ -422,8 +439,18 @@
     .manage-menu-title {
       height: 140px;
     }
+    
+    #manage-center,.toolleft {
+        margin-top: 120px;
+    }
+    .toolright {
+        padding-top: 120px;
+    }
+    #header {
+        margin-top: 0px;
+    }
 }
-@media screen and (min-height: 768px) and (max-height: 1079px){
+@media screen and (min-height: 769px) and (max-height: 1080px){
     /*.el-table__body-wrapper {
         height: 91.6%!important;
     }
@@ -436,8 +463,26 @@
     #manage-center {
         max-height: 77%;
     }*/
+    /*#add-new {
+      height: 641px;
+    }*/
+    .manage-menu .main_aside ul>li {
+        margin-top: 20px;
+    }
+    #list-maps .maps {
+        height: 560px;
+    }
+    /*#manage-center,.toolleft {
+        margin-top: 80px;
+    }
+    .toolright {
+        padding-top: 80px;
+    }
+    #header {
+        margin-top: -16px;
+    }*/
 }
-@media screen and (max-height: 767px){
+@media screen and (max-height: 768px){
     .el-table__body-wrapper {
         height: 91.8%!important;
     }
@@ -452,6 +497,18 @@
     }*/
     .manage-menu-title {
         height: 60px;
+    }
+    #add-new {
+      height: 601px;
+    }
+    #manage-center,.toolleft {
+        margin-top: 80px;
+    }
+    .toolright {
+        padding-top: 80px;
+    }
+    #header {
+        margin-top: -16px;
     }
 }
 

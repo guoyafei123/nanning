@@ -54,10 +54,10 @@
                   </div>          
               </div>
     </section>
-    <!-- 安防信息 -->
+    <!-- 消防信息 -->
       <section>
         <div class="textandimg margin-top30">
-              <h4 class="p-title">安防信息</h4>
+              <h4 class="p-title">消防信息</h4>
               <div class="row textandimg-main margin-top20 size-12">
                   <div class="col-sm-12">
                       <span>消防负责人 </span>

@@ -234,7 +234,7 @@
                 <h4 class="modal-title" id="myModalLabel">修改建筑</h4>
               </div>
               <div class="modal-body" style="height:550px;overflow-y:auto;">
-                <el-form ref="form" :label-position="labelPosition" :inline="true" :model="form">
+                <el-form ref="form" status-icon :label-position="labelPosition" :inline="true" :model="form">
                   <el-form-item label="建筑名称">
                     <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
                     <el-input v-model="form.BuildName"></el-input>
@@ -248,10 +248,10 @@
                   <el-form-item label="建筑地址">
                     <el-input v-model="form.address"></el-input>
                   </el-form-item>
-                  <el-form-item label="占地面积（m^2）">
+                  <el-form-item label="占地面积 (㎡)">
                     <el-input v-model="form.area"></el-input>
                   </el-form-item>
-                  <el-form-item label="高度">
+                  <el-form-item label="高度 (m)">
                     <el-input v-model="form.height"></el-input>
                   </el-form-item>
                   <el-form-item label="总楼层">
@@ -397,7 +397,7 @@
                             </div> 
                             <input id="file" name="file" type="file">
                           </div>-->
-                          <input id="file" name="file" type="file">
+                          <input id="up_file" name="file" type="file">
                         </div>
                         <div class="col-sm-6">                          
                           <a @click="xiugai_cancel(index)" class="btn-false">取消</a>
@@ -584,7 +584,11 @@
         this.index++;
         $('.add').hide();
         this.floor_index = this.index;
+<<<<<<< HEAD
         //console.log(this.floor_index)
+=======
+        console.log(this.floor_index);
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
         var file = "file";
         let array={ 'buildingId': this.buildingId, 'floor': this.floor_index, 'floorName': this.number}
               
@@ -613,11 +617,12 @@
         this.number = '' ;
         var file = document.getElementById('file');
         file.outerHTML = file.outerHTML;
-        
+        this.$store.commit('Refresh',this.Refresh);
       },
       cancel(){
         $('.add').hide();
         this.number = '' ;
+        
       },
       xiugai(indexs){
         this.table_list.forEach((item,index)=>{
@@ -628,6 +633,7 @@
             $('.xiugai_edit:eq('+indexs+')').show();
           }
         })
+        // console.log(indexs);
       },
       xiugai_sure(indexs){
         // //console.log(indexs);
@@ -639,7 +645,7 @@
             $('.xiugai:eq('+indexs+')').hide();
             $('.weixiugai_edit:eq('+indexs+')').show();
             $('.xiugai_edit:eq('+indexs+')').hide();
-            var file = "file";
+            var file = "up_file";
             $.ajaxFileUpload({
                 url: '/api/building/updateBuildingFloor', //用于文件上传的服务器端请求地址
                 /* secureuri : false, */ //一般设置为false
@@ -664,6 +670,7 @@
             });
           }
         })
+        this.$store.commit('Refresh',this.Refresh);
       },
       xiugai_cancel(indexs){
         this.table_list.forEach((item,index)=>{

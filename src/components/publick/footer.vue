@@ -1,7 +1,7 @@
 <template>
 	<footer id="footer" class="col-sm-12 position-fixed-bottom z-index-9999">
 		<div class="footer">
-			<ul class="list-inline margin-bottom20">
+			<ul class="list-inline margin-bottom20" @click="management">
 				<li class="footer-nav-active">
 					<router-link to="/index">
 						<el-badge :value="200" :max="99" class="item">
@@ -59,6 +59,9 @@
 					$(this).addClass("footer-nav-active").siblings().removeClass('footer-nav-active');
 					// that.$store.commit('route_path',that.$route.path);
 				})
+			},
+			management(){
+				this.$store.commit('mapShow',true);
 			}
 		},
 

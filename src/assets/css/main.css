@@ -197,6 +197,8 @@ h4.p-title {
     padding-left: 10px;
     color: #fff;
     font-size: 14px;
+    width: 100%;
+    clear: both;
 }
 
 h4.p-title:before {
@@ -210,7 +212,10 @@ h4.p-title:before {
     background-color: rgba(186,214,22,1);
 }
 /*风险评估*/
-#risk .toolleft table tr>td.safe{
+#risk .toolleft table tr>th.safe,
+#risk .toolleft table tr>th.risk,
+#risk .toolleft table tr>td.safe,
+#risk .toolleft table tr>td.risk {
     text-align: center!important;
 }
 #risk .toolleft table tr>td.safe .bgbox-max {
@@ -542,12 +547,18 @@ span.point {
     width: 33.3%;
     float: left;
     line-height: 26px;
+    padding-left: 20px;
+    display: inline-block;
+}
+.unit-info li:last-child article:first-child,.unit-info li:last-child article:nth-child(4) {
+    padding-left: 0;
 }
 .unit-info li:last-child article span{
     color: #fff;
-    margin-left: 6px;
     font-size: 14px;
+    float: right;
 }
+
 .toolcount abbr {
     position: relative;
     display: inline-block;
@@ -659,8 +670,8 @@ span.point {
   font-size: 12px;
   width: 22px;
   height: 22px;
-  border-color: #222;
-  background-color: #222;
+  border-color: #000;
+  background-color: #000;
   line-height: 22px;
   padding:0 4px;
   color: #999;
@@ -670,11 +681,11 @@ span.point {
 }
 .indexdateabox>.indexdateactive {
   color: #fff;
-  background-color: #000;
+  background-color: #222;
 }
 .indexdateabox >b:hover {
   color: #fff;
-  background-color: #000;
+  background-color: #222;
 }
 /*聚合小地图*/
 #min-map {
@@ -947,4 +958,20 @@ a.min-map-cloase:hover {
 }
 #building #left .toolcompanyrate  div>p {
     line-height: 24px;
+}
+
+#left .toolroute .table{
+    margin-bottom: 0px;
+}
+#left .toolroute li p.size-10 {
+    margin-left: -5px;
+}
+#left .toolroute>ul>li:first-child {
+    margin-top: -4px;
+}
+#right .alarm-info {
+    width: 100%;
+    max-height: 460px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }

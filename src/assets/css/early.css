@@ -146,7 +146,7 @@
     overflow-y: auto; 
 }
 .early-list::-webkit-scrollbar {
-    width: 0px;
+    width: 2px;
     height:0px;
 }
 .early-list li {
@@ -175,7 +175,7 @@
     float: right;
     color: #ccc;
     text-align: right;
-    padding-left: 16px;
+    padding-left: 8px;
     display: block;
 }
 .early-list li article h4 i {
@@ -217,7 +217,12 @@
 .early-list li var p span.badge {
     border-radius: 0;
     font-weight: normal;
-    padding: 2px 4px;
+    padding: 4px 6px;
+    margin-right: 10px;
+    font-size: 12px;
+    display: inline-block;
+    transform: scale(0.84,0.84);
+    -webkit-transform: scale(0.84,0.84);
     clear: both;
 }
 .early-list li var p span.badge:nth-last-child(2) {
@@ -236,6 +241,13 @@
     font-size: 18px;
     position: relative;
     top: 2px;
+}
+#early .unit-info li:last-child article span {
+    float: none;
+    font-size: 12px;
+}
+#early .early-list li var p span.badge {
+    margin-right: -6px;
 }
 /*聚合*/
 .early-single var p i:first-child {

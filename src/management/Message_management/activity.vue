@@ -127,8 +127,15 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       show3(row){//跳转
+<<<<<<< HEAD
         //console.log(row.id);
         this.$store.commit('unitNum',row.id);
+=======
+        console.log(row.id);
+        this.$store.commit('currentPage',this.currentPage4);
+        this.$store.commit('noticeId',row.id);
+        this.$store.commit('unitNotice',this.unit);
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
       },
       tableList(){
         this.$fetch(
@@ -147,13 +154,20 @@
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
+                  this.$store.commit('currentPage',this.currentPage4);
                   this.$store.commit('noticeId',item.id);
+<<<<<<< HEAD
                   //console.log(item.id)
                 }
                 if(item.id == this.deviceIndex){
                   this.$store.commit('peopleTableData',item);
                   // //console.log(item)
                 }
+=======
+                  this.$store.commit('unitNotice',this.unit);
+                  console.log(item.id)
+                }
+>>>>>>> b24e63e6ae6b807f083929d4c4fa0796bc623783
               })
               if(this.totalList % 10 == 0){
                 this.page = parseInt( this.totalList / 10 )

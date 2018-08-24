@@ -1,5 +1,5 @@
 <template>
-  <div id="add-new">
+  <div id="add-new" class="add-map">
     <aside>
       <div class="main_header clearFix">
         <div class="main_title float-left clearFix">
@@ -16,13 +16,13 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" :rules="rules" ref="form" :label-position="labelPosition" :model="form">
+        <el-form class="row" :rules="rules" status-icon ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="单位名称" prop="name" class="not-null">
             <!-- <span class="hint-error">单位名称有误或重复</span> -->
             <el-input v-model="form.name" class="col-sm-4"></el-input>
           </el-form-item>
           <el-form-item label="单位性质" prop="property" class="not-null">
-            <el-select name="" v-model="form.property" placeholder="请选择单位" class="col-sm-4">
+            <el-select name="" v-model="form.property" placeholder="请选择" class="col-sm-4">
               <el-option label="事业单位" value="事业单位"></el-option>
               <el-option label="国家行政机关" value="国家行政机关"></el-option>
               <el-option label="政府" value="政府"></el-option>
@@ -45,6 +45,10 @@
           <el-form-item label="单位地址" prop="location" class="not-null">
             <el-input v-model="form.location" class="col-sm-8"></el-input>
           </el-form-item>
+          <el-form-item label="经纬度" prop="pointX" class="not-null">
+            <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
+            <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
+          </el-form-item>   
           <el-form-item label="消防负责人" prop="firemenName" class="not-null col-sm-4">
             <el-input v-model="form.firemenName"></el-input>
           </el-form-item>
@@ -69,10 +73,18 @@
         <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
+    <!-- 地图 -->
+      <aside>      
+          <div class="maps">
+              <managementMap-vue></managementMap-vue>
+          </div>
+      </aside>
   </div>
 </template>
 
 <script>
+    import{ mapState } from "vuex";
+    import managementMapVue from '../managementMap';
     import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
     export default {
       data() {
@@ -136,9 +148,15 @@
             ],
             firemenTel:[
               { required: true, trigger: 'blur', validator: validPhone }
+            ],
+            pointX:[
+              { required: true, trigger: 'blur', message: '请填写经纬度' }
             ]
           }
         }
+      },
+      components:{
+        'managementMap-vue': managementMapVue,
       },
       methods:{
         file(){
@@ -234,15 +252,18 @@
         }
       },
       mounted(){
-        $('.el-scrollbar').css({
-            'background':'#000'
-        });
-        $('.el-select-dropdown').css('border-color','#333');
-        $('.el-select-dropdown__item').css('color','#999');
-        $(' .el-select-dropdown__item').mouseover(function(){
-          $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-        });
-      }
+        $('#right').hide();
+      },
+      watch:{
+        buildPoint(){
+          this.form.point.pointX = this.buildPoint[0];
+          this.form.point.pointY = this.buildPoint[1];
+          console.log(this.form.point.pointX)
+        }
+      },
+      computed:mapState([
+        'buildPoint'
+      ])
     }
 </script>
 

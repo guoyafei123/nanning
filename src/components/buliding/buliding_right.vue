@@ -3,7 +3,7 @@
           <!-- 筛选 -->
             <section class="my-filter padding5 bg-gray-222 clearfix">
                 <!-- 日期筛选 -->
-                <div class="col-sm-9 padding0">
+                <div class="col-sm-12 padding0">
                 <div class="upd-elmdate">
                     <el-date-picker
                     v-model="dateValue"
@@ -28,19 +28,21 @@
                     <div class="personinfo">
                             <p>
                             <span class="size-20 font-blue">{{buildBaseInfo.name?buildBaseInfo.name:"暂无名称"}}</span>
-                            <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分{{buildTotalScore?buildTotalScore:"0"}}</span>
+                            <el-tooltip content="安全评分" placement="top">
+                            <span class="bgbox-min bg-blue font-black size-10">评分{{buildTotalScore?buildTotalScore:"0"}}</span>
+                          </el-tooltip>
                             <span class="float-right">
                                     <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property?buildBaseInfo.property:"无"}}</span>
                                 </span>
                             </p>
-                            <p class="col-sm-7 text-left padding0">
+                            <p class="col-sm-12 text-left padding0">
                                 <span>
                                     <i class="fas fa-industry"></i> {{buildBaseInfo.location?buildBaseInfo.location:"无"}}</span>
                             </p>
-                            <P class="col-sm-5 text-right padding0">
+                            <!-- <P class="col-sm-5 text-right padding0">
                                 <span class="text-right">
                                 </span>
-                            </P>                        
+                            </P>  -->
                     </div>
                 </div>
                 <section>
@@ -87,12 +89,12 @@
                 <section>
                     <h4 class="p-title margin-top30">统计</h4>
                     <div class="row cardinfo-style margin-top10 font-gray-999">
-                        <p class="col-sm-4">当前隐患数<span>{{buildTroubleMap.NOWTROUBLE?buildTroubleMap.NOWTROUBLE:"0"}}</span></p>
-                        <p class="col-sm-4">当前报警数<span>{{buildAlarmMap.NOWALARM?buildAlarmMap.NOWALARM:"0"}}</span></p>
-                        <p class="col-sm-4">当前危险品数<span>{{buildTroubleMap.allDanger?buildTroubleMap.allDanger:"0"}}</span></p>
-                        <p class="col-sm-4">历史隐患数<span>{{buildTroubleMap.nowDanger?buildTroubleMap.nowDanger:"0"}}</span></p>
-                        <p class="col-sm-4">历史报警数<span>{{buildAlarmMap.ALLALARM?buildAlarmMap.ALLALARM:"0"}}</span></p>
-                        <p class="col-sm-4">历史危险品数<span>{{buildTroubleMap.ALLTROUBLE?buildTroubleMap.ALLTROUBLE:"0"}}</span></p>
+                        <p class="col-sm-4">当前隐患数<span class="font-yellow">{{buildTroubleMap.NOWTROUBLE?buildTroubleMap.NOWTROUBLE:"0"}}</span></p>
+                        <p class="col-sm-4">当前报警数<span class="font-red">{{buildAlarmMap.NOWALARM?buildAlarmMap.NOWALARM:"0"}}</span></p>
+                        <p class="col-sm-4">当前危险品数<span class="font-yellow">{{buildTroubleMap.allDanger?buildTroubleMap.allDanger:"0"}}</span></p>
+                        <p class="col-sm-4">历史隐患数<span class="font-white">{{buildTroubleMap.nowDanger?buildTroubleMap.nowDanger:"0"}}</span></p>
+                        <p class="col-sm-4">历史报警数<span class="font-white">{{buildAlarmMap.ALLALARM?buildAlarmMap.ALLALARM:"0"}}</span></p>
+                        <p class="col-sm-4">历史危险品数<span class="font-white">{{buildTroubleMap.ALLTROUBLE?buildTroubleMap.ALLTROUBLE:"0"}}</span></p>
                         <p class="col-sm-4">相关巡检路线<span>{{buildPlanCount?buildPlanCount:"0"}}</span></p>
                     </div>
                 </section>
@@ -155,10 +157,14 @@
                                       <span>管理单位 </span>
                                       <strong>{{buildBaseInfo.unitName ? buildBaseInfo.unitName:"暂为空"}} </strong>
                                   </div>
-                                <div class="col-sm-12">                                   
+                                <div class="col-sm-6">                                   
                                     <span>消防负责人 </span>
                                     <strong>{{buildBaseInfo.linkname?buildBaseInfo.linkname:"暂无"}}</strong>
-                                </div>                 
+                                </div>
+                                <div class="col-sm-6">                                   
+                                    <span>联系电话 </span>
+                                    <strong>{{buildBaseInfo.phone?buildBaseInfo.phone:"暂无"}}</strong>
+                                </div>               
                               </div>
                         </div>
                     </section>
@@ -171,17 +177,19 @@
                     <p>
                     <span class="size-20 font-blue">{{buildCountDataSocres.unitName ? buildCountDataSocres.unitName:'暂无名称'}}</span>
                     <span class="float-right">
-                            <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">{{buildCountDataSocres.buildingName ? buildCountDataSocres.buildingName:'暂无名称'}}</span>
+                      <el-tooltip content="安全评分" placement="top">
+                            <span class="bgbox-max bg-blue font-black size-10">{{buildCountDataSocres.buildingName ? buildCountDataSocres.buildingName:'暂无评分'}}</span>
+                      </el-tooltip>
                         </span>
                     </p>
-                    <p class="col-sm-7 text-left padding0">
+                    <p class="col-sm-12 text-left padding0">
                         <span>
                             <i class="fas fa-industry"></i> {{buildCountDataSocres.totalScore ? buildCountDataSocres.totalScore:'0'}}</span>
                     </p>
-                    <P class="col-sm-5 text-right padding0">
+                    <!-- <P class="col-sm-5 text-right padding0">
                         <span class="text-right">
                         </span>
-                    </P>                        
+                    </P> -->                        
                 </div>
               </div>
               <section>
@@ -189,15 +197,15 @@
                   <h4 class="p-title">
                     安全评分占比
                   </h4>
-					<div id="pieb1" class="margin-top10" style="width: 100%;height:180px;margin: 0 auto;"></div>
-				</div>
+        					<div id="pieb1" class="margin-top10" style="width: 100%;height:160px;margin: 0 auto;"></div>
+        				</div>
 			</section>
 			<section>
 				<div class="toolcount margin-top10">
 					<h4 class="p-title">
                     建筑报警数量
                   </h4>
-					<div id="axis1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+					<div id="axis1" style="width: 100%;height:160px;margin: 0 auto;"></div>
 				</div>
 			</section>
 			<section>
@@ -208,7 +216,7 @@
                       <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                     </span>
                   </h4>
-					<div id="myChart1" style="width: 100%;height:180px;margin: 0 auto;"></div>
+					<div id="myChart1" style="width: 100%;height:160px;margin: 0 auto;"></div>
 				</div>
 			</section>
 		</section>
@@ -300,9 +308,13 @@ export default {
     },
     
     buildDetailinfos(){
-      this.buildDetaiData=this.buildDetailinfos[0];
-      this.buildDetails_parameter.buildingId = this.buildDetaiData.buildingId;
-      this.getBuildDetails();
+      if(this.buildDetailinfos[0] == null){
+        this.jianzhu();
+      }else{
+        this.buildDetaiData=this.buildDetailinfos[0];
+        this.buildDetails_parameter.buildingId = this.buildDetaiData.buildingId;
+        this.getBuildDetails();
+      }
     },
     unitid(){
       if(this.unitid!=0){
@@ -397,6 +409,9 @@ export default {
           orient: "vertical",
           left: "left",
           data: ["0-2", "2-4", "4-6", "6-8","8-10"],
+          textStyle:{
+              color: "#999"
+          }
           
         },
         series: [
@@ -412,12 +427,13 @@ export default {
               }
             },
             data: [
-              { value: a, name: "0-2" },
+              { value: a, name: "0-2"},
               { value: b, name: "2-4" },
               { value: c, name: "4-6" },
               { value: d, name: "6-8" },
               { value: e, name: "8-10" }             
             ],
+            color: ["#f13131","#ff7800","#ffb709","#bad616","#90d616"],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -489,11 +505,11 @@ export default {
                   position: "top",
                   textStyle: {
                     color: function(params) {
-                      if (params.value > 0 && params.value < 100) {
+                      if (params.value > 0 && params.value < 2) {
                         return "#333333";
-                      } else if (params.value >= 100 && params.value <= 200) {
+                      } else if (params.value >= 2 && params.value <= 5) {
                         return "#666666";
-                      } else if (params.value >= 200 && params.value <= 300) {
+                      } else if (params.value >= 5 && params.value <= 10) {
                         return "#999999";
                       }
                       return "#bad616";
@@ -508,11 +524,11 @@ export default {
                   }
                 },
                 color: function(params) {
-                  if (params.value > 0 && params.value < 100) {
+                  if (params.value > 0 && params.value < 2) {
                     return "#333333";
-                  } else if (params.value >= 100 && params.value <= 200) {
+                  } else if (params.value >= 2 && params.value <= 5) {
                     return "#666666";
-                  } else if (params.value >= 200 && params.value <= 300) {
+                  } else if (params.value >= 5 && params.value <= 10) {
                     return "#999999";
                   }
                   return "#bad616";

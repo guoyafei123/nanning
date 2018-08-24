@@ -121,7 +121,7 @@
             <h4 class="modal-title" id="myModalLabel">人员审核</h4>
           </div>
           <div class="modal-body">
-            <el-form ref="form" :rules="rules" :label-position="labelPosition" :inline="true" :model="form">
+            <el-form ref="form" status-icon :rules="rules" :label-position="labelPosition" :inline="true" :model="form">
               <el-form-item label="姓名" prop="nickName">
                 <el-input v-model="form.nickName" :disabled="true"></el-input>
               </el-form-item>
@@ -136,13 +136,13 @@
                 <el-radio v-model="review" label="2">未通过</el-radio>
               </el-form-item>
               <el-form-item v-if="this.review == 1" label="角色" prop="roleId">
-                <el-select v-model="form.roleId" placeholder="选择角色" class="select">
+                <el-select v-model="form.roleId" placeholder="请选择" class="select">
                   <el-option label="全部角色" value=""></el-option>
                   <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item v-if="this.review == 1" label="所属单位" prop="unitId">
-                <el-select v-model="form.unitId" placeholder="选择单位" class="select">
+                <el-select v-model="form.unitId" placeholder="请选择" class="select">
                   <!-- <el-option label="全部单位" value=""></el-option> -->
                   <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                 </el-select>
