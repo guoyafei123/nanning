@@ -1,4 +1,4 @@
-//测试
+
 export  function getTopLeftRate(){
   var topLeftRate = {};
   var fjtop=$('#imgPic').offset().top;
@@ -76,3 +76,19 @@ var EventUtil = {
   }
 
 };
+
+
+//绘制报警设备
+export function setPoint(xrate, yrate, type, divid) {
+  var piontWidth = $('#' + divid).width() / 16;
+  var fjtop = $('#imgPic').offset().top;
+  var fjleft = $('#imgPic').offset().left;
+  var fjwidth = $('#imgPic').width();
+  var fjheight = $('#imgPic').height();
+  var pointTop = fjtop + fjheight * yrate - piontWidth * 8+fjheight/2.5;
+  var pointLeft = fjleft + fjwidth * xrate - piontWidth * 8-fjwidth;
+  $('#'+divid).css("top",pointTop);
+  $('#'+divid).css("left",pointLeft);
+  $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
+  $('#'+divid).css("position","absolute");
+}

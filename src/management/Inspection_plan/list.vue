@@ -619,12 +619,10 @@
             }
           });
           var inspectionNodes = { name:this.form.name,type:this.form.region2,unitId:this.region1,unitName:unitName,inspectionNodes:this.inspectionNodes };
-          this.$post("/api/admin/inspection/insertInspectionPlan",{
-            inspectionPlan:inspectionNodes
-          },{
-              headers: {
-                  'Content-Type': 'application/json'
-              }
+          this.$post("/api/admin/inspection/insertInspectionPlan",inspectionNodes,{
+            headers: {
+              'Content-Type': 'application/json'
+            }
           }).then(response=>{
             console.log(response);
             console.log(this.startNodes);

@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 var state={
+  iconByType:'',
   mapShow:true,
   //单位
   unitNum:'',
@@ -75,6 +76,9 @@ var state={
 }
 
 var mutations={
+  iconByType(state,data){
+    state.iconByType = data ;
+  },
   mapShow(state,data){
     state.mapShow = data ;
   },
