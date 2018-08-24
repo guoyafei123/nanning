@@ -54,12 +54,12 @@
 					</article>
 					<article>
 						建筑总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.BUILDINGCOUNT}}</span>
+					</article>					
+					<article>
+						预案总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.PREARRANGECOUNT}}</span>
 					</article>
 					<article>
 						设备总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.DEVICECOUNT}}</span>
-					</article>
-					<article>
-						预案总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.PREARRANGECOUNT}}</span>
 					</article>
 					<article>
 						人员总数<span v-if="getUnitsSynthesis">{{getUnitsSynthesis.STAFFNUM}}</span>

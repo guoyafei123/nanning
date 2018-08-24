@@ -292,6 +292,7 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
                   // });
                   that.$router.push({path:'/Dangerous_goods_management/all'});
                 }
+                
               });
           } else {
               console.log('error submit!!');
@@ -390,6 +391,8 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
+          console.log(this.form.buildingId);
+          this.findPageBuildIngFloor();
           this.form.floorId = '';
           this.form.roomId = '';
           this.form.floorNumber = '';
@@ -439,6 +442,9 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           this.form.floorList.forEach((item,index)=>{
             if(item.id == this.form.floorId){
               this.form.floorNumber = item.floorName ;
+              console.log(this.form.floorNumber);
+              
+              this.floor_btn(this.form.floorId);
             }
           })
         },

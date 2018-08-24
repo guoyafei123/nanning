@@ -6,7 +6,7 @@
     
     <!-- #地图主容器 -->
     <template v-if="mapAndFooter">
-      <map-vue ></map-vue>
+      <map-vue v-if="this.mapShow"></map-vue>
     </template>
     
     <div class="container-fluid">
@@ -45,6 +45,7 @@
     },
     computed:mapState([
       'route_path',
+      'mapShow'
     ]),
     watch:{
       // 所有巡检单位
@@ -56,6 +57,9 @@
           this.mapAndFooter=true;
         }
       },
+      mapShow(){
+        this.mapShow = false ;
+      }
     },
 
     mounted() {     

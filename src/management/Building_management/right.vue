@@ -584,7 +584,6 @@
         this.index++;
         $('.add').hide();
         this.floor_index = this.index;
-
         var file = "file";
         let array={ 'buildingId': this.buildingId, 'floor': this.floor_index, 'floorName': this.number}
               

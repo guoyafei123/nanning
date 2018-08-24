@@ -63,11 +63,11 @@
 }
 .legend-people span {
     position: absolute;
-    bottom: -8px;
-    left: 15px;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #ccc;
+    bottom: -5px;
+    left: 16px;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-top: 8px solid #ccc;
 }
 .newpeople{
     width: 30px;

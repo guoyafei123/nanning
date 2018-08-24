@@ -3,12 +3,12 @@
 		<section>
 			<div class="toolcount">
 				<div class="set-width-50  font-gray-999 padding-right0">
-					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
+					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 						<li>
-							<h1 class="toolcount-p1 font-red" style="line-height:10px">{{personAnalyseData.userCount?personAnalyseData.userCount:"0"}}</h1>
+							<h1 class="toolcount-p1 font-red" style="line-height:10px">{{personAnalyseData.userOnlineCount?personAnalyseData.userOnlineCount:"0"}}</h1>
 						</li>
 						<li>
-							<p class="size-10">Alarm Number</p>
+							<p class="size-10">Number of online</p>
 						</li>
 						<li>
 							<p class="size-18 font-blue">人员在线数量</p>
@@ -19,7 +19,7 @@
 					<ul class="padding-left0 margin-bottom0">
 						<li>
 							<p>人员总数</p>
-							<p class="font-white float-right size-14">{{personAnalyseData.userOnlineCount?personAnalyseData.userOnlineCount:"0"}}</p>
+							<p class="font-white float-right size-14">{{personAnalyseData.userCount?personAnalyseData.userCount:"0"}}</p>
 						</li>
 						<li>
 							<p>巡检员</p>
@@ -74,10 +74,15 @@
 				<span class="toolroute-rect bg-blue"></span>
 				<ul class="padding-left10 clearfix">
 					<li>
+						<p class="font-gray-666 size-10">Personnel Info</p>
+					</li>
+					<li>
 						<p class="font-blue size-16">人员信息
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                        <i class="icon iconfont icon-weibiaoti10 size-14"></i>
-                      </span>
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+								<el-tooltip content="全屏" placement="top">
+			                        <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+			                    </el-tooltip>
+		                     </span>
 						</p>
 					</li>
 					<li>
@@ -86,7 +91,7 @@
 								<tr>
 									<th>姓名</th>
 									<th>手机号</th>
-									<th class="table-fixedwidth">单位名称</th>
+									<th>单位名称</th>
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
@@ -94,15 +99,31 @@
 							<tbody id="">
 								<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
 									<td>{{item.nickName}}</td>
-									<td>{{item.cellPhone}}</td>
-									<td class="table-fixedwidth" data-toggle="tooltip" :title=item.unitName>{{item.unitName}}</td>
 									<td>
-										<i v-if="item.online==true" class="fas fa-link font-blue" data-toggle="tooltip" title="在线"></i>
-										<i v-if="item.online==false" class="fas fa-link font-gray-333" data-toggle="tooltip" title="离线"></i>
+										<el-tooltip placement="top">
+											<div slot="content">{{item.cellPhone}}</div>
+											<span>{{item.cellPhone}}</span>
+										</el-tooltip>
+									</td>
+									<td>
+										<el-tooltip placement="top">
+											<div slot="content">{{item.unitName}}</div>
+											<span>{{item.unitName}}</span>
+										</el-tooltip>
+									</td>
+									<td>
+										<el-tooltip content="在线" placement="top">
+											<i v-if="item.online==true" class="fas fa-link font-blue"></i>
+										</el-tooltip>
+										<el-tooltip content="离线" placement="top">
+											<i v-if="item.online==false" class="fas fa-link font-gray-333"></i>
+										</el-tooltip>
 									</td>
 									<td>
 										<a @click="moren">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+											<el-tooltip content="查看详情" placement="top">
+												<i class="fas fa-chevron-circle-right"></i>
+											</el-tooltip>
 										</a>
 									</td>
 								</tr>

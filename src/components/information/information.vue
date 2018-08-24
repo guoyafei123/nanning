@@ -11,10 +11,10 @@
 				<div class="toolleft margin-right0">
 					<section>
 						<div class="toolcount">
-							<div class="set-width-50  font-gray-999 padding-right0">
-								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
+							<div class="set-width-50 font-gray-999 padding-right0">
+								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 									<li>
-										<h1 class="toolcount-p1 font-red" >{{deviceCountByUnit.deviceTotal}}</h1>
+										<h1 class="toolcount-p1 font-white" >{{deviceCountByUnit.deviceTotal}}</h1>
 									</li>
 									<li>
 										<p class="size-10">Device Number</p>
@@ -28,23 +28,23 @@
 								<ul class="padding-left0 margin-bottom0">
 									<li>
 										<p>室内设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.innerCount}}</p>
+										<p class="font-gray-ccc float-right size-14" >{{deviceCountByUnit.innerCount}}</p>
 									</li>
 									<li>
 										<p>室外设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.outsideCount}}</p>
+										<p class="font-gray-ccc float-right size-14" >{{deviceCountByUnit.outsideCount}}</p>
 									</li>
 									<li>
 										<p>灭火设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.outfireCount}}</p>
+										<p class="font-blue float-right size-14" >{{deviceCountByUnit.outfireCount}}</p>
 									</li>
 									<li>
 										<p>预警设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.inductionCount}}</p>
+										<p class="font-blue float-right size-14" >{{deviceCountByUnit.inductionCount}}</p>
 									</li>
 									<li>
 										<p>安防设备</p>
-										<p class="font-blue font-italic float-right size-14" >{{deviceCountByUnit.safetyCount}}</p>
+										<p class="font-blue float-right size-14" >{{deviceCountByUnit.safetyCount}}</p>
 									</li>
 								</ul>
 							</div>
@@ -55,10 +55,15 @@
 							<span class="toolroute-rect bg-blue"></span>
 							<ul class="padding-left10 clearfix">
 								<li>
+									<p class="font-gray-666 size-10">Equipment Info</p>
+								</li>
+								<li>
 									<p class="font-blue size-16">设备信息
-										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span>
+										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+					                      <el-tooltip content="全屏" placement="top">
+						                        <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+						                    </el-tooltip>
+					                    </span>
 									</p>
 								</li>
 								<li>
@@ -81,17 +86,32 @@
 										</thead>
 										<tbody>
 											<tr v-for="(item,index) in tableData.result" >
-												<td :title=item.name>{{item.name ? item.name:"暂无统计"}}</td>
-												<td>{{item.buildingName ? item.buildingName:"暂无统计"}}</td>
+												<td :title=item.name>
+													<el-tooltip placement="top">
+													  	<div slot="content">{{item.name == null ? '-' : item.name}}</div>
+														<span>{{item.name == null ? '-' : item.name}}</span>
+													</el-tooltip>
+												</td>
 												<td>
-													<i class="icon iconfont set-ciontop3" :class="iconByType[item.deviceTypeId]" :title="item.deviceTypeName"></i>
+													<el-tooltip placement="top">
+														<div slot="content">{{item.buildingName == null ? '-' : item.buildingName}}</div>
+														<span>{{item.buildingName == null ? '-' : item.buildingName}}</span>
+													</el-tooltip>
+												</td>
+												<td>
+													<el-tooltip placement="top">
+														<div slot="content">{{item.deviceTypeName == null ? '-' : item.deviceTypeName}}</div>
+														<i class="icon iconfont set-ciontop3" :class="iconByType[item.deviceTypeId]" :title="item.deviceTypeName"></i>
+													</el-tooltip>
 												</td>
 												<td v-if="item.status==1" class="font-blue">正常</td>
 												<td v-if="item.status==2" class="font-yellow">故障</td>
 												<td v-if="item.status==3" class="font-red">警报</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
-														<i class="fas fa-chevron-circle-right " data-toggle="tooltip" title="查看详情"></i>
+														<el-tooltip content="查看详情" placement="top">
+															<i class="fas fa-chevron-circle-right"></i>
+														</el-tooltip>
 													</a>
 												</td>
 											</tr>
@@ -100,10 +120,10 @@
 								</li>
 								<li class="upd-pagin">
 									<div>
-										<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+										<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 										</el-pagination>
-										<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{Math.ceil(tableData.totalRow/this.deviceList_parameter.pageSize)}}页</span>
-										<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.deviceList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.deviceList_parameter.currentPage" @current-change="handleCurrentChange">
+										<span>{{Math.ceil(tableData.totalRow/this.deviceList_parameter.pageSize)}}页</span>
+										<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.deviceList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.deviceList_parameter.currentPage" @current-change="handleCurrentChange">
 										</el-pagination>
 									</div>
 								</li>
@@ -138,7 +158,9 @@
 							<div class="personinfo">
 								<p>
 									<span class="size-20 font-blue">中心小学</span>
-									<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+									<el-tooltip content="安全评分" placement="top">
+									<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
+								</el-tooltip>
 								</p>
 								<p class="text-left padding0">
 									<span><i class="el-icon-location"></i> 怀化市银海大道710-2号</span>
@@ -246,13 +268,18 @@
 												</span>天</p>
 										</li>
 										<li class="row text-center padding-right16 margin-top10">
-											<div class="col-sm-6 personnel-borderright">
+											<div class="col-sm-4 personnel-borderright">
 												<p class="size-16 show font-red">{{deviceiteminfo.alarmCount?deviceiteminfo.alarmCount:'-'}}</p>
 												<p>报警次数</p>
 											</div>
-											<div class="col-sm-6">
+											<div class="col-sm-4 personnel-borderright">
 												<p class="size-16 show font-white">{{deviceiteminfo.malfunctionCount?deviceiteminfo.malfunctionCount:'-'}}</p>
 												<p>故障次数</p>
+											</div>
+											<div class="col-sm-4">
+												<p class="size-16 show font-blue">
+												{{deviceiteminfo.lifeMonth?deviceiteminfo.lifeMonth:'-'}}</p>
+												<p>更换周期</p>
 											</div>
 										</li>
 									</ul>
@@ -276,16 +303,12 @@
 									<div class="col-sm-6">
 										<span>投入时间 </span>
 										<strong>{{startDates.substring(0,10)}} </strong>
-									</div>
-									<div class="col-sm-12">
-										<span>设备标码 </span>
-										<strong>{{deviceiteminfo.mac?deviceiteminfo.mac:'-'}} </strong>
-									</div>
+									</div>									
 									<div class="col-sm-12">
 										<span>设备位置 </span>
 										<strong>{{deviceiteminfo.location?deviceiteminfo.location:'-'}} </strong>
 									</div>
-									<div class="col-sm-6">
+									<div class="col-sm-12">
 										<span>设备坐标 </span>
 										<strong>{{xRates.substring(0,6)}},{{yRates.substring(0,6)}}</strong>
 									</div>
@@ -299,12 +322,16 @@
 										<strong>{{deviceiteminfo.height?deviceiteminfo.height:'-'}} </strong>
 									</div>
 									<div class="col-sm-6">
+										<span>生产厂商 </span>
+										<strong>{{deviceiteminfo.firm?deviceiteminfo.firm:'-'}} </strong>
+									</div>
+									<div class="col-sm-6">
 										<span>生产日期</span>
 										<strong>{{deviceiteminfo.productDate?deviceiteminfo.productDate:'-'}} </strong>
 									</div>
 									<div class="col-sm-12">
-										<span>生产厂商 </span>
-										<strong>{{deviceiteminfo.firm?deviceiteminfo.firm:'-'}} </strong>
+										<span>物理地址 </span>
+										<strong>{{deviceiteminfo.mac?deviceiteminfo.mac:'-'}} </strong>
 									</div>
 								</div>
 							</div>
@@ -328,7 +355,7 @@
 									</div>
 									<div class="col-sm-6">
 										<span>更换周期 </span>
-										<strong><span class="font-blue">{{deviceiteminfo.lifeMonth?deviceiteminfo.lifeMonth:''}}</span>月</strong>
+										<strong><span class="font-blue">{{deviceiteminfo.lifeMonth?deviceiteminfo.lifeMonth:'-'}}</span></strong>
 									</div>
 								</div>
 							</div>
@@ -782,7 +809,7 @@
 						name: "说明:",
 						type: "pie",
 						radius: [0, "70%"],
-						color: ["#bad616", "#333"],
+						color: ["#333", "#bad616"],
 						data: d
 					}]
 				};
@@ -843,7 +870,7 @@
 						name: "说明:",
 						type: "pie",
 						radius: [0, "70%"],
-						color: ["#bad616", "#c69e00", "#ff7800", "#f13131", "#ccc"],
+						color: ["#bad616", "#333"],
 						data: d
 					}]
 				};
