@@ -158,7 +158,9 @@
 							<div class="personinfo">
 								<p>
 									<span class="size-20 font-blue">中心小学</span>
-									<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+									<el-tooltip content="安全评分" placement="top">
+									<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
+								</el-tooltip>
 								</p>
 								<p class="text-left padding0">
 									<span><i class="el-icon-location"></i> 怀化市银海大道710-2号</span>
@@ -806,7 +808,7 @@
 						name: "说明:",
 						type: "pie",
 						radius: [0, "70%"],
-						color: ["#bad616", "#333"],
+						color: ["#333", "#bad616"],
 						data: d
 					}]
 				};
@@ -867,7 +869,7 @@
 						name: "说明:",
 						type: "pie",
 						radius: [0, "70%"],
-						color: ["#bad616", "#c69e00", "#ff7800", "#f13131", "#ccc"],
+						color: ["#bad616", "#333"],
 						data: d
 					}]
 				};

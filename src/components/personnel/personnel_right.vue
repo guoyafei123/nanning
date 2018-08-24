@@ -475,7 +475,7 @@
 						radius: [0, "70%"],
 						label: {
 							normal: {
-								position: "inner"
+								position: "inner",
 							}
 						},
 						labelLine: {
@@ -491,8 +491,8 @@
 							},
 							{
 								value: management,
-								name: "管理人员"
-							}
+								name: "管理人员",
+							},
 						]
 					}]
 				};
