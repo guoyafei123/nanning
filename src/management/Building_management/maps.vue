@@ -35,14 +35,19 @@
         <div class="floorMap maps" style="display:none;">
           <ul class="list-unstyled floor-item">
               <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
-          </ul> 
-          <img :src="this.svgUrl" class="img-responsive">
+          </ul>
+          <div>
+            <img src="../../assets/images/floor.png" class="img-responsive">
+          <!-- <img :src="this.svgUrl" class="img-responsive"> -->
+          </div>          
         </div>
         <div class="roomMap maps" style="display:none;">
           <ul class="list-unstyled floor-item">
               <li>{{ this.floorName }}</li>
-          </ul> 
-          <img :src="this.roomSvgUrl" class="img-responsive">
+          </ul>
+          <div>
+            <img :src="this.roomSvgUrl" class="img-responsive">
+          </div>
         </div>
       </div>
     </aside>
