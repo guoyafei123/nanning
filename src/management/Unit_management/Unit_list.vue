@@ -45,7 +45,7 @@
           <el-form-item label="单位地址" prop="location" class="not-null">
             <el-input v-model="form.location" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="经纬度" class="not-null">
+          <el-form-item label="经纬度" prop="pointX" class="not-null">
             <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
             <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
           </el-form-item>   
@@ -148,6 +148,9 @@
             ],
             firemenTel:[
               { required: true, trigger: 'blur', validator: validPhone }
+            ],
+            pointX:[
+              { required: true, trigger: 'blur', message: '请填写经纬度' }
             ]
           }
         }

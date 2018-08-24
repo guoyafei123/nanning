@@ -37,8 +37,8 @@
               <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
           </ul>
           <div>
-            <img src="../../assets/images/floor.png" class="img-responsive">
-          <!-- <img :src="this.svgUrl" class="img-responsive"> -->
+            <!-- <img src="../../assets/images/floor.png" class="img-responsive"> -->
+          <img :src="this.svgUrl" class="img-responsive">
           </div>          
         </div>
         <div class="roomMap maps" style="display:none;">

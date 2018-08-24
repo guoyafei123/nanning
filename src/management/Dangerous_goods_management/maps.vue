@@ -64,11 +64,11 @@
         <!-- 地图 -->
         <div class="maps">
           <!-- icon -->
-                <div class="position-absolute-top popup-map-min-point z-index-100"  style="top: 60px; left:200px;">
+                <!-- <div class="position-absolute-top popup-map-min-point z-index-100"  style="top: 60px; left:200px;">
                   <el-tooltip content="危险品名称" placement="top">
                     <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i>
                   </el-tooltip>
-                </div>
+                </div> -->
         <managementMap-vue></managementMap-vue>
         </div>
       </div>
