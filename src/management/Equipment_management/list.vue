@@ -38,7 +38,6 @@
           </el-form-item>
           <el-form-item label="所属单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="请选择" class="select selectUnit col-sm-4">
-              <el-option label="全部" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>          
@@ -72,7 +71,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="坐标">
+          <el-form-item label="坐标" prop="pointX">
             <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
             <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
           </el-form-item>
@@ -294,6 +293,9 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             Retroperiod:[
               { required: true, trigger: 'blur', message: '请输入更换周期' },
               { type: 'number', message: '必须为数字值'}
+            ],
+            pointX:[
+              { required: true, trigger: 'blur', message: '请填写经纬度' }
             ]
           }
         }
@@ -487,7 +489,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
-          this.form.floor_btn(this.form.floorId);
+          this.floor_btn(this.form.floorId);
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }

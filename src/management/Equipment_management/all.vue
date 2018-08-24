@@ -378,7 +378,7 @@ import { mapState } from 'vuex';
 
 
         
-        unit:'',//选择单位
+        unit:null,//选择单位
         building:'',//选择建筑
         floor:'',
         room:'',

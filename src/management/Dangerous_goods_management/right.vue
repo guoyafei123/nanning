@@ -721,6 +721,12 @@
           if(this.$route.path == '/Dangerous_goods_management/maps'){
             this.tableList();
           }
+          if(this.$route.path == '/Dangerous_goods_management/all'){
+           
+            $('.mapTable').hide();
+            $('.total').hide();
+            $('.plan').show();
+          }
         },
         // 深度观察监听
         deep: true
@@ -774,16 +780,19 @@
         console.log(this.dangerId)
         this.findTrouble(this.dangerId);
       },
-      Unit(){
+      dangerUnit(){
         this.tableList();
       },
-      buildDevice(){
+      dangerBuild(){
         this.tableList();
       },
-      floorDevice(){
+      dangerFloor(){
         this.tableList();
       },
-      roomDevice(){
+      dangerRoom(){
+        this.tableList();
+      },
+      dengerStatus(){
         this.tableList();
       },
       currentPage(){
@@ -791,10 +800,11 @@
       }
     },
     computed:mapState([
-      'Unit',
-      'buildDevice',
-      'floorDevice',
-      'roomDevice',
+      'dangerUnit',
+      'dangerBuild',
+      'dangerFloor',
+      'dangerRoom',
+      'dengerStatus',
       'dangerId',
       'currentPage'
     ])

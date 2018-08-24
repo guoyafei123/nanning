@@ -629,6 +629,7 @@
             $('.xiugai_edit:eq('+indexs+')').show();
           }
         })
+        // console.log(indexs);
       },
       xiugai_sure(indexs){
         // console.log(indexs);
