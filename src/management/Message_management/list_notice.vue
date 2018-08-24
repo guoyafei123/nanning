@@ -16,7 +16,7 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+        <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
           <el-form-item label="所属单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-8">
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>

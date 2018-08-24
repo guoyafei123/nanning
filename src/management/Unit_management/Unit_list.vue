@@ -16,7 +16,7 @@
           class类not-null为必填标识,如需请加在<el-form-item>
           class类hint-error为错误提示
          -->
-        <el-form class="row" :rules="rules" ref="form" :label-position="labelPosition" :model="form">
+        <el-form class="row" :rules="rules" status-icon ref="form" :label-position="labelPosition" :model="form">
           <el-form-item label="单位名称" prop="name" class="not-null">
             <!-- <span class="hint-error">单位名称有误或重复</span> -->
             <el-input v-model="form.name" class="col-sm-4"></el-input>
