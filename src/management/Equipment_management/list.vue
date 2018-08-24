@@ -23,18 +23,12 @@
         <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
           <el-form-item label="设备名称" prop="name" class="not-null">
             <!-- <span class="hint-error">设备名称有误或重复</span> -->
-            <el-input v-model="form.name" class="col-sm-4"></el-input>
-          </el-form-item>
-          <el-form-item label="所属单位" prop="unitId" class="not-null">
-            <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
-              <el-option label="全部" value=""></el-option>
-              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+            <el-input v-model="form.name" class="col-sm-8"></el-input>
           </el-form-item>
           <el-form-item label="设备类型" prop="equipmentId" class="not-null">
             <el-select
               v-model="form.equipmentId"
-              placeholder="选择设备类型" class="start col-sm-4">
+              placeholder="请选择" class="start col-sm-4">
               <el-option
                 v-for="item in equipmentList"
                 :label="item.name"
@@ -42,6 +36,12 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item label="所属单位" prop="unitId" class="not-null">
+            <el-select v-model="form.unitId" placeholder="请选择" class="select selectUnit col-sm-4">
+              <el-option label="全部" value=""></el-option>
+              <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>          
           <el-form-item label="设备位置" prop="buildingId" class="not-null">
             <el-select
               v-model="form.buildingId"

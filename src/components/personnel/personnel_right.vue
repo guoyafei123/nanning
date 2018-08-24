@@ -113,9 +113,12 @@
 			<section>
 				<div class="toolregionrate margin-top30">
 					<h4 class="p-title">巡检记录
-                  <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span></h4>
+	                  <span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+	                      <el-tooltip content="全屏" placement="top">
+								<i class="icon iconfont icon-weibiaoti10 size-14"></i>
+							</el-tooltip>
+	                    </span>
+	                </h4>
 					<div class="table-responsive">
 						<table class="table size-12 table-condensed toolroute-table margin-top10">
 							<thead>
@@ -134,26 +137,24 @@
 										<span class="font-blue">{{item.finishedAmount}}</span>/{{item.amount}}</td>
 									<td>
 										<a>
-											<i v-if="item.status==1" class="fas fa-flag-checkered font-gray-999" data-toggle="tooltip" title="已领取"></i>
-											<i v-if="item.status==2" class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="巡检中"></i>
-											<i v-if="item.status==3" class="icon iconfont icon-queren1 font-white" data-toggle="tooltip" title="已完成"></i>
-											<i v-if="item.status==4" class="icon iconfont icon-guanbi-xian- font-gray-999" data-toggle="tooltip" title="未完成"></i>
+											<el-tooltip content="已领取" placement="top">
+												<i v-if="item.status==1" class="fas fa-flag-checkered font-gray-999"></i>
+											</el-tooltip>
+											<el-tooltip content="巡检中" placement="top">
+											<i v-if="item.status==2" class="fas fa-flag-checkered font-blue"></i>
+											</el-tooltip>
+											<el-tooltip content="已完成" placement="top">
+											<i v-if="item.status==3" class="icon iconfont icon-queren1 font-white"></i>
+											</el-tooltip>
+											<el-tooltip content="未完成" placement="top">
+											<i v-if="item.status==4" class="icon iconfont icon-guanbi-xian- font-gray-999"></i>
+											</el-tooltip>
 										</a>
 									</td>
 								</tr>
-								<tr>
-									<td>2018-08-16 23:16:89</td>
-									<td>控烟巡检路线2</td>
-									<td>
-										<span class="font-blue">10</span>/20</td>
-									<td>
-										<a>
-											<i class="fas fa-flag-checkered font-blue" data-toggle="tooltip" title="巡检中"></i>
-										</a>
-									</td>
-								</tr>
-							</tbody>
-							<li class="upd-pagin">
+							</tbody>							
+						</table>
+						<div class="upd-pagin">
 								<div>
 									<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 									</el-pagination>
@@ -161,9 +162,7 @@
 									<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.queryUserInspectionList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryUserInspectionList_parameter.currentPage" @current-change="handleCurrentChange">
 									</el-pagination>
 								</div>
-							</li>
-						</table>
-
+							</div>
 					</div>
 				</div>
 			</section>
@@ -212,9 +211,11 @@
 			<section>
 				<div class="toolcount margin-top30">
 					<h4 class="p-title">人员在线数量变化趋势
-                    <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span>
+                    <span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+	                      <el-tooltip content="全屏" placement="top">
+								<i class="icon iconfont icon-weibiaoti10 size-14"></i>
+							</el-tooltip>
+	                    </span>
                   </h4>
 					<div id="myChart" style="width: 100%;height:180px;margin: 0 auto;"></div>
 				</div>

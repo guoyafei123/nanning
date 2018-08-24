@@ -139,7 +139,7 @@
               class类hint-error为错误提示
              -->
              <div class="main_content">
-                <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+                <el-form class="row" status-icon ref="form" :label-position="labelPosition" :model="form">
                   <el-form-item label="预案文件" class="not-null col-sm-12">
                     <div class="head-photo">
                       <input id="file" name="file" type="file" @change="file()" />

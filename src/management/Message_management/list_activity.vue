@@ -18,13 +18,13 @@
          -->
         <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
           <el-form-item label="所属单位" prop="unitId" class="not-null">
-            <el-select v-model="form.unitId" placeholder="选择单位" class="select col-sm-8">
+            <el-select v-model="form.unitId" placeholder="请选择" class="select col-sm-4">
               <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in form.optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="建筑" prop="buildingId" class="not-null">
-            <el-select v-model="form.buildingId" placeholder="请选择建筑" class="col-sm-8">
+          <el-form-item label="所属建筑" prop="buildingId" class="not-null">
+            <el-select v-model="form.buildingId" placeholder="请选择" class="col-sm-4">
               <el-option
                 v-for="item in form.buildList"
                 :label="item.name"
@@ -32,44 +32,44 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="活动名称" prop="name" class="not-null">
-            <el-input v-model="form.name" class="col-sm-8"></el-input>
+          <el-form-item label="活动主题" prop="name" class="not-null">
+            <el-input v-model="form.name" class="col-sm-10"></el-input>
           </el-form-item>
-          <el-form-item label="举办时间" prop="startTime" class="not-null col-sm-8">
+          <el-form-item label="参加人数" prop="activeUserNumber" class="not-null col-sm-4">
+              <el-input v-model="form.activeUserNumber" placeholder="示例：50~200"></el-input>
+          </el-form-item>        
+          <el-form-item label="举办时间" prop="startTime" class="not-null col-sm-6">
             <el-date-picker
               v-model="form.startTime"
               type="datetime"
               placeholder="选择日期时间">
             </el-date-picker>
-          </el-form-item>
+          </el-form-item>          
           <div class="col-sm-12">
-            <div class="row">                
-                <el-form-item label="活动重要性" prop="levels" class="not-null col-sm-6">
-                  <el-select v-model="form.levels" placeholder="请选择活动重要性" class="select">
-                    <el-option v-for="item in form.levelsList" :label="item.name" :value="item.id"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="参加人数" prop="activeUserNumber" class="not-null col-sm-6">
-                  <el-input v-model="form.activeUserNumber" placeholder="请输入参加人数（示例：1~3）"></el-input>
-                </el-form-item>
-                <el-form-item label="活动是否禁烟" prop="smoking" class="not-null col-sm-6">
+            <div class="row">
+              <el-form-item label="重要性" prop="levels" class="not-null col-sm-4">
+              <el-select v-model="form.levels" placeholder="请选择" class="select">
+                <el-option v-for="item in form.levelsList" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item> 
+                <el-form-item label="是否禁烟" prop="smoking" class="not-null col-sm-3">
                   <el-select v-model="form.smoking" placeholder="请选择" class="select">
                     <el-option v-for="item in form.smokingList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="是否有明火" prop="fire" class="not-null col-sm-6">
+                <el-form-item label="有无明火" prop="fire" class="not-null col-sm-3">
                   <el-select v-model="form.fire" placeholder="请选择" class="select">
                     <el-option v-for="item in form.fireList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="引入危险源" prop="dangerSource" class="not-null col-sm-6">
+                <el-form-item label="引入危险源" prop="dangerSource" class="not-null col-sm-4">
                   <el-select v-model="form.dangerSource" placeholder="请选择" class="select">
-                    <el-option v-for="item in form.dangerSourceList" :label="item.name" :value="item.id"></el-option>
+                      <el-option v-for="item in form.dangerSourceList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
-                </el-form-item>
+                </el-form-item> 
             </div>
-          </div>          
-          <el-form-item label="活动内容" prop="content" class="not-null col-sm-12">
+          </div>                
+          <el-form-item label="活动内容" prop="content" class="margin-top20 not-null col-sm-12">
             <el-input
               type="textarea"
               :rows="6"
@@ -81,7 +81,7 @@
       </div>
       <div class="main_footer">
         <a class="btn-ok" @click="btn_ok('form')"><i class="el-icon-circle-check-outline"></i> 提交</a>
-        <router-link to="/Message_management/notice" class="btn-back">返回</router-link>
+        <router-link to="/Message_management/activity" class="btn-back">返回</router-link>
       </div>
       <!-- 确认Modal -->
       <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -230,8 +230,10 @@ import { isvalidName } from '../../assets/js/validate';
             console.log(res);
             this.$router.push({path:'/Message_management/activity'});
             this.$message({
-              message: '发布系统公告成功！！',
-              type: 'success'
+              message: '发布成功！！',
+              type: 'success',
+              iconClass: 'el-icon-circle-check',
+              customClass:'edit-ok-notification'
             });
           })
         },

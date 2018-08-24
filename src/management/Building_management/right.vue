@@ -234,7 +234,7 @@
                 <h4 class="modal-title" id="myModalLabel">修改建筑</h4>
               </div>
               <div class="modal-body" style="height:550px;overflow-y:auto;">
-                <el-form ref="form" :label-position="labelPosition" :inline="true" :model="form">
+                <el-form ref="form" status-icon :label-position="labelPosition" :inline="true" :model="form">
                   <el-form-item label="建筑名称">
                     <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
                     <el-input v-model="form.BuildName"></el-input>

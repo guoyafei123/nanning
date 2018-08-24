@@ -11,8 +11,8 @@
 				<div class="toolleft margin-right0 size-12">
 					<section>
 						<div class="toolcount">
-							<div class="set-width-50  font-gray-999 padding-right0">
-								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
+							<div class="set-width-50 font-gray-999 padding-right0">
+								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 									<li>
 										<h1 class="toolcount-p1 font-red" style="line-height:10px">{{queryAlarmStats.ALARMTOTAL}}</h1>
 									</li>
@@ -28,19 +28,19 @@
 								<ul class="padding-left0 margin-bottom0">
 									<li>
 										<p>故障数</p>
-										<p class="font-blue font-italic float-right size-14">{{queryAlarmStats.FAULTNUM}}</p>
+										<p class="font-orange float-right size-14">{{queryAlarmStats.FAULTNUM}}</p>
 									</li>
 									<li>
 										<p>故障处理</p>
-										<p class="font-blue font-italic float-right size-14">{{queryAlarmStats.FAULTDEAL}}</p>
+										<p class="font-blue float-right size-14">{{queryAlarmStats.FAULTDEAL}}</p>
 									</li>
 									<li>
 										<p>发生火情</p>
-										<p class="font-blue font-italic float-right size-14">{{queryAlarmStats.FIRENUM}}</p>
+										<p class="font-blush float-right size-14">{{queryAlarmStats.FIRENUM}}</p>
 									</li>
 									<li>
 										<p>报警确认</p>
-										<p class="font-blue font-italic float-right size-14">{{queryAlarmStats.ALARMDEAL}}</p>
+										<p class="font-blue float-right size-14">{{queryAlarmStats.ALARMDEAL}}</p>
 									</li>
 								</ul>
 							</div>

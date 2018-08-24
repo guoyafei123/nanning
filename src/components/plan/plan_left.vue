@@ -3,7 +3,7 @@
 		<section>
 			<div class="toolcount">
 				<div class="set-width-50  font-gray-999 padding-right0">
-					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left37" id="toolcount">
+					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 						<li>
 							<h1 class="toolcount-p1 font-blue">{{countUnitPlan.sumofPlan?countUnitPlan.sumofPlan:0}}</h1>
 						</li>
@@ -31,19 +31,19 @@
 						</template> -->
 						<li>
 							<p>火灾预案</p>
-							<p class="font-blue font-italic float-right size-14" >{{planbunlist.a?planbunlist.a:0}}</p>
+							<p class="font-blue float-right size-14" >{{planbunlist.a?planbunlist.a:0}}</p>
 						</li>
 						<li>
 							<p>管理规定</p>
-							<p class="font-blue font-italic float-right size-14" >{{planbunlist.b?planbunlist.b:0}}</p>
+							<p class="font-white float-right size-14" >{{planbunlist.b?planbunlist.b:0}}</p>
 						</li>
 						<li>
 							<p>疏散预案</p>
-							<p class="font-blue font-italic float-right size-14" >{{planbunlist.d?planbunlist.d:0}}</p>
+							<p class="font-white float-right size-14" >{{planbunlist.d?planbunlist.d:0}}</p>
 						</li>
 						<li>
 							<p>应急疏散图</p>
-							<p class="font-blue font-italic float-right size-14" >{{planbunlist.c?planbunlist.c:0}}</p>
+							<p class="font-white float-right size-14" >{{planbunlist.c?planbunlist.c:0}}</p>
 						</li>
 					</ul>
 				</div>
@@ -99,9 +99,13 @@
 									<td v-if="item.type==3">疏散预案</td>
 									<td v-if="item.type==4">应急疏散图</td>
 									<td>
-										<el-tooltip content="下载" placement="top">
-											<i class="fas fa-download size-10"></i>
-										</el-tooltip>
+										
+										<a :href="item.url+'?filename='+item.name+'.'+item.pattern">
+											<el-tooltip content="下载" placement="top">
+												<i class="fas fa-download size-10"></i>
+											</el-tooltip>
+										</a>
+										
 									</td>
 									<td>
 										<a v-on:click="toitmeinfo(item)">

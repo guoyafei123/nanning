@@ -197,6 +197,7 @@ h4.p-title {
     padding-left: 10px;
     color: #fff;
     font-size: 14px;
+    display: flow-root;
 }
 
 h4.p-title:before {
@@ -545,12 +546,18 @@ span.point {
     width: 33.3%;
     float: left;
     line-height: 26px;
+    padding-left: 20px;
+    display: inline-block;
+}
+.unit-info li:last-child article:first-child,.unit-info li:last-child article:nth-child(4) {
+    padding-left: 0;
 }
 .unit-info li:last-child article span{
     color: #fff;
-    margin-left: 6px;
     font-size: 14px;
+    float: right;
 }
+
 .toolcount abbr {
     position: relative;
     display: inline-block;
@@ -662,8 +669,8 @@ span.point {
   font-size: 12px;
   width: 22px;
   height: 22px;
-  border-color: #222;
-  background-color: #222;
+  border-color: #000;
+  background-color: #000;
   line-height: 22px;
   padding:0 4px;
   color: #999;
@@ -673,11 +680,11 @@ span.point {
 }
 .indexdateabox>.indexdateactive {
   color: #fff;
-  background-color: #000;
+  background-color: #222;
 }
 .indexdateabox >b:hover {
   color: #fff;
-  background-color: #000;
+  background-color: #222;
 }
 /*聚合小地图*/
 #min-map {

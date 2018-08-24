@@ -23,6 +23,18 @@
 .el-notification__content .notify-left {
     line-height: 40px;
 }
+#manage-center .modal-content .el-select .el-input.is-disabled .el-input__inner {
+  color: #666!important;
+  background-color: #111!important;
+  border-color: #222;
+}
+#manage-center .modal-content .el-select .el-input.is-disabled .el-input__inner:hover {
+  color: #666!important;
+  background-color: #111!important;
+}
+#manage-center .modal-content .el-select .el-input.is-disabled  .el-input__suffix-inner .el-input__icon{
+  display: none;
+}
 /*按钮*/
 .upd-btn {
     padding: 1px 2px;

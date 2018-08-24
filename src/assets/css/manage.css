@@ -578,12 +578,17 @@
   color: #666;
   text-align: right;
 }
-.modal .modal-body .el-form-item__content .el-input__inner {
+.modal-content .el-form-item__content .el-input__inner {
   font-size: 12px;
   height: 34px;
     line-height: 34px;
     color: #fff!important;
-    border: 1px solid #333 !important;
+}
+.modal-content .el-form-item.is-success .el-input__inner {
+  border: 1px solid #333!important;
+}
+.modal-content .el-form-item.is-error .el-input__inner {
+  border-color: #f13131!important;
 }
 .el-button--primary {
   border-color: transparent!important;
@@ -645,6 +650,19 @@
 .el-button--text {
     color: #bad616;
 }
+.el-button--text:focus, .el-button--text:hover {
+    color: #fff;
+}
+.el-picker-panel .el-button.is-plain, .el-picker-panel .el-button.is-plain {
+    border-color: #333!important;
+    background-color: #111;
+    border-radius: 0;
+    color: #999;
+}
+#manage-center .el-picker-panel__body-wrapper .el-input__inner:focus, .el-textarea__inner:focus, .el-message-box__input input.invalid:focus {
+      border-color: #222 !important;
+}
+
 #list-maps{
   height: 100%;
   width: 100%;
