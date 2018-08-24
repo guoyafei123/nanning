@@ -271,6 +271,17 @@ import { isvalidName } from '../../assets/js/validate';
       },
       mounted(){
        this.unitSearch();
+      },
+      computed:{
+        unitId(){
+          return this.form.unitId;
+        }
+      },
+      watch:{
+        unitId(val,oldVal){
+          this.form.unitId = val ;
+          this.buildSearch(this.form.unitId);
+        }
       }
     }
 </script>
