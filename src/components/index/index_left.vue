@@ -131,12 +131,12 @@
 		]),
 		watch: {
 			toIndexLeftAlarmChar() {
-				console.log(this.toIndexLeftAlarmChar);
+				//console.log(this.toIndexLeftAlarmChar);
 				this.getalarm();
 				this.gettrouble();
 			},
 			unitid() {
-				// console.log(this.queryAlarmData_parmar.unitId)
+				// //console.log(this.queryAlarmData_parmar.unitId)
 				if(this.unitid != 0) {
 					this.getunitid = this.unitid;
 				} else {
@@ -269,7 +269,7 @@
 			draw_line(id, d1, d2) {
 				let a = d1,
 					b = d2;
-				// console.log(b);
+				// //console.log(b);
 				var char = {
 					xAxis: {
 						type: "category",

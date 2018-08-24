@@ -170,8 +170,8 @@
       },
       // 显示内容
       showTabcont(data) {
-        console.log(data);
-        console.log(data.id);
+        //console.log(data);
+        //console.log(data.id);
         $('#TabCont').addClass('show')
         $('#myTabContent').addClass('hide')
         this.getEventById_param.eventId = data.referenceId;
@@ -195,12 +195,12 @@
         this.$fetch('/api/event/getEventById', this.getEventById_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               this.getEventByIdDate = response.data.event
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
       //系统消息
@@ -209,7 +209,7 @@
         this.$fetch('/api/user/queryMessage?types=' + types, this.getMessageDate_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               this.getMessageDateSys = response.data.pager.result
               let sysUnReadCount = response.data.sysUnReadCount;
               if (sysUnReadCount > 0) {
@@ -218,7 +218,7 @@
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
       //报警消息
@@ -227,7 +227,7 @@
         this.$fetch('/api/user/queryMessage?types=' + types, this.getMessageDate_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               let alarmUnReadCount = response.data.alarmUnReadCount;
               if (alarmUnReadCount > 0) {
                 this.getStarts.alarmStart = true;
@@ -236,7 +236,7 @@
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
 
@@ -246,7 +246,7 @@
         this.$fetch('/api/user/queryMessage?types=' + types, this.getMessageDate_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               let troubleUnReadCount = response.data.troubleUnReadCount;
               if (troubleUnReadCount > 0) {
                 this.getStarts.troubleStart = true;
@@ -255,7 +255,7 @@
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
       //读取消息
@@ -263,14 +263,14 @@
         this.$fetch('/api/user/rendMessage', this.rendMessage_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               this.queryMessageSys()
               this.queryMessageAlarm()
               this.queryMessageTrouble()
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
     },

@@ -69,6 +69,18 @@
     border-right: 10px solid transparent;
     border-top: 10px solid #ccc;
 }
+.newpeople{
+    width: 30px;
+    height: 30px;
+}
+.newpeople span{
+    position: absolute;
+    bottom: -5px;
+    left: 5px;
+    /* border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #ccc; */
+}
 .people-trianlixian{
     border-top: 10px solid #ccc!important;
 }
@@ -80,6 +92,9 @@
 }
 .people-yellow{
     border-top: 10px solid rgba(255,204,0,1)!important;
+}
+.people-red{
+    border-top: 10px solid rgba(255,0,0,1)!important;
 }
 .legend-people div{
     width: 100%;
@@ -118,14 +133,38 @@
     right: 0;
     margin: auto;
 }
-/*.legend-alarm span:after{
-    content: '';
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 12px solid red;
-}*/
+
+.legend-alarm:hover .map-tootipbox{
+    display: block 
+}
+.legend-people:hover .map-tootipbox{
+    display: block 
+}
+.map-tootipbox{
+    text-align: center ;
+    position: relative ;
+    bottom: 40px ;
+    display: none ;
+}
+.map-tootipboxpeo{
+    bottom: 36px;
+    left: 52px;
+}
+.map-tootipboxdan{
+    bottom: 62px;
+    left: -85px;
+}
+.map-tootip{
+    color: #bad616 ;
+    display: inline-block ;
+    padding: 5px 10px ;
+    background: #383838b8 ;
+    border-radius: 100px ;
+    min-width: 200px ;
+}
+.legend-alarm:hover .map-tootip{
+    display: inline-block !important;
+}
 .alarm-max{
     width: 100%;
     height: 100%;
@@ -243,7 +282,62 @@
 .map-build:before{
     content: "\e64f";
     position: absolute;
-    right: -21px;
-    bottom: 4px;
-    font-size: 40px;
+    right: -9px;
+    bottom: 7px;
+    font-size: 18px;
+}
+/* 隐患 */
+.map-yinhuan:before{
+    content: "\e623";
+    position: absolute;
+    right: -9px;
+    bottom: 7px;
+    font-size: 18px;
+}
+/* 隐患损坏 */
+.map-sunhuai:before{
+    content: "\e68e";
+    position: absolute;
+    right: -9px;
+    bottom: 7px;
+    font-size: 18px;
+}
+/* 人为隐患 */
+.map-renwei:before{
+    content: "\e688";
+    position: absolute;
+    right: -9px;
+    bottom: 7px;
+    font-size: 18px;
+}
+/* 非人为隐患 */
+.map-feirenwei:before{
+    content: "\e689";
+    position: absolute;
+    right: -9px;
+    bottom: 7px;
+    font-size: 18px;
+}
+/* 缺失 */
+.map-queshi:before{
+    content: "\e68b";
+    position: absolute;
+    right: -9px;
+    bottom: 7px;
+    font-size: 18px;
+}
+/* 危险品 */
+.map-weixianpin:before{
+    content: "\e62c";
+    position: absolute;
+    right: -9px;
+    bottom: 7px;
+    font-size: 18px;
+}
+.map-alarm:before{
+    content: "\e620";
+    position: absolute;
+    right: -9px;
+    bottom: 7px;
+    font-size: 18px;
 }

@@ -1,6 +1,6 @@
 <template>
 	<div class="mmp">
-		<!-- <div id="mapindex" class="xzmap"></div> -->
+		<div id="mapindex" class="xzmap"></div>
 	</div>
 	
 </template>
@@ -52,7 +52,7 @@
 
 		methods: {
 			getMapToDiv(divId) {
-				alert(1);
+				// alert(1);
 				var MAP_STYLE_SMALL = [{
 						"featureType": "land",
 						"elementType": "all",
@@ -548,7 +548,6 @@
 			},
 			fn(){
         let map =this.getMapToDiv('mapindex');
-        console.log(map);
 				this.aleamAndtroubleInfos=this.aleamAndtroubleInfo[0];
 				map.clearOverlays();
         map.setCenter(new BMap.Point(this.aleamAndtroubleInfos.pointX, this.aleamAndtroubleInfos.pointY));
@@ -571,9 +570,6 @@
 				this.fn();
 			}
 		},
-		destroyed(){
-			$('#mapindex').remove();
-		},
 		mounted() {
       this.fn();
     }
@@ -589,7 +585,7 @@
 		// 		that.listenerScale =
 		// 			that.scale[that.zoom] / that.scale[map.getZoom()] * that.alarmsize;
 		// 		// alert(that.routepath)
-		// 		console.log(that.alarmsArray);
+		// 		//console.log(that.alarmsArray);
 		// 		for(var i = 0; i < that.alarmsArray.length; i++) {
 		// 			map.removeOverlay(that.alarmsArray[i][0]);
 		// 			map.removeOverlay(that.alarmsArray[i][2]);
@@ -598,7 +594,7 @@
 		// 				"12",
 		// 				that.listenerScale, [that.alarmsArray[i][1].pointX, that.alarmsArray[i][1].pointY]
 		// 			)[0];
-		// 			// console.log(newalarm);
+		// 			// //console.log(newalarm);
 		// 			map.addOverlay(that.alarmsArray[i][0]);
 		// 			map.addOverlay(that.alarmsArray[i][2]);
 		// 		}
@@ -611,7 +607,7 @@
 		// 				"5",
 		// 				that.listenerScale, [that.troubleArray[i][1].pointX, that.troubleArray[i][1].pointY]
 		// 			)[0];
-		// 			// console.log(newalarm);
+		// 			// //console.log(newalarm);
 		// 			map.addOverlay(that.troubleArray[i][0]);
 		// 			map.addOverlay(that.troubleArray[i][2]);
 		// 		}

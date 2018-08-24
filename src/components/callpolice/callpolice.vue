@@ -443,7 +443,7 @@
 		]),
 		watch: {
 			unitid() {
-				// console.log(this.queryAlarmData_parmar.unitId)
+				// //console.log(this.queryAlarmData_parmar.unitId)
 				if(this.unitid != 0) {
 					this.getunitid = this.unitid;
 				} else {
@@ -525,7 +525,7 @@
 					.removeClass("display-block");
 				// 请求报警详情
 				let eventLevel = item.eventLevel;
-				console.log(item)
+				//console.log(item)
 				if(eventLevel == 0 || eventLevel == 2) {
 					this.infoShow = true;
 				} else {
@@ -535,25 +535,25 @@
 				this.$fetch("/api/alarm/getAlarmDetail", this.getAlarmDetail_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.getAlarmDetail = response.data.alarm;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			handleCurrentChange(val) {
-				console.log('人员当前页:' + val);
+				//console.log('人员当前页:' + val);
 				this.getAlarmList_parameter.currentPage = val;
 				this.getTable();
 			},
 			tolineitem() {
-				console.log(this.queryInspectionNameListvalue);
+				//console.log(this.queryInspectionNameListvalue);
 				$("#lookroute").removeClass("upd-btn-dis");
 			},
 			// callradio(){
-			//   console.log(this.radiovalue);
+			//   //console.log(this.radiovalue);
 			//   this.troubleCount.type=this.radiovalue;
 			//   this.get_Pie();
 			// },
@@ -562,12 +562,12 @@
 				this.$fetch("/api/alarm/getAlarmList", this.getAlarmList_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.tableData = response.data.pager;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			getData() {
@@ -578,12 +578,12 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.queryAlarmStats = response.data.result;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 
 				// 请求报警数据统计
@@ -593,9 +593,9 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.getAlarmCount = response.data.alarmCount;
-							console.log(this.getAlarmCount);
+							//console.log(this.getAlarmCount);
 							this.draw_piemin(
 								"call_charpiemin",
 								response.data.alarmCount
@@ -607,7 +607,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 					this.getHistoryAlarmRateV();
 			},
@@ -617,12 +617,12 @@
 					.then(response => {
 						if(response) {
 							this.getHistoryAlarmRate = response.data;
-							console.log(this.getHistoryAlarmRate);
+							//console.log(this.getHistoryAlarmRate);
 							this.draw_line("call_charline", response.data.historyAlarmRate);
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			draw_piemin(id, data) {

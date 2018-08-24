@@ -49,7 +49,7 @@
     watch:{
       // 所有巡检单位
       route_path(){
-        console.log(this.route_path);
+        //console.log(this.route_path);
         if(this.route_path=='/login' || this.route_path=='/register'){
           this.mapAndFooter=false;
         }else{
@@ -59,7 +59,7 @@
     },
 
     mounted() {     
-      console.log('加载')
+      //console.log('加载')
       // realconsole();
       $("[data-toggle='tooltip']").tooltip({html : true });
       // alert(this.$route.path);

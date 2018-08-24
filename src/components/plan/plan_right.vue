@@ -191,7 +191,7 @@
 				this.planbunlists(this.countUnitPlan.numberOfPlanType);
 			},
 			unitid(){
-				// console.log(this.queryAlarmData_parmar.unitId)
+				// //console.log(this.queryAlarmData_parmar.unitId)
 				if(this.unitid!=0){
 					this.getunitid=this.unitid;
 				}else{
@@ -313,7 +313,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			queryByIds(){
@@ -329,7 +329,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			
@@ -341,7 +341,7 @@
 				let aTag = document.createElement('a');
 				let blob = new Blob([item.url]);　　
 				aTag.download = item.name;
-				console.log(URL.createObjectURL(blob));　　
+				//console.log(URL.createObjectURL(blob));　　
 				aTag.href = URL.createObjectURL(item.url);
 				aTag.click();　　　　　　
 				URL.revokeObjectURL(blob);

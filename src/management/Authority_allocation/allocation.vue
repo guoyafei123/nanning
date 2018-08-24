@@ -43,13 +43,13 @@ export default {
         getList(){
             
         this.roleId = this.$route.params.id;
-        console.log(this.roleId)
+        //console.log(this.roleId)
           this.$fetch("/api/roleSource/search",{roleId:this.roleId})
             .then(res=>{
                 res.data.listTree.forEach(element => {
-                    // console.log(eval("("+element+")"));
+                    // //console.log(eval("("+element+")"));
                     this.areaListData.push(eval("("+element+")"));
-                    // console.log(this.areaListData);
+                    // //console.log(this.areaListData);
                     $.fn.zTree.init($("#treeDemo"), this.setting, this.areaListData);
                 });
                 
@@ -59,7 +59,7 @@ export default {
             });
         },
         zTreeOnCheck(event, treeId, treeNode) {
-            console.log(treeNode.tId + ", " + treeNode.name + "," + treeNode.checked);
+            //console.log(treeNode.tId + ", " + treeNode.name + "," + treeNode.checked);
             var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
             checkCount = zTree.getCheckedNodes(true).length,//选中
             nocheckCount = zTree.getCheckedNodes(false).length,//未选中
@@ -69,15 +69,15 @@ export default {
                 checkedIds.push(zTree.getCheckedNodes(true)[i].id);
                 checkedNames.push(zTree.getCheckedNodes(true)[i].name);
             };
-            console.log(checkedIds);
+            //console.log(checkedIds);
             var checkedIds = checkedIds.toString();
             this.checkedIds = checkedIds ;
-            console.log(checkedNames);
+            //console.log(checkedNames);
         },
         success(){
             this.$fetch("/api/roleSource/updateRoleSource",{roleId:this.roleId,ids:this.checkedIds})
                 .then(res=>{
-                    console.log(res);
+                    //console.log(res);
                     this.$router.push({path:'/Authority_allocation/all'});
                 })
                 .catch(err=>{

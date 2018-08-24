@@ -34,7 +34,7 @@ export function fetch(url,params = {}){
     axios.get(url,{params:params})
       .then(response => {
         resolve(response.data);
-        console.log(response.data.errorCode);
+        //console.log(response.data.errorCode);
         // 全局拦截tooltip提示
         $("[data-toggle='tooltip']").tooltip();
         // 全局拦截未登录调整login

@@ -80,7 +80,7 @@
     },
     methods: {
       btn_add(){
-        // console.log($('#right'));
+        // //console.log($('#right'));
         $('#right').hide();
       
       },
@@ -93,16 +93,16 @@
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            console.log(err);
+            //console.log(err);
           });
       }
     },
@@ -110,9 +110,9 @@
       form:{
         //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
         handler(curVal,oldVal){
-          // console.log(curVal);
+          // //console.log(curVal);
           this.form = curVal;
-          console.log(this.form);
+          //console.log(this.form);
           this.$store.commit('form',this.form);
         },
         deep:true

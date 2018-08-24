@@ -367,7 +367,7 @@
 			},
 			//获取人员右侧统计数据
 			getData(){
-				// console.log(this.queryUserCount_parameter.startTime);
+				// //console.log(this.queryUserCount_parameter.startTime);
 				this.$fetch("/api/user/queryUserCount",this.queryUserCount_parameter).then(response => {
 					if (response.data) {
 						let data = response.data;

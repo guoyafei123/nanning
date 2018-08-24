@@ -143,16 +143,16 @@
           }
         )
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.pager) {
             this.tableData = response.data.pager.result;
-            console.log(this.tableData);
+            //console.log(this.tableData);
             this.right_list();
             $('.plan').show();
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       }
     },
@@ -171,7 +171,7 @@
         this.form.roleName = '' ;
         this.form.headImgUrl = '' ;
         var item = this.peopleTableData ;
-        console.log(this.peopleTableData)
+        //console.log(this.peopleTableData)
         item.review == 0 ? this.form.review = '非审核账号' : item.review == 1 ? this.form.review = '审核通过' : item.review == 2 ? this.form.review = '审核未通过' : this.form.review = '待审核' ;
         this.form.nickName = item.nickName ;
         this.form.position = item.position ;

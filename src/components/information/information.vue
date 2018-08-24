@@ -468,6 +468,7 @@
 					33:'icon-miehuoqi-mian-',
 					34:'icon-shoudongbaojinganniu-',
 				},
+				
 				selectNode_parameter:{
 					unitId:null,
 					currentPage:1,
@@ -487,7 +488,7 @@
 		]),
 		watch:{
 			unitid(){
-				// console.log(this.queryAlarmData_parmar.unitId)
+				// //console.log(this.queryAlarmData_parmar.unitId)
 				if(this.unitid!=0){
 					this.getunitid=this.unitid;
 				}else{
@@ -582,26 +583,26 @@
 				this.startDates=item.startDate+"";
 			},
 			handleCurrentChange(val) {
-				console.log(`当前页:` + val);
+				//console.log(`当前页:` + val);
 				this.deviceList_parameter.currentPage = val;
 				this.getTable();
 			},
 			tolineitem() {
-				console.log(this.queryInspectionNameListvalue);
+				//console.log(this.queryInspectionNameListvalue);
 				$("#lookroute").removeClass("upd-btn-dis");
 			},
 			callradio() {
-				console.log(this.radiovalue);
+				//console.log(this.radiovalue);
 				this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.type = this.radiovalue;
 				this.get_axis();
 			},
 			callradiohis() {
-				console.log(this.radiovaluehis);
+				//console.log(this.radiovaluehis);
 				this.trendLine_parameter.type = this.radiovaluehis;
 				this.get_line();
 			},
 			callradiopie() {
-				console.log(this.radiovaluepie);
+				//console.log(this.radiovaluepie);
 				this.alarmAndMalfunctionDeviceCount_parameter.type = this.radiovaluepie;
 				this.get_pie();
 			},
@@ -610,12 +611,12 @@
 				this.$fetch("/api/device/deviceList", this.deviceList_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.tableData = response.data.pager;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			getData() {
@@ -626,13 +627,13 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.deviceCountByUnit = response.data;
 
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			get_pie() {
@@ -643,14 +644,14 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.alarmAndMalfunctionDeviceCount = response.data;
 							// this.draw_piemin("call_charpiemin", response.data);
 							this.draw_piemax("call_charpiemax", response.data, this.alarmAndMalfunctionDeviceCount_parameter.type)
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			get_line() {
@@ -662,12 +663,12 @@
 					.then(response => {
 						if(response) {
 							this.trendLine = response.data;
-							console.log(this.trendLine);
+							//console.log(this.trendLine);
 							this.draw_line("call_charline", response.data, this.trendLine_parameter.type);
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			get_axis() {
@@ -687,7 +688,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			getBuild(){
@@ -705,7 +706,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			toselectNode(){
@@ -855,13 +856,13 @@
 				let a = [],
 					b = [],
 					d;
-				console.log(data.alarmRate[0].lineDate);
+				//console.log(data.alarmRate[0].lineDate);
 				if(type == 1) {
 					d = data.malfunctionRate;
 				} else {
 					d = data.alarmRate;
 				}
-				console.log(d);
+				//console.log(d);
 				for(var i = 0; i < d.length; i++) {
 					if(type == 1) {
 						b.push(d[i].malfunctionCount);
@@ -870,8 +871,8 @@
 					}
 					a.push(d[i].lineDate);
 				}
-				console.log(a);
-				console.log(b);
+				//console.log(a);
+				//console.log(b);
 				var char = {
 					xAxis: {
 						type: "category",

@@ -192,12 +192,12 @@
 		watch: {
 			userinfo() {
 				// this.getuserinfo=this.userinfo;
-				// console.log(this.userinfo);
+				// //console.log(this.userinfo);
 			}
 		},
 		//其他
 		mounted() {
-			// console.log(this.userinfo);
+			// //console.log(this.userinfo);
 
 			this.mini_go("header-canvas-people", 88.88);
 			this.mini_go("header-canvas-host", 88.88);
@@ -271,12 +271,14 @@
 				cxt_mini.closePath();
 			},
 			getunitlist() {
-				this.$fetch("api/unit/queryUnit")
+				this.$fetch("/api/unit/queryUnit")
 					.then(response => {
 						if(response) {
+							
 							this.queryUnit = response.data.unitList;
-							console.log(this.queryUnit);
-							console.log(this.queryUnit.length);
+							this.$store.commit('mapAllUnit', response.data.unitList);
+							//console.log(this.queryUnit);
+							//console.log(this.queryUnit.length);
 							if(this.queryUnit.length == 1) {
 								this.unitvalue = this.queryUnit[0].name;
 								this.$store.commit('unitid', this.queryUnit[0].id);
@@ -300,11 +302,11 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			optionchange() {
-				console.log(this.unitvalue);
+				//console.log(this.unitvalue);
 				sessionStorage.unitid = this.unitvalue;
 				this.$store.commit('unitid', this.unitvalue);
 			},

@@ -260,7 +260,7 @@
         $('.total').show();
       },
       btn_add(){
-        // console.log($('#right'));
+        // //console.log($('#right'));
         $('#right').css('display','none');
       },
       formatType(row){
@@ -270,7 +270,7 @@
         return row.isScan == 1 ?  '是' : '否';
       },
       handleCurrentChange(val) {
-        // console.log(val);
+        // //console.log(val);
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
@@ -284,7 +284,7 @@
             isScan:this.isScan
           }).then(response=>{
             if(response){
-              console.log('开启线路成功...'+ JSON.stringify(response));
+              //console.log('开启线路成功...'+ JSON.stringify(response));
               this.tableList();
             }
           })
@@ -295,7 +295,7 @@
         this.inspectionName = row.name;
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('inspectionPlanId',row.id);
         $('.plan').show();
@@ -307,29 +307,29 @@
         this.inspectionIndex = row.id ;
       },
       StopRow(){//停用的接口
-          console.log(this.inspectionIndex);
+          //console.log(this.inspectionIndex);
           this.$fetch("/api/inspection/stop_plan",{
             id:this.inspectionIndex
           }).then(response=>{
             if(response){
-              console.log('关闭线路成功...'+ JSON.stringify(response));
+              //console.log('关闭线路成功...'+ JSON.stringify(response));
               this.tableList();
             }
           })
 
       },
       deleteRow(){
-          console.log(this.inspectionIndex);
+          //console.log(this.inspectionIndex);
           this.$fetch("/api/admin/inspection/deleteInspectiopnPlan",{
             inspectionPlanId:this.inspectionIndex
           }).then(response=>{
             if(response){
-              console.log('删除线路成功...'+ JSON.stringify(response));
+              //console.log('删除线路成功...'+ JSON.stringify(response));
               this.tableData.splice(this.inspectionIndex,1);
               this.tableList();
             }
           }).then(err => {
-            console.log(err);
+            //console.log(err);
           });
       },
       unitSearch(){
@@ -338,16 +338,16 @@
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            console.log(err);
+            //console.log(err);
           });
       },
       tableList(){
@@ -361,9 +361,9 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response) {
-              // console.log(response.data.inspectionPlanList);
+              // //console.log(response.data.inspectionPlanList);
               this.totalList = response.data.total;
               this.tableData = response.data.inspectionPlanList;
               if(this.totalList % 10 == 0){
@@ -374,22 +374,22 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       form:{
         //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
         handler(curVal,oldVal){
-          // console.log(curVal);
+          // //console.log(curVal);
           this.form = curVal;
-          console.log(this.form);
+          //console.log(this.form);
           this.tableList();
           this.$store.commit('region',this.form.region1);
         },

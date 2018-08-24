@@ -48,7 +48,7 @@
 						)
 						.then(response => {
 							if(response) {
-								console.log(response);
+								//console.log(response);
 								if(response.errorCode == '20023') {
 									this.varphoneb = true;
 									callback();
@@ -59,11 +59,11 @@
 							}
 						})
 						.then(err => {
-							console.log(err);
+							//console.log(err);
 						});
 				} else {
 					const reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/
-					console.log(reg.test(value));
+					//console.log(reg.test(value));
 					if(reg.test(value)) {
 						this.varphoneb = true;
 						callback();
@@ -84,7 +84,7 @@
 						)
 						.then(response => {
 							if(response) {
-								console.log(response);
+								//console.log(response);
 								if(response.field == '3') {
 									return callback(new Error('验证码错误,请重新输入'));
 								} else if(response.field == '2') {
@@ -95,11 +95,11 @@
 							}
 						})
 						.then(err => {
-							console.log(err);
+							//console.log(err);
 						});
 				} else {
 					const reg = /^\d{6}$/
-					console.log(reg.test(value));
+					//console.log(reg.test(value));
 					if(reg.test(value)) {
 						callback();
 					} else {
@@ -122,7 +122,7 @@
 				}
 			};
 			// var validateunit=(rule, value, callback) => {
-			//   console.log(value);
+			//   //console.log(value);
 			//   if (value === '') {
 			//     callback(new Error('请选择单位'));
 			//   }else{
@@ -188,7 +188,7 @@
 						// alert('submit!');
 						this.register();
 					} else {
-						console.log('error submit!!');
+						//console.log('error submit!!');
 						return false;
 					}
 				});
@@ -218,7 +218,7 @@
 							}
 						})
 						.then(err => {
-							console.log(err);
+							//console.log(err);
 						});
 
 				}
@@ -230,7 +230,7 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							if(response.status == 1) {
 								var num = 4;
 								let interval = setInterval(() => {
@@ -251,7 +251,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			getunit() {
@@ -266,7 +266,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			}
 

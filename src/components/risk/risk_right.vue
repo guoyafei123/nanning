@@ -232,7 +232,7 @@
 			getData() {
 				// 请求统计数据
 				this.$fetch("/api/inspection/planInspectionCount").then(response => {
-					console.log(response.data);
+					//console.log(response.data);
 					let data = response.data;
 					if(response.data) {
 
@@ -258,7 +258,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 
 				// 请求历史曲线图
@@ -280,7 +280,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			//right-折线图

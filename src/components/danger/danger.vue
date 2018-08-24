@@ -543,21 +543,21 @@
 				this.$fetch("/api/trouble/troubleDetail", this.troubleDetail_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.troubleDetail = response.data.trouble;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			handleCurrentChange(val) {
-				console.log(`当前页:` + val);
+				//console.log(`当前页:` + val);
 				this.troubleList_parameter.currentPage = val;
 				this.getTable();
 			},
 			tolineitem() {
-				console.log(this.queryInspectionNameListvalue);
+				//console.log(this.queryInspectionNameListvalue);
 				$("#lookroute").removeClass("upd-btn-dis");
 			},
 			getTable() {
@@ -565,12 +565,12 @@
 				this.$fetch("/api/trouble/troubleList", this.troubleList_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.tableData = response.data.pager;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			getData() {
@@ -581,12 +581,12 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.queryTroubleStats = response.data.result;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 
 				// 请求隐患饼图数据
@@ -601,7 +601,7 @@
 							this.draw_piemax("dan_charpiemax", this.troubleRatio);
 						}
 					}).then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 				this.getTroubleRate();
 			},	
@@ -613,7 +613,7 @@
 							this.draw_line("dan_charline", data);
 						}
 					}).then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			draw_piemin(id, data) {

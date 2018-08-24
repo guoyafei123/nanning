@@ -173,16 +173,16 @@
           }
         )
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.pager) {
             this.tableData = response.data.pager.result;
-            console.log(this.tableData);
+            //console.log(this.tableData);
             this.right_list();
             $('.plan').show();
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       }
     },

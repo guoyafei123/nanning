@@ -356,7 +356,7 @@
     },
     methods: {
       floor_btn(id){
-        console.log(id)
+        //console.log(id)
         this.table_list.forEach((item)=>{
           if(item.id == id){
             this.svgUrl = item.svgUrl ;
@@ -374,7 +374,7 @@
         this.deviceIndex = row.id ;
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
-            console.log(item);
+            //console.log(item);
             this.form.buildName = item.name ;
             this.form.unitId = item.unitId ;
             this.form.unitName = item.unitName ;
@@ -395,7 +395,7 @@
           if (valid) {
             this.optionList.forEach((item,index)=>{
               if(item.id == this.form.unitId){
-                console.log(item.name);
+                //console.log(item.name);
                 this.form.unitName = item.name;
               }
             })
@@ -417,16 +417,16 @@
             }).then(response=>{
               if(response){
                 if(response.status == 1){
-                  console.log('修改建筑成功...'+ JSON.stringify(response));
+                  //console.log('修改建筑成功...'+ JSON.stringify(response));
                   $('.primary').attr('data-dismiss','modal');
                   this.tableBuildList();
                 }else{
-                  console.log('修改建筑失败...'+ JSON.stringify(response));
+                  //console.log('修改建筑失败...'+ JSON.stringify(response));
                 }
               }
             })
           } else {
-            console.log('error submit!!');
+            //console.log('error submit!!');
             return false;
           }
         });
@@ -452,7 +452,7 @@
         this.findPageBuildIngFloor();
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('floorAdd',2);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('buildingId',row.id);
@@ -460,21 +460,21 @@
         $('.total').hide();
       },
       deleteRow(){
-        console.log(this.deviceIndex);
+        //console.log(this.deviceIndex);
         this.$fetch("/api/building/deleteBuilding",{
           buildingId:this.deviceIndex
         }).then(response=>{
           if(response){
             if(response.status == 1){
-              console.log('删除建筑成功...'+ JSON.stringify(response));
+              //console.log('删除建筑成功...'+ JSON.stringify(response));
             }else{
-              console.log('删除建筑失败...'+ JSON.stringify(response));
+              //console.log('删除建筑失败...'+ JSON.stringify(response));
             }
             this.tableData.splice(this.deviceIndex,1);
             this.tableBuildList();
           }
         }).then(err => {
-          console.log(err);
+          //console.log(err);
         });
       },
       qrcode(){
@@ -486,16 +486,16 @@
         )
         .then(response => {
           if (response) {
-            console.log(response);
+            //console.log(response);
             this.optionList = response.data.unitList;
-            console.log(this.optionList);
+            //console.log(this.optionList);
             $(' .el-select-dropdown__item').mouseover(function(){
               $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
             });
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       },
       tableBuildList(){
@@ -507,13 +507,13 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.pageBuildIng) {
-              // console.log(response.data.inspectionPlanList);
+              // //console.log(response.data.inspectionPlanList);
               this.totalList = response.data.pageBuildIng.totalRow;
               this.tableData = response.data.pageBuildIng.result;
               this.tableData.forEach((item,index)=>{
-                // console.log(111)
+                // //console.log(111)
                 if(index == this.tableData.length-1){
                   this.$store.commit('buildingId',item.id);
                 }
@@ -526,17 +526,17 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       findPageBuildIngFloor(){
-        // console.log(this.buildingId)
+        // //console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
           pageSize:1000,
           buildingId:this.deviceIndex
         }).then(response=>{
-          console.log(response.data.pageBuildIng.result);
+          //console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;
           this.table_list.forEach(item=>{
              if(this.floorId == item.floor){
@@ -558,7 +558,7 @@
     watch:{
       $route: {
         handler: function(val, oldVal){
-          console.log(val);
+          //console.log(val);
           if(this.$route.path == '/Building_management/all'){
             $('.plan').show();
             $('.floor_wrap').hide();
@@ -569,7 +569,7 @@
       },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableBuildList();
       },
       buildUnit(val,oldVal){

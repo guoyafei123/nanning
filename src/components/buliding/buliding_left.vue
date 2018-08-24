@@ -211,7 +211,7 @@
   ]),
   watch:{
     unitid(){
-      // console.log(this.queryAlarmData_parmar.unitId)
+      // //console.log(this.queryAlarmData_parmar.unitId)
       if(this.unitid!=0){
         this.getunitid=this.unitid;
       }else{
@@ -266,7 +266,7 @@
           }
         })
         .then(err => {
-          console.log(err);
+          //console.log(err);
         });
     },
     handleCurrentChange(val) {

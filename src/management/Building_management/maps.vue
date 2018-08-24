@@ -72,7 +72,7 @@
     },
     methods: {
       floor_btn(id){
-        console.log(id)
+        //console.log(id)
         this.table_list.forEach((item)=>{
           if(item.id == id){
             this.svgUrl = item.svgUrl ;
@@ -88,26 +88,26 @@
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       findPageBuildIngFloor(){
-        console.log(this.buildingId)
+        //console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
           pageSize:1000,
           buildingId:this.buildingId
         }).then(response=>{
-          console.log(response.data.pageBuildIng.result);
+          //console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;
           this.table_list.forEach(item=>{
              if(this.floorId == item.floor){
@@ -122,7 +122,7 @@
     watch:{
       $route: {
         handler: function(val, oldVal){
-          // console.log(val);
+          // //console.log(val);
           if(this.$route.path == '/Building_management/maps'){
             $('.plan').hide();
             $('.total').show();
@@ -137,7 +137,7 @@
       },
       buildUnit(curVal,oldVal){
         this.buildUnit = curVal;
-        console.log(this.buildUnit);
+        //console.log(this.buildUnit);
         this.$store.commit('buildUnit',this.buildUnit);
       },
       buildingId(){
