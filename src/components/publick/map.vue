@@ -202,7 +202,7 @@
 					// this.path_buliding();
 				}
 				else if(this.routepath == "/callpolice") {
-					
+					this.path_callpolice();
 				}
 				else if(this.routepath == "/buliding") {
 					// this.path_buliding();
@@ -871,7 +871,14 @@
 				);
 			},
 			path_callpolice(){
-				
+				this.$fetch("/api/alarm/getAlarmList")
+				.then(response => {
+					if(response) {
+						var getAlarmList=response.data.pager.result
+					}
+				})
+				.then(err => {
+				});
 			},
 			showInfo(e){
 				// alert(e.point.lng + ", " + e.point.lat);
