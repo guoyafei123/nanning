@@ -17,7 +17,6 @@ import moment from 'moment';
 import echarts from 'echarts';
 Vue.prototype.$echarts = echarts;
 
-
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
