@@ -43,7 +43,9 @@
                         高风险建筑
                       </small>
                       <p class="size-14 font-gray-ccc">
-                        {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}} <small class="font-gray-999">- {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}</small></p>
+                        {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}}
+                        <small class="font-gray-999">- {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}</small></p> 
+  
                     </div>
                     <div class="col-sm-3 text-center">
                       <span class="size-36 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "-"}}</span>
