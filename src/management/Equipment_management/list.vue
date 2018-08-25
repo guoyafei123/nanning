@@ -154,7 +154,7 @@
       <div class="maps map">
           <managementMap-vue></managementMap-vue>
       </div>
-      <div class="floorMap maps" style="display:none;">
+      <div class="floorMap maps" style="display:none;position: relative;">
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
@@ -168,7 +168,7 @@
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
-import { getTopLeftRate } from '../../assets/js/imgPoint';
+import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
     export default {
       data() {
         var validPhone=(rule, value,callback)=>{
@@ -217,6 +217,7 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             }
         }
         return {
+          imgIndex: 0,
           labelPosition: 'top',
           form:{
             id:'',
@@ -442,13 +443,20 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
         },
         addDevice(){
           // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
-          this.form.Rate = [getTopLeftRate().leftRate,getTopLeftRate().topRate];
+          let xRate = getTopLeftRate().leftRate;
+          let yRate = getTopLeftRate().topRate;
+          this.form.Rate = [xRate,yRate];
+
+          this.imgIndex++;
+           $('.floorMap').append('<div id="alarmDiv'+this.imgIndex+'"></div>');
+          setPoint(xRate,yRate,this.iconByType[1],'alarmDiv'+this.imgIndex);
           console.log(this.form.Rate)
         }
       },
       computed:{
         ...mapState([
-          'buildPoint'
+          'buildPoint',
+          'iconByType'
         ]),
         unitId(){
           return this.form.unitId;
@@ -490,12 +498,10 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             $('.map').hide();
             $('.floorMap').show();
             $("#imgPic").on("load",function(){
-              var winwidth = window.screen.width;
-              var winheight = window.screen.height;
+              var winwidth = $('.floorMap').width;
+              var winheight =$('.floorMap').height;
               var fjwidth = $('#imgPic').width();
               var fjheight = $('#imgPic').height();
-              var newwidth=0;
-              var newheight=0;
               if(fjwidth>winwidth || fjheight>winheight){
                 var ratewid = fjwidth/winwidth;
                 var ratehei = fjheight/winheight;
