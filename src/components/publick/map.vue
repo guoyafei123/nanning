@@ -98,8 +98,11 @@
 			indexToAlarmTroubel() {
 				let type = this.indexToAlarmTroubel[1];
 				if(type == 1) {
+					for(var i = 0; i < this.alarmsArray.length; i++) {
+						this.mp.removeOverlay(this.alarmsArray[i][0]);
+						this.mp.removeOverlay(this.alarmsArray[i][2]);
+					}
 					this.alarmsArray = [];
-
 					this.indexToAlarmTroubel[0].alarms.forEach(element => {
 						var name=this.toname(element);
 						var alarmtype=this.toalarmtype(element);
@@ -192,12 +195,16 @@
 				this.getbuildlist();
 				// 全部单位
 				this.getunitlist();
-				// this.path_index();
 				if(this.routepath == "/idnex") {
-					// this.path_index();
 				} else if(this.routepath == "/inspection") {
 					this.path_inspection();
 				} else if(this.routepath == "/buliding") {
+					// this.path_buliding();
+				}
+				else if(this.routepath == "/callpolice") {
+					
+				}
+				else if(this.routepath == "/buliding") {
 					// this.path_buliding();
 				}
 			},
@@ -812,38 +819,6 @@
 			attribute(){
 				// alert("marker的位置是");    
 			},
-			path_index() {
-				var  markers=this.addlandmark("红花园工业园1号楼", "3", [110.566804,27.906523])
-				this.mp.addOverlay(
-					markers
-				);
-				markers.addEventListener("click",function(){
-				});
-				this.mp.addOverlay(
-					this.addlandmark("红花园工业园2号楼", "3", [110.574907, 27.905837])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("五里排", "1", [110.56976, 27.909667])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("林翠山公园", "1", [110.584321, 27.910753])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("蒋家冲", "1", [110.568709, 27.900633])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("溆水外滩", "1", [110.58734, 27.90199])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("罗家湾", "1", [110.579686, 27.91179])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("三坝塘", "1", [110.571494, 27.913881])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("红花园村", "1", [110.562726, 27.897616])
-				);
-			},
 			path_inspection() {
 				var linearray = [
 					[110.574494, 27.905342],
@@ -894,6 +869,9 @@
 				this.mp.addOverlay(
 					this.addlandmark("红花园村", "1", [110.562726, 27.897616])
 				);
+			},
+			path_callpolice(){
+				
 			},
 			showInfo(e){
 				// alert(e.point.lng + ", " + e.point.lat);
