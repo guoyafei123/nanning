@@ -122,7 +122,7 @@ import { isvalidName } from '../../assets/js/validate';
             title:this.form.title,
             content:this.form.cont
           }).then(res=>{
-            console.log(res);
+            //console.log(res);
             this.$router.push({path:'/Message_management/notice'});
             this.$message({
               message: '发布成功！！',
@@ -142,16 +142,16 @@ import { isvalidName } from '../../assets/js/validate';
           )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
         }
       },

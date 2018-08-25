@@ -367,12 +367,12 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
                 'controlId':this.form.controlId
               }).then(response=>{
                 if(response){
-                  console.log('新增成功...'+ JSON.stringify(response));
+                  //console.log('新增成功...'+ JSON.stringify(response));
                   this.$router.push({path:'/Equipment_management/all'});
                 }
               })
             } else {
-              console.log('error submit!!');
+              //console.log('error submit!!');
               return false;
             }
           });
@@ -387,24 +387,24 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           )
             .then(response => {
               if (response) {
-                console.log(response);
+                //console.log(response);
                 this.optionList = response.data.unitList;
-                console.log(this.optionList);
+                //console.log(this.optionList);
                 $(' .el-select-dropdown__item').mouseover(function(){
                   $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
                 });
               }
             })
             .then(err => {
-              // console.log(err);
+              // //console.log(err);
             });
         },
         equipmentSearch(){
           this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
-            console.log('equipmentSearch:'+response);
+            //console.log('equipmentSearch:'+response);
             if (response) {
               this.equipmentList = response.data.deviceTypeEnum;
-              console.log(this.equipmentList);
+              //console.log(this.equipmentList);
             }
           })
         },
@@ -412,10 +412,10 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
           }).then(response=>{
-            console.log('formBuildSearch:'+JSON.stringify(response));
+            //console.log('formBuildSearch:'+JSON.stringify(response));
             if (response) {
               this.form.buildList = response.data.list;
-              console.log(this.form.buildList);
+              //console.log(this.form.buildList);
             }
           })
         },
@@ -423,10 +423,10 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           this.$fetch("/api/building/selectNode",{
             buildIngId:buildIngId
           }).then(response=>{
-            console.log('formFloorSearch:'+response);
+            //console.log('formFloorSearch:'+response);
             if (response) {
               this.form.floorList = response.data.list;
-              console.log(this.form.floorList);
+              //console.log(this.form.floorList);
             }
           })
         },
@@ -434,10 +434,10 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           this.$fetch("/api/building/selectNode",{
             floorId:floorId
           }).then(response=>{
-            console.log('formRoomSearch:'+response);
+            //console.log('formRoomSearch:'+response);
             if (response) {
               this.form.roomList = response.data.list;
-              console.log(this.form.roomList);
+              //console.log(this.form.roomList);
             }
           })
         },
@@ -481,7 +481,7 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           this.optionList.forEach((item,index)=>{
             if(item.id == this.form.unitId){
               this.form.unitName = item.name ;
-              console.log(this.form.unitName);
+              //console.log(this.form.unitName);
             }
           })
         },
@@ -523,7 +523,7 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           this.form.buildList.forEach((item,index)=>{
             if(item.id == this.form.buildingId){
               this.form.buildingName = item.name ;
-              console.log(this.form.buildingName);
+              //console.log(this.form.buildingName);
             }else if(this.form.buildingId == '0' && this.form.buildingId == 0){
               this.form.buildingName = '室外';
             }
@@ -539,7 +539,7 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           this.form.floorList.forEach((item,index)=>{
             if(item.id == this.form.floorId){
               this.form.floorNumber = item.floorName ;
-              console.log(this.form.floorNumber);
+              //console.log(this.form.floorNumber);
             }
           })
         },
@@ -548,7 +548,7 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           this.form.roomList.forEach((item,index)=>{
             if(item.id == this.form.roomId){
               this.form.roomNumber = item.roomNumber ;
-              console.log(this.form.roomNumber);
+              //console.log(this.form.roomNumber);
             }
           })
         },
@@ -558,7 +558,7 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
           this.equipmentList.forEach((item,index)=>{
             if(item.id == this.form.equipmentId){
               this.form.deviceTypeName = item.name ;
-              console.log(this.form.deviceTypeName);
+              //console.log(this.form.deviceTypeName);
             }
           })
         },

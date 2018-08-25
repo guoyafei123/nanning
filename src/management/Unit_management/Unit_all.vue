@@ -262,7 +262,7 @@
         this.isShow = true ;
         this.fileVerification="";
         $("#up_img"+this.form.id+"").attr("src",'');
-        console.log(this.form.id)
+        //console.log(this.form.id)
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
       },
       getObjectURL(node) {
@@ -309,7 +309,7 @@
         
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
-            console.log(item.id);
+            //console.log(item.id);
             this.form.id = item.id ;
             this.form.name = item.name ;
             this.form.property = item.property ;
@@ -324,7 +324,7 @@
           }
         })
         // $("#up_img"+ this.form.id +"").attr("src","http://img.nanninglq.51play.com/xf/api/unit_img/"+ this.form.id +".jpg");
-        console.log(this.form.id)
+        //console.log(this.form.id)
       },
       startRow(formName){
         // 修改成功提示
@@ -367,27 +367,27 @@
                   $.messager.alert('警告', "系统错误", "warning");
                 },
                 complete: function (e) {//只要完成即执行，最后执行
-                  // console.log(e) 
+                  // //console.log(e) 
                   
                   
                   that.tableList();
                   $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                     $("#file").on("change", function(){  
-                      console.log($("#up_img"+that.form.id+""))
+                      //console.log($("#up_img"+that.form.id+""))
                       $("#up_img"+ that.form.id +"").attr("src", that.getObjectURL(document.getElementById('file')));     
-                      console.log(that.form.id) 
+                      //console.log(that.form.id) 
                   });
                 }
             });
             $('.primary').attr('data-dismiss','modal');
           } else {
-            console.log('error submit!!');
+            //console.log('error submit!!');
             return false;
           }
         });
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('unitNum',row.id);
       },
@@ -399,18 +399,18 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.pager) {
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
                   this.$store.commit('unitNum',item.id);
-                  console.log(item.id)
+                  //console.log(item.id)
                 }
                 if(item.id == this.deviceIndex){
                   this.$store.commit('unitList',item);
-                  console.log(item)
+                  //console.log(item)
                 }
               })
               if(this.totalList % 10 == 0){
@@ -421,7 +421,7 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },
@@ -433,7 +433,7 @@
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       }
     }

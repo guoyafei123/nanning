@@ -236,12 +236,12 @@
                   $.messager.alert('警告', "系统错误", "warning");
                 },
                 complete: function (e) {//只要完成即执行，最后执行
-                  // console.log(e) 
+                  // //console.log(e) 
                   that.$router.push({path:'/Unit_management/all'});
                 }
               });
             } else {
-              console.log('error submit!!');
+              //console.log('error submit!!');
               return false;
             }
           });

@@ -245,7 +245,7 @@
     },
     methods: {
       file(){
-        // console.log($("#file")[0].files[0].name)
+        // //console.log($("#file")[0].files[0].name)
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
       },
       getObjectURL(node) {
@@ -330,21 +330,21 @@
                   $.messager.alert('警告', "系统错误", "warning");
                 },
                 complete: function (e) {//只要完成即执行，最后执行
-                  // console.log(e) 
+                  // //console.log(e) 
                   that.tableList();
-                  // console.log(that.tableData)
+                  // //console.log(that.tableData)
                   // that.$store.commit('unitNumber',that.deviceIndex);
                   
                   $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                     $("#file").on("change", function(){  
-                      console.log($("#up_img"+that.form.id+""))
+                      //console.log($("#up_img"+that.form.id+""))
                       $("#up_img"+that.form.id+"").attr("src", that.getObjectURL(document.getElementById('file')));      
                   });  
                 }
             });
 
           } else {
-            console.log('error submit!!');
+            //console.log('error submit!!');
             return false;
           }
         });
@@ -358,12 +358,12 @@
         this.$fetch("/api/user/deleteUser",{
           userId:this.deviceIndex
         }).then(response=>{
-          console.log(response);
+          //console.log(response);
           this.tableList();
         })
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('unitNumber',row.id);
       },
@@ -373,16 +373,16 @@
         )
         .then(response => {
           if (response) {
-            console.log(response);
+            //console.log(response);
             this.optionList = response.data.unitList;
-            console.log(this.optionList);
+            //console.log(this.optionList);
             $(' .el-select-dropdown__item').mouseover(function(){
               $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
             });
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       },
       roleSearch(){
@@ -391,16 +391,16 @@
         )
         .then(response => {
           if (response) {
-            console.log(response);
+            //console.log(response);
             this.roleList = response.data.roleList;
-            console.log(this.roleList);
+            //console.log(this.roleList);
             $(' .el-select-dropdown__item').mouseover(function(){
               $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
             });
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       },
       tableList(){
@@ -413,18 +413,18 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.pager) {
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
                   this.$store.commit('unitNumber',item.id);
-                  console.log(item.id)
+                  //console.log(item.id)
                 }
                 if(item.id == this.deviceIndex){
                   this.$store.commit('peopleTableData',item);
-                  // console.log(item)
+                  // //console.log(item)
                 }
               })
               if(this.totalList % 10 == 0){
@@ -435,7 +435,7 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },
@@ -449,17 +449,17 @@
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       unitId(val,oldVal){
         this.unitId = val ;
-        console.log(this.unitId);
+        //console.log(this.unitId);
         this.tableList();
       },
       roleId(val,oldVal){
         this.roleId = val ;
-        console.log( this.roleId );
+        //console.log( this.roleId );
         this.tableList();
       }
     }

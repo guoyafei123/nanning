@@ -67,7 +67,7 @@
         this.nickName = '' ;
         this.url = '' ;
         var item = this.unitPlan ;
-        console.log(this.unitPlan);
+        //console.log(this.unitPlan);
         this.id = item.id ;
         this.name = item.name ;
         this.unitName = item.unitName ;

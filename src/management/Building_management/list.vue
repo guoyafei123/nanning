@@ -196,7 +196,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             if (valid) {
               this.optionList.forEach((item,index)=>{
                 if(item.id == this.form.unitId){
-                  console.log(item.name);
+                  //console.log(item.name);
                   this.form.UnitName = item.name;
                 }
               })
@@ -219,12 +219,12 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               }
               ).then(response=>{
                 if(response){
-                  console.log('新增建筑成功...'+ JSON.stringify(response));
+                  //console.log('新增建筑成功...'+ JSON.stringify(response));
                   this.$router.push({path:'/Building_management/all'});
                 }
               })
             } else {
-              console.log('error submit!!');
+              //console.log('error submit!!');
               return false;
             }
           });
@@ -238,16 +238,16 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           )
             .then(response => {
               if (response) {
-                console.log(response);
+                //console.log(response);
                 this.optionList = response.data.unitList;
-                console.log(this.optionList);
+                //console.log(this.optionList);
                 $(' .el-select-dropdown__item').mouseover(function(){
                   $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
                 });
               }
             })
             .then(err => {
-              // console.log(err);
+              // //console.log(err);
             });
         }
       },

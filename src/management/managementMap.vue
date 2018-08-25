@@ -400,8 +400,8 @@
         },
         tableDatas(){
           this.tableData.forEach(item => {
-            console.log(item.pointX);
-            console.log(item.pointY);
+            //console.log(item.pointX);
+            //console.log(item.pointY);
             this.mp.addOverlay(this.addlandmark(item.id,item.name,[item.pointX,item.pointY]));
             $("#map" + item.id).click(()=>{
               $('.build').hide();

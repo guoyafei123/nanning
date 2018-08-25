@@ -51,13 +51,13 @@
       tableList(){
         this.$fetch("/api/user/queryRoleListByUser")
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.roleList) { 
               this.tableData = response.data.roleList;
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },

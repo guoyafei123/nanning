@@ -12,9 +12,9 @@
 					unitId: null
 				},
 				maxroom: 19,
-				minroom: 14,
+				minroom: 1,
 				zoom: 16,
-				point: [110.574008, 27.906355],
+				point: [108.335801,22.733686],
 				mp: Object,
 				alarms: Object,
 				listenerScale: 500,
@@ -48,7 +48,7 @@
 			"queryInspectionLineList",
 			"indexToAlarmTroubel",
 			"route_path",
-			"unitid"
+			"unitid",
 		]),
 		watch: {
 			// 所有巡检单位
@@ -86,11 +86,9 @@
 							}
 						});
 					}
-					// this.mp.addOverlay(this.addlandmark(element.name,element.status,[element.pointX,element.pointY]))
-					console.log(element.buildingName);
 				});
 			},
-
+			
 			// type:
 			// =1 正常请求画图
 			// =2 只请求报警和火情
@@ -98,28 +96,40 @@
 			// =4 关闭火情
 			// 实时报警
 			indexToAlarmTroubel() {
-				// this.alarmsArray=[];
-				// this.path_index();
-				// if(this.routepath=='/idnex' || this.routepath=='/callpolice'){
-				console.log(this.indexToAlarmTroubel[1]);
 				let type = this.indexToAlarmTroubel[1];
 				if(type == 1) {
 					this.alarmsArray = [];
+
 					this.indexToAlarmTroubel[0].alarms.forEach(element => {
-						let alarms = this.addalarm("银湖海岸城1", "12", this.listenerScale, [
+						var name=this.toname(element);
+						var alarmtype=this.toalarmtype(element);
+						let alarms = this.addalarm(name, "12", this.listenerScale, [
 							element.pointX,
 							element.pointY
-						]);
+						],alarmtype);
 						this.mp.addOverlay(alarms[0]);
 						this.mp.addOverlay(alarms[1]);
 						this.alarmsArray.push([alarms[0], element, alarms[1]]);
 					});
+
+					this.indexToAlarmTroubel[0].troubles.forEach(element => {
+						var a=element.pointX;
+						var b=element.pointY;
+						var name=this.toname(element)
+						var trouble=this.addpeople('', "9", [a,b],name)
+						this.mp.addOverlay(trouble);
+						this.troubleArray.push(trouble);
+					});
+
+
 				} else if(type == 2) {
 					let element = this.indexToAlarmTroubel[0].alarms[0];
-					let alarms = this.addalarm("银湖海岸城1", "12", this.listenerScale, [
+					var name=this.toname(element);
+					var alarmtype=this.toalarmtype(element);
+					let alarms = this.addalarm(name, "12", this.listenerScale, [
 						element.pointX,
 						element.pointY
-					]);
+					],alarmtype);
 					this.mp.addOverlay(alarms[0]);
 					this.mp.addOverlay(alarms[1]);
 					this.alarmsArray.push([alarms[0], element, alarms[1]]);
@@ -137,38 +147,37 @@
 					}
 					this.alarmsArray = [];
 					this.indexToAlarmTroubel[0].alarms.forEach(element => {
-						let alarms = this.addalarm("银湖海岸城1", "12", this.listenerScale, [
+						var name=this.toname(element);
+						var alarmtype=this.toalarmtype(element);
+						let alarms = this.addalarm(name, "12", this.listenerScale, [
 							element.pointX,
 							element.pointY
-						]);
+						],alarmtype);
 						this.mp.addOverlay(alarms[0]);
 						this.mp.addOverlay(alarms[1]);
 						this.alarmsArray.push([alarms[0], element, alarms[1]]);
 					});
 				} else if(type == 9) {
 					let element = this.indexToAlarmTroubel[0].troubles[0];
-					let alarms = this.addalarm("银湖海岸城1", "5", this.listenerScale, [
-						element.pointX,
-						element.pointY
-					]);
-					this.mp.addOverlay(alarms[0]);
-					this.mp.addOverlay(alarms[1]);
-					this.troubleArray.push([alarms[0], element, alarms[1]]);
+					var a=element.pointX;
+					var b=element.pointY;
+					var trouble=this.addpeople('', "9", [a,b],element.dangerName)
+					this.mp.addOverlay(trouble);
+					this.troubleArray.push(trouble);
 					this.mp.setCenter(new BMap.Point(element.pointX, element.pointY));
 				} else if(type == 10) {
 					for(var i = 0; i < this.troubleArray.length; i++) {
-						this.mp.removeOverlay(this.troubleArray[i][0]);
-						this.mp.removeOverlay(this.troubleArray[i][2]);
+						this.mp.removeOverlay(this.troubleArray[i]);
+						this.mp.removeOverlay(this.troubleArray[i]);
 					}
 					this.troubleArray = [];
-					this.indexToAlarmTroubel[0].alarms.forEach(element => {
-						let alarms = this.addalarm("银湖海岸城1", "6", this.listenerScale, [
-							element.pointX,
-							element.pointY
-						]);
-						this.mp.addOverlay(alarms[0]);
-						this.mp.addOverlay(alarms[1]);
-						this.troubleArray.push([alarms[0], element, alarms[1]]);
+					this.indexToAlarmTroubel[0].troubles.forEach(element => {
+						var a=element.pointX;
+						var b=element.pointY;
+						var name=this.toname(element)
+						var trouble=this.addpeople('', "9", [a,b],name)
+						this.mp.addOverlay(trouble);
+						this.troubleArray.push(trouble);
 					});
 					// 666为不加载任何元素
 				} else if(type == 666) {
@@ -179,7 +188,11 @@
 			route_path() {
 				this.routepath = this.route_path;
 				this.mp.clearOverlays();
-				this.path_index();
+				// 全部建筑
+				this.getbuildlist();
+				// 全部单位
+				this.getunitlist();
+				// this.path_index();
 				if(this.routepath == "/idnex") {
 					// this.path_index();
 				} else if(this.routepath == "/inspection") {
@@ -190,22 +203,8 @@
 			},
 
 			unitid() {
-				// console.log(this.queryAlarmData_parmar.unitId)
-				// http://api.nanninglq.51play.com/unit/queryById?unitId=4
-				// this.getunitid=this.unitid;
-				this.queryUnit.unitId = this.unitid;
-				this.$fetch("api/unit/queryById", this.queryUnit)
-					.then(response => {
-						if(response) {
-							if(response.data.unit.pointX != 0 && response.data.unit.pointY != 0) {
-								this.mp.setCenter(new BMap.Point(response.data.unit.pointX, response.data.unit.pointY));
-							}
-						}
-					})
-					.then(err => {
-						console.log(err);
-					});
-			}
+				this.getunitidbyheater(this.unitid);
+			},
 		},
 		methods: {
 			getMapToDiv(divId) {
@@ -408,9 +407,85 @@
 				return map;
 			},
 
+			getunitlist() {
+				this.$fetch("/api/unit/queryUnit")
+				.then(response => {
+					if(response) {
+						var unitlist=response.data.unitList;
+						unitlist.forEach(element => {
+							var a=element.pointX;
+							var b=element.pointY;
+							this.mp.addOverlay(
+								this.addlandmark(element.name, "1", [a, b])
+							);
+						});
+					}
+				})
+				.then(err => {
+				});
+			},
+
+			getbuildlist() {
+				this.$fetch("/api/building/selectNode",{unitId:null})
+				.then(response => {
+					if(response) {
+						var buildlist=response.data.list;
+						buildlist.forEach(element => {
+							var a=element.pointX;
+							var b=element.pointY;
+							this.mp.addOverlay(
+								this.addpeople('', "3", [a,b],element.name)
+							);
+						});
+					}
+				})
+				.then(err => {
+				});
+			},
+
+			getunitidbyheater(unitid){
+				if(unitid != null && unitid != 0){
+					this.queryUnit.unitId = this.unitid;
+					this.$fetch("/api/unit/queryById", this.queryUnit)
+					.then(response => {
+						if(response) {
+							if(response.data.unit.pointX != 0 && response.data.unit.pointY != 0) {
+								sessionStorage.unitpointX=response.data.unit.pointX;
+								sessionStorage.unitpointY=response.data.unit.pointY;
+								this.mp.setCenter(new BMap.Point(response.data.unit.pointX, response.data.unit.pointY));
+							}
+						}
+					})
+					.then(err => {
+					});
+				}else{
+					this.mp.setCenter(new BMap.Point(108.335801, 22.733686));
+				}
+			},
+
+			toname(element){
+				var a,b,c,d,name;
+				a=element.unitName==null ? '' :element.unitName;
+				b=element.buildingName==null ? '' :element.buildingName;
+				c=element.floorNumber==null ? '' :element.floorNumber+'层';
+				d=element.roomNumber==null ? '' :element.roomNumber;
+				name=a+' '+b+' '+c+' '+d;
+				return name;
+			},
+			toalarmtype(element){
+				var a;
+				if(element.eventLevel==0){
+					a=3;
+				}else if(element.eventLevel==1){
+					a=1;
+				}else if(element.eventLevel==2){
+					a=2;
+				}
+				return a;
+			},
+
 			addlandmark(name, value, p) {
 				let that = this;
-				// let map=this.getMapToDiv('allmap');
 				function landmark(point, name, value) {
 					this._point = point;
 					this._name = name;
@@ -437,13 +512,13 @@
 				
 				return marker;
 			},
-			addpeople(img, value, p) {
+			addpeople(img, value, p,name) {
 				let that = this;
-				// let map=this.getMapToDiv('allmap');
-				function people(point, img, value) {
+				function people(point, img, value,name) {
 					this._point = point;
 					this._img = img;
 					this._value = value;
+					this._name = name;
 				}
 				people.prototype = new BMap.Overlay();
 				people.prototype.initialize = function(map) {
@@ -452,7 +527,7 @@
 					$(div).addClass("landmark_marker");
 					div.style.position = "absolute";
 
-					$(div).append(that.legend_people(this._img, this._value));
+					$(div).append(that.legend_people(this._img, this._value,this._name));
 					map.getPanes().labelPane.appendChild(div);
 					return div;
 				};
@@ -462,18 +537,17 @@
 					this._div.style.left = pixel.x - 0 + "px";
 					this._div.style.top = pixel.y - 0 + "px";
 				};
-				var marker = new people(new BMap.Point(p[0], p[1]), img, value);
+				var marker = new people(new BMap.Point(p[0], p[1]), img, value,name);
 				return marker;
 			},
-			addalarm(img, value, size, p) {
+			addalarm(img, value, size, p,type) {
 				let that = this;
-
-				// let map=this.getMapToDiv('allmap');
 				function alarm(point, img, value, size) {
 					this._point = point;
 					this._img = img;
 					this._value = value;
 					this._size = size;
+					this._type=type;
 				}
 				alarm.prototype = new BMap.Overlay();
 				alarm.prototype.initialize = function(map) {
@@ -481,7 +555,7 @@
 					var div = (this._div = document.createElement("div"));
 					$(div).addClass("landmark_marker");
 					div.style.position = "absolute";
-					$(div).append(that.legend_alarm(this._img, this._value, this._size));
+					$(div).append(that.legend_alarm(this._img, this._value, this._size,this._type));
 
 					map.getPanes().labelPane.appendChild(div);
 					return div;
@@ -493,14 +567,14 @@
 					this._div.style.top = pixel.y - 0 + "px";
 				};
 				var l = size * 0.54;
-				var marker = new alarm(new BMap.Point(p[0], p[1]), img, value, l);
+				var marker = new alarm(new BMap.Point(p[0], p[1]), img, value, l,type);
 				var circle = new BMap.Circle(new BMap.Point(p[0], p[1]), 500, {});
 				var fillcolor = "#bad616";
-				if(value <= 3) {
+				if(value <= 2) {
 					fillcolor = "#bad616";
-				} else if(value <= 6) {
+				} else if(value <= 3) {
 					fillcolor = "#c69e00";
-				} else if(value <= 9) {
+				} else if(value <= 4) {
 					fillcolor = "#ff7800";
 				} else {
 					fillcolor = "#f13131";
@@ -581,8 +655,13 @@
 			},
 			// value=1 || 2 ->人物头像
 			// value=3 建筑
-
-			legend_people(img, value) {
+			// value>3 隐患
+			// 4 ->损坏
+			// 5 ->人为
+			// 6 ->非人为
+			// 7 ->缺失
+			// 8 ->危险品
+			legend_people(img, value,name) {
 				var style;
 				var trian;
 				var icon;
@@ -595,14 +674,36 @@
 				} else if(value == 3) {
 					style = "bg-orange";
 					trian = "people-orange";
-					icon="map-build"
-				} else if(value == 4) {
-					style = "bg-orange";
-					trian = "people-yellow";
 					icon='map-build'
+				} else if(value == 4) {
+					style = "bg-yellow";
+					trian = "people-yellow";
+					icon='map-sunhuai'
+				}else if(value == 5) {
+					style = "bg-yellow";
+					trian = "people-yellow";
+					icon='map-renwei'
+				}else if(value == 6) {
+					style = "bg-yellow";
+					trian = "people-yellow";
+					icon='map-feirenwei'
+				}else if(value == 7) {
+					style = "bg-yellow";
+					trian = "people-yellow";
+					icon='map-queshi'
+				}else if(value == 8) {
+					style = "bg-yellow";
+					trian = "people-yellow";
+					icon='map-weixianpin'
+				}else if(value == 9) {
+					style = "bg-yellow";
+					trian = "people-yellow";
+					icon='map-yinhuan'
+				}else if(value == 10) {
+					style = "bg-red";
+					trian = "people-red";
+					icon='map-alarm'
 				}
-				
-
 				var html =
 								`
 					<div class="legend-people ` +
@@ -616,14 +717,15 @@
 						<span class="` +
 								trian +
 								`"></span>
+								<section class="map-tootipbox map-tootipboxpeo"><p class="map-tootip">`+name+`</p></section>
 					</div>
 					`;
 				if(value>2){
 					html =
 								`
-					<div class="legend-people ` +
+					<div class="legend-people newpeople ` +
 								style +
-								`" style="top:-60px;left:-25px">
+								`" style="top:-35px;left:-15px">
 						<div>
 							<span class="icon iconfont mapdander ` +
 							icon +
@@ -632,25 +734,27 @@
 						<span class="` +
 								trian +
 								`"></span>
+						<section class="map-tootipbox map-tootipboxdan"><p class="map-tootip">`+name+`</p></section>
 					</div>
+					
 					`;
 				}
 				return html;
-				// 
 			},
-			legend_alarm(img, value, size) {
+			legend_alarm(img, value, size,type) {
 				var style_bg;
 				var style_border;
 				var style_shadow;
-				if(value <= 3) {
+				var style_type;
+				if(value == 2) {
 					style_bg = "bg-blue";
 					style_border = "border-blue";
 					style_shadow = "shadow-blue";
-				} else if(value <= 6) {
+				} else if(value == 3) {
 					style_bg = "bg-yellow";
 					style_border = "border-yellow";
 					style_shadow = "shadow-yellow";
-				} else if(value <= 9) {
+				} else if(value == 4) {
 					style_bg = "bg-orange";
 					style_border = "border-orange";
 					style_shadow = "shadow-orange";
@@ -658,6 +762,13 @@
 					style_bg = "bg-red";
 					style_border = "border-red";
 					style_shadow = "shadow-red";
+				}
+				if(type==1){
+					style_type='map-warning';
+				}else if(type==2){
+					style_type='map-fire';
+				}else if(type==3){
+					style_type='map-dangers';
 				}
 				var pointdiv = size / 2 - size;
 				var html =
@@ -686,13 +797,14 @@
 						<span class="alarm-ani alarm-item4 ` +
 							style_shadow +
 							`"></span>
-						<span class="icon iconfont alarm-min map-fire ` +
-							style_bg +
+						<span class="icon iconfont alarm-min ` +
+							style_bg +` `+style_type+
 							`">
 							</span>
 						<span class="alarm-max ` +
 							style_border +
 							`"></span>
+						<div class="map-tootipbox"><p class="map-tootip">`+img+`</p></div>
 					</div>
 				`;
 				return html;
@@ -706,14 +818,7 @@
 					markers
 				);
 				markers.addEventListener("click",function(){
-					// alert(1);
 				});
-				this.mp.addOverlay(
-					this.addpeople(require("../../assets/images/people.png"), "1", [110.576578,27.901798])
-				);
-				this.mp.addOverlay(
-					this.addpeople(require("../../assets/images/people.png"), "3", [110.576578,27.903798])
-				);
 				this.mp.addOverlay(
 					this.addlandmark("红花园工业园2号楼", "3", [110.574907, 27.905837])
 				);
@@ -740,41 +845,6 @@
 				);
 			},
 			path_inspection() {
-				// this.mp.addOverlay(this.addlandmark("红花园工业园B区",'3',[110.573398,27.904424]))
-				// this.mp.addOverlay(this.addlandmark("红花园工业园A区",'6',[110.57205,27.905429]))
-				// this.mp.addOverlay(this.addlandmark("红花园工业园C区",'9',[110.575571,27.904967]))
-				// this.mp.addOverlay(this.addlandmark("红花园工业园D区",'12',[110.575158,27.906978]))
-				// this.mp.addOverlay(this.addlandmark("红花园工业园E区",'12',[110.572948,27.908334]))
-				// this.mp.addOverlay(this.addlandmark("红花园工业园物业部",'1',[110.571565,27.907441]))
-
-				this.mp.addOverlay(
-					this.addlandmark("红花园工业园1号楼", "3", [110.574494, 27.905342])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("红花园工业园2号楼", "3", [110.574907, 27.905837])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("五里排", "1", [110.56976, 27.909667])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("林翠山公园", "1", [110.584321, 27.910753])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("蒋家冲", "1", [110.568709, 27.900633])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("溆水外滩", "1", [110.58734, 27.90199])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("罗家湾", "1", [110.579686, 27.91179])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("三坝塘", "1", [110.571494, 27.913881])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("红花园村", "1", [110.562726, 27.897616])
-				);
-
 				var linearray = [
 					[110.574494, 27.905342],
 					[110.572109, 27.905414],
@@ -785,16 +855,6 @@
 					[110.574907, 27.905837]
 				];
 				this.mp.addOverlay(this.addline(linearray, 1));
-
-				// var linearray = [
-				//   [110.574494,27.905342],
-				//   [110.573614,27.904871],
-				//   [110.572751,27.905845],
-				//   [110.573582,27.906471],
-				//   [110.57431,27.906276],
-				//   [110.574907,27.905837]
-				// ];
-				// this.mp.addOverlay(this.addline(linearray,20));
 
 				var linearray = [
 					[110.574494, 27.905342],
@@ -836,52 +896,41 @@
 				);
 			},
 			showInfo(e){
-				alert(e.point.lng + ", " + e.point.lat);
+				// alert(e.point.lng + ", " + e.point.lat);
 			}
 		},
 		mounted() {
 			var map = this.getMapToDiv("allmap");
 			this.mp = map;
 			var that = this;
-			// var
-			this.path_index();
-
-			// function showInfo(e){
-			// 	alert(e.point.lng + ", " + e.point.lat);
-			// }
-
-			// map.addEventListener("click", this.showInfo);
+			// 获取单位id定位地图
+			this.getunitidbyheater(this.unitid);
+			// 全部建筑
+			this.getbuildlist();
+			// 全部单位
+			this.getunitlist();
+			
+			if(sessionStorage.unitpointX !=undefined){
+				this.mp.setCenter(new BMap.Point(sessionStorage.unitpointX, sessionStorage.unitpointY));
+			}
 
 			map.addEventListener("zoomend", function(evt) {
 				that.listenerScale =
 					that.scale[that.zoom] / that.scale[map.getZoom()] * that.alarmsize;
-				// alert(that.routepath)
-				console.log(that.alarmsArray);
 				if(that.routepath == "/index") {
 					for(var i = 0; i < that.alarmsArray.length; i++) {
 						map.removeOverlay(that.alarmsArray[i][0]);
 						map.removeOverlay(that.alarmsArray[i][2]);
+						var name=that.toname(that.alarmsArray[i][1]);
+						var alarmtype=that.toalarmtype(that.alarmsArray[i][1]);
 						that.alarmsArray[i][0] = that.addalarm(
-							"银湖海岸城1",
+							name,
 							"12",
-							that.listenerScale, [that.alarmsArray[i][1].pointX, that.alarmsArray[i][1].pointY]
+							that.listenerScale, [that.alarmsArray[i][1].pointX, that.alarmsArray[i][1].pointY],
+							alarmtype
 						)[0];
-						// console.log(newalarm);
 						map.addOverlay(that.alarmsArray[i][0]);
 						map.addOverlay(that.alarmsArray[i][2]);
-					}
-
-					for(var i = 0; i < that.troubleArray.length; i++) {
-						map.removeOverlay(that.troubleArray[i][0]);
-						map.removeOverlay(that.troubleArray[i][2]);
-						that.troubleArray[i][0] = that.addalarm(
-							"银湖海岸城1",
-							"5",
-							that.listenerScale, [that.troubleArray[i][1].pointX, that.troubleArray[i][1].pointY]
-						)[0];
-						// console.log(newalarm);
-						map.addOverlay(that.troubleArray[i][0]);
-						map.addOverlay(that.troubleArray[i][2]);
 					}
 				}
 			});

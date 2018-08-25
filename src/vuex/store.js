@@ -73,6 +73,10 @@ var state={
   topersonitem:Object,
   // 综合页面传入报警和隐患详情
   aleamAndtroubleInfo:Object,
+
+  // 地图相关
+  // 全部单位
+  mapAllUnit:Object,
 }
 
 var mutations={
@@ -226,6 +230,7 @@ var mutations={
   },
   // 全局权限
   unitid(state,data){
+    // alert(data);
     state.unitid=data;
   },
   userinfo(state,data){
@@ -245,7 +250,10 @@ var mutations={
   },
   aleamAndtroubleInfo(state,data){
     state.aleamAndtroubleInfo=data;
-  }
+  },
+  mapAllUnit(state,data){
+    state.mapAllUnit=data;
+  },
 }
 
 export default new Vuex.Store({

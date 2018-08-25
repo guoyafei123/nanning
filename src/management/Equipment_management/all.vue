@@ -475,7 +475,7 @@ import { mapState } from 'vuex';
           'maintenancePhone':this.form.phone
         }).then(response=>{
           if(response){
-            console.log('修改成功...'+ JSON.stringify(response));
+            //console.log('修改成功...'+ JSON.stringify(response));
             this.tableList();
           }
         })
@@ -485,7 +485,7 @@ import { mapState } from 'vuex';
         this.deviceIndex = row.id;
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('deviceId',row.id);
         $('.plan').show();
@@ -493,17 +493,17 @@ import { mapState } from 'vuex';
         $('.total').hide();
       },
       deleteRow(){
-          console.log(this.deviceIndex);
+          //console.log(this.deviceIndex);
           this.$fetch("/api/device/deleteDevice",{
             'deviceId':this.deviceIndex
           }).then(response=>{
             if(response){
-              console.log('删除成功...'+ JSON.stringify(response));
+              //console.log('删除成功...'+ JSON.stringify(response));
               this.tableData.splice(this.deviceIndex,1);
               this.tableList();
             }
           }).then(err => {
-            console.log(err);
+            //console.log(err);
           });
       },
       dateMinus(sDate){ 
@@ -522,16 +522,16 @@ import { mapState } from 'vuex';
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       tableList(){
@@ -547,13 +547,13 @@ import { mapState } from 'vuex';
           }
         )
           .then(response => {
-            console.log('设备111111111111111111'+JSON.stringify(response));
+            //console.log('设备111111111111111111'+JSON.stringify(response));
             if (response) {
-              // console.log(response.data.inspectionPlanList);
+              // //console.log(response.data.inspectionPlanList);
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
-                // console.log(111)
+                // //console.log(111)
                 if(index == this.tableData.length-1){
                   this.$store.commit('deviceId',item.id);
                 }
@@ -566,17 +566,17 @@ import { mapState } from 'vuex';
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       buildSearch(unitId){
         this.$fetch("/api/building/selectNode",{
           unitId:unitId
         }).then(response=>{
-          console.log('buildSearch:'+JSON.stringify(response));
+          //console.log('buildSearch:'+JSON.stringify(response));
           if (response) {
             this.buildList = response.data.list;
-            console.log(this.buildList);
+            //console.log(this.buildList);
           }
         })
       },
@@ -584,10 +584,10 @@ import { mapState } from 'vuex';
         this.$fetch("/api/building/selectNode",{
           buildIngId:buildIngId
         }).then(response=>{
-          console.log('floorSearch:'+response);
+          //console.log('floorSearch:'+response);
           if (response) {
             this.floorList = response.data.list;
-            console.log(this.floorList);
+            //console.log(this.floorList);
           }
         })
       },
@@ -595,19 +595,19 @@ import { mapState } from 'vuex';
         this.$fetch("/api/building/selectNode",{
           floorId:floorId
         }).then(response=>{
-          console.log('roomSearch:'+response);
+          //console.log('roomSearch:'+response);
           if (response) {
             this.roomList = response.data.list;
-            console.log(this.roomList);
+            //console.log(this.roomList);
           }
         })
       },
       equipmentSearch(){
         this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
-          console.log('equipmentSearch:'+response);
+          //console.log('equipmentSearch:'+response);
           if (response) {
             this.equipmentList = response.data.deviceTypeEnum;
-            console.log(this.equipmentList);
+            //console.log(this.equipmentList);
           }
         })
       },
@@ -615,10 +615,10 @@ import { mapState } from 'vuex';
         this.$fetch("/api/building/selectNode",{
           unitId:unitId
         }).then(response=>{
-          console.log('formBuildSearch:'+JSON.stringify(response));
+          //console.log('formBuildSearch:'+JSON.stringify(response));
           if (response) {
             this.form.buildList = response.data.list;
-            console.log(this.form.buildList);
+            //console.log(this.form.buildList);
           }
         })
       },
@@ -626,10 +626,10 @@ import { mapState } from 'vuex';
         this.$fetch("/api/building/selectNode",{
           buildIngId:buildIngId
         }).then(response=>{
-          console.log('formFloorSearch:'+response);
+          //console.log('formFloorSearch:'+response);
           if (response) {
             this.form.floorList = response.data.list;
-            console.log(this.form.floorList);
+            //console.log(this.form.floorList);
           }
         })
       },
@@ -637,10 +637,10 @@ import { mapState } from 'vuex';
         this.$fetch("/api/building/selectNode",{
           floorId:floorId
         }).then(response=>{
-          console.log('formRoomSearch:'+response);
+          //console.log('formRoomSearch:'+response);
           if (response) {
             this.form.roomList = response.data.list;
-            console.log(this.form.roomList);
+            //console.log(this.form.roomList);
           }
         })
       }
@@ -665,7 +665,7 @@ import { mapState } from 'vuex';
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       unit(curVal,oldVal){
@@ -677,7 +677,7 @@ import { mapState } from 'vuex';
       },
       building(curVal,oldVal){
         this.building = curVal ;
-        console.log(this.building);
+        //console.log(this.building);
         this.floor = '';
         this.room = '';
         this.equipment = '';
@@ -686,7 +686,7 @@ import { mapState } from 'vuex';
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
-        console.log(this.floor);
+        //console.log(this.floor);
         if(this.floor !== 0){
           this.roomSearch(this.floor);
           this.tableList();
@@ -694,12 +694,12 @@ import { mapState } from 'vuex';
       },
       room(curVal,oldVal){
         this.room = curVal ;
-        console.log(this.room);
+        //console.log(this.room);
         this.tableList();
       },
       equipment(curVal,oldVal){
         this.equipment = curVal ;
-        console.log(this.equipment);
+        //console.log(this.equipment);
         this.tableList();
       },
       unitId(curVal,oldVal){
@@ -709,7 +709,7 @@ import { mapState } from 'vuex';
       },
       buildingId(curVal,oldVal){
         this.form.buildingId = curVal;
-        console.log(this.form.buildingId)
+        //console.log(this.form.buildingId)
         this.form.floorId = '';
         this.form.roomId = '';
         this.form.equipmentId = '';

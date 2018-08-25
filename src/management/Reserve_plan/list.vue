@@ -190,7 +190,7 @@
                   $.messager.alert('警告', "系统错误", "warning");
                 },
                 complete: function (e) {//只要完成即执行，最后执行
-                  // console.log(e) 
+                  // //console.log(e) 
                   that.$router.push({path:'/Reserve_plan/all'});
                   that.$message({
                     message: '恭喜你，添加预案成功',
@@ -199,7 +199,7 @@
                 }
               });
             } else {
-              console.log('error submit!!');
+              //console.log('error submit!!');
               return false;
             }
           });
@@ -214,26 +214,26 @@
           )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.form.optionList = response.data.unitList;
-              console.log(this.form.optionList);
+              //console.log(this.form.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
         },
         buildSearch(unitId){
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
           }).then(response=>{
-            console.log('buildSearch:'+JSON.stringify(response));
+            //console.log('buildSearch:'+JSON.stringify(response));
             if (response) {
               this.form.buildList = response.data.list;
-              console.log(this.form.buildList);
+              //console.log(this.form.buildList);
             }
           })
         }
