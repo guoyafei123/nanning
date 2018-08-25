@@ -21,7 +21,7 @@
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "xlsx": "^0.13.3",
-    "ztree":"3.5.24"
+    "ztree": "3.5.24"
   },
   "devDependencies": {
     "@stomp/stompjs": "^4.0.7",
@@ -67,6 +67,7 @@
     "node-sass": "^4.5.3",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
+    "panzoom": "^6.0.1",
     "portfinder": "^1.0.13",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",

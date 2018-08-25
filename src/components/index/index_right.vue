@@ -394,6 +394,7 @@
 	import { mapState } from "vuex";
 	import sockjs from "sockjs-client";
 	import moment from "moment";
+	
 	import { realconsole } from "../../assets/js/management.js";
 	var Stomp = require("@stomp/stompjs");
 	export default {
@@ -457,7 +458,7 @@
 					this.queryUnitInfo_parmar.unitId=0;
 				}
 				this.getgetUnitsSynthesis();
-				this.getqueryAlarmIng(666);
+				this.getqueryAlarmIng(1);
 				this.getqueryUnitInfo();
 			}
 		},
@@ -598,6 +599,7 @@
 			// =4 关闭火情
 
 			getqueryAlarmIng(type, opttype) {
+				// alert(type);
 				this.queryAlarmIng = Object;
 				this.$fetch("/api/alarm/queryAlarmIng", this.queryAlarmIng_parmar).then(
 					response => {
@@ -717,6 +719,7 @@
 		},
 		// 默认加载方法
 		mounted() {
+			// console.log(panzoom);
 			if(sessionStorage.unitid != undefined || sessionStorage.unitid != "") {
 				this.getUnitsSynthesis_parmar.unitId = sessionStorage.unitid;
 				this.queryAlarmIng_parmar.unitId = sessionStorage.unitid;
@@ -736,6 +739,7 @@
 			// realconsole();
 
 			this.getgetUnitsSynthesis();
+			// alert(this.queryAlarmIng_parmar.unitid);
 			this.getqueryAlarmIng(1);
 			this.getqueryUnitInfo();
 			// alert(sessionStorage.socketcode);

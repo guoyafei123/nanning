@@ -31,6 +31,7 @@
 					</li>
 					<li>
 						<div class="table-responsive">
+
 							<table class="table size-12 table-condensed toolroute-table margin-top10">
 								<thead>
 									<tr>
@@ -678,6 +679,9 @@
 			this.chart_left(); // 左侧图表
 			this.getRiskData(); //风险统计 
 			this.getRiskTable(); //风险表格
+
+			console.log(panzoom);
+			
 		}
 	};
 </script>
