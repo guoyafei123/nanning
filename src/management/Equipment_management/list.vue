@@ -146,19 +146,19 @@
       </div>
       <div class="main_footer">
         <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
-        <a class="btn-back" @click="back">返回</a>
+        <a class="btn-back" @click="back()">返回</a>
       </div>
     </aside>
     <!-- 地图 -->
-    <aside>      
+    <aside class="position:relative;">      
       <div class="maps map">
           <managementMap-vue></managementMap-vue>
       </div>
-      <div class="floorMap maps" style="display:none;position: relative;">
+      <div class="floorMap maps" style="display:none;position:relative;left:0;top:0;">
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
-        <img id="imgPic" :src="this.svgUrl" class="img-responsive" @click="addDevice()">
+        <img id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
       </div>
     </aside>
   </div>
@@ -168,9 +168,12 @@
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
-import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
+// import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
+import { vControl,setPoint } from '../../assets/js/aaa';
     export default {
       data() {
+
+ 
         var validPhone=(rule, value,callback)=>{
             if (!value){
               callback(new Error('请输入手机号码'))
@@ -217,7 +220,7 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
             }
         }
         return {
-          imgIndex: 0,
+          // imgIndex: 0,
           labelPosition: 'top',
           form:{
             id:'',
@@ -377,7 +380,7 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
             }
           });
         },
-        back(){
+        back(event){
           this.$router.push({path:'/Equipment_management/all'});
           $('#right').show();
         },
@@ -441,16 +444,17 @@ import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
             }
           })
         },
-        addDevice(){
+        addDevice(pChoice,event){
+        
           // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
-          let xRate = getTopLeftRate().leftRate;
-          let yRate = getTopLeftRate().topRate;
+          vControl(pChoice,event);
+          // console.log(window.leftRate)
+          let xRate = window.leftRate;
+          let yRate = window.topRate;
           this.form.Rate = [xRate,yRate];
-
-          this.imgIndex++;
-           $('.floorMap').append('<div id="alarmDiv'+this.imgIndex+'"></div>');
-          setPoint(xRate,yRate,this.iconByType[1],'alarmDiv'+this.imgIndex);
-          console.log(this.form.Rate)
+          $('#alarmDiv').remove();
+          $('.floorMap').append('<div id="alarmDiv"></div>');
+          setPoint(this.iconByType[1],'alarmDiv');
         }
       },
       computed:{
