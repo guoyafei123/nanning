@@ -61,7 +61,7 @@
           </el-table-column>
           <el-table-column
             prop="area"
-            label="占地面积(㎡)">
+            label="占地面积 (㎡)">
           </el-table-column>
           <el-table-column
             prop="heightOfBuilding"
@@ -132,7 +132,7 @@
       <div id="list-maps">
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
             </ul> 
             <img :src="this.svgUrl" class="img-responsive">
           </div>
@@ -204,7 +204,7 @@
               <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-4">
                 <el-input v-model.number="form.area"></el-input>
               </el-form-item>
-              <el-form-item label="高度 (cm)" prop="height" class="not-null col-sm-4">
+              <el-form-item label="高度 (m)" prop="height" class="not-null col-sm-4">
                 <el-input v-model.number="form.height"></el-input>
               </el-form-item>
               <el-form-item label="总楼层" prop="floor" class="not-null col-sm-4">
@@ -283,7 +283,7 @@
       }
       return {
         labelPosition: 'top',
-
+        active:'',
         form: {
           unitId:'',
           unitName:'',
@@ -300,7 +300,7 @@
               pointY:''
           }
         },
-        buildUnit:'',//选择单位
+        buildUnit:null,//选择单位
         floorId:'',
         optionList:[],//全部单位列表
         floorList:[],//楼层列表
@@ -356,10 +356,12 @@
     },
     methods: {
       floor_btn(id){
-        console.log(id)
+        console.log(id);
+        this.active = id ;
         this.table_list.forEach((item)=>{
           if(item.id == id){
             this.svgUrl = item.svgUrl ;
+            
           }
         })
       },
@@ -538,13 +540,16 @@
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;
-          this.table_list.forEach(item=>{
+          this.table_list.forEach((item,index)=>{
+            if(index == this.table_list.length-1){
+              this.svgUrl = item.svgUrl ;
+              this.active = item.id ;
+            }
              if(this.floorId == item.floor){
                 this.roomSvgUrl = item.svgUrl ;
                 this.floorName = item.floorName ;
              }
           })
-         
         })
       }
     },
@@ -575,10 +580,14 @@
       buildUnit(val,oldVal){
         this.buildUnit = val;
         this.tableBuildList();
+      },
+      Refresh(){
+        this.findPageBuildIngFloor();
       }
     },
      computed:mapState([
-       'floorId'
+       'floorId',
+       'Refresh'
     ])
   };
 </script>

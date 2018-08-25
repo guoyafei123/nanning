@@ -227,7 +227,7 @@ import { isvalidName } from '../../assets/js/validate';
             buildingId:this.form.buildingId,
             buildingName:this.form.buildingName
           }).then(res=>{
-            console.log(res);
+            //console.log(res);
             this.$router.push({path:'/Message_management/activity'});
             this.$message({
               message: '发布成功！！',
@@ -247,26 +247,26 @@ import { isvalidName } from '../../assets/js/validate';
           )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.form.optionList = response.data.unitList;
-              console.log(this.form.optionList);
+              //console.log(this.form.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
         },
          buildSearch(unitId){
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
           }).then(response=>{
-            console.log('buildSearch:'+JSON.stringify(response));
+            //console.log('buildSearch:'+JSON.stringify(response));
             if (response) {
               this.form.buildList = response.data.list;
-              console.log(this.form.buildList);
+              //console.log(this.form.buildList);
             }
           })
         }

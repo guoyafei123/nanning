@@ -38,7 +38,6 @@
           </el-form-item>
           <el-form-item label="所属单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="请选择" class="select selectUnit col-sm-4">
-              <el-option label="全部" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>          
@@ -72,9 +71,11 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="坐标">
-            <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
-            <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
+          <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
+            <el-input placeholder="X,Y" v-model="form.point" class="col-sm-4"></el-input>
+          </el-form-item>
+          <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
+            <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-4"></el-input>
           </el-form-item>
           <div class="col-sm-12">
             <div class="row">
@@ -153,11 +154,11 @@
       <div class="maps map">
           <managementMap-vue></managementMap-vue>
       </div>
-      <div class="floorMap maps" style="display:none;">
+      <div class="floorMap maps" style="display:none;position: relative;">
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
-        <img :src="this.svgUrl" class="img-responsive">
+        <img id="imgPic" :src="this.svgUrl" class="img-responsive" @click="addDevice()">
       </div>
     </aside>
   </div>
@@ -166,7 +167,8 @@
 <script>
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
-import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
+import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
+import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
     export default {
       data() {
         var validPhone=(rule, value,callback)=>{
@@ -205,7 +207,17 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               callback()
             }
         }
+        var Lng=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入坐标'))
+            }else  if (!isLng(value)){
+              callback(new Error('请输入正确的坐标点'))
+            }else {
+              callback()
+            }
+        }
         return {
+          imgIndex: 0,
           labelPosition: 'top',
           form:{
             id:'',
@@ -223,12 +235,8 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             roomList:[],
             floorList:[],
             buildList:[],
-            point:{
-              pointX:'',
-              pointY:'',
-              xRate:'',
-              yRate:''
-            },
+            point:'',
+            Rate:'',
             PhysicalAddress:'',
             startDate:'',
             lifeMonth:'',
@@ -294,6 +302,12 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             Retroperiod:[
               { required: true, trigger: 'blur', message: '请输入更换周期' },
               { type: 'number', message: '必须为数字值'}
+            ],
+            point:[
+              { required: true, trigger: 'blur', validator: Lng }
+            ],
+            Rate:[
+              { required: true, trigger: 'blur', message: '请填写平面图坐标' }
             ]
           }
         }
@@ -336,10 +350,10 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
                 'roomNumber':this.form.roomNumber,
                 'deviceTypeId':this.form.equipmentId,
                 'deviceTypeName':this.form.deviceTypeName,
-                'pointX':this.form.point.pointX,
-                'pointY':this.form.point.pointY,
-                'xRate':this.form.point.xRate,
-                'yRate':this.form.point.yRate,
+                'pointX':this.form.point[0],
+                'pointY':this.form.point[1],
+                'xRate':this.form.Rate[0],
+                'yRate':this.form.Rate[1],
                 'mac':this.form.PhysicalAddress,
                 'startDate':this.form.startDate,
                 'height':this.form.RoofHeight,
@@ -353,12 +367,12 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
                 'controlId':this.form.controlId
               }).then(response=>{
                 if(response){
-                  console.log('新增成功...'+ JSON.stringify(response));
+                  //console.log('新增成功...'+ JSON.stringify(response));
                   this.$router.push({path:'/Equipment_management/all'});
                 }
               })
             } else {
-              console.log('error submit!!');
+              //console.log('error submit!!');
               return false;
             }
           });
@@ -373,24 +387,24 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           )
             .then(response => {
               if (response) {
-                console.log(response);
+                //console.log(response);
                 this.optionList = response.data.unitList;
-                console.log(this.optionList);
+                //console.log(this.optionList);
                 $(' .el-select-dropdown__item').mouseover(function(){
                   $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
                 });
               }
             })
             .then(err => {
-              // console.log(err);
+              // //console.log(err);
             });
         },
         equipmentSearch(){
           this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
-            console.log('equipmentSearch:'+response);
+            //console.log('equipmentSearch:'+response);
             if (response) {
               this.equipmentList = response.data.deviceTypeEnum;
-              console.log(this.equipmentList);
+              //console.log(this.equipmentList);
             }
           })
         },
@@ -398,10 +412,10 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
           }).then(response=>{
-            console.log('formBuildSearch:'+JSON.stringify(response));
+            //console.log('formBuildSearch:'+JSON.stringify(response));
             if (response) {
               this.form.buildList = response.data.list;
-              console.log(this.form.buildList);
+              //console.log(this.form.buildList);
             }
           })
         },
@@ -409,10 +423,10 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.$fetch("/api/building/selectNode",{
             buildIngId:buildIngId
           }).then(response=>{
-            console.log('formFloorSearch:'+response);
+            //console.log('formFloorSearch:'+response);
             if (response) {
               this.form.floorList = response.data.list;
-              console.log(this.form.floorList);
+              //console.log(this.form.floorList);
             }
           })
         },
@@ -420,17 +434,29 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.$fetch("/api/building/selectNode",{
             floorId:floorId
           }).then(response=>{
-            console.log('formRoomSearch:'+response);
+            //console.log('formRoomSearch:'+response);
             if (response) {
               this.form.roomList = response.data.list;
-              console.log(this.form.roomList);
+              //console.log(this.form.roomList);
             }
           })
+        },
+        addDevice(){
+          // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
+          let xRate = getTopLeftRate().leftRate;
+          let yRate = getTopLeftRate().topRate;
+          this.form.Rate = [xRate,yRate];
+
+          this.imgIndex++;
+           $('.floorMap').append('<div id="alarmDiv'+this.imgIndex+'"></div>');
+          setPoint(xRate,yRate,this.iconByType[1],'alarmDiv'+this.imgIndex);
+          console.log(this.form.Rate)
         }
       },
       computed:{
         ...mapState([
-          'buildPoint'
+          'buildPoint',
+          'iconByType'
         ]),
         unitId(){
           return this.form.unitId;
@@ -455,7 +481,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.optionList.forEach((item,index)=>{
             if(item.id == this.form.unitId){
               this.form.unitName = item.name ;
-              console.log(this.form.unitName);
+              //console.log(this.form.unitName);
             }
           })
         },
@@ -463,12 +489,31 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.form.buildingId = curVal;
           console.log(this.form.buildingId);
           this.findPageBuildIngFloor();
+          this.form.point = '' ;
+          this.form.Rate = '' ;
           if(this.form.buildingId == '0' && this.form.buildingId == 0){
             $('.map').show();
             $('.floorMap').hide();
           }else{
             $('.map').hide();
             $('.floorMap').show();
+            $("#imgPic").on("load",function(){
+              var winwidth = $('.floorMap').width;
+              var winheight =$('.floorMap').height;
+              var fjwidth = $('#imgPic').width();
+              var fjheight = $('#imgPic').height();
+              if(fjwidth>winwidth || fjheight>winheight){
+                var ratewid = fjwidth/winwidth;
+                var ratehei = fjheight/winheight;
+                if(ratewid>ratehei){
+                  $("#imgPic").width(winwidth);
+                  $("#imgPic").height(winheight/ratewid);
+                }else{
+                  $("#imgPic").height(winheight);
+                  $("#imgPic").width(winwidth/ratehei);
+                }
+              }
+            });
           }
           this.form.floorId = '';
           this.form.roomId = '';
@@ -478,7 +523,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.form.buildList.forEach((item,index)=>{
             if(item.id == this.form.buildingId){
               this.form.buildingName = item.name ;
-              console.log(this.form.buildingName);
+              //console.log(this.form.buildingName);
             }else if(this.form.buildingId == '0' && this.form.buildingId == 0){
               this.form.buildingName = '室外';
             }
@@ -487,14 +532,14 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
-          this.form.floor_btn(this.form.floorId);
+          this.floor_btn(this.form.floorId);
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }
           this.form.floorList.forEach((item,index)=>{
             if(item.id == this.form.floorId){
               this.form.floorNumber = item.floorName ;
-              console.log(this.form.floorNumber);
+              //console.log(this.form.floorNumber);
             }
           })
         },
@@ -503,7 +548,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.form.roomList.forEach((item,index)=>{
             if(item.id == this.form.roomId){
               this.form.roomNumber = item.roomNumber ;
-              console.log(this.form.roomNumber);
+              //console.log(this.form.roomNumber);
             }
           })
         },
@@ -513,13 +558,12 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
           this.equipmentList.forEach((item,index)=>{
             if(item.id == this.form.equipmentId){
               this.form.deviceTypeName = item.name ;
-              console.log(this.form.deviceTypeName);
+              //console.log(this.form.deviceTypeName);
             }
           })
         },
         buildPoint(){
-          this.form.point.pointX = this.buildPoint[0];
-          this.form.point.pointY = this.buildPoint[1];
+          this.form.point = this.buildPoint;
         }
       },
       mounted(){

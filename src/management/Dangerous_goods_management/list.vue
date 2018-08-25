@@ -26,7 +26,6 @@
           </el-form-item>
           <el-form-item label="所属单位" prop="unitId" class="not-null">
             <el-select v-model="form.unitId" placeholder="请选择" class="select selectUnit col-sm-4">
-              <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -60,9 +59,11 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="坐标" prop="pointX">
-            <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
-            <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
+          <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
+            <el-input placeholder="X,Y" v-model="form.point" class="col-sm-4"></el-input>
+          </el-form-item>
+          <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
+            <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-4"></el-input>
           </el-form-item>
 
           <el-form-item label="上报人" prop="nickName" class="not-null col-sm-4">
@@ -114,18 +115,24 @@
     </aside>
     <!-- 地图 -->
     <aside>      
-        <div class="maps">
-          <div class="text-center padding-top120">
-            <h1 class="size-80 font-white">地图</h1>
-          </div>
-        </div>
+      <div class="maps map">
+          <managementMap-vue></managementMap-vue>
+      </div>
+      <div class="floorMap maps" style="display:none;">
+        <ul class="list-unstyled floor-item" style="top: 120px">
+            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+        </ul> 
+        <img id="imgPic" :src="this.svgUrl" class="img-responsive"  @click="addDevice()">
+      </div>
     </aside>
   </div>
 </template>
 
 <script>
-
-import { isName,isvalidName } from '../../assets/js/validate';
+import{ mapState } from "vuex";
+import managementMapVue from '../managementMap';
+import { isName,isvalidName,isLng } from '../../assets/js/validate';
+import { getTopLeftRate } from '../../assets/js/imgPoint';
     export default {
       data() {
         var Name=(rule, value,callback)=>{
@@ -146,6 +153,15 @@ import { isName,isvalidName } from '../../assets/js/validate';
               callback()
             }
         }
+        var Lng=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入坐标'))
+            }else  if (!isLng(value)){
+              callback(new Error('请输入正确的坐标点'))
+            }else {
+              callback()
+            }
+        }
         return {
           labelPosition: 'top',
           index:1,
@@ -162,12 +178,8 @@ import { isName,isvalidName } from '../../assets/js/validate';
             roomList:[],
             floorList:[],
             buildList:[],
-            point:{
-              pointX:'',
-              pointY:'',
-              xRate:'',
-              yRate:''
-            },
+            point:'',
+            Rate:'',
             nickName:'',
             createTime:'',
             cont:''
@@ -181,9 +193,6 @@ import { isName,isvalidName } from '../../assets/js/validate';
             unitId:[
               { required: true, message: '请选择单位', trigger: 'change' }
             ],
-            pointX:[
-              { required: true,  trigger: 'blur', message: '请输入坐标' }
-            ],
             buildingId: [
               { required: true, message: '请选择设备位置', trigger: 'change' }
             ],
@@ -195,18 +204,48 @@ import { isName,isvalidName } from '../../assets/js/validate';
             ],
             cont:[
               { required: true, trigger: 'blur', message: '请填写内容' }
+            ],
+            point:[
+              { required: true, trigger: 'blur', validator: Lng }
+            ],
+            Rate:[
+              { required: true, trigger: 'blur', message: '请填写平面图坐标' }
             ]
-          }
+          },
+          svgUrl:'',
+          table_list:[]
         }
       },
+      components:{
+        'managementMap-vue': managementMapVue,
+      },
       methods:{
+        floor_btn(id){
+          this.table_list.forEach((item)=>{
+            if(item.id == id){
+              this.svgUrl = item.svgUrl ;
+              this.form.floorId = item.floor ;
+              this.form.floorNumber = item.floorName ;
+            }
+          })
+        },
+        findPageBuildIngFloor(){
+          this.$fetch("/api/building/findPageBuildIngFloor",{
+            pageIndex:1,
+            pageSize:1000,
+            buildingId:this.form.buildingId
+          }).then(response=>{
+            console.log(response.data.pageBuildIng.result);
+            this.table_list = response.data.pageBuildIng.result;
+          })
+        },
         add11(){
           this.index++;
-          console.log(this.index)
+          //console.log(this.index)
           this.files.push('file'+this.index);
           
           $(".mainmenuone ul").append("<li style='margin-bottom:10px;'><input type='file' name='file"+this.index+"'/></li>");
-          console.log(this.files)
+          //console.log(this.files)
         },
         btn(formName){
           this.$refs[formName].validate((valid) => {
@@ -271,26 +310,26 @@ import { isName,isvalidName } from '../../assets/js/validate';
           )
             .then(response => {
               if (response) {
-                console.log(response);
+                //console.log(response);
                 this.optionList = response.data.unitList;
-                console.log(this.optionList);
+                //console.log(this.optionList);
                 $(' .el-select-dropdown__item').mouseover(function(){
                   $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
                 });
               }
             })
             .then(err => {
-              // console.log(err);
+              // //console.log(err);
             });
         },
         formBuildSearch(unitId){
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
           }).then(response=>{
-            console.log('formBuildSearch:'+JSON.stringify(response));
+            //console.log('formBuildSearch:'+JSON.stringify(response));
             if (response) {
               this.form.buildList = response.data.list;
-              console.log(this.form.buildList);
+              //console.log(this.form.buildList);
             }
           })
         },
@@ -298,10 +337,10 @@ import { isName,isvalidName } from '../../assets/js/validate';
           this.$fetch("/api/building/selectNode",{
             buildIngId:buildIngId
           }).then(response=>{
-            console.log('formFloorSearch:'+response);
+            //console.log('formFloorSearch:'+response);
             if (response) {
               this.form.floorList = response.data.list;
-              console.log(this.form.floorList);
+              //console.log(this.form.floorList);
             }
           })
         },
@@ -309,15 +348,23 @@ import { isName,isvalidName } from '../../assets/js/validate';
           this.$fetch("/api/building/selectNode",{
             floorId:floorId
           }).then(response=>{
-            console.log('formRoomSearch:'+response);
+            //console.log('formRoomSearch:'+response);
             if (response) {
               this.form.roomList = response.data.list;
-              console.log(this.form.roomList);
+              //console.log(this.form.roomList);
             }
           })
+        },
+        addDevice(){
+          // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
+          this.form.Rate = [getTopLeftRate().leftRate,getTopLeftRate().topRate];
+          console.log(this.form.Rate)
         }
       },
       computed:{
+        ...mapState([
+          'buildPoint'
+        ]),
         unitId(){
           return this.form.unitId;
         },
@@ -338,22 +385,49 @@ import { isName,isvalidName } from '../../assets/js/validate';
           this.optionList.forEach((item,index)=>{
             if(item.id == this.form.unitId){
               this.form.unitName = item.name ;
-              console.log(this.form.unitName);
+              //console.log(this.form.unitName);
             }
           })
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
-          console.log(this.form.buildingId)
+          console.log(this.form.buildingId);
+          this.findPageBuildIngFloor();
           this.form.floorId = '';
           this.form.roomId = '';
           this.form.floorNumber = '';
           this.form.roomNumber = '';
           this.formFloorSearch(this.form.buildingId);
+          if(this.form.buildingId == '0' && this.form.buildingId == 0){
+            $('.map').show();
+            $('.floorMap').hide();
+          }else{
+            $('.map').hide();
+            $('.floorMap').show();
+            $("#imgPic").on("load",function(){
+              var winwidth = window.screen.width;
+              var winheight = window.screen.height;
+              var fjwidth = $('#imgPic').width();
+              var fjheight = $('#imgPic').height();
+              var newwidth=0;
+              var newheight=0;
+              if(fjwidth>winwidth || fjheight>winheight){
+                var ratewid = fjwidth/winwidth;
+                var ratehei = fjheight/winheight;
+                if(ratewid>ratehei){
+                  $("#imgPic").width(winwidth);
+                  $("#imgPic").height(winheight/ratewid);
+                }else{
+                  $("#imgPic").height(winheight);
+                  $("#imgPic").width(winwidth/ratehei);
+                }
+              }
+            });
+          }
           this.form.buildList.forEach((item,index)=>{
             if(item.id == this.form.buildingId){
               this.form.buildingName = item.name ;
-              console.log(this.form.buildingName);
+              //console.log(this.form.buildingName);
             }else if(this.form.buildingId == '0' && this.form.buildingId == 0){
               this.form.buildingName = '室外';
             }
@@ -361,6 +435,7 @@ import { isName,isvalidName } from '../../assets/js/validate';
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
+          
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }
@@ -368,6 +443,8 @@ import { isName,isvalidName } from '../../assets/js/validate';
             if(item.id == this.form.floorId){
               this.form.floorNumber = item.floorName ;
               console.log(this.form.floorNumber);
+              
+              this.floor_btn(this.form.floorId);
             }
           })
         },
@@ -376,13 +453,17 @@ import { isName,isvalidName } from '../../assets/js/validate';
           this.form.roomList.forEach((item,index)=>{
             if(item.id == this.form.roomId){
               this.form.roomNumber = item.roomNumber ;
-              console.log(this.form.roomNumber);
+              //console.log(this.form.roomNumber);
             }
           })
+        },
+        buildPoint(){
+          this.form.point = this.buildPoint;
         }
       },
       mounted(){
         this.unitSearch();
+        $("#right").hide();
       }
     }
 </script>

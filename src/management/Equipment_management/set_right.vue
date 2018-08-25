@@ -599,7 +599,7 @@
           'maintenancePhone':this.form.phone
         }).then(response=>{
           if(response){
-            console.log('修改成功...'+ JSON.stringify(response));
+            //console.log('修改成功...'+ JSON.stringify(response));
             this.tableList();
           }
         })
@@ -609,24 +609,24 @@
         this.deviceIndex = row.id;
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('deviceId',row.id);
         $('.plan').show();        
         $('.total').hide();
         $('.mapTable').hide();
       },
       deleteRow(){
-           console.log(this.deviceIndex);
+           //console.log(this.deviceIndex);
           this.$fetch("/api/device/deleteDevice",{
             'deviceId':this.deviceIndex
           }).then(response=>{
             if(response){
-              console.log('删除成功...'+ JSON.stringify(response));
+              //console.log('删除成功...'+ JSON.stringify(response));
               this.tableData.splice(this.deviceIndex,1);
               this.tableList();
             }
           }).then(err => {
-            console.log(err);
+            //console.log(err);
           });
       },
       qrcode(){
@@ -638,16 +638,16 @@
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               // $(' .el-select-dropdown__item').mouseover(function(){
               //   $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               // });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       tableList(){
@@ -663,18 +663,18 @@
           }
         )
           .then(response => {
-            console.log('右侧设备列表'+JSON.stringify(response));
+            //console.log('右侧设备列表'+JSON.stringify(response));
             if (response) {
-              // console.log(response.data.inspectionPlanList);
+              // //console.log(response.data.inspectionPlanList);
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
-              console.log(this.tableData)
+              //console.log(this.tableData)
               this.$store.commit('DeviceMap',this.tableData);
               if(this.$route.path == '/Equipment_management/all'){
                 $('.plan').show();
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
-                    console.log(item);
+                    //console.log(item);
                     this.device.status = item.status ;
                     this.device.name = item.name ;
                     this.device.deviceTypeName = item.deviceTypeName ;
@@ -701,17 +701,17 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       formBuildSearch(unitId){
         this.$fetch("/api/building/selectNode",{
           unitId:unitId
         }).then(response=>{
-          console.log('formBuildSearch:'+JSON.stringify(response));
+          //console.log('formBuildSearch:'+JSON.stringify(response));
           if (response) {
             this.form.buildList = response.data.list;
-            console.log(this.form.buildList);
+            //console.log(this.form.buildList);
           }
         })
       },
@@ -719,10 +719,10 @@
         this.$fetch("/api/building/selectNode",{
           buildIngId:buildIngId
         }).then(response=>{
-          console.log('formFloorSearch:'+response);
+          //console.log('formFloorSearch:'+response);
           if (response) {
             this.form.floorList = response.data.list;
-            console.log(this.form.floorList);
+            //console.log(this.form.floorList);
           }
         })
       },
@@ -730,10 +730,10 @@
         this.$fetch("/api/building/selectNode",{
           floorId:floorId
         }).then(response=>{
-          console.log('formRoomSearch:'+response);
+          //console.log('formRoomSearch:'+response);
           if (response) {
             this.form.roomList = response.data.list;
-            console.log(this.form.roomList);
+            //console.log(this.form.roomList);
           }
         })
       },
@@ -741,10 +741,10 @@
         this.$fetch("/api/building/selectNode",{
           roomId:roomId
         }).then(response=>{
-          console.log('formEquipmentSearch:'+response);
+          //console.log('formEquipmentSearch:'+response);
           if (response) {
             this.form.equipmentList = response.data.list;
-            console.log(this.form.equipmentList);
+            //console.log(this.form.equipmentList);
           }
         })
       }
@@ -776,7 +776,7 @@
     watch:{
       $route: {
         handler: function(val, oldVal){
-          console.log(val);
+          //console.log(val);
           if(this.$route.path == '/Equipment_management/maps'){
             this.tableList();
             
@@ -787,7 +787,7 @@
       },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       unitId(curVal,oldVal){
@@ -796,7 +796,7 @@
       },
       buildingId(curVal,oldVal){
         this.form.buildingId = curVal;
-        console.log(this.form.buildingId)
+        //console.log(this.form.buildingId)
         if(this.form.buildingId !== 0 && this.form.buildingId !== '0'){
           this.form.floorId = '';
           this.form.roomId = '';
@@ -832,10 +832,10 @@
           $('.total').hide();
           $('.mapTable').hide();
         }
-        console.log(this.tableData)
+        //console.log(this.tableData)
         this.tableData.forEach((item,index)=>{
             if(item.id == this.deviceId){
-              console.log(item);
+              //console.log(item);
               this.device.status = item.status ;
               this.device.name = item.name ;
               this.device.deviceTypeName = item.deviceTypeName ;
@@ -853,7 +853,7 @@
               this.device.maintenancePhone = item.maintenancePhone ;
             }
           })
-        console.log(this.deviceId);
+        //console.log(this.deviceId);
       },
       Unit(){
         this.tableList();

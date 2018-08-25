@@ -39,7 +39,7 @@
 
 			var strcookie = document.cookie; //获取cookie字符串
 			var arrcookie = strcookie.split("; "); //分割
-			console.log(strcookie);
+			//console.log(strcookie);
 		}
 
 	}

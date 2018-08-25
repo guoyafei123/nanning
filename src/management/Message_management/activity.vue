@@ -127,6 +127,10 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       show3(row){//跳转
+
+        //console.log(row.id);
+        this.$store.commit('unitNum',row.id);
+
         console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('noticeId',row.id);
@@ -143,7 +147,7 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.pager) {
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
@@ -151,6 +155,12 @@
                 if(index == this.tableData.length-1){
                   this.$store.commit('currentPage',this.currentPage4);
                   this.$store.commit('noticeId',item.id);
+
+                  //console.log(item.id)
+                }
+                if(item.id == this.deviceIndex){
+                  this.$store.commit('peopleTableData',item);
+                  // //console.log(item)
                   this.$store.commit('unitNotice',this.unit);
                   console.log(item.id)
                 }
@@ -163,7 +173,7 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       unitSearch(){
@@ -172,16 +182,16 @@
           )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
         }
     },
@@ -194,7 +204,7 @@
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       unit(val,oldVal){

@@ -148,16 +148,16 @@
         )
         .then(response => {
           if (response) {
-            console.log(response);
+            //console.log(response);
             this.optionList = response.data.unitList;
-            console.log(this.optionList);
+            //console.log(this.optionList);
             $(' .el-select-dropdown__item').mouseover(function(){
               $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
             });
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       },
       tableList(){
@@ -169,7 +169,7 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.pager) {
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
@@ -181,7 +181,7 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },
@@ -193,12 +193,12 @@
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       operator(val,oldVal){
         this.operator = val ;
-        console.log(this.operator);
+        //console.log(this.operator);
         this.tableList();
       }
     }

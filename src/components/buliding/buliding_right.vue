@@ -28,7 +28,9 @@
                     <div class="personinfo">
                             <p>
                             <span class="size-20 font-blue">{{buildBaseInfo.name?buildBaseInfo.name:"暂无名称"}}</span>
-                            <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分{{buildTotalScore?buildTotalScore:"0"}}</span>
+                            <el-tooltip content="安全评分" placement="top">
+                            <span class="bgbox-min bg-blue font-black size-10">评分{{buildTotalScore?buildTotalScore:"0"}}</span>
+                          </el-tooltip>
                             <span class="float-right">
                                     <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property?buildBaseInfo.property:"无"}}</span>
                                 </span>
@@ -175,7 +177,9 @@
                     <p>
                     <span class="size-20 font-blue">{{buildCountDataSocres.unitName ? buildCountDataSocres.unitName:'暂无名称'}}</span>
                     <span class="float-right">
-                            <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">{{buildCountDataSocres.buildingName ? buildCountDataSocres.buildingName:'暂无名称'}}</span>
+                      <el-tooltip content="安全评分" placement="top">
+                            <span class="bgbox-max bg-blue font-black size-10">{{buildCountDataSocres.buildingName ? buildCountDataSocres.buildingName:'暂无评分'}}</span>
+                      </el-tooltip>
                         </span>
                     </p>
                     <p class="col-sm-12 text-left padding0">
@@ -405,6 +409,9 @@ export default {
           orient: "vertical",
           left: "left",
           data: ["0-2", "2-4", "4-6", "6-8","8-10"],
+          textStyle:{
+              color: "#999"
+          }
           
         },
         series: [
@@ -420,12 +427,13 @@ export default {
               }
             },
             data: [
-              { value: a, name: "0-2" },
+              { value: a, name: "0-2"},
               { value: b, name: "2-4" },
               { value: c, name: "4-6" },
               { value: d, name: "6-8" },
               { value: e, name: "8-10" }             
             ],
+            color: ["#f13131","#ff7800","#ffb709","#bad616","#90d616"],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,

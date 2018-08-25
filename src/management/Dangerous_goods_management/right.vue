@@ -11,7 +11,7 @@
         <!-- 标题 -->
           <div class="personinfo">
               <p>
-                <span class="size-20 font-red" v-if="this.trouble.status == 0">
+                <span class="size-20 font-yellow" v-if="this.trouble.status == 0">
                   <i class="icon iconfont icon-weixianpin-mian- size-20" data-toggle="tooltip" title="危险品"></i>
                   <span>{{ this.trouble.dangerName }}</span>
                 </span>
@@ -20,7 +20,7 @@
                   <span>{{ this.trouble.dangerName }}</span>
                 </span>
                 <span class="float-right font-black size-10">
-                  <span class="bgbox-max bg-red" v-if="this.trouble.status == 0">未解决</span>
+                  <span class="bgbox-max bg-yellow" v-if="this.trouble.status == 0">未解决</span>
                   <span class="bgbox-max bg-blue" v-if="this.trouble.status == 1">已解决</span>
                 </span>
               </p>
@@ -47,7 +47,7 @@
                   <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                           <h1 class="toolcount-p1 cn-status">
-                            <span class="font-red" v-if="this.trouble.status == 0">未解决</span>
+                            <span class="font-yellow" v-if="this.trouble.status == 0">未解决</span>
                             <span class="font-blue" v-if="this.trouble.status == 1">已解决</span>
                           </h1>
                       </li>
@@ -77,7 +77,7 @@
                       </li>
                       <li class="text-left padding-right16 margin-top15">
                           <div class="col-sm-4 personnel-borderright" v-if="this.trouble.status == 0">
-                              <p class="size-16 show font-red">{{this.trouble.nickName}}</p>
+                              <p class="size-16 show font-yellow">{{this.trouble.nickName}}</p>
                               <p>上报人</p>
                           </div>
                           <div class="col-sm-4 personnel-borderright" v-if="this.trouble.status == 1">
@@ -98,24 +98,24 @@
           </div>
       </section>
       <!-- 危险品详情 -->
-      <section>        
+      <section class="alarm-info">
           <div class="textandimg margin-top20 size-12">
               <h4 class="p-title">
                  <!-- {{ this.trouble.dangerName }} -->上报详情
               </h4>
-              <div class="row textandimg-main margin-top20">
-                <div class="col-sm-6">
+              <div class="row textandimg-main margin-top10">
+                <div class="col-sm-12">
                       <span>名称</span>
                       <strong v-html="this.trouble.dangerName"></strong>
+                  </div>                  
+                  <div class="col-sm-6">
+                      <span>所属单位</span>
+                      <strong v-html="this.trouble.unitName"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>状态</span>
-                      <strong class="font-red" v-if="this.trouble.status == 0">未解决</strong>
+                      <strong class="font-yellow" v-if="this.trouble.status == 0">未解决</strong>
                       <strong class="font-blue"  v-if="this.trouble.status == 1">已解决</strong>
-                  </div>
-                  <div class="col-sm-12">
-                      <span>所属单位</span>
-                      <strong v-html="this.trouble.unitName"></strong>
                   </div>
                   <div class="col-sm-12">
                       <span>位置</span>
@@ -136,7 +136,7 @@
                       <strong v-html="this.trouble.createTime"></strong>
                   </div>
                   <div class="col-sm-12">
-                      <span>简介 </span>
+                      <span>描述 </span>
                       <strong v-html="this.trouble.cont"></strong>
                   </div>
                   <div class="col-sm-12">
@@ -146,9 +146,7 @@
                       </ul>
                   </div>                  
                 </div>
-              </div>              
-      </section>
-      <section>
+              </div>
       <!-- 解决危险品 -->
               <div class="textandimg margin-top20 size-12" v-if="this.trouble.status == 1">
                 <h4 class="p-title">
@@ -542,7 +540,7 @@
           'deviceTypeId':this.form.equipment
         }).then(response=>{
           if(response){
-            console.log('修改成功...'+ JSON.stringify(response));
+            //console.log('修改成功...'+ JSON.stringify(response));
             this.tableList();
           }
         })
@@ -552,31 +550,31 @@
         this.deviceIndex = row.id;
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('dangerId',row.id);
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
       },
       deleteRow(){
-           console.log(this.deviceIndex);
+           //console.log(this.deviceIndex);
           this.$fetch("/api/trouble/deleteDevice",{
             'deviceId':this.deviceIndex
           }).then(response=>{
             if(response){
-              console.log('删除成功...'+ JSON.stringify(response));
+              //console.log('删除成功...'+ JSON.stringify(response));
               this.tableData.splice(this.deviceIndex,1);
               this.tableList();
             }
           }).then(err => {
-            console.log(err);
+            //console.log(err);
           });
       },
       findTrouble(troubleId){
         this.$fetch("/api/trouble/troubleDetail",{
           'troubleId':troubleId
         }).then(response=>{
-          console.log(response);
+          //console.log(response);
           if(response.data.trouble){
             var item = response.data.trouble;
             this.trouble.dangerName = item.dangerName ;
@@ -594,7 +592,7 @@
             this.trouble.imgUrl = item.imgUrl ;
             this.trouble.cont = item.cont ;
             this.trouble.treatment = item.treatment ;
-            console.log(this.trouble.nickName)
+            //console.log(this.trouble.nickName)
           }
         })
       },
@@ -604,16 +602,16 @@
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       tableList(){
@@ -630,17 +628,17 @@
           }
         )
           .then(response => {
-            console.log('危险品！！！'+JSON.stringify(response));
+            //console.log('危险品！！！'+JSON.stringify(response));
             if (response) {
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               if(this.$route.path == '/Dangerous_goods_management/all'){
-                console.log(this.tableData)
+                //console.log(this.tableData)
                 this.tableData.forEach((item,index)=>{
                   if(index == this.tableData.length-1){
-                    console.log(index);
-                    console.log(this.tableData.length-1)
-                    console.log(item.id);
+                    //console.log(index);
+                    //console.log(this.tableData.length-1)
+                    //console.log(item.id);
                     this.findTrouble(item.id)
                   }
                 })
@@ -653,17 +651,17 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       formBuildSearch(unitId){
         this.$fetch("/api/building/selectNode",{
           unitId:unitId
         }).then(response=>{
-          console.log('formBuildSearch:'+JSON.stringify(response));
+          //console.log('formBuildSearch:'+JSON.stringify(response));
           if (response) {
             this.form.buildList = response.data.list;
-            console.log(this.form.buildList);
+            //console.log(this.form.buildList);
           }
         })
       },
@@ -671,10 +669,10 @@
         this.$fetch("/api/building/selectNode",{
           buildIngId:buildIngId
         }).then(response=>{
-          console.log('formFloorSearch:'+response);
+          //console.log('formFloorSearch:'+response);
           if (response) {
             this.form.floorList = response.data.list;
-            console.log(this.form.floorList);
+            //console.log(this.form.floorList);
           }
         })
       },
@@ -682,10 +680,10 @@
         this.$fetch("/api/building/selectNode",{
           floorId:floorId
         }).then(response=>{
-          console.log('formRoomSearch:'+response);
+          //console.log('formRoomSearch:'+response);
           if (response) {
             this.form.roomList = response.data.list;
-            console.log(this.form.roomList);
+            //console.log(this.form.roomList);
           }
         })
       }
@@ -717,9 +715,15 @@
     watch:{
       $route: {
         handler: function(val, oldVal){
-          console.log(val);
+          //console.log(val);
           if(this.$route.path == '/Dangerous_goods_management/maps'){
             this.tableList();
+          }
+          if(this.$route.path == '/Dangerous_goods_management/all'){
+           
+            $('.mapTable').hide();
+            $('.total').hide();
+            $('.plan').show();
           }
         },
         // 深度观察监听
@@ -727,7 +731,7 @@
       },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       unitId(curVal,oldVal){
@@ -736,7 +740,7 @@
       },
       buildingId(curVal,oldVal){
         this.form.buildingId = curVal;
-        console.log(this.form.buildingId)
+        //console.log(this.form.buildingId)
         if(this.form.buildingId !== 0 && this.form.buildingId !== '0'){
           this.form.floorId = '';
           this.form.roomId = '';
@@ -771,19 +775,22 @@
           $('.total').hide();
           $('.mapTable').hide();
         }
-        console.log(this.dangerId)
+        //console.log(this.dangerId)
         this.findTrouble(this.dangerId);
       },
-      Unit(){
+      dangerUnit(){
         this.tableList();
       },
-      buildDevice(){
+      dangerBuild(){
         this.tableList();
       },
-      floorDevice(){
+      dangerFloor(){
         this.tableList();
       },
-      roomDevice(){
+      dangerRoom(){
+        this.tableList();
+      },
+      dengerStatus(){
         this.tableList();
       },
       currentPage(){
@@ -791,10 +798,11 @@
       }
     },
     computed:mapState([
-      'Unit',
-      'buildDevice',
-      'floorDevice',
-      'roomDevice',
+      'dangerUnit',
+      'dangerBuild',
+      'dangerFloor',
+      'dangerRoom',
+      'dengerStatus',
       'dangerId',
       'currentPage'
     ])

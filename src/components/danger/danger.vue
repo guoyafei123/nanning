@@ -128,21 +128,21 @@
 											<tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
 												<!-- <td>{{(troubleList_parameter.currentPage-1)*troubleList_parameter.pageSize+index+1}}</td> -->
 												<td>{{item.nickName}}</td>
-												<td class="font-yellow">													
+												<td class="font-yellow">												
 													<el-tooltip content="损坏" placement="top">
-													<i v-if="item.type==1" class="icon iconfont icon-sunhuai-xian- set-ciontop3"></i>
+													<i v-if="item.type==1" class="icon iconfont icon-sunhuai-xian-"></i>
 													</el-tooltip>
 													<el-tooltip content="人为风险" placement="top">
-													<i v-if="item.type==2" class="icon iconfont icon-weiyinsuyinhuan-xian- set-ciontop3"></i>
+													<i v-if="item.type==2" class="icon iconfont icon-weiyinsuyinhuan-xian-"></i>
 													</el-tooltip>
 													<el-tooltip content="非人为风险" placement="top">
-													<i v-if="item.type==3" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1 set-ciontop3"></i>
+													<i v-if="item.type==3" class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1"></i>
 													</el-tooltip>
 													<el-tooltip content="缺失" placement="top">
-													<i v-if="item.type==4" class="icon iconfont icon-queshi-xian- set-ciontop3"></i>
+													<i v-if="item.type==4" class="icon iconfont icon-queshi-xian-"></i>
 													</el-tooltip>
 													<el-tooltip content="危险品" placement="top">
-													<i v-if="item.type==5" class="icon iconfont icon-weixianpin-xian- set-ciontop3"></i>
+													<i v-if="item.type==5" class="icon iconfont icon-weixianpin-xian-"></i>
 													</el-tooltip>
 												</td>
 												<td>
@@ -153,10 +153,10 @@
 												</td>
 												<td>
 													<el-tooltip content="已解决" placement="top">
-														<i v-if="item.status==1" class="icon iconfont icon-yijiejue-xian- font-blue set-ciontop4"></i>
+														<i v-if="item.status==1" class="icon iconfont icon-yijiejue-xian- font-blue"></i>
 													</el-tooltip>
 													<el-tooltip content="未解决" placement="top">
-														<i v-if="item.status==0" class="icon iconfont icon-yinhuan-xian- font-yellow set-ciontop4"></i>
+														<i v-if="item.status==0" class="icon iconfont icon-yinhuan-xian- font-yellow"></i>
 													</el-tooltip>
 												</td>
 												<td>
@@ -191,6 +191,7 @@
 			<div class="overlay"></div>
 			<template>				
 					<div class="toolright">
+						<!-- 筛选 -->
 						<section class="my-filter padding5 bg-gray-222 clearfix">
 							<div class="col-sm-12 padding0">
 								<div class="upd-elmdate">
@@ -198,14 +199,18 @@
 									</el-date-picker>
 								</div>
 							</div>
-						</section>
-						<section class="row margin-top20 clearfix">
+						</section>						
+						<!-- 统计 -->
+						<section class="dan-lineinfo">
+							<section class="row margin-top20 clearfix">
 								<!-- 已选择单位 -->
 								<div class="col-sm-7">
 									<div class="personinfo">
 										<p>
 											<span class="size-20 font-blue">中心小学</span>
-											<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+											<el-tooltip content="安全评分" placement="top">
+											<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
+										</el-tooltip>
 										</p>
 										<p class="text-left padding0">
 											<span><i class="fas fa-industry"></i> 中心小学</span>
@@ -214,21 +219,18 @@
 								</div>
 								<!-- 已选择单位巡检任务总数 -->
 								<div class="col-sm-5 font-white text-right size-12">
-									<i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 隐患总数<br>
-									<span class="size-22 font-blue">{{troubleRatio ? troubleRatio.allCount:'0'}}</span>
+									<i class="icon iconfont icon-xunjian-xian- size-14 font-yellow"></i> 隐患总数<br>
+									<span class="size-22 font-yellow">{{troubleRatio ? troubleRatio.allCount:'0'}}</span>
 								</div>
-							</section>
-						<!-- 统计 -->
-						<section class="dan-lineinfo">
+						</section>
 							<section>
-								<div class="toolcount margin-top20">
+								<div class="toolcount clearfix margin-top20">
 									<h4 class="p-title">隐患统计</h4>
 									<div class="col-sm-8 font-gray-999 padding-right0 text-center margin-top20 size-12">
 										<div class="row">
 											<div class="col-sm-12 margin-bottom20 text-left">
 												<div class="row">
-												<p class="col-xs-3">危险品</p>
-												<p class="col-xs-3">总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p>
+												<p class="col-xs-5 padding-left20">危险品 总数 <span class="font-yellow">{{dangerCount ? dangerCount.dangerAll:'0'}}</span></p>
 												<p class="col-xs-3">新增 <span class="font-white">{{dangerCount ? dangerCount.dangerNew:'0'}}</span></p>
 												<p class="col-xs-3">处理 <span class="font-blue">{{dangerCount ? dangerCount.dangerResolved:'0'}}</span></p>
 												</div>
@@ -261,89 +263,155 @@
 									</div>
 								</div>
 							</section>
-							<!-- <section>
-                    <div class="toolcount">
-                        <div class="col-sm-12 font-gray-999 padding-right0 size-12">
-                          <div class="text-center">
-                              <template>
-                                <div class="col-sm-4 container-padding0 personnel-borderright">
-                                <p class="size-16 font-blue">
-                                  {{dangerCount ? dangerCount.dangerAll:'0'}}
-                                </p>
-                                <p>危险品总数</p>
-                                </div>
-                                <div class="col-sm-4 container-padding0 personnel-borderright">
-                                <p class="size-16 font-gray-ccc">
-                                  {{dangerCount ? dangerCount.dangerNew:'0'}}
-                                </p>
-                                <p>危险品新增</p>
-                                </div>
-                                <div class="col-sm-4 container-padding0">
-                                <p class="size-16 font-gray-ccc">
-                                  {{dangerCount ? dangerCount.dangerResolved:'0'}}
-                                </p>
-                                <p>危险品处理</p>
-                                </div>
-                              </template>
-                          </div>
-                        </div>
-                    </div>
-
-                </section> -->
-							<!-- <section>
-								<div class="row cardinfo-style margin-top0 font-gray-999">
-									<p class="col-sm-4">危险品总数 <span>
-                      {{dangerCount ? dangerCount.dangerAll:'0'}}
-                    </span></p>
-									<p class="col-sm-4">危险品新增 <span>
-                      {{dangerCount ? dangerCount.dangerNew:'0'}}
-                    </span></p>
-									<p class="col-sm-4">危险品处理 <span>
-                      {{dangerCount ? dangerCount.dangerResolved:'0'}}
-                    </span></p>
-								</div>
-							</section> -->
 							<section>
-								<div class="toolcount margin-top30">
+								<div class="toolcount clearfix margin-top20">
 									<h4 class="p-title">各类型隐患占比</h4>
 									<div id="dan_charpiemax" style="width: 100%;height:200px;margin: 0 auto;text-align: center;"></div>
 								</div>
 							</section>
 							<section>
-								<div class="toolcount margin-top20">
+								<div class="toolcount clearfix margin-top20">
 									<h4 class="p-title">隐患历史趋势
-                          <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                            <span class="indexdateabox alarmdate">
-								<b class="indexdateactive">日</b>
-								<b>月</b>
-								<b>年</b>
-							</span>
-							<!-- <i class="icon iconfont icon-weibiaoti10 size-12"></i> -->
-                          </span>
-                        </h4>
+			                            <span class="pull-right indexdateabox alarmdate">
+											<b class="indexdateactive">日</b>
+											<b>月</b>
+											<b>年</b>
+										</span>
+			                        </h4>
 									<div id="dan_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
 								</div>
 							</section>
 						</section>
-
 						<section class="dan-iteminfo display-none overflow-scr">
 							<a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
-							<section>
+							<section class="row margin-top20 clearfix">
+								<!-- 隐患名称 -->
+								<div class="col-sm-12">
+									<div class="personinfo">
+										<p>
+											<span class="size-20 font-yellow" v-if="troubleDetail.status == 0">
+												{{troubleDetail.nickName}}上报的隐患
+											</span>
+											<span class="size-20 font-blue" v-if="troubleDetail.status == 1">
+												{{troubleDetail.nickName}}上报的隐患
+											</span>
+											<!-- 类型 -->
+											<span class="pull-right bgbox-max bg-yellow font-black size-10">
+												<strong v-if="troubleDetail.type==1" ><i class="icon iconfont icon-sunhuai-mian- size-14"></i> 损坏</strong>
+												<strong v-if="troubleDetail.type==2" ><i class="icon iconfont icon-feirenweiyinsuyinhuan-mian- size-14"></i> 人为风险</strong>
+												<strong v-if="troubleDetail.type==3" ><i class="icon iconfont icon-feirenweiyinsuyinhuan-mian-1 size-14"></i> 非人为风险</strong>
+												<strong v-if="troubleDetail.type==4" ><i class="icon iconfont icon-queshi-mian- size-14"></i> 缺失</strong>
+												<strong v-if="troubleDetail.type==5"><i class="icon iconfont icon-weixianpin-mian- size-14"></i> 危险品</strong>
+											</span>
+										</p>
+										<p class="text-left padding0">
+											<span><i class="fas el-icon-location"></i> {{troubleDetail.unitName}}<strong v-if="troubleDetail.buildingName == '室外'"> 室外</strong>
+                      						<strong v-else><span v-if="troubleDetail.buildingName != '' && troubleDetail.buildingName != null">{{ troubleDetail.buildingName }} 建筑</span><span v-if="troubleDetail.floorNumber != '' && troubleDetail.floorNumber != null">{{ troubleDetail.floorNumber }} 楼层</span><span v-if="troubleDetail.roomNumber != '' && troubleDetail.roomNumber != null">{{ troubleDetail.roomNumber }} 房间</span></strong></span>
+										</p>
+									</div>
+								</div>
+						</section>
+							<!-- 隐患统计 -->
+					      <section>
+					          <div class="toolcount margin-top20 font-gray-999 clearfix">
+					              <div class="col-md-5 padding0">
+					                  <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
+					                      <li>
+					                          <h1 class="toolcount-p1 cn-status">
+					                            <span class="font-yellow" v-if="troubleDetail.status == 0">未解决</span>
+					                            <span class="font-blue" v-if="troubleDetail.status == 1">已解决</span>
+					                          </h1>
+					                      </li>
+					                      <li class="margin-top40">
+					                          <p class="size-10 ">Dangers Status</p>
+					                      </li>
+					                      <li>
+					                          <p class="size-16 font-blue">隐患状态</p>
+					                      </li>
+					                  </ul>
+					              </div>
+					              <div class="col-md-7 padding0">
+					                  <ul class="row toolcount-right margin-bottom0 size-12">
+					                      <li>
+					                          <p class="size-18 font-white">信息概览</p>
+					                      </li>
+					                      <li class="margin-bottom5">
+					                          <p class="size-10 set-scaleright">Dangerous info</p>
+					                      </li>
+					                      <li class="margin-top10">
+					                          <p><i class="el-icon-location"></i> 
+					                            <span>
+					                              <strong v-if="troubleDetail.buildingName == '室外'">室外</strong>
+					                              <strong v-else><span v-if="troubleDetail.buildingName != '' && troubleDetail.buildingName != null">{{ troubleDetail.buildingName }} 建筑</span><span v-if="troubleDetail.floorNumber != '' && troubleDetail.floorNumber != null">{{ troubleDetail.floorNumber }} 楼层</span><span v-if="troubleDetail.roomNumber != '' && troubleDetail.roomNumber != null">{{ troubleDetail.roomNumber }} 房间</span></strong>
+					                            </span>
+					                          </p>
+					                      </li>
+					                      <li class="text-left padding-right16 margin-top15">
+					                          <div class="col-sm-4 personnel-borderright" v-if="troubleDetail.status == 0">
+					                              <p class="size-16 show font-yellow">{{troubleDetail.nickName}}</p>
+					                              <p>上报人</p>
+					                          </div>
+					                          <div class="col-sm-4 personnel-borderright" v-if="troubleDetail.status == 1">
+					                              <p class="size-16 show font-blue">{{troubleDetail.reviewerName}}</p>
+					                              <p>解决人</p>
+					                          </div>
+					                          <div class="col-sm-8" v-if="troubleDetail.status == 0">
+					                              <p class="size-12 show font-white">{{troubleDetail.createTime}}</p>
+					                              <p>上报时间</p>
+					                          </div>
+					                          <div class="col-sm-8" v-if="troubleDetail.status == 1">
+					                              <p class="size-12 show font-white">{{ troubleDetail.reviewTime}}</p>
+					                              <p>解决时间</p>
+					                          </div>
+					                      </li>
+					                  </ul>
+					              </div>
+					          </div>
+					      </section>
+					      <!-- 隐患详情 -->
+							<section class="alarm-info">
 								<div class="textandimg margin-top30 imgs-nthof-block">
 									<h4 class="p-title">隐患信息</h4>
-									<div class="row textandimg-main margin-top20 size-12">
+									<div class="row textandimg-main margin-top10 size-12">
 										<div class="col-sm-12">
+						                      <span>隐患源</span>
+						                      <strong v-html="troubleDetail.nickName"></strong>
+						                  </div> 
+						                  <div class="col-sm-12">
+						                      <span>所属单位</span>
+						                      <strong>{{troubleDetail.unitName}}</strong>
+						                  </div>						                  
+										<div class="col-sm-6">
 											<span>隐患类型 </span>
-											<strong>{{troubleDetail.type}}</strong>
+											<strong v-if="troubleDetail.type==1" ><i class="icon iconfont icon-sunhuai-mian- size-14"></i> 损坏</strong>
+											<strong v-if="troubleDetail.type==2" ><i class="icon iconfont icon-feirenweiyinsuyinhuan-mian- size-14"></i> 人为风险</strong>
+											<strong v-if="troubleDetail.type==3" ><i class="icon iconfont icon-feirenweiyinsuyinhuan-mian-1 size-14"></i> 非人为风险</strong>
+											<strong v-if="troubleDetail.type==4" ><i class="icon iconfont icon-queshi-mian- size-14"></i> 缺失</strong>
+											<strong v-if="troubleDetail.type==5"><i class="icon iconfont icon-weixianpin-mian- size-14"></i> 危险品</strong>
 										</div>
-										<div class="col-sm-12">
-											<span>发现时间 </span>
-											<strong>{{troubleDetail.createTime}}</strong>
-										</div>
+										<div class="col-sm-6">
+						                      <span>隐患状态</span>
+						                      <strong class="font-yellow" v-if="troubleDetail.status == 0">未解决</strong>
+						                      <strong class="font-blue" v-if="troubleDetail.status == 1">已解决</strong>
+						                  </div>
 										<div class="col-sm-12">
 											<span>隐患地点 </span>
-											<strong>{{troubleDetail.unitName}}</strong>
+											<strong v-if="troubleDetail.buildingName == '室外'">室外</strong>
+                      						<strong v-else><span v-if="troubleDetail.buildingName != '' && troubleDetail.buildingName != null">{{ troubleDetail.buildingName }} 建筑</span><span v-if="troubleDetail.floorNumber != '' && troubleDetail.floorNumber != null">{{ troubleDetail.floorNumber }} 楼层</span><span v-if="troubleDetail.roomNumber != '' && troubleDetail.roomNumber != null">{{ troubleDetail.roomNumber }} 房间</span></strong>
 										</div>
+										<!-- <div class="col-sm-12">
+					                      <span>坐标 </span>
+					                      <strong v-html="troubleDetail.pointX"></strong>
+					                      <strong v-html="troubleDetail.pointY"></strong>
+					                  </div> -->
+										<div class="col-sm-12">
+											<span>上报人 </span>
+											<strong>{{troubleDetail.nickName}}</strong>
+										</div>
+										<div class="col-sm-12">
+											<span>上报时间 </span>
+											<strong>{{troubleDetail.createTime}}</strong>
+										</div>										
 										<div class="col-sm-12">
 											<span>隐患描述 </span>
 											<strong>{{troubleDetail.cont}}</strong>
@@ -361,18 +429,16 @@
 											</template>
 										</div>
 									</div>
-								</div>
-							</section>
-							<section>
-								<div class="textandimg margin-top30 imgs-nthof-block ">
+								</div>							
+								<div class="textandimg margin-top10 imgs-nthof-block" v-if="troubleDetail.status == 1">
 									<h4 class="p-title">隐患解决</h4>
-									<div class="row textandimg-main margin-top20 size-12">
+									<div class="row textandimg-main margin-top10 size-12">
 										<div class="col-sm-12">
 											<span>解决人 </span>
-											<strong>{{troubleDetail.nickName}}</strong>
+											<strong>{{troubleDetail.reviewerName}}</strong>
 										</div>
 										<div class="col-sm-12">
-											<span>隐患解决时间 </span>
+											<span>解决时间 </span>
 											<strong>{{troubleDetail.reviewTime}}</strong>
 										</div>
 										<div class="textandimg-img imgs-nthof">
@@ -387,6 +453,10 @@
 												</div>
 											</template>
 										</div>
+										<div class="col-sm-12">
+					                      <span>解决原因 </span>
+					                      <strong>{{troubleDetail.treatment}}</strong>
+					                  </div>
 									</div>
 								</div>
 							</section>
@@ -566,21 +636,21 @@
 				this.$fetch("/api/trouble/troubleDetail", this.troubleDetail_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.troubleDetail = response.data.trouble;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			handleCurrentChange(val) {
-				console.log(`当前页:` + val);
+				//console.log(`当前页:` + val);
 				this.troubleList_parameter.currentPage = val;
 				this.getTable();
 			},
 			tolineitem() {
-				console.log(this.queryInspectionNameListvalue);
+				//console.log(this.queryInspectionNameListvalue);
 				$("#lookroute").removeClass("upd-btn-dis");
 			},
 			getTable() {
@@ -588,12 +658,12 @@
 				this.$fetch("/api/trouble/troubleList", this.troubleList_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.tableData = response.data.pager;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			getData() {
@@ -604,12 +674,12 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.queryTroubleStats = response.data.result;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 
 				// 请求隐患饼图数据
@@ -624,7 +694,7 @@
 							this.draw_piemax("dan_charpiemax", this.troubleRatio);
 						}
 					}).then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 				this.getTroubleRate();
 			},	
@@ -636,7 +706,7 @@
 							this.draw_line("dan_charline", data);
 						}
 					}).then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			draw_piemin(id, data) {
@@ -649,7 +719,8 @@
 						label: {
 							normal: {
 								position: "inner",
-								show: true
+								show: true,
+								color:"#000"
 							}
 						}
 					}];
@@ -660,6 +731,7 @@
 							label: {
 								normal: {
 									position: "inner",
+									color:"#fff",
 									show: true
 								}
 							}
@@ -763,7 +835,7 @@
 						name: "说明:",
 						type: "pie",
 						radius: [0, "70%"],
-						color: ["#bad616", "#c69e00", "#ff7800", "#f13131", "#ccc"],
+						color: ["#555","#777", "#ffb709", "#999", "#f13131"],
 						data: d
 					}]
 				};
@@ -792,7 +864,10 @@
 						trigger: 'axis'
 					},
 					legend: {
-						data:['危险品','隐患']
+						data:['危险品','隐患'],
+						textStyle:{
+							color: "#999"
+						}
 					},
 					grid: {
 						left: '3%',
@@ -834,12 +909,14 @@
 							name:'危险品',
 							type: "line",
 							symbol: "none",
+							color:"#f13131",
 							smooth: true,
 							data:dangerCount
 						},
 						{
 							name:'隐患',
 							type: "line",
+							color:"#ffb709",
 							symbol: "none",
 							smooth: true,
 							data:toubleCount

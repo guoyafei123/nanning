@@ -90,16 +90,16 @@
 												<td v-if="item.nickName">{{item.nickName}}</td>
 												<td class="font-red " style="max-width:20px !important;">
 													<el-tooltip content="设备报警" placement="top">
-														<i v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-xian- font-red set-ciontop3"></i>
+														<i v-if="item.eventLevel==1 && !item.nickName" class="icon iconfont icon-shebeibaojing-xian- font-red"></i>
 													</el-tooltip>
 													<el-tooltip content="火情" placement="top">
-														<i v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- font-blush set-ciontop3"></i>
+														<i v-if="item.eventLevel==2" class="icon iconfont icon-huoqing-xian- font-blush"></i>
 													</el-tooltip>
 													<el-tooltip content="人工报警" placement="top">
-														<i v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-xian- font-red set-ciontop3"></i>
+														<i v-if="item.eventLevel==1 && item.nickName" class="icon iconfont icon-rengongbaojing-xian- font-red"></i>
 													</el-tooltip>
 													<el-tooltip content="故障" placement="top">
-														<i v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-xian-font-orange set-ciontop3"></i>
+														<i v-if="item.eventLevel==0" class="icon iconfont icon-guzhang-gai-xian-font-orange"></i>
 													</el-tooltip>
 												</td>
 												<td>
@@ -110,10 +110,10 @@
 												</td>
 												<td>
 													<el-tooltip content="已关闭" placement="top">
-														<i v-if="item.status==1" class="icon iconfont icon-guanbi2 font-gray-999 set-ciontop4"></i>
+														<i v-if="item.status==1" class="icon iconfont icon-guanbi2 font-gray-999"></i>
 													</el-tooltip>
 													<el-tooltip content="报警中" placement="top">
-														<i v-if="item.status==0" class="icon iconfont icon-jingshi-xian- font-red set-ciontop4"></i>
+														<i v-if="item.status==0" class="icon iconfont icon-jingshi-xian- font-red"></i>
 													</el-tooltip>
 												</td>
 												<td>
@@ -149,6 +149,7 @@
 			<!-- <call_right-vue></call_right-vue> -->
 			<template>
 				<div class="toolright">
+					<!-- 筛选 -->
 					<section class="my-filter padding5 bg-gray-222 clearfix">
 						<div class="col-sm-12 padding0">
 							<div class="upd-elmdate">
@@ -156,71 +157,53 @@
 								</el-date-picker>
 							</div>
 						</div>
-					</section>
-					<section class="row margin-top20 clearfix">
+					</section>					
+					<section class="dan-lineinfo">
+						<section class="row margin-top20 clearfix">
 						<!-- 已选择单位 -->
 						<div class="col-sm-7">
 							<div class="personinfo">
 								<p>
 									<span class="size-20 font-blue">中心小学</span>
-									<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+									<el-tooltip content="安全评分" placement="top">
+										<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
+									</el-tooltip>
 								</p>
 								<p class="text-left padding0">
 									<span><i class="fas fa-industry"></i> 中心小学</span>
 								</p>
 							</div>
 						</div>
-						<!-- 已选择单位巡检任务总数 -->
+						<!-- 报警总数 -->
 						<div class="col-sm-5 font-white text-right size-12">
-							<i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 报警总数<br>
-							<span class="size-22 font-blue">{{getAlarmCount.alarmSum}}</span>
+							<i class="icon iconfont icon-xunjian-xian- size-14 font-red"></i> 报警总数<br>
+							<span class="size-22 font-red">{{getAlarmCount.alarmSum}}</span>
 						</div>
 					</section>
-					<section class="dan-lineinfo">
-						<div class="toolcount margin-top20">
-							<h4 class="p-title">报警统计</h4>
-							<div class="col-sm-7 font-gray-999 padding-right0 text-center margin-top50 size-12">
-								<div class="row" v-if="getAlarmCount">
-									<div class="col-sm-4 personnel-borderright">
-										<p class="size-16 font-white">{{getAlarmCount.alarmSum}}</p>
-										<p>警报总数</p>
-									</div>
-									<div class="col-sm-4 personnel-borderright">
-										<p class="size-16 font-white">{{getAlarmCount.peopleAlarm}}</p>
-										<p>人工报警</p>
-									</div>
-									<div class="col-sm-4">
-										<p class="size-16 font-white">{{getAlarmCount.deviceAlarm}}</p>
-										<p>设备报警</p>
+						<section>
+							<div class="toolcount margin-top20">
+								<h4 class="p-title">报警统计</h4>
+								<div class="col-sm-7 font-gray-999 padding-right0 text-center margin-top50 size-12">
+									<div class="row" v-if="getAlarmCount">
+										<div class="col-sm-4 personnel-borderright">
+											<p class="size-16 font-white">{{getAlarmCount.alarmSum}}</p>
+											<p>警报总数</p>
+										</div>
+										<div class="col-sm-4 personnel-borderright">
+											<p class="size-16 font-white">{{getAlarmCount.peopleAlarm}}</p>
+											<p>人工报警</p>
+										</div>
+										<div class="col-sm-4">
+											<p class="size-16 font-white">{{getAlarmCount.deviceAlarm}}</p>
+											<p>设备报警</p>
+										</div>
 									</div>
 								</div>
+								<div class="col-sm-5 font-gray-999 text-right size-12">
+									<div id="call_charpiemin" style="width: 100%;height:140px;text-align: right;"></div>
+								</div>
 							</div>
-							<div class="col-sm-5 font-gray-999 text-right size-12">
-								<div id="call_charpiemin" style="width: 100%;height:140px;text-align: right;"></div>
-							</div>
-						</div>
-						<!-- <section>
-                        <div class="toolcount">
-                            <div class="col-sm-12  font-gray-999 padding-right0">
-                              <div class="row text-center size-12">
-                                  <template v-if="getAlarmCount">
-                                    <div class="col-sm-4 container-padding0 personnel-borderright">
-                                    <p class="size-16 font-blue">{{getAlarmCount.troubleSum}}</p>
-                                    <p>故障总数</p>
-                                    </div>
-                                    <div class="col-sm-4 container-padding0 personnel-borderright">
-                                    <p class="size-16 font-gray-ccc">{{getAlarmCount.actiomAlarm}}</p>
-                                    <p>故障处理</p>
-                                    </div>
-                                    <div class="col-sm-4 container-padding0">
-                                    <p class="size-16 font-gray-ccc">{{getAlarmCount.fireALarm}}</p>
-                                    <p>火情总数</p>
-                                    </div>
-                                  </template>
-                              </div>
-                            </div>
-                        </div>
-                    </section> -->
+						</section>
 						<section>
 							<div class="toolcount">
 								<h4 class="p-title">报警情况</h4>
@@ -238,15 +221,12 @@
 						<section>
 							<div class="toolcount margin-top20">
 								<h4 class="p-title">报警历史趋势
-                            <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-							<span class="indexdateabox alarmdate">
-								<b class="indexdateactive">日</b>
-								<b>月</b>
-								<b>年</b>
-							</span>
-                              <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                            </span>
-                            </h4>
+									<span class="pull-right indexdateabox alarmdate text-left">
+										<b class="indexdateactive">日</b>
+										<b>月</b>
+										<b>年</b>
+									</span>
+                            	</h4>
 								<div id="call_charline" style="width: 100%;height:160px;margin: 0 auto;"></div>
 							</div>
 						</section>
@@ -254,23 +234,61 @@
 
 					<section class="dan-iteminfo display-none overflow-scr">
 						<a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
-						<!-- <section>
-                        <div class="personinfo">
-                            <p>
-                            <span class="size-20">A365 F57D 的设备详情</span>
-                            <span class="bgbox-min bg-gray-666 font-black">消防栓报警按钮</span>
-                            <span class="float-right">
-                                    <span class="bgbox-max bg-gray-333 font-gray-999 size-10">灭火设备</span>
-                                </span>
-                            </p>
-                            <p>
-                                <span>
-                                    <i class="fas fa-industry"></i> 良庆区中心小学</span>
-                            </p>
-                        </div>
-                    </section>-->
-
-						<section>
+						<!-- <section class="row margin-top20 clearfix">
+							<div class="col-sm-12">
+								<div class="personinfo">
+									<p v-if="getAlarmDetail.status==1">
+										<span class="size-20 font-blue">
+											<span v-if="getAlarmDetail.eventLevel==0 && getAlarmDetail.deviceName">{{getAlarmDetail.deviceTypeName}}发起的设备故障</span>
+											<span v-if="getAlarmDetail.eventLevel==1 && getAlarmDetail.nickName">{{getAlarmDetail.nickName}}</span>
+											<span v-if="getAlarmDetail.eventLevel==2 && getAlarmDetail.nickName">{{getAlarmDetail.nickName}}</span>
+											<span v-if="getAlarmDetail.eventLevel==1 && !getAlarmDetail.deviceTypeName">{{getAlarmDetail.deviceName}}发起的设备报警</span>
+										</span>
+										<span class="pull-right bgbox-max bg-blue font-black size-10">
+											<span v-if="getAlarmDetail.eventLevel==0" >
+												<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 故障
+											</span>
+											<span v-if="getAlarmDetail.eventLevel==1 && getAlarmDetail.nickName" >
+												<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 人工报警
+											</span>
+											<span v-if="getAlarmDetail.eventLevel==2" >
+												<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 火情
+											</span>
+											<span v-if="getAlarmDetail.eventLevel==0 && !getAlarmDetail.deviceTypeName" >
+												<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 设备报警
+											</span>
+										</span>
+									</p>
+									<p v-if="getAlarmDetail.status==0">
+										<span class="size-20 font-red">
+											<span v-if="getAlarmDetail.eventLevel==0 && getAlarmDetail.deviceName">{{getAlarmDetail.deviceTypeName}}发起的设备故障</span>
+											<span v-if="getAlarmDetail.eventLevel==1 && getAlarmDetail.nickName">{{getAlarmDetail.nickName}}</span>
+											<span v-if="getAlarmDetail.eventLevel==2 && getAlarmDetail.nickName">{{getAlarmDetail.nickName}}发起的火情</span>
+											<span v-if="getAlarmDetail.eventLevel==1">{{getAlarmDetail.deviceName}}发起的设备报警</span>
+										</span>
+										<span class="pull-right bgbox-max bg-red font-black size-10">
+											<span v-if="getAlarmDetail.eventLevel==0" >
+												<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 故障
+											</span>
+											<span v-if="getAlarmDetail.eventLevel==1 && getAlarmDetail.nickName" >
+												<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 人工报警
+											</span>
+											<span v-if="getAlarmDetail.eventLevel==2" >
+												<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 火情
+											</span>
+											<span v-if="getAlarmDetail.eventLevel==0 && !getAlarmDetail.deviceTypeName" >
+												<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 设备报警
+											</span>
+										</span>
+									</p>
+									<p class="text-left padding0">
+											<span><i class="fas el-icon-location"></i> {{getAlarmDetail.unitName}}<strong v-if="getAlarmDetail.buildingName == '室外'"> 室外</strong>
+                      						<strong v-else><span v-if="getAlarmDetail.buildingName != '' && getAlarmDetail.buildingName != null">{{ getAlarmDetail.buildingName }} 建筑</span><span v-if="getAlarmDetail.floorNumber != '' && getAlarmDetail.floorNumber != null">{{ getAlarmDetail.floorNumber }} 楼层</span><span v-if="getAlarmDetail.roomNumber != '' && getAlarmDetail.roomNumber != null">{{ getAlarmDetail.roomNumber }} 房间</span></strong></span>
+									</p>
+								</div>
+							</div>
+						</section> -->
+						<section class="alarm-info">
 							<div class="textandimg margin-top20 imgs-nthof-block">
 								<h4 class="p-title">报警信息</h4>
 								<div class="row textandimg-main margin-top20 size-12">
@@ -278,8 +296,9 @@
 										<span>报警源 </span>
 										<!-- <td v-if="getAlarmDetail.isUser==0">{{getAlarmDetail.deviceTypeName}}</td>
                             <td v-if="getAlarmDetail.isUser==1">{{getAlarmDetail.nickName}}</td> -->
-										<strong v-if="getAlarmDetail.userId==0">{{getAlarmDetail.deviceTypeName}}</strong>
-										<strong v-if="getAlarmDetail.userId==1">{{getAlarmDetail.nickName}}</strong>
+										<!-- <strong v-if="getAlarmDetail.eventLevel==0">{{getAlarmDetail.deviceTypeName}}</strong> -->
+										<strong v-if="getAlarmDetail.eventLevel==1">{{getAlarmDetail.deviceName}}</strong>
+                            			<strong v-if="getAlarmDetail.eventLevel==0">{{getAlarmDetail.nickName}}</strong>
 									</div>
 									<div class="col-sm-12">
 										<span>报警地点 </span>
@@ -289,8 +308,28 @@
 										<span>报警时间 </span>
 										<strong>{{getAlarmDetail.startTime}}</strong>
 									</div>
+									<div class="col-sm-6">
+										<span>报警类型 </span>
+										<strong v-if="getAlarmDetail.eventLevel==0" >
+											<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 故障
+										</strong>
+										<strong v-if="getAlarmDetail.eventLevel==1 && getAlarmDetail.nickName" >
+											<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 人工报警
+										</strong>
+										<strong v-if="getAlarmDetail.eventLevel==2" >
+											<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 火情
+										</strong>
+										<strong v-if="getAlarmDetail.eventLevel==0 && !getAlarmDetail.deviceTypeName" >
+											<i class="icon iconfont icon-guzhang-gai-xian-font-orange"></i> 设备报警
+										</strong>
+									</div>
+									<div class="col-sm-6">
+										<span>报警状态 </span>
+										<strong class="font-blue" v-if="getAlarmDetail.status==1">已关闭</strong>
+										<strong class="font-red" v-if="getAlarmDetail.status==0">报警中</strong>
+									</div>
 									<div class="col-sm-12">
-										<!-- <span>描述 </span> -->
+										<span>描述 </span>
 										<strong>{{getAlarmDetail.remark}}</strong>
 									</div>
 									<!-- <div class="textandimg-img imgs-nthof">
@@ -306,6 +345,8 @@
                             </template>
                           </div> -->
 								</div>
+							</div>
+							<div class="textandimg margin-top20 imgs-nthof-block">
 								<h4 class="p-title">报警确认</h4>
 								<div class="row textandimg-main margin-top20 size-12">
 									<div class="col-sm-12">
@@ -317,7 +358,7 @@
 										<strong>{{getAlarmDetail.confirmTime}}</strong>
 									</div>
 									<div class="col-sm-12">
-										<!-- <span>描述 </span> -->
+										<span>报警描述 </span>
 										<strong>{{getAlarmDetail.confirmReason}}</strong>
 									</div>
 									<div class="textandimg-img imgs-nthof">
@@ -333,6 +374,8 @@
 										</template>
 									</div>
 								</div>
+								</div>
+							<div class="textandimg margin-top20 imgs-nthof-block">
 								<template v-if="infoShow">
 									<h4 class="p-title">报警关闭</h4>
 									<div class="row textandimg-main margin-top20 size-12">
@@ -464,7 +507,7 @@
 		]),
 		watch: {
 			unitid() {
-				// console.log(this.queryAlarmData_parmar.unitId)
+				// //console.log(this.queryAlarmData_parmar.unitId)
 				if(this.unitid != 0) {
 					this.getunitid = this.unitid;
 				} else {
@@ -546,7 +589,7 @@
 					.removeClass("display-block");
 				// 请求报警详情
 				let eventLevel = item.eventLevel;
-				console.log(item)
+				//console.log(item)
 				if(eventLevel == 0 || eventLevel == 2) {
 					this.infoShow = true;
 				} else {
@@ -556,25 +599,25 @@
 				this.$fetch("/api/alarm/getAlarmDetail", this.getAlarmDetail_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.getAlarmDetail = response.data.alarm;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			handleCurrentChange(val) {
-				console.log('人员当前页:' + val);
+				//console.log('人员当前页:' + val);
 				this.getAlarmList_parameter.currentPage = val;
 				this.getTable();
 			},
 			tolineitem() {
-				console.log(this.queryInspectionNameListvalue);
+				//console.log(this.queryInspectionNameListvalue);
 				$("#lookroute").removeClass("upd-btn-dis");
 			},
 			// callradio(){
-			//   console.log(this.radiovalue);
+			//   //console.log(this.radiovalue);
 			//   this.troubleCount.type=this.radiovalue;
 			//   this.get_Pie();
 			// },
@@ -583,12 +626,12 @@
 				this.$fetch("/api/alarm/getAlarmList", this.getAlarmList_parameter)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.tableData = response.data.pager;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			getData() {
@@ -599,12 +642,12 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.queryAlarmStats = response.data.result;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 
 				// 请求报警数据统计
@@ -614,9 +657,9 @@
 					)
 					.then(response => {
 						if(response) {
-							console.log(response);
+							//console.log(response);
 							this.getAlarmCount = response.data.alarmCount;
-							console.log(this.getAlarmCount);
+							//console.log(this.getAlarmCount);
 							this.draw_piemin(
 								"call_charpiemin",
 								response.data.alarmCount
@@ -628,7 +671,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 					this.getHistoryAlarmRateV();
 			},
@@ -638,12 +681,12 @@
 					.then(response => {
 						if(response) {
 							this.getHistoryAlarmRate = response.data;
-							console.log(this.getHistoryAlarmRate);
+							//console.log(this.getHistoryAlarmRate);
 							this.draw_line("call_charline", response.data.historyAlarmRate);
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			draw_piemin(id, data) {
@@ -657,7 +700,8 @@
 						label: {
 							normal: {
 								position: "inner",
-								show: true
+								show: true,
+								color:"#000"
 							}
 						}
 					}];
@@ -712,7 +756,7 @@
 						name: "说明:",
 						type: "pie",
 						radius: [0, "70%"],
-						color: ["#bad616", "#333"],
+						color: ["#333","#bad616"],
 						data: d
 					}]
 				};
@@ -733,7 +777,8 @@
 						label: {
 							normal: {
 								position: "inner",
-								show: true
+								show: true,
+								color:"#000"
 							}
 						}
 					}];
@@ -775,7 +820,7 @@
 						name: "说明:",
 						type: "pie",
 						radius: [0, "70%"],
-						color: ["#bad616", "#c69e00", "#ff7800", "#f13131", "#ccc"],
+						color: ["#333","#ffb709","#ff7800","#f13131"],
 						data: d
 					}]
 				};
@@ -813,8 +858,11 @@
 					tooltip: {
 						trigger: 'axis'
 					},
-					legend: {
-						data:['故障','报警','火情']
+					legend: {						
+						data:['故障','报警','火情'],
+						textStyle:{
+							color: "#999"
+						}
 					},
 					grid: {
 						left: '3%',
@@ -857,6 +905,7 @@
 							type: "line",
 							symbol: "none",
 							smooth: true,
+							color:"#ffb709",
 							data:deviceBuglineCount
 						},
 						{
@@ -864,12 +913,14 @@
 							type: "line",
 							symbol: "none",
 							smooth: true,
+							color:"#ff7800",
 							data:deviceAlarmlineCount
 						},
 						{
 							name:'火情',
 							type: "line",
 							symbol: "none",
+							color:"#f13131",
 							smooth: true,
 							data:firelineCount
 						}

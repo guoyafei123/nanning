@@ -9,8 +9,8 @@
 						<div class="position-absolute-bottom clearfix">
 							<!-- 单位信息 -->
 							<article class="unit-brief white-space col-sm-10" v-if="queryUnitInfo_parmar.unitId!=0">
-								<h3 class="size-20">{{queryUnitInfoinfo.name}}</h3>
-								<small><i class="el-icon-location"></i> {{queryUnitInfoinfo.location}}</small>
+								<h3 class="size-20" >{{queryUnitInfoinfoa}}</h3>
+								<small><i class="el-icon-location" ></i> {{queryUnitInfoinfob}}</small>
 							</article>
 							<!-- 安全评分 -->
 							<article class="unit-score" v-if="queryUnitInfo_parmar.unitId!=0">
@@ -23,13 +23,13 @@
 						</div>
 					</template>
 					<!-- 单位图片 -->
-					<img :src="queryUnitInfoimg" :onerror="defaultImg" class="img-responsive center-block" alt="单位图片">
+					<img :src="queryUnitInfoimg" :onerror="defaultImg" class="img-responsive center-block">
 				</li>
 				<!-- 统计1 -->
 				<li>
 					<div class="pull-left">
-						<h4 v-if="queryUnitInfo_parmar.unitId!=0">{{queryUnitInfoinfo.firemenName}} <small>{{queryUnitInfoinfo.firemenTel}}</small></h4>
-						<h4 v-if="queryUnitInfo_parmar.unitId==0">暂无</h4>
+						<h4 v-if="queryUnitInfo_parmar.unitId!=0">{{queryUnitInfoinfoc}} </h4>
+						<h4 v-if="queryUnitInfo_parmar.unitId==0">-</h4>
 						<small>消防负责人</small>
 					</div>
 					<div class="pull-right">
@@ -432,6 +432,9 @@
 				},
 				queryUnitInfo:Object,
 				queryUnitInfoinfo:Object,
+				queryUnitInfoinfoa:'',
+				queryUnitInfoinfob:'',
+				queryUnitInfoinfoc:'',
 				queryUnitInfoimg:require('../../assets/images/jpg01.jpg'),
 				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"',
 			};
@@ -474,25 +477,25 @@
 			connect() {
 				// alert(typeof this.socket);
 				var that = this;
-				console.log("去链接。。。");
+				//console.log("去链接。。。");
 				var socket = new sockjs("http://api.nanninglq.51play.com/socket");
 				// alert(typeof this.socket);
 				var stompClient = Stomp.over(socket);
 				stompClient.connect({},
 					function(frame) {
-						console.log("Connected: " + frame);
+						//console.log("Connected: " + frame);
 						//广播消息
 						stompClient.subscribe("/topic/broadcast", function(data) {
 							// console.info("receive a broadcast message");
 							// that.runCallback(data);
-							// console.log(data);
+							// //console.log(data);
 						});
 						//点对点
 						stompClient.subscribe("/user/topic/p2p", function(data) {
 							// console.info("receive a p2p message");
 							var message = JSON.parse(data.body);
 							var opt = message.data.opt;
-							console.log(opt.code);
+							//console.log(opt.code);
 							if(!that.socketcodes[opt.code]) {
 								that.runCallback(data, that);
 								that.$store.commit(
@@ -501,18 +504,16 @@
 								);
 								that.getgetUnitsSynthesis();
 								that.socketcodes[opt.code] = true;
-								console.log(1);
+								//console.log(1);
 							}
-
-							// console.log(data);
 						});
 						sessionStorage.socketcode=1;
-						console.log("创建链接完成。。。");
+						console.log("socket->  链接成功");
 					},
 					function(e) {
 						console.error("connection closed, retry in 5 seconds");
 						setTimeout("connect()", 5000);
-						console.log("创建链接失败。。。");
+						//console.log("创建链接失败。。。");
 					}
 				);
 			},
@@ -539,10 +540,12 @@
 					that.getqueryAlarmIng(4, opt.type);
 					this.openpanl(opt.type, opt);
 				}
+				// 发现隐患
 				if(opt.type == 9) {
 					that.getqueryAlarmIng(9, opt.type);
 					this.openpanl(opt.type, opt);
 				}
+				// 解决隐患
 				if(opt.type == 10) {
 					that.getqueryAlarmIng(10, opt.type);
 					this.openpanl(opt.type, opt);
@@ -574,6 +577,11 @@
 					if(response.data) {
 						this.queryUnitInfo = response.data;
 						this.queryUnitInfoinfo=response.data.unitInfo
+						if(this.queryUnitInfoinfo!=null){
+							this.queryUnitInfoinfoa=response.data.unitInfo.name;
+							this.queryUnitInfoinfob=response.data.unitInfo.location;
+							this.queryUnitInfoinfoc=response.data.unitInfo.firemenName;
+						}
 						if(this.queryUnitInfo_parmar.unitId==null || this.queryUnitInfo_parmar.unitId==0){
 							this.queryUnitInfoimg = require('../../assets/images/jpg01.jpg');
 						}else{
@@ -595,7 +603,7 @@
 					response => {
 						if(response.data) {
 							this.queryAlarmIng = response.data;
-							console.log(this.queryAlarmIng);
+							//console.log(this.queryAlarmIng);
 							this.$store.commit("indexToAlarmTroubel", [
 								this.queryAlarmIng,
 								type
@@ -630,9 +638,9 @@
 				this.myAudio.src = this.mp3arr.shift();
 				this.myAudio.play();
 				if(this.mp3arr.length > 0) {
-					console.log("--");
+					//console.log("--");
 				} else {
-					console.log("-");
+					//console.log("-");
 					this.myAudio.removeEventListener("ended", this.playEndedHandler, false);
 				}
 			},

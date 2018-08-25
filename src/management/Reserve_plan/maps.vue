@@ -218,9 +218,9 @@
         this.fileVerification="";
         // this.form.url='';
         // $("#up_img"+this.form.id+"").attr("src",'');
-        console.log(this.form.id)
+        //console.log(this.form.id)
         $("#up_img"+this.form.id+"").attr("src", this.getObjectURL(document.getElementById('file')));
-        // console.log(this.getObjectURL(document.getElementById('file')))
+        // //console.log(this.getObjectURL(document.getElementById('file')))
       },
       getObjectURL(node) {
           var imgURL = "";
@@ -267,7 +267,7 @@
           if(this.deviceIndex == item.id){
             this.form.id = item.id ;
             this.form.url = item.url ;
-            console.log(this.form.url)
+            //console.log(this.form.url)
           }
         })
       },
@@ -284,20 +284,20 @@
             dataType: "plain",
             success: function (data) { //服务器成功响应处理函数 //服务器成功响应处理函数
             
-            console.log(data)
+            //console.log(data)
             },
             error: function (e) { //服务器响应失败处理函数
               $.messager.alert('警告', "系统错误", "warning");
             },
             complete: function (e) {//只要完成即执行，最后执行
-              console.log(e) 
+              //console.log(e) 
               that.tableList();
               
               $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                 $("#file").on("change", function(){  
-                  console.log($("#up_img"+that.form.id+""))
+                  //console.log($("#up_img"+that.form.id+""))
                   $("#up_img"+ that.form.id +"").attr("src", that.getObjectURL(document.getElementById('file')));     
-                  console.log(that.form.id) 
+                  //console.log(that.form.id) 
               });
             }
         });
@@ -314,12 +314,12 @@
         this.$fetch("/api/plan/deletePlan",{
           planId:this.deviceIndex
         }).then(response=>{
-          console.log(response);
+          //console.log(response);
           this.tableList();
         })
       },
       show3(row){//跳转
-        console.log(row);
+        //console.log(row);
         this.$store.commit('unitPlan',row);
       },
       unitSearch(){
@@ -328,16 +328,16 @@
         )
         .then(response => {
           if (response) {
-            console.log(response);
+            //console.log(response);
             this.optionList = response.data.unitList;
-            console.log(this.optionList);
+            //console.log(this.optionList);
             $(' .el-select-dropdown__item').mouseover(function(){
               $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
             });
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       },
       tableList(){
@@ -351,18 +351,18 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.pager) {
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
                   this.$store.commit('unitPlan',item);
-                  console.log(item)
+                  //console.log(item)
                 }
                 if(item.id == this.deviceIndex){
                   this.$store.commit('unitPlan',item);
-                  // console.log(item)
+                  // //console.log(item)
                 }
               })
               if(this.totalList % 10 == 0){
@@ -373,17 +373,17 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       buildSearch(unitId){
         this.$fetch("/api/building/selectNode",{
           unitId:unitId
         }).then(response=>{
-          console.log('buildSearch:'+JSON.stringify(response));
+          //console.log('buildSearch:'+JSON.stringify(response));
           if (response) {
             this.buildList = response.data.list;
-            console.log(this.buildList);
+            //console.log(this.buildList);
           }
         })
       }
@@ -402,7 +402,7 @@
       },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       }
     }

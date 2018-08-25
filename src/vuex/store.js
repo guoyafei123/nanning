@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 var state={
+  iconByType:'',
+  mapShow:true,
   //单位
   unitNum:'',
   unitList:[],
@@ -28,6 +30,7 @@ var state={
   floorAdd:'',
   floorId:'',
   buildPoint:'',
+  Refresh:'',
   //人员
   unitNumber:'',
   peopleTableData:'',
@@ -70,9 +73,19 @@ var state={
   topersonitem:Object,
   // 综合页面传入报警和隐患详情
   aleamAndtroubleInfo:Object,
+
+  // 地图相关
+  // 全部单位
+  mapAllUnit:Object,
 }
 
 var mutations={
+  iconByType(state,data){
+    state.iconByType = data ;
+  },
+  mapShow(state,data){
+    state.mapShow = data ;
+  },
   //单位
   unitNum(state,data){
     state.unitNum = data;
@@ -139,6 +152,9 @@ var mutations={
   },
   buildPoint(state,data){
     state.buildPoint = data ;
+  },
+  Refresh(state,data){
+    state.Refresh = data ;
   },
   //人员
   unitNumber(state,data){
@@ -214,6 +230,7 @@ var mutations={
   },
   // 全局权限
   unitid(state,data){
+    // alert(data);
     state.unitid=data;
   },
   userinfo(state,data){
@@ -233,6 +250,9 @@ var mutations={
   },
   aleamAndtroubleInfo(state,data){
     state.aleamAndtroubleInfo=data;
+  },
+  mapAllUnit(state,data){
+    state.mapAllUnit=data;
   },
 }
 

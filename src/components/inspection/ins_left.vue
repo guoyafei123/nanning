@@ -172,7 +172,7 @@
 			getData() {
 				// 请求巡检统计
 				this.$fetch("/api/inspection/planInspectionCount").then(response => {
-					console.log(response.data);
+					//console.log(response.data);
 					let data = response.data;
 					if(response.data) {
 						this.ins_planInspectionCount.finish = data.planInstanceCount.finish;
@@ -201,16 +201,16 @@
 					.then(response => {
 						if(response) {
 							let data = response.data;
-							console.log(data);
+							//console.log(data);
 							this.ins_queryInspectionNameList = data.listInspectionName;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			handleCurrentChange(val) {
-				console.log(`当前页:` + val);
+				//console.log(`当前页:` + val);
 				this.queryPlanUserList_parameter.currentPage = val;
 				this.getTable();
 			},
@@ -226,7 +226,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			toitmeinfo(data) {
@@ -250,15 +250,15 @@
 					.then(response => {
 						if(response) {
 							this.ins_queryPlanUserDetails = response.data;
-							console.log(this.ins_queryPlanUserDetails);
+							//console.log(this.ins_queryPlanUserDetails);
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			lookroute(data) {
-				console.log(this.lookroutebool);
+				//console.log(this.lookroutebool);
 				if(this.lookroutebool) {
 					$(".inspection-iteminfo")
 						.addClass("display-none")
@@ -272,11 +272,11 @@
 				}
 			},
 			tolineitem() {
-				console.log(this.ins_queryInspectionNameListvalue);
+				//console.log(this.ins_queryInspectionNameListvalue);
 				this.lookroutebool = true;
 				$("#lookroute").removeClass("upd-btn-dis");
 				this.queryPlanUserList_parameter.inspectionName = this.ins_queryInspectionNameListvalue;
-				// console.log(data.name)
+				// //console.log(data.name)
 				this.getTable();
 			},
 

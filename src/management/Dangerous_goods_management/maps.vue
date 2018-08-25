@@ -64,11 +64,11 @@
         <!-- 地图 -->
         <div class="maps">
           <!-- icon -->
-                <div class="position-absolute-top popup-map-min-point z-index-100"  style="top: 60px; left:200px;">
+                <!-- <div class="position-absolute-top popup-map-min-point z-index-100"  style="top: 60px; left:200px;">
                   <el-tooltip content="危险品名称" placement="top">
                     <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i>
                   </el-tooltip>
-                </div>
+                </div> -->
         <managementMap-vue></managementMap-vue>
         </div>
       </div>
@@ -108,10 +108,10 @@
         this.$fetch("/api/building/selectNode",{
           unitId:unitId
         }).then(response=>{
-          console.log('buildSearch:'+JSON.stringify(response));
+          //console.log('buildSearch:'+JSON.stringify(response));
           if (response) {
             this.buildList = response.data.list;
-            console.log(this.buildList);
+            //console.log(this.buildList);
           }
         })
       },
@@ -119,10 +119,10 @@
         this.$fetch("/api/building/selectNode",{
           buildIngId:buildIngId
         }).then(response=>{
-          console.log('floorSearch:'+response);
+          //console.log('floorSearch:'+response);
           if (response) {
             this.floorList = response.data.list;
-            console.log(this.floorList);
+            //console.log(this.floorList);
           }
         })
       },
@@ -130,10 +130,10 @@
         this.$fetch("/api/building/selectNode",{
           floorId:floorId
         }).then(response=>{
-          console.log('roomSearch:'+response);
+          //console.log('roomSearch:'+response);
           if (response) {
             this.roomList = response.data.list;
-            console.log(this.roomList);
+            //console.log(this.roomList);
           }
         })
       },
@@ -143,16 +143,16 @@
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },
@@ -168,7 +168,7 @@
       },
       building(curVal,oldVal){
         this.building = curVal ;
-        console.log(this.building);
+        //console.log(this.building);
         if(this.building !== 0 && this.building !== '0'){
           this.floor = '';
           this.room = '';
@@ -185,7 +185,7 @@
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
-        console.log(this.floor);
+        //console.log(this.floor);
         if(this.floor !== 0){
           this.roomSearch(this.floor);
           $('.startRoom').show();
@@ -194,7 +194,7 @@
       },
       room(curVal,oldVal){
         this.room = curVal ;
-        console.log(this.room);
+        //console.log(this.room);
         if(this.room !== 0){
           this.equipmentSearch(this.room);
           $('.startDevice').show();

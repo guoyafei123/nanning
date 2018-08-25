@@ -161,17 +161,17 @@ import managementMapVue from '../managementMap';
         })
       },
       btn_add(){
-        // console.log($('#right'));
+        // //console.log($('#right'));
         $('#right').hide();
       },
       buildSearch(unitId){
         this.$fetch("/api/building/selectNode",{
           unitId:unitId
         }).then(response=>{
-          console.log('buildSearch:'+JSON.stringify(response));
+          //console.log('buildSearch:'+JSON.stringify(response));
           if (response) {
             this.buildList = response.data.list;
-            console.log(this.buildList);
+            //console.log(this.buildList);
           }
         })
       },
@@ -179,10 +179,10 @@ import managementMapVue from '../managementMap';
         this.$fetch("/api/building/selectNode",{
           buildIngId:buildIngId
         }).then(response=>{
-          console.log('floorSearch:'+response);
+          //console.log('floorSearch:'+response);
           if (response) {
             this.floorList = response.data.list;
-            console.log(this.floorList);
+            //console.log(this.floorList);
           }
         })
       },
@@ -190,19 +190,19 @@ import managementMapVue from '../managementMap';
         this.$fetch("/api/building/selectNode",{
           floorId:floorId
         }).then(response=>{
-          console.log('roomSearch:'+response);
+          //console.log('roomSearch:'+response);
           if (response) {
             this.roomList = response.data.list;
-            console.log(this.roomList);
+            //console.log(this.roomList);
           }
         })
       },
       equipmentSearch(){
         this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
-          console.log('equipmentSearch:'+response);
+          //console.log('equipmentSearch:'+response);
           if (response) {
             this.equipmentList = response.data.deviceTypeEnum;
-            console.log(this.equipmentList);
+            //console.log(this.equipmentList);
           }
         })
       },
@@ -212,16 +212,16 @@ import managementMapVue from '../managementMap';
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },
@@ -233,7 +233,7 @@ import managementMapVue from '../managementMap';
       },
       building(curVal,oldVal){
         this.building = curVal ;
-        console.log(this.building);
+        //console.log(this.building);
         this.floor = '';
         this.room = '';
         this.equipment = '';
@@ -242,7 +242,7 @@ import managementMapVue from '../managementMap';
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
-        console.log(this.floor);
+        //console.log(this.floor);
         if(this.floor !== 0){
           this.roomSearch(this.floor);
           this.$store.commit('floorDevice',this.floor);
@@ -250,7 +250,7 @@ import managementMapVue from '../managementMap';
       },
       room(curVal,oldVal){
         this.room = curVal ;
-        console.log(this.room);
+        //console.log(this.room);
         this.$store.commit('roomDevice',this.room);
       },
       equipment(curVal,oldVal){

@@ -39,15 +39,16 @@
         <ul>
           <li v-for="item in getMessageDateSys" :key="item.id" :class="[item.type===6?'activity':'system',
           item.status===1?'unread':'' ]">
+            <h3 @click="reedMsg(item)" v-if="item.type===5">
+              "{{item.title}}"
+              <span v-if="item.type===6">{{item.senderName}}</span>
+            </h3>
             <h3 @click="showTabcont(item)" v-if="item.type===6">
-              <!--<span v-if="item.type===6">{{item.senderName}}</span>-->
-              {{item.title}}
+
+              "{{item.title}}"
             </h3>
-            <h3 @click="reedMsg(item)" v-if="item.type===7">
-              {{item.title}}
-            </h3>
+            <small v-if="item.type==5">系统公告<span>{{item.sendTime}}</span></small>
             <small v-if="item.type==6">活动通知<span>{{item.sendTime}}</span></small>
-            <small v-if="item.type==7">系统公告<span>{{item.sendTime}}</span></small>
           </li>
         </ul>
       </div>
@@ -170,8 +171,8 @@
       },
       // 显示内容
       showTabcont(data) {
-        console.log(data);
-        console.log(data.id);
+        //console.log(data);
+        //console.log(data.id);
         $('#TabCont').addClass('show')
         $('#myTabContent').addClass('hide')
         this.getEventById_param.eventId = data.referenceId;
@@ -195,21 +196,21 @@
         this.$fetch('/api/event/getEventById', this.getEventById_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               this.getEventByIdDate = response.data.event
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
       //系统消息
       queryMessageSys() {
-        let types = [6, 7]
+        let types = [5,6]
         this.$fetch('/api/user/queryMessage?types=' + types, this.getMessageDate_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               this.getMessageDateSys = response.data.pager.result
               let sysUnReadCount = response.data.sysUnReadCount;
               if (sysUnReadCount > 0) {
@@ -218,7 +219,7 @@
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
       //报警消息
@@ -227,7 +228,7 @@
         this.$fetch('/api/user/queryMessage?types=' + types, this.getMessageDate_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               let alarmUnReadCount = response.data.alarmUnReadCount;
               if (alarmUnReadCount > 0) {
                 this.getStarts.alarmStart = true;
@@ -236,7 +237,7 @@
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
 
@@ -246,7 +247,7 @@
         this.$fetch('/api/user/queryMessage?types=' + types, this.getMessageDate_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               let troubleUnReadCount = response.data.troubleUnReadCount;
               if (troubleUnReadCount > 0) {
                 this.getStarts.troubleStart = true;
@@ -255,7 +256,7 @@
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
       //读取消息
@@ -263,14 +264,14 @@
         this.$fetch('/api/user/rendMessage', this.rendMessage_param)
           .then(response => {
             if (response) {
-              console.log(response)
+              //console.log(response)
               this.queryMessageSys()
               this.queryMessageAlarm()
               this.queryMessageTrouble()
             }
           })
           .then(err => {
-            console.log(err)
+            //console.log(err)
           })
       },
     },

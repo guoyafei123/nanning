@@ -54,7 +54,7 @@ Vue.prototype.$fetch=fetch;
 Vue.prototype.$http = axios;
 import qs from 'qs';
 Vue.prototype.$qs=qs;
-// this.$post('/api/').then((response) => {console.log(response)})
+// this.$post('/api/').then((response) => {//console.log(response)})
 //上传图片
 import './assets/js/ajaxfileupload';
 //验证

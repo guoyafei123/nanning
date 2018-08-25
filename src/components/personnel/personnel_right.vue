@@ -368,7 +368,7 @@
 			},
 			//获取人员右侧统计数据
 			getData(){
-				// console.log(this.queryUserCount_parameter.startTime);
+				// //console.log(this.queryUserCount_parameter.startTime);
 				this.$fetch("/api/user/queryUserCount",this.queryUserCount_parameter).then(response => {
 					if (response.data) {
 						let data = response.data;
@@ -475,7 +475,7 @@
 						radius: [0, "70%"],
 						label: {
 							normal: {
-								position: "inner"
+								position: "inner",
 							}
 						},
 						labelLine: {
@@ -491,8 +491,8 @@
 							},
 							{
 								value: management,
-								name: "管理人员"
-							}
+								name: "管理人员",
+							},
 						]
 					}]
 				};

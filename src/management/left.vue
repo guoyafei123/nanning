@@ -128,7 +128,7 @@
           //     'animation':'move 1s',
           //     'animation-fill-mode': 'forwards'
           // })
-          // console.log(1)
+          // //console.log(1)
           $('.show_left').animate({'left':'toggle'},200,function(){
             $('#left').removeClass('open-left');
             $('#manage-center').addClass('open-center');

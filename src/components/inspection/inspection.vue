@@ -367,7 +367,9 @@
 								<div class="personinfo">
 									<p>
 										<span class="size-20 font-blue">中心小学</span>
-										<span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+										<el-tooltip content="安全评分" placement="top">
+										<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
+									</el-tooltip>
 									</p>
 									<p class="text-left padding0">
 										<span><i class="fas fa-industry"></i> 中心小学</span>
@@ -723,7 +725,7 @@
 			getData() {
 				// 请求巡检统计
 				this.$fetch("/api/inspection/planInspectionCount").then(response => {
-					console.log(response.data);
+					//console.log(response.data);
 					let data = response.data;
 					if(response.data) {
 						this.ins_planInspectionCount.finish = data.planInstanceCount.finish;
@@ -752,12 +754,12 @@
 					.then(response => {
 						if(response) {
 							let data = response.data;
-							console.log(data);
+							//console.log(data);
 							this.ins_queryInspectionNameList = data.listInspectionName;
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 				// 请求饼状图
 				this.$fetch(
@@ -780,7 +782,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 
 				// 请求历史曲线图
@@ -803,11 +805,11 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			handleCurrentChange(val) {
-				console.log(`当前页:` + val);
+				//console.log(`当前页:` + val);
 				this.queryPlanUserList_parameter.currentPage = val;
 				this.getTable();
 			},
@@ -823,7 +825,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			toitmeinfo(data) {
@@ -846,16 +848,16 @@
 					.then(response => {
 						if(response) {
 							this.ins_queryPlanUserDetails = response.data;
-							console.log(this.ins_queryPlanUserDetails);
+							//console.log(this.ins_queryPlanUserDetails);
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 
 			},
 			lookroute(data) {
-				console.log(this.lookroutebool);
+				//console.log(this.lookroutebool);
 				if(this.lookroutebool) {
 					$(".inspection-iteminfo")
 						.addClass("display-none")
@@ -874,7 +876,7 @@
 					//   .then(response => {
 					//     if (response) {
 					//       this.ins_queryPlanDetails= response.data;
-					//       console.log(this.ins_queryPlanDetails);bfvmhjb
+					//       //console.log(this.ins_queryPlanDetails);bfvmhjb
 					//       // draw_piemin()
 
 					//       // let data = response.data.result.dateMap;
@@ -889,7 +891,7 @@
 					//     }
 					//   })
 					//   .then(err => {
-					//     console.log(err);
+					//     //console.log(err);
 					//   });
 					this.getceshi();
 				}
@@ -907,11 +909,11 @@
 					.removeClass("display-block");
 			},
 			tolineitem() {
-				console.log(this.ins_queryInspectionNameListvalue);
+				//console.log(this.ins_queryInspectionNameListvalue);
 				this.lookroutebool = true;
 				$('#lookroute').removeClass('upd-btn-dis');
 				this.queryPlanUserList_parameter.inspectionName = this.ins_queryInspectionNameListvalue;
-				// console.log(data.name)
+				// //console.log(data.name)
 				this.getTable();
 			},
 			draw_piemin(id, data) {
@@ -925,7 +927,7 @@
 					name = "区域巡检完成率 " + value.toFixed(2) + "%";
 				}
 
-				console.log();
+				//console.log();
 				let d = [{
 					value: value,
 					name: name
@@ -958,9 +960,9 @@
 				chars.setOption(char);
 			},
 			draw_piemax(id, data) {
-				// console.log(this.ins_queryTrendPieGraph);
+				// //console.log(this.ins_queryTrendPieGraph);
 				var fin_per = data.finishedAmount / data.amount * 100;
-				console.log();
+				//console.log();
 				let d = [{
 						value: data.finishedAmount,
 						name: "完成率 " + fin_per.toFixed(2) + "%"
@@ -1089,7 +1091,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			getmap_queryInspectionLineList() {
@@ -1105,7 +1107,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 

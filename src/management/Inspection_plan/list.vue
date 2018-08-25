@@ -293,9 +293,9 @@
           var equipmentListsName = '';
           //起点
           this.buildList.forEach((item,index)=>{
-            // console.log(item.id)
+            // //console.log(item.id)
             if(item.id == this.building){
-              // console.log(item.name);
+              // //console.log(item.name);
               buildListName = item.name;
             }
           });
@@ -317,9 +317,9 @@
 
           //终点
           this.buildLists.forEach((item,index)=>{
-            // console.log(item.id)
+            // //console.log(item.id)
             if(item.id == this.buildings){
-              // console.log(item.name);
+              // //console.log(item.name);
               buildListsName = item.name;
             }
           });
@@ -350,7 +350,7 @@
           }else{
             this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
           }
-          console.log(this.endNodes);
+          //console.log(this.endNodes);
 
 
           this.$router.push({path:'/Inspection_plan/all'});
@@ -379,38 +379,38 @@
 
           //中间节点
           this.buildListNode.forEach((item,index)=>{
-            // console.log(item.id)
+            // //console.log(item.id)
             if(item.id == this.buildingNode){
-              // console.log(item.name);
+              // //console.log(item.name);
               buildId = item.id;
               buildName = item.name;
             }
           });
-          // console.log(buildName);
+          // //console.log(buildName);
           this.floorListNode.forEach((item,index)=>{
-            // console.log(item.id)
+            // //console.log(item.id)
 
             if(item.id == this.floorNode){
               floorId = item.id;
               floorName = item.floorName;
             }
           });
-          // console.log(floorName);
+          // //console.log(floorName);
           this.roomListNode.forEach((item,index)=>{
             if(item.id == this.roomNode){
               roomId =item.id;
               roomName = item.roomNumber;
             }
           });
-          // console.log(roomName);
+          // //console.log(roomName);
           this.equipmentListNode.forEach((item,index)=>{
             if(item.id == this.equipmentNode){
               deviceId =item.id;
               equipmentName = item.name;
             }
           });
-          // console.log(equipmentName);
-          // console.log(this.inspectionNodes);
+          // //console.log(equipmentName);
+          // //console.log(this.inspectionNodes);
 
 
           //添加节点数组的内容
@@ -425,7 +425,7 @@
           this.buildingNode = '';
 
           //获取数组长度   inspectionNodes
-          console.log(this.inspectionNodes.length+1);
+          //console.log(this.inspectionNodes.length+1);
 
         },
         unitSearch(){
@@ -434,23 +434,23 @@
           )
             .then(response => {
               if (response) {
-                // console.log(response);
+                // //console.log(response);
                 this.optionList = response.data.unitList;
-                // console.log(this.optionList);
+                // //console.log(this.optionList);
               }
             })
             .then(err => {
-              console.log(err);
+              //console.log(err);
             });
         },
         buildSearch(unitId){
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
           }).then(response=>{
-            console.log('buildSearch:'+JSON.stringify(response));
+            //console.log('buildSearch:'+JSON.stringify(response));
             if (response) {
               this.buildList = response.data.list;
-              // console.log(this.buildList);
+              // //console.log(this.buildList);
             }
           })
         },
@@ -458,10 +458,10 @@
           this.$fetch("/api/building/selectNode",{
             buildIngId:buildIngId
           }).then(response=>{
-            console.log('floorSearch:'+response);
+            //console.log('floorSearch:'+response);
             if (response) {
               this.floorList = response.data.list;
-              // console.log(this.floorList);
+              // //console.log(this.floorList);
             }
           })
         },
@@ -469,10 +469,10 @@
           this.$fetch("/api/building/selectNode",{
             floorId:floorId
           }).then(response=>{
-            console.log('roomSearch:'+response);
+            //console.log('roomSearch:'+response);
             if (response) {
               this.roomList = response.data.list;
-              // console.log(this.roomList);
+              // //console.log(this.roomList);
             }
           })
         },
@@ -480,10 +480,10 @@
           this.$fetch("/api/building/selectNode",{
             roomId:roomId
           }).then(response=>{
-            console.log('equipmentSearch:'+response);
+            //console.log('equipmentSearch:'+response);
             if (response) {
               this.equipmentList = response.data.list;
-              // console.log(this.equipmentList);
+              // //console.log(this.equipmentList);
             }
           })
         },
@@ -492,10 +492,10 @@
             unitId:unit,
             buildIngId:buildingId
           }).then(response=>{
-            console.log('equipmentSearch:'+response);
+            //console.log('equipmentSearch:'+response);
             if (response) {
               this.equipmentList = response.data.list;
-              // console.log(this.equipmentList);
+              // //console.log(this.equipmentList);
             }
           })
         },
@@ -503,10 +503,10 @@
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
           }).then(response=>{
-            console.log('buildSearchs:'+JSON.stringify(response));
+            //console.log('buildSearchs:'+JSON.stringify(response));
             if (response) {
               this.buildLists = response.data.list;
-              // console.log(this.buildLists);
+              // //console.log(this.buildLists);
             }
           })
         },
@@ -514,10 +514,10 @@
           this.$fetch("/api/building/selectNode",{
             buildIngId:buildIngId
           }).then(response=>{
-            console.log('floorSearchs:'+response);
+            //console.log('floorSearchs:'+response);
             if (response) {
               this.floorLists = response.data.list;
-              // console.log(this.floorLists);
+              // //console.log(this.floorLists);
             }
           })
         },
@@ -525,10 +525,10 @@
           this.$fetch("/api/building/selectNode",{
             floorId:floorId
           }).then(response=>{
-            console.log('roomSearchs:'+response);
+            //console.log('roomSearchs:'+response);
             if (response) {
               this.roomLists = response.data.list;
-              // console.log(this.roomLists);
+              // //console.log(this.roomLists);
             }
           })
         },
@@ -536,10 +536,10 @@
           this.$fetch("/api/building/selectNode",{
             roomId:roomId
           }).then(response=>{
-            console.log('equipmentSearchs:'+response);
+            //console.log('equipmentSearchs:'+response);
             if (response) {
               this.equipmentLists = response.data.list;
-              // console.log(this.equipmentLists);
+              // //console.log(this.equipmentLists);
             }
           })
         },
@@ -548,10 +548,10 @@
             unitId:unit,
             buildIngId:buildIngId
           }).then(response=>{
-            console.log('equipmentSearchs:'+response);
+            //console.log('equipmentSearchs:'+response);
             if (response) {
               this.equipmentLists = response.data.list;
-              // console.log(this.equipmentLists);
+              // //console.log(this.equipmentLists);
             }
           })
         },
@@ -559,10 +559,10 @@
           this.$fetch("/api/building/selectNode",{
             unitId:unitId
           }).then(response=>{
-            console.log('buildSearchNode:'+JSON.stringify(response));
+            //console.log('buildSearchNode:'+JSON.stringify(response));
             if (response) {
               this.buildListNode = response.data.list;
-              // console.log(this.buildListNode);
+              // //console.log(this.buildListNode);
             }
           })
         },
@@ -570,10 +570,10 @@
           this.$fetch("/api/building/selectNode",{
             buildIngId:buildIngId
           }).then(response=>{
-            console.log('floorSearchNode:'+response);
+            //console.log('floorSearchNode:'+response);
             if (response) {
               this.floorListNode= response.data.list;
-              // console.log(this.floorListNode);
+              // //console.log(this.floorListNode);
             }
           })
         },
@@ -581,10 +581,10 @@
           this.$fetch("/api/building/selectNode",{
             floorId:floorId
           }).then(response=>{
-            console.log('roomSearchNode:'+response);
+            //console.log('roomSearchNode:'+response);
             if (response) {
               this.roomListNode = response.data.list;
-              // console.log(this.roomListNode);
+              // //console.log(this.roomListNode);
             }
           })
         },
@@ -592,10 +592,10 @@
           this.$fetch("/api/building/selectNode",{
             roomId:roomId
           }).then(response=>{
-            console.log('equipmentSearchNode:'+response);
+            //console.log('equipmentSearchNode:'+response);
             if (response) {
               this.equipmentListNode = response.data.list;
-              // console.log(this.equipmentListNode);
+              // //console.log(this.equipmentListNode);
             }
           })
         },
@@ -604,10 +604,10 @@
             unitId:unit,
             buildIngId:buildingId
           }).then(response=>{
-            console.log('equipmentSearchNode:'+response);
+            //console.log('equipmentSearchNode:'+response);
             if (response) {
               this.equipmentListNode = response.data.list;
-              // console.log(this.equipmentListNode);
+              // //console.log(this.equipmentListNode);
             }
           })
         },
@@ -619,17 +619,15 @@
             }
           });
           var inspectionNodes = { name:this.form.name,type:this.form.region2,unitId:this.region1,unitName:unitName,inspectionNodes:this.inspectionNodes };
-          this.$post("/api/admin/inspection/insertInspectionPlan",{
-            inspectionPlan:inspectionNodes
-          },{
-              headers: {
-                  'Content-Type': 'application/json'
-              }
+          this.$post("/api/admin/inspection/insertInspectionPlan",inspectionNodes,{
+            headers: {
+              'Content-Type': 'application/json'
+            }
           }).then(response=>{
-            console.log(response);
-            console.log(this.startNodes);
-            console.log(this.endNodes);
-            console.log(this.inspectionNodes)
+            //console.log(response);
+            //console.log(this.startNodes);
+            //console.log(this.endNodes);
+            //console.log(this.inspectionNodes)
           })
         }
       },
@@ -646,9 +644,9 @@
         // form:{
         //   //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
         //   handler(curVal,oldVal){
-        //     // console.log(curVal);
+        //     // //console.log(curVal);
         //     this.form = curVal;
-        //     // console.log(this.form);
+        //     // //console.log(this.form);
             
         //   },
         //   deep:true
@@ -661,8 +659,8 @@
         },
         building(curVal,oldVal){
           this.building = curVal ;
-          console.log(this.building);
-          console.log(typeof this.building)
+          //console.log(this.building);
+          //console.log(typeof this.building)
           if(this.building !== 0 && this.building !== '0'){
             $('.startFloor').show();
             $('.startDevice').hide();
@@ -681,7 +679,7 @@
         },
         floor(curVal,oldVal){
           this.floor = curVal ;
-          console.log(this.floor);
+          //console.log(this.floor);
           if(this.floor !== 0){
             this.roomSearch(this.floor);
             $('.startRoom').show();
@@ -689,7 +687,7 @@
         },
         room(curVal,oldVal){
           this.room = curVal ;
-          console.log(this.room);
+          //console.log(this.room);
           if(this.room !== 0){
             this.equipmentSearch(this.room);
             $('.startDevice').show();
@@ -697,7 +695,7 @@
         },
         buildings(curVal,oldVal){
           this.buildings = curVal ;
-          // console.log(this.building);
+          // //console.log(this.building);
           if(this.buildings !== 0 && this.buildings !== '0'){
             $('.endFloor').show();
             $('.endDevice').hide();
@@ -715,7 +713,7 @@
         },
         floors(curVal,oldVal){
           this.floors = curVal ;
-          // console.log(this.floor);
+          // //console.log(this.floor);
           if(this.floors !== 0){
             this.roomSearchs(this.floors);
             $('.endRoom').show();
@@ -723,7 +721,7 @@
         },
         rooms(curVal,oldVal){
           this.rooms = curVal ;
-          // console.log(this.rooms);
+          // //console.log(this.rooms);
           if(this.rooms !== 0){
             this.equipmentSearchs(this.rooms);
             $('.endDevice').show();
@@ -731,7 +729,6 @@
         },
         buildingNode(curVal,oldVal){
           this.buildingNode = curVal ;
-          console.log(this.building);
           if(this.buildingNode !== 0 && this.buildingNode !== '0'){
             $('.NodeFloor').show();
             $('.NodeDevice').hide();
@@ -749,7 +746,7 @@
         },
         floorNode(curVal,oldVal){
           this.floorNode = curVal ;
-          // console.log(this.floor);
+          // //console.log(this.floor);
           if(this.floorNode !== 0){
             this.roomSearchNode(this.floorNode);
             $('.NodeRoom').show();
@@ -757,7 +754,7 @@
         },
         roomNode(curVal,oldVal){
           this.roomNode = curVal ;
-          // console.log(this.roomNode);
+          // //console.log(this.roomNode);
           if(this.roomNode !== 0){
             this.equipmentSearchNode(this.roomNode);
             $('.NodeDevice').show();

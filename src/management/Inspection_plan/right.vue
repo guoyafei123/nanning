@@ -441,7 +441,7 @@
             isScan:this.isScan
           }).then(response=>{
             if(response){
-              console.log('开启线路成功...'+ JSON.stringify(response));
+              //console.log('开启线路成功...'+ JSON.stringify(response));
               this.tableList2();
             }
           })
@@ -451,7 +451,7 @@
         this.inspectionName = row.name;
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('inspectionPlanId',row.id);
         $('.plan').show();
         $('.mapTable').hide();
@@ -461,16 +461,16 @@
         }).then(response=>{
           if(response.data.inspectionPlan){
             this.inspectionPlan = response.data.inspectionPlan;
-            console.log(this.inspectionPlan);
+            //console.log(this.inspectionPlan);
             this.startInspection = this.inspectionPlan.inspectionNodes.slice(0,1);
-            console.log(this.startInspection);
+            //console.log(this.startInspection);
             this.nodeInspection = this.inspectionPlan.inspectionNodes.slice(1,-1);
-            console.log(this.nodeInspection);
+            //console.log(this.nodeInspection);
             this.endInspection = this.inspectionPlan.inspectionNodes.slice(-1);
-            console.log(this.endInspection);
+            //console.log(this.endInspection);
           }
         }).then(err=>{
-          // console.log(err)
+          // //console.log(err)
         })
       },
       stop_plan(row){//停用
@@ -478,29 +478,29 @@
         this.inspectionIndex = row.id ;
       },
       StopRow(){//停用的接口
-          console.log(this.inspectionIndex);
+          //console.log(this.inspectionIndex);
           this.$fetch("/api/inspection/stop_plan",{
             id:this.inspectionIndex
           }).then(response=>{
             if(response){
-              console.log('关闭线路成功...'+ JSON.stringify(response));
+              //console.log('关闭线路成功...'+ JSON.stringify(response));
               this.tableList2();
             }
           })
 
       },
       deleteRow(){
-          console.log(this.inspectionIndex);
+          //console.log(this.inspectionIndex);
           this.$fetch("/api/admin/inspection/deleteInspectiopnPlan",{
             inspectionPlanId:this.inspectionIndex
           }).then(response=>{
             if(response){
-              console.log('删除线路成功...'+ JSON.stringify(response));
+              //console.log('删除线路成功...'+ JSON.stringify(response));
               this.tableData.splice(this.inspectionIndex,1);
               this.tableList2();
             }
           }).then(err => {
-            console.log(err);
+            //console.log(err);
           });
       },
       tableList2(){
@@ -514,9 +514,9 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response) {
-              // console.log(response.data.inspectionPlanList);
+              // //console.log(response.data.inspectionPlanList);
               this.totalCount = response.data.total;
               this.tableDataList = response.data.inspectionPlanList;
               if(this.totalCount % 10 == 0){
@@ -527,7 +527,7 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       tableList(){
@@ -539,9 +539,9 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response) {
-              console.log(response.data.pager.result);
+              //console.log(response.data.pager.result);
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               if(this.totalList % 4 == 0){
@@ -552,7 +552,7 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },
@@ -566,7 +566,7 @@
         unitId:''
       }).then(response=>{
         if(response.data.map){
-          console.log(response.data.map);
+          //console.log(response.data.map);
           this.countInspectionPlanRelevant.countTotal = response.data.map.TOTAL;
           this.countInspectionPlanRelevant.countDisableTotal = response.data.map.DISABLETOTAL;
           this.countInspectionPlanRelevant.countEnableTotal = response.data.map.ENABLETOTAL;
@@ -574,16 +574,16 @@
           this.countInspectionPlanRelevant.countIssanCount = response.data.map.ISSANCOUNT;
         }
       }).then(err=>{
-        console.log(err)
+        //console.log(err)
       })
     },
     watch:{
       $route: {
         handler: function(val, oldVal){
-          console.log(val);
+          //console.log(val);
           if(this.$route.path == '/Inspection_plan/maps'){
             this.tableList2();
-            this.$store.commit('InspectionMap',this.tableData);
+            this.$store.commit('InspectionMap',this.tableDataList);
           }
         },
         // 深度观察监听
@@ -591,12 +591,12 @@
       },
       currentPage(val, oldVal){
         this.currentPage = val;
-        console.log(this.currentPage);
+        //console.log(this.currentPage);
         this.tableList2();
       },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       currentPage(){
@@ -605,20 +605,20 @@
       form:{
       
         handler(curVal,oldVal){
-          // console.log(curVal);
+          // //console.log(curVal);
           this.form = curVal;
-          console.log(this.form);
+          //console.log(this.form);
           this.tableList2();
         },
         deep:true
       },
       region(){
-        console.log(this.region);
+        //console.log(this.region);
         this.$fetch("/api/admin/inspection/countInspectionPlanRelevant",{
           unitId:this.region
         }).then(response=>{
           if(response.data.map){
-            console.log(response.data.map);
+            //console.log(response.data.map);
             this.countInspectionPlanRelevant.countTotal = response.data.map.TOTAL;
             this.countInspectionPlanRelevant.countDisableTotal = response.data.map.DISABLETOTAL;
             this.countInspectionPlanRelevant.countEnableTotal = response.data.map.ENABLETOTAL;
@@ -626,7 +626,7 @@
             this.countInspectionPlanRelevant.countIssanCount = response.data.map.ISSANCOUNT;
           }
         }).then(err=>{
-          // console.log(err)
+          // //console.log(err)
         })
       },
       inspectionId(){
@@ -641,22 +641,22 @@
           $('.total').hide();
           $('.mapTable').hide();
         }
-        console.log(this.inspectionId);
+        //console.log(this.inspectionId);
         this.$fetch("/api/admin/inspection/queryInspectionNodeByPlanId",{
           planId:this.inspectionId
         }).then(response=>{
           if(response.data.inspectionPlan){
             this.inspectionPlan = response.data.inspectionPlan;
-            console.log(this.inspectionPlan);
+            //console.log(this.inspectionPlan);
             this.startInspection = this.inspectionPlan.inspectionNodes.slice(0,1);
-            console.log(this.startInspection);
+            //console.log(this.startInspection);
             this.nodeInspection = this.inspectionPlan.inspectionNodes.slice(1,-1);
-            console.log(this.nodeInspection);
+            //console.log(this.nodeInspection);
             this.endInspection = this.inspectionPlan.inspectionNodes.slice(-1);
-            console.log(this.endInspection);
+            //console.log(this.endInspection);
           }
         }).then(err=>{
-          // console.log(err)
+          // //console.log(err)
         })
         this.tableList();
       }

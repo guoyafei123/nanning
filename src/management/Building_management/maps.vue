@@ -11,6 +11,7 @@
         </div>
       </div>
       <div class="main_all_content">
+        <!-- 筛选 -->
         <div class="main_content_top">
           <el-form class="float-left">
             <el-select v-model="buildUnit" placeholder="选择单位" class="select build">
@@ -18,7 +19,7 @@
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
             <!-- 楼层管理 -->
-            <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="width:150px;display:none;">
+            <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="display:none;margin-left: 15px;">
               <el-option label="全部楼层" value=""></el-option>
               <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -37,8 +38,8 @@
               <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
           </ul>
           <div>
-            <img src="../../assets/images/floor.png" class="img-responsive">
-          <!-- <img :src="this.svgUrl" class="img-responsive"> -->
+            <!-- <img src="../../assets/images/floor.png" class="img-responsive"> -->
+          <img :src="this.svgUrl" class="img-responsive">
           </div>          
         </div>
         <div class="roomMap maps" style="display:none;">
@@ -77,7 +78,7 @@
     },
     methods: {
       floor_btn(id){
-        console.log(id)
+        //console.log(id)
         this.table_list.forEach((item)=>{
           if(item.id == id){
             this.svgUrl = item.svgUrl ;
@@ -93,26 +94,26 @@
         )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       },
       findPageBuildIngFloor(){
-        console.log(this.buildingId)
+        //console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
           pageSize:1000,
           buildingId:this.buildingId
         }).then(response=>{
-          console.log(response.data.pageBuildIng.result);
+          //console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;
           this.table_list.forEach(item=>{
              if(this.floorId == item.floor){
@@ -127,7 +128,7 @@
     watch:{
       $route: {
         handler: function(val, oldVal){
-          // console.log(val);
+          // //console.log(val);
           if(this.$route.path == '/Building_management/maps'){
             $('.plan').hide();
             $('.total').show();
@@ -142,7 +143,7 @@
       },
       buildUnit(curVal,oldVal){
         this.buildUnit = curVal;
-        console.log(this.buildUnit);
+        //console.log(this.buildUnit);
         this.$store.commit('buildUnit',this.buildUnit);
       },
       buildingId(){

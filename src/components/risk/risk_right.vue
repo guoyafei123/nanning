@@ -3,7 +3,7 @@
 		<!-- 筛选 -->
 		<section class="my-filter padding5 bg-gray-222 clearfix">
 			<!-- 日期筛选 -->
-			<div class="col-sm-9 padding0">
+			<div class="col-sm-12 padding0">
 				<div class="upd-elmdate">
 					<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
 					</el-date-picker>
@@ -18,7 +18,9 @@
 						<p>
 							<span class="size-20 font-blue">中心小学</span>
 							<span class="float-right">
-                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+								<el-tooltip content="安全评分" placement="top">
+			                          <span class="bgbox-max bg-blue font-black size-10">评分6.9</span>
+			                      </el-tooltip>
 							</span>
 						</p>
 						<p class="col-sm-5 text-left padding0">
@@ -231,7 +233,7 @@
 			getData() {
 				// 请求统计数据
 				this.$fetch("/api/inspection/planInspectionCount").then(response => {
-					console.log(response.data);
+					//console.log(response.data);
 					let data = response.data;
 					if(response.data) {
 
@@ -257,7 +259,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 
 				// 请求历史曲线图
@@ -279,7 +281,7 @@
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			//right-折线图

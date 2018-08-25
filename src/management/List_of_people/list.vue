@@ -175,14 +175,14 @@ import { isvalidPhone,isName } from '../../assets/js/validate';
                       $.messager.alert('警告', "系统错误", "warning");
                     },
                     complete: function (e) {//只要完成即执行，最后执行
-                      // console.log(e) 
+                      // //console.log(e) 
                       that.$router.push({path:'/List_of_people/all'});
                       
                     }
                 });
 
             } else {
-              console.log('error submit!!');
+              //console.log('error submit!!');
               return false;
             }
           });
@@ -199,16 +199,16 @@ import { isvalidPhone,isName } from '../../assets/js/validate';
           )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.optionList = response.data.unitList;
-              console.log(this.optionList);
+              //console.log(this.optionList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
         },
         roleSearch(){
@@ -217,16 +217,16 @@ import { isvalidPhone,isName } from '../../assets/js/validate';
           )
           .then(response => {
             if (response) {
-              console.log(response);
+              //console.log(response);
               this.roleList = response.data.roleList;
-              console.log(this.roleList);
+              //console.log(this.roleList);
               $(' .el-select-dropdown__item').mouseover(function(){
                 $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
               });
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
         },
       },
