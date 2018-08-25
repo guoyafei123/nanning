@@ -8,7 +8,6 @@ var JPos = {};
 				_y += p.offsetTop;
 				p = p.offsetParent;
         }
-        window.LeftPoint = p.offsetLeft - p.offsetParent;
 		_x += p.offsetLeft;
 		_y += p.offsetTop;
 		return {x:_x,y:_y};
@@ -34,13 +33,18 @@ export function vControl(pChoice,event){
     var el = event.currentTarget;
     var fjwidth = $('#imgPic').width();
     var fjheight = $('#imgPic').height();
+    var left = $('#imgPic').offset().left;
+    var offsetParent = $('#imgPic').offsetParent().offset().left;
+    var LeftPoint = left - offsetParent ;
+    console.log(left);
+    console.log(offsetParent)
 	switch(pChoice){
 		case "GETMOUSEPOSINPIC":
             var mPos = JPos.$getMousePos();
             var iPos = JPos.$getAbsPos(el);
             window.leftRate = (mPos.x - iPos.x) / fjwidth ;
             window.topRate = (mPos.y - iPos.y) / fjheight ;
-            window.pointLeft = mPos.x - iPos.x + window.LeftPoint ;
+            window.pointLeft = mPos.x - iPos.x + LeftPoint ;
             window.pointTop = mPos.y - iPos.y ;
 			// window.status = (mPos.x - iPos.x) + " " + (mPos.y - iPos.y);
 			break;
@@ -50,7 +54,7 @@ export function vControl(pChoice,event){
 //绘制报警设备
 export function setPoint(type, divid) {
     $('#'+divid).css("top",window.pointTop - 36);
-    $('#'+divid).css("left",window.pointLeft - 54);
+    $('#'+divid).css("left",window.pointLeft - 18);
     $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
     $('#'+divid).css("position","absolute");
   }
