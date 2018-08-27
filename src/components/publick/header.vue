@@ -436,6 +436,7 @@
       logout() {
         this.$fetch( "/cas/logout",).then(response => {
           if (response.data) {
+
           }
         });
       },
