@@ -450,7 +450,13 @@ import { vControl,setPoint } from '../../assets/js/aaa';
           })
         },
         addDevice(pChoice,event){
-        
+          let zoom = $('#floorImg').css('transform').split(',')[3];
+          let moveX = $('#floorImg').css('transform').split(',')[4];
+          let moveY= $('#floorImg').css('transform').split(',')[5];
+          moveY = moveY.substr(0,moveY.length -1);
+          console.log(zoom);
+          console.log(moveX);
+          console.log(moveY);
           // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
           vControl(pChoice,event);
           // console.log(window.leftRate)
