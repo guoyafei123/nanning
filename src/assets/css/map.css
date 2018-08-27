@@ -67,7 +67,7 @@
     left: 16px;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
-    border-top: 8px solid #ccc;
+    /* border-top: 8px solid #ccc; */
 }
 .newpeople{
     width: 30px;
@@ -75,11 +75,8 @@
 }
 .newpeople span{
     position: absolute;
-    bottom: -5px;
-    left: 5px;
-    /* border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #ccc; */
+    bottom: -4px;
+    left: 4px;
 }
 .people-trianlixian{
     border-top: 10px solid #ccc!important;
@@ -105,11 +102,6 @@
 .legend-people img{
     width: 100%;
 }
-/* .legend-people .mapdander{
-    display: inline-block;
-    width: 
-} */
-
 
 
 /* 报警图例 */
@@ -282,7 +274,7 @@
 .map-build:before{
     content: "\e64f";
     position: absolute;
-    right: -9px;
+    right: -10px;
     bottom: 7px;
     font-size: 18px;
 }
@@ -290,7 +282,7 @@
 .map-yinhuan:before{
     content: "\e623";
     position: absolute;
-    right: -9px;
+    right: -10px;
     bottom: 7px;
     font-size: 18px;
 }
@@ -298,7 +290,7 @@
 .map-sunhuai:before{
     content: "\e68e";
     position: absolute;
-    right: -9px;
+    right: -10px;
     bottom: 7px;
     font-size: 18px;
 }
@@ -306,7 +298,7 @@
 .map-renwei:before{
     content: "\e688";
     position: absolute;
-    right: -9px;
+    right: -10px;
     bottom: 7px;
     font-size: 18px;
 }
@@ -314,7 +306,7 @@
 .map-feirenwei:before{
     content: "\e689";
     position: absolute;
-    right: -9px;
+    right: -10px;
     bottom: 7px;
     font-size: 18px;
 }
@@ -322,7 +314,7 @@
 .map-queshi:before{
     content: "\e68b";
     position: absolute;
-    right: -9px;
+    right: -10px;
     bottom: 7px;
     font-size: 18px;
 }
@@ -330,14 +322,14 @@
 .map-weixianpin:before{
     content: "\e62c";
     position: absolute;
-    right: -9px;
+    right: -10px;
     bottom: 7px;
     font-size: 18px;
 }
 .map-alarm:before{
     content: "\e620";
     position: absolute;
-    right: -9px;
+    right: -10px;
     bottom: 7px;
     font-size: 18px;
 }

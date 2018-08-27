@@ -104,7 +104,7 @@ export default new Router({
     },
     {
       path:'/cookie',component:Cookie
-    },    
+    },   
     // 管理端
     {
       path:'/Unit_management',

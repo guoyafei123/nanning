@@ -12,11 +12,11 @@ import axios from 'axios';
 import store from './vuex/store';
 import sockjs from 'sockjs-client';
 import moment from 'moment';
+import panzoom from 'panzoom';
 
 // echarts
 import echarts from 'echarts';
 Vue.prototype.$echarts = echarts;
-
 
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -72,6 +72,7 @@ new Vue({
   store,
   sockjs,
   moment,
+  panzoom,
   components: { App },
   template: '<App/>'
 })
