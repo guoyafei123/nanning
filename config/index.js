@@ -24,6 +24,13 @@ module.exports = {
         pathRewrite: {
           '^/api': '/'
         }
+      },
+      '/img': {
+        target: 'http://img.nanninglq.51play.com/',//设置你调用的接口域名和端口号
+        changeOrigin: true,
+        pathRewrite: {
+          '^/img': '/'
+        }
       }
      
     },
