@@ -75,18 +75,18 @@
             <img :src="this.svgUrl" class="img-responsive">
           </div>
           <!-- 地图/平面图切换 -->
-          <div class="floorMap popup-map-min z-index-10"  style="display:none;">
+          <!-- <div class="floorMap popup-map-min z-index-10"  style="display:none;"> -->
             <!-- 地图 -->
-            <div class="position-absolute-top">
-              <img src="http://yhyimg.99xf.cn/xf/api/building_plan/25_1.jpg" alt="" class="img-responsive center-block">
-            </div>
+            <!-- <div class="position-absolute-top"> -->
+              <!-- <img src="http://yhyimg.99xf.cn/xf/api/building_plan/25_1.jpg" alt="" class="img-responsive center-block"> -->
+            <!-- </div> -->
             <!-- icon -->
-            <div class="position-absolute-top popup-map-min-point">
-              <i class="icon iconfont icon-shuidi-" data-toggle="tooltip" title="灭火器"><i class="icon iconfont icon-miehuoqi-mian-"></i></i>
-            </div>
+            <!-- <div class="position-absolute-top popup-map-min-point"> -->
+              <!-- <i class="icon iconfont icon-shuidi-" data-toggle="tooltip" title="灭火器"><i class="icon iconfont icon-miehuoqi-mian-"></i></i> -->
+            <!-- </div> -->
             <!-- 提示文字 -->
-            <h5>2D</h5>
-          </div>
+            <!-- <h5>2D</h5> -->
+          <!-- </div> -->
           
               <!-- icon -->
                 <!-- <div class="position-absolute-top popup-map-min-point z-index-100" style="top:120px; left:300px;">
@@ -147,8 +147,12 @@ import managementMapVue from '../managementMap';
         this.table_list.forEach((item)=>{
           if(item.id == id){
             this.svgUrl = item.svgUrl ;
+            // $('.floorMap').append('<div id="alarmDiv'+ this.imgIndex +'"></div>');
+           
+            // setPointList(this.iconByType[this.form.equipmentId],'alarmDiv'+ this.imgIndex);
           }
-        })
+        });
+
       },
       findPageBuildIngFloor(){
         this.$fetch("/api/building/findPageBuildIngFloor",{
@@ -269,7 +273,8 @@ import managementMapVue from '../managementMap';
       this.$store.commit('route_path',this.$route.path);
     },
     computed:mapState([
-      'buildUnit'
+      'buildUnit',
+      'iconByType'
     ])
   };
 </script>
