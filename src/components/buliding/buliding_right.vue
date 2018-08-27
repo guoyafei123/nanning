@@ -74,7 +74,7 @@
                               <p>楼层数量</p>
                             </div>
                             <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-white">{{buildBaseInfo.floors?buildBaseInfo.floors:"0"}}</p>
+                              <p class="size-16 show font-white">{{buildBaseInfo.countofbuilding?buildBaseInfo.countofbuilding:"0"}}</p>
                               <p>设备数量</p>
                             </div>
                             <div class="col-sm-4">

@@ -172,7 +172,6 @@ import panzoom from 'panzoom';
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
-// import { getTopLeftRate,setPoint } from '../../assets/js/imgPoint';
 import { vControl,setPoint } from '../../assets/js/aaa';
     export default {
       data() {
@@ -460,7 +459,7 @@ import { vControl,setPoint } from '../../assets/js/aaa';
           this.form.Rate = [xRate,yRate];
           $('#alarmDiv').remove();
           $('#floorImg').append('<div id="alarmDiv"></div>');
-          setPoint(this.iconByType[1],'alarmDiv');
+          setPoint(this.iconByType[this.form.equipmentId],'alarmDiv');
         }
       },
       computed:{
