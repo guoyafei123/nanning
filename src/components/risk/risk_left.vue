@@ -21,6 +21,9 @@
 						<p class="font-gray-666 size-10">Risk Info</p>
 					</li>
 					<li>
+						<!-- <div style="width:500px; height:500px; overflow: hidden;">
+							<img id="zoombox" src="../../assets/images/jpg01.jpg">
+						</div> -->
 						<p class="font-blue size-16">风险评估
 							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
 					            <el-tooltip content="全屏" placement="top">
@@ -335,6 +338,7 @@
 </template>
 
 <script>
+	import panzoom from 'panzoom';
 	export default {
 		data() {
 			return {
@@ -679,8 +683,9 @@
 			this.chart_left(); // 左侧图表
 			this.getRiskData(); //风险统计 
 			this.getRiskTable(); //风险表格
-
+			// var zoomboxs=document.getElementById('zoombox');
 			// console.log(panzoom);
+			// panzoom(zoomboxs);
 			
 		}
 	};

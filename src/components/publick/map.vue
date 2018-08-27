@@ -204,9 +204,13 @@
 				else if(this.routepath == "/callpolice") {
 					this.path_callpolice();
 				}
-				else if(this.routepath == "/buliding") {
-					// this.path_buliding();
+				else if(this.routepath == "/danger") {
+					this.path_danger();
 				}
+				else if(this.routepath == "/information") {
+					this.path_information();
+				}
+				
 			},
 
 			unitid() {
@@ -668,6 +672,9 @@
 			// 6 ->非人为
 			// 7 ->缺失
 			// 8 ->危险品
+			// 9 ->隐患统一图标
+			// 10 ->报警统一图标
+			// 11 ->设备统一图标
 			legend_people(img, value,name) {
 				var style;
 				var trian;
@@ -679,8 +686,8 @@
 					style = "bg-blue";
 					trian = "people-trianzaixian";
 				} else if(value == 3) {
-					style = "bg-orange";
-					trian = "people-orange";
+					style = "bg-blue";
+					trian = "people-trianzaixian";
 					icon='map-build'
 				} else if(value == 4) {
 					style = "bg-yellow";
@@ -710,6 +717,10 @@
 					style = "bg-red";
 					trian = "people-red";
 					icon='map-alarm'
+				}else if(value == 11) {
+					style = "bg-blue";
+					trian = "people-trianzaixian";
+					icon='map-device'
 				}
 				var html =
 								`
@@ -874,11 +885,86 @@
 				this.$fetch("/api/alarm/getAlarmList")
 				.then(response => {
 					if(response) {
-						var getAlarmList=response.data.pager.result
+						var total=response.data.pager.totalRow
+						this.$fetch("/api/alarm/getAlarmList",{'currentPage':1,'pageSize':total})
+						.then(response => {
+							if(response) {
+								var getList=response.data.pager.result;
+								getList.forEach(element => {
+									var a=element.pointX;
+									var b=element.pointY;
+									var name=this.toname(element)
+									this.mp.addOverlay(
+										this.addpeople('', "10", [a,b],name)
+									);
+								});
+							}
+						})
 					}
 				})
-				.then(err => {
-				});
+        this.$fetch("/api/alarm/queryALarmHeatMap?count=1000")
+          .then(response =>{
+            if(response){
+              let points = response.data.points;
+              let heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":20});
+              this.mp.addOverlay(heatmapOverlay);
+              heatmapOverlay.setDataSet({data:points,max:100});
+              heatmapOverlay.show();
+              function setGradient(){
+                var gradient = {};
+                var colors = document.querySelectorAll("input[type='color']");
+                colors = [].slice.call(colors,0);
+                colors.forEach(function(ele){
+                  gradient[ele.getAttribute("data-key")] = ele.value;
+                });
+                heatmapOverlay.setOptions({"gradient":gradient});
+              }
+            }
+          })
+			},
+			path_danger(){
+				this.$fetch("/api/trouble/troubleList")
+				.then(response => {
+					if(response) {
+						var total=response.data.pager.totalRow
+						this.$fetch("/api/trouble/troubleList",{'currentPage':1,'pageSize':total})
+						.then(response => {
+							if(response) {
+								var getList=response.data.pager.result;
+								getList.forEach(element => {
+									var a=element.pointX;
+									var b=element.pointY;
+									var name=this.toname(element)
+									this.mp.addOverlay(
+										this.addpeople('', "5", [a,b],name)
+									);
+								});
+							}
+						})
+					}
+				})
+			},
+			path_information(){
+				this.$fetch("/api/device/deviceList")
+				.then(response => {
+					if(response) {
+						var total=response.data.pager.totalRow
+						this.$fetch("/api/device/deviceList",{'currentPage':1,'pageSize':total})
+						.then(response => {
+							if(response) {
+								var getList=response.data.pager.result;
+								getList.forEach(element => {
+									var a=element.pointX;
+									var b=element.pointY;
+									var name=this.toname(element)
+									this.mp.addOverlay(
+										this.addpeople('', "11", [a,b],name)
+									);
+								});
+							}
+						})
+					}
+				})
 			},
 			showInfo(e){
 				// alert(e.point.lng + ", " + e.point.lat);
