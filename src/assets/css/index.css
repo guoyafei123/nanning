@@ -16,6 +16,7 @@
     -moz-transition: left .5s; /* Firefox 4 */
     -webkit-transition: left .5s; /* Safari 和 Chrome */
     -o-transition: left .5s; /* Opera */
+    
 }
 .open-center {
     left: 0!important;
