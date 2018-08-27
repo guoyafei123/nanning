@@ -59,7 +59,7 @@
 								</li>
 								<li>
 									<p class="font-blue size-16">设备信息
-										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+										<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" @click="fullList = true">
 					                      <el-tooltip content="全屏" placement="top">
 						                        <i class="icon iconfont icon-weibiaoti10 size-14"></i>
 						                    </el-tooltip>
@@ -365,6 +365,15 @@
 			</template>
 		</section>
 		<!-- #右边 End-->
+<!-- 大列表弹窗 -->
+    <el-dialog show-close :visible.sync="fullList" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">      
+      <div class="dialog-content clearfix">
+        <button type="button" class="btn-close position-absolute-right" @click="fullList = false">
+         <i class="el-icon el-icon-close"></i>关闭
+        </button>
+        <fullList-vue></fullList-vue>
+      </div>      
+    </el-dialog>
 	</div>
 </template>
 
@@ -374,14 +383,17 @@
 	// import Infor_rightVue from './infor_right.vue';
 	import moment from "moment";
 	import{mapState} from "vuex";
+	import fullListVue from '../../management/Equipment_management/all.vue';
 	export default {
 		components: {
+			'fullList-vue':fullListVue,
 			// "header-vue": HeaderVue
 			// 'call_left-vue':Call_leftVue,
 			// 'call_right-vue':Call_rightVue
 		},
 		data() {
 			return {
+				fullList: false,
 				// 时间配置
 				pickerOptions2: {
 					shortcuts: [{

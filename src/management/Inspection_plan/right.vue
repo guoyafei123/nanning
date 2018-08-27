@@ -143,6 +143,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="operation"
+                  width="110"
                   label="动作">
                 </el-table-column>
               </el-table>

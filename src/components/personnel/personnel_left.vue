@@ -78,7 +78,7 @@
 					</li>
 					<li>
 						<p class="font-blue size-16">人员信息
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" @click="fullList = true">
 								<el-tooltip content="全屏" placement="top">
 			                        <i class="icon iconfont icon-weibiaoti10 size-14"></i>
 			                    </el-tooltip>
@@ -142,15 +142,30 @@
 				</ul>
 			</div>
 		</section>
+    <!-- 大列表弹窗 -->
+    <el-dialog show-close :visible.sync="fullList" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">      
+      <div class="dialog-content clearfix">
+      	<button type="button" class="btn-close position-absolute-right" @click="fullList = false">
+         <i class="el-icon el-icon-close"></i>关闭
+      	</button>
+        <fullList-vue></fullList-vue>
+      </div>      
+    </el-dialog>
 	</div>
 </template>
 
 <script>
 	import { mapState } from "vuex";
 	import HeaderVue from '../publick/header.vue';
+	import fullListVue from '../../management/List_of_people/all.vue';
 	export default {
+		components:{
+	      'fullList-vue':fullListVue
+	    },
 		data() {
 			return {
+				fullList: false,
+				
 				options: [{
 						value: "选项1",
 						label: "怀化市"

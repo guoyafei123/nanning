@@ -72,10 +72,16 @@
             </el-select>
           </el-form-item>
           <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
-            <el-input placeholder="X,Y" v-model="form.point" class="col-sm-4"></el-input>
+            <el-input placeholder="经度,纬度" v-model="form.point" class="col-sm-8"></el-input>
+            <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
+              <i class="el-icon-question size-16"></i>
+            </el-tooltip>
           </el-form-item>
           <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
-            <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-4"></el-input>
+            <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-8"></el-input>
+            <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
+              <i class="el-icon-question size-16"></i>
+            </el-tooltip>
           </el-form-item>
           <div class="col-sm-12">
             <div class="row">

@@ -63,6 +63,9 @@
             </el-form-item>
             <el-form-item label="建筑地址" prop="address" class="not-null">
               <el-input v-model="form.address" class="col-sm-8"></el-input>
+              <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
+                <i class="el-icon-question size-16"></i>
+              </el-tooltip>
             </el-form-item>
             <el-form-item label="经纬度" prop="pointX" class="not-null">
               <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
