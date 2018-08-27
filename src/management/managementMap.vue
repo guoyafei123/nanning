@@ -344,7 +344,7 @@
             $(div).addClass("landmark_marker");
             div.style.position = "absolute";
 
-            $(div).append(that.legend_landmarkerType( this._value, this._id , this._type));
+            $(div).append(that.legend_landmarkerType( this._id , this._value, this._type));
             map.getPanes().labelPane.appendChild(div);
             return div;
           };
@@ -357,9 +357,8 @@
           var marker = new landmark(new BMap.Marker(new BMap.Point(p[0], p[1])),value);
           return marker;
         },
-        legend_landmarkerType(content,id,type) {
-          
-          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.name }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont ${ this.iconByType[type] }"></i></i></div>`;
+        legend_landmarkerType(id,content,type) {
+          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont ${ this.iconByType[type] }"></i></i></div>`;
           
           return html;
         },
@@ -461,7 +460,7 @@
             this.buildingOut = res.data.buildingOut ;
             console.log(this.buildingOut);
             this.buildingOut.forEach(item=>{
-              this.mp.addOverlay(this.addlandmarkerType(item.id,item,[item.pointX,item.pointY],item.deviceTypeId));
+              this.mp.addOverlay(this.addlandmarkerType(item.id,item.name,[item.pointX,item.pointY],item.deviceTypeId));
               $(document).on('click', "#map"+item.id,()=>{
                 $('.plan').show();        
                 $('.total').hide();
@@ -474,8 +473,9 @@
           })
         },
         inspection(){
+          // console.log(this.inspectionId)
           this.$fetch("/api/admin/inspection/queryInspectionNodeByPlanId",{
-            planId:this.inspectionPlanId
+            planId:this.inspectionId
           }).then(res=>{
             console.log(res.data.inspectionPlan.inspectionNodes);
             this.inspectionNodes = res.data.inspectionPlan.inspectionNodes ;
@@ -484,9 +484,13 @@
             this.inspectionNodes.forEach(item=>{
               linearray.push([item.pointX,item.pointY]);
               // this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
-              
+              if(item.buildingId == 0 && item.buildingId == '0'){
+                this.mp.addOverlay(this.addlandmarkerType(item.id,item.deviceName,[item.pointX,item.pointY],item.deviceTypeId));
+              }else{ 
+                this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY]));
+              }
             })
-
+            // console.log(linearray)
 				    this.mp.addOverlay(this.addline(linearray, 1));
           })
         },
@@ -521,6 +525,12 @@
           this.mp.clearOverlays();
           if(this.$route.path == '/Equipment_management/maps'){
             this.DeviceMaps();
+          }
+        },
+        inspectionId(){
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Inspection_plan/maps'){
+            this.inspection();
           }
         }
       },
@@ -560,7 +570,7 @@
         'buildPoint',
         'Unit',
         'DeviceList',
-        'inspectionPlanId'
+        'inspectionId'
       ])
     }
 </script>
