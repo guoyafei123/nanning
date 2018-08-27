@@ -27,18 +27,18 @@
             <canvas class="bg-none" id="header-canvas-host" width="50" height="50"></canvas>
             <div class="display-inline-block">
               <p>
-                <span class="font-blue">88</span>/
-                <span>106</span>
+                <span class="font-blue">{{transmissionDate.transmissionOnlineCount}}</span>/
+                <span>{{transmissionDate.transmissionCount}}</span>
               </p>
               <p class="size-12">主机在线</p>
             </div>
           </li>
           <el-tooltip class="item" placement="top">
-            <div slot="content" class="text-center"> {{dateFormat(date)}}<br>晴朗</div>
+            <div slot="content" class="text-center"> {{dateFormat(date)}}<br>{{weatherData.weather}}</div>
             <li class="header-time">
 
               <p class="font-blue size-12">
-                <i class="icon iconfont icon-qinglang-xian- size-14"></i><span>晴朗</span>
+                <i class="icon iconfont icon-qinglang-xian- size-14"></i><span>{{weatherData.weather}}</span>
               </p>
               <p class="size-36 font-white">
                 {{TimeFormat(date)}}
@@ -233,15 +233,23 @@
           unitId: null
         },
         getBuildingData_parameter:{
-
+          unitId:null
         },
         getDeviceData_parameter:{
-
+          unitId:null
         },
         buildCount:null,
         deviceCount:null,
-
-
+        //请求天气
+        weatherData:Object,
+        getWeatherData_parameter:{
+          cityName:"nanning"
+        },
+        //主机在线
+        transmissionDate:Object,
+        getTransmissionDate_parameter:{
+          unitId:null
+        },
       };
     },
     computed: mapState([
@@ -259,33 +267,33 @@
       this.userAnalyse();
       this.getBuildingData();
       this.getDeviceData();
-      this.mini_go("header-canvas-host", 0.2);
-      this.mini_go("header-canvas-cpu", 0.5);
+      this.getTransmission();
+      this.mini_go("header-canvas-cpu", 1);
       this.mini_go("header-canvas-memory", 1);
       $("[data-toggle='tooltip']").tooltip();
       this.getunitlist();
       this.getuserinfo();
-      var _this = this; //声明一个变量指向vue实例this,保证作用域一致
+      this.getWeather();
+      let _this = this; //声明一个变量指向vue实例this,保证作用域一致
       this.timer = setInterval(function () {
         _this.date =new Date();//修改数据date
-        console.log( "123"+_this.date.get)
       }, 1000);
+      this.weathers = setInterval(function () {
+        _this.getWeather()
+      }, 1000*60*60*5);
     },
     beforeDestroy() {
       if (this.timer) {
         clearInterval(this.timer);//在vue实例销毁钱，清除我们的定时器
+      }
+      if (this.weathers) {
+        clearInterval(this.weathers);//在vue实例销毁钱，清除我们的定时器
       }
     },
 
     methods: {
       TimeFormat:function(time) {
         let date=new Date(time);
-        let year=date.getFullYear();
-        /* 在日期格式中，月份是从0开始的，因此要加0
-         * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
-         * */
-        let month= date.getMonth()+1<10 ? "0"+(date.getMonth()+1) : date.getMonth()+1;
-        let day=date.getDate()<10 ? "0"+date.getDate() : date.getDate();
         let hours=date.getHours()<10 ? "0"+date.getHours() : date.getHours();
         let minutes=date.getMinutes()<10 ? "0"+date.getMinutes() : date.getMinutes();
         let seconds=date.getSeconds()<10 ? "0"+date.getSeconds() : date.getSeconds();
@@ -293,16 +301,13 @@
         return  hours+":"+minutes+":"+seconds;
       },
       dateFormat:function(time) {
+        /* 在日期格式中，月份是从0开始的，因此要加0
+      * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+      * */
         let date=new Date(time);
         let year=date.getFullYear();
-        /* 在日期格式中，月份是从0开始的，因此要加0
-         * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
-         * */
         let month= date.getMonth()+1<10 ? "0"+(date.getMonth()+1) : date.getMonth()+1;
         let day=date.getDate()<10 ? "0"+date.getDate() : date.getDate();
-        let hours=date.getHours()<10 ? "0"+date.getHours() : date.getHours();
-        let minutes=date.getMinutes()<10 ? "0"+date.getMinutes() : date.getMinutes();
-        let seconds=date.getSeconds()<10 ? "0"+date.getSeconds() : date.getSeconds();
         // 拼接
         return year+"-"+month+"-"+day ;
       },
@@ -434,13 +439,36 @@
           }
         });
       },
-
+      //请求天气接口
+      getWeather() {
+        this.$fetch( "/api/weather/toDayWeather", this.getWeatherData_parameter
+        ).then(response => {
+          if (response.data) {
+            this.weatherData = response.data.weather
+          }
+        });
+      },
       //设备
       getDeviceData() {
         this.$fetch( "/api/device/alarmAndMalfunctionDeviceCount", this.getDeviceData_parameter
         ).then(response => {
           if (response.data) {
-            this.deviceCount = response.data.deviceTotal
+            this.deviceCount = response.data.deviceTotal;
+          }
+        });
+      },
+      //主机在线
+      getTransmission() {
+        this.$fetch( "/api/device/transmission_analyse", this.getTransmissionDate_parameter
+        ).then(response => {
+          if (response.data) {
+            this.transmissionDate = response.data.transmissionAnalyse
+            let number = (this.userAnalyseDate.transmissionOnlineCount) / (this.userAnalyseDate.transmissionCount);
+            let str = Number(number).toFixed(2);
+            if (str == 1) {
+              str = 0
+            }
+            this.mini_go("header-canvas-host", 1-str);
           }
         });
       },
