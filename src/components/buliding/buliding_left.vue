@@ -13,7 +13,7 @@
                   <li>
                     <p class="size-18 font-blue">建筑总数</p>
                   </li>
-                </ul> 
+                </ul>
               </div>
               <div class="col-sm-6 font-gray-999 padding-left0 padding-right0 size-12">
                 <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15">
@@ -44,8 +44,8 @@
                       </small>
                       <p class="size-14 font-gray-ccc">
                         {{buildCountDataSocre.buildingName ? buildCountDataSocre.buildingName : "暂无建筑"}}
-                        <small class="font-gray-999">- {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}</small></p> 
-  
+                        <small class="font-gray-999">- {{buildCountDataSocre.unitName ? buildCountDataSocre.unitName : "暂无单位"}}</small></p>
+
                     </div>
                     <div class="col-sm-3 text-center">
                       <span class="size-36 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "-"}}</span>
@@ -65,7 +65,7 @@
           </li>
 					<li>
 						<p class="font-blue size-16">建筑信息
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" slot="reference">
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" @click="fullList = true">
                       <el-tooltip content="全屏" placement="top">
                           <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                         </el-tooltip>
@@ -84,8 +84,8 @@
                       <tr>
                         <th>建筑名称</th>
                         <th>所属单位</th>
-                        <th>房间</th>
                         <th>楼层</th>
+                        <th>房间</th>
                         <th>位置</th>
                         <th>操作</th>
                       </tr>
@@ -105,7 +105,7 @@
                             </el-tooltip>
                           </td>
                           <td>{{item.floors ? item.floors:"0"}}</td>
-                          <td>{{item.countofbuilding?item.countofbuilding:"0"}}</td>
+                          <td>{{item.countRoom?item.countRoom:"0"}}</td>
                           <td>
                             <a v-on:click="toitmeinfo(item)">
                               <el-tooltip content="查看位置" placement="top">
@@ -121,22 +121,22 @@
                             </a>
                           </td>
                         </tr>
-                      </tbody> 
+                      </tbody>
                     </table>
                 </li>
                  <li class="upd-pagin">
                     <div>
-                      <el-pagination class="pull-left" 
+                      <el-pagination class="pull-left"
                         small
                         layout="total"
                         :total="tableData.totalRow">
                       </el-pagination>
                       <span>{{Math.ceil(tableData.totalRow/this.queryBuildList_parameter.pageSize)}}页</span>
-                      <el-pagination class="pull-right" 
+                      <el-pagination class="pull-right"
                         small
                         layout="prev, pager, next"
                         :page-size="this.queryBuildList_parameter.pageSize"
-                        :total="tableData.totalRow" 
+                        :total="tableData.totalRow"
                         current-page.sync="this.getAlarmList_parameter.currentPage"
                         @current-change="handleCurrentChange">
                       </el-pagination>
@@ -144,30 +144,31 @@
                   </li>
               </ul>
             </div>
-<!-- 全屏 -->
-<el-popover
-  placement="right"
-  width="400"
-  trigger="click">
-  <el-table :data="gridData">
-    <el-table-column width="150" property="date" label="日期"></el-table-column>
-    <el-table-column width="100" property="name" label="姓名"></el-table-column>
-    <el-table-column width="300" property="address" label="地址"></el-table-column>
-  </el-table>
-</el-popover>
           </section>
+<!-- 大列表弹窗 -->
+    <el-dialog show-close :visible.sync="fullList" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">      
+      <div class="dialog-content clearfix">
+        <button type="button" class="btn-close position-absolute-right" @click="fullList = false">
+         <i class="el-icon el-icon-close"></i>关闭
+        </button>
+        <fullList-vue></fullList-vue>
+      </div>      
+    </el-dialog>
         </div>
       </template>
 
 <script>
   import{mapState} from "vuex";
   import HeaderVue from '../publick/header.vue';
+  import fullListVue from '../../management/Building_management/all.vue';
   export default {
   components:{
-      'header-vue':HeaderVue
+      'header-vue':HeaderVue,
+      'fullList-vue':fullListVue
   },
   data() {
     return {
+      fullList: false,
       // 表格
       gridData: [{
           date: '2016-05-02',
@@ -237,9 +238,9 @@
       }
       this.build_buildCount_parameter.unitId=this.getunitid;
       this.queryBuildList_parameter.unitId=this.getunitid;
-      this.getRiskData();  
-      this.getRiskTable(); 
-      
+      this.getRiskData();
+      this.getRiskTable();
+
     }
   },
   methods: {
@@ -262,7 +263,7 @@
     // 获取统计数据
     getRiskData() {
       this.$fetch(
-          "/api/building/queryBuildStatisInfo", 
+          "/api/building/queryBuildStatisInfo",
           this.build_buildCount_parameter
           ).then(response => {
             if (response.data) {
@@ -312,9 +313,9 @@
       this.build_buildCount_parameter.unitId=null;
       this.queryBuildList_parameter.unitId=null;
     }
-    this.getRiskData();  
-    this.getRiskTable(); 
-    
+    this.getRiskData();
+    this.getRiskTable();
+
   }
 };
 </script>

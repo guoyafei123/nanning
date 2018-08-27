@@ -975,3 +975,68 @@ a.min-map-cloase:hover {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+/*全屏表格*/
+.dialog-cont>.el-dialog {
+    background-color: rgba(17,17,17,.97);
+    padding: 0!important;
+}
+.dialog-content .main_title {
+    margin-left:46%; 
+}
+.dialog-content .main_title *{
+    color: #bad616;
+    font-size: 18px;
+    line-height: 60px;
+}
+.dialog-content .main_title i {
+    font-size: 20px;
+}
+.dialog-content .main_nav {
+    margin-right: 90px;   
+}
+.dialog-cont .el-dialog__body {
+    max-height: 100%;
+    overflow: hidden;
+}
+.dialog-cont .el-dialog__body .dialog-content {
+    padding: 0;
+}
+.dialog-cont .el-dialog__header {
+    display: none!important;
+    height: 0!important
+}
+.dialog-cont .modal-header {
+    text-align: center;
+}
+.dialog-cont .modal-footer .el-button--default {
+    color: inherit;
+}
+.dialog-cont table i.fa-chevron-circle-right,
+.dialog-cont table i.el-icon-delete,
+.dialog-cont table i.icon-danweiguanli-mian-1,
+.dialog-cont .main_nav_two {
+    display: none;
+}
+.dialog-cont .btn-close {
+    font-size: 12px;
+    right: 20px;
+    display: block;
+    margin-top: 17px;
+    width: 64px;
+    height: 28px;
+    line-height: 28px;
+    background-color: #f13131;
+    color: #000;
+    border-radius: 0;
+    border: 0;
+    text-decoration: none;
+    transition: background 0.3s;
+    -webkit-transition: background 0.3s;
+}
+.dialog-cont .btn-close:hover {
+    background-color: red;
+}
+.dialog-cont .main_nav_tab {
+    left: 10px;
+}

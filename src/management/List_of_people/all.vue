@@ -51,10 +51,10 @@
             prop="unitName"
             label="所属单位">
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="position"
             label="职位">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="cellPhone"
             label="电话">

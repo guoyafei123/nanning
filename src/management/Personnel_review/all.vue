@@ -46,10 +46,10 @@
             prop="unitName"
             label="所属单位">
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="position"
             label="职位">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="cellPhone"
             label="电话">
@@ -62,15 +62,19 @@
             prop="review"
             label="状态">
             <template slot-scope="scope" >
-              <el-tag
-                :type="scope.row.review === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.review==1'>审核通过 <i class="el-icon-warning font-blue" data-toggle="tooltip" title="段亚伟 2018-08-20 16:30:23"></i></el-tag>
-              <el-tag
-                :type="scope.row.review === 2 ? 'red' : 'green'"
-                disable-transitions v-if='scope.row.review==2'>审核未通过</el-tag>
-              <el-tag
-                :type="scope.row.review === 3 ? 'yellow' : 'green'"
-                disable-transitions v-if='scope.row.review==3'>待审核</el-tag>
+              <el-tooltip placement="top" :type="scope.row.review === 1 ? 'green' : 'red'"
+                disable-transitions v-if='scope.row.review==1'>
+                <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
+                  <span class="font-blue">审核通过 <i class="el-icon-warning"></i></span>
+              </el-tooltip>
+              <el-tooltip placement="top" :type="scope.row.review === 2 ? 'red' : 'green'"
+                disable-transitions v-if='scope.row.review==2'>
+                <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
+              <span class="font-yellow">审核未通过</span></el-tooltip>
+              <el-tooltip placement="top" :type="scope.row.review === 3 ? 'yellow' : 'green'"
+                disable-transitions v-if='scope.row.review==3'>
+                <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
+                <span class="font-red">待审核</span></el-tooltip>
             </template>
           </el-table-column>
           <el-table-column
