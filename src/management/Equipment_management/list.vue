@@ -150,21 +150,25 @@
       </div>
     </aside>
     <!-- 地图 -->
-    <aside class="position:relative;">      
+    <aside class="position:relative;" >
       <div class="maps map">
           <managementMap-vue></managementMap-vue>
       </div>
-      <div class="floorMap maps" style="display:none;position:relative;left:0;top:0;">
-        <ul class="list-unstyled floor-item" style="top: 120px">
+        <div  class="floorMap maps" style="display:none;position:relative;left:0;top:0;overflow: hidden">
+          <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
-        </ul> 
-        <img id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
+          </ul>
+          <div  id="floorImg" style="width: 100%;height: 100%;">
+            <img  id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
+          </div>
       </div>
+
     </aside>
   </div>
 </template>
 
 <script>
+import panzoom from 'panzoom';
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
@@ -325,7 +329,9 @@ import { vControl,setPoint } from '../../assets/js/aaa';
               this.svgUrl = item.svgUrl ;
               this.form.floorId = item.floor ;
               this.form.floorNumber = item.floorName ;
-            }
+              var area = document.getElementById('floorImg');
+              panzoom((area),{});
+               }
           })
         },
         findPageBuildIngFloor(){
@@ -453,7 +459,7 @@ import { vControl,setPoint } from '../../assets/js/aaa';
           let yRate = window.topRate;
           this.form.Rate = [xRate,yRate];
           $('#alarmDiv').remove();
-          $('.floorMap').append('<div id="alarmDiv"></div>');
+          $('#floorImg').append('<div id="alarmDiv"></div>');
           setPoint(this.iconByType[1],'alarmDiv');
         }
       },
