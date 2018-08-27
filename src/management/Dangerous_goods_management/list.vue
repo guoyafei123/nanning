@@ -124,17 +124,20 @@
       <div class="maps map">
           <managementMap-vue></managementMap-vue>
       </div>
-      <div class="floorMap maps" style="display:none;position:relative;left:0;top:0;">
+      <div class="floorMap maps" style="display:none;position:relative;left:0;top:0;overflow:hidden;">
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
-        <img id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
+        <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+          <img id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
+        </div>
       </div>
     </aside>
   </div>
 </template>
 
 <script>
+import panzoom from 'panzoom';
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isName,isvalidName,isLng } from '../../assets/js/validate';
@@ -234,6 +237,11 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               this.form.floorNumber = item.floorName ;
             }
           })
+          var area = document.getElementById('floorImg');
+          panzoom((area),{
+            maxZoom:1,
+            minZoom:0.5
+          });
         },
         findPageBuildIngFloor(){
           this.$fetch("/api/building/findPageBuildIngFloor",{
@@ -372,7 +380,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           let yRate = window.topRate;
           this.form.Rate = [xRate,yRate];
           $('#alarmDiv').remove();
-          $('.floorMap').append('<div id="alarmDiv"></div>');
+          $('#floorImg').append('<div id="alarmDiv"></div>');
 
           setPoint('icon-weixianpin-xian-','alarmDiv');
         }
@@ -420,25 +428,25 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           }else{
             $('.map').hide();
             $('.floorMap').show();
-            $("#imgPic").on("load",function(){
-              var winwidth = $('.floorMap').width;
-              var winheight =$('.floorMap').height;
-              var fjwidth = $('#imgPic').width();
-              var fjheight = $('#imgPic').height();
-              var newwidth=0;
-              var newheight=0;
-              if(fjwidth>winwidth || fjheight>winheight){
-                var ratewid = fjwidth/winwidth;
-                var ratehei = fjheight/winheight;
-                if(ratewid>ratehei){
-                  $("#imgPic").width(winwidth);
-                  $("#imgPic").height(winheight/ratewid);
-                }else{
-                  $("#imgPic").height(winheight);
-                  $("#imgPic").width(winwidth/ratehei);
-                }
-              }
-            });
+            // $("#imgPic").on("load",function(){
+            //   var winwidth = $('.floorMap').width;
+            //   var winheight =$('.floorMap').height;
+            //   var fjwidth = $('#imgPic').width();
+            //   var fjheight = $('#imgPic').height();
+            //   var newwidth=0;
+            //   var newheight=0;
+            //   if(fjwidth>winwidth || fjheight>winheight){
+            //     var ratewid = fjwidth/winwidth;
+            //     var ratehei = fjheight/winheight;
+            //     if(ratewid>ratehei){
+            //       $("#imgPic").width(winwidth);
+            //       $("#imgPic").height(winheight/ratewid);
+            //     }else{
+            //       $("#imgPic").height(winheight);
+            //       $("#imgPic").width(winwidth/ratehei);
+            //     }
+            //   }
+            // });
           }
           this.form.buildList.forEach((item,index)=>{
             if(item.id == this.form.buildingId){

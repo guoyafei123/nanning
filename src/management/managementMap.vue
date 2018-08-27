@@ -19,6 +19,7 @@
           mp:Object,
           buildingIner:[],
           buildingOut:[],
+          inspectionNodes:[],
           iconByType:{
                     1:'icon-ranqiganying-mian-',
                     2:'icon-ganyanqi-',
@@ -398,6 +399,31 @@
           
           return html;
         },
+        addline(array, type) {
+          var pois = [];
+          for(var i = 0; i < array.length; i++) {
+            pois.push(new BMap.Point(array[i][0], array[i][1]));
+          }
+          var fillcolor = "";
+          if(type == 1) {
+            fillcolor = "#bad616";
+          } else if(type == 2) {
+            fillcolor = "#c69e00";
+          } else if(type == 3) {
+            fillcolor = "#ff7800";
+          } else {
+            fillcolor = "#ccc";
+          }
+          var polyline = new BMap.Polyline(pois, {
+            enableEditing: false, //是否启用线编辑，默认为false
+            enableClicking: true, //是否响应点击事件，默认为true
+            // icons:[icons],
+            strokeWeight: "2", //折线的宽度，以像素为单位
+            strokeOpacity: 1, //折线的透明度，取值范围0 - 1
+            strokeColor: fillcolor //折线颜色
+          });
+          return polyline;
+        },
         tableDatas(){
           this.tableData.forEach(item => {
             //console.log(item.pointX);
@@ -446,7 +472,23 @@
               });
             })
           })
-          
+        },
+        inspection(){
+          this.$fetch("/api/admin/inspection/queryInspectionNodeByPlanId",{
+            planId:this.inspectionPlanId
+          }).then(res=>{
+            console.log(res.data.inspectionPlan.inspectionNodes);
+            this.inspectionNodes = res.data.inspectionPlan.inspectionNodes ;
+            var linearray = [];
+
+            this.inspectionNodes.forEach(item=>{
+              linearray.push([item.pointX,item.pointY]);
+              // this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
+              
+            })
+
+				    this.mp.addOverlay(this.addline(linearray, 1));
+          })
         },
         showInfo(e){
           this.mp.clearOverlays();
@@ -475,18 +517,12 @@
             this.tableDatas();
           }
         },
-        
         Unit(){
           this.mp.clearOverlays();
           if(this.$route.path == '/Equipment_management/maps'){
             this.DeviceMaps();
           }
         }
-        // InspectionMap(){
-        //   if(this.route_path=='/Inspection_plan/maps'){
-            
-        //   }
-        // },
       },
       mounted(){
         var mapStates = this.getMapToDiv('manage_map');
@@ -507,6 +543,14 @@
           this.mp.clearOverlays();
           this.DeviceMaps();
         }
+        if(this.$route.path == '/Dangerous_goods_management/maps'){
+          this.mp.clearOverlays();
+          this.DeviceMaps();
+        }
+        if(this.$route.path == '/Inspection_plan/maps'){
+          this.mp.clearOverlays();
+          this.inspection();
+        }
         this.$store.commit('iconByType',this.iconByType)
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
       },
@@ -515,7 +559,8 @@
         'InspectionMap',
         'buildPoint',
         'Unit',
-        'DeviceList'
+        'DeviceList',
+        'inspectionPlanId'
       ])
     }
 </script>

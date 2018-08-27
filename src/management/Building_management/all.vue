@@ -134,13 +134,17 @@
             <ul class="list-unstyled floor-item">
                 <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
             </ul> 
-            <img :src="this.svgUrl" class="img-responsive">
+            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+              <img :src="this.svgUrl" class="img-responsive">
+            </div>
           </div>
           <div class="roomMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
                 <li>{{ this.floorName }}</li>
             </ul> 
-            <img :src="this.roomSvgUrl" class="img-responsive">
+            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+              <img :src="this.roomSvgUrl" class="img-responsive">
+            </div>
           </div>
       </div>      
     </div>
@@ -262,6 +266,7 @@
   </section>
 </template>
 <script>
+import panzoom from 'panzoom';
   import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js';
@@ -390,6 +395,11 @@ import managementMapVue from '../managementMap';
             this.svgUrl = item.svgUrl ;
           }
         })
+        var area = document.getElementById('floorImg');
+        panzoom((area),{
+          maxZoom:1,
+          minZoom:0.5
+        });
       },
       back(){
         // $('#right').addClass('position-fixed-right');

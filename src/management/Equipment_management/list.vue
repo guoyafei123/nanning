@@ -467,7 +467,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           let yRate = window.topRate;
           this.form.Rate = [xRate,yRate];
           $('#alarmDiv').remove();
-          $('.floorMap').append('<div id="alarmDiv"></div>');
+          $('#floorImg').append('<div id="alarmDiv"></div>');
 
           setPoint(this.iconByType[this.form.equipmentId],'alarmDiv');
         }
@@ -516,23 +516,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           }else{
             $('.map').hide();
             $('.floorMap').show();
-            // $("#imgPic").on("load",function(){
-            //   var winwidth = $('.floorMap').width;
-            //   var winheight =$('.floorMap').height;
-            //   var fjwidth = $('#imgPic').width();
-            //   var fjheight = $('#imgPic').height();
-            //   if(fjwidth>winwidth || fjheight>winheight){
-            //     var ratewid = fjwidth/winwidth;
-            //     var ratehei = fjheight/winheight;
-            //     if(ratewid>ratehei){
-            //       $("#imgPic").width(winwidth);
-            //       $("#imgPic").height(winheight/ratewid);
-            //     }else{
-            //       $("#imgPic").height(winheight);
-            //       $("#imgPic").width(winwidth/ratehei);
-            //     }
-            //   }
-            // });
           }
           this.form.floorId = '';
           this.form.roomId = '';
