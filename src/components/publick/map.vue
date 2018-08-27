@@ -903,16 +903,18 @@
 					}
 				})
 
-				let myChart = this.$echarts.init(document.getElementById("allmap"));
+				
 				this.$fetch("/img/toolsvg/hangzhou-tracks.json")
 				.then(data => {
+					alert(1);
 					var points = [].concat.apply([], data.map(function (track) {
 						return track.map(function (seg) {
 							return seg.coord.concat([1]);
 						});
 					}));
 
-					myChart.setOption(option = {
+					let myChart = this.$echarts.init(document.getElementById("allmap"));
+					var option = {
 						animation: false,
 						bmap: {
 							center: [120.13066322374, 30.240018034923],
@@ -937,11 +939,13 @@
 							pointSize: 9,
 							blurSize: 6
 						}]
-					});
+					}
+
+					myChart.setOption(option);
 
 					if (!app.inNode) {
 						// 添加百度地图插件
-						var bmap = myChart.getModel().getComponent('allmap').getBMap();
+						var bmap = myChart.getModel().getComponent('bmap').getBMap();
 						bmap.addControl(new BMap.MapTypeControl());
 					}
 
