@@ -65,7 +65,7 @@
           </li>
 					<li>
 						<p class="font-blue size-16">建筑信息
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" slot="reference">
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" @click="fullList = true">
                       <el-tooltip content="全屏" placement="top">
                           <i class="icon iconfont icon-weibiaoti10 size-14"></i>
                         </el-tooltip>
@@ -144,30 +144,31 @@
                   </li>
               </ul>
             </div>
-<!-- 全屏 -->
-<el-popover
-  placement="right"
-  width="400"
-  trigger="click">
-  <el-table :data="gridData">
-    <el-table-column width="150" property="date" label="日期"></el-table-column>
-    <el-table-column width="100" property="name" label="姓名"></el-table-column>
-    <el-table-column width="300" property="address" label="地址"></el-table-column>
-  </el-table>
-</el-popover>
           </section>
+<!-- 大列表弹窗 -->
+    <el-dialog show-close :visible.sync="fullList" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">      
+      <div class="dialog-content clearfix">
+        <button type="button" class="btn-close position-absolute-right" @click="fullList = false">
+         <i class="el-icon el-icon-close"></i>关闭
+        </button>
+        <fullList-vue></fullList-vue>
+      </div>      
+    </el-dialog>
         </div>
       </template>
 
 <script>
   import{mapState} from "vuex";
   import HeaderVue from '../publick/header.vue';
+  import fullListVue from '../../management/Building_management/all.vue';
   export default {
   components:{
-      'header-vue':HeaderVue
+      'header-vue':HeaderVue,
+      'fullList-vue':fullListVue
   },
   data() {
     return {
+      fullList: false,
       // 表格
       gridData: [{
           date: '2016-05-02',

@@ -6,8 +6,7 @@
             <section class="margin-top20">
               <div class="personinfo">
                 <p>
-                  <span class="size-20 font-blue">{{ this.form.nickName }}姓名</span>
-                  <span class="bgbox-min bg-red font-black size-10">{{ this.form.review }}</span>
+                  <span class="size-20 font-blue">{{ this.form.nickName }}</span>
                   <span class="float-right">
                       <span class="bgbox-max bg-gray-333 font-gray-ccc size-10">{{ this.form.roleName }}</span>
                   </span>
@@ -89,10 +88,10 @@
                             <span>角色 </span>
                             <strong v-html="this.form.roleName"></strong>
                         </div>
-                        <div class="col-sm-6">
+                        <!-- <div class="col-sm-6">
                             <span>职位 </span>
                             <strong v-html="this.form.position"></strong>
-                        </div>
+                        </div> -->
                         <div class="col-sm-12">
                             <span>所属单位</span>
                             <strong v-html="this.form.unitName"></strong>
@@ -100,26 +99,26 @@
                       </div>
                 </div>
             </section>
-            <!-- 详细信息 -->
+            <!-- 审核信息 -->
             <section>
               <div class="textandimg margin-top30">
-                    <h4 class="p-title">审核信息</h4>
+                    <h4 class="p-title"></h4>
                     <div class="row textandimg-main margin-top20 size-12">
                         <div class="col-sm-12">
                             <span>审核结果</span>
-                            <strong class="font-red" v-html="this.form.review"></strong>
-                        </div>
-                        <div class="col-sm-12">
-                            <span>审核说明</span>
-                            <strong v-html="this.form.reviewContent"></strong>
-                        </div>
+                            <strong class="font-blue" v-html="this.form.review"></strong>
+                        </div>                        
                         <div class="col-sm-12">
                             <span>审核人</span>
-                            <strong class="font-blue" v-html="this.form.reviewName"></strong>
+                            <strong class="font-white" v-html="this.form.reviewName"></strong>
                         </div>
                         <div class="col-sm-12">
                             <span>审核时间</span>
                             <strong v-html="this.form.reviewTime"></strong>
+                        </div>
+                        <div class="col-sm-12">
+                            <span>审核说明</span>
+                            <strong v-html="this.form.reviewContent"></strong>
                         </div>              
                       </div>
                 </div>
