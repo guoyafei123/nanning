@@ -680,7 +680,7 @@
 			this.getRiskData(); //风险统计 
 			this.getRiskTable(); //风险表格
 
-			console.log(panzoom);
+			// console.log(panzoom);
 			
 		}
 	};
