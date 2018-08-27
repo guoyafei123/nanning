@@ -7,7 +7,7 @@
 					<canvas id="canvas-big" width="260" height="200"></canvas>
 				</div>
 				<div class="tool-charmaxvalue">
-					<p class="line-height86 size-60 font-blue"><span class="size-100">8</span>.7</p>
+					<p class="line-height86 size-60 font-blue"><span class="size-100">{{unitAssessScore}}</span></p>
 					<div id="myChart1" style="width: 130%;height:50px;margin: 0 auto;"></div>
 				</div>
 			</div>
@@ -45,279 +45,28 @@
 										<th>操作</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr @click="toiteminfo(1)">
-										<td>瑞和家园3号楼</td>
+								<tbody id="">
+									<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
+										<td>{{item.buildingName}}</td>
 										<td>
 											<el-tooltip content="单位名称" placement="top">
-												<span>瑞和家园</span>
+												<span>{{item.unitName}}</span>
 											</el-tooltip>
 										</td>
 										<td class="safe">
 											<el-tooltip placement="top">
 												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-red font-black">1.9</span>
+												<span class="bgbox-max bg-red font-black">{{item.totalScore}}</span>
 											</el-tooltip>
 										</td>
 										<td class="risk">
 											<el-tooltip placement="top">
 												<div slot="content">风险系数 20.56%</div>
-												<span>91.86%</span>
+												<span>{{100 - item.totalScore}}%</span>
 											</el-tooltip>
 										</td>
 										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr @click="toiteminfo(2)">
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>实验教学</span>
-											</el-tooltip>
-										楼7号</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>实验小学</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-orange font-black">2.7</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>73.14%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr @click="toiteminfo(3)">
-										<td>三年级教学楼</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>实验小学</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-orange font-black">3.3</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>65.89%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>二年级教学楼</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>实验小学</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-yellow font-black">4.3</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>56.92%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>瑞和家园8号</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>瑞和家园</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-yellow font-black">4.8</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>54.73%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>三年级教学楼</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>实验小学</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-blue font-black">7.7</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>31.74%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>瑞和家园7号</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>瑞和家园</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-blue font-black">8.4</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>23.86%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>瑞和家园12号</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>瑞和家园</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-blue font-black">8.7</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>20.47%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>五年级教学楼</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>实验小学</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-blue font-black">9.0</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>13.07%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
-												<el-tooltip content="查看详情" placement="top">
-													<i class="fas fa-chevron-circle-right"></i>
-												</el-tooltip>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<el-tooltip content="一年级教学楼" placement="top">
-												<span>一年级教学楼</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<el-tooltip content="单位名称" placement="top">
-												<span>实验小学</span>
-											</el-tooltip>
-										</td>
-										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-blue font-black">9.2</span>
-											</el-tooltip>
-										</td>
-										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>10.35%</span>
-											</el-tooltip>
-										</td>
-										<td>
-											<a @click="moren">
+											<a v-on:click="toitmeinfo(item)">
 												<el-tooltip content="查看详情" placement="top">
 													<i class="fas fa-chevron-circle-right"></i>
 												</el-tooltip>
@@ -328,8 +77,14 @@
 							</table>
 						</div>
 					</li>
-					<li>
-						<span class="size-12">分页</span>
+					<li class="upd-pagin">
+						<div>
+							<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
+							</el-pagination>
+							<span>{{Math.ceil(tableData.totalRow/this.queryRiskList_parameter.pageSize)}}页</span>
+							<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.queryRiskList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="handleCurrentChange">
+							</el-pagination>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -390,36 +145,61 @@
 				],
 				itemtrue: false,
 				//风险评估统计参数
-				risk_riskCount_parameter: {},
-				//风险评估参数-返回
-				risk_riskCount: {
-					riskFactor: "",
-					alarm: "",
-					trouble: "",
-					danger: "",
-					totalScore: "",
-					min: "",
-					max: "",
-					centre: ""
+				riskCount_parameter: {
+					unitId:null
 				},
+				//风险评估参数-返回
+				unitAssessScore: Object,
 				// 表格-请求
 				queryRiskList_parameter: {
-					id: null,
-					unitId: 4,
-					type: null,
+					unitId: null,
 					buidingId: null,
 					startTime: null,
 					endTime: null,
-					currentPage: "1",
+					currentPage: 1,
 					pageSize: 10
 				},
 				// 表格返回
-				tableData: Object,
+				tableData: Object
 			};
 		},
 		methods: {
-			chart_left() {
-				function go(num) {
+			// 获取统计数据
+			getRiskData() {
+				this.$fetch("/api/riskAssessFactor/leftTotalOfUnit",
+				this.riskCount_parameter
+				).then(response => {
+					let data = response.data;
+					if(response.data) {
+						this.unitAssessScore = data.result.socre;
+						this.chart_left(data.result);
+					}
+				});
+			},
+			// 获取表格
+			getRiskTable() {
+				this.$fetch(
+						"/api/riskAssessFactor/riskScoreList",
+						this.queryRiskList_parameter
+					).then(response => {
+						if(response) {
+							this.tableData = response.data.pager;
+						}
+					})
+					.then(err => {
+						//console.log(err);
+					});
+			},
+			handleCurrentChange(val) {
+				this.queryRiskList_parameter.currentPage = val;
+				this.getRiskTable();
+			},
+			//获取详情
+			toitmeinfo(data) {
+				this.itemtrue = data;
+				this.$store.commit("toriskitem", this.itemtrue);
+			},
+			chart_left(data) {
 					//清除画布,每次重绘
 					var canvas_big = document.getElementById("canvas-big");
 					var cxt = canvas_big.getContext("2d");
@@ -452,7 +232,7 @@
 
 					cxt.fillStyle = "#f4f4f4";
 					cxt.font = "normal 12px 黑体";
-					cxt.fillText("风险系数:" + num + "%", 0, 24);
+					cxt.fillText("风险系数:" + 100-data.socre + "%", 0, 24);
 
 					//右上角字体说明
 					cxt.fillStyle = "#999";
@@ -464,7 +244,7 @@
 					cxt.textAlign = "left";
 					cxt.font = "normal 12px 黑体";
 					cxt.fontWeight = "900";
-					cxt.fillText(num, radi2 * 0.2 * 3.5, 0 - radi2 - r * 0.38);
+					cxt.fillText(data.alarmTotal, radi2 * 0.2 * 3.5, 0 - radi2 - r * 0.38);
 
 					cxt.fillStyle = "#999";
 					cxt.font = "normal 12px 黑体";
@@ -475,7 +255,7 @@
 					cxt.textAlign = "left";
 					cxt.font = "normal 12px 黑体";
 					cxt.fontWeight = "900";
-					cxt.fillText(num, radi2 * 0.2 * 7.5, 0 - radi2 - r * 0.38);
+					cxt.fillText(data.troubleTotal, radi2 * 0.2 * 7.5, 0 - radi2 - r * 0.38);
 
 					cxt.fillStyle = "#999";
 					cxt.font = "normal 12px 黑体";
@@ -486,7 +266,7 @@
 					cxt.textAlign = "left";
 					cxt.font = "normal 12px 黑体";
 					cxt.fontWeight = "900";
-					cxt.fillText(num, radi2 * 0.2 * 12.2, 0 - radi2 - r * 0.38);
+					cxt.fillText(data.dangerousTotal, radi2 * 0.2 * 12.2, 0 - radi2 - r * 0.38);
 
 					//画底格
 					for(var i = 0, angle = Math.PI, tmp, len; i < 30; i++) {
@@ -562,7 +342,7 @@
 					}
 
 					//计算要画的前景色块比例
-					var n = Math.round(num / 100 * 360 * 0.0833333);
+					var n = Math.round(100-data.socre / 100 * 360 * 0.0833333);
 					//再次绘制比例圆
 					for(var i = 0, angle = Math.PI, tmp, len; i < n; i++) {
 						cxt.beginPath();
@@ -579,114 +359,11 @@
 					}
 					//齐活儿
 				}
-				// clearInterval(setinter);
-				// var setinter=setInterval(function() {
-				//  var a = (99 * Math.random()).toFixed(2);
-				//  go(a);
-				// }, 1000)
-				go(23);
-
-				// 横向柱子
-				var option11 = {
-					tooltip: {
-						trigger: "axis",
-						axisPointer: {
-							// 坐标轴指示器，坐标轴触发有效
-							type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
-						}
-					},
-					grid: {
-						left: "0",
-						right: "0",
-						bottom: "0",
-						top: "0"
-					},
-					xAxis: {
-						type: "value",
-						show: false
-					},
-					yAxis: {
-						type: "category",
-						show: false
-					},
-					series: [{
-						name: "搜索引擎",
-						type: "bar",
-						stack: "总量",
-						label: {
-							normal: {
-								show: true,
-								position: "insideRight",
-								color: "#000"
-							}
-						},
-						itemStyle: {
-							normal: {
-								color: function(params) {
-									if(params.value > 0 && params.value < 300) {
-										return "#666";
-									} else if(params.value >= 100 && params.value <= 600) {
-										return "#999";
-									} else if(params.value >= 200 && params.value <= 900) {
-										return "#ccc";
-									}
-									return "#bad616";
-								}
-							}
-						},
-						data: [220, 532, 901]
-					}]
-				};
-				let myChart11 = this.$echarts.init(document.getElementById("myChart1"));
-				myChart11.setOption(option11);
-			},
-			// 获取统计数据
-			getRiskData() {
-				this.$fetch("/api/inspection/planInspectionCount").then(response => {
-					let data = response.data;
-					if(response.data) {
-						//console.log("获取风险表格列表数据:");
-						//console.log(response.data);
-
-					}
-				});
-			},
-			// 获取表格
-			getRiskTable() {
-				this.$fetch(
-						"/api/inspection/queryPlanUserList",
-						this.queryRiskList_parameter
-					).then(response => {
-						if(response) {
-							this.tableData = response.data.pager;
-							//console.log("获取风险表格列表数据:");
-							//console.log(this.tableData);
-						}
-					})
-					.then(err => {
-						//console.log(err);
-					});
-			},
-			handleCurrentChange(val) {
-				//console.log(`当前页:` + val);
-				this.queryRiskList_parameter.currentPage = val;
-				this.getTable();
-			},
-			//获取详情
-			toiteminfo(data) {
-				this.itemtrue = true;
-				this.$store.commit("toriskitem", this.itemtrue);
-			}
 		},
 		mounted() {
 			this.$store.commit("route_path", this.$route.path);
-			this.chart_left(); // 左侧图表
 			this.getRiskData(); //风险统计 
 			this.getRiskTable(); //风险表格
-			// var zoomboxs=document.getElementById('zoombox');
-			// console.log(panzoom);
-			// panzoom(zoomboxs);
-			
 		}
 	};
 </script>
