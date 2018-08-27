@@ -2,10 +2,10 @@
 	<div class="toolleft margin-right0">
 		<section>
 			<div class="toolcount">
-				<div class="set-width-50  font-gray-999 padding-right0">
+				<div class="set-width-50 font-gray-999 padding-right0">
 					<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 						<li>
-							<h1 class="toolcount-p1 font-blue">{{countUnitPlan.sumofPlan?countUnitPlan.sumofPlan:0}}</h1>
+							<h1 class="toolcount-p1 margin-bottom0">{{countUnitPlan.sumofPlan?countUnitPlan.sumofPlan:0}}</h1>
 						</li>
 						<li>
 							<p class="size-10">Plan Total</p>
@@ -17,13 +17,13 @@
 				</div>
 				<div class="set-width-50 display-inline-block font-gray-999 toolcount-right size-12">
 					<ul class="padding-left0 margin-bottom0">
-						<li class="toolcount-right-title">
+						<!-- <li class="toolcount-right-title">
 							<p class="size-26 font-blue">预案统计</p>
 						</li>
 						<li class="margin-bottom10">
 							<p class="size-10">Plan number</p>
 						</li>
-						<!-- <template v-for="item in countUnitPlan.numberOfPlanType">
+						<template v-for="item in countUnitPlan.numberOfPlanType">
 							<li>
 								<p>{{item.typeName}}</p>
 								<p class="font-blue font-italic float-right size-14" >{{item.count}}</p>
@@ -59,7 +59,7 @@
 					</li>
 					<li>
 						<p class="font-blue size-16">预案信息
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" @click="fullList = true">
 					            <el-tooltip content="全屏" placement="top">
 						            <i class="icon iconfont icon-weibiaoti10 size-14"></i>
 						        </el-tooltip>
@@ -136,14 +136,28 @@
 				</ul>
 			</div>
 		</section>
+	<!-- 大列表弹窗 -->
+    <el-dialog show-close :visible.sync="fullList" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">      
+      <div class="dialog-content clearfix">
+      	<button type="button" class="btn-close position-absolute-right" @click="fullList = false">
+         <i class="el-icon el-icon-close"></i>关闭
+      	</button>
+        <fullList-vue></fullList-vue>
+      </div>      
+    </el-dialog>
 	</div>
 </template>
 
 <script>
 	import{mapState} from "vuex";
+	import fullListVue from '../../management/Reserve_plan/all.vue';
 	export default {
+		components:{
+	      'fullList-vue':fullListVue,
+	    },
 		data() {
 			return {
+				fullList: false,
 				// 单选按钮
 				value7: '',
 				options: [{

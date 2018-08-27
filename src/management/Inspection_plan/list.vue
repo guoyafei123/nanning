@@ -74,10 +74,14 @@
               </el-option>
             </el-select>
             <div class="icon-frame float-right" v-if="!isdisabled" @click="jinyong">
-              <i class="fas fa-check-circle font-blue float-right" data-toggle="tooltip" title="保存"></i>
+              <el-tooltip content="全屏" placement="保存">
+                <i class="fas fa-check-circle font-blue float-right"></i>
+              </el-tooltip>
             </div>
             <div class="icon-frame float-right" v-if="isdisabled" @click="kaiqi">
-              <i class="fas fa-pencil-alt font-yellow float-right" data-toggle="tooltip" title="编辑"></i>
+              <el-tooltip content="全屏" placement="编辑">
+                <i class="fas fa-pencil-alt font-yellow float-right"></i>
+              </el-tooltip>
             </div>
           </el-form-item>
           <el-form-item label="终点" class="line-end not-null col-sm-12">
@@ -119,10 +123,14 @@
               </el-option>
             </el-select>
             <div class="icon-frame float-right" v-if="!isdisableds" @click="jinyongs">
-              <i class="fas fa-check-circle font-blue float-right" data-toggle="tooltip" title="保存"></i>
+              <el-tooltip content="全屏" placement="保存">
+              <i class="fas fa-check-circle font-blue float-right"></i>
+            </el-tooltip>
             </div>
             <div class="icon-frame float-right" v-if="isdisableds" @click="kaiqis">
-              <i class="fas fa-pencil-alt font-yellow float-right" data-toggle="tooltip" title="编辑"></i>
+              <el-tooltip content="全屏" placement="编辑">
+              <i class="fas fa-pencil-alt font-yellow float-right"></i>
+            </el-tooltip>
             </div>
           </el-form-item>
           <el-form-item label="节点" class="line-node not-null col-sm-12">
@@ -134,7 +142,9 @@
                   <span class="line-show" v-show="item.room!=''">{{ item.room }}</span>
                   <span class="line-show margin-right0">{{ item.equipment }}</span>
                   <div class="icon-frame float-right" @click="Delete(index)">
-                    <i class="fas fa-minus-circle font-red float-right" data-toggle="tooltip" title="移除"></i>
+                  <el-tooltip content="全屏" placement="移除">  
+                    <i class="fas fa-minus-circle font-red float-right"></i>
+                  </el-tooltip>
                   </div>
                 </li>
               </ul>
@@ -177,7 +187,9 @@
               </el-option>
             </el-select>
             <div class="icon-frame float-right" @click="Add">
-              <i class="fas fa-plus-circle font-blue float-right" data-toggle="tooltip" title="添加节点"></i>
+              <el-tooltip content="全屏" placement="添加节点">  
+                <i class="fas fa-plus-circle font-blue float-right"></i>
+              </el-tooltip>
             </div>
           </el-form-item>
         </el-form>

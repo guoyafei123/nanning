@@ -902,54 +902,25 @@
 						})
 					}
 				})
-
-				
-				this.$fetch("/img/toolsvg/hangzhou-tracks.json")
-				.then(data => {
-					alert(1);
-					var points = [].concat.apply([], data.map(function (track) {
-						return track.map(function (seg) {
-							return seg.coord.concat([1]);
-						});
-					}));
-
-					let myChart = this.$echarts.init(document.getElementById("allmap"));
-					var option = {
-						animation: false,
-						bmap: {
-							center: [120.13066322374, 30.240018034923],
-							zoom: 14,
-							roam: true
-						},
-						visualMap: {
-							show: false,
-							top: 'top',
-							min: 0,
-							max: 5,
-							seriesIndex: 0,
-							calculable: true,
-							inRange: {
-								color: ['blue', 'blue', 'green', 'yellow', 'red']
-							}
-						},
-						series: [{
-							type: 'heatmap',
-							coordinateSystem: 'bmap',
-							data: points,
-							pointSize: 9,
-							blurSize: 6
-						}]
-					}
-
-					myChart.setOption(option);
-
-					if (!app.inNode) {
-						// 添加百度地图插件
-						var bmap = myChart.getModel().getComponent('bmap').getBMap();
-						bmap.addControl(new BMap.MapTypeControl());
-					}
-
-				})
+        this.$fetch("/api/alarm/queryALarmHeatMap?count=1000")
+          .then(response =>{
+            if(response){
+              let points = response.data.points;
+              let heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":20});
+              this.mp.addOverlay(heatmapOverlay);
+              heatmapOverlay.setDataSet({data:points,max:100});
+              heatmapOverlay.show();
+              function setGradient(){
+                var gradient = {};
+                var colors = document.querySelectorAll("input[type='color']");
+                colors = [].slice.call(colors,0);
+                colors.forEach(function(ele){
+                  gradient[ele.getAttribute("data-key")] = ele.value;
+                });
+                heatmapOverlay.setOptions({"gradient":gradient});
+              }
+            }
+          })
 			},
 			path_danger(){
 				this.$fetch("/api/trouble/troubleList")
