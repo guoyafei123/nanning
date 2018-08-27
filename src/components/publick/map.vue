@@ -903,44 +903,10 @@
 					}
 				})
 
-        let myChart = this.$echarts.init(document.getElementById("allmap"));
-				this.$fetch("/img/toolsvg/hangzhou-tracks.json")
-				.then(data => {
-					var points = [].concat.apply([], data.map(function (track) {
-						return track.map(function (seg) {
-							return seg.coord.concat([1]);
-						});
-					}));
-          let option;
-          myChart.setOption(option = {
-            animation: true,
-            bmap: {
-              center: [120.13066322374, 30.240018034923],
-              zoom: 14,
-              roam: true
-            },
-            visualMap: {
-              show: true,
-              top: 'top',
-              min: 0,
-              max: 5,
-              seriesIndex: 0,
-              calculable: true,
-              inRange: {
-                color: ['blue', 'blue', 'green', 'yellow', 'red']
-              }
-            },
-            series: [{
-              type: 'heatmap',
-              coordinateSystem: 'bmap',
-              data: points,
-              pointSize: 5,
-              blurSize: 6
-            }]
-          });
-          var bmap = myChart.getModel().getComponent('bmap').getBMap();
-          bmap.addControl(new BMap.MapTypeControl());
-				})
+        
+				// this.$fetch("/img/toolsvg/hangzhou-tracks.json")
+				// .then(data => {
+				// })f
 			},
 			path_danger(){
 				this.$fetch("/api/trouble/troubleList")
