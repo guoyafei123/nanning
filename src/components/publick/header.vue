@@ -166,7 +166,7 @@
         </div>
         <ul class="mytotal list-inline col-sm-12">
           <li><h2 class="font-blue">329</h2>
-            <p>总在线时长(h)</p></li>
+            <p>月在线时长(h)</p></li>
           <li><h2 class="font-red">5</h2>
             <p>处理报警数(次)</p></li>
           <li><h2 class="font-yellow">17</h2>
