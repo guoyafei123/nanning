@@ -64,9 +64,8 @@
             <el-form-item label="建筑地址" prop="address" class="not-null">
               <el-input v-model="form.address" class="col-sm-8"></el-input>
             </el-form-item>
-            <el-form-item label="经纬度" prop="pointX" class="not-null">
-              <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
-              <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
+            <el-form-item label="经纬度" prop="point" class="not-null">
+              <el-input v-model="form.point" class="col-sm-4"></el-input>
             </el-form-item>          
             <el-form-item label="消防负责人" prop="name" class="not-null col-sm-4">
               <el-input v-model="form.name"></el-input>
@@ -91,9 +90,9 @@
 </template>
 
 <script>
-import{ mapState } from "vuex"
+import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
-import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
+import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
     export default {
       data() {
         var validPhone=(rule, value,callback)=>{
@@ -122,6 +121,16 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             }else {
               callback()
             }
+
+        }
+        var Lng=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入坐标'))
+            }else  if (!isLng(value)){
+              callback(new Error('请输入正确的坐标点'))
+            }else {
+              callback()
+            }
         }
         return {
           value5:'2018',
@@ -137,10 +146,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
             timeYear:'',
             name:'',
             phone:'',
-            point:{
-              pointX:'',
-              pointY:''
-            }
+            point:''
           },
           unit:null,//选择单位
           optionList:[],//全部单位列表
@@ -172,8 +178,8 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
               { required: true, trigger: 'blur', message: '请输入总楼层' },
               { type: 'number', message: '必须为数字值'}
             ],
-            pointX:[
-              { required: true, trigger: 'blur', message: '请填写经纬度' }
+            point:[
+              { required: true, trigger: 'blur', validator: Lng }
             ],
             address:[
               { required: true, trigger: 'blur', message: '请填写建筑地址' }
@@ -213,8 +219,8 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
                 'property':this.form.property,
                 'linkname':this.form.name,
                 'phone':this.form.phone,
-                'pointX':this.form.point.pointX,
-                'pointY':this.form.point.pointY,
+                'pointX':this.form.point[0],
+                'pointY':this.form.point[1],
                 headers: {'Content-Type': 'application/json'}
               }
               ).then(response=>{
@@ -222,7 +228,8 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
                   //console.log('新增建筑成功...'+ JSON.stringify(response));
                   this.$router.push({path:'/Building_management/all'});
                 }
-              })
+              });
+              
             } else {
               //console.log('error submit!!');
               return false;
@@ -256,9 +263,7 @@ import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
       },
       watch:{
         buildPoint(){
-          this.form.point.pointX = this.buildPoint[0];
-          this.form.point.pointY = this.buildPoint[1];
-          console.log(this.form.point.pointX)
+          this.form.point = this.buildPoint;
         }
       },
       computed:mapState([

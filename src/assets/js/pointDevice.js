@@ -51,10 +51,24 @@ export function vControl(pChoice,event){
     }
 }
 
-//绘制报警设备
+//添加报警设备
 export function setPoint(type, divid) {
     $('#'+divid).css("top",window.pointTop - 36);
     $('#'+divid).css("left",window.pointLeft - 18);
+    $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
+    $('#'+divid).css("position","absolute");
+  }
+  
+
+//绘制报警设备
+export function setPointList(xRate,yRate,type, divid) {
+	var fjwidth = $('#imgPic').width();
+    var fjheight = $('#imgPic').height();
+    var left = $('#imgPic').offset().left;
+    var offsetParent = $('#imgPic').offsetParent().offset().left;
+    var LeftPoint = left - offsetParent ;
+    $('#'+divid).css("top",yRate * fjheight - 36);
+    $('#'+divid).css("left",xRate * fjwidth + LeftPoint - 18);
     $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
     $('#'+divid).css("position","absolute");
   }

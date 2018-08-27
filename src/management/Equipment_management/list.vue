@@ -168,7 +168,7 @@
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
-import { vControl,setPoint } from '../../assets/js/aaa';
+import { vControl,setPoint } from '../../assets/js/pointDevice';
     export default {
       data() {
 
@@ -379,7 +379,7 @@ import { vControl,setPoint } from '../../assets/js/aaa';
             }
           });
         },
-        back(event){
+        back(){
           this.$router.push({path:'/Equipment_management/all'});
           $('#right').show();
         },
@@ -453,6 +453,7 @@ import { vControl,setPoint } from '../../assets/js/aaa';
           this.form.Rate = [xRate,yRate];
           $('#alarmDiv').remove();
           $('.floorMap').append('<div id="alarmDiv"></div>');
+
           setPoint(this.iconByType[this.form.equipmentId],'alarmDiv');
         }
       },
