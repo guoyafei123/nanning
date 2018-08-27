@@ -172,7 +172,7 @@
 			getData() {
 				// 请求巡检统计
 				this.$fetch("/api/inspection/planInspectionCount").then(response => {
-					console.log(response.data);
+					// console.log(response.data);
 					let data = response.data;
 					if(response.data) {
 						this.ins_planInspectionCount.finish = data.planInstanceCount.finish;

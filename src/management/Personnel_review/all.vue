@@ -275,16 +275,16 @@
               'unitId':this.form.unitId,
               'id':this.deviceIndex
             }).then(response=>{
-              console.log(response)
+              //console.log(response)
             })
           } else {
-            console.log('error submit!!');
+            //console.log('error submit!!');
             return false;
           }
         });
       },
       show3(row){//跳转
-        console.log(row.id);
+        //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('unitNumber',row.id);
       },
@@ -294,16 +294,16 @@
         )
         .then(response => {
           if (response) {
-            console.log(response);
+            //console.log(response);
             this.roleList = response.data.roleList;
-            console.log(this.roleList);
+            //console.log(this.roleList);
             $(' .el-select-dropdown__item').mouseover(function(){
               $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
             });
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       },
       unitSearch(){
@@ -312,16 +312,16 @@
         )
         .then(response => {
           if (response) {
-            console.log(response);
+            //console.log(response);
             this.optionList = response.data.unitList;
-            console.log(this.optionList);
+            //console.log(this.optionList);
             $(' .el-select-dropdown__item').mouseover(function(){
               $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
             });
           }
         })
         .then(err => {
-          // console.log(err);
+          // //console.log(err);
         });
       },
       tableList(){
@@ -335,14 +335,14 @@
           }
         )
           .then(response => {
-            console.log(response);
+            //console.log(response);
             if (response.data.pager) {
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
                   this.$store.commit('unitNumber',item.id);
-                  console.log(item.id)
+                  //console.log(item.id)
                 }
               })
               if(this.totalList % 10 == 0){
@@ -353,7 +353,7 @@
             }
           })
           .then(err => {
-            // console.log(err);
+            // //console.log(err);
           });
       }
     },
@@ -367,17 +367,17 @@
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        console.log(this.currentPage4);
+        //console.log(this.currentPage4);
         this.tableList();
       },
       unitId(val,oldVal){
         this.unitId = val ;
-        console.log(this.unitId);
+        //console.log(this.unitId);
         this.tableList();
       },
       reviewId(val,oldVal){
         this.reviewId = val ;
-        console.log( this.reviewId );
+        //console.log( this.reviewId );
         this.tableList();
       }
     }

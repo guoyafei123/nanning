@@ -31,6 +31,7 @@
 					</li>
 					<li>
 						<div class="table-responsive">
+
 							<table class="table size-12 table-condensed toolroute-table margin-top10">
 								<thead>
 									<tr>
@@ -640,8 +641,8 @@
 				this.$fetch("/api/inspection/planInspectionCount").then(response => {
 					let data = response.data;
 					if(response.data) {
-						console.log("获取风险表格列表数据:");
-						console.log(response.data);
+						//console.log("获取风险表格列表数据:");
+						//console.log(response.data);
 
 					}
 				});
@@ -654,16 +655,16 @@
 					).then(response => {
 						if(response) {
 							this.tableData = response.data.pager;
-							console.log("获取风险表格列表数据:");
-							console.log(this.tableData);
+							//console.log("获取风险表格列表数据:");
+							//console.log(this.tableData);
 						}
 					})
 					.then(err => {
-						console.log(err);
+						//console.log(err);
 					});
 			},
 			handleCurrentChange(val) {
-				console.log(`当前页:` + val);
+				//console.log(`当前页:` + val);
 				this.queryRiskList_parameter.currentPage = val;
 				this.getTable();
 			},
@@ -678,6 +679,9 @@
 			this.chart_left(); // 左侧图表
 			this.getRiskData(); //风险统计 
 			this.getRiskTable(); //风险表格
+
+			console.log(panzoom);
+			
 		}
 	};
 </script>
