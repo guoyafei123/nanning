@@ -925,7 +925,7 @@ height: 640px;
 .el-table__body-wrapper.is-scrolling-left {
   border-bottom: none;
 }
-.el-table {
+.el-table--border {
   height: 100%;
   border-bottom: 1px solid #222!important;
 }
@@ -1225,4 +1225,9 @@ height: 640px;
 .mytotal h5 {
   font-size: 12px;
   color: #ccc;
+}
+
+.icon-help {
+  line-height: 32px;
+  cursor: pointer;
 }

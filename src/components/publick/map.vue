@@ -902,11 +902,25 @@
 						})
 					}
 				})
-
-        
-				// this.$fetch("/img/toolsvg/hangzhou-tracks.json")
-				// .then(data => {
-				// })f
+        this.$fetch("/api/alarm/queryALarmHeatMap?count=1000")
+          .then(response =>{
+            if(response){
+              let points = response.data.points;
+              let heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":20});
+              this.mp.addOverlay(heatmapOverlay);
+              heatmapOverlay.setDataSet({data:points,max:100});
+              heatmapOverlay.show();
+              function setGradient(){
+                var gradient = {};
+                var colors = document.querySelectorAll("input[type='color']");
+                colors = [].slice.call(colors,0);
+                colors.forEach(function(ele){
+                  gradient[ele.getAttribute("data-key")] = ele.value;
+                });
+                heatmapOverlay.setOptions({"gradient":gradient});
+              }
+            }
+          })
 			},
 			path_danger(){
 				this.$fetch("/api/trouble/troubleList")

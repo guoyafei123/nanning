@@ -128,7 +128,7 @@
 											<tr v-for="(item,index) in tableData.result" v-on:click="toitmeinfo(item)">
 												<!-- <td>{{(troubleList_parameter.currentPage-1)*troubleList_parameter.pageSize+index+1}}</td> -->
 												<td>{{item.nickName}}</td>
-												<td class="font-yellow">												
+												<td class="font-yellow">
 													<el-tooltip content="损坏" placement="top">
 													<i v-if="item.type==1" class="icon iconfont icon-sunhuai-xian-"></i>
 													</el-tooltip>
@@ -189,7 +189,7 @@
 		<!-- #右边 -->
 		<section id="right" class="position-fixed-right z-index-20">
 			<div class="overlay"></div>
-			<template>				
+			<template>
 					<div class="toolright">
 						<!-- 筛选 -->
 						<section class="my-filter padding5 bg-gray-222 clearfix">
@@ -199,7 +199,7 @@
 									</el-date-picker>
 								</div>
 							</div>
-						</section>						
+						</section>
 						<!-- 统计 -->
 						<section class="dan-lineinfo">
 							<section class="row margin-top20 clearfix">
@@ -220,7 +220,7 @@
 								<!-- 已选择单位巡检任务总数 -->
 								<div class="col-sm-5 font-white text-right size-12">
 									<i class="icon iconfont icon-xunjian-xian- size-14 font-yellow"></i> 隐患总数<br>
-									<span class="size-22 font-yellow">{{troubleRatio ? troubleRatio.allCount:'0'}}</span>
+									<span class="size-22 font-yellow">{{troubleCount ? troubleCount.troubleAll:'0'}}</span>
 								</div>
 						</section>
 							<section>
@@ -238,7 +238,7 @@
 											<div class="col-sm-4 personnel-borderright">
 												<p class="size-16 font-yellow">
 													<!-- {{troubleCount.troubleRatio.allCount}} -->
-													{{troubleRatio ? troubleRatio.allCount:'0'}}
+													{{troubleCount ? troubleCount.troubleAll:'0'}}
 												</p>
 												<p>隐患总数</p>
 											</div>
@@ -339,7 +339,7 @@
 					                          <p class="size-10 set-scaleright">Dangerous info</p>
 					                      </li>
 					                      <li class="margin-top10">
-					                          <p><i class="el-icon-location"></i> 
+					                          <p><i class="el-icon-location"></i>
 					                            <span>
 					                              <strong v-if="troubleDetail.buildingName == '室外'">室外</strong>
 					                              <strong v-else><span v-if="troubleDetail.buildingName != '' && troubleDetail.buildingName != null">{{ troubleDetail.buildingName }} 建筑</span><span v-if="troubleDetail.floorNumber != '' && troubleDetail.floorNumber != null">{{ troubleDetail.floorNumber }} 楼层</span><span v-if="troubleDetail.roomNumber != '' && troubleDetail.roomNumber != null">{{ troubleDetail.roomNumber }} 房间</span></strong>
@@ -376,11 +376,11 @@
 										<div class="col-sm-12">
 						                      <span>隐患源</span>
 						                      <strong v-html="troubleDetail.nickName"></strong>
-						                  </div> 
+						                  </div>
 						                  <div class="col-sm-12">
 						                      <span>所属单位</span>
 						                      <strong>{{troubleDetail.unitName}}</strong>
-						                  </div>						                  
+						                  </div>
 										<div class="col-sm-6">
 											<span>隐患类型 </span>
 											<strong v-if="troubleDetail.type==1" ><i class="icon iconfont icon-sunhuai-mian- size-14"></i> 损坏</strong>
@@ -411,7 +411,7 @@
 										<div class="col-sm-12">
 											<span>上报时间 </span>
 											<strong>{{troubleDetail.createTime}}</strong>
-										</div>										
+										</div>
 										<div class="col-sm-12">
 											<span>隐患描述 </span>
 											<strong>{{troubleDetail.cont}}</strong>
@@ -429,7 +429,7 @@
 											</template>
 										</div>
 									</div>
-								</div>							
+								</div>
 								<div class="textandimg margin-top10 imgs-nthof-block" v-if="troubleDetail.status == 1">
 									<h4 class="p-title">隐患解决</h4>
 									<div class="row textandimg-main margin-top10 size-12">
@@ -697,7 +697,7 @@
 						//console.log(err);
 					});
 				this.getTroubleRate();
-			},	
+			},
 			getTroubleRate(){
 				this.$fetch("/api/trouble/queryTroubleLineChart", this.troubleRate_parameter)
 					.then(response => {
@@ -903,7 +903,7 @@
 						}
 					},
 
-					// data: 
+					// data:
 					series: [
 						{
 							name:'危险品',

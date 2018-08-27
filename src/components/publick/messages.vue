@@ -12,8 +12,7 @@
       <!-- 标签 -->
       <ul id="myTab" class="nav nav-tabs">
         <li class="active">
-          <a href="#system" @click="this.queryMessageSys">系统<span class="point"
-                                                                  v-if="getStarts.SysStart"><!-- 新消息提示 --></span> </a>
+          <a href="#system" @click="this.queryMessageSys">系统<span class="point"  v-if="getStarts.SysStart"><!-- 新消息提示 --></span> </a>
         </li>
         <li>
           <a href="#warning" @click="this.queryMessageAlarm">警报<span class="point" v-if="getStarts.alarmStart"><!-- 新消息提示 --></span></a>
@@ -215,6 +214,8 @@
               let sysUnReadCount = response.data.sysUnReadCount;
               if (sysUnReadCount > 0) {
                 this.getStarts.SysStart = true;
+              }else{
+                this.getStarts.SysStart = false;
               }
             }
           })
@@ -232,6 +233,8 @@
               let alarmUnReadCount = response.data.alarmUnReadCount;
               if (alarmUnReadCount > 0) {
                 this.getStarts.alarmStart = true;
+              }else{
+                this.getStarts.alarmStart = false;
               }
               this.getMessageDateAlarm = response.data.pager.result
             }
@@ -251,6 +254,8 @@
               let troubleUnReadCount = response.data.troubleUnReadCount;
               if (troubleUnReadCount > 0) {
                 this.getStarts.troubleStart = true;
+              }else{
+                this.getStarts.troubleStart = false;
               }
               this.getMessageDateTrouble = response.data.pager.result
             }
