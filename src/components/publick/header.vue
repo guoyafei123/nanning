@@ -505,6 +505,7 @@
       },
       getuserinfo() {
         this.username = localStorage.name
+        console.log(this.userinfo.user);
       },
       management() {
         this.$store.commit('mapShow', false);

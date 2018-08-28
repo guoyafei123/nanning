@@ -214,6 +214,7 @@
 								this.$router.push("/index");
 								localStorage.login = 1;
 								localStorage.name = response.data.user.nickName;
+								localStorage.userId = response.data.user.id;
 								this.$store.commit('userinfo', response.data);
 							} else {
 								this.tologin = '登录失败!请联系管理员'
