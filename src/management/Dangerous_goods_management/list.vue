@@ -240,7 +240,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           var area = document.getElementById('floorImg');
           panzoom((area),{
             maxZoom:1,
-            minZoom:0.5
+            minZoom:1
           });
         },
         findPageBuildIngFloor(){
@@ -373,6 +373,13 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         },
         addDevice(pChoice,event){
         
+          let zoom = $('#floorImg').css('transform').split(',')[3];
+          let moveX = $('#floorImg').css('transform').split(',')[4];
+          let moveY= $('#floorImg').css('transform').split(',')[5];
+          moveY = moveY.substr(0,moveY.length -1);
+          console.log(zoom);
+          console.log(moveX);
+          console.log(moveY);
           // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
           vControl(pChoice,event);
           // console.log(window.leftRate)
@@ -428,25 +435,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           }else{
             $('.map').hide();
             $('.floorMap').show();
-            // $("#imgPic").on("load",function(){
-            //   var winwidth = $('.floorMap').width;
-            //   var winheight =$('.floorMap').height;
-            //   var fjwidth = $('#imgPic').width();
-            //   var fjheight = $('#imgPic').height();
-            //   var newwidth=0;
-            //   var newheight=0;
-            //   if(fjwidth>winwidth || fjheight>winheight){
-            //     var ratewid = fjwidth/winwidth;
-            //     var ratehei = fjheight/winheight;
-            //     if(ratewid>ratehei){
-            //       $("#imgPic").width(winwidth);
-            //       $("#imgPic").height(winheight/ratewid);
-            //     }else{
-            //       $("#imgPic").height(winheight);
-            //       $("#imgPic").width(winwidth/ratehei);
-            //     }
-            //   }
-            // });
           }
           this.form.buildList.forEach((item,index)=>{
             if(item.id == this.form.buildingId){

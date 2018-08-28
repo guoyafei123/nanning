@@ -31,6 +31,7 @@ var JPos = {};
  
 export function vControl(pChoice,event){
     var el = event.currentTarget;
+    var matrixX = $(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[0];
     var matrixY = $(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[3];
     var matrixW = $(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[4];
     var matrixH = $(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[5];
@@ -45,7 +46,8 @@ export function vControl(pChoice,event){
 		case "GETMOUSEPOSINPIC":
             var mPos = JPos.$getMousePos();
             var iPos = JPos.$getAbsPos(el);
-            window.pointLeft = (mPos.x - iPos.x)+LeftPoint
+            window.pointLeft = (mPos.x - iPos.x)+LeftPoint;
+            window.leftRate = (mPos.x - iPos.x - matrixW) / (fjwidth * matrixX)
             window.topRate = (mPos.y - iPos.y - matrixH) / (fjheight * matrixY)
             window.pointTop =  mPos.y - iPos.y;
 			break;

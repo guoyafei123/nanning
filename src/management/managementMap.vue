@@ -496,7 +496,7 @@
                 $('.mapTable').hide();
                 $('.floorMap').hide();
                 $('.map').show();
-                this.$store.commit('deviceId',item.id);
+                this.$store.commit('dangerId',item.id);
               });
             })
           })

@@ -398,7 +398,7 @@ import managementMapVue from '../managementMap';
         var area = document.getElementById('floorImg');
         panzoom((area),{
           maxZoom:1,
-          minZoom:0.5
+          minZoom:1
         });
       },
       back(){
