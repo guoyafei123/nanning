@@ -37,16 +37,15 @@
           <ul class="list-unstyled floor-item">
               <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
           </ul>
-          <div>
-            <!-- <img src="../../assets/images/floor.png" class="img-responsive"> -->
-          <img :src="this.svgUrl" class="img-responsive">
-          </div>          
-        </div>
+          <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+             <img :src="this.svgUrl" class="img-responsive">
+          </div>
+        </div>  
         <div class="roomMap maps" style="display:none;">
           <ul class="list-unstyled floor-item">
               <li>{{ this.floorName }}</li>
           </ul>
-          <div>
+          <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
             <img :src="this.roomSvgUrl" class="img-responsive">
           </div>
         </div>
@@ -57,6 +56,7 @@
 </template>
 
 <script> 
+import panzoom from 'panzoom';
  import{ mapState } from "vuex";
   import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
@@ -84,6 +84,11 @@
             this.svgUrl = item.svgUrl ;
           }
         })
+        var area = document.getElementById('floorImg');
+        panzoom((area),{
+          maxZoom:1,
+          minZoom:0.5
+        });
       },
       btn_add(){
         $('#right').css('display','none');
