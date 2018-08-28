@@ -31,9 +31,6 @@ var JPos = {};
  
 export function vControl(pChoice,event){
     var el = event.currentTarget;
-    // console.log($(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[0]);//x轴的缩放比例
-    // console.log($(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[3]);//y轴的缩放比例
-    var matrixX = $(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[0];
     var matrixY = $(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[3];
     var matrixW = $(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[4];
     var matrixH = $(el.offsetParent).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[5];
@@ -48,27 +45,34 @@ export function vControl(pChoice,event){
 		case "GETMOUSEPOSINPIC":
             var mPos = JPos.$getMousePos();
             var iPos = JPos.$getAbsPos(el);
-            if(matrixW < 0){
-                window.leftRate = (mPos.x - iPos.x + Math.abs(matrixW)) / (fjwidth * matrixX) ;
-                window.pointLeft = (mPos.x - iPos.x - Math.abs(matrixW)) + LeftPoint  ;
-            }else{
-                window.leftRate = (mPos.x - iPos.x - Math.abs(matrixW)) / (fjwidth * matrixX) ;
-                window.pointLeft = (mPos.x - iPos.x - Math.abs(matrixW))  ;
-               
-            }
-            window.topRate = (mPos.y - iPos.y - matrixH) / (fjheight * matrixY) ;
-            window.pointTop =  mPos.y - iPos.y  ;
-            console.log(window.pointTop)
+            window.pointLeft = (mPos.x - iPos.x)+LeftPoint
+            window.topRate = (mPos.y - iPos.y - matrixH) / (fjheight * matrixY)
+            window.pointTop =  mPos.y - iPos.y;
 			break;
     }
 }
 
 //添加报警设备
 export function setPoint(type, divid) {
-    $('#'+divid).css("top",window.pointTop - 18);
-    $('#'+divid).css("left",window.pointLeft - 18);
+    
+    var matrixY = $('#floorImg').css('transform').replace(/[^0-9\-.,]/g, '').split(',')[3];
+    var matrixW = $('#floorImg').css('transform').replace(/[^0-9\-.,]/g, '').split(',')[4];
+    var matrixH = $('#floorImg').css('transform').replace(/[^0-9\-.,]/g, '').split(',')[5];
+    console.log(matrixY);
+    var fw=$('#imgPic').width()/$('#floorImg').width()
+    
     $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
     $('#'+divid).css("position","absolute");
+    var y=window.pointTop - 18-parseFloat(matrixH);
+    var x=window.pointLeft - 18-parseFloat(matrixW)
+    console.log(x+'-----'+y)
+    console.log(x/matrixY+'-----'+y/matrixY)
+    $('#'+divid).css("top",y);
+    $('#'+divid).css("left",x);
+    // var xx=x*matrixY;
+    // var yy=y*matrixY;
+    // $('#'+divid).css("top",xx);
+    // $('#'+divid).css("left",yy);
   }
   
 
@@ -77,6 +81,7 @@ export function setPointList(xRate,yRate,type, divid) {
 	var fjwidth = $('#imgPic').width();
     var fjheight = $('#imgPic').height();
     var left = $('#imgPic').offset().left;
+    var b = $$('#imgPic').css('transform').split(',')[3];
     var offsetParent = $('#imgPic').offsetParent().offset().left;
     var LeftPoint = left - offsetParent ;
     $('#'+divid).css("top",yRate * fjheight - 18);

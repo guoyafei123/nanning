@@ -337,7 +337,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               var area = document.getElementById('floorImg');
               panzoom((area),{
                 maxZoom:1,
-                minZoom:0.5
+                minZoom:1
               });
             }
           })
