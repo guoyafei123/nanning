@@ -77,6 +77,7 @@ var state={
   // 地图相关
   // 全部单位
   mapAllUnit:Object,
+  toMapPatterns:Object,
 }
 
 var mutations={
@@ -253,6 +254,9 @@ var mutations={
   },
   mapAllUnit(state,data){
     state.mapAllUnit=data;
+  },
+  toMapPatterns(state,data){
+    state.toMapPatterns=data;
   },
 }
 

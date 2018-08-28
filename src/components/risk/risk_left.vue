@@ -7,8 +7,7 @@
 					<canvas id="canvas-big" width="260" height="200"></canvas>
 				</div>
 				<div class="tool-charmaxvalue">
-					<p class="line-height86 size-60 font-blue"><span class="size-100">{{unitAssessScore}}</span></p>
-					<div id="myChart1" style="width: 130%;height:50px;margin: 0 auto;"></div>
+					<p class="line-height86 size-60 font-blue"><span class="size-100">{{unitAssessScore?unitAssessScore:"0"}}</span></p>
 				</div>
 			</div>
 
@@ -107,50 +106,71 @@
 		      </div>
 		    </div>
 		    <div class="table-responsive">
-									<table class="table size-12 table-condensed toolroute-table margin-top10  padding-left15 padding-right15">
-										<thead>
-											<tr>
-												<th>建筑名称</th>
-												<th>所属单位</th>
-												<th class="safe">安全评分</th>
-												<th class="risk">风险系数</th>
-												<th>操作</th>
-											</tr>
-										</thead>
-										<tbody id="">
-											<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
-												<td>{{item.buildingName}}</td>
-												<td>
-													<el-tooltip content="单位名称" placement="top">
-														<span>{{item.unitName}}</span>
-													</el-tooltip>
-												</td>
-												<td class="safe">
-													<el-tooltip placement="top">
-														<div slot="content">安全评分 8.0</div>
-														<span v-if="Number((10-item.totalScore)/100).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-														<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=2 && Number((10-item.totalScore)/100).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-														<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=4 && Number((10-item.totalScore)/100).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-														<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-													</el-tooltip>
-												</td>
-												<td class="risk">
-													<el-tooltip placement="top">
-														<div slot="content">风险系数 20.56%</div>
-														<span>{{item.totalScore}}</span>
-													</el-tooltip>
-												</td>
-												<td>
-													<a v-on:click="toitmeinfo(item)">
-														<el-tooltip content="查看详情" placement="top">
-															<i class="fas fa-chevron-circle-right"></i>
-														</el-tooltip>
-													</a>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+				<table class="table size-12 table-condensed toolroute-table margin-top10  padding-left15 padding-right15">
+					<thead>
+						<tr>
+							<th>所属单位</th>
+							<th>建筑名称</th>
+							<th>报警火情</th>
+							<th>隐患危险</th>
+							<th>设备故障</th>
+							<th>预案编制</th>
+							<th>气象因素</th>
+							<th>室内活动</th>
+							<th class="safe">安全评分</th>
+							<th class="risk">风险系数</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="">
+						<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
+							<td>
+								<el-tooltip content="单位名称" placement="top">
+									<span>{{item.unitName}}</span>
+								</el-tooltip>
+							</td>
+							<td>{{item.buildingName}}</td>
+							<td>{{item.alarmScore}}</td>
+							<td>{{item.troubleScore}}</td>
+							<td>{{item.deviceScore}}</td>
+							<td>{{item.prearrangeScore}}</td>
+							<td>{{item.weatherScore}}</td>
+							<td>{{item.innerScore}}</td>
+							<td class="safe">
+								<el-tooltip placement="top">
+									<div slot="content">安全评分 8.0</div>
+									<span v-if="Number((10-item.totalScore)/100).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+									<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=2 && Number((10-item.totalScore)/100).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+									<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=4 && Number((10-item.totalScore)/100).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+									<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+								</el-tooltip>
+							</td>
+							<td class="risk">
+								<el-tooltip placement="top">
+									<div slot="content">风险系数 20.56%</div>
+									<span>{{item.totalScore}}</span>
+								</el-tooltip>
+							</td>
+							<td>
+								<a v-on:click="toitmeinfo(item)">
+									<el-tooltip content="查看详情" placement="top">
+										<i class="fas fa-chevron-circle-right"></i>
+									</el-tooltip>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<li class="upd-pagin">
+				<div>
+					<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
+					</el-pagination>
+					<span>{{Math.ceil(tableData.totalRow/this.queryRiskList_parameter.pageSize)}}页</span>
+					<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.queryRiskList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="handleCurrentChange">
+					</el-pagination>
 				</div>
+			</li>
 		  </section>
       </div>      
     </el-dialog>   
@@ -215,8 +235,14 @@
 				riskCount_parameter: {
 					unitId:null
 				},
+				riskCountResult: {
+					socre:0,
+					troubleTotal:0,
+					dangerousTotal:0,
+					alarmTotal:0
+				},
 				//风险评估参数-返回
-				unitAssessScore: Object,
+				unitAssessScore: null,
 				// 表格-请求
 				queryRiskList_parameter: {
 					unitId: null,
@@ -429,6 +455,7 @@
 		},
 		mounted() {
 			this.$store.commit("route_path", this.$route.path);
+			this.chart_left(this.riskCountResult);
 			this.getRiskData(); //风险统计 
 			this.getRiskTable(); //风险表格
 		}
