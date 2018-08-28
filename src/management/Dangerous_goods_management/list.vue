@@ -125,11 +125,11 @@
       <div class="maps map">
           <managementMap-vue></managementMap-vue>
       </div>
-      <div class="floorMap maps" style="display:none;">
+      <div class="floorMap maps" style="display:none;position:relative;left:0;top:0;">
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
-        <img id="imgPic" :src="this.svgUrl" class="img-responsive"  @click="addDevice()">
+        <img id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
       </div>
     </aside>
   </div>
@@ -139,7 +139,7 @@
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isName,isvalidName,isLng } from '../../assets/js/validate';
-import { getTopLeftRate } from '../../assets/js/imgPoint';
+import { vControl,setPoint } from '../../assets/js/pointDevice';
     export default {
       data() {
         var Name=(rule, value,callback)=>{
@@ -277,8 +277,10 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
                   'floorNumber':this.form.floorNumber,
                   'roomId':this.form.roomId,
                   'roomNumber':this.form.roomNumber,
-                  'pointX':this.form.point.pointX,
-                  'pointY':this.form.point.pointY,
+                  'pointX':this.form.point[0],
+                  'pointY':this.form.point[1],
+                  'xRate':this.form.Rate[0],
+                  'yRate':this.form.Rate[1],
                   'nickName':this.form.nickName,
                   'createTime':this.form.createTime,
                   'cont':this.form.cont
@@ -362,10 +364,18 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             }
           })
         },
-        addDevice(){
+        addDevice(pChoice,event){
+        
           // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
-          this.form.Rate = [getTopLeftRate().leftRate,getTopLeftRate().topRate];
-          console.log(this.form.Rate)
+          vControl(pChoice,event);
+          // console.log(window.leftRate)
+          let xRate = window.leftRate;
+          let yRate = window.topRate;
+          this.form.Rate = [xRate,yRate];
+          $('#alarmDiv').remove();
+          $('.floorMap').append('<div id="alarmDiv"></div>');
+
+          setPoint('icon-weixianpin-xian-','alarmDiv');
         }
       },
       computed:{
@@ -412,8 +422,8 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             $('.map').hide();
             $('.floorMap').show();
             $("#imgPic").on("load",function(){
-              var winwidth = window.screen.width;
-              var winheight = window.screen.height;
+              var winwidth = $('.floorMap').width;
+              var winheight =$('.floorMap').height;
               var fjwidth = $('#imgPic').width();
               var fjheight = $('#imgPic').height();
               var newwidth=0;

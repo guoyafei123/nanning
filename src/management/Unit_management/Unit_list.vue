@@ -48,9 +48,8 @@
           <el-form-item label="单位地址" prop="location" class="not-null">
             <el-input v-model="form.location" class="col-sm-8"></el-input>
           </el-form-item>
-          <el-form-item label="经纬度" prop="pointX" class="not-null">
-            <el-input v-model="form.point.pointX" class="col-sm-4"></el-input>
-            <el-input v-model="form.point.pointY" class="col-sm-4"></el-input>
+          <el-form-item label="经纬度" prop="point" class="not-null">
+            <el-input v-model="form.point" class="col-sm-8"></el-input>
             <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
               <i class="el-icon-warning size-14"></i>
             </el-tooltip>
@@ -91,7 +90,7 @@
 <script>
     import{ mapState } from "vuex";
     import managementMapVue from '../managementMap';
-    import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
+    import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
     export default {
       data() {
         var validPhone=(rule, value,callback)=>{
@@ -121,6 +120,15 @@
               callback()
             }
         }
+        var Lng=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入坐标'))
+            }else  if (!isLng(value)){
+              callback(new Error('请输入正确的坐标点'))
+            }else {
+              callback()
+            }
+        }
         return {
           labelPosition: 'top',
           form: {
@@ -132,10 +140,7 @@
             firemenName:'',
             firemenTel:'',          
             // corporation:'',
-            point:{
-              pointX:'',
-              pointY:''
-            }
+            point:''
           },
           isShow:false,
           fileVerification:'',//图片验证
@@ -155,8 +160,8 @@
             firemenTel:[
               { required: true, trigger: 'blur', validator: validPhone }
             ],
-            pointX:[
-              { required: true, trigger: 'blur', message: '请填写经纬度' }
+            point:[
+              { required: true, trigger: 'blur', validator: Lng }
             ]
           }
         }
@@ -229,8 +234,8 @@
                   'firemenName':this.form.firemenName,
                   'firemenTel':this.form.firemenTel,
                   // 'corporation':this.form.corporation,
-                  'pointX':this.form.point.pointX,
-                  'pointY':this.form.point.pointY
+                  'pointX':this.form.point[0],
+                  'pointY':this.form.point[1]
                 },
                 type: 'POST',
                 dataType: "plain",
@@ -262,9 +267,7 @@
       },
       watch:{
         buildPoint(){
-          this.form.point.pointX = this.buildPoint[0];
-          this.form.point.pointY = this.buildPoint[1];
-          console.log(this.form.point.pointX)
+          this.form.point = this.buildPoint;
         }
       },
       computed:mapState([

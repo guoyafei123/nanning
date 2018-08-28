@@ -83,7 +83,13 @@
   background-color: #111!important;
   border-color: #222!important;
 }
-#manage-center .modal-content .is-disabled>.el-input__inner:hover {
+
+#manage-center .modal-content  .el-input.is-disabled .el-input__inner {
+    color: #666!important;
+    background-color: #111!important;
+}
+#manage-center .modal-content .el-select .el-input.is-disabled .el-input__inner:hover {
+
   color: #666!important;
   background-color: #111!important;
 }
