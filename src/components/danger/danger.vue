@@ -207,13 +207,10 @@
 								<div class="col-sm-7">
 									<div class="personinfo">
 										<p>
-											<span class="size-20 font-blue">中心小学</span>
-											<el-tooltip content="安全评分" placement="top">
-											<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
-										</el-tooltip>
+											<span class="size-20 font-blue">{{queryById.name !='Object' ?queryById.name:'全部单位'}}</span>
 										</p>
-										<p class="text-left padding0">
-											<span><i class="fas fa-industry"></i> 中心小学</span>
+										<p>
+											<span><i class="el-icon-location"></i> {{queryById.location?queryById.location:'-'}}</span>
 										</p>
 									</div>
 								</div>
@@ -565,7 +562,11 @@
 				troubleDetail_parameter: {
 					troubleId: 156
 				},
-				troubleDetail: Object
+				troubleDetail: Object,
+				queryById_parameter:{
+					unitId:null
+				},
+				queryById:Object
 			};
 		},
 		computed: mapState(["unitid"]),
@@ -576,14 +577,32 @@
 				} else {
 					this.getunitid = null;
 				}
+				this.queryById_parameter.unitId=this.getunitid;
 				this.troubleList_parameter.unitId = this.getunitid;
 				this.troubleCount_parameter.unitId = this.getunitid;
 				this.troubleRate_parameter.unitId = this.getunitid;
 				this.getTable();
 				this.getData();
+				this.queryByIds();
 			}
 		},
 		methods: {
+			queryByIds(){
+				this.$fetch(
+						"/api/unit/queryById",
+						this.queryById_parameter
+					).then(response => {
+						if(response.errorCode==0) {
+							this.queryById = response.data.unit
+						}else{
+							this.queryById.name='全部单位'
+							this.queryById.location='-'
+						}
+					})
+					.then(err => {
+						//console.log(err);
+					});
+			},
 			chooseTimeRange(t) {
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
@@ -933,16 +952,19 @@
 				this.troubleList_parameter.unitId = sessionStorage.unitid;
 				this.troubleCount_parameter.unitId = sessionStorage.unitid;
 				this.troubleRate_parameter.unitId = sessionStorage.unitid;
+				this.queryById_parameter.unitId=sessionStorage.unitid;
 			}
 			if(sessionStorage.unitid == 0) {
 				this.troubleList_parameter.unitId = null;
 				this.troubleCount_parameter.unitId = null;
 				this.troubleRate_parameter.unitId = null;
+				this.queryById_parameter.unitId=null;
 			}
 			this.$store.commit("route_path", this.$route.path);
 			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
+			this.queryByIds();
 			let that = this;
 			$('.alarmdate b').click(function() {
 				$(this).addClass('indexdateactive').siblings().removeClass('indexdateactive');

@@ -85,7 +85,7 @@
 								</li>
 								<li>
 									<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="lineOption" placeholder="请选择" @change="tolineitem">
-										<el-option v-for="item in queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
+										<el-option v-for="item in queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
 										</el-option>
 									</el-select>
 									<div class="float-right margin-top5">
@@ -394,7 +394,7 @@
 									<ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
 										<li>
 											<p class="font-blue size-50 ">
-												3/30
+												{{queryPlanDetailsplanDetails.finishAmount}}/{{queryPlanDetailsplanDetails.amount}}
 											</p>
 										</li>
 										<li>
@@ -419,15 +419,15 @@
 								<div class="col-sm-12  font-gray-999 padding-right0">
 									<div class="row text-center margin-bottom30">
 										<div class="col-sm-4 personnel-borderright">
-											<p class="size-16 font-white">12</p>
+											<p class="size-16 font-white">{{queryPlanDetailsplanDetails.troubleCount}}</p>
 											<p>隐患发现数</p>
 										</div>
 										<div class="col-sm-4 personnel-borderright">
-											<p class="size-16 font-white">56</p>
+											<p class="size-16 font-white">{{queryPlanDetailsplanDetails.userCount}}</p>
 											<p>巡检人数</p>
 										</div>
 										<div class="col-sm-4">
-											<p class="size-16 font-white">8</p>
+											<p class="size-16 font-white">{{queryPlanDetails.nodeCount}}</p>
 											<p>节点数量</p>
 										</div>
 									</div>
@@ -440,19 +440,19 @@
 								<div class="row textandimg-main padding-left15 size-12 margin-top20">
 									<div class="col-sm-12">
 										<span>路线最新激活时间 </span>
-										<strong>2018-08-09 08:00:00</strong>
+										<strong>{{queryPlanDetailsinspectionPlan.createTime}}</strong>
 									</div>
 									<div class="col-sm-12">
 										<span>路线激活人 </span>
-										<strong>段亚伟</strong>
+										<strong>{{queryPlanDetailsinspectionPlan.createUserName}}</strong>
 									</div>
 									<div class="col-sm-12">
 										<span>路线删除时间 </span>
-										<strong>2018-08-09 09:00:00</strong>
+										<strong>{{queryPlanDetailsinspectionPlan.delTime?queryPlanDetailsinspectionPlan.delTime:'-'}}</strong>
 									</div>
 									<div class="col-sm-12">
 										<span>路线删除人 </span>
-										<strong>段亚伟</strong>
+										<strong>{{queryPlanDetailsinspectionPlan.delName?queryPlanDetailsinspectionPlan.delName:'-'}}</strong>
 									</div>
 								</div>
 							</div>
@@ -545,35 +545,13 @@
 					unitId: ''
 				},
 				queryInspectionNameList: Object,
-				// 下拉框
-				options: [{
-						value: "选项1",
-						label: "路线名称1"
-					},
-					{
-						value: "选项2",
-						label: "路线名称2"
-					},
-					{
-						value: "选项3",
-						label: "路线名称3"
-					},
-					{
-						value: "选项4",
-						label: "路线名称4"
-					},
-					{
-						value: "选项5",
-						label: "路线名称5"
-					}
-				],
 				lineOption: "全部路线",
 				queryInspectionNameListvalueTwo: '全部路线',
 				lookroutebool: false,
 				// 饼状图参数-请求
 				queryTrendPieGraph_parameter: {
-					unitId: 4,
-					planId: 486
+					unitId: null,
+					planId: 377
 				},
 				// 饼状图参数-返回
 				queryTrendPieGraph: {
@@ -582,33 +560,27 @@
 				},
 				// 曲线图请求数据
 				queryTrendMapGraph_parameter: {
-					unitId: 4,
-					startTime: "2018-06-01",
-					endTime: "2018-08-09"
+					unitId: null,
+					startTime: null,
+					endTime: null
 				},
 				queryTrendMapGraph: {},
 				// 巡检路线详情参数
 				queryPlanUserDetails_parameter: {
-					id: '92'
+					id: null
 				},
 				queryPlanUserDetails: Object,
 				inspectionPlanUser:Object,
 				queryPlanUserDetailsListNode:Object,
 				queryPlanUserDetailsListNodeend:Object,
 				queryPlanDetails_parameter: {
-					inspectionPlanId: 377,
+					inspectionPlanId: null,
 					startTime: null,
 					endTime: null
 				},
 				queryPlanDetails: Object,
-				queryUnitBuildList_parameter: {
-					unitId: 4
-				},
-				queryUnitBuildList: Object,
-				queryInspectionLineList_parameter: {
-					unitId: 4
-				},
-				queryInspectionLineList: Object,
+				queryPlanDetailsplanDetails:Object,
+				queryPlanDetailsinspectionPlan:Object,
 				queryById_parameter:{
 					unitId:null
 				},
@@ -627,7 +599,15 @@
 					this.getunitid=null;
 				}
 				this.queryById_parameter.unitId=this.getunitid;
+				this.planInspectionCount_parameter.unitId=this.getunitid;
+				this.queryPlanUserList_parameter.unitId=this.getunitid;
+				this.queryInspectionNameList_parameter.unitId=this.getunitid;
+				this.queryTrendPieGraph_parameter.unitId=this.getunitid;
+				this.queryTrendMapGraph_parameter.unitId=this.getunitid;
 				this.queryByIds();
+				this.getData();
+				this.getTable();
+
 			}
 		},
 		components: {
@@ -658,16 +638,16 @@
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
 				this.queryTrendMapGraph_parameter.startTime = st;
 				this.queryTrendMapGraph_parameter.endTime = et;
-				// this.queryPlanDetails_parameter.startTime = st;
-				// this.queryPlanDetails_parameter.endTime = et;
+				this.queryPlanDetails_parameter.startTime = st;
+				this.queryPlanDetails_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
 				this.queryTrendMapGraph_parameter.startTime = startDate;
 				this.queryTrendMapGraph_parameter.endTime = startDate;
-				// this.queryPlanDetails_parameter.startTime = startDate;
-				// this.queryPlanDetails_parameter.endTime = startDate;
+				this.queryPlanDetails_parameter.startTime = startDate;
+				this.queryPlanDetails_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -718,6 +698,7 @@
 						if(response) {
 							let data = response.data;
 							//console.log(data);
+							this.queryInspectionNameList=Object;
 							this.queryInspectionNameList = data.listInspectionName;
 							this.queryInspectionNameList.unshift({
 								id: 0,
@@ -826,7 +807,7 @@
 					});
 
 			},
-			lookroute(data) {
+			lookroute() {
 				//console.log(this.lookroutebool);
 				if(this.lookroutebool) {
 					$(".inspection-iteminfo")
@@ -838,32 +819,25 @@
 					$(".inspection-lineitem")
 						.addClass("display-block")
 						.removeClass("display-none");
-					查看路线详情
 					this.$fetch(
 					  "api/inspection/queryPlanDetails",
 					  this.queryPlanDetails_parameter
 					)
 					  .then(response => {
 					    if (response) {
-					      this.queryPlanDetails= response.data;
-					      //console.log(this.queryPlanDetails);
-					      // draw_piemin()
-
-					      // let data = response.data.result.dateMap;
-					      // let a=[],b=[];
-					      // for (var value in data) {
-					      //   a.push(value);
-					      //   b.push(data[value]);
-					      // }
-					      // this.draw_line(
-					      //   "charlookline",response.data.planDetails.planMap
-					      // );
+						  this.queryPlanDetails= response.data;
+						  this.queryPlanDetailsplanDetails=response.data.planDetails;
+						  this.queryPlanDetailsinspectionPlan=response.data.inspectionPlan;
+						  console.log(this.queryPlanDetailsplanDetails);
+							this.draw_piemax1(
+								'charlookline2',
+								this.queryPlanDetailsplanDetails
+							)
+					      	this.draw_line(
+								"charlookline", this.queryPlanDetailsplanDetails.planMap
+							);
 					    }
 					  })
-					  .then(err => {
-					    //console.log(err);
-					  });
-					this.getceshi();
 				}
 
 			},
@@ -879,11 +853,41 @@
 					.removeClass("display-block");
 			},
 			tolineitem() {
-				this.lookroutebool = true;
-				$('#lookroute').removeClass('upd-btn-dis');
-				this.queryPlanUserList_parameter.inspectionName = this.lineOption;
-				// //console.log(data.name)
-				this.getTable();
+				if(this.lineOption!='全部路线'){
+					this.lookroutebool = true;
+					$('#lookroute').removeClass('upd-btn-dis');
+					this.queryPlanUserList_parameter.inspectionName = this.lineOption;
+					this.getTable();
+
+					
+
+					this.queryInspectionNameList.forEach(element => {
+						console.log(element);
+						if(element.name==this.lineOption){
+							var id=element.id;
+							console.log(id);
+							this.queryPlanDetails_parameter.inspectionPlanId=id;
+							this.lookroute();
+							return;
+						}
+					});
+				}else{
+					this.lookroutebool = false;
+					$('#lookroute').addClass('upd-btn-dis');
+					this.queryPlanUserList_parameter.inspectionName = null;
+					this.getTable();
+
+					$(".inspection-lineinfo")
+						.addClass("display-block")
+						.removeClass("display-none");
+					$(".inspection-iteminfo")
+						.addClass("display-none")
+						.removeClass("display-block");
+					$(".inspection-lineitem")
+						.addClass("display-none")
+						.removeClass("display-block");
+				}
+				
 			},
 			draw_piemin(id, data) {
 				let value;
@@ -952,6 +956,87 @@
 						}
 					}
 				];
+				var char = {
+					tooltip: {
+						trigger: "item",
+						// formatter: "{a} <br/>{b} {c}次"
+						formatter: function(data) {
+							var name = "";
+							if(data.name.substring(0, 3) == "完成率") {
+								name = "已完成";
+							} else {
+								name = data.name;
+							}
+							return name + ":" + data.value + "次";
+						}
+					},
+					series: [{
+						name: "说明:",
+						type: "pie",
+						radius: [0, "70%"],
+						color: ["#bad616", "#333"],
+						data: d
+					}]
+				};
+				let chars = this.$echarts.init(document.getElementById(id));
+				chars.setOption(char);
+			},
+			draw_piemax1(id, data) {
+				let d;
+				
+				if(data.amount!=0){
+					var fin_per = data.finishAmount / data.amount * 100;
+					 d= [{
+							value: data.finishAmount,
+							name: "完成率 " + fin_per.toFixed(2) + "%",
+							labelLine: {
+								normal: {
+									show: false
+								}
+							},
+							label: {
+								normal: {
+									position: "inner",
+									show: true
+								}
+							}
+						},
+						{
+							value: data.amount - data.finishAmount,
+							name: "未完成",
+							labelLine: {
+								normal: {
+									show: false
+								}
+							},
+							label: {
+								normal: {
+									position: "inner",
+									show: false
+								}
+							}
+						}
+					];
+				}else{
+					d= [{
+							value: data.finishAmount,
+							name: "完成率 100%",
+							labelLine: {
+								normal: {
+									show: false
+								}
+							},
+							label: {
+								normal: {
+									position: "inner",
+									show: true
+								}
+							}
+						},
+						
+					];
+				}
+				
 				var char = {
 					tooltip: {
 						trigger: "item",
@@ -1047,83 +1132,11 @@
 				let charf = this.$echarts.init(document.getElementById(id));
 				charf.setOption(char);
 			},
-			getmap_queryUnitBuildList() {
-				// 请求路线列表
-				this.$fetch(
-						"/api/building/queryUnitBuildList",
-						this.queryUnitBuildList_parameter
-					)
-					.then(response => {
-						if(response) {
-							this.queryUnitBuildList = response.data;
-							this.$store.commit('queryUnitBuildList', this.queryUnitBuildList);
-						}
-					})
-					.then(err => {
-						//console.log(err);
-					});
-			},
-			getmap_queryInspectionLineList() {
-				// 请求路线列表
-				this.$fetch(
-						"/api/inspection/queryInspectionLineList",
-						this.queryInspectionLineList_parameter
-					)
-					.then(response => {
-						if(response) {
-							this.queryInspectionLineList = response.data;
-							this.$store.commit('queryInspectionLineList', this.queryInspectionLineList);
-						}
-					})
-					.then(err => {
-						//console.log(err);
-					});
-			},
 
 			// 锁定/关闭
 			goBack() {
 				$(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
 			},
-			getceshi() {
-				var pie = {
-					tooltip: {
-						trigger: "item",
-						formatter: "{a} <br/>{b}: {c} ({d}%)"
-					},
-					series: [{
-						name: "访问来源",
-						type: "pie",
-						selectedMode: "single",
-						radius: [0, "70%"],
-						label: {
-							normal: {
-								position: "inner"
-							}
-						},
-						labelLine: {
-							normal: {
-								show: false
-							}
-						},
-						color: ["#bad616", "#333"],
-						data: [{
-								value: 335,
-								name: "50%",
-								selected: true
-							},
-							{
-								value: 679,
-								name: ""
-							}
-						]
-					}]
-				};
-				let mypie1 = this.$echarts.init(document.getElementById("charlookline"));
-				mypie1.setOption(pie);
-				let mypie2 = this.$echarts.init(document.getElementById("charlookline2"));
-				mypie2.setOption(pie)
-			}
-
 		},
 		mounted() {
 			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
@@ -1137,8 +1150,6 @@
 			this.defaultTimeVaule();
 			this.getData();
 			this.getTable();
-			this.getmap_queryUnitBuildList();
-			this.getmap_queryInspectionLineList();
 		}
 	};
 </script>

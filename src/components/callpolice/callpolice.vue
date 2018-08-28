@@ -148,7 +148,12 @@
 			<div class="overlay"></div>
 			<!-- <call_right-vue></call_right-vue> -->
 			<template>
+
 				<div class="toolright">
+					<section class="map-Pattern">
+						<button @click="toMapPattern(1)">报警点</button>
+						<button @click="toMapPattern(2)">热力图</button>
+					</section>
 					<!-- 筛选 -->
 					<section class="my-filter padding5 bg-gray-222 clearfix">
 						<div class="col-sm-12 padding0">
@@ -164,13 +169,10 @@
 						<div class="col-sm-7">
 							<div class="personinfo">
 								<p>
-									<span class="size-20 font-blue">中心小学</span>
-									<el-tooltip content="安全评分" placement="top">
-										<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
-									</el-tooltip>
+									<span class="size-20 font-blue">{{queryById.name !='Object' ?queryById.name:'全部单位'}}</span>
 								</p>
-								<p class="text-left padding0">
-									<span><i class="fas fa-industry"></i> 中心小学</span>
+								<p>
+									<span><i class="el-icon-location"></i> {{queryById.location?queryById.location:'-'}}</span>
 								</p>
 							</div>
 						</div>
@@ -499,7 +501,11 @@
 					alarmId: 555
 				},
 				getAlarmDetail: Object,
-				infoShow: true
+				infoShow: true,
+				queryById_parameter:{
+					unitId:null
+				},
+				queryById:Object
 			};
 		},
 		computed: mapState([
@@ -517,12 +523,33 @@
 				this.queryAlarmStats_parameter.unitId = this.getunitid;
 				this.getHistoryAlarmRate_parameter.unitId = this.getunitid;
 				this.getAlarmCount_parameter.unitId = this.getunitid;
+				this.queryById_parameter.unitId=this.getunitid;
+				this.queryByIds();
 				this.getTable();
 				this.getData();
 
 			}
 		},
 		methods: {
+			toMapPattern(type){
+				this.$store.commit('toMapPatterns', type);
+			},
+			queryByIds(){
+				this.$fetch(
+						"/api/unit/queryById",
+						this.queryById_parameter
+					).then(response => {
+						if(response.errorCode==0) {
+							this.queryById = response.data.unit
+						}else{
+							this.queryById.name='全部单位'
+							this.queryById.location='-'
+						}
+					})
+					.then(err => {
+						//console.log(err);
+					});
+			},
 			chooseTimeRange(t) {
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
@@ -936,17 +963,20 @@
 				this.queryAlarmStats_parameter.unitId = sessionStorage.unitid;
 				this.getHistoryAlarmRate_parameter.unitId = sessionStorage.unitid;
 				this.getAlarmCount_parameter.unitId = sessionStorage.unitid;
+				this.queryById_parameter.unitId=sessionStorage.unitid;
 			}
 			if(sessionStorage.unitid == 0) {
 				this.getAlarmList_parameter.unitId = null;
 				this.queryAlarmStats_parameter.unitId = null;
 				this.getHistoryAlarmRate_parameter.unitId = null;
 				this.getAlarmCount_parameter.unitId = null;
+				this.queryById_parameter.unitId=null;
 			}
 			this.$store.commit('route_path', this.$route.path);
 			this.defaultTimeVaule();
 			this.getTable();
 			this.getData();
+			this.queryByIds();
 			$("[data-toggle='tooltip']").tooltip();
 			let that = this;
 			$('.alarmdate b').click(function() {
