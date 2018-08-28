@@ -311,7 +311,7 @@
             <p class="col-sm-8">
               <template v-if="item.userId!=0 || item.userId!=null">
                 <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
-                <i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>
+                <i class="icon iconfont icon-rengongbaojing-mian-"><span>人工报警</span></i>
               </template>
               <template v-if="item.userId==0 || item.userId==null">
                 <i class="icon iconfont icon-shebei-mian-"><span>{{item.deviceMac}}</span></i>

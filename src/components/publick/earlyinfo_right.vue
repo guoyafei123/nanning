@@ -79,7 +79,7 @@
 							<p class="col-sm-8">
 							<template v-if="aleamAndtroubleInfos.userId!=0 || aleamAndtroubleInfos.userId!=null">
 								<i class="icon iconfont icon-xunjianyuan-mian-"><span>{{aleamAndtroubleInfos.nickName}}</span></i>
-								<i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>
+								<i class="icon iconfont icon-rengongbaojing-mian-"><span>人工报警</span></i>
 							</template>
 							<template v-if="aleamAndtroubleInfos.userId==0 || aleamAndtroubleInfos.userId==null">
 								<i class="icon iconfont icon-shebei-mian-"><span>{{aleamAndtroubleInfos.deviceMac}}</span></i>

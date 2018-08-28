@@ -64,6 +64,11 @@ import ControlRoomLogVue from '../management/ControlRoomLog/ControlRoomLog';
 import ControlRoomLog_AllVue from '../management/ControlRoomLog/all';
 import Add_alarmVue from '../management/Add_alarm/Add_alarm';
 import Add_alarm_ListVue from '../management/Add_alarm/list';
+import Risk_managementVue from '../management/Risk_management/Risk_management';
+import Risk_managementAllVue from '../management/Risk_management/all';
+import Risk_managementUnitVue from '../management/Risk_management/unit';
+import Risk_managementBuildVue from '../management/Risk_management/build';
+import Risk_managementEditVue from '../management/Risk_management/edit';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -229,6 +234,18 @@ export default new Router({
         { path:'/Message_management/activity',component:Message_managementActivityVue},
         { path:'/Message_management/notice',component:Message_managementNoticeVue},
         { path:'/Message_management',redirect:'/Message_management/notice'}
+      ]
+    },
+    {
+      path:'/Risk_management',
+      component:Risk_managementVue,
+      children:[
+        { path:'/Risk_management/build',component:Risk_managementBuildVue},
+        { path:'/Risk_management/edit',component:Risk_managementEditVue},
+        { path:'/Risk_management/unit',component:Risk_managementUnitVue},
+        { path:'/Risk_management/Risk_management',component:Risk_managementVue},
+        { path:'/Risk_management/all',component:Risk_managementAllVue},
+        { path:'/Risk_management',redirect:'/Risk_management/all'}
       ]
     },
     {
