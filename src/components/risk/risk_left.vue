@@ -25,7 +25,7 @@
 							<img id="zoombox" src="../../assets/images/jpg01.jpg">
 						</div> -->
 						<p class="font-blue size-16">风险评估
-							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666">
+							<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" @click="fullList = true">
 					            <el-tooltip content="全屏" placement="top">
 						            <i class="icon iconfont icon-weibiaoti10 size-14"></i>
 						        </el-tooltip>
@@ -89,6 +89,47 @@
 				</ul>
 			</div>
 		</section>
+    <!-- 大列表弹窗 -->
+    <el-dialog show-close :visible.sync="fullList" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">      
+      <div class="dialog-content clearfix">
+      	<button type="button" class="btn-close position-absolute-right" @click="fullList = false">
+         <i class="el-icon el-icon-close"></i>关闭
+      	</button>
+          <section class="Risk_management">
+    <!-- 标题 -->
+    <div class="main_header clearFix">
+      <div class="main_title float-left clearFix">
+        <i class="icon iconfont icon-kongzhitai_"></i>
+        <h2>权限分配</h2>
+      </div>
+    </div>
+    <div class="main_all_content">
+      <div class="main_content_table">
+        <el-table
+          border
+          :highlight-current-row="true"
+          <el-table-column
+            prop="Serial_number"
+            type="index"
+            sortable
+            label="序号">
+          </el-table-column>
+          <el-table-column
+            prop="rname"
+            label="组名称">
+          </el-table-column>
+          <el-table-column
+            label="查看权限">
+            <template slot-scope="scope">
+              <button class="btn-on">查看</button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </div>
+  </section>
+      </div>      
+    </el-dialog>
 	</div>
 </template>
 
@@ -97,6 +138,7 @@
 	export default {
 		data() {
 			return {
+				fullList: false,
 				// 单选按钮
 				workervalue: 1,
 				pickerOptions2: {
