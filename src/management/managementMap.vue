@@ -17,8 +17,8 @@
           zoom:16,
           point:[108.363609,22.815612],
           mp:Object,
-          buildingIner:[],
-          buildingOut:[],
+          deviceListInner:[],
+          deviceListOutside:[],
           inspectionNodes:[],
           iconByType:{
                     1:'icon-ranqiganying-mian-',
@@ -286,7 +286,7 @@
           return marker;
         },
         legend_landmark(content, id) {
-          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-jianzhu-xian-"></i></i></div>`;
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-jianzhu-xian-"></i></i></div>`;
           return html;
         },
         addlandmarker(id, value, p) {
@@ -321,7 +321,7 @@
         },
         legend_landmarker(content,id) {
           
-            var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.unitName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
+            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
           
           return html;
         },
@@ -358,7 +358,7 @@
           return marker;
         },
         legend_landmarkerType(id,content,type) {
-          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont ${ this.iconByType[type] }"></i></i></div>`;
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont ${ this.iconByType[type] }"></i></i></div>`;
           
           return html;
         },
@@ -394,7 +394,7 @@
         },
         legend_landmarkDanger(content,id) {
           
-          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.name }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i></div>`;
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.name }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i></div>`;
           
           return html;
         },
@@ -444,12 +444,41 @@
           })
         },
         DeviceMaps(){
-          this.$fetch("/api/building/buildingOfDeviceTotal",{
+          this.$fetch("/api/device/queryDeviceOfBuildingByGroup",{
             unitId:this.Unit
           }).then(res=>{
-            console.log(res.data.buildingIner);
-            this.buildingIner = res.data.buildingIner ;
-            this.buildingIner.forEach(item=>{
+            console.log(res.data.deviceListInner);
+            this.deviceListInner = res.data.deviceListInner ;
+            this.deviceListInner.forEach(item=>{
+              this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
+              $(document).on('click', "#map"+item.id,()=>{
+                $('.floorMap').show();
+                $('.map').hide();
+                this.$store.commit('buildUnit',item.id);
+              });
+            })
+            this.deviceListOutside = res.data.deviceListOutside ;
+            console.log(this.deviceListOutside);
+            this.deviceListOutside.forEach(item=>{
+              this.mp.addOverlay(this.addlandmarkerType(item.id,item.name,[item.pointX,item.pointY],item.deviceTypeId));
+              $(document).on('click', "#map"+item.id,()=>{
+                $('.plan').show();        
+                $('.total').hide();
+                $('.mapTable').hide();
+                $('.floorMap').hide();
+                $('.map').show();
+                this.$store.commit('deviceId',item.id);
+              });
+            })
+          })
+        },
+        Danger(){
+          this.$fetch("/api/trouble/queryUnsolvedTroubleByGroup",{
+            unitId:this.dangerUnit
+          }).then(res=>{
+            console.log(res.data.pager.result.innerTrouble);
+            this.innerTrouble = res.data.pager.result.innerTrouble ;
+            this.innerTrouble.forEach(item=>{
               this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
               $(document).on('click', "#map"+item.id,()=>{
                 $('.floorMap').show();
@@ -527,6 +556,12 @@
             this.DeviceMaps();
           }
         },
+        dangerUnit(){
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Dangerous_goods_management/maps'){
+            this.Danger();
+          }
+        },
         inspectionId(){
           this.mp.clearOverlays();
           if(this.$route.path == '/Inspection_plan/maps'){
@@ -555,7 +590,7 @@
         }
         if(this.$route.path == '/Dangerous_goods_management/maps'){
           this.mp.clearOverlays();
-          this.DeviceMaps();
+          this.Danger();
         }
         if(this.$route.path == '/Inspection_plan/maps'){
           this.mp.clearOverlays();
@@ -570,7 +605,8 @@
         'buildPoint',
         'Unit',
         'DeviceList',
-        'inspectionId'
+        'inspectionId',
+        'dangerUnit'
       ])
     }
 </script>
