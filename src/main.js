@@ -13,7 +13,6 @@ import store from './vuex/store';
 import sockjs from 'sockjs-client';
 import moment from 'moment';
 import panzoom from 'panzoom';
-import 'echarts/extension/bmap/bmap';
 
 // echarts
 import echarts from 'echarts';

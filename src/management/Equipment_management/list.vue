@@ -337,7 +337,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               var area = document.getElementById('floorImg');
               panzoom((area),{
                 maxZoom:1,
-                minZoom:0.5
+                minZoom:1
               });
             }
           })
@@ -473,7 +473,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           let yRate = window.topRate;
           this.form.Rate = [xRate,yRate];
           $('#alarmDiv').remove();
-          $('.floorMap').append('<div id="alarmDiv"></div>');
+          $('#floorImg').append('<div id="alarmDiv"></div>');
 
           setPoint(this.iconByType[this.form.equipmentId],'alarmDiv');
         }
