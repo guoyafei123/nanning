@@ -22,7 +22,7 @@
             </section>
             <!-- 详情 -->
             <section class="bulid-iteminfo display-none">
-              <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>                
+              <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
                 <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
                     <!-- 已选择 -->
                     <div class="personinfo">
