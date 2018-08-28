@@ -27,7 +27,7 @@
               <!-- 表格 -->
               <div class="main_content_table position-relative big-list-table">
                 <div class="table-scroll">
-                  <table class="table toolroute-table" cellpadding="0" cellspacing="0">
+                  <table class="table toolroute-table">
                     <thead>
                       <tr>
                         <th>B级要素</th>
@@ -102,12 +102,154 @@
           <!-- 单位模板 -->
           <el-tab-pane>
             <span slot="label"><i class="icon iconfont icon-danweiguanli-xian-2"></i>单位权重</span>
-              222
+            <div class="main_content_table position-relative big-list-table">
+                <div class="table-scroll">
+                  <table class="table toolroute-table">
+                    <thead>
+                      <tr>
+                        <th>B级要素</th>
+                        <th>B级权重</th>
+                        <th>C级要素</th>
+                        <th>C级权重</th>
+                        <th>D级要素</th>
+                        <th>D级权重</th>
+                        <th>评分</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     <tr>
+                      <td rowspan="7">多屏监控</td>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                     <tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                     <tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
           </el-tab-pane>
           <!-- 建筑模板 -->
           <el-tab-pane>
             <span slot="label"><i class="icon iconfont icon-jianzhu-xian-"></i>建筑权重</span>
-              333
+            <div class="main_content_table position-relative big-list-table">
+                <div class="table-scroll">
+                  <table class="table toolroute-table">
+                    <thead>
+                      <tr>
+                        <th>B级要素</th>
+                        <th>B级权重</th>
+                        <th>C级要素</th>
+                        <th>C级权重</th>
+                        <th>D级要素</th>
+                        <th>D级权重</th>
+                        <th>评分</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     <tr>
+                      <td rowspan="7">多屏监控</td>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                     <tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                     <tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
         </el-tab-pane>
         </el-tabs> 
   </section>

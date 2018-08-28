@@ -1321,6 +1321,7 @@ height: 640px;
 .big-list-table table {
   margin-bottom: 0;
   font-size: 12px;
+  border-bottom: 1px solid #222; 
 }
 .big-list-table table thead {
 }
