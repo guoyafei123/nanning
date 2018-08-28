@@ -520,7 +520,7 @@
         this.$store.commit('unitid', this.unitvalue);
       },
       getuserinfo() {
-        this.username = localStorage.name;
+        this.username = localStorage.name
       },
       management() {
         this.$store.commit('mapShow', false);

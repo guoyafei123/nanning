@@ -417,7 +417,7 @@
 						<section>
 							<div class="toolcount">
 								<div class="col-sm-12  font-gray-999 padding-right0">
-									<div class="row text-center">
+									<div class="row text-center margin-bottom30">
 										<div class="col-sm-4 personnel-borderright">
 											<p class="size-16 font-white">12</p>
 											<p>隐患发现数</p>
@@ -437,7 +437,7 @@
 						<section>
 							<div class="toolcount">
 								<h4 class="p-title">路线信息</h4>
-								<div class="row textandimg-main padding-left15 size-12">
+								<div class="row textandimg-main padding-left15 size-12 margin-top20">
 									<div class="col-sm-12">
 										<span>路线最新激活时间 </span>
 										<strong>2018-08-09 08:00:00</strong>
@@ -458,7 +458,7 @@
 							</div>
 						</section>
 						<section>
-							<div class="toolcount margin-top10">
+							<div class="toolcount margin-top20">
 								<h4 class="p-title">巡检完成率历史趋势</h4>
 								<div id="charlookline" style="width: 100%;height:180px;margin: 0 auto;"></div>
 							</div>
@@ -596,9 +596,9 @@
 				queryPlanUserDetailsListNode:Object,
 				queryPlanUserDetailsListNodeend:Object,
 				queryPlanDetails_parameter: {
-					inspectionPlanId: 486,
-					startTime: '2018-06-01',
-					endTime: '2018-08-09'
+					inspectionPlanId: 377,
+					startTime: null,
+					endTime: null
 				},
 				queryPlanDetails: Object,
 				queryUnitBuildList_parameter: {
@@ -658,16 +658,16 @@
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
 				this.queryTrendMapGraph_parameter.startTime = st;
 				this.queryTrendMapGraph_parameter.endTime = et;
-				this.queryPlanDetails_parameter.startTime = st;
-				this.queryPlanDetails_parameter.endTime = et;
+				// this.queryPlanDetails_parameter.startTime = st;
+				// this.queryPlanDetails_parameter.endTime = et;
 				this.getData();
 			},
 			defaultTimeVaule() {
 				var startDate = this.getNowFormatDate();
 				this.queryTrendMapGraph_parameter.startTime = startDate;
 				this.queryTrendMapGraph_parameter.endTime = startDate;
-				this.queryPlanDetails_parameter.startTime = startDate;
-				this.queryPlanDetails_parameter.endTime = startDate;
+				// this.queryPlanDetails_parameter.startTime = startDate;
+				// this.queryPlanDetails_parameter.endTime = startDate;
 				this.dateValue = [startDate,startDate];
 			},
 			//获取当前时间：
@@ -838,31 +838,31 @@
 					$(".inspection-lineitem")
 						.addClass("display-block")
 						.removeClass("display-none");
-					// 查看路线详情
-					// this.$fetch(
-					//   "api/inspection/queryPlanDetails",
-					//   this.queryPlanDetails_parameter
-					// )
-					//   .then(response => {
-					//     if (response) {
-					//       this.queryPlanDetails= response.data;
-					//       //console.log(this.queryPlanDetails);bfvmhjb
-					//       // draw_piemin()
+					查看路线详情
+					this.$fetch(
+					  "api/inspection/queryPlanDetails",
+					  this.queryPlanDetails_parameter
+					)
+					  .then(response => {
+					    if (response) {
+					      this.queryPlanDetails= response.data;
+					      //console.log(this.queryPlanDetails);
+					      // draw_piemin()
 
-					//       // let data = response.data.result.dateMap;
-					//       // let a=[],b=[];
-					//       // for (var value in data) {
-					//       //   a.push(value);
-					//       //   b.push(data[value]);
-					//       // }
-					//       // this.draw_line(
-					//       //   "charlookline",response.data.planDetails.planMap
-					//       // );
-					//     }
-					//   })
-					//   .then(err => {
-					//     //console.log(err);
-					//   });
+					      // let data = response.data.result.dateMap;
+					      // let a=[],b=[];
+					      // for (var value in data) {
+					      //   a.push(value);
+					      //   b.push(data[value]);
+					      // }
+					      // this.draw_line(
+					      //   "charlookline",response.data.planDetails.planMap
+					      // );
+					    }
+					  })
+					  .then(err => {
+					    //console.log(err);
+					  });
 					this.getceshi();
 				}
 
