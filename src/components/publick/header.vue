@@ -38,7 +38,7 @@
             <li class="header-time">
 
               <p class="font-blue size-12">
-                <i class="icon iconfont icon-qinglang-xian- size-14"></i><span>{{weatherData.weather}}</span>
+               <!-- <i class="icon iconfont icon-qinglang-xian- size-14"></i>--><span>{{weatherData.weather}}</span>
               </p>
               <p class="size-36 font-white">
                 {{TimeFormat(date)}}
@@ -219,7 +219,7 @@
         date: new Date(),
         // 弹窗
         signIn: false,
-        personnelInfo: false,        
+        personnelInfo: false,
 
         areavalue: "选项2",
         unitvalue: "全部单位",
