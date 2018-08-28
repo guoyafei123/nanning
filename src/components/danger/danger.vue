@@ -13,7 +13,7 @@
 							<div class="set-width-50 font-gray-999 padding-right0 size-12">
 								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 									<li>
-										<h1 class="toolcount-p1 font-yellow">0</h1>
+										<h1 class="toolcount-p1 font-yellow">{{queryTroubleStats.countTroubleSum ? queryTroubleStats.countTroubleSum:'0'}}</h1>
 									</li>
 									<li>
 										<p class="size-10">Dangers Number</p>
@@ -50,7 +50,7 @@
 							<div class="set-width-50 display-inline-block font-gray-999 toolcount-right size-12">
 								<ul class="padding-left0 margin-bottom0">
 									<li>
-										<h1 class="toolcount-p1 font-red">0</h1>
+										<h1 class="toolcount-p1 font-red">{{queryTroubleStats.countDangerTroubleSum ? queryTroubleStats.countDangerTroubleSum:'0'}}</h1>
 									</li>
 									<li>
 										<p class="size-10">Current Dangerous</p>
