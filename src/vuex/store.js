@@ -100,7 +100,7 @@ var mutations={
   region(state,data){
     state.region = data;
   },
-  inspectionPlanId(state,data){
+  inspectionId(state,data){
     state.inspectionId = data;
   },
   form(state,data){

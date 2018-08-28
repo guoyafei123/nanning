@@ -48,7 +48,7 @@
 
                     </div>
                     <div class="col-sm-3 text-center">
-                      <span class="size-36 font-red">{{buildCountDataSocre.totalScore ? buildCountDataSocre.totalScore : "-"}}</span>
+                      <span class="size-36 font-red">{{buildDataTotalScore ? buildDataTotalScore : "-"}}</span>
                       <small>安全评分</small>
 							</div>
 						</div>
@@ -210,6 +210,7 @@
       },
       //建筑统计返回对象
       buildCountDataSocre: Object,
+      buildDataTotalScore: 0,
       buildCountDataStats: Object,
       // 表格-请求
       queryBuildList_parameter: {
@@ -268,8 +269,9 @@
           ).then(response => {
             if (response.data) {
                 let data = response.data;
-                this.buildCountDataStats = response.data.buildStats,
-                this.buildCountDataSocre = response.data.assessScore
+                this.buildCountDataStats = response.data.buildStats;
+                this.buildCountDataSocre = response.data.assessScore;
+                this.buildDataTotalScore = Number((10-this.buildCountDataSocre.totalScore)/100).toFixed(1);
                 this.$store.commit("buildCountDataSocre", this.buildCountDataSocre);
             }
         });

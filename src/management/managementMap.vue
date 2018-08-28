@@ -17,8 +17,9 @@
           zoom:16,
           point:[108.363609,22.815612],
           mp:Object,
-          buildingIner:[],
-          buildingOut:[],
+          deviceListInner:[],
+          deviceListOutside:[],
+          inspectionNodes:[],
           iconByType:{
                     1:'icon-ranqiganying-mian-',
                     2:'icon-ganyanqi-',
@@ -285,7 +286,7 @@
           return marker;
         },
         legend_landmark(content, id) {
-          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-jianzhu-xian-"></i></i></div>`;
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-jianzhu-xian-"></i></i></div>`;
           return html;
         },
         addlandmarker(id, value, p) {
@@ -320,7 +321,7 @@
         },
         legend_landmarker(content,id) {
           
-            var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.unitName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
+            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
           
           return html;
         },
@@ -343,7 +344,7 @@
             $(div).addClass("landmark_marker");
             div.style.position = "absolute";
 
-            $(div).append(that.legend_landmarkerType( this._value, this._id , this._type));
+            $(div).append(that.legend_landmarkerType( this._id , this._value, this._type));
             map.getPanes().labelPane.appendChild(div);
             return div;
           };
@@ -356,9 +357,8 @@
           var marker = new landmark(new BMap.Marker(new BMap.Point(p[0], p[1])),value);
           return marker;
         },
-        legend_landmarkerType(content,id,type) {
-          
-          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.name }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont ${ this.iconByType[type] }"></i></i></div>`;
+        legend_landmarkerType(id,content,type) {
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont ${ this.iconByType[type] }"></i></i></div>`;
           
           return html;
         },
@@ -394,9 +394,34 @@
         },
         legend_landmarkDanger(content,id) {
           
-          var html = `<div id="map${ id }" class="btn" data-toggle="tooltip" data-placement="top" title="${ content.name }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i></div>`;
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.name }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i></div>`;
           
           return html;
+        },
+        addline(array, type) {
+          var pois = [];
+          for(var i = 0; i < array.length; i++) {
+            pois.push(new BMap.Point(array[i][0], array[i][1]));
+          }
+          var fillcolor = "";
+          if(type == 1) {
+            fillcolor = "#bad616";
+          } else if(type == 2) {
+            fillcolor = "#c69e00";
+          } else if(type == 3) {
+            fillcolor = "#ff7800";
+          } else {
+            fillcolor = "#ccc";
+          }
+          var polyline = new BMap.Polyline(pois, {
+            enableEditing: false, //是否启用线编辑，默认为false
+            enableClicking: true, //是否响应点击事件，默认为true
+            // icons:[icons],
+            strokeWeight: "2", //折线的宽度，以像素为单位
+            strokeOpacity: 1, //折线的透明度，取值范围0 - 1
+            strokeColor: fillcolor //折线颜色
+          });
+          return polyline;
         },
         tableDatas(){
           this.tableData.forEach(item => {
@@ -419,12 +444,12 @@
           })
         },
         DeviceMaps(){
-          this.$fetch("/api/building/buildingOfDeviceTotal",{
+          this.$fetch("/api/device/queryDeviceOfBuildingByGroup",{
             unitId:this.Unit
           }).then(res=>{
-            console.log(res.data.buildingIner);
-            this.buildingIner = res.data.buildingIner ;
-            this.buildingIner.forEach(item=>{
+            console.log(res.data.deviceListInner);
+            this.deviceListInner = res.data.deviceListInner ;
+            this.deviceListInner.forEach(item=>{
               this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
               $(document).on('click', "#map"+item.id,()=>{
                 $('.floorMap').show();
@@ -432,10 +457,10 @@
                 this.$store.commit('buildUnit',item.id);
               });
             })
-            this.buildingOut = res.data.buildingOut ;
-            console.log(this.buildingOut);
-            this.buildingOut.forEach(item=>{
-              this.mp.addOverlay(this.addlandmarkerType(item.id,item,[item.pointX,item.pointY],item.deviceTypeId));
+            this.deviceListOutside = res.data.deviceListOutside ;
+            console.log(this.deviceListOutside);
+            this.deviceListOutside.forEach(item=>{
+              this.mp.addOverlay(this.addlandmarkerType(item.id,item.name,[item.pointX,item.pointY],item.deviceTypeId));
               $(document).on('click', "#map"+item.id,()=>{
                 $('.plan').show();        
                 $('.total').hide();
@@ -446,7 +471,57 @@
               });
             })
           })
-          
+        },
+        Danger(){
+          this.$fetch("/api/trouble/queryUnsolvedTroubleByGroup",{
+            unitId:this.dangerUnit
+          }).then(res=>{
+            console.log(res.data.pager.result.innerTrouble);
+            this.innerTrouble = res.data.pager.result.innerTrouble ;
+            this.innerTrouble.forEach(item=>{
+              this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
+              $(document).on('click', "#map"+item.id,()=>{
+                $('.floorMap').show();
+                $('.map').hide();
+                this.$store.commit('buildUnit',item.id);
+              });
+            })
+            this.buildingOut = res.data.buildingOut ;
+            console.log(this.buildingOut);
+            this.buildingOut.forEach(item=>{
+              this.mp.addOverlay(this.addlandmarkerType(item.id,item.name,[item.pointX,item.pointY],item.deviceTypeId));
+              $(document).on('click', "#map"+item.id,()=>{
+                $('.plan').show();        
+                $('.total').hide();
+                $('.mapTable').hide();
+                $('.floorMap').hide();
+                $('.map').show();
+                this.$store.commit('dangerId',item.id);
+              });
+            })
+          })
+        },
+        inspection(){
+          // console.log(this.inspectionId)
+          this.$fetch("/api/admin/inspection/queryInspectionNodeByPlanId",{
+            planId:this.inspectionId
+          }).then(res=>{
+            console.log(res.data.inspectionPlan.inspectionNodes);
+            this.inspectionNodes = res.data.inspectionPlan.inspectionNodes ;
+            var linearray = [];
+
+            this.inspectionNodes.forEach(item=>{
+              linearray.push([item.pointX,item.pointY]);
+              // this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
+              if(item.buildingId == 0 && item.buildingId == '0'){
+                this.mp.addOverlay(this.addlandmarkerType(item.id,item.deviceName,[item.pointX,item.pointY],item.deviceTypeId));
+              }else{ 
+                this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY]));
+              }
+            })
+            // console.log(linearray)
+				    this.mp.addOverlay(this.addline(linearray, 1));
+          })
         },
         showInfo(e){
           this.mp.clearOverlays();
@@ -475,18 +550,24 @@
             this.tableDatas();
           }
         },
-        
         Unit(){
           this.mp.clearOverlays();
           if(this.$route.path == '/Equipment_management/maps'){
             this.DeviceMaps();
           }
+        },
+        dangerUnit(){
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Dangerous_goods_management/maps'){
+            this.Danger();
+          }
+        },
+        inspectionId(){
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Inspection_plan/maps'){
+            this.inspection();
+          }
         }
-        // InspectionMap(){
-        //   if(this.route_path=='/Inspection_plan/maps'){
-            
-        //   }
-        // },
       },
       mounted(){
         var mapStates = this.getMapToDiv('manage_map');
@@ -507,6 +588,14 @@
           this.mp.clearOverlays();
           this.DeviceMaps();
         }
+        if(this.$route.path == '/Dangerous_goods_management/maps'){
+          this.mp.clearOverlays();
+          this.Danger();
+        }
+        if(this.$route.path == '/Inspection_plan/maps'){
+          this.mp.clearOverlays();
+          this.inspection();
+        }
         this.$store.commit('iconByType',this.iconByType)
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
       },
@@ -515,7 +604,9 @@
         'InspectionMap',
         'buildPoint',
         'Unit',
-        'DeviceList'
+        'DeviceList',
+        'inspectionId',
+        'dangerUnit'
       ])
     }
 </script>

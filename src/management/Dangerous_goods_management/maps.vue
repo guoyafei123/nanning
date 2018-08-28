@@ -69,7 +69,18 @@
                     <i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i>
                   </el-tooltip>
                 </div> -->
-        <managementMap-vue></managementMap-vue>
+                <!-- 平面图楼层 -->
+          <div class="floorMap maps" style="display:none;">
+            <ul class="list-unstyled floor-item" style="top: 120px">
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+            </ul> 
+            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+              <img :src="this.svgUrl" class="img-responsive">
+            </div>
+          </div>
+          <div class="maps map">
+            <managementMap-vue></managementMap-vue>
+          </div>
         </div>
       </div>
     </aside>
@@ -78,6 +89,8 @@
 </template>
 
 <script>
+import panzoom from 'panzoom';
+import{mapState} from "vuex";
   import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
   export default {
@@ -93,14 +106,41 @@
         floorList:[],
         buildList:[],
         statusList:[],
-        optionList:[]//全部单位列表
-      
+        optionList:[],//全部单位列表
+        svgUrl:'',
+        table_list:[]
       }
     },
     components:{
       'managementMap-vue': managementMapVue,
     },
     methods: {
+      floor_btn(id){
+        console.log(id)
+        this.table_list.forEach((item)=>{
+          if(item.id == id){
+            this.svgUrl = item.svgUrl ;
+            // $('.floorMap').append('<div id="alarmDiv'+ this.imgIndex +'"></div>');
+           
+            // setPointList(this.iconByType[this.form.equipmentId],'alarmDiv'+ this.imgIndex);
+          }
+        });
+        var area = document.getElementById('floorImg');
+        panzoom((area),{
+          maxZoom:1,
+          minZoom:0.5
+        });
+      },
+      findPageBuildIngFloor(){
+        this.$fetch("/api/building/findPageBuildIngFloor",{
+          pageIndex:1,
+          pageSize:1000,
+          buildingId:this.buildUnit
+        }).then(response=>{
+          console.log(response.data.pageBuildIng.result);
+          this.table_list = response.data.pageBuildIng.result;         
+        })
+      },
       btn_add(){
         $('#right').hide();
       },
@@ -205,7 +245,11 @@
     mounted(){
       realconsole();
       this.unitSearch();
-    }
+      this.findPageBuildIngFloor();
+    },
+    computed:mapState([
+      'buildUnit'
+    ])
   };
 </script>
 <style lang="scss" scoped>

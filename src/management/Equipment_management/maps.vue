@@ -72,7 +72,9 @@
             <ul class="list-unstyled floor-item" style="top: 120px">
                 <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
             </ul> 
-            <img :src="this.svgUrl" class="img-responsive">
+            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+              <img :src="this.svgUrl" class="img-responsive">
+            </div>
           </div>
           <!-- 地图/平面图切换 -->
           <!-- <div class="floorMap popup-map-min z-index-10"  style="display:none;"> -->
@@ -117,7 +119,8 @@
 </template>
 
 <script>
-import{mapState} from "vuex"
+import panzoom from 'panzoom';
+import{mapState} from "vuex";
 import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
   export default {
@@ -152,7 +155,11 @@ import managementMapVue from '../managementMap';
             // setPointList(this.iconByType[this.form.equipmentId],'alarmDiv'+ this.imgIndex);
           }
         });
-
+        var area = document.getElementById('floorImg');
+        panzoom((area),{
+          maxZoom:1,
+          minZoom:0.5
+        });
       },
       findPageBuildIngFloor(){
         this.$fetch("/api/building/findPageBuildIngFloor",{
