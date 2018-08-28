@@ -7,8 +7,7 @@
 					<canvas id="canvas-big" width="260" height="200"></canvas>
 				</div>
 				<div class="tool-charmaxvalue">
-					<p class="line-height86 size-60 font-blue"><span class="size-100">{{unitAssessScore}}</span></p>
-					<div id="myChart1" style="width: 130%;height:50px;margin: 0 auto;"></div>
+					<p class="line-height86 size-60 font-blue"><span class="size-100">{{unitAssessScore?unitAssessScore:"0"}}</span></p>
 				</div>
 			</div>
 
@@ -236,8 +235,14 @@
 				riskCount_parameter: {
 					unitId:null
 				},
+				riskCountResult: {
+					socre:0,
+					troubleTotal:0,
+					dangerousTotal:0,
+					alarmTotal:0
+				},
 				//风险评估参数-返回
-				unitAssessScore: Object,
+				unitAssessScore: null,
 				// 表格-请求
 				queryRiskList_parameter: {
 					unitId: null,
@@ -450,6 +455,7 @@
 		},
 		mounted() {
 			this.$store.commit("route_path", this.$route.path);
+			this.chart_left(this.riskCountResult);
 			this.getRiskData(); //风险统计 
 			this.getRiskTable(); //风险表格
 		}
