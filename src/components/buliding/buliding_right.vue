@@ -22,7 +22,7 @@
             </section>
             <!-- 详情 -->
             <section class="bulid-iteminfo display-none">
-              <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>                
+              <a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
                 <div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
                     <!-- 已选择 -->
                     <div class="personinfo">
@@ -126,7 +126,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <span>房间数量 </span>
-                                <strong>{{buildBaseInfo.countRoom?buildBaseInfo.countRoom:"1"}}个</strong>
+                                <strong>{{buildBaseInfo.countRoom?buildBaseInfo.countRoom:"0"}}个</strong>
                             </div>
 
                             <div class="col-sm-6">
@@ -145,7 +145,7 @@
                                 <span>建筑维度 </span>
                                 <strong>{{buildBaseInfo.pointY?buildBaseInfo.pointY:"未知"}}</strong>
                             </div>
-                                              
+
                         </div>
                     </div>
                     <!-- 安防信息 -->
@@ -157,14 +157,14 @@
                                       <span>管理单位 </span>
                                       <strong>{{buildBaseInfo.unitName ? buildBaseInfo.unitName:"暂为空"}} </strong>
                                   </div>
-                                <div class="col-sm-6">                                   
+                                <div class="col-sm-6">
                                     <span>消防负责人 </span>
                                     <strong>{{buildBaseInfo.linkname?buildBaseInfo.linkname:"暂无"}}</strong>
                                 </div>
-                                <div class="col-sm-6">                                   
+                                <div class="col-sm-6">
                                     <span>联系电话 </span>
                                     <strong>{{buildBaseInfo.phone?buildBaseInfo.phone:"暂无"}}</strong>
-                                </div>               
+                                </div>
                               </div>
                         </div>
                     </section>
@@ -189,7 +189,7 @@
                     <!-- <P class="col-sm-5 text-right padding0">
                         <span class="text-right">
                         </span>
-                    </P> -->                        
+                    </P> -->
                 </div>
               </div>
               <section>
@@ -308,7 +308,7 @@ export default {
     buildCountDataSocre(){
       this.buildCountDataSocres=this.buildCountDataSocre;
     },
-    
+
     buildDetailinfos(){
       if(this.buildDetailinfos[0] == null){
         this.jianzhu();
@@ -326,7 +326,7 @@ export default {
       }
       this.getBuildIngAssess_parameter.unitId=this.getunitid;
       this.getData();
-      
+
     }
   },
   methods: {
@@ -414,7 +414,7 @@ export default {
           textStyle:{
               color: "#999"
           }
-          
+
         },
         series: [
           {
@@ -423,7 +423,7 @@ export default {
             radius: "55%",
             center: ["50%", "60%"],
             label: {
-              normal: {                
+              normal: {
                 color:"#fff",
                 fontsize:"10px"
               }
@@ -433,7 +433,7 @@ export default {
               { value: b, name: "2-4" },
               { value: c, name: "4-6" },
               { value: d, name: "6-8" },
-              { value: e, name: "8-10" }             
+              { value: e, name: "8-10" }
             ],
             color: ["#f13131","#ff7800","#ffb709","#bad616","#90d616"],
             itemStyle: {
@@ -545,7 +545,7 @@ export default {
     },
     getBuildDetails(){
       this.$fetch(
-          "/api/building/queryBuildDetailInfo", 
+          "/api/building/queryBuildDetailInfo",
           this.buildDetails_parameter
           ).then(response => {
             if (response.data) {
