@@ -38,7 +38,7 @@
             <li class="header-time">
 
               <p class="font-blue size-12">
-                <i class="icon iconfont icon-qinglang-xian- size-14"></i><span>{{weatherData.weather}}</span>
+               <!-- <i class="icon iconfont icon-qinglang-xian- size-14"></i>--><span>{{weatherData.weather}}</span>
               </p>
               <p class="size-36 font-white">
                 {{TimeFormat(date)}}
@@ -80,7 +80,7 @@
 					<el-dropdown-menu slot="dropdown">
 						<el-dropdown-item><span @click="signIn = true"><i
               class="icon iconfont icon-huiyuanquerendaodian size-14"></i> 打卡</span></el-dropdown-item>
-						<el-dropdown-item><span @click="personnelInfo = true"><i
+						<el-dropdown-item><span @click="getUserInfogetUserInfo()"><i
               class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</span></el-dropdown-item>
 						<el-dropdown-item><router-link to="/operationLog"><i
               class="icon iconfont icon-caozuorizhi-xian- size-14"></i> 操作日志</router-link></el-dropdown-item>
@@ -153,53 +153,26 @@
     <el-dialog show-close :visible.sync="personnelInfo" width="30%" center>
       <div class="dialog-header">
         <h3 class="el-dialog__title">个人信息</h3>
-        <small class="font-blue">瑞和家园</small>
+        <small class="font-blue">{{userInfoData.unitName?userInfoData.unitName:"-"}}</small>
         <button type="button" class="el-dialog__headerbtn" @click="personnelInfo = false">
           <i class="el-dialog__close el-icon el-icon-close"></i>
         </button>
       </div>
       <div class="dialog-content text-center clearfix">
         <div class="myhead">
-          <img src="../../assets/images/head.jpg" class="img-responsive img-circle center-block">
-          <h3>王晓波</h3>
-          <h4>职位：<span>管理员</span></h4><h4>账号：<span>15600923071</span></h4>
+          <img :src="userInfoData.headImgUrl" class="img-responsive img-circle center-block">
+          <h3>{{userInfoData.nickName?userInfoData.nickName:"-"}}</h3>
+          <h4>角色：<span>{{userInfoData.roleName?userInfoData.roleName:"-"}}</span></h4><h4>账号：<span>{{userInfoData.username?userInfoData.username:"-"}}</span></h4>
         </div>
         <ul class="mytotal list-inline col-sm-12">
-          <li><h2 class="font-blue">329</h2>
-            <p>总在线时长(h)</p></li>
-          <li><h2 class="font-red">5</h2>
+          <li><h2 class="font-red">{{userCountData.alarmConfirmCount}}</h2>
             <p>处理报警数(次)</p></li>
-          <li><h2 class="font-yellow">17</h2>
+          <li><h2 class="font-yellow">{{userCountData.troubleConfirmCount}}</h2>
             <p>处理隐患数(次)</p></li>
         </ul>
       </div>
       <span slot="footer" class="dialog-footer">
 		    <el-button @click="personnelInfo = false">关 闭</el-button>
-		  </span>
-    </el-dialog>
-    <!-- 签到弹窗 -->
-    <el-dialog show-close :visible.sync="signIn" width="30%" center>
-      <div class="dialog-header">
-        <h3 class="el-dialog__title">工作考勤</h3>
-        <small class="font-blue">瑞和家园</small>
-        <button type="button" class="el-dialog__headerbtn" @click="signIn = false">
-          <i class="el-dialog__close el-icon el-icon-close"></i>
-        </button>
-      </div>
-      <div class="dialog-content text-center clearfix">
-        <h2 class="font-blue margin-bottom20" style="display: none;"><i
-          class="el-icon-circle-check-outline size-100"></i><br>今日已打卡</h2>
-        <div class="myhead">
-          <img src="../../assets/images/QR.png" class="img-responsive center-block qrcode">
-          <h2 class="font-red margin-top20">今日尚未打卡</h2>
-          <h4>二维码<span class="font-blue">2分钟</span>更新一次，请使用<span class="font-blue">智慧消防APP</span>扫一扫打卡</h4>
-        </div>
-        <div class="mytotal margin-top10">
-          <h5>本月未打卡 <span class="font-red">3</span>次</h5>
-        </div>
-      </div>
-      <span slot="footer" class="dialog-footer">
-		    <el-button @click="signIn = false">关 闭</el-button>
 		  </span>
     </el-dialog>
       <!-- 签到弹窗 -->
@@ -246,7 +219,7 @@
         date: new Date(),
         // 弹窗
         signIn: false,
-        personnelInfo: false,        
+        personnelInfo: false,
 
         areavalue: "选项2",
         unitvalue: "全部单位",
@@ -275,6 +248,11 @@
         getTransmissionDate_parameter:{
           unitId:null
         },
+        queryUserInfo_parameter:{
+          userId:null
+        },
+        userCountData: Object,
+        userInfoData: Object
       };
     },
     computed: mapState([
@@ -282,8 +260,8 @@
     ]),
     watch: {
       userinfo() {
-        // this.getuserinfo=this.userinfo;
-        // //console.log(this.userinfo);
+        //this.getuserinfo=this.userinfo;
+        //console.log(this.userinfo);
       }
     },
     //其他
@@ -498,6 +476,19 @@
           }
         });
       },
+      getUserInfogetUserInfo(){
+        this.queryUserInfo_parameter.userId = localStorage.userId;
+        this.personnelInfo = true;
+        this.$fetch("/api/alarmstats/queryUserData",
+                this.queryUserInfo_parameter)
+                .then(response => {
+                if (response.data) {
+                  let data = response.data;
+                  this.userCountData = data.info;
+                  this.userInfoData = data.info.user;
+                }
+				});
+      },
       optionchange() {
         //console.log(this.unitvalue);
         sessionStorage.unitid = this.unitvalue;
@@ -505,7 +496,6 @@
       },
       getuserinfo() {
         this.username = localStorage.name
-        console.log(this.userinfo.user);
       },
       management() {
         this.$store.commit('mapShow', false);

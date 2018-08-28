@@ -252,9 +252,9 @@
 }
 /*聚合*/
 .early-single var p i:first-child {
-    /* min-width: 140px;
-    max-width: 160px;
-    display: inline-block; */
+    min-width: 80px;
+    max-width: 80px;
+    /*display: inline-block;*/
 }
 .early-more i span {
     color: #fff!important;
@@ -357,8 +357,14 @@
         content: "\e62c";
     }
 /*报警详情*/
-#early #right {
+#early #right {    
+    top: 120px;
+}
+#early #right .toolright {
     background-color: #000;
+    padding-left: 0;
+    margin-left: 20px;
+    height: 78%;
 }
 #early #common-cont {
     padding-left: 0;
