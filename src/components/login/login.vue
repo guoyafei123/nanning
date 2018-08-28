@@ -102,10 +102,10 @@
 						)
 						.then(response => {
 							if(response) {
-								//console.log(response);
-								if(response.field == '20034') {
+								//console.log(response);当前隐患数
+								if(response.errorCode == '20034') {
 									return callback(new Error('验证码错误,请重新输入'));
-								} else if(response.field == '20044') {
+								} else if(response.errorCode == '20044') {
 									return callback(new Error('验证码已过期,请重新获取'));
 								} else if(response.field == 'ok') {
 									callback();
