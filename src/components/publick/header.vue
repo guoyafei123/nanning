@@ -80,7 +80,7 @@
 					<el-dropdown-menu slot="dropdown">
 						<el-dropdown-item><span @click="signIn = true"><i
               class="icon iconfont icon-huiyuanquerendaodian size-14"></i> 打卡</span></el-dropdown-item>
-						<el-dropdown-item><span @click="personnelInfo = true"><i
+						<el-dropdown-item><span @click="getUserInfogetUserInfo()"><i
               class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</span></el-dropdown-item>
 						<el-dropdown-item><router-link to="/operationLog"><i
               class="icon iconfont icon-caozuorizhi-xian- size-14"></i> 操作日志</router-link></el-dropdown-item>
@@ -153,23 +153,21 @@
     <el-dialog show-close :visible.sync="personnelInfo" width="30%" center>
       <div class="dialog-header">
         <h3 class="el-dialog__title">个人信息</h3>
-        <small class="font-blue">瑞和家园</small>
+        <small class="font-blue">{{userInfoData.unitName?userInfoData.unitName:"-"}}</small>
         <button type="button" class="el-dialog__headerbtn" @click="personnelInfo = false">
           <i class="el-dialog__close el-icon el-icon-close"></i>
         </button>
       </div>
       <div class="dialog-content text-center clearfix">
         <div class="myhead">
-          <img src="../../assets/images/head.jpg" class="img-responsive img-circle center-block">
-          <h3>王晓波</h3>
-          <h4>职位：<span>管理员</span></h4><h4>账号：<span>15600923071</span></h4>
+          <img :src="userInfoData.headImgUrl" class="img-responsive img-circle center-block">
+          <h3>{{userInfoData.nickName?userInfoData.nickName:"-"}}</h3>
+          <h4>角色：<span>{{userInfoData.roleName?userInfoData.roleName:"-"}}</span></h4><h4>账号：<span>{{userInfoData.username?userInfoData.username:"-"}}</span></h4>
         </div>
         <ul class="mytotal list-inline col-sm-12">
-          <li><h2 class="font-blue">329</h2>
-            <p>总在线时长(h)</p></li>
-          <li><h2 class="font-red">5</h2>
+          <li><h2 class="font-red">{{userCountData.alarmConfirmCount}}</h2>
             <p>处理报警数(次)</p></li>
-          <li><h2 class="font-yellow">17</h2>
+          <li><h2 class="font-yellow">{{userCountData.troubleConfirmCount}}</h2>
             <p>处理隐患数(次)</p></li>
         </ul>
       </div>
@@ -275,6 +273,11 @@
         getTransmissionDate_parameter:{
           unitId:null
         },
+        queryUserInfo_parameter:{
+          userId:null
+        },
+        userCountData: Object,
+        userInfoData: Object
       };
     },
     computed: mapState([
@@ -282,8 +285,8 @@
     ]),
     watch: {
       userinfo() {
-        // this.getuserinfo=this.userinfo;
-        // //console.log(this.userinfo);
+        //this.getuserinfo=this.userinfo;
+        //console.log(this.userinfo);
       }
     },
     //其他
@@ -498,13 +501,26 @@
           }
         });
       },
+      getUserInfogetUserInfo(){
+        this.queryUserInfo_parameter.userId = localStorage.userId;
+        this.personnelInfo = true;
+        this.$fetch("/api/alarmstats/queryUserData",
+                this.queryUserInfo_parameter)
+                .then(response => {
+                if (response.data) {
+                  let data = response.data;
+                  this.userCountData = data.info;
+                  this.userInfoData = data.info.user;
+                }
+				});
+      },
       optionchange() {
         //console.log(this.unitvalue);
         sessionStorage.unitid = this.unitvalue;
         this.$store.commit('unitid', this.unitvalue);
       },
       getuserinfo() {
-        this.username = localStorage.name
+        this.username = localStorage.name;
       },
       management() {
         this.$store.commit('mapShow', false);
