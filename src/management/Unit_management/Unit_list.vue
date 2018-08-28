@@ -32,6 +32,9 @@
               <el-option label="合资企业" value="合资企业"></el-option>
               <el-option label="私营企业" value="私营企业"></el-option>
             </el-select>
+            <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
+              <i class="el-icon-warning size-14"></i>
+            </el-tooltip>
           </el-form-item>          
           <!-- <el-form-item label="法人代表" prop="corporation" class="not-null col-sm-4">
             <el-input v-model="form.corporation"></el-input>
@@ -46,7 +49,10 @@
             <el-input v-model="form.location" class="col-sm-8"></el-input>
           </el-form-item>
           <el-form-item label="经纬度" prop="point" class="not-null">
-            <el-input v-model="form.point" class="col-sm-4"></el-input>
+            <el-input v-model="form.point" class="col-sm-8"></el-input>
+            <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
+              <i class="el-icon-warning size-14"></i>
+            </el-tooltip>
           </el-form-item>   
           <el-form-item label="消防负责人" prop="firemenName" class="not-null col-sm-4">
             <el-input v-model="form.firemenName"></el-input>

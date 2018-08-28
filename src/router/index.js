@@ -59,6 +59,8 @@ import Authority_allocation_AllVue from '../management/Authority_allocation/all'
 import Authority_allocation_AllocationVue from '../management/Authority_allocation/allocation';
 import ControlRoomLogVue from '../management/ControlRoomLog/ControlRoomLog';
 import ControlRoomLog_AllVue from '../management/ControlRoomLog/all';
+import Add_alarmVue from '../management/Add_alarm/Add_alarm';
+import Add_alarm_ListVue from '../management/Add_alarm/list';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -220,6 +222,14 @@ export default new Router({
         { path:'/Message_management/activity',component:Message_managementActivityVue},
         { path:'/Message_management/notice',component:Message_managementNoticeVue},
         { path:'/Message_management',redirect:'/Message_management/notice'}
+      ]
+    },
+    {
+      path:'/Add_alarm',
+      component:Add_alarmVue,
+      children:[
+        { path:'/Add_alarm/list',component:Add_alarm_ListVue},
+        { path:'/Add_alarm',redirect:'/Add_alarm/list'}
       ]
     },
     {

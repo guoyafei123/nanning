@@ -91,14 +91,12 @@
           <div class="col-sm-12">
             <div class="row">
               <el-form-item label="图片和视频">
-                <div>
                   <div class="mainmenuone cf">
-                      <ul class="cf">
+                      <ul class="cf col-xs-12">
                         <li><input id="file" type="file" name="img"/></li>
                         <!-- <li><input id="file2" type="file" name="img"/></li> -->
                       </ul>
                   </div>
-                </div>
                 <!-- <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>  -->
                 <!-- <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span>  -->
               </el-form-item>
@@ -117,6 +115,9 @@
       <div class="main_footer">
         <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
         <a class="btn-back" @click="back">返回</a>
+        <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
+              <i class="el-icon-warning size-14"></i>
+            </el-tooltip>
       </div>
     </aside>
     <!-- 地图 -->

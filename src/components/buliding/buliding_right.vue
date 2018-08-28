@@ -29,7 +29,7 @@
                             <p>
                             <span class="size-20 font-blue">{{buildBaseInfo.name?buildBaseInfo.name:"暂无名称"}}</span>
                             <el-tooltip content="安全评分" placement="top">
-                            <span class="bgbox-min bg-blue font-black size-10">评分{{buildTotalScore?buildTotalScore:"0"}}</span>
+                            <span class="bgbox-min bg-blue font-black size-10">评分{{buildTotalScore ? buildTotalScore:"0"}}</span>
                           </el-tooltip>
                             <span class="float-right">
                                     <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property?buildBaseInfo.property:"无"}}</span>
@@ -269,6 +269,7 @@ export default {
         startTime: "2018-06-01",
 				endTime: "2018-08-09"
       },
+      itemDataInfo:Object,
       getBuildIngAssess: Object,
       //建筑安全评分级别
       buildAssessScore: Object,
@@ -300,6 +301,7 @@ export default {
     // 建筑详情
     tobuilditem(){
       this.builddata =this.tobuilditem;
+      this.itemDataInfo = this.tobuilditem;
       this.buildDetails_parameter.buildingId = this.builddata.id;
       this.getBuildDetails();
     },
