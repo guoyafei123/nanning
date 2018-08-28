@@ -1,104 +1,115 @@
 <template>
-  <section>
-    <!-- 标题 -->
-      <div class="main_header position-relative clearFix">
-        <!-- 标题 -->
-          <div class="main_title float-left clearfix">
-            <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
-            <h2>单位风险</h2>
-          </div>
-          <!-- 切换 -->
-          <div class="main_nav_tab position-absolute-top">
-            <router-link to="/Risk_management/unit" class="active"><i class="icon iconfont icon-fengxianfenxi-xian-"></i>单位风险</router-link>
-            <router-link to="/Risk_management/build"><i class="icon iconfont icon-fengxianfenxi-xian-"></i>建筑风险</router-link>
-          </div>
-          <!-- 发布 -->
-          <div class="main_nav float-right">
-            <router-link><span class="btn_add" @click="btn_add"><i class="icon iconfont icon-fabu"></i>发布</span></router-link>
-          </div>
-      </div>
-    <!-- 公告 -->
-    <div class="main_all_content">
-      <div class="main_content_top">
-        <!-- 筛选 -->
-        <el-form ref="form" :model="form" class="float-left">
-          <el-select v-model="unit" placeholder="选择单位" class="select">
-            <el-option label="全部单位" value=""></el-option>
-            <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-          <el-select
-              v-model="building"
-            placeholder="选择建筑"  class="start">
-              <el-option label="室外" value="0"></el-option>
-              <el-option
-                v-for="item in buildList"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select>
-        </el-form>
-      </div>
-      <!-- 表格 -->
-      <div class="main_content_table">
-        <el-table
-          :data="tableData"
-          border
-          :highlight-current-row="true"
-          :default-sort = "{prop: 'Serial_number', order: 'descending'}">
-          <el-table-column
-            prop="Serial_number"
-            fixed="left"
-            type="index"
-            sortable
-            label="序号">
-          </el-table-column>
-          <el-table-column
-            prop="title"
-            :show-overflow-tooltip="true"
-            label="标题">
-          </el-table-column>
-          <el-table-column
-            prop="senderUnitName"
-            label="所属单位">
-          </el-table-column>
-          <el-table-column
-            prop="senderName"
-            label="发布人">
-          </el-table-column>
-          <el-table-column
-            prop="sendTime"
-            label="发布时间">
-          </el-table-column>        
-          <el-table-column
-            fixed="right"
-            label="操作">
-            <template slot-scope="scope">
-              <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-      <!-- 分页 -->
-      <div class="main_content_bottom">
-        <div class="bottom_con">
-          <el-pagination
-                         @current-change="handleCurrentChange"
-                         :current-page="currentPage4"
-                         :page-size="10"
-                         layout="prev, pager, next"
-                         :total="totalList">
-          </el-pagination>
-          <span>{{page}}页</span>
-          <el-pagination
-                         @current-change="handleCurrentChange"
-                         :current-page="currentPage4"
-                         :page-size="10"
-                         layout="total"
-                         :total="totalList">
-          </el-pagination>
-        </div>
-      </div>
-    </div>
+  <section class="em-tab">
+    <el-tabs>
+      <!-- 修改评分 -->
+          <el-tab-pane class="risk-score">
+            <span slot="label"><i class="icon iconfont icon-fengxianfenxi-xian-"></i>风险评估</span>
+            <!-- 主体 -->
+            <div class="main_all_content">
+              <!-- 筛选 -->
+              <div class="main_content_top">
+                <!-- 筛选 -->
+                <el-form ref="form" status-icon :model="form" class="float-left">
+                  <el-select v-model="unit" placeholder="选择单位" class="select">
+                    <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
+                  <el-select
+                    v-model="building"
+                    placeholder="选择建筑"  class="start">
+                      <el-option
+                        v-for="item in buildList"
+                        :label="item.name"
+                        :value="item.id">
+                      </el-option>
+                    </el-select>
+                </el-form>
+              </div>
+              <!-- 表格 -->
+              <div class="main_content_table position-relative big-list-table">
+                <div class="table-scroll">
+                  <table class="table toolroute-table" cellpadding="0" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>B级要素</th>
+                        <th>B级权重</th>
+                        <th>C级要素</th>
+                        <th>C级权重</th>
+                        <th>D级要素</th>
+                        <th>D级权重</th>
+                        <th>评分</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     <tr>
+                      <td rowspan="7">多屏监控</td>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                     <tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                     <tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr><tr>
+                      <td>灭火设备定位</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                     </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+          <!-- 单位模板 -->
+          <el-tab-pane>
+            <span slot="label"><i class="icon iconfont icon-danweiguanli-xian-2"></i>单位权重</span>
+              222
+          </el-tab-pane>
+          <!-- 建筑模板 -->
+          <el-tab-pane>
+            <span slot="label"><i class="icon iconfont icon-jianzhu-xian-"></i>建筑权重</span>
+              333
+        </el-tab-pane>
+        </el-tabs> 
   </section>
 </template>
 
@@ -107,112 +118,11 @@
   export default {
     data() {
       return {
-        unit:'',
-        labelPosition: 'top',
-        value4: '',
-        tableData: [],//单位列表
-        page:null,//总页数
-        currentPage4: 1,//当前页
-        totalList:null,//总条数
-        deviceIndex:'',
-        deviceName:'',
-        optionList:[]
       }
     },
     methods: {
-      btn_add(){
-        $('#right').hide();
-      },
-      handleCurrentChange(val) {
-        this.currentPage4 = val;
-        $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
-      },
-      show3(row){//跳转
-        console.log(row.id);
-        this.$store.commit('currentPage',this.currentPage4);
-        this.$store.commit('noticeId',row.id);
-        this.$store.commit('unitNotice',this.unit);
-      },
-      tableList(){
-        this.$fetch(
-          "/api/event/querySystemMessage",{
-            currentPage:this.currentPage4,
-            pageSize:14,
-            unitId:this.unit,
-            startTime:this.value4[0],
-            endTime:this.value4[1]
-          }
-        )
-          .then(response => {
-            //console.log(response);
-            if (response.data.pager) {
-              this.totalList = response.data.pager.totalRow;
-              this.tableData = response.data.pager.result;
-              this.tableData.forEach((item,index)=>{
-                if(index == this.tableData.length-1){
-                  this.$store.commit('currentPage',this.currentPage4);
-                  this.$store.commit('noticeId',item.id);
-                  //console.log(item.id)
-                }
-                if(item.id == this.deviceIndex){
-                  this.$store.commit('peopleTableData',item);
-                  this.$store.commit('unitNotice',this.unit);
-                  console.log(item.id)
-                }
-              })
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
-              }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
-              }
-            }
-          })
-          .then(err => {
-            // //console.log(err);
-          });
-      },
-      unitSearch(){
-          this.$fetch(
-            "/api/unit/queryUnit"
-          )
-          .then(response => {
-            if (response) {
-              //console.log(response);
-              this.optionList = response.data.unitList;
-              //console.log(this.optionList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
-            }
-          })
-          .then(err => {
-            // //console.log(err);
-          });
-        }
-    },
-    mounted(){
-      realconsole();
-      this.unitSearch();
-      this.tableList();
-      $('#right').show();
-    },
-    watch:{
-      currentPage4(val, oldVal){
-        this.currentPage4 = val;
-        //console.log(this.currentPage4);
-        this.tableList();
-      },
-      unit(val,oldVal){
-        this.unit = val ;
-        this.tableList();
-      },
-      value4(val,oldVal){
-        this.value4 = val ;
-        this.tableList();
-      }
     }
-  };
+}
 </script>
-<style lang="scss" scoped>  
-
+<style lang="scss" scoped>
 </style>
