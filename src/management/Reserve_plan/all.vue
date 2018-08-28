@@ -92,8 +92,7 @@
             <template slot-scope="scope">
               <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="修改"></i></button>
               <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
-              <button><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="打印"></i></button>
-              <button><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="下载"></i></button>
+              <button><i class="fas fa-download" data-toggle="tooltip" title="下载"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>

@@ -78,17 +78,28 @@
 .el-notification__content .notify-left {
     line-height: 40px;
 }
-#manage-center .modal-content .el-select .el-input.is-disabled .el-input__inner {
+#manage-center .modal-content .is-disabled>.el-input__inner {
   color: #666!important;
   background-color: #111!important;
-  border-color: #222;
+  border-color: #222!important;
+}
+
+#manage-center .modal-content  .el-input.is-disabled .el-input__inner {
+    color: #666!important;
+    background-color: #111!important;
 }
 #manage-center .modal-content .el-select .el-input.is-disabled .el-input__inner:hover {
+
   color: #666!important;
   background-color: #111!important;
 }
-#manage-center .modal-content .el-select .el-input.is-disabled  .el-input__suffix-inner .el-input__icon{
+#manage-center .modal-content .is-disabled .el-input__suffix-inner .el-input__icon{
   display: none;
+}
+input[disabled="disabled"] {
+  color: #666!important;
+  background-color: #111!important;
+  border-color: #222!important;
 }
 /*按钮*/
 .upd-btn {
@@ -283,7 +294,17 @@ footer .el-button:hover,footer .el-button:focus {
     height: 0;
 }
 /*单选按钮*/
-
+#add-new .el-radio {
+  margin-bottom: 0;
+}
+#add-new .el-radio__inner {
+  width: 18px;
+  height: 18px;
+}
+#add-new .el-radio__inner:after {
+  width: 5px;
+  height: 10px;
+}
 .el-radio {
     margin-left: inherit!important;
     margin-bottom: 10px;

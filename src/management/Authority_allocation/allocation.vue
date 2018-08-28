@@ -5,7 +5,7 @@
                 <ul id="treeDemo" class="ztree"></ul>
             </div>
         </div>
-        <el-button size="medium" type="success" @click="success()">保存</el-button>
+        <el-button size="medium" class="btn-ok"  @click="success()">保存</el-button>
     </section>
 </template>
 <script>

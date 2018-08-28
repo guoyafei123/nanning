@@ -6,7 +6,7 @@
 		<!-- #左边 -->
 		<section id="left" class="position-fixed-left z-index-20">
 			<div class="overlay"></div>
-			<!-- <ins_left-vue v-bind:ins_planInspectionCount='ins_planInspectionCount'></ins_left-vue> -->
+			<!-- <left-vue v-bind:planInspectionCount='planInspectionCount'></left-vue> -->
 			<template>
 				<div class="toolleft margin-right0">
 					<section>
@@ -23,15 +23,15 @@
 										</li>
 										<li class="margin-top20">
 											<p>巡检路线</p>
-											<p class="font-white float-right size-14">{{ins_planInspectionCount.plancount}}</p>
+											<p class="font-white float-right size-14">{{planInspectionCount.plancount}}</p>
 										</li>
 										<li>
 											<p>巡检中</p>
-											<p class="font-blue float-right size-14">{{ins_planInspectionCount.planing}}</p>
+											<p class="font-blue float-right size-14">{{planInspectionCount.planing}}</p>
 										</li>
 										<li>
 											<p>巡检人数</p>
-											<p class="font-gray-ccc float-right size-14">{{ins_planInspectionCount.plansum}}</p>
+											<p class="font-gray-ccc float-right size-14">{{planInspectionCount.plansum}}</p>
 										</li>
 								</ul>
 							</div>
@@ -45,23 +45,23 @@
 									</li>
 									<li>
 										<p>今日完成率</p>
-										<p class="float-right size-14 font-gray-ccc">{{ins_planInspectionCount.dayRate}}</p>
+										<p class="float-right size-14 font-gray-ccc">{{planInspectionCount.dayRate}}</p>
 									</li>
 									<li>
 										<p>近7日</p>
-										<p class="float-right size-14 font-gray-ccc">{{ins_planInspectionCount.weekRate}}</p>
+										<p class="float-right size-14 font-gray-ccc">{{planInspectionCount.weekRate}}</p>
 									</li>
 									<li>
 										<p>近30日</p>
-										<p class="float-right size-14 font-gray-ccc">{{ins_planInspectionCount.monthRate}}</p>
+										<p class="float-right size-14 font-gray-ccc">{{planInspectionCount.monthRate}}</p>
 									</li>
 									<li>
 										<p>历史统计</p>
-										<p class="float-right size-14 font-gray-ccc">{{ins_planInspectionCount.historyRate}}</p>
+										<p class="float-right size-14 font-gray-ccc">{{planInspectionCount.historyRate}}</p>
 									</li>
 									<li>
 										<p class="margin-bottom0">隐患发现率</p>
-										<p class="font-orange margin-bottom0 float-right size-14">{{ins_planInspectionCount.troubleRate}}</p>
+										<p class="font-orange margin-bottom0 float-right size-14">{{planInspectionCount.troubleRate}}</p>
 									</li>
 								</ul>
 							</div>
@@ -84,12 +84,12 @@
 									</p>
 								</li>
 								<li>
-									<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="ins_queryInspectionNameListvalue" placeholder="请选择" @change="tolineitem">
-										<el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+									<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="lineOption" placeholder="请选择" @change="tolineitem">
+										<el-option v-for="item in queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
 										</el-option>
 									</el-select>
 									<div class="float-right margin-top5">
-										<!-- <a class="upd-btn upd-btn-dis" id="lookroute"  @click="lookroute">查看路线</a> -->
+										<a class="upd-btn upd-btn-dis" id="lookroute"  @click="lookroute">查看路线</a>
 										<!-- <a class="upd-btn">展开表单</a> -->
 									</div>
 								</li>
@@ -110,11 +110,34 @@
 												<!-- <td>{{(queryPlanUserList_parameter.currentPage-1)*queryPlanUserList_parameter.pageSize+index+1}}</td> -->
 												<td>{{item.idCode}}</td>
 												<td>{{item.userName}}</td>
-												<td>{{item.status}}</td>
-												<td>{{item.finishedTime}}</td>
+												
+												<!-- <td>{{item.status}}</td> -->
+												<td class="font-red " style="max-width:20px !important;">
+													<el-tooltip content="已领取" placement="top">
+														<i v-if="item.status==1" class="icon iconfont icon-yilingqu-mian- font-yellow"></i>
+													</el-tooltip>
+													<el-tooltip content="巡检中" placement="top">
+														<i v-if="item.status==2" class="icon iconfont icon-xunjianzhong-mian-1 font-blue"></i>
+													</el-tooltip>
+													<el-tooltip content="已完成" placement="top">
+														<i v-if="item.status==3" class="icon iconfont icon-yiwancheng-mian- font-gray-999"></i>
+													</el-tooltip>
+													<el-tooltip content="未完成" placement="top">
+														<i v-if="item.status==4" class="icon iconfont icon-test font-red"></i>
+													</el-tooltip>
+												</td>
+												<td>
+													<el-tooltip placement="top">
+														<div slot="content">{{item.finishedTime}}</div>
+														<span v-if="item.finishedTime!='' && item.finishedTime != null">{{(""+item.finishedTime).substring(10)}}</span>
+														<span v-if="item.finishedTime=='' || item.finishedTime == null">-</span>
+													</el-tooltip>
+												</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+														<el-tooltip content="查看详情" placement="top">
+							                                <i class="fas fa-chevron-circle-right"></i>
+							                              </el-tooltip>
 													</a>
 												</td>
 											</tr>
@@ -141,20 +164,14 @@
 		<!-- #右边 -->
 		<section id="right" class="position-fixed-right z-index-20">
 			<div class="overlay"></div>
-			<!-- <ins_right-vue v-bind:ins_planInspectionCount='ins_planInspectionCount'></ins_right-vue> -->
+			<!-- <right-vue v-bind:planInspectionCount='planInspectionCount'></right-vue> -->
 			<template>
 				<div class="toolright">
 					<!-- 筛选 -->
 					<section class="my-filter padding5 bg-gray-222 clearfix">
-						<!-- 单位筛选 -->
-						<div class="col-sm-3 padding0">
-							<el-select class="upd-elselect bg-black upd-widht100" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="瑞和家园">
-								<el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
-								</el-option>
-							</el-select>
-						</div>
+						
 						<!-- 日期筛选 -->
-						<div class="col-sm-9 padding0">
+						<div class="col-sm-12 padding0">
 							<section>
 								<div class="upd-elmdate">
 									<el-date-picker v-model="dateValue" size="mini" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" @change="chooseTimeRange">
@@ -168,20 +185,29 @@
 						<section class="margin-top20">
 							<div class="personinfo">
 								<p>
-									<span class="size-20 font-blue">巡检单号</span>
-									<span class="bgbox-min bg-gray-666 font-black size-10">巡检类型</span>
+									<span class="size-20 font-blue">{{inspectionPlanUser.idCode}}</span>
+									<span class="bgbox-min bg-gray-666 font-black size-10">
+										{{inspectionPlanUser.type==1?'举报检查':''}}
+										{{inspectionPlanUser.type==2?'群众活动':''}}
+										{{inspectionPlanUser.type==3?'例行检查':''}}
+										{{inspectionPlanUser.type==4?'智能建议的检查':''}}
+										{{inspectionPlanUser.type==5?'施工现场检查':''}}
+										{{inspectionPlanUser.type==6?'解除临时查封检查':''}}
+										{{inspectionPlanUser.type==7?'申请恢复施工使用 生产经营检查':''}}
+										{{inspectionPlanUser.type==8?'其他检查':''}}
+										</span>
 									<span class="float-right">
                       <span class="bgbox-max bg-blue font-black size-10">
-                          <i class="fas fa-flag-checkered size-12"></i> 已领取</span>
-									<span class="bgbox-max bg-blue font-black size-10">
-                          <i class="fas fa-check-circle size-12"></i> 已完成</span>
+                          <i class="fas fa-flag-checkered size-12"></i> {{inspectionPlanUser.status}}</span>
+									<!-- <span class="bgbox-max bg-blue font-black size-10">
+                          <i class="fas fa-check-circle size-12"></i> 已完成</span> -->
 									</span>
 								</p>
 								<p class="col-sm-7 text-left padding0">
-									<span><i class="fas fa-industry"></i> 中心小学</span>
+									<span><i class="fas fa-industry"></i> {{inspectionPlanUser.unitName}}</span>
 								</p>
 								<p class="col-sm-5 text-right padding0">
-									最新更新:<strong class="font-gray-999">2018-16:23 13:56:37</strong>
+									领取时间:<strong class="font-gray-999"> {{(""+inspectionPlanUser.receiveTime).substring(10)}}</strong>
 								</p>
 							</div>
 						</section>
@@ -204,8 +230,8 @@
 									<div class="toolbuildrate-people text-center position-absolute-right margin-right20">
 										<img src="../../assets/images/people.png">
 										<br/>
-										<template v-if="ins_queryPlanUserDetails.inspectionPlanUser!=null">
-											<span class="size-12 display-inline-block">{{ins_queryPlanUserDetails.inspectionPlanUser.userName}}</span>
+										<template v-if="queryPlanUserDetails.inspectionPlanUser!=null">
+											<span class="size-12 display-inline-block">{{queryPlanUserDetails.inspectionPlanUser.userName}}</span>
 										</template>
 									</div>
 									<ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
@@ -217,8 +243,8 @@
 										</li>
 										<li class="margin-top10">
 											<p>开始时间
-												<template v-if="ins_queryPlanUserDetails.inspectionPlanUser!=null">
-													<strong class="font-gray-ccc">{{ins_queryPlanUserDetails.inspectionPlanUser.startTime}}</strong>
+												<template v-if="queryPlanUserDetails.inspectionPlanUser!=null">
+													<strong class="font-gray-ccc">{{queryPlanUserDetails.inspectionPlanUser.startTime}}</strong>
 												</template>
 											</p>
 										</li>
@@ -227,15 +253,15 @@
                       </li> -->
 										<li class="row text-center padding-right16 margin-top10">
 											<div class="col-sm-4 personnel-borderright">
-												<p class="size-16 show font-yellow">{{ins_queryPlanUserDetails.totalTrouble}}</p>
+												<p class="size-16 show font-yellow">{{queryPlanUserDetails.totalTrouble}}</p>
 												<p>隐患总数</p>
 											</div>
 											<div class="col-sm-4 personnel-borderright">
-												<p class="size-16 show font-blue">{{ins_queryPlanUserDetails.finishNode}}</p>
+												<p class="size-16 show font-blue">{{queryPlanUserDetails.finishNode}}</p>
 												<p>完成节点</p>
 											</div>
 											<div class="col-sm-4">
-												<p class="size-16 show font-white">{{ins_queryPlanUserDetails.totalNode}}</p>
+												<p class="size-16 show font-white">{{queryPlanUserDetails.totalNode}}</p>
 												<p>节点总数</p>
 											</div>
 										</li>
@@ -246,10 +272,7 @@
 						<section>
 							<div class="toolbuildrate margin-top30">
 								<h4 class="p-title">任务详情
-                    <a class="float-right toolroute-padding8 popup-routebtn">
-                      <i class="icon iconfont icon-xunjian-mian- font-blue"></i> <span class="size-12 font-gray-ccc">第一季度控烟检查</span>
-                    </a>
-                  </h4>
+								</h4>
 								<div class="container-padding20 clearfix">
 									<div class="panel-group tablist-item position-relative" id="accordion" role="tablist" aria-multiselectable="true">
 										<div class="panel panel-default bg-none border-none border-radiusnone ">
@@ -257,19 +280,15 @@
 												<span class="itemtitle-rect"><i class="fas fa-angle-double-down font-black"></i></span>
 												<h4 class="panel-title">
                             <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                              -<span class="badge itemtitle-value display-inline-block margin-left10 bg-red font-black">1.6</span>
+                            {{queryPlanUserDetailsListNode.buildingName}}<span class="badge itemtitle-value display-inline-block margin-left10 bg-red font-gray-333">开始</span> 
                             </a>
                           </h4>
 											</div>
 											<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 												<div class="panel-body padding0">
 													<ul class="size-12 font-gray-999 tablist-itemul">
-														<li v-for="item in ins_queryPlanUserDetails.listNode">
+														<li v-for="item in queryPlanUserDetails.listNode">
 															<span>{{item.buildingName}}
-                                  <span class="float-right">
-                                    <i class="icon iconfont icon-yinhuan-xian- font-yellow size-14 text-left"></i>
-                                    <span class="font-blue">{{item.inspectionPlanUserId}} </span>/<span class="font-yellow">{{item.buildingId}}</span>
-															</span>
 															</span>
 														</li>
 													</ul>
@@ -280,84 +299,15 @@
                         <span class="itemtitle-rect"><i class="fas fa-flag-checkered font-black"></i></span>
 										<h4 class="panel-title">
                             <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                              -<span class="badge itemtitle-value display-inline-block margin-left10 bg-orange font-black">1.6</span>
+                              {{queryPlanUserDetailsListNodeend.buildingName}}<span class="badge itemtitle-value display-inline-block margin-left10 bg-orange font-gray-333">结束</span>
                             </a>
+							<!-- {{(queryPlanUserDetails.listNode)[(queryPlanUserDetails.listNode).length-1].buildingName}} -->
                           </h4>
 										</span>
 									</div>
 								</div>
 							</div>
 						</section>
-						<div class="table-responsive">
-							<h4 class="p-title">任务日志</h4>
-							<table class="table size-12 table-condensed toolroute-table margin-top10">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>操作时间</th>
-										<th>巡检员</th>
-										<th>动作</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>2018-09-23 08:26:36</td>
-										<td>段亚伟</td>
-										<td>
-											<span class="font-blue">任务完成</span>
-										</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>2018-09-23 08:26:36</td>
-										<td>段亚伟</td>
-										<td>
-											<span>正常打卡</span>
-										</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>2018-09-23 08:26:36</td>
-										<td>段亚伟</td>
-										<td>
-											<span>正常打卡</span>
-										</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>2018-09-23 08:26:36</td>
-										<td>段亚伟</td>
-										<td>
-											<span class="font-yellow" data-toggle="tooltip" title="二维码损坏">非正常打卡<i class="fas fa-exclamation-circle"></i></span>
-										</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>2018-09-23 08:26:36</td>
-										<td>段亚伟</td>
-										<td>
-											<span class="font-yellow" data-toggle="tooltip" title="二维码丢失">非正常打卡<i class="fas fa-exclamation-circle"></i></span>
-										</td>
-									</tr>
-									<tr>
-										<td>6</td>
-										<td>2018-09-23 08:26:36</td>
-										<td>段亚伟</td>
-										<td>
-											<span class="font-white">任务开始</span>
-										</td>
-									</tr>
-								</tbody>
-								<tfoot>
-									<tr>
-										<td><span class="font-white">导出</span></td>
-										<td><span class="font-white">打印</span></td>
-										<td colspan="3" align="right">分页</td>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
 					</section>
 
 					<section class="inspection-lineinfo">
@@ -366,20 +316,18 @@
 							<div class="col-sm-7">
 								<div class="personinfo">
 									<p>
-										<span class="size-20 font-blue">中心小学</span>
-										<el-tooltip content="安全评分" placement="top">
-										<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
-									</el-tooltip>
+										<span class="size-20 font-blue">{{queryById.name !='Object' ?queryById.name:'全部单位'}}</span>
+										<!-- <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span> -->
 									</p>
-									<p class="text-left padding0">
-										<span><i class="fas fa-industry"></i> 中心小学</span>
+									<p>
+										<span><i class="el-icon-location"></i> {{queryById.location?queryById.location:'-'}}</span>
 									</p>
 								</div>
 							</div>
 							<!-- 已选择单位巡检任务总数 -->
 							<div class="col-sm-5 font-white text-right size-12">
 								<i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 任务总数<br>
-								<span class="size-22 font-blue">1746</span>
+								<span class="size-22 font-blue">{{tableData.totalRow}}</span>
 							</div>
 						</section>
 						<section>
@@ -388,39 +336,39 @@
 								<div class="col-sm-7 font-gray-999 padding-right0 size-12">
 									<div class="row text-center margin-top30">
 										<div class="col-sm-12 text-left margin-bottom20">
-											<p>巡检路线 <span class="font-white">{{ins_planInspectionCount.plancount}} </span>&nbsp; 巡检人员 <span class="font-white">{{ins_planInspectionCount.planing}} </span></p>
+											<p>巡检路线 <span class="font-white">{{planInspectionCount.plancount}} </span>&nbsp; 巡检人员 <span class="font-white">{{planInspectionCount.planing}} </span></p>
 										</div>
 										<div class="col-sm-4 personnel-borderright">
-											<p class="size-16 font-white">{{ins_planInspectionCount.amount}}</p>
+											<p class="size-16 font-white">{{planInspectionCount.amount}}</p>
 											<p>次数统计</p>
 										</div>
 										<div class="col-sm-4 personnel-borderright">
-											<p class="size-16 font-blue">{{ins_planInspectionCount.finish}}</p>
+											<p class="size-16 font-blue">{{planInspectionCount.finish}}</p>
 											<p>已完成</p>
 										</div>
 										<div class="col-sm-4">
-											<p class="size-16 font-red">{{ins_planInspectionCount.nofinish}}</p>
+											<p class="size-16 font-red">{{planInspectionCount.nofinish}}</p>
 											<p>未完成</p>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-5 font-gray-999 padding-left0 padding-right0">
-									<div id="ins_charCount" style="width: 100%;height:150px;margin: 0 auto;"></div>
+									<div id="charCount" style="width: 100%;height:150px;margin: 0 auto;"></div>
 								</div>
 							</div>
 						</section>
 						<section>
 							<div class="toolcount position-relative">
 								<h4 class="p-title">路线巡检任务完成</h4>
-								<el-select class="upd-elselect upd-elselect-border upd-widht150 margin-top20 margin-left10" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="请选择">
-									<el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+								<el-select class="upd-elselect upd-elselect-border upd-widht150 margin-top20 margin-left10" size="mini" v-model="queryInspectionNameListvalueTwo" placeholder="请选择">
+									<el-option v-for="item in queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
 									</el-option>
 								</el-select>
 
-								<div id="ins_charCompletion" style="width: 100%;height:180px;margin: 0 auto;"></div>
+								<div id="charCompletion" style="width: 100%;height:180px;margin: 0 auto;"></div>
 								<div class="toolcount-value">
-									<template v-if="ins_queryTrendPieGraph">
-										<p class="font-gray-999 size-12">额定完成次数:<span class="font-gray-ccc">{{ins_queryTrendPieGraph.amount}}</span>次</p>
+									<template v-if="queryTrendPieGraph">
+										<p class="font-gray-999 size-12">额定完成次数:<span class="font-gray-ccc">{{queryTrendPieGraph.amount}}</span>次</p>
 									</template>
 								</div>
 							</div>
@@ -428,22 +376,24 @@
 						<section>
 							<div class="toolcount margin-top10">
 								<h4 class="p-title">巡检完成率历史趋势
-                    <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span>
-                  </h4>
-								<div id="ins_charHistoricaltrend" style="width: 100%;height:160px;margin: 0 auto;"></div>
+									<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+									<i class="icon iconfont icon-weibiaoti10 size-12"></i>
+									</span>
+								</h4>
+								<div id="charHistoricaltrend" style="width: 100%;height:160px;margin: 0 auto;"></div>
 							</div>
 						</section>
 					</section>
 
 					<section class="inspection-lineitem display-none">
+
 						<section>
-							<div class="row toolcount margin-top0">
-								<div class="col-sm-4  font-gray-999 padding-right0">
+							<div class="toolcount margin-top10 margin-top30">
+								<h4 class="p-title">路线统计</h4>
+								<div class="col-sm-5  font-gray-999 padding-right0 margin-top30">
 									<ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
 										<li>
-											<p class="font-blue size-50">
+											<p class="font-blue size-50 ">
 												3/30
 											</p>
 										</li>
@@ -455,10 +405,10 @@
 										</li>
 									</ul>
 								</div>
-								<div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
+								<div class="col-sm-7 font-gray-999 padding-left0 padding-right0">
 									<ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
 										<div class="col-sm-7 font-gray-999 padding-left0 padding-right0">
-											<div id="ins_charlookline2" style="width: 100%;height:150px;margin: 0 auto;"></div>
+											<div id="charlookline2" style="width: 100%;height:130px;margin: 0 auto;"></div>
 										</div>
 									</ul>
 								</div>
@@ -468,7 +418,6 @@
 							<div class="toolcount">
 								<div class="col-sm-12  font-gray-999 padding-right0">
 									<div class="row text-center">
-										<!-- <template v-if="ins_queryPlanDetails.planDetails"> -->
 										<div class="col-sm-4 personnel-borderright">
 											<p class="size-16 font-white">12</p>
 											<p>隐患发现数</p>
@@ -481,13 +430,12 @@
 											<p class="size-16 font-white">8</p>
 											<p>节点数量</p>
 										</div>
-										<!-- </template> -->
 									</div>
 								</div>
 							</div>
 						</section>
 						<section>
-							<div class="textandimg row">
+							<div class="toolcount">
 								<h4 class="p-title">路线信息</h4>
 								<div class="row textandimg-main padding-left15 size-12">
 									<div class="col-sm-12">
@@ -506,40 +454,13 @@
 										<span>路线删除人 </span>
 										<strong>段亚伟</strong>
 									</div>
-									<!-- </template> -->
 								</div>
-							</div>
-						</section>
-						<section>
-							<div class="toolbuildrate padding-left10">
-								<h4 class="p-title"></h4>
-								<template v-if="ins_queryPlanDetails.nodeList">
-									<div class="panel-group tablist-item" id="accordion" role="tablist" aria-multiselectable="true">
-										<div class="panel panel-default bg-none border-none border-radiusnone">
-											<div class="panel-heading bg-gray-222 font-gray-999 tablist-itemtitle" role="tab" id="headingOne">
-												<span class="itemtitle-rect"><i class="fa fa-th-large font-gray-333"></i></span>
-												<h4 class="panel-title">
-                              <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                {{ins_queryPlanDetails.nodeList[0].buildingName}}<span class="itemtitle-value display-inline-block margin-left10 bg-red font-black">{{ins_queryPlanDetails.nodeList[0].type}}</span>
-                              </a>
-                            </h4>
-											</div>
-										</div>
-										<span class="toolbuildrate-forter">
-                          <h4 class="panel-title">
-                              <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                {{ins_queryPlanDetails.nodeList[0].buildingName}}<span class="itemtitle-value display-inline-block margin-left10 bg-red font-black">{{ins_queryPlanDetails.nodeList[0].type}}</span>
-										</a>
-										</h4>
-										</span>
-									</div>
-								</template>
 							</div>
 						</section>
 						<section>
 							<div class="toolcount margin-top10">
 								<h4 class="p-title">巡检完成率历史趋势</h4>
-								<div id="ins_charlookline" style="width: 100%;height:180px;margin: 0 auto;"></div>
+								<div id="charlookline" style="width: 100%;height:180px;margin: 0 auto;"></div>
 							</div>
 						</section>
 					</section>
@@ -551,10 +472,11 @@
 </template>
 
 <script>
+	import{mapState} from "vuex";
 	import moment from "moment";
 	import HeaderVue from "../publick/header.vue";
-	// import Ins_leftVue from "./ins_left.vue";
-	// import Ins_rightVue from "./ins_right.vue";
+	// import leftVue from "./left.vue";
+	// import rightVue from "./right.vue";
 	export default {
 		data() {
 			return {
@@ -587,9 +509,13 @@
 				},
 				dateValue: '',
 				//巡检统计参数
-				planInspectionCount_parameter: {},
+				planInspectionCount_parameter: {
+					unitId:null,
+					beginTime:null,
+					endTime:null
+				},
 				//巡检统计参数-返回
-				ins_planInspectionCount: {
+				planInspectionCount: {
 					finish: "",
 					nofinish: "",
 					amount: "",
@@ -605,7 +531,7 @@
 				// 表格-请求
 				queryPlanUserList_parameter: {
 					id: null,
-					unitId: 4,
+					unitId: null,
 					type: null,
 					inspectionName: null,
 					status: null,
@@ -618,7 +544,7 @@
 				queryInspectionNameList_parameter: {
 					unitId: ''
 				},
-				ins_queryInspectionNameList: Object,
+				queryInspectionNameList: Object,
 				// 下拉框
 				options: [{
 						value: "选项1",
@@ -641,8 +567,8 @@
 						label: "路线名称5"
 					}
 				],
-				ins_queryInspectionNameListvalue: "全部路线",
-				ins_queryInspectionNameListvalueTwo: '全部路线',
+				lineOption: "全部路线",
+				queryInspectionNameListvalueTwo: '全部路线',
 				lookroutebool: false,
 				// 饼状图参数-请求
 				queryTrendPieGraph_parameter: {
@@ -650,7 +576,7 @@
 					planId: 486
 				},
 				// 饼状图参数-返回
-				ins_queryTrendPieGraph: {
+				queryTrendPieGraph: {
 					amount: "",
 					finishedAmount: ""
 				},
@@ -660,18 +586,21 @@
 					startTime: "2018-06-01",
 					endTime: "2018-08-09"
 				},
-				ins_queryTrendMapGraph: {},
+				queryTrendMapGraph: {},
 				// 巡检路线详情参数
 				queryPlanUserDetails_parameter: {
 					id: '92'
 				},
-				ins_queryPlanUserDetails: Object,
+				queryPlanUserDetails: Object,
+				inspectionPlanUser:Object,
+				queryPlanUserDetailsListNode:Object,
+				queryPlanUserDetailsListNodeend:Object,
 				queryPlanDetails_parameter: {
 					inspectionPlanId: 486,
 					startTime: '2018-06-01',
 					endTime: '2018-08-09'
 				},
-				ins_queryPlanDetails: Object,
+				queryPlanDetails: Object,
 				queryUnitBuildList_parameter: {
 					unitId: 4
 				},
@@ -680,14 +609,49 @@
 					unitId: 4
 				},
 				queryInspectionLineList: Object,
+				queryById_parameter:{
+					unitId:null
+				},
+				queryById:Object
 			};
+		},
+		computed:mapState([
+			'unitid'
+		]),
+		watch:{
+			unitid(){
+				// //console.log(this.queryAlarmData_parmar.unitId)
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid=null;
+				}
+				this.queryById_parameter.unitId=this.getunitid;
+				this.queryByIds();
+			}
 		},
 		components: {
 			"header-vue": HeaderVue,
-			// "ins_left-vue": Ins_leftVue,
-			// "ins_right-vue": Ins_rightVue
+			// "left-vue": leftVue,
+			// "right-vue": rightVue
 		},
 		methods: {
+			queryByIds(){
+				this.$fetch(
+						"/api/unit/queryById",
+						this.queryById_parameter
+					).then(response => {
+						if(response.errorCode==0) {
+							this.queryById = response.data.unit
+						}else{
+							this.queryById.name='全部单位'
+							this.queryById.location='-'
+						}
+					})
+					.then(err => {
+						//console.log(err);
+					});
+			},
 			chooseTimeRange(t) {
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
@@ -724,26 +688,25 @@
 			},
 			getData() {
 				// 请求巡检统计
-				this.$fetch("/api/inspection/planInspectionCount").then(response => {
-					//console.log(response.data);
-					let data = response.data;
+				this.$fetch("/api/inspection/planInspectionCount",this.planInspectionCount_parameter).then(response => {
 					if(response.data) {
-						this.ins_planInspectionCount.finish = data.planInstanceCount.finish;
-						this.ins_planInspectionCount.nofinish =
+						let data = response.data;
+						this.planInspectionCount.finish = data.planInstanceCount.finish;
+						this.planInspectionCount.nofinish =
 							data.planInstanceCount.nofinish;
-						this.ins_planInspectionCount.amount = data.planInstanceCount.amount;
-						this.ins_planInspectionCount.plancount =
+						this.planInspectionCount.amount = data.planInstanceCount.amount;
+						this.planInspectionCount.plancount =
 							data.planInstanceCount.plancount;
-						this.ins_planInspectionCount.planing = data.instanceIngCount.planing;
-						this.ins_planInspectionCount.weekRate = data.instanceByDay.weekRate;
-						this.ins_planInspectionCount.monthRate = data.instanceByDay.monthRate;
-						this.ins_planInspectionCount.dayRate = data.instanceByDay.dayRate;
-						this.ins_planInspectionCount.historyRate =
+						this.planInspectionCount.planing = data.instanceIngCount.planing;
+						this.planInspectionCount.weekRate = data.instanceByDay.weekRate;
+						this.planInspectionCount.monthRate = data.instanceByDay.monthRate;
+						this.planInspectionCount.dayRate = data.instanceByDay.dayRate;
+						this.planInspectionCount.historyRate =
 							data.instanceByDay.historyRate;
-						this.ins_planInspectionCount.plansum = data.instanceIngCount.plansum;
-						this.ins_planInspectionCount.troubleRate =
+						this.planInspectionCount.plansum = data.instanceIngCount.plansum;
+						this.planInspectionCount.troubleRate =
 							data.instanceByDay.troubleRate;
-						this.draw_piemin("ins_charCount", this.ins_planInspectionCount);
+						this.draw_piemin("charCount", this.planInspectionCount);
 					}
 				});
 				// 请求路线路程列表下拉框
@@ -755,7 +718,11 @@
 						if(response) {
 							let data = response.data;
 							//console.log(data);
-							this.ins_queryInspectionNameList = data.listInspectionName;
+							this.queryInspectionNameList = data.listInspectionName;
+							this.queryInspectionNameList.unshift({
+								id: 0,
+								name: '全部路线'
+							})
 						}
 					})
 					.then(err => {
@@ -770,13 +737,13 @@
 						if(response) {
 							let data = response.data;
 							if(data.result[0]) {
-								this.ins_queryTrendPieGraph.amount = data.result[0].amount;
-								this.ins_queryTrendPieGraph.finishedAmount = data.result[0].finishedAmount;
+								this.queryTrendPieGraph.amount = data.result[0].amount;
+								this.queryTrendPieGraph.finishedAmount = data.result[0].finishedAmount;
 							}
-							if(this.ins_queryTrendPieGraph) {
+							if(this.queryTrendPieGraph) {
 								this.draw_piemax(
-									"ins_charCompletion",
-									this.ins_queryTrendPieGraph
+									"charCompletion",
+									this.queryTrendPieGraph
 								);
 							}
 						}
@@ -800,7 +767,7 @@
 								b.push(data[value]);
 							}
 							this.draw_line(
-								"ins_charHistoricaltrend", response.data.result.dateMap
+								"charHistoricaltrend", response.data.result.dateMap
 							);
 						}
 					})
@@ -847,8 +814,11 @@
 					)
 					.then(response => {
 						if(response) {
-							this.ins_queryPlanUserDetails = response.data;
-							//console.log(this.ins_queryPlanUserDetails);
+							this.queryPlanUserDetails = response.data;
+							this.inspectionPlanUser=this.queryPlanUserDetails.inspectionPlanUser;
+							//console.log(this.queryPlanUserDetails);
+							this.queryPlanUserDetailsListNode=response.data.listNode[0];
+							this.queryPlanUserDetailsListNodeend=response.data.listNode[(response.data.listNode).length-1];
 						}
 					})
 					.then(err => {
@@ -875,8 +845,8 @@
 					// )
 					//   .then(response => {
 					//     if (response) {
-					//       this.ins_queryPlanDetails= response.data;
-					//       //console.log(this.ins_queryPlanDetails);bfvmhjb
+					//       this.queryPlanDetails= response.data;
+					//       //console.log(this.queryPlanDetails);bfvmhjb
 					//       // draw_piemin()
 
 					//       // let data = response.data.result.dateMap;
@@ -886,7 +856,7 @@
 					//       //   b.push(data[value]);
 					//       // }
 					//       // this.draw_line(
-					//       //   "ins_charlookline",response.data.planDetails.planMap
+					//       //   "charlookline",response.data.planDetails.planMap
 					//       // );
 					//     }
 					//   })
@@ -909,10 +879,9 @@
 					.removeClass("display-block");
 			},
 			tolineitem() {
-				//console.log(this.ins_queryInspectionNameListvalue);
 				this.lookroutebool = true;
 				$('#lookroute').removeClass('upd-btn-dis');
-				this.queryPlanUserList_parameter.inspectionName = this.ins_queryInspectionNameListvalue;
+				this.queryPlanUserList_parameter.inspectionName = this.lineOption;
 				// //console.log(data.name)
 				this.getTable();
 			},
@@ -960,7 +929,7 @@
 				chars.setOption(char);
 			},
 			draw_piemax(id, data) {
-				// //console.log(this.ins_queryTrendPieGraph);
+				// //console.log(this.queryTrendPieGraph);
 				var fin_per = data.finishedAmount / data.amount * 100;
 				//console.log();
 				let d = [{
@@ -1149,14 +1118,21 @@
 						]
 					}]
 				};
-				let mypie1 = this.$echarts.init(document.getElementById("ins_charlookline"));
+				let mypie1 = this.$echarts.init(document.getElementById("charlookline"));
 				mypie1.setOption(pie);
-				let mypie2 = this.$echarts.init(document.getElementById("ins_charlookline2"));
+				let mypie2 = this.$echarts.init(document.getElementById("charlookline2"));
 				mypie2.setOption(pie)
 			}
 
 		},
 		mounted() {
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.queryById_parameter.unitId=sessionStorage.unitid;
+			}
+			if(sessionStorage.unitid==0){
+				this.queryById_parameter.unitId=null;
+			}
+			this.queryByIds();
 			this.$store.commit('route_path', this.$route.path);
 			this.defaultTimeVaule();
 			this.getData();

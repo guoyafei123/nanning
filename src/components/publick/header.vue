@@ -114,11 +114,11 @@
             </router-link>
           </li>
           <li>
-            <a href="#">
+            <router-link to="/Add_alarm">
               <el-tooltip class="item" content="添加警报" placement="top">
                 <i class="icon iconfont icon-jingshi-xian-"></i>
               </el-tooltip>
-            </a>
+            </router-link>
           </li>
           <!-- <li>
                       <a href="#">

@@ -160,11 +160,11 @@
       <div class="maps map">
           <managementMap-vue></managementMap-vue>
       </div>
-        <div  class="floorMap maps" style="display:none;position:relative;left:0;top:0;overflow: hidden">
+        <div  class="floorMap maps" style="display:none;overflow: hidden;">
           <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
           </ul>
-          <div  id="floorImg" style="width: 100%;height: 100%;">
+          <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
             <img  id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
           </div>
       </div>
@@ -178,7 +178,7 @@ import panzoom from 'panzoom';
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
 import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
-import { vControl,setPoint } from '../../assets/js/aaa';
+import { vControl,setPoint } from '../../assets/js/pointDevice';
     export default {
       data() {
 
@@ -335,8 +335,11 @@ import { vControl,setPoint } from '../../assets/js/aaa';
               this.form.floorId = item.floor ;
               this.form.floorNumber = item.floorName ;
               var area = document.getElementById('floorImg');
-              panzoom((area),{});
-               }
+              panzoom((area),{
+                maxZoom:1,
+                minZoom:1
+              });
+            }
           })
         },
         findPageBuildIngFloor(){
@@ -391,7 +394,7 @@ import { vControl,setPoint } from '../../assets/js/aaa';
             }
           });
         },
-        back(event){
+        back(){
           this.$router.push({path:'/Equipment_management/all'});
           $('#right').show();
         },
@@ -456,7 +459,13 @@ import { vControl,setPoint } from '../../assets/js/aaa';
           })
         },
         addDevice(pChoice,event){
-        
+          let zoom = $('#floorImg').css('transform').split(',')[3];
+          let moveX = $('#floorImg').css('transform').split(',')[4];
+          let moveY= $('#floorImg').css('transform').split(',')[5];
+          moveY = moveY.substr(0,moveY.length -1);
+          console.log(zoom);
+          console.log(moveX);
+          console.log(moveY);
           // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
           vControl(pChoice,event);
           // console.log(window.leftRate)
@@ -465,6 +474,7 @@ import { vControl,setPoint } from '../../assets/js/aaa';
           this.form.Rate = [xRate,yRate];
           $('#alarmDiv').remove();
           $('#floorImg').append('<div id="alarmDiv"></div>');
+
           setPoint(this.iconByType[this.form.equipmentId],'alarmDiv');
         }
       },
@@ -512,23 +522,6 @@ import { vControl,setPoint } from '../../assets/js/aaa';
           }else{
             $('.map').hide();
             $('.floorMap').show();
-            $("#imgPic").on("load",function(){
-              var winwidth = $('.floorMap').width;
-              var winheight =$('.floorMap').height;
-              var fjwidth = $('#imgPic').width();
-              var fjheight = $('#imgPic').height();
-              if(fjwidth>winwidth || fjheight>winheight){
-                var ratewid = fjwidth/winwidth;
-                var ratehei = fjheight/winheight;
-                if(ratewid>ratehei){
-                  $("#imgPic").width(winwidth);
-                  $("#imgPic").height(winheight/ratewid);
-                }else{
-                  $("#imgPic").height(winheight);
-                  $("#imgPic").width(winwidth/ratehei);
-                }
-              }
-            });
           }
           this.form.floorId = '';
           this.form.roomId = '';

@@ -29,7 +29,7 @@
                             <p>
                             <span class="size-20 font-blue">{{buildBaseInfo.name?buildBaseInfo.name:"暂无名称"}}</span>
                             <el-tooltip content="安全评分" placement="top">
-                            <span class="bgbox-min bg-blue font-black size-10">评分{{buildTotalScore?buildTotalScore:"0"}}</span>
+                            <span class="bgbox-min bg-blue font-black size-10">评分{{buildTotalScore ? buildTotalScore:"0"}}</span>
                           </el-tooltip>
                             <span class="float-right">
                                     <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property?buildBaseInfo.property:"无"}}</span>
@@ -184,7 +184,7 @@
                     </p>
                     <p class="col-sm-12 text-left padding0">
                         <span>
-                            <i class="fas fa-industry"></i> {{buildCountDataSocres.totalScore ? buildCountDataSocres.totalScore:'0'}}</span>
+                            <i class="fas fa-industry"></i> {{Number((10-buildCountDataSocres.totalScore)/100).toFixed(1)?Number((10-buildCountDataSocres.totalScore)/100).toFixed(1):"0"}}</span>
                     </p>
                     <!-- <P class="col-sm-5 text-right padding0">
                         <span class="text-right">
@@ -269,6 +269,7 @@ export default {
         startTime: "2018-06-01",
 				endTime: "2018-08-09"
       },
+      itemDataInfo:Object,
       getBuildIngAssess: Object,
       //建筑安全评分级别
       buildAssessScore: Object,
@@ -300,6 +301,7 @@ export default {
     // 建筑详情
     tobuilditem(){
       this.builddata =this.tobuilditem;
+      this.itemDataInfo = this.tobuilditem;
       this.buildDetails_parameter.buildingId = this.builddata.id;
       this.getBuildDetails();
     },
@@ -549,7 +551,7 @@ export default {
             if (response.data) {
                 let data = response.data;
                 this.buildPlanCount = data.buildStatsInfo.planCount;
-                this.buildTotalScore = data.buildStatsInfo.totalScore;
+                this.buildTotalScore = Number((10-data.buildStatsInfo.totalScore)/100).toFixed(1);
                 this.buildAlarmMap = data.buildStatsInfo.buildAlarmMap;
                 this.buildTroubleMap = data.buildStatsInfo.buildingTrouble;
                 this.buildBaseInfo = data.buildInfo;

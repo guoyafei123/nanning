@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 // footer
+
 import LoginVue from '../components/login/login';
 import RegisterVue from '../components/register/register';
 import IndexVue from '../components/index/index';
@@ -17,6 +18,8 @@ import PlanVue from '../components/plan/plan';
 import Cookie from '../components/publick/cookie';
 import MinmapVue from '../components/publick/min_map';
 import CameraVue from '../components/camera/camera';
+import Fire_analysisVue from '../components/publick/fire_analysis';
+
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
@@ -59,51 +62,71 @@ import Authority_allocation_AllVue from '../management/Authority_allocation/all'
 import Authority_allocation_AllocationVue from '../management/Authority_allocation/allocation';
 import ControlRoomLogVue from '../management/ControlRoomLog/ControlRoomLog';
 import ControlRoomLog_AllVue from '../management/ControlRoomLog/all';
+import Add_alarmVue from '../management/Add_alarm/Add_alarm';
+import Add_alarm_ListVue from '../management/Add_alarm/list';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
     // footer 导航
     {
-      path:'/index',component:IndexVue
+      path:'/',redirect:'/login',
+      component:resolve => require(['../components/login/login'],resolve)
     },
     {
-      path:'/login',component:LoginVue
+      path:'/login',
+      component:resolve => require(['../components/login/login'],resolve)
     },
     {
-      path:'/register',component:RegisterVue
+      path:'/index',
+      component:resolve => require(['../components/index/index'],resolve)
     },
     {
-      path:'/callpolice',component:CallpoliceVue
+      path:'/register',
+      component:resolve => require(['../components/register/register'],resolve)
     },
     {
-      path:'/inspection',component:InspectionVue
+      path:'/callpolice',
+      component:resolve => require(['../components/callpolice/callpolice'],resolve)
     },
     {
-      path:'/information',component:InformationVue
+      path:'/inspection',
+      component:resolve => require(['../components/inspection/inspection'],resolve)
     },
     {
-      path:'/personnel',component:PersonnelVue
+      path:'/information',
+      component:resolve => require(['../components/information/information'],resolve)
     },
     {
-      path:'/risk',component:RiskVue
+      path:'/personnel',
+      component:resolve => require(['../components/personnel/personnel'],resolve)
     },
     {
-      path:'/buliding',component:BulidVue
+      path:'/risk',
+      component:resolve => require(['../components/risk/risk'],resolve)
     },
     {
-      path:'/danger',component:DangerVue
+      path:'/buliding',
+      component:resolve => require(['../components/buliding/buliding'],resolve)
     },
     {
-      path:'*',redirect:'/login'
+      path:'/danger',
+      component:resolve => require(['../components/danger/danger'],resolve)
     },
     {
-      path:'/plan',component:PlanVue
+      path:'/plan',
+      component:resolve => require(['../components/plan/plan'],resolve)
     },
     {
-      path:'/camera',component:CameraVue
+      path:'/camera',
+      component:resolve => require(['../components/camera/camera'],resolve)
     },
     {
-      path:'/cookie',component:Cookie
+      path:'/fire_analysis',
+      component:resolve => require(['../components/publick/fire_analysis'],resolve)
+    },
+    {
+      path:'/cookie',
+      component:resolve => require(['../components/publick/cookie'],resolve)
     },   
     // 管理端
     {
@@ -206,6 +229,14 @@ export default new Router({
         { path:'/Message_management/activity',component:Message_managementActivityVue},
         { path:'/Message_management/notice',component:Message_managementNoticeVue},
         { path:'/Message_management',redirect:'/Message_management/notice'}
+      ]
+    },
+    {
+      path:'/Add_alarm',
+      component:Add_alarmVue,
+      children:[
+        { path:'/Add_alarm/list',component:Add_alarm_ListVue},
+        { path:'/Add_alarm',redirect:'/Add_alarm/list'}
       ]
     },
     {

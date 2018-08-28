@@ -184,10 +184,10 @@
               <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
                 <el-form-item label="设备名称" class="not-null">
                   <!-- <span class="hint-error">设备名称有误或重复</span> -->
-                  <el-input v-model="form.name" class="col-sm-4"></el-input>
+                  <el-input v-model="form.name" class="col-sm-8"></el-input>
                 </el-form-item>
                 <el-form-item label="所属单位" class="not-null">
-                  <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
+                  <el-select v-model="form.unitId" :disabled='true' placeholder="选择单位" class="select selectUnit col-sm-4">
                     <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -205,7 +205,9 @@
                 <el-form-item label="设备位置" class="not-null">
                   <el-select
                     v-model="form.buildingId"
-                  placeholder="选择建筑"  class="start col-sm-4">
+                    :disabled='true'
+                    placeholder="选择建筑"
+                    class="start col-sm-4">
                     <el-option label="室外" value="0"></el-option>
                     <el-option
                       v-for="item in form.buildList"
@@ -215,7 +217,9 @@
                   </el-select>
                   <el-select
                     v-model="form.floorId"
-                    placeholder="选择楼层" class="start col-sm-4">
+                    :disabled='true'
+                    placeholder="选择楼层"
+                    class="start col-sm-4">
                     <el-option
                       v-for="item in form.floorList"
                       :label="item.floorName+'层'"
@@ -224,7 +228,9 @@
                   </el-select>
                   <el-select
                     v-model="form.roomId"
-                    placeholder="选择房间" class="start col-sm-4">
+                    :disabled='true'
+                    placeholder="选择房间"
+                    class="start col-sm-4">
                     <el-option
                       v-for="item in form.roomList"
                       :label="item.roomNumber+'房间'"
@@ -233,8 +239,8 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item label="坐标">
-                  <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
-                  <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
+                  <el-input placeholder="X" v-model="form.point.pointX" :disabled='true' class="col-sm-4"></el-input>
+                  <el-input placeholder="Y" v-model="form.point.pointY" :disabled='true' class="col-sm-4"></el-input>
                 </el-form-item>
                 <div class="col-sm-12">
                   <div class="row">
