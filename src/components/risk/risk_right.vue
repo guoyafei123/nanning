@@ -16,22 +16,13 @@
 					<!-- 已选择 -->
 					<div class="personinfo">
 						<p>
-							<span class="size-20 font-blue">中心小学</span>
+							<span class="size-20 font-blue">{{unitInfo.name}}</span>
 							<span class="float-right">
 								<el-tooltip content="安全评分" placement="top">
-			                          <span class="bgbox-max bg-blue font-black size-10">评分6.9</span>
+			                          <span class="bgbox-max bg-blue font-black size-10">{{unitInfo.totalScore}}</span>
 			                      </el-tooltip>
 							</span>
 						</p>
-						<p class="col-sm-5 text-left padding0">
-							<span>
-                              <i class="fas fa-industry"></i> 中心小学</span>
-						</p>
-						<P class="col-sm-7 text-right padding0">
-							<span class="text-right">
-                          最新更新<span class="font-gray-999">2018.07.09 08:00:00</span>
-							</span>
-						</P>
 					</div>
 				</div>
 			</section>
@@ -40,20 +31,11 @@
 				<div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
 					<div class="personinfo">
 						<p>
-							<span class="size-20 font-blue">中心小学</span>
+							<span class="size-20 font-blue">{{itemData.buildingName}}</span>
 							<span class="float-right">
-                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
+                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分{{itemData.troubleScore}}</span>
 							</span>
 						</p>
-						<p class="col-sm-5 text-left padding0">
-							<span>
-                              <i class="fas fa-industry"></i> 中心小学</span>
-						</p>
-						<P class="col-sm-7 text-right padding0">
-							<span class="text-right">
-                          最新更新<span class="font-gray-999">2018.07.09 08:00:00</span>
-							</span>
-						</P>
 					</div>
 				</div>
 			</section>
@@ -68,29 +50,29 @@
 			<section v-show="itemtrue==false">
 				<h4 class="p-title margin-top30">风险系数</h4>
 				<div class="row cardinfo-style margin-top10 font-gray-999">
-					<p class="col-sm-4">建筑防火 <span>3.5</span></p>
-					<p class="col-sm-4">火灾危险源 <span>3.5</span></p>
-					<p class="col-sm-4">消防设施 <span>3.5</span></p>
-					<p class="col-sm-4">消防安全管理 <span>3.5</span></p>
-					<p class="col-sm-4">灭火救援 <span>3.5</span></p>
-					<p class="col-sm-4">建筑评估 <span>3.5</span></p>
-					<p class="col-sm-4">生活用火隐患 <span>3.5</span></p>
-					<p class="col-sm-4">消防给水 <span>3.5</span></p>
+					<p class="col-sm-4">建筑防火 <span>{{unitScoreDetailData.buildingfhScore}}</span></p>
+					<p class="col-sm-4">火灾危险源 <span>{{unitScoreDetailData.fireSourceScore}}</span></p>
+					<p class="col-sm-4">消防设施 <span>{{unitScoreDetailData.xfdeviceScore}}</span></p>
+					<p class="col-sm-4">消防安全管理 <span>{{unitScoreDetailData.anquanScore}}</span></p>
+					<p class="col-sm-4">灭火救援 <span>{{unitScoreDetailData.miehuoScore}}</span></p>
+					<p class="col-sm-4">建筑评估 <span>{{unitScoreDetailData.buildingpgScore}}</span></p>
+					<p class="col-sm-4">生活用火隐患 <span>{{unitScoreDetailData.shenghuoScore}}</span></p>
+					<p class="col-sm-4">消防给水 <span>{{unitScoreDetailData.waterSupplyScore}}</span></p>
 				</div>
 			</section>
 
 			<section v-show="itemtrue==true">
 				<h4 class="p-title margin-top30">风险系数</h4>
 				<div class="row cardinfo-style margin-top10 font-gray-999">
-					<p class="col-sm-4">建筑参数 <span>3.5</span></p>
-					<p class="col-sm-4">耐火等级 <span>3.5</span></p>
-					<p class="col-sm-4">建筑内防火间距 <span>3.5</span></p>
-					<p class="col-sm-4">安全疏散条件 <span>3.5</span></p>
-					<p class="col-sm-4">避雷 <span>3.5</span></p>
-					<p class="col-sm-4">电气设备隐患 <span>3.5</span></p>
-					<p class="col-sm-4">火灾警报系统 <span>3.5</span></p>
-					<p class="col-sm-4">消防给水 <span>3.5</span></p>
-					<p class="col-sm-4">灭火设备 <span>3.5</span></p>
+					<p class="col-sm-4">建筑参数 <span>{{buildingScoreDetailsDetails.buildingParamScore}}</span></p>
+					<p class="col-sm-4">耐火等级 <span>{{buildingScoreDetailsDetails.refractoryScore}}</span></p>
+					<p class="col-sm-4">建筑内防火间距 <span>{{buildingScoreDetailsDetails.spacingScore}}</span></p>
+					<p class="col-sm-4">安全疏散条件 <span>{{buildingScoreDetailsDetails.evacuateScore}}</span></p>
+					<p class="col-sm-4">避雷 <span>{{buildingScoreDetailsDetails.lightningScore}}</span></p>
+					<p class="col-sm-4">电气设备隐患 <span>{{buildingScoreDetailsDetails.applianceScore}}</span></p>
+					<p class="col-sm-4">火灾警报系统 <span>{{buildingScoreDetailsDetails.fireAlarmScore}}</span></p>
+					<p class="col-sm-4">消防给水 <span>{{buildingScoreDetailsDetails.waterSupplyScore}}</span></p>
+					<p class="col-sm-4">灭火设备 <span>{{buildingScoreDetailsDetails.outfireScore}}</span></p>
 				</div>
 			</section>
 
@@ -162,41 +144,57 @@
 						label: "怀化市横县"
 					}
 				],
+				//获取单位信息
+				unitInfo_parameter:{
+					unitId:null,
+				},
+				unitInfo:{
+					name:"",
+					location:"",
+					totalScore:0
+				},
+				itemData:Object,
 				//风险统计参数
-				riskAssessCount_parameter: {
-
+				unitScoreDetail_parameter: {
+					unitId:null,
+					startTime:null,
+					endTime:null
 				},
-				riskAssessCountData: Object,
-
-				//曲线图请求数据
-				queryTrendMapGraph_parameter: {
-					unitId: 4,
-					startTime: "2018-06-01",
-					endTime: "2018-08-09"
-				},
-				lineChatMapGraphData: Object,
-
+				unitScoreDetailData: Object,
+				unitScoreCharts:Object,
 				//风险详情
-				queryRiskDetails_parameter: {
-					inspectionPlanId: 486,
-					startTime: '2018-06-01',
-					endTime: '2018-08-09'
+				buildingScoreDetails_parameter: {
+					buildingId: null,
+					startTime: null,
+					endTime: null
 				},
-				riskAssessDetails: Object,
+				buildingScoreDetailsDetails: Object,
+				buildingScoreCharts:Object,
 				itemtrue: false,
 			};
 		},
 		computed: mapState([
 			'toriskitem',
+			'unitid'
 		]),
 		watch: {
 			// 所有巡检单位
 			toriskitem() {
-				this.itemtrue = this.toriskitem;
-				var lineData = [50, 210, 200, 310, 150, 250, 187, 299];
-				this.drawPieChart("axis1", lineData);
-				this.drawLineChart("myChart", null);
+				this.itemtrue = true;
+				this.itemData = this.toriskitem;
+				this.buildingScoreDetails_parameter.buildingId = this.toriskitem.buildingId;
+				this.getBuildDetail();
 			},
+			unitid(){
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid=null;
+				}
+				this.unitScoreDetail_parameter.unitId=this.getunitid;
+				this.unitInfo_parameter.unitId=this.getunitid;
+				this.getData();
+			}
 		},
 
 		methods: {
@@ -204,19 +202,27 @@
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
 				var et = moment(this.dateValue[1]).format('YYYY-MM-DD');
-				this.queryTrendMapGraph_parameter.startTime = st;
-				this.queryTrendMapGraph_parameter.endTime = et;
+				this.unitScoreDetail_parameter.startTime = st;
+				this.unitScoreDetail_parameter.endTime = et;
+				this.buildingScoreDetails_parameter.startTime = st;
+				this.buildingScoreDetails_parameter.endTime = et;
 				this.getData();
+				this.getBuildDetail();
 			},
 			defaultTimeVaule() {
-				var startDate = this.getNowFormatDate();
-				this.queryTrendMapGraph_parameter.startTime = startDate;
-				this.queryTrendMapGraph_parameter.endTime = startDate;
-				this.dateValue = [startDate,startDate];
+				var startDate = this.getNowFormatDate(-7);
+				var endDate = this.getNowFormatDate(0);
+				this.unitScoreDetail_parameter.startTime = startDate;
+				this.unitScoreDetail_parameter.endTime = endDate;
+				this.buildingScoreDetails_parameter.startTime = startDate;
+				this.buildingScoreDetails_parameter.endTime = endDate;
+				this.dateValue = [startDate,endDate];
 			},
 			//获取当前时间：
-			getNowFormatDate(){
+			getNowFormatDate(days){
 				var date = new Date();
+				var date_s = date.getTime();//转化为时间戳毫秒数
+				date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
 				var seperator1 = "-";
 				var year = date.getFullYear();
 				var month = date.getMonth() + 1;
@@ -231,58 +237,67 @@
 				return currentdate;
 			},
 			getData() {
-				// 请求统计数据
-				this.$fetch("/api/inspection/planInspectionCount").then(response => {
-					//console.log(response.data);
+				// 获取单位信息
+				if(this.unitInfo_parameter.unitId==0 || this.unitInfo_parameter.unitId==null){
+					this.unitInfo.name = "管理单位";
+					this.unitInfo.location = "无位置";
+				}else{
+					this.$fetch("/api/unit/queryUnitInfo",
+							this.unitInfo_parameter).then(response => {
+						let data = response.data;
+						if(response.data) {
+							this.unitInfo.name = data.unitInfo.name;
+							this.unitInfo.location = data.unitInfo.location;
+							this.unitInfo.totalScore = data.totalScore;
+						}
+					});
+				}
+				// 请求右侧统计数据
+				this.$fetch("/api/riskAssessFactor/queryUnitScoreDetail",
+							this.unitScoreDetail_parameter).then(response => {
 					let data = response.data;
 					if(response.data) {
+						this.unitScoreDetailData = data.dataScore;
+						this.drawPieChart("axis1", data.pieScore);
 
 					}
 				});
-
-				// 请求历史曲线图
+				// 请求历史折线图数据
 				this.$fetch(
-						"/api/inspection/queryTrendMapGraph",
-						this.queryTrendMapGraph_parameter
+						"/api/riskAssessFactor/queryUnitScoreLine",
+						this.unitScoreDetail_parameter
 					).then(response => {
-						if(response) {
-							let data = response.data.result.dateMap;
-							let a = [],
-								b = [];
-							for(var value in data) {
-								a.push(value);
-								b.push(data[value]);
-							}
-							this.drawLineChart(
-								"myChart11", response.data.result.dateMap
-							);
+						let data = response.data;
+						if(response.data ){
+							this.unitScoreCharts = data.unitScoreLine;
+							this.drawLineChart("myChart", this.unitScoreCharts);
 						}
-					})
-					.then(err => {
+					}).then(err => {
 						//console.log(err);
-					});
-
-				// 请求历史曲线图
+				});
+			},
+			getBuildDetail() {
+				// 请求右侧统计数据
+				this.$fetch("/api/riskAssessFactor/queryBuildingScoreDetail",
+							this.buildingScoreDetails_parameter).then(response => {
+					let data = response.data;
+					if(response.data) {
+						this.buildingScoreDetailsDetails = data.scoreData;
+						this.drawPieChart("axis1", data.pieScore);
+					}
+				});
+				// 请求历史折线图数据
 				this.$fetch(
-						"/api/inspection/queryTrendMapGraph",
-						this.queryTrendMapGraph_parameter
+						"/api/riskAssessFactor/queryBuildingScoreLine",
+						this.buildingScoreDetails_parameter
 					).then(response => {
-						if(response) {
-							let data = response.data.result.dateMap;
-							let a = [],
-								b = [];
-							for(var value in data) {
-								a.push(value);
-								b.push(data[value]);
-							}
-							this.drawLineChart(
-								"myChart11", response.data.result.dateMap
-							);
+						let  data = response.data;
+						if(response.data){
+							this.buildingScoreCharts = data.buildingScoreLine;
+							this.drawLineChart("myChart", this.buildingScoreCharts);
 						}
-					})
-					.then(err => {
-						//console.log(err);
-					});
+					}).then(err => {	
+				});
 			},
 			//right-折线图
 			drawLineChart(id, data) {
@@ -290,7 +305,7 @@
 					xAxis: {
 						type: "category",
 						boundaryGap: false,
-						data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+						data: data.lineChartsDate,
 						show: true,
 						axisLine: {
 							lineStyle: {
@@ -327,7 +342,7 @@
 					},
 					// 数据
 					series: [{
-						data: [100, 499, 50, 1111, 45, 345, 907],
+						data: data.lineChartsCount,
 						name: "安全评分",
 						type: "line",
 						symbol: "none",
@@ -354,14 +369,8 @@
 			},
 			//left-柱状图
 			drawPieChart(id, data) {
-				var axisDate = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
-				var axisData = null;
-				if(data != null) {
-					axisData = data;
-				} else {
-					axisData = [10, 52, 200, 334, 390, 330, 220, 192];
-				}
-
+				var axisDate = data.name;
+				var axisData = data.score;
 				// 根据值判断柱子颜色的柱状图
 				var option1 = {
 					color: ["#3398DB"],
@@ -429,11 +438,11 @@
 									}
 								},
 								color: function(params) {
-									if(params.value > 0 && params.value < 100) {
+									if(params.value > 0 && params.value < 10) {
 										return "#333333";
-									} else if(params.value >= 100 && params.value <= 200) {
+									} else if(params.value >= 10 && params.value <= 30) {
 										return "#666666";
-									} else if(params.value >= 200 && params.value <= 300) {
+									} else if(params.value >= 30 && params.value <= 50) {
 										return "#999999";
 									}
 									return "#bad616";
@@ -448,13 +457,19 @@
 			}
 		},
 		mounted() {
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.unitScoreDetail_parameter.unitId=sessionStorage.unitid;
+				this.unitInfo_parameter.unitId == sessionStorage.unitid;
+			}
+			if(sessionStorage.unitid==0){
+				this.unitScoreDetail_parameter.unitId==null;
+				this.unitInfo_parameter.unitId == null;
+				this.unitInfo.name = "管理单位";
+				this.unitInfo.location = "无位置";
+			}
 			this.$store.commit("route_path", this.$route.path);
-			// 右侧图表
-			this.drawPieChart("axis1", null);
-			this.drawLineChart("myChart", null);
 			this.defaultTimeVaule();
-			//this.getData();
-
+			this.getData();
 		}
 	};
 </script>
