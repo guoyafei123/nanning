@@ -56,13 +56,13 @@
 										<td class="safe">
 											<el-tooltip placement="top">
 												<div slot="content">安全评分 8.0</div>
-												<span class="bgbox-max bg-red font-black">{{item.totalScore}}</span>
+												<span class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
 											</el-tooltip>
 										</td>
 										<td class="risk">
 											<el-tooltip placement="top">
 												<div slot="content">风险系数 20.56%</div>
-												<span>{{100 - item.totalScore}}%</span>
+												<span>{{item.totalScore}}</span>
 											</el-tooltip>
 										</td>
 										<td>
@@ -171,7 +171,7 @@
 				).then(response => {
 					let data = response.data;
 					if(response.data) {
-						this.unitAssessScore = data.result.socre;
+						this.unitAssessScore = Number((10-data.result.socre)/100).toFixed(1);
 						this.chart_left(data.result);
 					}
 				});
@@ -232,7 +232,7 @@
 
 					cxt.fillStyle = "#f4f4f4";
 					cxt.font = "normal 12px 黑体";
-					cxt.fillText("风险系数:" + 100-data.socre + "%", 0, 24);
+					cxt.fillText("风险系数:" + data.socre + "%", 0, 24);
 
 					//右上角字体说明
 					cxt.fillStyle = "#999";

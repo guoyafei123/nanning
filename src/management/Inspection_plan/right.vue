@@ -452,8 +452,8 @@
         this.inspectionName = row.name;
       },
       show3(row){//跳转
-        //console.log(row.id);
-        this.$store.commit('inspectionPlanId',row.id);
+        // console.log(row.id);
+        this.$store.commit('inspectionId',row.id);
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();

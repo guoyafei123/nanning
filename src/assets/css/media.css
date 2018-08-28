@@ -5,6 +5,7 @@
 /*宽度*/
 @media (min-width: 768px) and (max-width:1440px){
     /*管理端*/
+    #Add_alarm #left,
     #unit-manage #left,
     #Reserve_plan #left,
     #Personnel_review #left,
@@ -19,6 +20,7 @@
     #allocation #left{
         width: 16%;
     }
+    #Add_alarm .open-left,
     #unit-manage .open-left,
     #Reserve_plan .open-left,
     #Personnel_review .open-left,
@@ -87,6 +89,7 @@
 }
 @media (min-width: 1441px) and (max-width:1679px){
     /*管理端*/
+    #Add_alarm #left,
     #unit-manage #left,
     #Reserve_plan #left,
     #Personnel_review #left,
@@ -101,6 +104,7 @@
     #allocation #left{
         width: 14%;
     }
+    #Add_alarm .open-left,
     #unit-manage .open-left,
     #Reserve_plan .open-left,
     #Personnel_review .open-left,
@@ -162,6 +166,7 @@
 }
 @media (min-width: 1680px) and (max-width:1919px){
     /*管理端*/
+    #Add_alarm #left,
     #unit-manage #left,
     #Reserve_plan #left,
     #Personnel_review #left,
@@ -176,6 +181,7 @@
     #allocation #left{
         width: 16%;
     }
+    #Add_alarm .open-left,
     #unit-manage .open-left,
     #Reserve_plan .open-left,
     #Personnel_review .open-left,
@@ -240,7 +246,8 @@
     #dangerous #right .toolcount-p1 {
         font-size: 44px;
         line-height: 44px;
-    }  
+    }
+    #Add_alarm #left,
     #unit-manage #left,
     #Reserve_plan #left,
     #Personnel_review #left,
@@ -255,6 +262,7 @@
     #allocation #left{
         width: 14%;
     }
+    #Add_alarm .open-left,
     #unit-manage .open-left,
     #Reserve_plan .open-left,
     #Personnel_review .open-left,
@@ -319,6 +327,7 @@
 }
 @media (min-width: 2560px) {
     /*管理端*/
+    #Add_alarm #left,
     #unit-manage #left,
     #Reserve_plan #left,
     #Personnel_review #left,
@@ -333,6 +342,7 @@
     #allocation #left{
         width: 13%;
     }
+    #Add_alarm .open-left,
     #unit-manage .open-left,
     #Reserve_plan .open-left,
     #Personnel_review .open-left,

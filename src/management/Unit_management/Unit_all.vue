@@ -136,7 +136,7 @@
                     <el-input v-model="form.staffNum"></el-input>
                   </el-form-item> -->
                   <el-form-item label="单位地址"  prop="location" class="not-null">
-                    <el-input v-model="form.location" class="col-sm-4"></el-input>
+                    <el-input v-model="form.location" class="col-sm-8"></el-input>
                   </el-form-item>  
                   <el-form-item label="经纬度" class="not-null">
                     <el-input v-model="form.point.pointX == 0 ? '-' : form.point.pointX" :disabled="true" class="col-sm-4"></el-input>

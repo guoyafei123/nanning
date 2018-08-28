@@ -121,7 +121,6 @@
     mounted(){
       realconsole();
       this.unitSearch();
-      this.$store.commit('route_path',this.$route.path);
     }
   };
 </script>

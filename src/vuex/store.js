@@ -100,7 +100,7 @@ var mutations={
   region(state,data){
     state.region = data;
   },
-  inspectionPlanId(state,data){
+  inspectionId(state,data){
     state.inspectionId = data;
   },
   form(state,data){
@@ -218,7 +218,6 @@ var mutations={
   },
   // 展示端风险
   toriskitem(state,data){
-    alert(2);
     state.toriskitem=data;
   },
   // 展示端建筑

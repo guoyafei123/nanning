@@ -28,7 +28,7 @@
 				<!-- 统计1 -->
 				<li>
 					<div class="pull-left">
-						<h4 v-if="queryUnitInfo_parmar.unitId!=0">{{queryUnitInfoinfoc}} </h4>
+						<h4 v-if="queryUnitInfo_parmar.unitId!=0">{{queryUnitInfoinfoc}}</h4>
 						<h4 v-if="queryUnitInfo_parmar.unitId==0">-</h4>
 						<small>消防负责人</small>
 					</div>

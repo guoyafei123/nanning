@@ -334,10 +334,10 @@
   float: left;
   padding:0 5px;
 }
-.main_nav_tab a:first-child {
+/*.main_nav_tab a:first-child {
   border-right: 1px solid transparent;
 }
-
+*/
 .main_nav_tab a.router-link-active,
 .main_nav_tab a:hover{
   color: #000!important;
@@ -1248,4 +1248,53 @@ height: 640px;
 .icon-help {
   line-height: 32px;
   cursor: pointer;
+}
+#allocation button.btn-ok {
+  border:none;
+  border-radius: 0;
+}
+/*添加警报隐患*/
+#Add_alarm .el-tabs {
+  height: 100%;
+}
+#Add_alarm .el-tabs__item{
+    height:60px;
+    line-height: 60px;
+    color: #fff;
+}
+
+#Add_alarm .el-tabs__item i{    
+    margin-right:10px;
+}
+
+#Add_alarm .el-tabs__item.is-active,
+#Add_alarm .el-tabs__item:hover {
+    color: #f13131;
+}
+#Add_alarm .el-tabs__active-bar {
+  background-color: #f13131;
+  height: 1px;
+}
+#Add_alarm .el-tabs__header {
+  margin: 0;
+}
+#Add_alarm .el-tabs__content {
+  position: relative;
+  height: 100%;
+}
+#Add_alarm .el-tabs__nav-wrap {
+  margin:0 15px;
+  height: 60px;
+  overflow-y: hidden;
+}
+#Add_alarm .el-tabs__nav-wrap::after {
+    height: 1px;
+    background-color: #333;
+}
+#Add_alarm .el-tab-pane {
+  position: relative;
+  height: 100%;
+}
+#Add_alarm .el-tab-pane .main_footer {
+  bottom: 60px;
 }
