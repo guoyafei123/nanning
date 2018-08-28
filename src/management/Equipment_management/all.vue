@@ -184,7 +184,7 @@
               <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
                 <el-form-item label="设备名称" class="not-null">
                   <!-- <span class="hint-error">设备名称有误或重复</span> -->
-                  <el-input v-model="form.name" class="col-sm-4"></el-input>
+                  <el-input v-model="form.name" class="col-sm-8"></el-input>
                 </el-form-item>
                 <el-form-item label="所属单位" class="not-null">
                   <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">

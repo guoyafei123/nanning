@@ -177,6 +177,7 @@
     text-align: right;
     padding-left: 8px;
     display: block;
+    line-height: 26px;
 }
 .early-list li article h4 i {
     font-size: 14px;

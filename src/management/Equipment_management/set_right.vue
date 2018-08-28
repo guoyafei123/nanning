@@ -297,125 +297,127 @@
                 </div>
                 <div class="modal-body">
                   <div class="main_content">
-                    <el-form class="row" status-icon ref="form" :label-position="labelPosition" :model="form">
-                      <el-form-item label="设备名称">
-                        <span class="hint-error">设备名称有误或重复</span>
-                        <el-input v-model="form.name" class="col-sm-4"></el-input>
+                    <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
+                <el-form-item label="设备名称" class="not-null">
+                  <!-- <span class="hint-error">设备名称有误或重复</span> -->
+                  <el-input v-model="form.name" class="col-sm-8"></el-input>
+                </el-form-item>
+                <el-form-item label="所属单位" class="not-null">
+                  <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
+                    <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="设备类型" class="not-null">
+                  <el-select
+                    v-model="form.equipmentId"
+                    placeholder="选择设备类型" class="start col-sm-4">
+                    <el-option
+                      v-for="item in equipmentList"
+                      :label="item.name"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="设备位置" class="not-null">
+                  <el-select
+                    v-model="form.buildingId"
+                  placeholder="选择建筑"  class="start col-sm-4">
+                    <el-option label="室外" value="0"></el-option>
+                    <el-option
+                      v-for="item in form.buildList"
+                      :label="item.name"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                  <el-select
+                    v-model="form.floorId"
+                    placeholder="选择楼层" class="start col-sm-4">
+                    <el-option
+                      v-for="item in form.floorList"
+                      :label="item.floorName+'层'"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                  <el-select
+                    v-model="form.roomId"
+                    placeholder="选择房间" class="start col-sm-4">
+                    <el-option
+                      v-for="item in form.roomList"
+                      :label="item.roomNumber+'房间'"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="坐标">
+                  <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
+                  <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
+                </el-form-item>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <el-form-item label="物理地址" class="col-sm-4">
+                      <el-input v-model="form.PhysicalAddress"></el-input>
+                    </el-form-item>
+                    <el-form-item label="控制器ID" class="not-null col-sm-4">
+                      <el-input v-model="form.controlId"></el-input>
+                    </el-form-item>
+                  </div>
+                </div>
+                <el-form-item label="相对房顶高度 (cm)" class="col-sm-4">
+                  <el-input v-model="form.RoofHeight"></el-input>
+                </el-form-item>
+                <el-form-item label="相对地板高度 (cm)" class="col-sm-4">
+                  <el-input v-model="form.floorHeight"></el-input>
+                </el-form-item>
+                <div class="col-sm-12">
+                    <div class="row">
+                      <el-form-item label="生产商" class="col-sm-4">
+                        <el-input v-model="form.Bike"></el-input>
                       </el-form-item>
-                      <el-form-item label="所属单位">
-                        <el-select v-model="form.unitId" placeholder="选择单位" class="select selectUnit col-sm-4">
-                          <el-option label="全部单位" value=""></el-option>
-                          <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                        </el-select>
-                      </el-form-item>
-                      <el-form-item label="设备类型">
-                        <el-select
-                          v-model="form.equipmentId"
-                          placeholder="选择设备类型" class="sbwz_138_32 start col-sm-4">
-                          <el-option
-                            v-for="item in equipmentList"
-                            :label="item.name"
-                            :value="item.id">
-                          </el-option>
-                        </el-select>
-                      </el-form-item>
-                      <el-form-item label="设备位置">
-                        <el-select
-                          v-model="form.buildingId"
-                        placeholder="选择建筑"  class="sbwz_138_32 start col-sm-4">
-                          <el-option label="室外" value="0"></el-option>
-                          <el-option
-                            v-for="item in form.buildList"
-                            :label="item.name"
-                            :value="item.id">
-                          </el-option>
-                        </el-select>
-                        <el-select
-                          v-model="form.floorId"
-                          placeholder="选择楼层" class="sbwz_138_32 start col-sm-4">
-                          <el-option
-                            v-for="item in form.floorList"
-                            :label="item.floorName+'层'"
-                            :value="item.id">
-                          </el-option>
-                        </el-select>
-                        <el-select
-                          v-model="form.roomId"
-                          placeholder="选择房间" class="sbwz_138_32 start col-sm-4">
-                          <el-option
-                            v-for="item in form.roomList"
-                            :label="item.roomNumber+'房间'"
-                            :value="item.id">
-                          </el-option>
-                        </el-select>
-                      </el-form-item>
-                      <el-form-item label="坐标">
-                        <el-input placeholder="X" v-model="form.point.pointX" class="col-sm-4"></el-input>
-                        <el-input placeholder="Y" v-model="form.point.pointY" class="col-sm-4"></el-input>
-                      </el-form-item>
-
-                      <el-form-item label="物理地址">
-                        <el-input v-model="form.PhysicalAddress" class="col-sm-8"></el-input>
-                      </el-form-item>          
-                      <el-form-item label="相对房顶高度 (cm)" class="col-sm-4">
-                        <el-input v-model="form.RoofHeight"></el-input>
-                      </el-form-item>
-                      <el-form-item label="相对地板高度 (cm)" class="col-sm-4">
-                        <el-input v-model="form.floorHeight"></el-input>
-                      </el-form-item>
-                      <div class="col-sm-12">
-                          <div class="row">
-                            <el-form-item label="生产商" class="col-sm-4">
-                              <el-input v-model="form.Bike"></el-input>
-                            </el-form-item>
-                            <el-form-item label="生产日期" class="col-sm-4">
-                              <div class="block">
-                                <el-date-picker
-                                  v-model="form.ProductionDay"
-                                  type="date"
-                                  placeholder="选择日期"
-                                  format="yyyy 年 MM 月 dd 日"
-                                  value-format="yyyy-MM-dd">
-                                </el-date-picker>
-                              </div>
-                            </el-form-item>
-                            <el-form-item label="投入使用日期" class="col-sm-4">
-                              <div class="block">
-                                <el-date-picker
-                                  v-model="form.startDate"
-                                  type="date"
-                                  placeholder="选择日期"
-                                  format="yyyy 年 MM 月 dd 日"
-                                  value-format="yyyy-MM-dd">
-                                </el-date-picker>
-                                </div>
-                              </el-form-item>
-                            </div>
-                          </div>
-                        <div class="col-sm-12">
-                          <div class="row">
-                            <el-form-item label="维保单位" class="col-sm-4">
-                              <el-input v-model="form.Refundable"></el-input>
-                            </el-form-item>
-                            <el-form-item label="维保人员" class="col-sm-4">
-                              <el-input v-model="form.linkname"></el-input>
-                            </el-form-item>
-                            <el-form-item label="维保电话" class="col-sm-4">
-                              <el-input v-model="form.phone"></el-input>
-                            </el-form-item>
-                          </div>
-                      </div>
-                      <div class="col-sm-12 margin-bottom20">
-                        <div class="row">
-                          <el-form-item label="更换周期 (天)" class="col-sm-4">
-                            <el-input v-model="form.Retroperiod"></el-input>
-                          </el-form-item>
+                      <el-form-item label="生产日期" class="col-sm-4">
+                        <div class="block">
+                          <el-date-picker
+                            v-model="form.ProductionDay"
+                            type="date"
+                            placeholder="选择日期"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="yyyy-MM-dd">
+                          </el-date-picker>
                         </div>
-                      </div> 
-                      <el-form-item label="控制器ID" class="col-sm-4">
-                        <el-input v-model="form.controlId"></el-input>
                       </el-form-item>
-                    </el-form>
+                      <el-form-item label="投入使用日期" class="col-sm-4">
+                        <div class="block">
+                          <el-date-picker
+                            v-model="form.startDate"
+                            type="date"
+                            placeholder="选择日期"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="yyyy-MM-dd">
+                          </el-date-picker>
+                          </div>
+                        </el-form-item>
+                      </div>
+                    </div>
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <el-form-item label="维保单位" class="col-sm-4">
+                        <el-input v-model="form.Refundable"></el-input>
+                      </el-form-item>
+                      <el-form-item label="维保人员" class="col-sm-4">
+                        <el-input v-model="form.linkname"></el-input>
+                      </el-form-item>
+                      <el-form-item label="维保电话" class="col-sm-4">
+                        <el-input v-model="form.phone"></el-input>
+                      </el-form-item>
+                    </div>
+                </div>
+                <div class="col-sm-12 margin-bottom20">
+                  <div class="row">
+                    <el-form-item label="更换周期 (天)" class="not-null col-sm-4">
+                      <el-input v-model="form.Retroperiod"></el-input>
+                    </el-form-item>
+                  </div>
+                </div>                 
+              </el-form>
                   </div>
                 </div>
                 <div class="modal-footer">
