@@ -334,10 +334,10 @@
   float: left;
   padding:0 5px;
 }
-.main_nav_tab a:first-child {
+/*.main_nav_tab a:first-child {
   border-right: 1px solid transparent;
 }
-
+*/
 .main_nav_tab a.router-link-active,
 .main_nav_tab a:hover{
   color: #000!important;

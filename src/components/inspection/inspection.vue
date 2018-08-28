@@ -114,16 +114,16 @@
 												<!-- <td>{{item.status}}</td> -->
 												<td class="font-red " style="max-width:20px !important;">
 													<el-tooltip content="已领取" placement="top">
-														<i v-if="item.status==1" class="icon iconfont icon-yilingqu-xian- font-red"></i>
+														<i v-if="item.status==1" class="icon iconfont icon-yilingqu-mian- font-yellow"></i>
 													</el-tooltip>
 													<el-tooltip content="巡检中" placement="top">
-														<i v-if="item.status==2" class="icon iconfont icon-xunjianzhong-xian- font-blush"></i>
+														<i v-if="item.status==2" class="icon iconfont icon-xunjianzhong-mian-1 font-blue"></i>
 													</el-tooltip>
 													<el-tooltip content="已完成" placement="top">
-														<i v-if="item.status==3" class="icon iconfont icon-xunjianwancheng-xian- font-blue"></i>
+														<i v-if="item.status==3" class="icon iconfont icon-yiwancheng-mian- font-gray-999"></i>
 													</el-tooltip>
 													<el-tooltip content="未完成" placement="top">
-														<i v-if="item.status==4" class="icon iconfont icon-icon-test"></i>
+														<i v-if="item.status==4" class="icon iconfont icon-test font-red"></i>
 													</el-tooltip>
 												</td>
 												<td>
@@ -135,7 +135,9 @@
 												</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+														<el-tooltip content="查看详情" placement="top">
+							                                <i class="fas fa-chevron-circle-right"></i>
+							                              </el-tooltip>
 													</a>
 												</td>
 											</tr>

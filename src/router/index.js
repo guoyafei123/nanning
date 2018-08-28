@@ -17,6 +17,7 @@ import PlanVue from '../components/plan/plan';
 import Cookie from '../components/publick/cookie';
 import MinmapVue from '../components/publick/min_map';
 import CameraVue from '../components/camera/camera';
+import Fire_analysisVue from '../components/publick/fire_analysis';
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
@@ -103,6 +104,9 @@ export default new Router({
     },
     {
       path:'/camera',component:CameraVue
+    },
+    {
+      path:'/fire_analysis',component:Fire_analysisVue
     },
     {
       path:'/cookie',component:Cookie
