@@ -175,31 +175,6 @@
 		    <el-button @click="personnelInfo = false">关 闭</el-button>
 		  </span>
     </el-dialog>
-    <!-- 签到弹窗 -->
-    <el-dialog show-close :visible.sync="signIn" width="30%" center>
-      <div class="dialog-header">
-        <h3 class="el-dialog__title">工作考勤</h3>
-        <small class="font-blue">瑞和家园</small>
-        <button type="button" class="el-dialog__headerbtn" @click="signIn = false">
-          <i class="el-dialog__close el-icon el-icon-close"></i>
-        </button>
-      </div>
-      <div class="dialog-content text-center clearfix">
-        <h2 class="font-blue margin-bottom20" style="display: none;"><i
-          class="el-icon-circle-check-outline size-100"></i><br>今日已打卡</h2>
-        <div class="myhead">
-          <img src="../../assets/images/QR.png" class="img-responsive center-block qrcode">
-          <h2 class="font-red margin-top20">今日尚未打卡</h2>
-          <h4>二维码<span class="font-blue">2分钟</span>更新一次，请使用<span class="font-blue">智慧消防APP</span>扫一扫打卡</h4>
-        </div>
-        <div class="mytotal margin-top10">
-          <h5>本月未打卡 <span class="font-red">3</span>次</h5>
-        </div>
-      </div>
-      <span slot="footer" class="dialog-footer">
-		    <el-button @click="signIn = false">关 闭</el-button>
-		  </span>
-    </el-dialog>
       <!-- 签到弹窗 -->
     <el-dialog show-close :visible.sync="signIn" width="30%" center>
       <div class="dialog-header">

@@ -92,47 +92,68 @@
 				</ul>
 			</div>
 		</section>
-    <!-- 大列表弹窗 -->
+		<!-- 大列表弹窗 -->
     <el-dialog show-close :visible.sync="fullList" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">      
       <div class="dialog-content clearfix">
       	<button type="button" class="btn-close position-absolute-right" @click="fullList = false">
          <i class="el-icon el-icon-close"></i>关闭
       	</button>
           <section class="Risk_management">
-    <!-- 标题 -->
-    <div class="main_header clearFix">
-      <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-kongzhitai_"></i>
-        <h2>权限分配</h2>
-      </div>
-    </div>
-    <div class="main_all_content">
-      <div class="main_content_table">
-        <el-table
-          border
-          :highlight-current-row="true"
-          <el-table-column
-            prop="Serial_number"
-            type="index"
-            sortable
-            label="序号">
-          </el-table-column>
-          <el-table-column
-            prop="rname"
-            label="组名称">
-          </el-table-column>
-          <el-table-column
-            label="查看权限">
-            <template slot-scope="scope">
-              <button class="btn-on">查看</button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-    </div>
-  </section>
+		    <!-- 标题 -->
+		    <div class="main_header clearFix">
+		      <div class="main_title float-left clearFix">
+		        <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
+		        <h2>风险评估</h2>
+		      </div>
+		    </div>
+		    <div class="table-responsive">
+									<table class="table size-12 table-condensed toolroute-table margin-top10  padding-left15 padding-right15">
+										<thead>
+											<tr>
+												<th>建筑名称</th>
+												<th>所属单位</th>
+												<th class="safe">安全评分</th>
+												<th class="risk">风险系数</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody id="">
+											<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
+												<td>{{item.buildingName}}</td>
+												<td>
+													<el-tooltip content="单位名称" placement="top">
+														<span>{{item.unitName}}</span>
+													</el-tooltip>
+												</td>
+												<td class="safe">
+													<el-tooltip placement="top">
+														<div slot="content">安全评分 8.0</div>
+														<span v-if="Number((10-item.totalScore)/100).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+														<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=2 && Number((10-item.totalScore)/100).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+														<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=4 && Number((10-item.totalScore)/100).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+														<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+													</el-tooltip>
+												</td>
+												<td class="risk">
+													<el-tooltip placement="top">
+														<div slot="content">风险系数 20.56%</div>
+														<span>{{item.totalScore}}</span>
+													</el-tooltip>
+												</td>
+												<td>
+													<a v-on:click="toitmeinfo(item)">
+														<el-tooltip content="查看详情" placement="top">
+															<i class="fas fa-chevron-circle-right"></i>
+														</el-tooltip>
+													</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+				</div>
+		  </section>
       </div>      
-    </el-dialog>
+    </el-dialog>   
 	</div>
 </template>
 
@@ -141,6 +162,7 @@
 	export default {
 		data() {
 			return {
+				// 弹窗
 				fullList: false,
 				// 单选按钮
 				workervalue: 1,
