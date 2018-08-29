@@ -191,6 +191,10 @@
 			<div class="overlay"></div>
 			<template>
 					<div class="toolright">
+						<section class="map-Pattern">
+							<button @click="toMapPattern(1)">报警点</button>
+							<button @click="toMapPattern(2)">热力图</button>
+						</section>
 						<!-- 筛选 -->
 						<section class="my-filter padding5 bg-gray-222 clearfix">
 							<div class="col-sm-12 padding0">
@@ -587,6 +591,9 @@
 			}
 		},
 		methods: {
+			toMapPattern(type){
+				this.$store.commit('toMapPatternsDanger', [type,new Date().getTime()]);
+			},
 			queryByIds(){
 				this.$fetch(
 						"/api/unit/queryById",

@@ -3,6 +3,11 @@
     /* width: 100px;
     height: 100px;
     background-color: yellow !important; */
+    
+}
+
+.xzmap .tooltip{
+    white-space:nowrap !important;
 }
 
 /* 地图图例相关 */
@@ -60,6 +65,7 @@
     top: 100px;
     left: 100px;
     padding: 5px;
+    white-space:nowrap;
 }
 .legend-people span {
     position: absolute;
@@ -73,10 +79,14 @@
     width: 30px;
     height: 30px;
 }
+
 .newpeople span{
     position: absolute;
     bottom: -4px;
     left: 4px;
+}
+.newpeoplealarm{
+    background: rgba(0,0,0,0) !important;
 }
 .people-trianlixian{
     border-top: 10px solid #ccc!important;
@@ -125,6 +135,7 @@
     right: 0;
     margin: auto;
 }
+
 
 .legend-alarm:hover .map-tootipbox{
     display: block 
