@@ -19,7 +19,7 @@
 							<span class="size-20 font-blue">{{unitInfo.name}}</span>
 							<span class="float-right">
 								<el-tooltip content="安全评分" placement="top">
-			                          <span class="bgbox-max bg-blue font-black size-10">{{unitInfo.totalScore}}</span>
+			                          <span class="bgbox-max bg-blue font-black size-10">评分{{unitInfo.totalScore}}</span>
 			                      </el-tooltip>
 							</span>
 						</p>

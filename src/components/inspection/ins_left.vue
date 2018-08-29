@@ -103,7 +103,9 @@
 									<td>{{item.finishedTime}}</td>
 									<td>
 										<a v-on:click="toitmeinfo(item)">
-											<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+											<el-tooltip content="查看详情" placement="top">
+				                                <i class="fas fa-chevron-circle-right"></i>
+				                              </el-tooltip>
 										</a>
 									</td>
 								</tr>
@@ -112,10 +114,10 @@
 					</li>
 					<li class="upd-pagin">
 						<div>
-							<el-pagination style="float: left;" small layout="total" :total="tableData.totalRow">
+							<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 							</el-pagination>
-							<span style="float: left;margin-top:5px;color: #666;margin-left:-5px;">{{tableData.totalPage}}页</span>
-							<el-pagination style="float: right;background: transparent" small layout="prev, pager, next" :page-size="this.queryPlanUserList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="tableData.currentPage" @current-change="handleCurrentChange">
+							<span>{{tableData.totalPage}}页</span>
+							<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.queryPlanUserList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="tableData.currentPage" @current-change="handleCurrentChange">
 							</el-pagination>
 						</div>
 					</li>

@@ -9,7 +9,6 @@
 					<div class="personinfo">
 						<p>
 							<span class="size-20 font-blue">{{queryById.name !='Object' ?queryById.name:'全部单位'}}</span>
-							<!-- <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span> -->
 						</p>
 						<p>
 							<span><i class="el-icon-location"></i> {{queryById.location?queryById.location:'-'}}</span>

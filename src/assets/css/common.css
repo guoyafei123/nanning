@@ -99,7 +99,7 @@ p {
 ::-webkit-scrollbar-thumb:horizontal:hover{background: #ccc}
 
 ::-moz-scrollbar {width: 2px;height:2px;}
-::-moz-scrollbar-track-piece {background-color: #3c3c3c;margin:0;}
+::-moz-scrollbar-track-piece {background-color: #111;margin:0;}
 ::-moz-scrollbar-thumb {background: #666;min-height: 150px;min-width: 150px;border-radius: 0;}
 ::-moz-scrollbar-thumb:vertical:hover{background: #ccc}
 ::-moz-scrollbar-thumb:horizontal:hover{background: #ccc}

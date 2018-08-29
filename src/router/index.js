@@ -3,20 +3,23 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 // footer
-// import LoginVue from '../components/login/login';
-// import RegisterVue from '../components/register/register';
-// import IndexVue from '../components/index/index';
-// import CallpoliceVue from '../components/callpolice/callpolice';
-// import InspectionVue from '../components/inspection/inspection';
-// import InformationVue from '../components/information/information';
-// import PersonnelVue from '../components/personnel/personnel';
-// import RiskVue from '../components/risk/risk';
-// import DangerVue from '../components/danger/danger';
-// import BulidVue from '../components/buliding/buliding';
-// import PlanVue from '../components/plan/plan';
-// import Cookie from '../components/publick/cookie';
-// import MinmapVue from '../components/publick/min_map';
-// import CameraVue from '../components/camera/camera';
+
+import LoginVue from '../components/login/login';
+import RegisterVue from '../components/register/register';
+import IndexVue from '../components/index/index';
+import CallpoliceVue from '../components/callpolice/callpolice';
+import InspectionVue from '../components/inspection/inspection';
+import InformationVue from '../components/information/information';
+import PersonnelVue from '../components/personnel/personnel';
+import RiskVue from '../components/risk/risk';
+import DangerVue from '../components/danger/danger';
+import BulidVue from '../components/buliding/buliding';
+import PlanVue from '../components/plan/plan';
+import Cookie from '../components/publick/cookie';
+import MinmapVue from '../components/publick/min_map';
+import CameraVue from '../components/camera/camera';
+import Fire_analysisVue from '../components/publick/fire_analysis';
+
 // 管理端
 import Unit_managementVue from '../management/Unit_management/Unit_management';
 import Unit_listVue from '../management/Unit_management/Unit_list';
@@ -63,6 +66,11 @@ import ControlRoomLogVue from '../management/ControlRoomLog/ControlRoomLog';
 import ControlRoomLog_AllVue from '../management/ControlRoomLog/all';
 import Add_alarmVue from '../management/Add_alarm/Add_alarm';
 import Add_alarm_ListVue from '../management/Add_alarm/list';
+import Risk_managementVue from '../management/Risk_management/Risk_management';
+import Risk_managementAllVue from '../management/Risk_management/all';
+import Risk_managementUnitVue from '../management/Risk_management/unit';
+import Risk_managementBuildVue from '../management/Risk_management/build';
+import Risk_managementEditVue from '../management/Risk_management/edit';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -118,6 +126,10 @@ export default new Router({
     {
       path:'/camera',
       component:resolve => require(['../components/camera/camera'],resolve)
+    },
+    {
+      path:'/fire_analysis',
+      component:resolve => require(['../components/publick/fire_analysis'],resolve)
     },
     {
       path:'/cookie',
@@ -235,6 +247,18 @@ export default new Router({
       ]
     },
     {
+      path:'/Risk_management',
+      component:Risk_managementVue,
+      children:[
+        { path:'/Risk_management/build',component:Risk_managementBuildVue},
+        { path:'/Risk_management/edit',component:Risk_managementEditVue},
+        { path:'/Risk_management/unit',component:Risk_managementUnitVue},
+        { path:'/Risk_management/Risk_management',component:Risk_managementVue},
+        { path:'/Risk_management/all',component:Risk_managementAllVue},
+        { path:'/Risk_management',redirect:'/Risk_management/all'}
+      ]
+    },
+    {
       path:'/Add_alarm',
       component:Add_alarmVue,
       children:[
@@ -252,6 +276,10 @@ export default new Router({
         { path:'/Reserve_plan/maps',component:Reserve_planMapsVue},
         { path:'/Reserve_plan',redirect:'/Reserve_plan/all'}
       ]
+    },{
+      path:'/Send_message',
+      component:Reserve_planVue,
+
     }
   ]
 })

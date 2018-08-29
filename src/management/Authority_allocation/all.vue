@@ -35,7 +35,6 @@
     </div>
   </section>
 </template>
-
 <script>
   import { realconsole } from '../../assets/js/management.js'
   export default {

@@ -85,11 +85,11 @@
 								</li>
 								<li>
 									<el-select class="upd-elselect upd-elselect-bordernone upd-widht100 margin-top5" size="mini" v-model="lineOption" placeholder="请选择" @change="tolineitem">
-										<el-option v-for="item in queryInspectionNameList" :key="item.id" :label="item.name" :value="item.id">
+										<el-option v-for="item in queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
 										</el-option>
 									</el-select>
 									<div class="float-right margin-top5">
-										<!-- <a class="upd-btn upd-btn-dis" id="lookroute"  @click="lookroute">查看路线</a> -->
+										<a class="upd-btn upd-btn-dis" id="lookroute"  @click="lookroute">查看路线</a>
 										<!-- <a class="upd-btn">展开表单</a> -->
 									</div>
 								</li>
@@ -114,16 +114,16 @@
 												<!-- <td>{{item.status}}</td> -->
 												<td class="font-red " style="max-width:20px !important;">
 													<el-tooltip content="已领取" placement="top">
-														<i v-if="item.status==1" class="icon iconfont icon-yilingqu-xian- font-red"></i>
+														<i v-if="item.status==1" class="icon iconfont icon-yilingqu-mian- font-yellow"></i>
 													</el-tooltip>
 													<el-tooltip content="巡检中" placement="top">
-														<i v-if="item.status==2" class="icon iconfont icon-xunjianzhong-xian- font-blush"></i>
+														<i v-if="item.status==2" class="icon iconfont icon-xunjianzhong-mian-1 font-blue"></i>
 													</el-tooltip>
 													<el-tooltip content="已完成" placement="top">
-														<i v-if="item.status==3" class="icon iconfont icon-xunjianwancheng-xian- font-blue"></i>
+														<i v-if="item.status==3" class="icon iconfont icon-yiwancheng-mian- font-gray-999"></i>
 													</el-tooltip>
 													<el-tooltip content="未完成" placement="top">
-														<i v-if="item.status==4" class="icon iconfont icon-icon-test"></i>
+														<i v-if="item.status==4" class="icon iconfont icon-test font-red"></i>
 													</el-tooltip>
 												</td>
 												<td>
@@ -135,7 +135,9 @@
 												</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
-														<i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i>
+														<el-tooltip content="查看详情" placement="top">
+							                                <i class="fas fa-chevron-circle-right"></i>
+							                              </el-tooltip>
 													</a>
 												</td>
 											</tr>
@@ -183,20 +185,29 @@
 						<section class="margin-top20">
 							<div class="personinfo">
 								<p>
-									<span class="size-20 font-blue">巡检单号</span>
-									<span class="bgbox-min bg-gray-666 font-black size-10">巡检类型</span>
+									<span class="size-20 font-blue">{{inspectionPlanUser.idCode}}</span>
+									<span class="bgbox-min bg-gray-666 font-black size-10">
+										{{inspectionPlanUser.type==1?'举报检查':''}}
+										{{inspectionPlanUser.type==2?'群众活动':''}}
+										{{inspectionPlanUser.type==3?'例行检查':''}}
+										{{inspectionPlanUser.type==4?'智能建议的检查':''}}
+										{{inspectionPlanUser.type==5?'施工现场检查':''}}
+										{{inspectionPlanUser.type==6?'解除临时查封检查':''}}
+										{{inspectionPlanUser.type==7?'申请恢复施工使用 生产经营检查':''}}
+										{{inspectionPlanUser.type==8?'其他检查':''}}
+										</span>
 									<span class="float-right">
                       <span class="bgbox-max bg-blue font-black size-10">
-                          <i class="fas fa-flag-checkered size-12"></i> 已领取</span>
-									<span class="bgbox-max bg-blue font-black size-10">
-                          <i class="fas fa-check-circle size-12"></i> 已完成</span>
+                          <i class="fas fa-flag-checkered size-12"></i> {{inspectionPlanUser.status}}</span>
+									<!-- <span class="bgbox-max bg-blue font-black size-10">
+                          <i class="fas fa-check-circle size-12"></i> 已完成</span> -->
 									</span>
 								</p>
 								<p class="col-sm-7 text-left padding0">
-									<span><i class="fas fa-industry"></i> 中心小学</span>
+									<span><i class="fas fa-industry"></i> {{inspectionPlanUser.unitName}}</span>
 								</p>
 								<p class="col-sm-5 text-right padding0">
-									最新更新:<strong class="font-gray-999">2018-16:23 13:56:37</strong>
+									领取时间:<strong class="font-gray-999"> {{(""+inspectionPlanUser.receiveTime).substring(10)}}</strong>
 								</p>
 							</div>
 						</section>
@@ -261,10 +272,7 @@
 						<section>
 							<div class="toolbuildrate margin-top30">
 								<h4 class="p-title">任务详情
-                    <!-- <a class="float-right toolroute-padding8 popup-routebtn">
-                      <i class="icon iconfont icon-xunjian-mian- font-blue"></i> <span class="size-12 font-gray-ccc">第一季度控烟检查</span>
-                    </a> -->
-                  </h4>
+								</h4>
 								<div class="container-padding20 clearfix">
 									<div class="panel-group tablist-item position-relative" id="accordion" role="tablist" aria-multiselectable="true">
 										<div class="panel panel-default bg-none border-none border-radiusnone ">
@@ -281,10 +289,6 @@
 													<ul class="size-12 font-gray-999 tablist-itemul">
 														<li v-for="item in queryPlanUserDetails.listNode">
 															<span>{{item.buildingName}}
-                                  <span class="float-right">
-                                    <i class="icon iconfont icon-yinhuan-xian- font-yellow size-14 text-left"></i>
-                                    <span class="font-blue">{{item.inspectionPlanUserId}} </span>/<span class="font-yellow">{{item.buildingId}}</span>
-															</span>
 															</span>
 														</li>
 													</ul>
@@ -312,20 +316,18 @@
 							<div class="col-sm-7">
 								<div class="personinfo">
 									<p>
-										<span class="size-20 font-blue">中心小学</span>
-										<el-tooltip content="安全评分" placement="top">
-										<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
-									</el-tooltip>
+										<span class="size-20 font-blue">{{queryById.name !='Object' ?queryById.name:'全部单位'}}</span>
+										<!-- <span class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span> -->
 									</p>
-									<p class="text-left padding0">
-										<span><i class="fas fa-industry"></i> 中心小学</span>
+									<p>
+										<span><i class="el-icon-location"></i> {{queryById.location?queryById.location:'-'}}</span>
 									</p>
 								</div>
 							</div>
 							<!-- 已选择单位巡检任务总数 -->
 							<div class="col-sm-5 font-white text-right size-12">
 								<i class="icon iconfont icon-xunjian-xian- size-14 font-blue"></i> 任务总数<br>
-								<span class="size-22 font-blue">1746</span>
+								<span class="size-22 font-blue">{{tableData.totalRow}}</span>
 							</div>
 						</section>
 						<section>
@@ -374,23 +376,25 @@
 						<section>
 							<div class="toolcount margin-top10">
 								<h4 class="p-title">巡检完成率历史趋势
-                    <span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-12"></i>
-                    </span>
-                  </h4>
+									<span class="float-right toolroute-padding8 popup-routebtn font-gray-666" data-toggle="tooltip" title="全屏">
+									<i class="icon iconfont icon-weibiaoti10 size-12"></i>
+									</span>
+								</h4>
 								<div id="charHistoricaltrend" style="width: 100%;height:160px;margin: 0 auto;"></div>
 							</div>
 						</section>
 					</section>
 
 					<section class="inspection-lineitem display-none">
+
 						<section>
-							<div class="row toolcount margin-top0">
-								<div class="col-sm-4  font-gray-999 padding-right0">
+							<div class="toolcount margin-top10 margin-top30">
+								<h4 class="p-title">路线统计</h4>
+								<div class="col-sm-5  font-gray-999 padding-right0 margin-top30">
 									<ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
 										<li>
-											<p class="font-blue size-50">
-												3/30
+											<p class="font-blue size-50 ">
+												{{queryPlanDetailsplanDetails.finishAmount}}/{{queryPlanDetailsplanDetails.amount}}
 											</p>
 										</li>
 										<li>
@@ -401,10 +405,10 @@
 										</li>
 									</ul>
 								</div>
-								<div class="col-sm-8 font-gray-999 padding-left0 padding-right0">
+								<div class="col-sm-7 font-gray-999 padding-left0 padding-right0">
 									<ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
 										<div class="col-sm-7 font-gray-999 padding-left0 padding-right0">
-											<div id="charlookline2" style="width: 100%;height:150px;margin: 0 auto;"></div>
+											<div id="charlookline2" style="width: 100%;height:130px;margin: 0 auto;"></div>
 										</div>
 									</ul>
 								</div>
@@ -413,77 +417,48 @@
 						<section>
 							<div class="toolcount">
 								<div class="col-sm-12  font-gray-999 padding-right0">
-									<div class="row text-center">
-										<!-- <template v-if="queryPlanDetails.planDetails"> -->
+									<div class="row text-center margin-bottom30">
 										<div class="col-sm-4 personnel-borderright">
-											<p class="size-16 font-white">12</p>
+											<p class="size-16 font-white">{{queryPlanDetailsplanDetails.troubleCount}}</p>
 											<p>隐患发现数</p>
 										</div>
 										<div class="col-sm-4 personnel-borderright">
-											<p class="size-16 font-white">56</p>
+											<p class="size-16 font-white">{{queryPlanDetailsplanDetails.userCount}}</p>
 											<p>巡检人数</p>
 										</div>
 										<div class="col-sm-4">
-											<p class="size-16 font-white">8</p>
+											<p class="size-16 font-white">{{queryPlanDetails.nodeCount}}</p>
 											<p>节点数量</p>
 										</div>
-										<!-- </template> -->
 									</div>
 								</div>
 							</div>
 						</section>
 						<section>
-							<div class="textandimg row">
+							<div class="toolcount">
 								<h4 class="p-title">路线信息</h4>
-								<div class="row textandimg-main padding-left15 size-12">
+								<div class="row textandimg-main padding-left15 size-12 margin-top20">
 									<div class="col-sm-12">
 										<span>路线最新激活时间 </span>
-										<strong>2018-08-09 08:00:00</strong>
+										<strong>{{queryPlanDetailsinspectionPlan.createTime}}</strong>
 									</div>
 									<div class="col-sm-12">
 										<span>路线激活人 </span>
-										<strong>段亚伟</strong>
+										<strong>{{queryPlanDetailsinspectionPlan.createUserName}}</strong>
 									</div>
 									<div class="col-sm-12">
 										<span>路线删除时间 </span>
-										<strong>2018-08-09 09:00:00</strong>
+										<strong>{{queryPlanDetailsinspectionPlan.delTime?queryPlanDetailsinspectionPlan.delTime:'-'}}</strong>
 									</div>
 									<div class="col-sm-12">
 										<span>路线删除人 </span>
-										<strong>段亚伟</strong>
+										<strong>{{queryPlanDetailsinspectionPlan.delName?queryPlanDetailsinspectionPlan.delName:'-'}}</strong>
 									</div>
-									<!-- </template> -->
 								</div>
 							</div>
 						</section>
 						<section>
-							<div class="toolbuildrate padding-left10">
-								<h4 class="p-title"></h4>
-								<template v-if="queryPlanDetails.nodeList">
-									<div class="panel-group tablist-item" id="accordion" role="tablist" aria-multiselectable="true">
-										<div class="panel panel-default bg-none border-none border-radiusnone">
-											<div class="panel-heading bg-gray-222 font-gray-999 tablist-itemtitle" role="tab" id="headingOne">
-												<span class="itemtitle-rect"><i class="fa fa-th-large font-gray-333"></i></span>
-												<h4 class="panel-title">
-                              <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                {{queryPlanDetails.nodeList[0].buildingName}}<span class="itemtitle-value display-inline-block margin-left10 bg-red font-black">{{queryPlanDetails.nodeList[0].type}}</span>
-                              </a>
-                            </h4>
-											</div>
-										</div>
-										<span class="toolbuildrate-forter">
-                          <h4 class="panel-title">
-                              <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                {{queryPlanDetails.nodeList[0].buildingName}}<span class="itemtitle-value display-inline-block margin-left10 bg-red font-black">{{queryPlanDetails.nodeList[0].type}}</span>
-										</a>
-										</h4>
-										</span>
-									</div>
-								</template>
-							</div>
-						</section>
-						<section>
-							<div class="toolcount margin-top10">
+							<div class="toolcount margin-top20">
 								<h4 class="p-title">巡检完成率历史趋势</h4>
 								<div id="charlookline" style="width: 100%;height:180px;margin: 0 auto;"></div>
 							</div>
@@ -497,6 +472,7 @@
 </template>
 
 <script>
+	import{mapState} from "vuex";
 	import moment from "moment";
 	import HeaderVue from "../publick/header.vue";
 	// import leftVue from "./left.vue";
@@ -569,35 +545,13 @@
 					unitId: ''
 				},
 				queryInspectionNameList: Object,
-				// 下拉框
-				options: [{
-						value: "选项1",
-						label: "路线名称1"
-					},
-					{
-						value: "选项2",
-						label: "路线名称2"
-					},
-					{
-						value: "选项3",
-						label: "路线名称3"
-					},
-					{
-						value: "选项4",
-						label: "路线名称4"
-					},
-					{
-						value: "选项5",
-						label: "路线名称5"
-					}
-				],
 				lineOption: "全部路线",
 				queryInspectionNameListvalueTwo: '全部路线',
 				lookroutebool: false,
 				// 饼状图参数-请求
 				queryTrendPieGraph_parameter: {
-					unitId: 4,
-					planId: 486
+					unitId: null,
+					planId: 377
 				},
 				// 饼状图参数-返回
 				queryTrendPieGraph: {
@@ -606,33 +560,55 @@
 				},
 				// 曲线图请求数据
 				queryTrendMapGraph_parameter: {
-					unitId: 4,
-					startTime: "2018-06-01",
-					endTime: "2018-08-09"
+					unitId: null,
+					startTime: null,
+					endTime: null
 				},
 				queryTrendMapGraph: {},
 				// 巡检路线详情参数
 				queryPlanUserDetails_parameter: {
-					id: '92'
+					id: null
 				},
 				queryPlanUserDetails: Object,
+				inspectionPlanUser:Object,
 				queryPlanUserDetailsListNode:Object,
 				queryPlanUserDetailsListNodeend:Object,
 				queryPlanDetails_parameter: {
-					inspectionPlanId: 486,
-					startTime: '2018-06-01',
-					endTime: '2018-08-09'
+					inspectionPlanId: null,
+					startTime: null,
+					endTime: null
 				},
 				queryPlanDetails: Object,
-				queryUnitBuildList_parameter: {
-					unitId: 4
+				queryPlanDetailsplanDetails:Object,
+				queryPlanDetailsinspectionPlan:Object,
+				queryById_parameter:{
+					unitId:null
 				},
-				queryUnitBuildList: Object,
-				queryInspectionLineList_parameter: {
-					unitId: 4
-				},
-				queryInspectionLineList: Object,
+				queryById:Object
 			};
+		},
+		computed:mapState([
+			'unitid'
+		]),
+		watch:{
+			unitid(){
+				// //console.log(this.queryAlarmData_parmar.unitId)
+				if(this.unitid!=0){
+					this.getunitid=this.unitid;
+				}else{
+					this.getunitid=null;
+				}
+				this.queryById_parameter.unitId=this.getunitid;
+				this.planInspectionCount_parameter.unitId=this.getunitid;
+				this.queryPlanUserList_parameter.unitId=this.getunitid;
+				this.queryInspectionNameList_parameter.unitId=this.getunitid;
+				this.queryTrendPieGraph_parameter.unitId=this.getunitid;
+				this.queryTrendMapGraph_parameter.unitId=this.getunitid;
+				this.queryByIds();
+				this.getData();
+				this.getTable();
+
+			}
 		},
 		components: {
 			"header-vue": HeaderVue,
@@ -640,6 +616,22 @@
 			// "right-vue": rightVue
 		},
 		methods: {
+			queryByIds(){
+				this.$fetch(
+						"/api/unit/queryById",
+						this.queryById_parameter
+					).then(response => {
+						if(response.errorCode==0) {
+							this.queryById = response.data.unit
+						}else{
+							this.queryById.name='全部单位'
+							this.queryById.location='-'
+						}
+					})
+					.then(err => {
+						//console.log(err);
+					});
+			},
 			chooseTimeRange(t) {
 				this.dateValue = t;
 				var st = moment(this.dateValue[0]).format('YYYY-MM-DD');
@@ -706,6 +698,7 @@
 						if(response) {
 							let data = response.data;
 							//console.log(data);
+							this.queryInspectionNameList=Object;
 							this.queryInspectionNameList = data.listInspectionName;
 							this.queryInspectionNameList.unshift({
 								id: 0,
@@ -803,6 +796,7 @@
 					.then(response => {
 						if(response) {
 							this.queryPlanUserDetails = response.data;
+							this.inspectionPlanUser=this.queryPlanUserDetails.inspectionPlanUser;
 							//console.log(this.queryPlanUserDetails);
 							this.queryPlanUserDetailsListNode=response.data.listNode[0];
 							this.queryPlanUserDetailsListNodeend=response.data.listNode[(response.data.listNode).length-1];
@@ -813,7 +807,7 @@
 					});
 
 			},
-			lookroute(data) {
+			lookroute() {
 				//console.log(this.lookroutebool);
 				if(this.lookroutebool) {
 					$(".inspection-iteminfo")
@@ -825,32 +819,25 @@
 					$(".inspection-lineitem")
 						.addClass("display-block")
 						.removeClass("display-none");
-					// 查看路线详情
-					// this.$fetch(
-					//   "api/inspection/queryPlanDetails",
-					//   this.queryPlanDetails_parameter
-					// )
-					//   .then(response => {
-					//     if (response) {
-					//       this.queryPlanDetails= response.data;
-					//       //console.log(this.queryPlanDetails);bfvmhjb
-					//       // draw_piemin()
-
-					//       // let data = response.data.result.dateMap;
-					//       // let a=[],b=[];
-					//       // for (var value in data) {
-					//       //   a.push(value);
-					//       //   b.push(data[value]);
-					//       // }
-					//       // this.draw_line(
-					//       //   "charlookline",response.data.planDetails.planMap
-					//       // );
-					//     }
-					//   })
-					//   .then(err => {
-					//     //console.log(err);
-					//   });
-					this.getceshi();
+					this.$fetch(
+					  "api/inspection/queryPlanDetails",
+					  this.queryPlanDetails_parameter
+					)
+					  .then(response => {
+					    if (response) {
+						  this.queryPlanDetails= response.data;
+						  this.queryPlanDetailsplanDetails=response.data.planDetails;
+						  this.queryPlanDetailsinspectionPlan=response.data.inspectionPlan;
+						  console.log(this.queryPlanDetailsplanDetails);
+							this.draw_piemax1(
+								'charlookline2',
+								this.queryPlanDetailsplanDetails
+							)
+					      	this.draw_line(
+								"charlookline", this.queryPlanDetailsplanDetails.planMap
+							);
+					    }
+					  })
 				}
 
 			},
@@ -866,11 +853,41 @@
 					.removeClass("display-block");
 			},
 			tolineitem() {
-				this.lookroutebool = true;
-				$('#lookroute').removeClass('upd-btn-dis');
-				this.queryPlanUserList_parameter.inspectionName = this.lineOption;
-				// //console.log(data.name)
-				this.getTable();
+				if(this.lineOption!='全部路线'){
+					this.lookroutebool = true;
+					$('#lookroute').removeClass('upd-btn-dis');
+					this.queryPlanUserList_parameter.inspectionName = this.lineOption;
+					this.getTable();
+
+					
+
+					this.queryInspectionNameList.forEach(element => {
+						console.log(element);
+						if(element.name==this.lineOption){
+							var id=element.id;
+							console.log(id);
+							this.queryPlanDetails_parameter.inspectionPlanId=id;
+							this.lookroute();
+							return;
+						}
+					});
+				}else{
+					this.lookroutebool = false;
+					$('#lookroute').addClass('upd-btn-dis');
+					this.queryPlanUserList_parameter.inspectionName = null;
+					this.getTable();
+
+					$(".inspection-lineinfo")
+						.addClass("display-block")
+						.removeClass("display-none");
+					$(".inspection-iteminfo")
+						.addClass("display-none")
+						.removeClass("display-block");
+					$(".inspection-lineitem")
+						.addClass("display-none")
+						.removeClass("display-block");
+				}
+				
 			},
 			draw_piemin(id, data) {
 				let value;
@@ -939,6 +956,87 @@
 						}
 					}
 				];
+				var char = {
+					tooltip: {
+						trigger: "item",
+						// formatter: "{a} <br/>{b} {c}次"
+						formatter: function(data) {
+							var name = "";
+							if(data.name.substring(0, 3) == "完成率") {
+								name = "已完成";
+							} else {
+								name = data.name;
+							}
+							return name + ":" + data.value + "次";
+						}
+					},
+					series: [{
+						name: "说明:",
+						type: "pie",
+						radius: [0, "70%"],
+						color: ["#bad616", "#333"],
+						data: d
+					}]
+				};
+				let chars = this.$echarts.init(document.getElementById(id));
+				chars.setOption(char);
+			},
+			draw_piemax1(id, data) {
+				let d;
+				
+				if(data.amount!=0){
+					var fin_per = data.finishAmount / data.amount * 100;
+					 d= [{
+							value: data.finishAmount,
+							name: "完成率 " + fin_per.toFixed(2) + "%",
+							labelLine: {
+								normal: {
+									show: false
+								}
+							},
+							label: {
+								normal: {
+									position: "inner",
+									show: true
+								}
+							}
+						},
+						{
+							value: data.amount - data.finishAmount,
+							name: "未完成",
+							labelLine: {
+								normal: {
+									show: false
+								}
+							},
+							label: {
+								normal: {
+									position: "inner",
+									show: false
+								}
+							}
+						}
+					];
+				}else{
+					d= [{
+							value: data.finishAmount,
+							name: "完成率 100%",
+							labelLine: {
+								normal: {
+									show: false
+								}
+							},
+							label: {
+								normal: {
+									position: "inner",
+									show: true
+								}
+							}
+						},
+						
+					];
+				}
+				
 				var char = {
 					tooltip: {
 						trigger: "item",
@@ -1034,91 +1132,24 @@
 				let charf = this.$echarts.init(document.getElementById(id));
 				charf.setOption(char);
 			},
-			getmap_queryUnitBuildList() {
-				// 请求路线列表
-				this.$fetch(
-						"/api/building/queryUnitBuildList",
-						this.queryUnitBuildList_parameter
-					)
-					.then(response => {
-						if(response) {
-							this.queryUnitBuildList = response.data;
-							this.$store.commit('queryUnitBuildList', this.queryUnitBuildList);
-						}
-					})
-					.then(err => {
-						//console.log(err);
-					});
-			},
-			getmap_queryInspectionLineList() {
-				// 请求路线列表
-				this.$fetch(
-						"/api/inspection/queryInspectionLineList",
-						this.queryInspectionLineList_parameter
-					)
-					.then(response => {
-						if(response) {
-							this.queryInspectionLineList = response.data;
-							this.$store.commit('queryInspectionLineList', this.queryInspectionLineList);
-						}
-					})
-					.then(err => {
-						//console.log(err);
-					});
-			},
 
 			// 锁定/关闭
 			goBack() {
 				$(".icon-suo-guan-mian-,.icon-guanbi-mian-").toggleClass("active");
 			},
-			getceshi() {
-				var pie = {
-					tooltip: {
-						trigger: "item",
-						formatter: "{a} <br/>{b}: {c} ({d}%)"
-					},
-					series: [{
-						name: "访问来源",
-						type: "pie",
-						selectedMode: "single",
-						radius: [0, "70%"],
-						label: {
-							normal: {
-								position: "inner"
-							}
-						},
-						labelLine: {
-							normal: {
-								show: false
-							}
-						},
-						color: ["#bad616", "#333"],
-						data: [{
-								value: 335,
-								name: "50%",
-								selected: true
-							},
-							{
-								value: 679,
-								name: ""
-							}
-						]
-					}]
-				};
-				let mypie1 = this.$echarts.init(document.getElementById("charlookline"));
-				mypie1.setOption(pie);
-				let mypie2 = this.$echarts.init(document.getElementById("charlookline2"));
-				mypie2.setOption(pie)
-			}
-
 		},
 		mounted() {
+			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
+				this.queryById_parameter.unitId=sessionStorage.unitid;
+			}
+			if(sessionStorage.unitid==0){
+				this.queryById_parameter.unitId=null;
+			}
+			this.queryByIds();
 			this.$store.commit('route_path', this.$route.path);
 			this.defaultTimeVaule();
 			this.getData();
 			this.getTable();
-			this.getmap_queryUnitBuildList();
-			this.getmap_queryInspectionLineList();
 		}
 	};
 </script>

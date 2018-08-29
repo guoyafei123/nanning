@@ -121,7 +121,7 @@
                     :type="scope.row.status === 1 ? 'green' : 'red'"
                     disable-transitions v-if='scope.row.status==1'>正常</el-tag>
                   <el-tag
-                    :type="scope.row.status === 2 ? 'red' : 'green'"
+                    :type="scope.row.status === 2 ? 'orange' : 'green'"
                     disable-transitions v-if='scope.row.status==2'>故障</el-tag>
                   <el-tag
                     :type="scope.row.status === 2 ? 'red' : 'green'"

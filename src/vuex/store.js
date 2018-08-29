@@ -79,6 +79,7 @@ var state={
   // 地图相关
   // 全部单位
   mapAllUnit:Object,
+  toMapPatterns:Object,
 }
 
 var mutations={
@@ -226,7 +227,6 @@ var mutations={
   },
   // 展示端风险
   toriskitem(state,data){
-    alert(2);
     state.toriskitem=data;
   },
   // 展示端建筑
@@ -262,6 +262,10 @@ var mutations={
   },
   mapAllUnit(state,data){
     state.mapAllUnit=data;
+  },
+  toMapPatterns(state,data){
+    // alert(1);
+    state.toMapPatterns=data;
   },
 }
 

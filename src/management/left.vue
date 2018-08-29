@@ -4,7 +4,7 @@
         <h1 class="col-xs-8">管理</h1>
         <div class="col-xs-3 padding-right0 text-right">
           <router-link to="/operationLog">
-            <el-tooltip class="item" content="工作日志" placement="top">
+            <el-tooltip class="item" content="操作日志" placement="top">
               <i class="icon iconfont icon-caozuorizhi-xian-"></i>
             </el-tooltip>
           </router-link>
@@ -40,8 +40,7 @@
             </li>
           </router-link>          
           <li class="system_title">风险防控</li>
-          <router-link to="/">
-          <!-- Risk_Analysis -->
+          <router-link to="/Risk_management">
             <li>
               <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
               <h2>风险分析</h2>

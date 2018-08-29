@@ -49,8 +49,18 @@
 			"indexToAlarmTroubel",
 			"route_path",
 			"unitid",
+			"toMapPatterns"
 		]),
 		watch: {
+			toMapPatterns(){
+				// alert(this.toMapPatterns);
+				this.mp.clearOverlays();
+				// 全部建筑
+				this.getbuildlist();
+				// 全部单位
+				this.getunitlist();
+				this.path_callpolice(this.toMapPatterns);
+			},
 			// 所有巡检单位
 			queryUnitBuildList() {
 				this.queryUnitBuildList.unitBuildList.forEach(element => {
@@ -199,10 +209,10 @@
 				} else if(this.routepath == "/inspection") {
 					this.path_inspection();
 				} else if(this.routepath == "/buliding") {
-					// this.path_buliding();
+					this.path_buliding();
 				}
 				else if(this.routepath == "/callpolice") {
-					this.path_callpolice();
+					this.path_callpolice(1);
 				}
 				else if(this.routepath == "/danger") {
 					this.path_danger();
@@ -853,74 +863,51 @@
 				this.mp.addOverlay(this.addline(linearray, 2));
 			},
 			path_buliding() {
-				this.mp.addOverlay(
-					this.addlandmark("红花园工业园1号楼", "3", [110.574494, 27.905342])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("红花园工业园2号楼", "6", [110.574907, 27.905837])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("五里排", "1", [110.56976, 27.909667])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("林翠山公园", "1", [110.584321, 27.910753])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("蒋家冲", "1", [110.568709, 27.900633])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("溆水外滩", "1", [110.58734, 27.90199])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("罗家湾", "1", [110.579686, 27.91179])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("三坝塘", "1", [110.571494, 27.913881])
-				);
-				this.mp.addOverlay(
-					this.addlandmark("红花园村", "1", [110.562726, 27.897616])
-				);
+				
 			},
-			path_callpolice(){
-				this.$fetch("/api/alarm/getAlarmList")
-				.then(response => {
-					if(response) {
-						var total=response.data.pager.totalRow
-						this.$fetch("/api/alarm/getAlarmList",{'currentPage':1,'pageSize':total})
-						.then(response => {
-							if(response) {
-								var getList=response.data.pager.result;
-								getList.forEach(element => {
-									var a=element.pointX;
-									var b=element.pointY;
-									var name=this.toname(element)
-									this.mp.addOverlay(
-										this.addpeople('', "10", [a,b],name)
-									);
-								});
-							}
-						})
-					}
-				})
-        this.$fetch("/api/alarm/queryALarmHeatMap?count=1000")
-          .then(response =>{
-            if(response){
-              let points = response.data.points;
-              let heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":20});
-              this.mp.addOverlay(heatmapOverlay);
-              heatmapOverlay.setDataSet({data:points,max:100});
-              heatmapOverlay.show();
-              function setGradient(){
-                var gradient = {};
-                var colors = document.querySelectorAll("input[type='color']");
-                colors = [].slice.call(colors,0);
-                colors.forEach(function(ele){
-                  gradient[ele.getAttribute("data-key")] = ele.value;
-                });
-                heatmapOverlay.setOptions({"gradient":gradient});
-              }
-            }
-          })
+			path_callpolice(type){
+				if(type==1){
+					this.$fetch("/api/alarm/getAlarmList")
+					.then(response => {
+						if(response) {
+							var total=response.data.pager.totalRow
+							this.$fetch("/api/alarm/getAlarmList",{'currentPage':1,'pageSize':total})
+							.then(response => {
+								if(response) {
+									var getList=response.data.pager.result;
+									getList.forEach(element => {
+										var a=element.pointX;
+										var b=element.pointY;
+										var name=this.toname(element)
+										this.mp.addOverlay(
+											this.addpeople('', "10", [a,b],name)
+										);
+									});
+								}
+							})
+						}
+					})
+				}else if(type==2){
+					this.$fetch("/api/alarm/queryALarmHeatMap?count=1000")
+					.then(response =>{
+						if(response){
+						let points = response.data.points;
+						let heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":50});
+						this.mp.addOverlay(heatmapOverlay);
+						heatmapOverlay.setDataSet({data:points,max:100});
+						heatmapOverlay.show();
+						function setGradient(){
+							var gradient = {};
+							var colors = document.querySelectorAll("input[type='color']");
+							colors = [].slice.call(colors,0);
+							colors.forEach(function(ele){
+							gradient[ele.getAttribute("data-key")] = ele.value;
+							});
+							heatmapOverlay.setOptions({"gradient":gradient});
+						}
+						}
+					})
+				}
 			},
 			path_danger(){
 				this.$fetch("/api/trouble/troubleList")

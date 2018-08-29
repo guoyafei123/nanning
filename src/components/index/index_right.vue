@@ -28,7 +28,7 @@
 				<!-- 统计1 -->
 				<li>
 					<div class="pull-left">
-						<h4 v-if="queryUnitInfo_parmar.unitId!=0">{{queryUnitInfoinfoc}} </h4>
+						<h4 v-if="queryUnitInfo_parmar.unitId!=0">{{queryUnitInfoinfoc}}</h4>
 						<h4 v-if="queryUnitInfo_parmar.unitId==0">-</h4>
 						<small>消防负责人</small>
 					</div>
@@ -311,7 +311,7 @@
             <p class="col-sm-8">
               <template v-if="item.userId!=0 || item.userId!=null">
                 <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
-                <i class="icon iconfont icon-xunjianyuan-mian-"><span>人工报警</span></i>
+                <i class="icon iconfont icon-rengongbaojing-mian-"><span>人工报警</span></i>
               </template>
               <template v-if="item.userId==0 || item.userId==null">
                 <i class="icon iconfont icon-shebei-mian-"><span>{{item.deviceMac}}</span></i>
@@ -380,7 +380,7 @@
 		</template>
 		<!-- 弹窗 -->
 		<el-dialog title="" :visible.sync="dialogVisible" top="120px">
-			<el-tooltip class="item" content="收起导航" placement="top">
+			<el-tooltip class="item" content="关闭" placement="top">
 				<a class="go-back" @click="dialogVisible = false"><i class="el-icon-circle-close-outline size-24"></i></a>
 				</el-tooltip>
 			<earlyinfo-vue></earlyinfo-vue>

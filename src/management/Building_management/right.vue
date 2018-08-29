@@ -54,15 +54,15 @@
                       </li> -->
                       <li class="row text-center padding-right16 margin-top10">
                           <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-white">{{this.form.area}}</p>
+                              <p class="size-16 show font-white" v-html="this.form.area == null ? '-' : this.form.area"></p>
                               <p>面积 m²</p> 
                           </div>
                           <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-white">{{this.form.height}}</p>
+                              <p class="size-16 show font-white" v-html="this.form.height == null ? '-' : this.form.height"></p>
                               <p>高度 m</p>
                           </div>
                           <div class="col-sm-4">                              
-                              <p class="size-16 show font-blue">{{this.form.floor}}</p>
+                              <p class="size-16 show font-blue" v-html="this.form.floor == null ? '-' : this.form.floor"></p>
                               <p>楼层数量</p>
                           </div>
                       </li>
@@ -105,16 +105,16 @@
                   
                   <div class="col-sm-6">
                       <span>占地面积 </span>
-                      <strong v-html="this.form.area+'㎡'"></strong>
+                      <strong v-html="this.form.area == null ? '-' : this.form.area+'㎡'"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>高 度 </span>
-                      <strong v-html="this.form.height+'m'"></strong>
+                      <strong v-html="this.form.height == null ? '-' : this.form.height+'m'"></strong>
                   </div>
 
                   <div class="col-sm-6">
                       <span>总楼层 </span>
-                      <strong v-html="this.form.floor"></strong>
+                      <strong class="font-blue" v-html="this.form.floor"></strong>
                   </div>
                   <div class="col-sm-12">
                       <span>建筑年份 </span>

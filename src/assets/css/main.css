@@ -993,7 +993,9 @@ a.min-map-cloase:hover {
     font-size: 20px;
 }
 .dialog-content .main_nav {
-    margin-right: 90px;   
+    /*margin-right: 90px; */
+    position: absolute;
+    left: 10px;  
 }
 .dialog-cont .el-dialog__body {
     max-height: 100%;
@@ -1039,4 +1041,26 @@ a.min-map-cloase:hover {
 }
 .dialog-cont .main_nav_tab {
     left: 10px;
+}
+
+.dialog-cont table {
+  border-bottom: 1px solid #222!important; 
+}
+.dialog-cont table>tbody>tr>td,
+.dialog-cont table>tbody>tr,
+.dialog-cont table>thead>tr {
+    border-top: 1px solid #222!important; 
+}
+.dialog-cont table>thead>tr>th,
+.dialog-cont table>tbody>tr>td {
+  border-left: 1px solid #222!important; 
+}
+
+.dialog-cont .main_nav_tab {
+    display: none;
+}
+
+/*火情分析*/
+#fire_analysis {
+    
 }
