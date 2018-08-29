@@ -37,6 +37,8 @@ import List_of_peopleVue from '../management/List_of_people/List_of_people';
 import List_of_people_AllVue from '../management/List_of_people/all';
 import List_of_people_listVue from '../management/List_of_people/list';
 import Personnel_reviewVue from '../management/Personnel_review/Personnel_review';
+import Patrolcheck_AllVue from '../management/Patrolcheck/all';
+import PatrolcheckVue from '../management/Patrolcheck/Patrolcheck';
 import Personnel_review_AllVue from '../management/Personnel_review/all';
 import Dangerous_goods_managementVue from '../management/Dangerous_goods_management/Dangerous_goods_management';
 import Dangerous_goods_management_listVue from '../management/Dangerous_goods_management/list';
@@ -168,6 +170,14 @@ export default new Router({
         { path:'/List_of_people/list',component:List_of_people_listVue},
         { path:'/List_of_people/all',component:List_of_people_AllVue},
         { path:'/List_of_people',redirect:'/List_of_people/all'}
+      ]
+    },
+    {
+      path:'/Patrolcheck',
+      component:PatrolcheckVue,
+      children:[
+        { path:'/Patrolcheck/all',component:Patrolcheck_AllVue},
+        { path:'/Patrolcheck',redirect:'/Patrolcheck/all'}
       ]
     },
     {

@@ -35,7 +35,7 @@
               placeholder="选择楼层" class="start startFloor">
               <el-option
                 v-for="item in floorList"
-                :label="item.floor+'层'"
+                :label="item.floorName+'层'"
                 :value="item.id">
               </el-option>
             </el-select>
@@ -122,7 +122,8 @@
 import panzoom from 'panzoom';
 import{mapState} from "vuex";
 import managementMapVue from '../managementMap';
-  import { realconsole } from '../../assets/js/management.js'
+  import { realconsole } from '../../assets/js/management.js';
+  import { setPointList } from '../../assets/js/pointDevice';
   export default {
     data() {
       return {
@@ -138,7 +139,8 @@ import managementMapVue from '../managementMap';
         equipmentList:[],
         optionList:[],//全部单位列表
         svgUrl:'',
-        table_list:[]
+        table_list:[],
+        deviceList:[]
       }
     },
     components:{
@@ -147,25 +149,40 @@ import managementMapVue from '../managementMap';
     methods: {
       floor_btn(id){
         console.log(id)
+        
         this.table_list.forEach((item)=>{
           if(item.id == id){
             this.svgUrl = item.svgUrl ;
+            this.floor = id ;
+            
             // $('.floorMap').append('<div id="alarmDiv'+ this.imgIndex +'"></div>');
            
-            // setPointList(this.iconByType[this.form.equipmentId],'alarmDiv'+ this.imgIndex);
+            
           }
         });
         var area = document.getElementById('floorImg');
         panzoom((area),{
           maxZoom:1,
-          minZoom:0.5
+          minZoom:1
         });
+        this.$fetch("/api/device/queryDevice",{
+          floorId:this.floor
+        }).then(res=>{
+          console.log(res.data.deviceList);
+          this.deviceList = res.data.deviceList ;
+          
+        });
+        this.deviceList.forEach((element,index) => {
+            console.log(index)
+            $('#floorImg').append('<div id="alarmDiv'+ element.id +'"></div>');
+            setPointList(element.xRate,element.yRate,this.iconByType[element.deviceTypeId],'alarmDiv'+ element.id);
+          });
       },
       findPageBuildIngFloor(){
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
           pageSize:1000,
-          buildingId:this.buildUnit
+          buildingId:this.building
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;         
@@ -248,14 +265,24 @@ import managementMapVue from '../managementMap';
         this.floor = '';
         this.room = '';
         this.equipment = '';
+        this.table_list = [];
         this.floorSearch(this.building);
         this.$store.commit('buildDevice',this.building);
+        if(this.building != 0 && this.building != '0'){
+          $('.floorMap').show();
+          $('.map').hide();
+          this.findPageBuildIngFloor();
+        }else{
+          $('.floorMap').hide();
+          $('.map').show();
+        }
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
         //console.log(this.floor);
         if(this.floor !== 0){
           this.roomSearch(this.floor);
+          this.floor_btn(this.floor);
           this.$store.commit('floorDevice',this.floor);
         }
       },
@@ -269,7 +296,18 @@ import managementMapVue from '../managementMap';
         this.$store.commit('equipmentDevice',this.equipment);
       },
       buildUnit(){
-        this.findPageBuildIngFloor();
+        console.log(this.buildUnit)
+        if(this.buildUnit != 0 && this.buildUnit != '0'){
+          this.building = this.buildUnit ;
+          this.findPageBuildIngFloor();
+        }
+      },
+      deviceSimple(){
+        this.unit = this.deviceSimple.unitId ;
+        this.building = this.deviceSimple.buildingId ;
+        this.floor = this.deviceSimple.floorId ;
+        console.log(this.floor)
+        this.floor_btn(this.floor);
       }
     },
     mounted(){
@@ -281,7 +319,8 @@ import managementMapVue from '../managementMap';
     },
     computed:mapState([
       'buildUnit',
-      'iconByType'
+      'iconByType',
+      'deviceSimple'
     ])
   };
 </script>

@@ -404,7 +404,9 @@ import { mapState } from 'vuex';
     },
     methods: {
       formatter(row, column){
-        return this.dateMinus(row.startDate)
+        if(row.startDate){
+          return this.dateMinus(row.startDate)
+        }
       },
       btn_map(){
         $('.plan').hide();
@@ -497,6 +499,7 @@ import { mapState } from 'vuex';
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
+        console.log(row.id)
       },
       deleteRow(){
           //console.log(this.deviceIndex);

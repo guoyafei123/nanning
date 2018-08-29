@@ -332,7 +332,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.table_list.forEach((item)=>{
             if(item.id == id){
               this.svgUrl = item.svgUrl ;
-              this.form.floorId = item.floor ;
+              this.form.floorId = item.id ;
               this.form.floorNumber = item.floorName ;
               var area = document.getElementById('floorImg');
               panzoom((area),{
@@ -440,7 +440,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.$fetch("/api/building/selectNode",{
             buildIngId:buildIngId
           }).then(response=>{
-            //console.log('formFloorSearch:'+response);
+            console.log('formFloorSearch:'+response);
             if (response) {
               this.form.floorList = response.data.list;
               //console.log(this.form.floorList);

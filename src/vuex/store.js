@@ -23,6 +23,8 @@ var state={
   equipmentDevice:'',
   DeviceMap:[],
   DeviceList:'',
+  currentPageDevice:'',
+  deviceSimple:'',
   //建筑
   buildUnit:'',
   buildingId:'',
@@ -133,6 +135,12 @@ var mutations={
   },
   DeviceList(state,data){
     state.DeviceList = data ;
+  },
+  currentPageDevice(state,data){
+    state.currentPageDevice = data ;
+  },
+  deviceSimple(state,data){
+    state.deviceSimple = data ;
   },
   //建筑
   buildUnit(state,data){

@@ -612,10 +612,39 @@
       },
       show3(row){//跳转
         //console.log(row.id);
-        this.$store.commit('deviceId',row.id);
-        $('.plan').show();        
-        $('.total').hide();
-        $('.mapTable').hide();
+        // this.$store.commit('deviceId',row.id);
+        console.log(row.buildingId)
+        if(row.buildingId == 0 & row.buildingId == '0'){
+          $('.plan').show();        
+          $('.total').hide();
+          $('.mapTable').hide();
+          $('.floorMap').hide();
+          $('.map').show();
+        }else{
+          $('.floorMap').show();
+          $('.map').hide();
+          this.$store.commit('deviceSimple',row);
+        }
+        this.tableData.forEach((item,index)=>{
+          if(item.id == row.id){
+            //console.log(item);
+            this.device.status = item.status ;
+            this.device.name = item.name ;
+            this.device.deviceTypeName = item.deviceTypeName ;
+            this.device.location = item.location ;
+            this.device.point.pointX = item.pointX ;
+            this.device.point.pointY = item.pointY ;
+            this.device.mac = item.mac ;
+            this.device.height = item.height ;
+            this.device.fheight = item.fheight ;
+            this.device.startDate = item.startDate ;
+            this.device.lifeMonth = item.lifeMonth ;
+            this.device.firm = item.firm ;
+            this.device.productDate = item.productDate ;
+            this.device.maintenanceUnit = item.maintenanceUnit ;
+            this.device.maintenancePhone = item.maintenancePhone ;
+          }
+        })
       },
       deleteRow(){
            //console.log(this.deviceIndex);
@@ -776,21 +805,11 @@
       this.unitSearch();
     },
     watch:{
-      $route: {
-        handler: function(val, oldVal){
-          //console.log(val);
-          if(this.$route.path == '/Equipment_management/maps'){
-            this.tableList();
-            
-          }
-        },
-        // 深度观察监听
-        deep: true
-      },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
         //console.log(this.currentPage4);
         this.tableList();
+        this.$store.commit('currentPageDevice',this.currentPage4)
       },
       unitId(curVal,oldVal){
         this.form.unitId = curVal;
@@ -833,11 +852,9 @@
           $('.plan').show();
           $('.total').hide();
           $('.mapTable').hide();
-        }
-        //console.log(this.tableData)
-        this.tableData.forEach((item,index)=>{
+          this.tableData.forEach((item,index)=>{
             if(item.id == this.deviceId){
-              //console.log(item);
+              console.log(item.id,this.deviceId);
               this.device.status = item.status ;
               this.device.name = item.name ;
               this.device.deviceTypeName = item.deviceTypeName ;
@@ -855,6 +872,9 @@
               this.device.maintenancePhone = item.maintenancePhone ;
             }
           })
+        }
+        console.log(this.tableData)
+        
         //console.log(this.deviceId);
       },
       Unit(){
