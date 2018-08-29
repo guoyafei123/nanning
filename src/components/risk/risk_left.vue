@@ -46,26 +46,26 @@
 								</thead>
 								<tbody id="">
 									<tr v-for="item in tableData.result" v-on:click="toitmeinfo(item)">
-										<td>{{item.buildingName}}</td>
 										<td>
-											<el-tooltip content="单位名称" placement="top">
+											<el-tooltip placement="top">
+												<div slot="content">{{item.buildingName}}</div>
+												<span>{{item.buildingName}}</span>
+											</el-tooltip>
+										</td>
+										<td>
+											<el-tooltip placement="top">
+												<div slot="content">{{item.unitName}}</div>
 												<span>{{item.unitName}}</span>
 											</el-tooltip>
 										</td>
 										<td class="safe">
-											<el-tooltip placement="top">
-												<div slot="content">安全评分 8.0</div>
 												<span v-if="Number((10-item.totalScore)/100).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
 												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=2 && Number((10-item.totalScore)/100).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
 												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=4 && Number((10-item.totalScore)/100).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
 												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-											</el-tooltip>
 										</td>
 										<td class="risk">
-											<el-tooltip placement="top">
-												<div slot="content">风险系数 20.56%</div>
-												<span>{{item.totalScore}}</span>
-											</el-tooltip>
+											{{item.totalScore}}
 										</td>
 										<td>
 											<a v-on:click="toitmeinfo(item)">
@@ -105,8 +105,8 @@
 		        <h2>风险评估</h2>
 		      </div>
 		    </div>
-		    <div class="table-responsive">
-				<table class="table size-12 table-condensed toolroute-table margin-top10  padding-left15 padding-right15">
+		    <div class="table-responsive big-list-table">
+				<table class="table toolroute-table">
 					<thead>
 						<tr>
 							<th>所属单位</th>
@@ -162,7 +162,7 @@
 					</tbody>
 				</table>
 			</div>
-			<li class="upd-pagin">
+			<div class="upd-pagin margin-top10">
 				<div>
 					<el-pagination class="pull-left" small layout="total" :total="tableData.totalRow">
 					</el-pagination>
@@ -170,9 +170,9 @@
 					<el-pagination class="pull-right" small layout="prev, pager, next" :page-size="this.queryRiskList_parameter.pageSize" :total="tableData.totalRow" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="handleCurrentChange">
 					</el-pagination>
 				</div>
-			</li>
+			</div>
 		  </section>
-      </div>      
+      </div>
     </el-dialog>   
 	</div>
 </template>

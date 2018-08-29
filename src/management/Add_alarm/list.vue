@@ -1,7 +1,7 @@
 <template>
   <div id="add-new" class="add-map">
     <!-- 表单 -->
-    <aside>
+    <aside class="em-tab">
         <el-tabs>
           <!-- 添加警报 -->
           <el-tab-pane>
@@ -237,23 +237,24 @@
       <div class="maps map">
           <managementMap-vue></managementMap-vue>
       </div>
-      <div class="floorMap maps" style="display:none;">
+      <div class="floorMap maps" style="display:none;position:relative;left:0;top:0;overflow:hidden;">
         <ul class="list-unstyled floor-item" style="top: 120px">
             <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
         </ul> 
-        <img id="imgPic" :src="this.svgUrl" class="img-responsive"  @click="addDevice()">
+        <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+          <img id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
+        </div>
       </div>
     </aside>
   </div>
 </template>
-
 <script>
 import{ mapState } from "vuex";
-import managementMapVue from '../managementMap';
 import { isName,isvalidName,isLng } from '../../assets/js/validate';
 import { getTopLeftRate } from '../../assets/js/imgPoint';
     export default {
       data() {
+
         var Name=(rule, value,callback)=>{
             if (!value){
               callback(new Error('请输入上报人姓名'))
@@ -265,9 +266,9 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
         }
         var validName=(rule, value,callback)=>{
             if (!value){
-              callback(new Error('请输入警报名称'))
+              callback(new Error('请输入危险品名称'))
             }else  if (!isvalidName(value)){
-              callback(new Error('请输入正确的警报名称'))
+              callback(new Error('请输入正确的危险品名称'))
             }else {
               callback()
             }
@@ -336,7 +337,6 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
         }
       },
       components:{
-        'managementMap-vue': managementMapVue,
       },
       methods:{
         floor_btn(id){
