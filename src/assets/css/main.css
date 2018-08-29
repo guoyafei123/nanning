@@ -1061,6 +1061,118 @@ a.min-map-cloase:hover {
 }
 
 /*火情分析*/
-#fire_analysis {
-    
+
+.main_tab {
+    width: 300px;
+    text-align: right;
+    padding-top: 17px;
 }
+.main_tab button,.main_tab a {   
+    width: 64px;
+    height: 28px;
+    line-height: 26px;
+    display: inline-block!important;
+    border: 1px solid #bad616;
+    background-color: transparent;
+    font-size: 12px;
+    color: #bad616;
+    text-decoration: none;
+    transition: background 0.3s;
+    -webkit-transition: background 0.3s;
+}
+.main_tab button:last-child,.main_tab a:last-child {
+    border: 1px solid #f13131;
+    color: #f13131;
+}
+.main_tab button:last-child:hover,.main_tab a:last-child:hover {
+    border: 1px solid #f13131;
+    background-color: #f13131;
+    color:#000;
+}
+.main_tab button:hover,.main_tab a:hover {  
+    border: 1px solid #bad616;
+    background-color: #bad616;
+    color:#000;
+}
+.fireAnalysis .main_header {
+    position: absolute;
+    top: 0;
+}
+.fireAnalysis {
+    height: 100%;
+}
+.fireAnalysis .main_title *{
+    color: #f13131;
+}
+.fireAnalysis>section {
+    height: 100%;
+    margin-top: 60px;
+    padding:20px;
+    background-color: #000;
+    color: #ccc;    
+}
+.fireAnalysis .fire-map {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #222;
+    position: relative;
+}
+/*.fireAnalysis .fire-map article {
+    position: absolute;
+    top: 10px;
+    text-align: center;
+}
+.fireAnalysis .fire-map article h5 {
+    display: inline-block;
+
+}
+*/
+.my-scroll {
+    height: 100%;
+    overflow-y: auto;
+}
+.fireAnalysis .my-scroll h2 {
+    color: #bad616!important;
+    margin: 0;
+}
+.fire-tab {
+    position: relative;
+    margin-top: 17px;
+    z-index: 999;
+}
+/* Custom Styles */
+    .fire-tab ul.nav-tabs{        
+        border-radius: 0px;
+        box-shadow:none;
+        border:none;
+    }
+    .fire-tab ul.nav-tabs li{
+        display: inline-block;
+        max-width: 100px;
+        margin: 0;
+        border: 1px solid #bad616;
+    }
+    .fire-tab ul.nav-tabs li:first-child{
+        border-top: none;
+    }
+    .fire-tab ul.nav-tabs li a{
+        margin: 0;
+        text-align: center;
+        height: 26px;
+        line-height: 26px;
+        border-radius: 0;
+        padding: 0 10px;
+        font-size: 12px;
+        color: #bad616;
+    }
+    .fire-tab ul.nav-tabs li.active a,
+    .fire-tab ul.nav-tabs li.active a:hover,
+    .fire-tab ul.nav-tabs >li>a:focus,
+    .fire-tab ul.nav-tabs >li>a:hover{
+        color: #000;
+        background: #bad616!important;
+        border: 1px solid #bad616;
+    }
+    .fire-tab ul.nav-tabs.affix{
+        top: 17px; /* Set the top position of pinned element */
+    }
