@@ -3,6 +3,10 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import ElementUI from 'element-ui';
+	Vue.use(ElementUI);
+
 	import { mapState } from "vuex";
 	export default {
 		data() {
@@ -40,7 +44,8 @@
 					4: 1000000,
 					3: 2000000
 				},
-				alarmsize: 500
+				alarmsize: 500,
+				alarmMinicon:[]
 			};
 		},
 		computed: mapState([
@@ -49,17 +54,25 @@
 			"indexToAlarmTroubel",
 			"route_path",
 			"unitid",
-			"toMapPatterns"
+			"toMapPatterns",
+			"toMapPatternsDanger"
 		]),
 		watch: {
 			toMapPatterns(){
-				// alert(this.toMapPatterns);
 				this.mp.clearOverlays();
 				// 全部建筑
 				this.getbuildlist();
 				// 全部单位
 				this.getunitlist();
-				this.path_callpolice(this.toMapPatterns);
+				this.path_callpolice(this.toMapPatterns[0]);
+			},
+			toMapPatternsDanger(){
+				this.mp.clearOverlays();
+				// 全部建筑
+				this.getbuildlist();
+				// 全部单位
+				this.getunitlist();
+				this.path_danger(this.toMapPatternsDanger[0]);
 			},
 			// 所有巡检单位
 			queryUnitBuildList() {
@@ -123,6 +136,14 @@
 						this.mp.addOverlay(alarms[0]);
 						this.mp.addOverlay(alarms[1]);
 						this.alarmsArray.push([alarms[0], element, alarms[1]]);
+
+						var alarmMin=
+						this.addpeople('', "66", [
+							element.pointX,
+							element.pointY
+						],name)
+						this.mp.addOverlay(alarmMin);
+						this.alarmMinicon.push(alarmMin)
 					});
 
 					this.indexToAlarmTroubel[0].troubles.forEach(element => {
@@ -159,6 +180,12 @@
 						this.mp.removeOverlay(this.alarmsArray[i][2]);
 					}
 					this.alarmsArray = [];
+
+					for(var i = 0; i < this.alarmMinicon.length; i++) {
+						this.mp.removeOverlay(this.alarmsArray[i]);
+					}
+					this.alarmMinicon=[];
+
 					this.indexToAlarmTroubel[0].alarms.forEach(element => {
 						var name=this.toname(element);
 						var alarmtype=this.toalarmtype(element);
@@ -169,6 +196,14 @@
 						this.mp.addOverlay(alarms[0]);
 						this.mp.addOverlay(alarms[1]);
 						this.alarmsArray.push([alarms[0], element, alarms[1]]);
+
+						var alarmMin=
+						this.addpeople('', "66", [
+							element.pointX,
+							element.pointY
+						],name)
+						this.mp.addOverlay(alarmMin);
+						this.alarmMinicon.push(alarmMin)
 					});
 				} else if(type == 9) {
 					let element = this.indexToAlarmTroubel[0].troubles[0];
@@ -215,7 +250,7 @@
 					this.path_callpolice(1);
 				}
 				else if(this.routepath == "/danger") {
-					this.path_danger();
+					this.path_danger(1);
 				}
 				else if(this.routepath == "/information") {
 					this.path_information();
@@ -549,6 +584,8 @@
 					div.style.position = "absolute";
 
 					$(div).append(that.legend_people(this._img, this._value,this._name));
+					$('[data-toggle="tooltip"]').tooltip()
+					$('[data-toggle="tooltip"]').css("white-space","nowrap");
 					map.getPanes().labelPane.appendChild(div);
 					return div;
 				};
@@ -734,7 +771,7 @@
 				}
 				var html =
 								`
-					<div class="legend-people ` +
+					<div data-toggle="tooltip" data-placement="top" title="`+name+`" class="legend-people ` +
 								style +
 								`" style="top:-60px;left:-25px">
 						<div>
@@ -745,26 +782,31 @@
 						<span class="` +
 								trian +
 								`"></span>
-								<section class="map-tootipbox map-tootipboxpeo"><p class="map-tootip">`+name+`</p></section>
 					</div>
 					`;
 				if(value>2){
 					html =
 								`
-					<div class="legend-people newpeople ` +
-								style +
-								`" style="top:-35px;left:-15px">
-						<div>
-							<span class="icon iconfont mapdander ` +
-							icon +
-							`"></span>
-						</div>
-						<span class="` +
-								trian +
+						<div data-toggle="tooltip" data-placement="top" title="`+name+`" class="legend-people newpeople ` +
+									style +
+									`" style="top:-35px;left:-15px">
+							<div>
+								<span class="icon iconfont mapdander ` +
+								icon +
 								`"></span>
-						<section class="map-tootipbox map-tootipboxdan"><p class="map-tootip">`+name+`</p></section>
-					</div>
-					
+							</div>
+							<span class="` +
+									trian +
+									`"></span>
+						</div>
+					`;
+				}
+
+				if(value==66){
+					html =
+								`
+						<div data-toggle="tooltip" data-placement="top" title="`+name+`" class="legend-people newpeople newpeoplealarm" style="top:-15px;left:-15px">
+						</div>
 					`;
 				}
 				return html;
@@ -825,14 +867,14 @@
 						<span class="alarm-ani alarm-item4 ` +
 							style_shadow +
 							`"></span>
-						<span class="icon iconfont alarm-min ` +
-							style_bg +` `+style_type+
-							`">
-							</span>
+						
 						<span class="alarm-max ` +
 							style_border +
 							`"></span>
-						<div class="map-tootipbox"><p class="map-tootip">`+img+`</p></div>
+						<span class="icon iconfont alarm-min ` +
+						style_bg +` `+style_type+
+						`">
+						</span>
 					</div>
 				`;
 				return html;
@@ -882,6 +924,7 @@
 										this.mp.addOverlay(
 											this.addpeople('', "10", [a,b],name)
 										);
+										
 									});
 								}
 							})
@@ -909,27 +952,50 @@
 					})
 				}
 			},
-			path_danger(){
-				this.$fetch("/api/trouble/troubleList")
-				.then(response => {
-					if(response) {
-						var total=response.data.pager.totalRow
-						this.$fetch("/api/trouble/troubleList",{'currentPage':1,'pageSize':total})
-						.then(response => {
-							if(response) {
-								var getList=response.data.pager.result;
-								getList.forEach(element => {
-									var a=element.pointX;
-									var b=element.pointY;
-									var name=this.toname(element)
-									this.mp.addOverlay(
-										this.addpeople('', "5", [a,b],name)
-									);
-								});
-							}
-						})
-					}
-				})
+			path_danger(type){
+				if(type==1){
+					this.$fetch("/api/trouble/troubleList")
+					.then(response => {
+						if(response) {
+							var total=response.data.pager.totalRow
+							this.$fetch("/api/trouble/troubleList",{'currentPage':1,'pageSize':total})
+							.then(response => {
+								if(response) {
+									var getList=response.data.pager.result;
+									getList.forEach(element => {
+										var a=element.pointX;
+										var b=element.pointY;
+										var name=this.toname(element)
+										this.mp.addOverlay(
+											this.addpeople('', "5", [a,b],name)
+										);
+									});
+								}
+							})
+						}
+					})
+				}else if(type==2){
+					this.$fetch("/api/trouble/queryTroubleHeatMap?count=1000")
+					.then(response =>{
+						if(response){
+						let points = response.data.points;
+						let heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":50});
+						this.mp.addOverlay(heatmapOverlay);
+						heatmapOverlay.setDataSet({data:points,max:100});
+						heatmapOverlay.show();
+						function setGradient(){
+							var gradient = {};
+							var colors = document.querySelectorAll("input[type='color']");
+							colors = [].slice.call(colors,0);
+							colors.forEach(function(ele){
+							gradient[ele.getAttribute("data-key")] = ele.value;
+							});
+							heatmapOverlay.setOptions({"gradient":gradient});
+						}
+						}
+					})
+				}
+				
 			},
 			path_information(){
 				this.$fetch("/api/device/deviceList")
