@@ -81,6 +81,7 @@ var state={
   // 全部单位
   mapAllUnit:Object,
   toMapPatterns:Object,
+  toMapPatternsDanger:Object
 }
 
 var mutations={
@@ -268,8 +269,10 @@ var mutations={
     state.mapAllUnit=data;
   },
   toMapPatterns(state,data){
-    // alert(1);
     state.toMapPatterns=data;
+  },
+  toMapPatternsDanger(state,data){
+    state.toMapPatternsDanger=data;
   },
 }
 

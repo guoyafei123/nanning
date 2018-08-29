@@ -135,7 +135,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="#" @click="fireAnalysis = true">
               <el-tooltip class="item" content="帮助" placement="top">
                 <i class="icon iconfont icon-bangzhu-mian-"></i>
               </el-tooltip>
@@ -175,7 +175,7 @@
 		    <el-button @click="personnelInfo = false">关 闭</el-button>
 		  </span>
     </el-dialog>
-      <!-- 签到弹窗 -->
+    <!-- 签到弹窗 -->
     <el-dialog show-close :visible.sync="signIn" width="30%" center>
       <div class="dialog-header">
         <h3 class="el-dialog__title">工作考勤</h3>
@@ -200,6 +200,133 @@
         <el-button @click="signIn = false">关 闭</el-button>
       </span>
     </el-dialog>
+    <!-- 火情分析 -->
+    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont" data-spy="scroll" data-target="#myScrollspy">      
+      <div class="dialog-content fireAnalysis clearfix">
+          <!-- 标题 -->
+          <div class="main_header clearFix">
+            <div class="main_title col-sm-3 pull-left margin-left0 font-red clearFix">
+              <i class="icon iconfont icon-huoqing-xian-"></i>
+              <h2>火情分析</h2>
+            </div>
+            <!-- <div class="fire-tab col-sm-6" id="myScrollspy">
+                <ul class="nav nav-tabs nav-stacked" data-spy="affix">
+                    <li class="active"><a href="#section-1">火情地图</a></li>
+                    <li><a href="#section-2">火情概况</a></li>
+                    <li><a href="#section-3">起火单位最近数据</a></li>
+                    <li><a href="#section-4">历史数据分析</a></li>
+                </ul>
+            </div> -->
+            <div class="main_tab col-sm-3 pull-right">
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon-printer"></i> 打印
+              </button>
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon-share"></i> 导出
+              </button>
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon el-icon-close"></i> 关闭
+              </button> 
+            </div>
+          </div>
+        <section class="col-sm-offset-3 col-sm-6">
+        <div class="row my-scroll size-12">            
+            <div class="col-sm-12">
+                <h2 id="section-1">火情地图</h2>
+                <!-- 地图 -->
+                <div class="fire-map margin-bottom10">
+                  <div><!-- 地图容器 --></div>
+                  <article><!-- 说明 --></article>
+                </div>
+                <h2 id="section-2">事故概况</h2>
+                <div class="textandimg fire-survey">
+                  <article>
+                    <p>｛报警时间｝，｛位置｝｛报警源｝发起警报，报警时中控室值守人：{最近一次PC中控打卡人姓名}，警报时策略圈内的人员有｛人员名称、人员名称｝；确认人｝于｛时间｝将该次警报确认为火情，响应时长：{确认时间-报警时间}。；{关闭人}于{关闭时间}在系统将该火情关闭，累计持续时长：{关闭时间-报警时间}。<br>
+                    报警时天气{天气}，温度{温度}，湿度{湿度}，风力{风力}，策略圈内微型消防站{数量}个，最近消防站相距事故地点{距离}。
+                    </p>
+                  </article>
+                  <hr>
+                  <div class="row textandimg-main clearfix">              
+                    <div class="col-sm-4">
+                      <span>建筑风险评估 </span>
+                      <strong>安全评分 5.5 风险系数 55.2%</strong>
+                    </div>
+                    <div class="col-sm-8">
+                      <span>详细位置 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>报警时间 </span>
+                      <strong>2018-02-02 12:52:32</strong>
+                    </div>                  
+                    <div class="col-sm-4">
+                      <span>确认时间 </span>
+                      <strong>2018-02-02 12:52:32</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>关闭时间 </span>
+                      <strong>2018-02-02 12:52:32</strong>
+                    </div>                  
+                    <div class="col-sm-4">
+                      <span>响应时长 </span>
+                      <strong class="font-blue">326秒</strong>
+                    </div>
+                    <div class="col-sm-8">
+                      <span>持续时长 </span>
+                      <strong class="font-blue">326秒</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>报警源 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>确认人 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>关闭人 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>报警说明 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>图片视频 </span>
+                      <ul class="fire-media list-inline">
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>确认说明 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>图片视频 </span>
+                      <ul class="fire-media list-inline">
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>关闭说明 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>图片视频 </span>
+                      <ul class="fire-media list-inline">
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>                
+            </div>
+        </div>
+        </section>
+      </div>
+    </el-dialog> 
   </header>
 
 </template>
@@ -220,6 +347,7 @@
         // 弹窗
         signIn: false,
         personnelInfo: false,
+        fireAnalysis: false,
 
         areavalue: "选项2",
         unitvalue: "全部单位",

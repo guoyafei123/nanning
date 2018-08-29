@@ -36,9 +36,9 @@
 				<li>
 					<router-link to="/camera">监控</router-link>
 				</li>
-				<li>
+				<!-- <li>
 					<router-link to="/fire_analysis">火情</router-link>
-				</li>
+				</li> -->
 			</ul>
 			<!-- <abbr class="size-12 font-gray-333">数雨如歌智慧消防大数据监控平台 政府版
         <span>BETA3.0</span>

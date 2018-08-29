@@ -505,7 +505,8 @@
 				queryById_parameter:{
 					unitId:null
 				},
-				queryById:Object
+				queryById:Object,
+				
 			};
 		},
 		computed: mapState([
@@ -532,8 +533,7 @@
 		},
 		methods: {
 			toMapPattern(type){
-				console.log(type);
-				this.$store.commit('toMapPatterns', type);
+				this.$store.commit('toMapPatterns', [type,new Date().getTime()]);
 			},
 			queryByIds(){
 				this.$fetch(
