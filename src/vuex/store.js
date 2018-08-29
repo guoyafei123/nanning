@@ -256,6 +256,7 @@ var mutations={
     state.mapAllUnit=data;
   },
   toMapPatterns(state,data){
+    // alert(1);
     state.toMapPatterns=data;
   },
 }
