@@ -532,6 +532,7 @@
 		},
 		methods: {
 			toMapPattern(type){
+				console.log(type);
 				this.$store.commit('toMapPatterns', type);
 			},
 			queryByIds(){
@@ -540,10 +541,10 @@
 						this.queryById_parameter
 					).then(response => {
 						if(response.errorCode==0) {
-							this.queryById = response.data.unit
+							this.queryById = response.data.unit;
 						}else{
-							this.queryById.name='全部单位'
-							this.queryById.location='-'
+							// this.queryById.name='全部单位';
+							// this.queryById.location='-';
 						}
 					})
 					.then(err => {

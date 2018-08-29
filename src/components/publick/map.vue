@@ -53,6 +53,7 @@
 		]),
 		watch: {
 			toMapPatterns(){
+				// alert(this.toMapPatterns);
 				this.mp.clearOverlays();
 				// 全部建筑
 				this.getbuildlist();
