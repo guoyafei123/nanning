@@ -138,16 +138,16 @@ import{mapState} from "vuex";
         });
       },
       findPageBuildIngFloor(){
-        this.$fetch("/api/building/findPageBuildIngFloor",{
-          pageIndex:1,
-          pageSize:1000,
-          buildingId:this.buildUnit
+        this.$fetch("/api/trouble/queryTroubleByFloorId",{
+          floorId:this.floor,
+          type:5,
+          status:0
         }).then(response=>{
-          console.log(response.data.pageBuildIng.result);
-          this.table_list = response.data.pageBuildIng.result;  
+          console.log(response.data.troubles);
+          this.table_list = response.data.troubles;  
           this.table_list.forEach((item,index)=>{
             if(index == 0){
-              this.svgUrl = item.svgUrl ;
+              this.svgUrl = item.imgUrl ;
               this.active = item.id ;
             }
           })            
@@ -276,6 +276,13 @@ import{mapState} from "vuex";
         this.building = this.DangerSimple.buildingId ;
         this.floor = this.DangerSimple.floorId ;
         this.floor_btn(this.floor);
+      },
+      buildUnit(){
+        console.log(this.buildUnit)
+        if(this.buildUnit != 0 && this.buildUnit != '0'){
+          this.building = this.buildUnit ;
+          this.findPageBuildIngFloor();
+        }
       }
     },
     mounted(){

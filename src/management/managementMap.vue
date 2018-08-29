@@ -57,8 +57,8 @@
                     32:'icon-miehuoqi-mian-',
                     33:'icon-miehuoqi-mian-',
                     34:'icon-shoudongbaojinganniu-',
-                    35:'icon-qidian-xian-',
-                    36:'icon-end-xian-',
+                    35:'icon-down',
+                    36:'icon-flag-checkered',
                     37:'icon-jianzhu-xian-'
                 }
         }
@@ -487,7 +487,8 @@
         },
         Danger(){
           this.$fetch("/api/trouble/queryUnsolvedTroubleByGroup",{
-            unitId:this.dangerUnit
+            unitId:this.dangerUnit,
+            type:5
           }).then(res=>{
             console.log(res.data.innerTrouble);
             this.innerTrouble = res.data.innerTrouble ;
@@ -528,7 +529,8 @@
               linearray.push([item.pointX,item.pointY]);
               // this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
               if(item.buildingId == 0 && item.buildingId == '0'){
-                console.log(item.sorting)
+                this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
+                // console.log(item.sorting)
                 if(item.sorting == 0){
                   this.mp.addOverlay(this.addlandmarkerType(item.id,item.deviceName,[item.pointX,item.pointY],35));
                 }else if(item.sorting == this.inspectionNodes.length-1){
@@ -537,10 +539,11 @@
                   this.mp.addOverlay(this.addlandmarkerType(item.id,item.deviceName,[item.pointX,item.pointY],item.deviceTypeId));
                 }
               }else{ 
-                 console.log(item.sorting)
+                 console.log(this.inspectionNodes.length-1)
+                this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
                 if(item.sorting == 0){
                   this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY],35));
-                }else if(item.sorting == this.inspectionNodes.length-1){
+                }else if(item.sorting >= this.inspectionNodes.length-1){
                   this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY],36));
                 }else{
                   this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY],37));
