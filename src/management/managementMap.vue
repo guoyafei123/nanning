@@ -57,6 +57,9 @@
                     32:'icon-miehuoqi-mian-',
                     33:'icon-miehuoqi-mian-',
                     34:'icon-shoudongbaojinganniu-',
+                    35:'icon-qidian-xian-',
+                    36:'icon-end-xian-',
+                    37:'icon-jianzhu-xian-'
                 }
         }
       },
@@ -257,7 +260,7 @@
           mmapArr[divId] = mmap;
           return mmap;
         },
-        addlandmark(id, value, p) {
+        addlandmark(id, value, p,type) {
           let that = this;
           // let map=this.getMapToDiv('allmap');
           function landmark(marker,  value) {
@@ -265,6 +268,7 @@
             this._point = marker.getPosition();
             this._value = value;
             this._id = id;
+            this._type = type ;
           }
           
           landmark.prototype = new BMap.Overlay();
@@ -274,7 +278,7 @@
             $(div).addClass("landmark_marker");
             div.style.position = "absolute";
 
-            $(div).append(that.legend_landmark( this._value, this._id));
+            $(div).append(that.legend_landmark( this._value, this._id,this._type));
             map.getPanes().labelPane.appendChild(div);
             return div;
           };
@@ -287,8 +291,8 @@
           var marker = new landmark(new BMap.Marker(new BMap.Point(p[0], p[1])),value);
           return marker;
         },
-        legend_landmark(content, id) {
-          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-jianzhu-xian-"></i></i></div>`;
+        legend_landmark(content, id,type) {
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont ${ this.iconByType[type] }"></i></i></div>`;
           return html;
         },
         addlandmarker(id, value, p) {
@@ -322,9 +326,12 @@
           return marker;
         },
         legend_landmarker(content,id) {
-          
+          if(content.innerCount){
             var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.innerCount }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.innerCount }</span></i></div>`;
-          
+          }else if(content.count){
+            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.count }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.count }</span></i></div>`;
+          }
+            
           return html;
         },
         //设备marker点
@@ -429,7 +436,7 @@
           this.tableData.forEach(item => {
             //console.log(item.pointX);
             //console.log(item.pointY);
-            this.mp.addOverlay(this.addlandmark(item.id,item.name,[item.pointX,item.pointY]));
+            this.mp.addOverlay(this.addlandmark(item.id,item.name,[item.pointX,item.pointY],37));
             this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
             $("#map" + item.id).click(()=>{
               $('.build').hide();
@@ -459,7 +466,7 @@
                 $('.floorMap').show();
                 $('.map').hide();
                 // console.log(item.buildingId)
-                this.$store.commit('buildUnit',item.buildingId);
+                this.$emit('childByValue', item)
               });
             })
             this.deviceListOutside = res.data.deviceListOutside ;
@@ -490,7 +497,7 @@
               $(document).on('click', "#map"+item.buildingId,()=>{
                 $('.floorMap').show();
                 $('.map').hide();
-                this.$store.commit('buildUnit',item.buildingId);
+                this.$emit('childByValue', item)
               });
             })
             this.outsideTrouble = res.data.outsideTrouble ;
@@ -521,9 +528,23 @@
               linearray.push([item.pointX,item.pointY]);
               // this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
               if(item.buildingId == 0 && item.buildingId == '0'){
-                this.mp.addOverlay(this.addlandmarkerType(item.id,item.deviceName,[item.pointX,item.pointY],item.deviceTypeId));
+                console.log(item.sorting)
+                if(item.sorting == 0){
+                  this.mp.addOverlay(this.addlandmarkerType(item.id,item.deviceName,[item.pointX,item.pointY],35));
+                }else if(item.sorting == this.inspectionNodes.length-1){
+                  this.mp.addOverlay(this.addlandmarkerType(item.id,item.deviceName,[item.pointX,item.pointY],36));
+                }else{
+                  this.mp.addOverlay(this.addlandmarkerType(item.id,item.deviceName,[item.pointX,item.pointY],item.deviceTypeId));
+                }
               }else{ 
-                this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY]));
+                 console.log(item.sorting)
+                if(item.sorting == 0){
+                  this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY],35));
+                }else if(item.sorting == this.inspectionNodes.length-1){
+                  this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY],36));
+                }else{
+                  this.mp.addOverlay(this.addlandmark(item.id,item.buildingName,[item.pointX,item.pointY],37));
+                }
               }
             })
             // console.log(linearray)

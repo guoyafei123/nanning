@@ -615,11 +615,11 @@
       show3(row){//跳转
         //console.log(row.id);
         // this.$store.commit('deviceId',row.id);
+        $('.plan').show();        
+        $('.total').hide();
+        $('.mapTable').hide();
         console.log(row.buildingId)
         if(row.buildingId == 0 & row.buildingId == '0'){
-          $('.plan').show();        
-          $('.total').hide();
-          $('.mapTable').hide();
           $('.floorMap').hide();
           $('.map').show();
         }else{

@@ -43,6 +43,7 @@ var state={
   dangerBuild:'',
   dangerFloor:'',
   dangerRoom:'',
+  DangerSimple:'',
   //预案
   unitPlan:'',
   //消息
@@ -190,6 +191,9 @@ var mutations={
   },
   dengerStatus(state,data){
     state.dengerStatus = data;
+  },
+  DangerSimple(state,data){
+    state.DangerSimple = data ;
   },
   //预案
   unitPlan(state,data){
