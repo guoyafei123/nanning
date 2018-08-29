@@ -587,7 +587,7 @@ import managementMapVue from '../managementMap';
           console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;
           this.table_list.forEach((item,index)=>{
-            if(index == this.table_list.length-1){
+            if(index == 0){
               this.svgUrl = item.svgUrl ;
               this.active = item.id ;
             }
