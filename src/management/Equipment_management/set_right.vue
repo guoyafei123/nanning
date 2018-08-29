@@ -99,7 +99,7 @@
                   </div>                                  
                   <div class="col-sm-12">
                       <span>设备位置</span>
-                      <strong v-html="this.device.location"></strong>
+                      <strong v-html="this.device.location == null ? '-' : this.device.location"></strong>
                   </div>
                   <div class="col-sm-12">
                       <span>位置坐标 </span>
@@ -108,11 +108,11 @@
                   </div>                  
                   <div class="col-sm-6">
                       <span>距离顶部 </span>
-                      <strong v-html="this.device.height+'cm'"></strong>
+                      <strong v-html="this.device.height == null ? '-' : this.device.height +'cm'"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>离地高度</span>
-                      <strong v-html="this.device.fheight+'cm'"></strong> 
+                      <strong v-html="this.device.fheight == null ? '-' : this.device.fheight +'cm'"></strong> 
                   </div>                  
                   <div class="col-sm-6">
                       <span>设备状态</span>
@@ -126,11 +126,13 @@
                   </div>  
                   <div class="col-sm-12">
                       <span>投入时间 </span>
-                      <strong v-html="this.device.startDate"></strong>
+                      <strong v-html="this.device.startDate == null ? '-' : this.device.startDate"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>设备二维码 </span>
-                      <strong data-toggle="tooltip" title="设备二维码" class="font-blue">查看</strong>
+                      <el-tooltip class="item" content="设备二维码" placement="top">
+                        <strong class="font-blue">查看</strong>
+                      </el-tooltip>
                   </div>
           </div>              
         </div>
@@ -142,15 +144,15 @@
               <div class="row textandimg-main margin-top10 size-12">
                   <div class="col-sm-6">
                       <span>生产厂商 </span>
-                      <strong v-html="this.device.firm"></strong>
+                      <strong v-html="this.device.firm == null ? '-' : this.firm"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>生产日期 </span>
-                      <strong v-html="this.device.productDate"> </strong>
+                      <strong v-html="this.device.productDate == null ? '-' : this.productDate"> </strong>
                   </div>
                   <div class="col-sm-12">
                     <span>物理地址</span>
-                    <strong v-html="this.device.mac"></strong>
+                    <strong v-html="this.device.mac == null ? '-' : this.mac"></strong>
                   </div>                 
                 </div>
           </div>
@@ -162,20 +164,20 @@
               <div class="row textandimg-main margin-top10 size-12">
                   <div class="col-sm-6">
                       <span>维保单位 </span>
-                      <strong v-html="this.device.maintenanceUnit"></strong>
+                      <strong v-html="this.device.maintenanceUnit == null ? '-' : this.device.maintenanceUnit"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>更换周期 </span>
-                      <strong v-html="this.device.lifeMonth"></strong>
+                      <strong v-html="this.device.lifeMonth == null ? '-' : this.device.lifeMonth"></strong>
                       <b>天</b>
                   </div>
                   <div class="col-sm-6">
                       <span>维保人员 </span>
-                      <strong v-html="this.device.maintenanceUnit"></strong>
+                      <strong v-html="this.device.maintenanceLinkname == null ? '-' : this.device.maintenanceLinkname"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>维保电话 </span>
-                      <strong v-html="this.device.maintenancePhone"></strong>
+                      <strong v-html="this.device.maintenancePhone == null ? '-' : this.device.maintenancePhone"></strong>
                   </div>                   
                 </div>
           </div>
@@ -612,10 +614,39 @@
       },
       show3(row){//跳转
         //console.log(row.id);
-        this.$store.commit('deviceId',row.id);
-        $('.plan').show();        
-        $('.total').hide();
-        $('.mapTable').hide();
+        // this.$store.commit('deviceId',row.id);
+        console.log(row.buildingId)
+        if(row.buildingId == 0 & row.buildingId == '0'){
+          $('.plan').show();        
+          $('.total').hide();
+          $('.mapTable').hide();
+          $('.floorMap').hide();
+          $('.map').show();
+        }else{
+          $('.floorMap').show();
+          $('.map').hide();
+          this.$store.commit('deviceSimple',row);
+        }
+        this.tableData.forEach((item,index)=>{
+          if(item.id == row.id){
+            //console.log(item);
+            this.device.status = item.status ;
+            this.device.name = item.name ;
+            this.device.deviceTypeName = item.deviceTypeName ;
+            this.device.location = item.location ;
+            this.device.point.pointX = item.pointX ;
+            this.device.point.pointY = item.pointY ;
+            this.device.mac = item.mac ;
+            this.device.height = item.height ;
+            this.device.fheight = item.fheight ;
+            this.device.startDate = item.startDate ;
+            this.device.lifeMonth = item.lifeMonth ;
+            this.device.firm = item.firm ;
+            this.device.productDate = item.productDate ;
+            this.device.maintenanceUnit = item.maintenanceUnit ;
+            this.device.maintenancePhone = item.maintenancePhone ;
+          }
+        })
       },
       deleteRow(){
            //console.log(this.deviceIndex);
@@ -776,21 +807,11 @@
       this.unitSearch();
     },
     watch:{
-      $route: {
-        handler: function(val, oldVal){
-          //console.log(val);
-          if(this.$route.path == '/Equipment_management/maps'){
-            this.tableList();
-            
-          }
-        },
-        // 深度观察监听
-        deep: true
-      },
       currentPage4(val, oldVal){
         this.currentPage4 = val;
         //console.log(this.currentPage4);
         this.tableList();
+        this.$store.commit('currentPageDevice',this.currentPage4)
       },
       unitId(curVal,oldVal){
         this.form.unitId = curVal;
@@ -833,11 +854,9 @@
           $('.plan').show();
           $('.total').hide();
           $('.mapTable').hide();
-        }
-        //console.log(this.tableData)
-        this.tableData.forEach((item,index)=>{
+          this.tableData.forEach((item,index)=>{
             if(item.id == this.deviceId){
-              //console.log(item);
+              console.log(item.id,this.deviceId);
               this.device.status = item.status ;
               this.device.name = item.name ;
               this.device.deviceTypeName = item.deviceTypeName ;
@@ -855,6 +874,9 @@
               this.device.maintenancePhone = item.maintenancePhone ;
             }
           })
+        }
+        console.log(this.tableData)
+        
         //console.log(this.deviceId);
       },
       Unit(){

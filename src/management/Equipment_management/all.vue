@@ -121,7 +121,7 @@
                     :type="scope.row.status === 1 ? 'green' : 'red'"
                     disable-transitions v-if='scope.row.status==1'>正常</el-tag>
                   <el-tag
-                    :type="scope.row.status === 2 ? 'red' : 'green'"
+                    :type="scope.row.status === 2 ? 'orange' : 'green'"
                     disable-transitions v-if='scope.row.status==2'>故障</el-tag>
                   <el-tag
                     :type="scope.row.status === 2 ? 'red' : 'green'"
@@ -404,7 +404,9 @@ import { mapState } from 'vuex';
     },
     methods: {
       formatter(row, column){
-        return this.dateMinus(row.startDate)
+        if(row.startDate){
+          return this.dateMinus(row.startDate)
+        }
       },
       btn_map(){
         $('.plan').hide();
@@ -497,6 +499,7 @@ import { mapState } from 'vuex';
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
+        console.log(row.id)
       },
       deleteRow(){
           //console.log(this.deviceIndex);

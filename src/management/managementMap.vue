@@ -20,6 +20,8 @@
           deviceListInner:[],
           deviceListOutside:[],
           inspectionNodes:[],
+          innerTrouble:[],
+          outsideTrouble:[],
           iconByType:{
                     1:'icon-ranqiganying-mian-',
                     2:'icon-ganyanqi-',
@@ -321,7 +323,7 @@
         },
         legend_landmarker(content,id) {
           
-            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
+            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.innerCount }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.innerCount }</span></i></div>`;
           
           return html;
         },
@@ -428,6 +430,7 @@
             //console.log(item.pointX);
             //console.log(item.pointY);
             this.mp.addOverlay(this.addlandmark(item.id,item.name,[item.pointX,item.pointY]));
+            this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
             $("#map" + item.id).click(()=>{
               $('.build').hide();
               $('.floor').show();
@@ -450,17 +453,20 @@
             console.log(res.data.deviceListInner);
             this.deviceListInner = res.data.deviceListInner ;
             this.deviceListInner.forEach(item=>{
-              this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
-              $(document).on('click', "#map"+item.id,()=>{
+              this.mp.addOverlay(this.addlandmarker(item.buildingId,item,[item.pointX,item.pointY]));
+              this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
+              $(document).on('click', "#map"+item.buildingId,()=>{
                 $('.floorMap').show();
                 $('.map').hide();
-                this.$store.commit('buildUnit',item.id);
+                // console.log(item.buildingId)
+                this.$store.commit('buildUnit',item.buildingId);
               });
             })
             this.deviceListOutside = res.data.deviceListOutside ;
             console.log(this.deviceListOutside);
             this.deviceListOutside.forEach(item=>{
               this.mp.addOverlay(this.addlandmarkerType(item.id,item.name,[item.pointX,item.pointY],item.deviceTypeId));
+              // this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
               $(document).on('click', "#map"+item.id,()=>{
                 $('.plan').show();        
                 $('.total').hide();
@@ -476,19 +482,20 @@
           this.$fetch("/api/trouble/queryUnsolvedTroubleByGroup",{
             unitId:this.dangerUnit
           }).then(res=>{
-            console.log(res.data.pager.result.innerTrouble);
-            this.innerTrouble = res.data.pager.result.innerTrouble ;
+            console.log(res.data.innerTrouble);
+            this.innerTrouble = res.data.innerTrouble ;
             this.innerTrouble.forEach(item=>{
-              this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
-              $(document).on('click', "#map"+item.id,()=>{
+              this.mp.addOverlay(this.addlandmarker(item.buildingId,item,[item.pointX,item.pointY]));
+              this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
+              $(document).on('click', "#map"+item.buildingId,()=>{
                 $('.floorMap').show();
                 $('.map').hide();
-                this.$store.commit('buildUnit',item.id);
+                this.$store.commit('buildUnit',item.buildingId);
               });
             })
-            this.buildingOut = res.data.buildingOut ;
-            console.log(this.buildingOut);
-            this.buildingOut.forEach(item=>{
+            this.outsideTrouble = res.data.outsideTrouble ;
+            console.log(this.outsideTrouble);
+            this.outsideTrouble.forEach(item=>{
               this.mp.addOverlay(this.addlandmarkerType(item.id,item.name,[item.pointX,item.pointY],item.deviceTypeId));
               $(document).on('click', "#map"+item.id,()=>{
                 $('.plan').show();        
@@ -567,6 +574,12 @@
           if(this.$route.path == '/Inspection_plan/maps'){
             this.inspection();
           }
+        },
+        currentPageDevice(){
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Equipment_management/maps'){
+            this.DeviceMaps();
+          }
         }
       },
       mounted(){
@@ -606,7 +619,8 @@
         'Unit',
         'DeviceList',
         'inspectionId',
-        'dangerUnit'
+        'dangerUnit',
+        'currentPageDevice'
       ])
     }
 </script>

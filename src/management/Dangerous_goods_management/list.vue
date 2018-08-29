@@ -234,7 +234,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.table_list.forEach((item)=>{
             if(item.id == id){
               this.svgUrl = item.svgUrl ;
-              this.form.floorId = item.floor ;
+              this.form.floorId = item.id ;
               this.form.floorNumber = item.floorName ;
             }
           })
@@ -265,13 +265,14 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              console.log(111)
+              console.log(this.form.point[0]);
+              console.log(this.form.point[1]);
+              console.log(this.form.Rate[0]);
+              console.log(this.form.Rate[1]);
               var files =this.files;
               var that = this ;
-              // console.log(files)
               $.ajaxFileUpload({
                 url: '/api/trouble/insertTrouble',
-                // secureuri: false,
                 fileElementId:files,
                 data : {
                   'type':5,
@@ -285,10 +286,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                   'floorNumber':this.form.floorNumber,
                   'roomId':this.form.roomId,
                   'roomNumber':this.form.roomNumber,
-                  'pointX':this.form.point[0],
-                  'pointY':this.form.point[1],
-                  'xRate':this.form.Rate[0],
-                  'yRate':this.form.Rate[1],
+                  'pointX':this.form.point[0] == undefined ? 0 : this.form.point[0],
+                  'pointY':this.form.point[1] == undefined ? 0 : this.form.point[1],
+                  'xRate':this.form.Rate[0] == undefined ? 0 : this.form.Rate[0] ,
+                  'yRate':this.form.Rate[1] == undefined ? 0 : this.form.Rate[1],
                   'nickName':this.form.nickName,
                   'createTime':this.form.createTime,
                   'cont':this.form.cont
@@ -472,6 +473,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         },
         buildPoint(){
           this.form.point = this.buildPoint;
+          
         }
       },
       mounted(){

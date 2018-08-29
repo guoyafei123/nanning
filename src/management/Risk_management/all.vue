@@ -1,5 +1,15 @@
 <template>
   <section class="em-tab">
+    <!-- 标题 -->
+    <div class="main_header clearFix">
+      <div class="main_title float-left clearFix">
+        <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
+        <h2>风险分析</h2>
+      </div>
+      <div class="main_nav float-right">
+        <router-link to="/List_of_people/list"><span class="btn_add" @click="btn_add"><i class="el-icon-circle-check-outline"></i>提交</span></router-link>
+      </div>
+    </div>
     <el-tabs>
       <!-- 修改评分 -->
           <el-tab-pane class="risk-score">

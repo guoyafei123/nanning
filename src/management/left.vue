@@ -4,7 +4,7 @@
         <h1 class="col-xs-8">管理</h1>
         <div class="col-xs-3 padding-right0 text-right">
           <router-link to="/operationLog">
-            <el-tooltip class="item" content="工作日志" placement="top">
+            <el-tooltip class="item" content="操作日志" placement="top">
               <i class="icon iconfont icon-caozuorizhi-xian-"></i>
             </el-tooltip>
           </router-link>
@@ -98,13 +98,13 @@
               <span data-toggle="tooltip" title="预案总数">36</span>
             </li>
           </router-link>
-          <!-- <router-link to="/operationLog">
+          <router-link to="/Patrolcheck">
             <li>
               <i class="icon iconfont icon-caozuorizhi-xian-"></i>
-              <h2>工作日志</h2>
+              <h2>巡检打卡</h2>
               <span>6</span>
             </li>
-          </router-link> -->
+          </router-link>
           <router-link to="/ControlRoomLog">
             <li>
               <i class="icon iconfont icon-kongzhitai_"></i>

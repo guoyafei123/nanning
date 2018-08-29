@@ -449,6 +449,11 @@
     padding:0 !important;
     border:none;
   }
+  .el-tag--orange{
+    color: #ff7800!important;
+    padding:0 !important;
+    border:none;
+  }
   .el-tag--green{
     color: #bad616!important;
     padding:0 !important;
@@ -1309,6 +1314,41 @@ height: 640px;
 }
 .em-tab .el-tab-pane .main_footer {
   bottom: 60px;
+}
+#Risk_management .em-tab .el-tabs__header {
+  position: absolute;
+  top: 17px;
+  left: 40%;
+}
+#Risk_management .em-tab .el-tabs__item {
+  height: 28px;
+  line-height: 28px;
+  border:1px solid #bad616;
+  font-size: 12px;
+  padding: 0 10px;
+  color: #bad616;
+}
+#Risk_management .em-tab .el-tabs__item.is-active {
+  background-color: #bad616;
+  color: #000;
+}
+#Risk_management .em-tab .el-tabs__item:first-child {
+  border-right:none!important;
+}
+#Risk_management .em-tab .el-tabs__item:last-child {
+  border-left:0!important;
+}
+#Risk_management .em-tab .el-tabs__item span {
+  text-align: center;
+}
+#Risk_management .em-tab .el-tabs__item i {
+  font-size: 12px;
+  margin-right: 6px;
+}
+#Risk_management .em-tab .el-tabs__nav-wrap {
+  margin:0 15px!important;
+  height: inherit!important;
+  overflow-y: hidden;
 }
 #Risk_management .main_content_table {
   max-height: 84%;
