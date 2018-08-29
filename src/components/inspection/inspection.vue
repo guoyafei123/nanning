@@ -14,7 +14,7 @@
 							<div class="set-width-50 font-gray-999 padding-right0 size-12">
 								<ul class="toolcount-left margin-bottom0 padding-right10 padding-left0" id="toolcount">
 									<li>
-										<p class="toolcount-p1">0</p>
+										<p class="toolcount-p1">{{planInspectionCount.finish}}</p>
 										<li>
 											<p class="size-10">Complete Statistics</p>
 										</li>
@@ -110,7 +110,7 @@
 												<!-- <td>{{(queryPlanUserList_parameter.currentPage-1)*queryPlanUserList_parameter.pageSize+index+1}}</td> -->
 												<td>{{item.idCode}}</td>
 												<td>{{item.userName}}</td>
-												
+
 												<!-- <td>{{item.status}}</td> -->
 												<td class="font-red " style="max-width:20px !important;">
 													<el-tooltip content="已领取" placement="top">
@@ -169,7 +169,7 @@
 				<div class="toolright">
 					<!-- 筛选 -->
 					<section class="my-filter padding5 bg-gray-222 clearfix">
-						
+
 						<!-- 日期筛选 -->
 						<div class="col-sm-12 padding0">
 							<section>
@@ -280,7 +280,7 @@
 												<span class="itemtitle-rect"><i class="fas fa-angle-double-down font-black"></i></span>
 												<h4 class="panel-title">
                             <a role="button" class="size-12 font-gray-ccc" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            {{queryPlanUserDetailsListNode.buildingName}}<span class="badge itemtitle-value display-inline-block margin-left10 bg-red font-gray-333">开始</span> 
+                            {{queryPlanUserDetailsListNode.buildingName}}<span class="badge itemtitle-value display-inline-block margin-left10 bg-red font-gray-333">开始</span>
                             </a>
                           </h4>
 											</div>
@@ -859,7 +859,7 @@
 					this.queryPlanUserList_parameter.inspectionName = this.lineOption;
 					this.getTable();
 
-					
+
 
 					this.queryInspectionNameList.forEach(element => {
 						console.log(element);
@@ -887,7 +887,7 @@
 						.addClass("display-none")
 						.removeClass("display-block");
 				}
-				
+
 			},
 			draw_piemin(id, data) {
 				let value;
@@ -983,7 +983,7 @@
 			},
 			draw_piemax1(id, data) {
 				let d;
-				
+
 				if(data.amount!=0){
 					var fin_per = data.finishAmount / data.amount * 100;
 					 d= [{
@@ -1033,10 +1033,10 @@
 								}
 							}
 						},
-						
+
 					];
 				}
-				
+
 				var char = {
 					tooltip: {
 						trigger: "item",
