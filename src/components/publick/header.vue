@@ -438,8 +438,8 @@
       //退出登录
       logout() {
         this.$fetch( "/cas/logout",).then(response => {
-          if (response.data) {
-
+          if (response.status===1) {
+            this.$store.commit('route_path', "/login");
           }
         });
       },
