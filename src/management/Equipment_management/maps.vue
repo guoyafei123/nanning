@@ -70,10 +70,11 @@
           <!-- 平面图楼层 -->
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item" style="top: 120px">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
             </ul> 
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="this.svgUrl" class="img-responsive">
+              <img id="imgPic" :src="this.svgUrl" class="img-responsive">
+              <!-- <div v-for="item in deviceList" :id="'alarmDiv'+item.id"></div> -->
             </div>
           </div>
           <!-- 地图/平面图切换 -->
@@ -110,7 +111,7 @@
                   </el-tooltip>                  
                 </div> -->
           <div class="maps map">
-            <managementMap-vue></managementMap-vue>
+            <managementMap-vue v-on:childByValue="childByValue"></managementMap-vue>
           </div>
         </div>
       </div>
@@ -127,7 +128,7 @@ import managementMapVue from '../managementMap';
   export default {
     data() {
       return {
-      
+        active:'',
         unit:null,//选择单位
         building:'',//选择建筑
         floor:'',
@@ -147,17 +148,19 @@ import managementMapVue from '../managementMap';
       'managementMap-vue': managementMapVue,
     },
     methods: {
+      childByValue: function (childValue) {
+        this.unit = childValue.unitId ;
+        this.building = childValue.buildingId ;
+        this.floor = childValue.floorId ;
+        console.log(this.floor)
+        this.floor_btn(this.floor);
+      },
       floor_btn(id){
-        console.log(id)
-        
+        this.active = id ;
         this.table_list.forEach((item)=>{
           if(item.id == id){
             this.svgUrl = item.svgUrl ;
             this.floor = id ;
-            
-            // $('.floorMap').append('<div id="alarmDiv'+ this.imgIndex +'"></div>');
-           
-            
           }
         });
         var area = document.getElementById('floorImg');
@@ -165,18 +168,7 @@ import managementMapVue from '../managementMap';
           maxZoom:1,
           minZoom:1
         });
-        this.$fetch("/api/device/queryDevice",{
-          floorId:this.floor
-        }).then(res=>{
-          console.log(res.data.deviceList);
-          this.deviceList = res.data.deviceList ;
-          
-        });
-        this.deviceList.forEach((element,index) => {
-            console.log(index)
-            $('#floorImg').append('<div id="alarmDiv'+ element.id +'"></div>');
-            setPointList(element.xRate,element.yRate,this.iconByType[element.deviceTypeId],'alarmDiv'+ element.id);
-          });
+        
       },
       findPageBuildIngFloor(){
         this.$fetch("/api/building/findPageBuildIngFloor",{
@@ -185,21 +177,24 @@ import managementMapVue from '../managementMap';
           buildingId:this.building
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
-          this.table_list = response.data.pageBuildIng.result;         
+          this.table_list = response.data.pageBuildIng.result;    
+          this.table_list.forEach((item,index)=>{
+            if(index == 0){
+              this.svgUrl = item.svgUrl ;
+              this.active = item.id ;
+            }
+          })     
         })
       },
       btn_add(){
-        // //console.log($('#right'));
         $('#right').hide();
       },
       buildSearch(unitId){
         this.$fetch("/api/building/selectNode",{
           unitId:unitId
         }).then(response=>{
-          //console.log('buildSearch:'+JSON.stringify(response));
           if (response) {
             this.buildList = response.data.list;
-            //console.log(this.buildList);
           }
         })
       },
@@ -207,10 +202,8 @@ import managementMapVue from '../managementMap';
         this.$fetch("/api/building/selectNode",{
           buildIngId:buildIngId
         }).then(response=>{
-          //console.log('floorSearch:'+response);
           if (response) {
             this.floorList = response.data.list;
-            //console.log(this.floorList);
           }
         })
       },
@@ -218,19 +211,15 @@ import managementMapVue from '../managementMap';
         this.$fetch("/api/building/selectNode",{
           floorId:floorId
         }).then(response=>{
-          //console.log('roomSearch:'+response);
           if (response) {
             this.roomList = response.data.list;
-            //console.log(this.roomList);
           }
         })
       },
       equipmentSearch(){
         this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
-          //console.log('equipmentSearch:'+response);
           if (response) {
             this.equipmentList = response.data.deviceTypeEnum;
-            //console.log(this.equipmentList);
           }
         })
       },
@@ -284,6 +273,18 @@ import managementMapVue from '../managementMap';
           this.roomSearch(this.floor);
           this.floor_btn(this.floor);
           this.$store.commit('floorDevice',this.floor);
+          this.$fetch("/api/device/queryDevice",{
+            floorId:this.floor
+          }).then(res=>{
+            console.log(res.data.deviceList);
+            this.deviceList = res.data.deviceList ;
+            console.log(this.deviceList);
+            $("#floorImg div").remove();
+            this.deviceList.forEach((element,index) => {
+              $('#floorImg').append('<div id="alarmDiv'+ element.id +'" data-toggle="tooltip" data-placement="top" title="'+element.name+'"></div>');
+              setPointList(element.xRate,element.yRate,this.iconByType[element.deviceTypeId],'alarmDiv'+ element.id);
+            });
+          });
         }
       },
       room(curVal,oldVal){
@@ -306,7 +307,6 @@ import managementMapVue from '../managementMap';
         this.unit = this.deviceSimple.unitId ;
         this.building = this.deviceSimple.buildingId ;
         this.floor = this.deviceSimple.floorId ;
-        console.log(this.floor)
         this.floor_btn(this.floor);
       }
     },
@@ -315,7 +315,6 @@ import managementMapVue from '../managementMap';
       this.unitSearch();
       this.equipmentSearch();
       this.findPageBuildIngFloor();
-      this.$store.commit('route_path',this.$route.path);
     },
     computed:mapState([
       'buildUnit',

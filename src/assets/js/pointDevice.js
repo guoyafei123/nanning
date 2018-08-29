@@ -83,7 +83,6 @@ export function setPointList(xRate,yRate,type, divid) {
 	var fjwidth = $('#imgPic').width();
     var fjheight = $('#imgPic').height();
     var left = $('#imgPic').offset().left;
-    // var b = $$('#imgPic').css('transform').split(',')[3];
     var offsetParent = $('#imgPic').offsetParent().offset().left;
     var LeftPoint = left - offsetParent ;
     $('#'+divid).css("top",yRate * fjheight - 18);
