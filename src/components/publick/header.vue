@@ -84,7 +84,7 @@
               class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</span></el-dropdown-item>
 						<el-dropdown-item><router-link to="/operationLog"><i
               class="icon iconfont icon-caozuorizhi-xian- size-14"></i> 操作日志</router-link></el-dropdown-item>
-						<el-dropdown-item><i class="icon iconfont icon-guanbi2 size-14" @click="logout"  ></i> 注销</el-dropdown-item>
+						<span @click="logout"><el-dropdown-item><i class="icon iconfont icon-guanbi2 size-14" ></i> 注销</el-dropdown-item></span>
 					</el-dropdown-menu>
 					</el-dropdown>
 				</div>
@@ -438,8 +438,8 @@
       //退出登录
       logout() {
         this.$fetch( "/cas/logout",).then(response => {
-          if (response.data) {
-
+          if (response.status===1) {
+            this.$store.commit('route_path', "/login");
           }
         });
       },
