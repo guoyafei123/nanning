@@ -4,7 +4,7 @@
         <h1 class="col-xs-8">管理</h1>
         <div class="col-xs-3 padding-right0 text-right">
           <router-link to="/operationLog">
-            <el-tooltip class="item" content="工作日志" placement="top">
+            <el-tooltip class="item" content="操作日志" placement="top">
               <i class="icon iconfont icon-caozuorizhi-xian-"></i>
             </el-tooltip>
           </router-link>
@@ -101,7 +101,7 @@
           <!-- <router-link to="/operationLog">
             <li>
               <i class="icon iconfont icon-caozuorizhi-xian-"></i>
-              <h2>工作日志</h2>
+              <h2>操作日志</h2>
               <span>6</span>
             </li>
           </router-link> -->

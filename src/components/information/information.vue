@@ -105,7 +105,7 @@
 													</el-tooltip>
 												</td>
 												<td v-if="item.status==1" class="font-blue">正常</td>
-												<td v-if="item.status==2" class="font-yellow">故障</td>
+												<td v-if="item.status==2" class="font-orange">故障</td>
 												<td v-if="item.status==3" class="font-red">警报</td>
 												<td>
 													<a v-on:click="toitmeinfo(item)">
@@ -242,7 +242,7 @@
 										<li>
 											<h1 class="toolcount-p1" style="line-height: 55px;">
 												<span v-if="deviceiteminfo.status==1" class="font-blue size-48">正常</span>
-												<span v-if="deviceiteminfo.status==2" class="font-yellow size-48">故障</span>
+												<span v-if="deviceiteminfo.status==2" class="font-orange size-48">故障</span>
 												<span v-if="deviceiteminfo.status==3" class="font-red size-48">警报</span>
 											</h1>
 										</li>
@@ -273,7 +273,7 @@
 												<p>报警次数</p>
 											</div>
 											<div class="col-sm-4 personnel-borderright">
-												<p class="size-16 show font-white">{{deviceiteminfo.malfunctionCount?deviceiteminfo.malfunctionCount:'-'}}</p>
+												<p class="size-16 show font-orange">{{deviceiteminfo.malfunctionCount?deviceiteminfo.malfunctionCount:'-'}}</p>
 												<p>故障次数</p>
 											</div>
 											<div class="col-sm-4">
