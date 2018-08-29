@@ -1136,7 +1136,7 @@ a.min-map-cloase:hover {
     overflow-y: auto;
 }
 .fireAnalysis .my-scroll h2 {
-    color: #bad616!important;
+    color: #f13131!important;
     margin: 0 auto 10px;
     line-height: 1;
     display: block;
@@ -1185,3 +1185,23 @@ a.min-map-cloase:hover {
     .fire-tab ul.nav-tabs.affix{
         top: 17px; /* Set the top position of pinned element */
     }
+
+.fire-survey {
+    
+}
+.fire-survey .textandimg-main {
+    padding-left: 0;
+}
+.fire-survey .textandimg-main>div>span {
+    min-width: 80px;
+    color: #999;
+}
+.fire-survey .textandimg-main>div>strong {
+    color: #fff;
+}
+.fire-media {
+    margin-top: 6px;
+    margin-bottom: 0px;
+    height:80px;
+    overflow-y: hidden; 
+}
