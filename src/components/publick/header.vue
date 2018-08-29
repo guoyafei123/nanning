@@ -321,7 +321,139 @@
                       </ul>
                     </div>
                   </div>
-                </div>                
+                </div>
+                <h2 id="section-3">起火单位最近数据</h2>
+                <section class="fire-unit unit-info margin-bottom30 clearfix bg-black">
+                  <ul class="list-unstyled col-sm-6">
+                      <li class="position-relative">
+                          <div class="position-absolute-bottom clearfix">
+                              <!-- 单位信息 -->
+                            <article class="unit-brief white-space col-sm-10">
+                              <h3 class="size-20" >XXX单位</h3>
+                              <small><i class="el-icon-location" ></i> 广西省南宁市良庆区银海大厦710-2号</small>
+                            </article>
+                          </div>
+                          <img src="/static/img/jpg01.c4714ec.jpg" class="img-responsive center-block">
+                      </li>
+                  </ul>
+                  <ul class="fire-per list-unstyled col-sm-6">
+                      <li></li>
+                      <li>
+                          <div class="pull-left">
+                              <!---->
+                              <h4>陆浩<small>186011153647</small></h4><div>消防负责人</div></div>
+                          <div class="pull-right">
+                              <article>
+                                  <h4>1</h4> <small>今日警报</small></article>
+                              <article>
+                                  <h4>7</h4> <small>今日隐患</small></article>
+                              <article>
+                                  <h4>0</h4> <small>巡检完成</small></article>
+                          </div>
+                      </li>
+                      <li>
+                          <article>
+                              单位总数<span>7</span></article>
+                          <article>
+                              建筑总数<span>7</span></article>
+                          <article>
+                              预案总数<span>9</span></article>
+                          <article>
+                              设备总数<span>8</span></article>
+                          <article>
+                              人员总数<span>0</span></article>
+                          <article>
+                              巡检路线<span>0</span></article>
+                      </li>
+                  </ul>
+                  <article class="col-sm-12 container-padding10 padding-left10 padding-right10">
+                    截止报警时该单位安全评分{安全评分}分，风险系数{风险系数}。{B级因素}因素风险指数较高，相关未解决隐患{数量}个，其中未解决危险品{未解决危险品类隐患数量}个；当日相关巡检{数量}次，有{数量}人参与了巡检，累计发现隐患{数量}个，解决隐患{数量}个。<br>
+该建筑累计发生报警{报警数量}个，其中主机报警{数量}个，人工报警{数量}个，累计火情{数量}起。
+                  </article>                                 
+                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
+                    <h5>起火位置相关最近一次报警记录</h5>
+                    <hr>                  
+                      <div class="row textandimg-main clearfix">
+                        <div class="col-sm-12">
+                          <span>详细位置 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>报警时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>确认时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>关闭时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>响应时长 </span>
+                          <strong class="font-blue">326秒</strong>
+                        </div>
+                        <div class="col-sm-8">
+                          <span>持续时长 </span>
+                          <strong class="font-blue">326秒</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>报警源 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>确认人 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>关闭人 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-12">
+                          <span>报警状态 </span>
+                          <strong><span class="font-blue">未发生火情</span><span class="font-red">发生火情</span></strong>
+                        </div>
+                      </div>                    
+                  </div>
+                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
+                    <h5>起火位置相关未解决隐患详情</h5>
+                    <hr>                  
+                      <div class="row textandimg-main clearfix">
+                        <div class="col-sm-8">
+                          <span>详细位置 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>隐患类别 </span>
+                          <strong></strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>上报时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>上报人 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>优先级 </span>
+                          <strong><span class="font-blue">低</span><span class="font-yellow">中</span><span class="font-red">高</span></strong>
+                        </div>
+                        <div class="col-sm-12">
+                          <span>隐患说明 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-12">
+                          <span>图片视频 </span>
+                          <ul class="fire-media list-inline">
+                            <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                            <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                          </ul>
+                        </div>
+                      </div>                    
+                  </div>
+              </section>              
             </div>
         </div>
         </section>

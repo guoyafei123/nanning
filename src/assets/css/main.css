@@ -1107,13 +1107,14 @@ a.min-map-cloase:hover {
 .fireAnalysis>section {
     height: 100%;
     padding:20px;
-    background-color: #000;
-    color: #ccc;
+    background-color: rgba(0, 0, 0, .4);
+    color: #999;
     position: fixed;
     /*top: 60px;*/
 }
 .fireAnalysis>section hr {
     border-color: #111;
+    margin:15px auto;
 }
 .fireAnalysis .fire-map {
     width: 100%;
@@ -1137,7 +1138,7 @@ a.min-map-cloase:hover {
 }
 .fireAnalysis .my-scroll h2 {
     color: #f13131!important;
-    margin: 0 auto 10px;
+    margin: 15px auto;
     line-height: 1;
     display: block;
     font-size: 16px;
@@ -1187,7 +1188,8 @@ a.min-map-cloase:hover {
     }
 
 .fire-survey {
-    
+    border: 1px solid #222;
+    padding: 10px;
 }
 .fire-survey .textandimg-main {
     padding-left: 0;
@@ -1200,8 +1202,53 @@ a.min-map-cloase:hover {
     color: #fff;
 }
 .fire-media {
-    margin-top: 6px;
     margin-bottom: 0px;
-    height:80px;
+    height:60px;
     overflow-y: hidden; 
+}
+.fire-media img {
+    width: inherit;
+    margin-top: 6px;
+}
+.fire-unit.unit-info {
+    border: 1px solid #222;
+    padding: 1px;
+}
+.fire-unit.unit-info img {    
+    max-height: 160px;
+}
+.fire-unit.unit-info li:last-child article {
+    padding-left: 20px;
+}
+.fire-unit.unit-info li:first-child>div {
+    border-bottom: none;
+}
+.fire-per {
+    padding: 0 20px!important;
+}
+.fire-per .pull-right>article {
+    padding: 0 20px!important;
+}
+.fire-per .pull-right>article:last-child {
+    padding-right: 0!important;
+}
+.fire-per .pull-right h4{
+    display: block;
+}
+.fire-per li:last-child {
+    padding-left:0;
+    padding-right:0;
+}
+.fire-per li:last-child article {
+    padding-left: 0!important;
+}
+.fire-per li:last-child article span {
+    padding-right: 20px;
+}
+.fire-per li:nth-child(2) {
+    padding: 20px 0;
+}
+.fire-survey h5 {
+    font-size: 14px;
+    color: #fff;
 }
