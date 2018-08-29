@@ -40,6 +40,8 @@ import List_of_peopleVue from '../management/List_of_people/List_of_people';
 import List_of_people_AllVue from '../management/List_of_people/all';
 import List_of_people_listVue from '../management/List_of_people/list';
 import Personnel_reviewVue from '../management/Personnel_review/Personnel_review';
+import Patrolcheck_AllVue from '../management/Patrolcheck/all';
+import PatrolcheckVue from '../management/Patrolcheck/Patrolcheck';
 import Personnel_review_AllVue from '../management/Personnel_review/all';
 import Dangerous_goods_managementVue from '../management/Dangerous_goods_management/Dangerous_goods_management';
 import Dangerous_goods_management_listVue from '../management/Dangerous_goods_management/list';
@@ -183,6 +185,14 @@ export default new Router({
       ]
     },
     {
+      path:'/Patrolcheck',
+      component:PatrolcheckVue,
+      children:[
+        { path:'/Patrolcheck/all',component:Patrolcheck_AllVue},
+        { path:'/Patrolcheck',redirect:'/Patrolcheck/all'}
+      ]
+    },
+    {
       path:'/Personnel_review',
       component:Personnel_reviewVue,
       children:[
@@ -266,6 +276,10 @@ export default new Router({
         { path:'/Reserve_plan/maps',component:Reserve_planMapsVue},
         { path:'/Reserve_plan',redirect:'/Reserve_plan/all'}
       ]
+    },{
+      path:'/Send_message',
+      component:Reserve_planVue,
+
     }
   ]
 })

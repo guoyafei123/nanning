@@ -1,12 +1,12 @@
 <template>
-  <section id="messages" class="col-sm-2 bg-gray-111 margin-top20 clearfix">
+  <section id="messages" class="col-sm-2 bg-gray-111 margin-top20 clearfix" >
     <div class="row bg-gray-222 padding-top20">
       <!-- 框架标题 -->
       <div class="messages-title">
         <h2>消息中心
           <small>messages</small>
         </h2>
-        <router-link to="../management/Message_management/list"><i class="icon iconfont icon-fasong-xian- size-20"
+        <router-link to="/Message_management/list_notice"  @click.native="Show()"><i class="icon iconfont icon-fasong-xian- size-20"
                                                                    data-toggle="tooltip" title="发消息"></i></router-link>
       </div>
       <!-- 标签 -->
@@ -32,7 +32,7 @@
         火情 fire
         解决/复位  ok
       -->
-    <div id="myTabContent" class="tab-content messages-list">
+    <div id="myTabContent"   class="tab-content messages-list">
       <!-- 系统消息 -->
       <div class="tab-pane fade in active" id="system">
         <ul>
@@ -132,6 +132,7 @@
     // 数据接入
     data() {
       return {
+        isShow:true,//发布消息
         //查看消息详情
         getEventByIdDate: Object,
         getEventById_param: {
@@ -159,6 +160,10 @@
     },
     // 调用方法
     methods: {
+      Show(){
+        // alert(1)
+          $('a').parents().filter('div#showmessages').modal("toggle");
+      },
       // tab切换
       showTab() {
         let that = this
