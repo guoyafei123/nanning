@@ -76,64 +76,64 @@ export default new Router({
   routes: [
     // footer 导航
     {
-      path:'/',redirect:'/login',
-      component:resolve => require(['../components/login/login'],resolve)
+      path:'/',
+      component:IndexVue
     },
     {
       path:'/login',
-      component:resolve => require(['../components/login/login'],resolve)
+      component:LoginVue
     },
     {
       path:'/index',
-      component:resolve => require(['../components/index/index'],resolve)
+      component:IndexVue
     },
     {
       path:'/register',
-      component:resolve => require(['../components/register/register'],resolve)
+      component:RegisterVue
     },
     {
       path:'/callpolice',
-      component:resolve => require(['../components/callpolice/callpolice'],resolve)
+      component:CallpoliceVue
     },
     {
       path:'/inspection',
-      component:resolve => require(['../components/inspection/inspection'],resolve)
+      component:InspectionVue
     },
     {
       path:'/information',
-      component:resolve => require(['../components/information/information'],resolve)
+      component:InformationVue
     },
     {
       path:'/personnel',
-      component:resolve => require(['../components/personnel/personnel'],resolve)
+      component:PersonnelVue
     },
     {
       path:'/risk',
-      component:resolve => require(['../components/risk/risk'],resolve)
+      component:RiskVue
     },
     {
       path:'/buliding',
-      component:resolve => require(['../components/buliding/buliding'],resolve)
+      component:BulidVue
     },
     {
       path:'/danger',
-      component:resolve => require(['../components/danger/danger'],resolve)
+      component:DangerVue
     },
     {
       path:'/plan',
-      component:resolve => require(['../components/plan/plan'],resolve)
+      component:PlanVue
     },
     {
       path:'/camera',
-      component:resolve => require(['../components/camera/camera'],resolve)
+      component:CameraVue
     },
     {
       path:'/fire_analysis',
-      component:resolve => require(['../components/publick/fire_analysis'],resolve)
+      component:Fire_analysisVue
     },
     {
       path:'/cookie',
-      component:resolve => require(['../components/publick/cookie'],resolve)
+      component:Cookie
     },   
     // 管理端
     {
