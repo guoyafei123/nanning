@@ -266,6 +266,10 @@ export default new Router({
         { path:'/Reserve_plan/maps',component:Reserve_planMapsVue},
         { path:'/Reserve_plan',redirect:'/Reserve_plan/all'}
       ]
+    },{
+      path:'/Send_message',
+      component:Reserve_planVue,
+
     }
   ]
 })

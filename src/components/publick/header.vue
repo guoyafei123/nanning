@@ -93,7 +93,7 @@
         <ul class="top-btn">
           <li>
             <span class="point"></span>
-            <a @click="showMessages()">
+            <a class="showMessages" @click="showMessages()">
               <el-tooltip class="item" content="消息" placement="top">
                 <i class="icon iconfont icon-xiaoxi-mian--"></i>
               </el-tooltip>
