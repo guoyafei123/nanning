@@ -3,7 +3,7 @@
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-caozuorizhi-xian-"></i>
-        <h2>工作日志</h2>
+        <h2>操作日志</h2>
       </div>
     </div>
     <div class="main_all_content">

@@ -380,7 +380,7 @@
 		</template>
 		<!-- 弹窗 -->
 		<el-dialog title="" :visible.sync="dialogVisible" top="120px">
-			<el-tooltip class="item" content="收起导航" placement="top">
+			<el-tooltip class="item" content="关闭" placement="top">
 				<a class="go-back" @click="dialogVisible = false"><i class="el-icon-circle-close-outline size-24"></i></a>
 				</el-tooltip>
 			<earlyinfo-vue></earlyinfo-vue>

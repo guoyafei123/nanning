@@ -84,7 +84,7 @@
               class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</span></el-dropdown-item>
 						<el-dropdown-item><router-link to="/operationLog"><i
               class="icon iconfont icon-caozuorizhi-xian- size-14"></i> 操作日志</router-link></el-dropdown-item>
-						<el-dropdown-item><i class="icon iconfont icon-guanbi2 size-14" @click="logout"  ></i> 注销</el-dropdown-item>
+						<el-dropdown-item @click="logout"><i class="icon iconfont icon-guanbi2 size-14"></i> 注销</el-dropdown-item>
 					</el-dropdown-menu>
 					</el-dropdown>
 				</div>

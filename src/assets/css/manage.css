@@ -449,6 +449,11 @@
     padding:0 !important;
     border:none;
   }
+  .el-tag--orange{
+    color: #ff7800!important;
+    padding:0 !important;
+    border:none;
+  }
   .el-tag--green{
     color: #bad616!important;
     padding:0 !important;

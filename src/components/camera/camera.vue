@@ -1,22 +1,22 @@
 <template>
 	<div class="row" id="camera">
 		<section>
-			<div class="page">
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/1.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/2.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/3.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/4.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/5.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/6.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/7.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/8.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/9.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/10.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/11.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/12.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/13.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/14.jpg" @click="open5"></div></div>
-			    <div class="list"><div class="video"><img src="../../assets/images/cam/15.jpg" @click="open5"></div></div>
+			<div class="page" @click="open5">
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/1.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/2.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/3.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/4.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/5.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/6.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/7.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/8.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/9.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/10.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/11.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/12.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/13.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/14.jpg"></div></div>
+			    <div class="list"><div class="video"><img src="../../assets/images/cam/15.jpg"></div></div>
 			</div>
 		</section>
 	</div>
