@@ -201,7 +201,7 @@
       </span>
     </el-dialog>
     <!-- 火情分析 -->
-    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont" data-spy="scroll" data-target="#myScrollspy">      
+    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont" data-spy="scroll" data-target="#myScrollspy">
       <div class="dialog-content fireAnalysis clearfix">
           <!-- 标题 -->
           <div class="main_header clearFix">
@@ -226,11 +226,11 @@
               </button>
               <button type="button" @click="fireAnalysis = false">
                <i class="el-icon el-icon-close"></i> 关闭
-              </button> 
+              </button>
             </div>
           </div>
         <section class="col-sm-offset-3 col-sm-6">
-        <div class="row my-scroll size-12">            
+        <div class="row my-scroll size-12">
             <div class="col-sm-12">
                 <h2 id="section-1">火情地图</h2>
                 <!-- 地图 -->
@@ -246,7 +246,7 @@
                     </p>
                   </article>
                   <hr>
-                  <div class="row textandimg-main clearfix">              
+                  <div class="row textandimg-main clearfix">
                     <div class="col-sm-4">
                       <span>建筑风险评估 </span>
                       <strong>安全评分 5.5 风险系数 55.2%</strong>
@@ -258,7 +258,7 @@
                     <div class="col-sm-4">
                       <span>报警时间 </span>
                       <strong>2018-02-02 12:52:32</strong>
-                    </div>                  
+                    </div>
                     <div class="col-sm-4">
                       <span>确认时间 </span>
                       <strong>2018-02-02 12:52:32</strong>
@@ -266,7 +266,7 @@
                     <div class="col-sm-4">
                       <span>关闭时间 </span>
                       <strong>2018-02-02 12:52:32</strong>
-                    </div>                  
+                    </div>
                     <div class="col-sm-4">
                       <span>响应时长 </span>
                       <strong class="font-blue">326秒</strong>
@@ -369,10 +369,10 @@
                   <article class="col-sm-12 container-padding10 padding-left10 padding-right10">
                     截止报警时该单位安全评分{安全评分}分，风险系数{风险系数}。{B级因素}因素风险指数较高，相关未解决隐患{数量}个，其中未解决危险品{未解决危险品类隐患数量}个；当日相关巡检{数量}次，有{数量}人参与了巡检，累计发现隐患{数量}个，解决隐患{数量}个。<br>
 该建筑累计发生报警{报警数量}个，其中主机报警{数量}个，人工报警{数量}个，累计火情{数量}起。
-                  </article>                                 
-                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
+                  </article>
+                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">
                     <h5>起火位置相关最近一次报警记录</h5>
-                    <hr>                  
+                    <hr>
                       <div class="row textandimg-main clearfix">
                         <div class="col-sm-12">
                           <span>详细位置 </span>
@@ -381,7 +381,7 @@
                         <div class="col-sm-4">
                           <span>报警时间 </span>
                           <strong>2018-02-02 12:52:32</strong>
-                        </div>                  
+                        </div>
                         <div class="col-sm-4">
                           <span>确认时间 </span>
                           <strong>2018-02-02 12:52:32</strong>
@@ -389,7 +389,7 @@
                         <div class="col-sm-4">
                           <span>关闭时间 </span>
                           <strong>2018-02-02 12:52:32</strong>
-                        </div>                  
+                        </div>
                         <div class="col-sm-4">
                           <span>响应时长 </span>
                           <strong class="font-blue">326秒</strong>
@@ -414,11 +414,11 @@
                           <span>报警状态 </span>
                           <strong><span class="font-blue">未发生火情</span><span class="font-red">发生火情</span></strong>
                         </div>
-                      </div>                    
+                      </div>
                   </div>
-                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
+                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">
                     <h5>起火位置相关未解决隐患详情</h5>
-                    <hr>                  
+                    <hr>
                       <div class="row textandimg-main clearfix">
                         <div class="col-sm-8">
                           <span>详细位置 </span>
@@ -431,7 +431,7 @@
                         <div class="col-sm-4">
                           <span>上报时间 </span>
                           <strong>2018-02-02 12:52:32</strong>
-                        </div>                  
+                        </div>
                         <div class="col-sm-4">
                           <span>上报人 </span>
                           <strong>xxx</strong>
@@ -451,14 +451,14 @@
                             <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
                           </ul>
                         </div>
-                      </div>                    
+                      </div>
                   </div>
-              </section>              
+              </section>
             </div>
         </div>
         </section>
       </div>
-    </el-dialog> 
+    </el-dialog>
   </header>
 
 </template>
@@ -550,7 +550,7 @@
         clearInterval(this.timer);//在vue实例销毁钱，清除我们的定时器
       }
       if (this.weathers) {
-        clearInterval(this.weathers);//在vue实例销毁钱，清除我们的定时器
+        this.weathers
       }
     },
 
