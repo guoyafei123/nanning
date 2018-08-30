@@ -7,7 +7,8 @@
 					<canvas id="canvas-big" width="260" height="200"></canvas>
 				</div>
 				<div class="tool-charmaxvalue">
-					<p class="line-height86 size-60 font-blue"><span class="size-100">{{unitAssessScore?unitAssessScore:"0"}}</span></p>
+					<p class="line-height86 font-blue">0.52</p>
+					<!-- {{unitAssessScore?unitAssessScore:"0"}} -->
 				</div>
 			</div>
 
@@ -249,7 +250,7 @@
 					buidingId: null,
 					startTime: null,
 					endTime: null,
-					currentPage: 1,
+					currentPage: 2,
 					pageSize: 10
 				},
 				// 表格返回
