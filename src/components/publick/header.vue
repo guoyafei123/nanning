@@ -230,10 +230,10 @@
               </button>
             </div>
           </div>
-        <section class="col-sm-offset-3 col-sm-6"  data-spy="scroll" data-target="#myScrollspy">
+        <section class="col-sm-offset-3 col-sm-6 size-12"  data-spy="scroll" data-target="#myScrollspy">
         <div class="row my-scroll">
             <div class="col-sm-12">
-                <h2 id="section-1">第一部分</h2>
+                <h2 id="section-1">火情地图</h2>
                 <!-- 地图 -->
                 <div class="fire-map">
                   <div><!-- 地图容器 --></div>
