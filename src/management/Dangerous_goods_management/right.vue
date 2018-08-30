@@ -551,10 +551,18 @@
       },
       show3(row){//跳转
         //console.log(row.id);
-        this.$store.commit('dangerId',row.id);
+        
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
+        if(row.buildingId == 0 & row.buildingId == '0'){
+          $('.floorMap').hide();
+          $('.map').show();
+        }else{
+          $('.floorMap').show();
+          $('.map').hide();
+          this.$store.commit('DangerSimple',row.id);
+        }
       },
       deleteRow(){
            //console.log(this.deviceIndex);

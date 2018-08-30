@@ -43,6 +43,7 @@ var state={
   dangerBuild:'',
   dangerFloor:'',
   dangerRoom:'',
+  DangerSimple:'',
   //预案
   unitPlan:'',
   //消息
@@ -80,6 +81,7 @@ var state={
   // 全部单位
   mapAllUnit:Object,
   toMapPatterns:Object,
+  toMapPatternsDanger:Object
 }
 
 var mutations={
@@ -191,6 +193,9 @@ var mutations={
   dengerStatus(state,data){
     state.dengerStatus = data;
   },
+  DangerSimple(state,data){
+    state.DangerSimple = data ;
+  },
   //预案
   unitPlan(state,data){
     state.unitPlan = data;
@@ -264,8 +269,10 @@ var mutations={
     state.mapAllUnit=data;
   },
   toMapPatterns(state,data){
-    // alert(1);
     state.toMapPatterns=data;
+  },
+  toMapPatternsDanger(state,data){
+    state.toMapPatternsDanger=data;
   },
 }
 

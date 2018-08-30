@@ -1072,10 +1072,10 @@ a.min-map-cloase:hover {
     height: 28px;
     line-height: 26px;
     display: inline-block!important;
-    border: 1px solid #bad616;
+    border: 1px solid #555;
     background-color: transparent;
     font-size: 12px;
-    color: #bad616;
+    color: #ccc;
     text-decoration: none;
     transition: background 0.3s;
     -webkit-transition: background 0.3s;
@@ -1090,12 +1090,12 @@ a.min-map-cloase:hover {
     color:#000;
 }
 .main_tab button:hover,.main_tab a:hover {  
-    border: 1px solid #bad616;
-    background-color: #bad616;
-    color:#000;
+    border: 1px solid #555;
+    background-color: #555;
+    color:#fff;
 }
 .fireAnalysis .main_header {
-    position: absolute;
+    position: fixed;
     top: 0;
 }
 .fireAnalysis {
@@ -1106,14 +1106,19 @@ a.min-map-cloase:hover {
 }
 .fireAnalysis>section {
     height: 100%;
-    margin-top: 60px;
     padding:20px;
-    background-color: #000;
-    color: #ccc;    
+    background-color: rgba(0, 0, 0, .4);
+    color: #999;
+    position: fixed;
+    /*top: 60px;*/
+}
+.fireAnalysis>section hr {
+    border-color: #111;
+    margin:15px auto;
 }
 .fireAnalysis .fire-map {
     width: 100%;
-    height: 300px;
+    height: 360px;
     border: 1px solid #222;
     position: relative;
 }
@@ -1132,8 +1137,11 @@ a.min-map-cloase:hover {
     overflow-y: auto;
 }
 .fireAnalysis .my-scroll h2 {
-    color: #bad616!important;
-    margin: 0;
+    color: #f13131!important;
+    margin: 15px auto;
+    line-height: 1;
+    display: block;
+    font-size: 16px;
 }
 .fire-tab {
     position: relative;
@@ -1145,10 +1153,12 @@ a.min-map-cloase:hover {
         border-radius: 0px;
         box-shadow:none;
         border:none;
+        margin: 0 35%;
+        width: 40%;
     }
     .fire-tab ul.nav-tabs li{
         display: inline-block;
-        max-width: 100px;
+        max-width: 140px;
         margin: 0;
         border: 1px solid #bad616;
     }
@@ -1176,3 +1186,69 @@ a.min-map-cloase:hover {
     .fire-tab ul.nav-tabs.affix{
         top: 17px; /* Set the top position of pinned element */
     }
+
+.fire-survey {
+    border: 1px solid #222;
+    padding: 10px;
+}
+.fire-survey .textandimg-main {
+    padding-left: 0;
+}
+.fire-survey .textandimg-main>div>span {
+    min-width: 80px;
+    color: #999;
+}
+.fire-survey .textandimg-main>div>strong {
+    color: #fff;
+}
+.fire-media {
+    margin-bottom: 0px;
+    height:60px;
+    overflow-y: hidden; 
+}
+.fire-media img {
+    width: inherit;
+    margin-top: 6px;
+}
+.fire-unit.unit-info {
+    border: 1px solid #222;
+    padding: 1px;
+}
+.fire-unit.unit-info img {    
+    max-height: 160px;
+}
+.fire-unit.unit-info li:last-child article {
+    padding-left: 20px;
+}
+.fire-unit.unit-info li:first-child>div {
+    border-bottom: none;
+}
+.fire-per {
+    padding: 0 20px!important;
+}
+.fire-per .pull-right>article {
+    padding: 0 20px!important;
+}
+.fire-per .pull-right>article:last-child {
+    padding-right: 0!important;
+}
+.fire-per .pull-right h4{
+    display: block;
+}
+.fire-per li:last-child {
+    padding-left:0;
+    padding-right:0;
+}
+.fire-per li:last-child article {
+    padding-left: 0!important;
+}
+.fire-per li:last-child article span {
+    padding-right: 20px;
+}
+.fire-per li:nth-child(2) {
+    padding: 20px 0;
+}
+.fire-survey h5 {
+    font-size: 14px;
+    color: #fff;
+}

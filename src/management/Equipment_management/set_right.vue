@@ -246,11 +246,11 @@
                       :type="scope.row.status === 1 ? 'green' : 'red'"
                       disable-transitions v-if='scope.row.status==1'>正常</el-tag>
                     <el-tag
-                      :type="scope.row.status === 2 ? 'red' : 'green'"
-                      disable-transitions v-if='scope.row.status==2'>故障<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
+                      :type="scope.row.status === 2 ? 'orange' : 'green'"
+                      disable-transitions v-if='scope.row.status==2'>故障 <i class="el-icon-warning font-orange"></i></el-tag>
                     <el-tag
                       :type="scope.row.status === 2 ? 'red' : 'green'"
-                      disable-transitions v-if='scope.row.status==3'>警报<i class="el-icon-warning font-blue" data-toggle="tooltip" title="开始时间 2018-08-20 16:30:23"></i></el-tag>
+                      disable-transitions v-if='scope.row.status==3'>警报 <i class="el-icon-warning font-red"></i></el-tag>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -615,11 +615,11 @@
       show3(row){//跳转
         //console.log(row.id);
         // this.$store.commit('deviceId',row.id);
+        $('.plan').show();        
+        $('.total').hide();
+        $('.mapTable').hide();
         console.log(row.buildingId)
         if(row.buildingId == 0 & row.buildingId == '0'){
-          $('.plan').show();        
-          $('.total').hide();
-          $('.mapTable').hide();
           $('.floorMap').hide();
           $('.map').show();
         }else{

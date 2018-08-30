@@ -201,7 +201,7 @@
       </span>
     </el-dialog>
     <!-- 火情分析 -->
-    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">      
+    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">
       <div class="dialog-content fireAnalysis clearfix">
           <!-- 标题 -->
           <div class="main_header clearFix">
@@ -227,11 +227,11 @@
               </button>
               <button type="button" @click="fireAnalysis = false">
                <i class="el-icon el-icon-close"></i> 关闭
-              </button> 
+              </button>
             </div>
           </div>
         <section class="col-sm-offset-3 col-sm-6"  data-spy="scroll" data-target="#myScrollspy">
-        <div class="row my-scroll">            
+        <div class="row my-scroll">
             <div class="col-sm-12">
                 <h2 id="section-1">第一部分</h2>
                 <!-- 地图 -->
@@ -267,7 +267,7 @@
         </div>
         </section>
       </div>
-    </el-dialog> 
+    </el-dialog>
   </header>
 
 </template>
@@ -347,10 +347,10 @@
       this.getuserinfo();
       this.getWeather();
       let _this = this; //声明一个变量指向vue实例this,保证作用域一致
-      this.timer = setInterval(function () {
+      this.timer = setInterval(()=> {
         _this.date =new Date();//修改数据date
       }, 1000);
-      this.weathers = setInterval(function () {
+      this.weathers = setInterval(()=>  {
         _this.getWeather()
       }, 1000*60*60*5);
     },
