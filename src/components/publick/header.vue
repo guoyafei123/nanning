@@ -209,7 +209,7 @@
               <i class="icon iconfont icon-huoqing-xian-"></i>
               <h2>火情分析</h2>
             </div>
-            <div class="fire-tab col-sm-6" id="myScrollspy">
+            <!-- <div class="fire-tab col-sm-6" id="myScrollspy">
                 <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="60">
                     <li class="active"><a href="#section-1">第一部分</a></li>
                     <li><a href="#section-2">第二部分</a></li>
@@ -217,7 +217,7 @@
                     <li><a href="#section-4">第四部分</a></li>
                     <li><a href="#section-5">第五部分</a></li>
                 </ul>
-            </div>
+            </div> -->
             <div class="main_tab col-sm-3 pull-right">
               <button type="button" @click="fireAnalysis = false">
                <i class="el-icon-printer"></i> 打印
@@ -230,39 +230,356 @@
               </button>
             </div>
           </div>
-        <section class="col-sm-offset-3 col-sm-6"  data-spy="scroll" data-target="#myScrollspy">
+        <section class="col-sm-offset-3 col-sm-6 size-12"  data-spy="scroll" data-target="#myScrollspy">
         <div class="row my-scroll">
             <div class="col-sm-12">
-                <h2 id="section-1">第一部分</h2>
+                <h2 id="section-1">火情地图</h2>
                 <!-- 地图 -->
                 <div class="fire-map">
                   <div><!-- 地图容器 --></div>
                   <article><!-- 说明 --></article>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum vestibulum. Vivamus fermentum in arcu in aliquam. Quisque aliquam porta odio in fringilla. Vivamus nisl leo, blandit at bibendum eu, tristique eget risus. Integer aliquet quam ut elit suscipit, id interdum neque porttitor. Integer faucibus ligula.</p>
-                <p>Vestibulum quis quam ut magna consequat faucibus. Pellentesque eget nisi a mi suscipit tincidunt. Ut tempus dictum risus. Pellentesque viverra sagittis quam at mattis. Suspendisse potenti. Aliquam sit amet gravida nibh, facilisis gravida odio. Phasellus auctor velit at lacus blandit, commodo iaculis justo viverra. Etiam vitae est arcu. Mauris vel congue dolor. Aliquam eget mi mi. Fusce quam tortor, commodo ac dui quis, bibendum viverra erat. Maecenas mattis lectus enim, quis tincidunt dui molestie euismod. Curabitur et diam tristique, accumsan nunc eu, hendrerit tellus.</p>
-                <hr>
-                <h2 id="section-2">第二部分</h2>
-                <p>Nullam hendrerit justo non leo aliquet imperdiet. Etiam in sagittis lectus. Suspendisse ultrices placerat accumsan. Mauris quis dapibus orci. In dapibus velit blandit pharetra tincidunt. Quisque non sapien nec lacus condimentum facilisis ut iaculis enim. Sed viverra interdum bibendum. Donec ac sollicitudin dolor. Sed fringilla vitae lacus at rutrum. Phasellus congue vestibulum ligula sed consequat.</p>
-                <p>Vestibulum consectetur scelerisque lacus, ac fermentum lorem convallis sed. Nam odio tortor, dictum quis malesuada at, pellentesque vitae orci. Vivamus elementum, felis eu auctor lobortis, diam velit egestas lacus, quis fermentum metus ante quis urna. Sed at facilisis libero. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum bibendum blandit dolor. Nunc orci dolor, molestie nec nibh in, hendrerit tincidunt ante. Vivamus sem augue, hendrerit non sapien in, mollis ornare augue.</p>
-                <hr>
-                <h2 id="section-3">第三部分</h2>
-                <p>Integer pulvinar leo id risus pellentesque vestibulum. Sed diam libero, sodales eget sapien vel, porttitor bibendum enim. Donec sed nibh vitae lorem porttitor blandit in nec ante. Pellentesque vitae metus ipsum. Phasellus sed nunc ac sem malesuada condimentum. Etiam in aliquam lectus. Nam vel sapien diam. Donec pharetra id arcu eget blandit. Proin imperdiet mattis augue in porttitor. Quisque tempus enim id lobortis feugiat. Suspendisse tincidunt risus quis dolor fringilla blandit. Ut sed sapien at purus lacinia porttitor. Nullam iaculis, felis a pretium ornare, dolor nisl semper tortor, vel sagittis lacus est consequat eros. Sed id pretium nisl. Curabitur dolor nisl, laoreet vitae aliquam id, tincidunt sit amet mauris.</p>
-                <p>Phasellus vitae suscipit justo. Mauris pharetra feugiat ante id lacinia. Etiam faucibus mauris id tempor egestas. Duis luctus turpis at accumsan tincidunt. Phasellus risus risus, volutpat vel tellus ac, tincidunt fringilla massa. Etiam hendrerit dolor eget ante rutrum adipiscing. Cras interdum ipsum mattis, tempus mauris vel, semper ipsum. Duis sed dolor ut enim lobortis pellentesque ultricies ac ligula. Pellentesque convallis elit nisi, id vulputate ipsum ullamcorper ut. Cras ac pulvinar purus, ac viverra est. Suspendisse potenti. Integer pellentesque neque et elementum tempus. Curabitur bibendum in ligula ut rhoncus.</p>
-                <p>Quisque pharetra velit id velit iaculis pretium. Nullam a justo sed ligula porta semper eu quis enim. Pellentesque pellentesque, metus at facilisis hendrerit, lectus velit facilisis leo, quis volutpat turpis arcu quis enim. Nulla viverra lorem elementum interdum ultricies. Suspendisse accumsan quam nec ante mollis tempus. Morbi vel accumsan diam, eget convallis tellus. Suspendisse potenti.</p>
-                <hr>
-                <h2 id="section-4">第四部分</h2>
-                <p>Suspendisse a orci facilisis, dignissim tortor vitae, ultrices mi. Vestibulum a iaculis lacus. Phasellus vitae convallis ligula, nec volutpat tellus. Vivamus scelerisque mollis nisl, nec vehicula elit egestas a. Sed luctus metus id mi gravida, faucibus convallis neque pretium. Maecenas quis sapien ut leo fringilla tempor vitae sit amet leo. Donec imperdiet tempus placerat. Pellentesque pulvinar ultrices nunc sed ultrices. Morbi vel mi pretium, fermentum lacus et, viverra tellus. Phasellus sodales libero nec dui convallis, sit amet fermentum sapien auctor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed eu elementum nibh, quis varius libero.</p>
-                <p>Vestibulum quis quam ut magna consequat faucibus. Pellentesque eget nisi a mi suscipit tincidunt. Ut tempus dictum risus. Pellentesque viverra sagittis quam at mattis. Suspendisse potenti. Aliquam sit amet gravida nibh, facilisis gravida odio. Phasellus auctor velit at lacus blandit, commodo iaculis justo viverra. Etiam vitae est arcu. Mauris vel congue dolor. Aliquam eget mi mi. Fusce quam tortor, commodo ac dui quis, bibendum viverra erat. Maecenas mattis lectus enim, quis tincidunt dui molestie euismod. Curabitur et diam tristique, accumsan nunc eu, hendrerit tellus.</p>
-                <p>Phasellus fermentum, neque sit amet sodales tempor, enim ante interdum eros, eget luctus ipsum eros ut ligula. Nunc ornare erat quis faucibus molestie. Proin malesuada consequat commodo. Mauris iaculis, eros ut dapibus luctus, massa enim elementum purus, sit amet tristique purus purus nec felis. Morbi vestibulum sapien eget porta pulvinar. Nam at quam diam. Proin rhoncus, felis elementum accumsan dictum, felis nisi vestibulum tellus, et ultrices risus felis in orci. Quisque vestibulum sem nisl, vel congue leo dictum nec. Cras eget est at velit sagittis ullamcorper vel et lectus. In hac habitasse platea dictumst. Etiam interdum iaculis velit, vel sollicitudin lorem feugiat sit amet. Etiam luctus, quam sed sodales aliquam, lorem libero hendrerit urna, faucibus rhoncus massa nibh at felis. Curabitur ac tempus nulla, ut semper erat. Vivamus porta ullamcorper sem, ornare egestas mauris facilisis id.</p>
-                <p>Ut ut risus nisl. Fusce porttitor eros at magna luctus, non congue nulla eleifend. Aenean porttitor feugiat dolor sit amet facilisis. Pellentesque venenatis magna et risus commodo, a commodo turpis gravida. Nam mollis massa dapibus urna aliquet, quis iaculis elit sodales. Sed eget ornare orci, eu malesuada justo. Nunc lacus augue, dictum quis dui id, lacinia congue quam. Nulla sem sem, aliquam nec dolor ac, tempus convallis nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla suscipit convallis iaculis. Quisque eget commodo ligula. Praesent leo dui, facilisis quis eleifend in, aliquet vitae nunc. Suspendisse fermentum odio ac massa ultricies pellentesque. Fusce eu suscipit massa.</p>
-                <hr>
-                <h2 id="section-5">第五部分</h2>
-                <p>Nam eget purus nec est consectetur vehicula. Nullam ultrices nisl risus, in viverra libero egestas sit amet. Etiam porttitor dolor non eros pulvinar malesuada. Vestibulum sit amet est mollis nulla tempus aliquet. Praesent luctus hendrerit arcu non laoreet. Morbi consequat placerat magna, ac ornare odio sagittis sed. Donec vitae ullamcorper purus. Vivamus non metus ac justo porta volutpat.</p>
-                <p>Vivamus mattis accumsan erat, vel convallis risus pretium nec. Integer nunc nulla, viverra ut sem non, scelerisque vehicula arcu. Fusce bibendum convallis augue sit amet lobortis. Cras porta urna turpis, sodales lobortis purus adipiscing id. Maecenas ullamcorper, turpis suscipit pellentesque fringilla, massa lacus pulvinar mi, nec dignissim velit arcu eget purus. Nam at dapibus tellus, eget euismod nisl. Ut eget venenatis sapien. Vivamus vulputate varius mauris, vel varius nisl facilisis ac. Nulla aliquet justo a nibh ornare, eu congue neque rutrum.</p>
-                <p>Suspendisse a orci facilisis, dignissim tortor vitae, ultrices mi. Vestibulum a iaculis lacus. Phasellus vitae convallis ligula, nec volutpat tellus. Vivamus scelerisque mollis nisl, nec vehicula elit egestas a. Sed luctus metus id mi gravida, faucibus convallis neque pretium. Maecenas quis sapien ut leo fringilla tempor vitae sit amet leo. Donec imperdiet tempus placerat. Pellentesque pulvinar ultrices nunc sed ultrices. Morbi vel mi pretium, fermentum lacus et, viverra tellus. Phasellus sodales libero nec dui convallis, sit amet fermentum sapien auctor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed eu elementum nibh, quis varius libero.</p>
-                <p>Morbi sed fermentum ipsum. Morbi a orci vulputate tortor ornare blandit a quis orci. Donec aliquam sodales gravida. In ut ullamcorper nisi, ac pretium velit. Vestibulum vitae lectus volutpat, consequat lorem sit amet, pulvinar tellus. In tincidunt vel leo eget pulvinar. Curabitur a eros non lacus malesuada aliquam. Praesent et tempus odio. Integer a quam nunc. In hac habitasse platea dictumst. Aliquam porta nibh nulla, et mattis turpis placerat eget. Pellentesque dui diam, pellentesque vel gravida id, accumsan eu magna. Sed a semper arcu, ut dignissim leo.</p>
-                <p>Sed vitae lobortis diam, id molestie magna. Aliquam consequat ipsum quis est dictum ultrices. Aenean nibh velit, fringilla in diam id, blandit hendrerit lacus. Donec vehicula rutrum tellus eget fermentum. Pellentesque ac erat et arcu ornare tincidunt. Aliquam erat volutpat. Vivamus lobortis urna quis gravida semper. In condimentum, est a faucibus luctus, mi dolor cursus mi, id vehicula arcu risus a nibh. Pellentesque blandit sapien lacus, vel vehicula nunc feugiat sit amet.</p>
+                <!-- 事故概况 -->
+                <h2 id="section-2">事故概况</h2>
+                <div class="textandimg fire-survey">
+                  <article>
+                    <p>｛报警时间｝，｛位置｝｛报警源｝发起警报，报警时中控室值守人：{最近一次PC中控打卡人姓名}，警报时策略圈内的人员有｛人员名称、人员名称｝；确认人｝于｛时间｝将该次警报确认为火情，响应时长：{确认时间-报警时间}。；{关闭人}于{关闭时间}在系统将该火情关闭，累计持续时长：{关闭时间-报警时间}。<br>
+                    报警时天气{天气}，温度{温度}，湿度{湿度}，风力{风力}，策略圈内微型消防站{数量}个，最近消防站相距事故地点{距离}。
+                    </p>
+                  </article>
+                  <hr>
+                  <div class="row textandimg-main clearfix">              
+                    <div class="col-sm-4">
+                      <span>建筑风险评估 </span>
+                      <strong>安全评分 5.5 风险系数 55.2%</strong>
+                    </div>
+                    <div class="col-sm-8">
+                      <span>详细位置 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>报警时间 </span>
+                      <strong>2018-02-02 12:52:32</strong>
+                    </div>                  
+                    <div class="col-sm-4">
+                      <span>确认时间 </span>
+                      <strong>2018-02-02 12:52:32</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>关闭时间 </span>
+                      <strong>2018-02-02 12:52:32</strong>
+                    </div>                  
+                    <div class="col-sm-4">
+                      <span>响应时长 </span>
+                      <strong class="font-blue">326秒</strong>
+                    </div>
+                    <div class="col-sm-8">
+                      <span>持续时长 </span>
+                      <strong class="font-blue">326秒</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>报警源 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>确认人 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>关闭人 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>报警说明 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>图片视频 </span>
+                      <ul class="fire-media list-inline">
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>确认说明 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>图片视频 </span>
+                      <ul class="fire-media list-inline">
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>关闭说明 </span>
+                      <strong>xxx</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>图片视频 </span>
+                      <ul class="fire-media list-inline">
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- 起火单位最近数据 -->
+                <h2 id="section-3">起火单位最近数据</h2>
+                <section class="fire-unit unit-info clearfix">
+                  <!-- 单位统计 -->
+                  <ul class="list-unstyled col-sm-6">
+                      <li class="position-relative">
+                          <div class="position-absolute-bottom clearfix">
+                              <!-- 单位信息 -->
+                            <article class="unit-brief white-space col-sm-10">
+                              <h3 class="size-20" >XXX单位</h3>
+                              <small><i class="el-icon-location" ></i> 广西省南宁市良庆区银海大厦710-2号</small>
+                            </article>
+                          </div>
+                          <img src="/static/img/jpg01.c4714ec.jpg" class="img-responsive center-block">
+                      </li>
+                  </ul>
+                  <ul class="fire-per bg-black list-unstyled col-sm-6">
+                      <li></li>
+                      <li>
+                          <div class="pull-left">
+                              <!---->
+                              <h4>陆浩<small>186011153647</small></h4><div>消防负责人</div></div>
+                          <div class="pull-right">
+                              <article>
+                                  <h4>1</h4> <small>今日警报</small></article>
+                              <article>
+                                  <h4>7</h4> <small>今日隐患</small></article>
+                              <article>
+                                  <h4>0</h4> <small>巡检完成</small></article>
+                          </div>
+                      </li>
+                      <li>
+                          <article>
+                              单位总数<span>7</span></article>
+                          <article>
+                              建筑总数<span>7</span></article>
+                          <article>
+                              预案总数<span>9</span></article>
+                          <article>
+                              设备总数<span>8</span></article>
+                          <article>
+                              人员总数<span>0</span></article>
+                          <article>
+                              巡检路线<span>0</span></article>
+                      </li>
+                  </ul>
+                  <article class="col-sm-12 container-padding10 padding-left10 padding-right10">
+                    截止报警时该单位安全评分{安全评分}分，风险系数{风险系数}。{B级因素}因素风险指数较高，相关未解决隐患{数量}个，其中未解决危险品{未解决危险品类隐患数量}个；当日相关巡检{数量}次，有{数量}人参与了巡检，累计发现隐患{数量}个，解决隐患{数量}个。<br>
+该建筑累计发生报警{报警数量}个，其中主机报警{数量}个，人工报警{数量}个，累计火情{数量}起。
+                  </article>
+                  <!-- 起火位置相关最近一次报警记录 -->                             
+                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
+                    <h5>起火位置相关最近一次报警记录</h5>
+                    <hr>                  
+                      <div class="row textandimg-main clearfix">
+                        <div class="col-sm-12">
+                          <span>详细位置 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>报警时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>确认时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>关闭时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>响应时长 </span>
+                          <strong class="font-blue">326秒</strong>
+                        </div>
+                        <div class="col-sm-8">
+                          <span>持续时长 </span>
+                          <strong class="font-blue">326秒</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>报警源 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>确认人 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>关闭人 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-12">
+                          <span>报警状态 </span>
+                          <strong><span class="font-blue">未发生火情</span><span class="font-red">发生火情</span></strong>
+                        </div>
+                      </div>                    
+                  </div>
+                  <!-- 起火位置相关未解决隐患详情 -->
+                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
+                    <h5>起火位置相关未解决隐患详情</h5>
+                    <hr>                  
+                      <div class="row textandimg-main clearfix">
+                        <div class="col-sm-8">
+                          <span>详细位置 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>隐患类别 </span>
+                          <strong></strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>上报时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>上报人 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          <span>优先级 </span>
+                          <strong><span class="font-blue">低</span><span class="font-yellow">中</span><span class="font-red">高</span></strong>
+                        </div>
+                        <div class="col-sm-12">
+                          <span>隐患说明 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-12">
+                          <span>图片视频 </span>
+                          <ul class="fire-media list-inline">
+                            <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                            <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                          </ul>
+                        </div>
+                      </div>                    
+                  </div>
+                  <!-- 起火位置最近一次巡检记录 -->
+                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
+                    <h5>起火位置最近一次巡检记录</h5>
+                    <hr>                  
+                      <div class="row textandimg-main clearfix">
+                        <div class="col-sm-4">
+                          <span>任务名称： </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-8">
+                          <span>相关节点 </span>
+                          <strong>xxx</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>巡检员 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-8">
+                          <span>节点相关起止时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>发现隐患 </span>
+                          <strong class="font-blue">X个</strong>
+                        </div>
+                        <div class="col-sm-8">
+                          <span>解决隐患 </span>
+                          <strong class="font-blue">X个</strong>
+                        </div>
+                      </div>                    
+                  </div>
+              </section>
+              <!-- 历史数据分析 -->
+              <h2 id="section-3">历史数据分析</h2>
+              <div class="textandimg fire-survey">
+                <!-- 筛选 -->
+                <section class="my-filter padding5 bg-gray-111 clearfix">
+                  <!-- 单位筛选 -->
+                  <div class="pull-left">
+                    <el-select class="upd-elselect bg-black" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="瑞和家园">
+                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <!-- 日期筛选 -->
+                  <div class="pull-left padding-left10">
+                    <section>
+                      <div class="upd-elmdate">
+                        <el-date-picker
+                          size="mini"
+                          v-model="value4"
+                          type="datetimerange"
+                          align="right"
+                          range-separator="至"
+                          start-placeholder="开始日期"
+                          end-placeholder="结束日期">
+                        </el-date-picker>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="fire-mini-info pull-right">
+                    <article><span class="bg-yellow"></span>巡检人数</article>
+                    <article><span class="bg-white"></span>巡检任务完成次数</article>
+                    <article><span class="bg-blue"></span>单位安全评分</article>
+                  </div>
+                </section>
+                <div class="" style="width: 100%;height: 240px;margin: 0px auto;"><!-- 折线图 --></div>
+                <!-- 表格 -->
+                <div class="table-responsive big-list-table">
+                  <table class="table toolroute-table">
+                    <thead>
+                      <tr>
+                        <th>时间</th>
+                        <th>巡检人数</th>
+                        <th>巡检任务完成次数</th>
+                        <th>报警数</th>
+                        <th>报警确认数</th>
+                        <th>隐患数</th>
+                        <th>危险品数</th>
+                        <th>建筑安全评分</th>
+                        <th>单位安全评分</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>2018-06-10 0:00</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>5.5</td>
+                        <td>5.5</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- 分页 -->
+                <div class="upd-pagin margin-top10">
+                  <div>
+                    <el-pagination class="pull-left" small layout="total" :total="10">
+                    </el-pagination>
+                    <span>分页</span>
+                    <el-pagination class="pull-right" small layout="prev, pager, next" :page-size="10" :total="20" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="20">
+                    </el-pagination>
+                  </div>
+                </div>
+              </div>        
+            </div>
+            <!-- 按钮 -->
+            <div class="main_tab col-sm-offset-4 col-sm-4">
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon-printer"></i> 打印
+              </button>
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon-share"></i> 导出
+              </button>
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon el-icon-close"></i> 关闭
+              </button>
             </div>
         </div>
         </section>
@@ -285,6 +602,34 @@
       return {
         //时间
         date: new Date(),
+        pickerOptions2: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
         // 弹窗
         signIn: false,
         personnelInfo: false,
@@ -508,7 +853,7 @@
       logout() {
         this.$fetch( "/cas/logout",).then(response => {
           if (response.status===1) {
-            this.$store.commit('route_path', "/login");
+            that.$router.push({path:'/login'});
           }
         });
       },

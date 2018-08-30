@@ -115,7 +115,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -123,7 +123,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -134,7 +134,7 @@
             <ul class="list-unstyled floor-item">
                 <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
             </ul> 
-            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+            <div id="floorImg" style="width: 140%;height: 140%;position:relative;left:0;top:0;">
               <img :src="this.svgUrl" class="img-responsive">
             </div>
           </div>
@@ -184,9 +184,10 @@
                     </el-form-item>
                     <el-form-item label="建成结构" prop="structure" class="not-null col-sm-4">
                       <el-select name="" v-model="form.structure" :disabled="true" placeholder="请选择结构">
-                        <el-option label="砖混" value="砖混"></el-option>
+                        <el-option label="混凝土结构" value="混凝土结构"></el-option>
+                        <el-option label="砌体结构" value="砌体结构"></el-option>
                         <el-option label="钢结构" value="钢结构"></el-option>
-                        <el-option label="木质结构" value="木质结构"></el-option>
+                        <el-option label="木结构" value="木结构"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="建成年份" prop="timeYear" class="not-null col-sm-4">
@@ -566,10 +567,10 @@ import managementMapVue from '../managementMap';
                   this.$store.commit('buildingId',item.id);
                 }
               })
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })

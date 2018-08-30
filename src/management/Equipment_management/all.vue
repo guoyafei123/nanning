@@ -151,7 +151,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -159,7 +159,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -567,10 +567,10 @@ import { mapState } from 'vuex';
                   this.$store.commit('deviceId',item.id);
                 }
               })
-              if(this.totalList % 9 == 0){
-                this.page = parseInt( this.totalList / 9 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 9 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })

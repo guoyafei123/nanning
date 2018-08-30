@@ -992,7 +992,7 @@
         this.$fetch(
           "/api/building/queryPageBuildingList",{
             currentPage:this.currentPage4,
-            pageSize:11,
+            pageSize:10,
             unitId:this.buildUnit
           }
         )

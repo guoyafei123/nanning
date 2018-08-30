@@ -282,7 +282,7 @@
               <el-pagination
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
-                            :page-size="6"
+                            :page-size="11"
                             layout="prev, pager, next"
                             :total="totalList">
               </el-pagination>
@@ -290,7 +290,7 @@
               <el-pagination style="float: right;"
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
-                            :page-size="6"
+                            :page-size="11"
                             layout="total"
                             :total="totalList">
               </el-pagination>
@@ -651,10 +651,10 @@
                   }
                 })
               }
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 11 == 0){
+                this.page = parseInt( this.totalList / 11 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 11 ) + 1
               }
             }
           })
