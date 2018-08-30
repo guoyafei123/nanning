@@ -51,6 +51,8 @@ var state={
   unitNotice:'',
   noticeTableData:'',
   activityTableData:'',
+  //巡检打卡
+  inspectionPlanUserId:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -285,7 +287,7 @@ var mutations={
     state.toMapPatternsDanger=data;
   },
   inspectionPlanUserId(state,data){
-    state.toInspectionPlanUserId=data;
+    state.inspectionPlanUserId = data;
   }
 }
 

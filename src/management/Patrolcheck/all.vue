@@ -101,7 +101,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -109,7 +109,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -229,7 +229,7 @@
         this.$fetch(
           "/api/inspection/inspectionPlanUserListWithNode",{
             currentPager:this.currentPage4,
-            pageSize:10,
+            pageSize:14,
             unitId:this.unitId,
             beginTime:this.startTime,
             endTime:this.endTime
@@ -241,13 +241,13 @@
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
-                  this.$store.commit('unitNumber',item.id);
+                  this.$store.commit('inspectionPlanUserId',item.id);
                 }
               })
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })
@@ -272,7 +272,7 @@
         this.unitId = val ;
         //console.log(this.unitId);
         this.tableList();
-      },
+      }
     }
   };
 </script>
