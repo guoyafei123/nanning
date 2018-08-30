@@ -620,7 +620,8 @@ p.toolcount-p2 {
 .tool-charmaxvalue>p{
     position: absolute;
     right: 20px;
-    bottom: 30px;
+    bottom: 0px;
+    font-size: 70px;
 }
 
 .row{
@@ -803,9 +804,17 @@ video:hover{
 
     .map-Pattern{
         position: absolute;
-        left: -150px;
-        top: 150px;
+        left: -112px;
+        top: 126px;
     }
+    .map-Pattern button{
+        background: rgba(0,0,0,.5);
+        border:1px solid #333;
+        font-size: 12px;
+        padding: 5px 10px;
+        color: #ccc;
+    }
+
 
     /* 打卡 */
     .punchclock{
