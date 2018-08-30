@@ -9,8 +9,8 @@
           </div>
           <!-- 切换 -->
           <div class="main_nav_tab position-absolute-top">
-            <router-link to="/Message_management/notice" class="active"><i class="icon iconfont icon-tongzhi-xian-"></i>系统公告</router-link>
-            <router-link to="/Message_management/activity"><i class="icon iconfont icon-huodong-xian-"></i>活动通知</router-link>
+            <router-link to="/Message_management/notice" class="active" @click.native="notice"><i class="icon iconfont icon-tongzhi-xian-"></i>系统公告</router-link>
+            <router-link to="/Message_management/activity" @click.native="activity"><i class="icon iconfont icon-huodong-xian-"></i>活动通知</router-link>
           </div>
           <!-- 发布 -->
           <div class="main_nav float-right">
@@ -83,7 +83,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -91,7 +91,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -119,6 +119,14 @@
       }
     },
     methods: {
+      notice(){
+        $('.activity').hide();
+        $('.notice').show();
+      },
+      activity(){
+        $('.activity').show();
+        $('.notice').hide();
+      },
       btn_add(){
         $('#right').hide();
       },
@@ -127,10 +135,12 @@
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
       show3(row){//跳转
-        console.log(row.id);
-        this.$store.commit('currentPage',this.currentPage4);
-        this.$store.commit('noticeId',row.id);
-        this.$store.commit('unitNotice',this.unit);
+        // console.log(row.id);
+        // this.deviceIndex = row.id;
+        // this.$store.commit('currentPage',this.currentPage4);
+        // this.$store.commit('noticeId',row.id);
+        // this.$store.commit('unitNotice',this.unit);
+        this.$store.commit('noticeTableData',row);
       },
       tableList(){
         this.$fetch(
@@ -149,20 +159,14 @@
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
-                  this.$store.commit('currentPage',this.currentPage4);
-                  this.$store.commit('noticeId',item.id);
+                  this.$store.commit('noticeTableData',item);
                   //console.log(item.id)
                 }
-                if(item.id == this.deviceIndex){
-                  this.$store.commit('peopleTableData',item);
-                  this.$store.commit('unitNotice',this.unit);
-                  console.log(item.id)
-                }
               })
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })
@@ -194,6 +198,8 @@
       this.unitSearch();
       this.tableList();
       $('#right').show();
+      $('.activity').hide();
+      $('.notice').show();
     },
     watch:{
       currentPage4(val, oldVal){

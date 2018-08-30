@@ -72,7 +72,7 @@
                 <!-- 平面图楼层 -->
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item" style="top: 120px">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.floorId)" :class="{'active': item.floorId == active}">{{ item.floorNumber }}</li>
             </ul> 
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
               <img id="imgPic" :src="this.svgUrl" class="img-responsive">
@@ -126,9 +126,9 @@ import{mapState} from "vuex";
       floor_btn(id){
         this.active = id ;
         this.table_list.forEach((item)=>{
-          if(item.id == id){
-            this.svgUrl = item.svgUrl ;
-            this.floor = id ;
+          if(item.floorId == id){
+            this.svgUrl = item.imgUrl ;
+            this.floor = floorId ;
           }
         });
         var area = document.getElementById('floorImg');
@@ -148,7 +148,7 @@ import{mapState} from "vuex";
           this.table_list.forEach((item,index)=>{
             if(index == 0){
               this.svgUrl = item.imgUrl ;
-              this.active = item.id ;
+              this.active = item.floorId ;
             }
           })            
         })

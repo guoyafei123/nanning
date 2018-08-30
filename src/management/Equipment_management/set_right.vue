@@ -9,26 +9,27 @@
       <!-- 设备名称 -->
       <section>        
         <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
-                  <!-- 已选择 -->
-                  <div class="personinfo">
-                        <p>                       
-                        <span class="size-20 font-blue">
-                          <!-- <i class="icon iconfont icon-jiankong-mian- size-20"></i> <span> -->{{ this.device.name }}</span>
-                        </span>
-                        <span class="float-right">
-                                <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{this.device.deviceTypeName}}</span>
-                            </span>
-                        </p>
-                        <p class="col-sm-12 text-left padding0">
-                            <span>
-                                <i class="el-icon-location"></i> {{this.device.location}}</span>
-                        </p>
-                        <!-- <P class="col-sm-5 text-right padding0">
-                            <span class="text-right">
-                            最后更新：<span class="font-gray-999">2018.07.09 08:00:00</span>
-                            </span>
-                        </P>  -->                       
-                  </div>
+          <!-- 已选择 -->
+          <div class="personinfo">
+                <p>                       
+                <span class="size-20 font-blue">
+                  <!-- <i class="icon iconfont icon-jiankong-mian- size-20"></i> -->
+                  <span>{{ this.device.name }}</span>
+                </span>
+                <span class="float-right">
+                    <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{this.device.deviceTypeName}}</span>
+                </span>
+                </p>
+                <p class="col-sm-12 text-left padding0">
+                    <span>
+                        <i class="el-icon-location"></i> {{this.device.location}}</span>
+                </p>
+                <!-- <P class="col-sm-5 text-right padding0">
+                    <span class="text-right">
+                    最后更新：<span class="font-gray-999">2018.07.09 08:00:00</span>
+                    </span>
+                </P>  -->                       
+          </div>
         </div>
       </section>
       <!-- 设备信息统计 -->

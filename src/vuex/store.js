@@ -49,6 +49,8 @@ var state={
   //消息
   noticeId:'',
   unitNotice:'',
+  noticeTableData:'',
+  activityTableData:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -207,6 +209,12 @@ var mutations={
   },
   unitNotice(state,data){
     state.unitNotice = data ;
+  },
+  noticeTableData(state,data){
+    state.noticeTableData = data ;
+  },
+  activityTableData(state,data){
+    state.activityTableData = data ;
   },
   // 展示端的store
   setvuextest(state,data){
