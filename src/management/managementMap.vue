@@ -558,7 +558,7 @@
           this.mp.clearOverlays();
           // alert(e.point.lng + ", " + e.point.lat);
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat])
-          this.mp.addOverlay(this.addlandmark('','',[e.point.lng,e.point.lat]));
+          this.mp.addOverlay(this.addlandmark('','',[e.point.lng,e.point.lat],37));
         },
         showInfoDevice(e){
           this.mp.clearOverlays();
@@ -604,7 +604,50 @@
           if(this.$route.path == '/Equipment_management/maps'){
             this.DeviceMaps();
           }
-        }
+        },
+        pointB(){
+          // console.log(typeof(this.pointB));
+          var point = this.pointB;
+          var pointList = point.split(",");
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Building_management/list'){
+            this.mp.addOverlay(this.addlandmark('','',[pointList[0],pointList[1]],37));
+          }
+        },
+        pointD(){
+          // console.log(typeof(this.pointD));
+          var point = this.pointD;
+          var pointList = point.split(",");
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Dangerous_goods_management/list'){
+            this.mp.addOverlay(this.addlandmarkDanger('','',[pointList[0],pointList[1]]));
+          }
+        },
+        pointE(){
+          // console.log(typeof(this.pointE));
+          var point = this.pointE;
+          var pointList = point.split(",");
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Equipment_management/list'){
+            this.mp.addOverlay(this.addlandmarkerType('','',[pointList[0],pointList[1]],this.DeviceList));
+          }
+        },
+        pointU(){
+          // console.log(typeof(this.pointU));
+          var point = this.pointU;
+          var pointList = point.split(",");
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Unit_management/list'){
+            this.mp.addOverlay(this.addlandmark('','',[pointList[0],pointList[1]],37));
+          }
+        },
+      },
+      props: {
+        pointB: Array,
+        pointD: Array,
+        pointE: Array,
+        pointU: Array,
+        required: true
       },
       mounted(){
         var mapStates = this.getMapToDiv('manage_map');

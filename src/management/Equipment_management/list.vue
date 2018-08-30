@@ -78,7 +78,7 @@
             </el-tooltip>
           </el-form-item>
           <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
-            <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-8"></el-input>
+            <el-input placeholder="X,Y" :disabled="true"  v-model="form.Rate" class="col-sm-8"></el-input>
             <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
               <i class="el-icon-question size-16"></i>
             </el-tooltip>
@@ -158,7 +158,7 @@
     <!-- 地图 -->
     <aside class="position:relative;" >
       <div class="maps map">
-          <managementMap-vue></managementMap-vue>
+          <managementMap-vue :pointE="this.form.point"></managementMap-vue>
       </div>
         <div  class="floorMap maps" style="display:none;overflow: hidden;">
           <ul class="list-unstyled floor-item" style="top: 120px">
@@ -355,6 +355,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
+              var point = this.form.point;
+              var pointList = point.split(",");
+              var Rate = this.form.Rate;
+              var RateList = Rate.split(",");
               this.$fetch("/api/device/addDevice",{
                 'name':this.form.name,
                 'unitId':this.form.unitId,
@@ -367,10 +371,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                 'roomNumber':this.form.roomNumber,
                 'deviceTypeId':this.form.equipmentId,
                 'deviceTypeName':this.form.deviceTypeName,
-                'pointX':this.form.point[0],
-                'pointY':this.form.point[1],
-                'xRate':this.form.Rate[0],
-                'yRate':this.form.Rate[1],
+                'pointX':pointList[0],
+                'pointY':pointList[1],
+                'xRate':RateList[0],
+                'yRate':RateList[1],
                 'mac':this.form.PhysicalAddress,
                 'startDate':this.form.startDate,
                 'height':this.form.RoofHeight,
