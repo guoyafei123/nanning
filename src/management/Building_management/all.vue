@@ -77,6 +77,7 @@
           </el-table-column>
           <el-table-column
             prop="buildYear"
+            :formatter="data"
             label="建成年份">
           </el-table-column>
           <el-table-column
@@ -195,10 +196,10 @@
                         <el-date-picker
                          :disabled="true"
                           v-model="form.timeYear"
-                          type="date"
+                          type="year"
                           placeholder="选择年份"
-                          format="yyyy 年 MM 月 dd 日"
-                          value-format="yyyy-MM-dd">
+                          format="yyyy 年"
+                          value-format="yyyy">
                         </el-date-picker>
                       </div>
                     </el-form-item> 
@@ -388,6 +389,9 @@ import managementMapVue from '../managementMap';
       'managementMap-vue': managementMapVue,
     },
     methods: {
+      data(row, column){
+        return row.buildYear.substr(0,4);
+      },
       floor_btn(id){
         console.log(id);
         this.active = id ;
@@ -425,7 +429,7 @@ import managementMapVue from '../managementMap';
             this.form.height = item.heightOfBuilding ;
             this.form.floor = item.floors ;
             this.form.structure = item.structure ;
-            this.form.timeYear = item.buildYear ;
+            this.form.timeYear = item.buildYear;
             this.form.property = item.property ;
             this.form.name = item.linkname ;
             this.form.phone = item.phone ;
@@ -454,7 +458,7 @@ import managementMapVue from '../managementMap';
               'heightOfBuilding':this.form.height,
               'floors':this.form.floor,
               'structure':this.form.structure,
-              'buildYear':this.form.timeYear,
+              'buildYear':this.form.timeYear+'-01-01',
               'property':this.form.property,
               'linkname':this.form.name,
               'phone':this.form.phone,
@@ -586,17 +590,21 @@ import managementMapVue from '../managementMap';
           buildingId:this.deviceIndex
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
-          this.table_list = response.data.pageBuildIng.result;
-          this.table_list.forEach((item,index)=>{
-            if(index == 0){
-              this.svgUrl = item.svgUrl ;
-              this.active = item.id ;
-            }
-             if(this.floorId == item.floor){
-                this.roomSvgUrl = item.svgUrl ;
-                this.floorName = item.floorName ;
-             }
-          })
+          if(response.data.pageBuildIng.result){
+            this.table_list = response.data.pageBuildIng.result;
+            this.table_list.forEach((item,index)=>{
+              if(index == 0){
+                this.svgUrl = item.svgUrl ;
+                this.active = item.id ;
+              }
+              if(this.floorId == item.floor){
+                  this.roomSvgUrl = item.svgUrl ;
+                  this.floorName = item.floorName ;
+              }
+            })
+          }else{
+            this.svgUrl = '' ;
+          }
         })
       }
     },

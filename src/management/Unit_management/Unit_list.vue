@@ -81,7 +81,7 @@
     <!-- 地图 -->
       <aside>      
           <div class="maps">
-              <managementMap-vue></managementMap-vue>
+              <managementMap-vue :pointU="this.form.point"></managementMap-vue>
           </div>
       </aside>
   </div>
@@ -221,6 +221,8 @@
             if (valid) {
               var file = "file";
               var that = this;
+              var point = this.form.point;
+              var pointList = point.split(",");
               $.ajaxFileUpload({
                 url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
                 /* secureuri : false, */ //一般设置为false
@@ -234,8 +236,8 @@
                   'firemenName':this.form.firemenName,
                   'firemenTel':this.form.firemenTel,
                   // 'corporation':this.form.corporation,
-                  'pointX':this.form.point[0],
-                  'pointY':this.form.point[1]
+                  'pointX':pointList[0],
+                  'pointY':pointList[1]
                 },
                 type: 'POST',
                 dataType: "plain",
