@@ -222,7 +222,7 @@
                     class="start col-sm-4">
                     <el-option
                       v-for="item in form.floorList"
-                      :label="item.floorName+'层'"
+                      :label="item.floor+'层'"
                       :value="item.id">
                     </el-option>
                   </el-select>

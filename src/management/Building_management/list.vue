@@ -211,7 +211,12 @@ import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate'
                 }
               })
               var point = this.form.point;
-              var pointList = point.split(",");
+              // console.log(typeof(point))
+              if(typeof(point) == 'string'){
+                var pointList = point.split(",");
+              }else{
+                var pointList = this.form.point;
+              }
               this.$fetch("/api/building/addBuilding",{
                 'name':this.form.BuildName,
                 'unitId':this.form.unitId,

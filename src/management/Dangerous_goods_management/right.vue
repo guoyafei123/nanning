@@ -24,12 +24,12 @@
                   <span class="bgbox-max bg-blue" v-if="this.trouble.status == 1">已解决</span>
                 </span>
               </p>
-              <p class="col-sm-7 text-left font-gray-999 padding0">
+              <p class="col-sm-4 text-left font-gray-999 padding0 margin-top10">
                 <span>
                   <i class="fas fa-industry"></i> {{ this.trouble.unitName }}
                 </span>
               </p>
-              <P class="col-sm-5 text-right padding0">
+              <P class="col-sm-8 text-right padding0 margin-top10">
                 <span class="text-right" v-if="this.trouble.status == 0">
                   上报时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
                 </span>
@@ -47,12 +47,12 @@
                   <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                           <h1 class="toolcount-p1 cn-status">
-                            <span class="font-yellow" v-if="this.trouble.status == 0">未解决</span>
-                            <span class="font-blue" v-if="this.trouble.status == 1">已解决</span>
+                            <span class="font-yellow size-40" v-if="this.trouble.status == 0">未解决</span>
+                            <span class="font-blue size-40" v-if="this.trouble.status == 1">已解决</span>
                           </h1>
                       </li>
                       <li class="margin-top40">
-                          <p class="size-10 ">Dangerous Status</p>
+                          <p class="size-10">Dangerous Status</p>
                       </li>
                       <li>
                           <p class="size-16 font-blue">危险品状态</p>
@@ -108,7 +108,7 @@
                       <span>名称</span>
                       <strong v-html="this.trouble.dangerName"></strong>
                   </div>                  
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>所属单位</span>
                       <strong v-html="this.trouble.unitName"></strong>
                   </div>

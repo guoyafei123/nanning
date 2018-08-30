@@ -162,7 +162,7 @@
       </div>
         <div  class="floorMap maps" style="display:none;overflow: hidden;">
           <ul class="list-unstyled floor-item" style="top: 120px">
-            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floor }}</li>
           </ul>
           <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
             <img  id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
@@ -356,9 +356,18 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.$refs[formName].validate((valid) => {
             if (valid) {
               var point = this.form.point;
-              var pointList = point.split(",");
+              if(typeof(point) == 'string'){
+                var pointList = point.split(",");
+              }else{
+                var pointList = this.form.point;
+              }
               var Rate = this.form.Rate;
-              var RateList = Rate.split(",");
+              // console.log(typeof(point))
+              if(typeof(point) == 'string'){
+                var RateList = Rate.split(",");
+              }else{
+                var RateList = this.form.Rate;
+              }
               this.$fetch("/api/device/addDevice",{
                 'name':this.form.name,
                 'unitId':this.form.unitId,

@@ -615,7 +615,11 @@
         pointB(){
           // console.log(typeof(this.pointB));
           var point = this.pointB;
-          var pointList = point.split(",");
+          if(typeof(point) == 'string'){
+            var pointList = point.split(",");
+          }else{
+            var pointList = this.pointB;
+          }
           this.mp.clearOverlays();
           if(this.$route.path == '/Building_management/list'){
             this.mp.addOverlay(this.addlandmark('','',[pointList[0],pointList[1]],37));
@@ -624,7 +628,11 @@
         pointD(){
           // console.log(typeof(this.pointD));
           var point = this.pointD;
-          var pointList = point.split(",");
+          if(typeof(point) == 'string'){
+            var pointList = point.split(",");
+          }else{
+            var pointList = this.pointD;
+          }
           this.mp.clearOverlays();
           if(this.$route.path == '/Dangerous_goods_management/list'){
             this.mp.addOverlay(this.addlandmarkDanger('','',[pointList[0],pointList[1]]));
@@ -633,7 +641,11 @@
         pointE(){
           // console.log(typeof(this.pointE));
           var point = this.pointE;
-          var pointList = point.split(",");
+          if(typeof(point) == 'string'){
+            var pointList = point.split(",");
+          }else{
+            var pointList = this.pointE;
+          }
           this.mp.clearOverlays();
           if(this.$route.path == '/Equipment_management/list'){
             this.mp.addOverlay(this.addlandmarkerType('','',[pointList[0],pointList[1]],this.DeviceList));
@@ -642,7 +654,11 @@
         pointU(){
           // console.log(typeof(this.pointU));
           var point = this.pointU;
-          var pointList = point.split(",");
+          if(typeof(point) == 'string'){
+            var pointList = point.split(",");
+          }else{
+            var pointList = this.pointU;
+          }
           this.mp.clearOverlays();
           if(this.$route.path == '/Unit_management/list'){
             this.mp.addOverlay(this.addlandmark('','',[pointList[0],pointList[1]],37));

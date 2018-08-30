@@ -72,7 +72,7 @@
             </el-tooltip>
           </el-form-item>
 
-          <el-form-item label="上报人" prop="nickName" class="not-null col-sm-4">
+          <!-- <el-form-item label="上报人" prop="nickName" class="not-null col-sm-4">
             <el-input v-model="form.nickName"></el-input>
           </el-form-item>
 
@@ -87,7 +87,7 @@
                 clearable>
               </el-date-picker>
             </div>
-          </el-form-item>
+          </el-form-item> -->
           <div class="col-sm-12">
             <div class="row">
               <el-form-item label="图片和视频">
@@ -206,12 +206,12 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             buildingId: [
               { required: true, message: '请选择设备位置', trigger: 'change' }
             ],
-            nickName:[
-              { required: true, trigger: 'blur', validator: Name }
-            ],
-            createTime:[
-              { required: true, trigger: 'change', message: '请选择上报时间' }
-            ],
+            // nickName:[
+            //   { required: true, trigger: 'blur', validator: Name }
+            // ],
+            // createTime:[
+            //   { required: true, trigger: 'change', message: '请选择上报时间' }
+            // ],
             cont:[
               { required: true, trigger: 'blur', message: '请填写内容' }
             ],
@@ -272,9 +272,18 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               var files =this.files;
               var that = this ;
               var point = this.form.point;
-              var pointList = point.split(",");
+              if(typeof(point) == 'string'){
+                var pointList = point.split(",");
+              }else{
+                var pointList = this.form.point;
+              }
               var Rate = this.form.Rate;
-              var RateList = Rate.split(",");
+              // console.log(typeof(point))
+              if(typeof(point) == 'string'){
+                var RateList = Rate.split(",");
+              }else{
+                var RateList = this.form.Rate;
+              }
               $.ajaxFileUpload({
                 url: '/api/trouble/insertTrouble',
                 fileElementId:files,
