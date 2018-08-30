@@ -590,17 +590,21 @@ import managementMapVue from '../managementMap';
           buildingId:this.deviceIndex
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
-          this.table_list = response.data.pageBuildIng.result;
-          this.table_list.forEach((item,index)=>{
-            if(index == 0){
-              this.svgUrl = item.svgUrl ;
-              this.active = item.id ;
-            }
-             if(this.floorId == item.floor){
-                this.roomSvgUrl = item.svgUrl ;
-                this.floorName = item.floorName ;
-             }
-          })
+          if(response.data.pageBuildIng.result){
+            this.table_list = response.data.pageBuildIng.result;
+            this.table_list.forEach((item,index)=>{
+              if(index == 0){
+                this.svgUrl = item.svgUrl ;
+                this.active = item.id ;
+              }
+              if(this.floorId == item.floor){
+                  this.roomSvgUrl = item.svgUrl ;
+                  this.floorName = item.floorName ;
+              }
+            })
+          }else{
+            this.svgUrl = '' ;
+          }
         })
       }
     },

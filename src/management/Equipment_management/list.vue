@@ -137,7 +137,7 @@
                   <el-input v-model="form.linkname"></el-input>
                 </el-form-item>
                 <el-form-item label="维保电话" prop="phone" class="col-sm-4">
-                  <el-input v-model.number="form.phone"></el-input>
+                  <el-input maxlength="11" v-model.number="form.phone"></el-input>
                 </el-form-item>
               </div>
           </div>
