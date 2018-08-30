@@ -3,7 +3,7 @@
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
         <i class="icon iconfont icon-renyuanliebiao-mian-"></i>
-        <h2>人员审核</h2>
+        <h2>巡检打卡</h2>
       </div>
     </div>
     <div class="main_all_content">
@@ -14,10 +14,25 @@
             <el-option label="全部单位" value=""></el-option>
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
-          <el-select v-model="reviewId" placeholder="选择审核状态">
-            <el-option label="全部状态" value=""></el-option>
-            <el-option v-for="item in reviewList" :label="item.review" :value="item.id"></el-option>
-          </el-select>
+          <section class="my-filter padding5 bg-gray-222 clearfix">
+            <!-- 日期筛选 -->
+            <div class="col-sm-12 padding0">
+              <div class="upd-elmdate">
+                <el-date-picker
+                  v-model="dateValue"
+                  size="mini"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  :picker-options="pickerOptions2"
+                  @change="chooseTimeRange">
+                </el-date-picker>
+              </div>
+            </div>
+          </section>
         </el-form>
       </div>
       <!-- 表格 -->
@@ -31,62 +46,47 @@
             prop="Serial_number"
             type="index"
             fixed="left"
-            sortable  
+            sortable
             label="序号">
           </el-table-column>
           <el-table-column
-            prop="nickName"
+            prop="userName"
             label="姓名">
-          </el-table-column>
-          <el-table-column
-            prop="username"
-            label="账号">
           </el-table-column>
           <el-table-column
             prop="unitName"
             label="所属单位">
           </el-table-column>
-          <!-- <el-table-column
-            prop="position"
-            label="职位">
-          </el-table-column> -->
           <el-table-column
-            prop="cellPhone"
+            prop="cellphone"
             label="电话">
           </el-table-column>
           <el-table-column
-            prop="roleName"
-            label="角色">
+            prop="inspectionName"
+            label="路线名称">
           </el-table-column>
           <el-table-column
-            prop="review"
-            label="状态">
-            <template slot-scope="scope" >
-              <el-tooltip placement="top" :type="scope.row.review === 1 ? 'green' : 'red'"
-                disable-transitions v-if='scope.row.review==1'>
-                <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
-                  <span class="font-blue">审核通过 <i class="el-icon-warning"></i></span>
-              </el-tooltip>
-              <el-tooltip placement="top" :type="scope.row.review === 2 ? 'red' : 'green'"
-                disable-transitions v-if='scope.row.review==2'>
-                <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
-              <span class="font-yellow">审核未通过</span></el-tooltip>
-              <el-tooltip placement="top" :type="scope.row.review === 3 ? 'yellow' : 'green'"
-                disable-transitions v-if='scope.row.review==3'>
-                <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
-                <span class="font-red">待审核</span></el-tooltip>
-            </template>
+            prop="inspectionName"
+            label="打卡节点数">
           </el-table-column>
           <el-table-column
-            prop="reviewName"
-            label="审核人">
+            prop="inspectionName"
+            label="未打卡节点数">
+          </el-table-column>
+          <el-table-column
+            prop="receiveTime"
+            show-overflow-tooltip
+            label="路线领取时间">
+          </el-table-column>
+          <el-table-column
+            prop="finishedTime"
+            show-overflow-tooltip
+            label="路线完成时间">
           </el-table-column>
           <el-table-column
             fixed="right"
             label="操作">
             <template slot-scope="scope">
-              <button v-if="scope.row.review == 3" @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal" class="btn-check">审核</button>
-              <!-- <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button> -->
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
@@ -96,7 +96,7 @@
         <div class="bottom_con">
           <div class="float-left btn-system">
             <a href="javascript:;">打印</a>
-            <a href="javascript:;">导出</a>
+            <a href="javascript:;">导出</a>·
           </div>
           <el-pagination
                          @current-change="handleCurrentChange"
@@ -116,138 +116,86 @@
         </div>
       </div>
     </div>
-    <!-- 编辑Modal -->
-    <div class="modal modal_form fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">人员审核</h4>
-          </div>
-          <div class="modal-body">
-            <el-form ref="form" status-icon :rules="rules" :label-position="labelPosition" :inline="true" :model="form">
-              <el-form-item label="姓名" prop="nickName">
-                <el-input v-model="form.nickName" :disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="职位" prop="position">
-                <el-input v-model="form.position" :disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="联系电话" prop="cellPhone">
-                <el-input v-model="form.cellPhone" :disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="审核意见" prop="review">
-                <el-radio v-model="review" label="1">通过</el-radio>
-                <el-radio v-model="review" label="2">未通过</el-radio>
-              </el-form-item>
-              <el-form-item v-if="this.review == 1" label="角色" prop="roleId">
-                <el-select v-model="form.roleId" placeholder="请选择" class="select">
-                  <el-option label="全部角色" value=""></el-option>
-                  <el-option v-for="item in roleList" :label="item.rname" :value="item.id"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item v-if="this.review == 1" label="所属单位" prop="unitId">
-                <el-select v-model="form.unitId" placeholder="请选择" class="select">
-                  <!-- <el-option label="全部单位" value=""></el-option> -->
-                  <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item v-if="this.review == 2" label="审核说明" prop="reviewContent">
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="请输入内容"
-                  v-model="reviewContent">
-                </el-input>
-              </el-form-item>
-            </el-form>
-          </div>
-          <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
-            <el-button class="back" data-dismiss="modal">取消</el-button>
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
 </template>
 
 <script>
+  import moment from "moment";
   import { realconsole } from '../../assets/js/management.js';
-  import { isvalidPhone,isName,isvalidName } from '../../assets/js/validate';
   export default {
     data() {
-      var validPhone=(rule, value,callback)=>{
-          if (!value){
-            callback(new Error('请输入手机号码'))
-          }else  if (!isvalidPhone(value)){
-            callback(new Error('请输入正确的11位手机号码'))
-          }else {
-            callback()
-          }
-      }
-      var Name=(rule, value,callback)=>{
-          if (!value){
-            callback(new Error('请输入您的姓名'))
-          }else  if (!isName(value)){
-            callback(new Error('请输入正确的姓名'))
-          }else {
-            callback()
-          }
-      }
       return {
-        labelPosition: 'left',
-        unitId:'',
-        reviewId:'',
-        form: {
-          id:'',
-          nickName:'',
-          username:'',
-          position:'',
-          unitId:'',
-          cellPhone:'',
-          reviewId:'',
-          roleId:''
+        // 时间筛选
+        pickerOptions2: {
+          shortcuts: [
+            {
+              text: "最近一周",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                picker.$emit("pick", [start, end]);
+              }
+            },
+            {
+              text: "最近一个月",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                picker.$emit("pick", [start, end]);
+              }
+            },
+            {
+              text: "最近三个月",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                picker.$emit("pick", [start, end]);
+              }
+            }
+          ]
         },
+        labelPosition: 'left',
+        unitId:null,
         optionList:[],//单位列表
-        reviewList:[
-          {id:1,review:'审核通过'},
-          {id:2,review:'审核未通过'},
-          {id:3,review:'待审核'}
-        ],//角色列表
-        tableData: [],//人员信息列表
-        roleList:[],//角色列表
+        tableData: [],//打卡列表
         page:null,//总页数
         currentPage4: 1,//当前页
         totalList:null,//总条数
-        deviceIndex:'',
-        reviewContent:'',
-        review:'',
-        rules: {
-          nickName:[
-            { required: true, trigger: 'blur', validator: Name }
-          ],
-          position:[
-            { required: true, message: '请填写所在公司的职位', trigger: 'blur' }
-          ],
-          cellPhone:[
-            { required: true, trigger: 'blur', validator: validPhone }
-          ],
-          review: [
-            { required: true, message: '请选择处理意见', trigger: 'change' }//这里需要用到全局变量
-          ],
-          roleId:[
-            { required: true, message: '请选择角色', trigger: 'change' }
-          ],
-          unitId:[
-            { required: true, message: '请选择单位', trigger: 'change' }
-          ],
-          reviewContent:[
-            { required: true, message: '请填写审核意见、说明', trigger: ['change','blur'] }
-          ]
-        }
+        startTime:null,
+        endTime:null,
+        dateValue: null,
       }
     },
     methods: {
+      chooseTimeRange(t) {
+        this.dateValue = t;
+        let st = moment(this.dateValue[0]).format('YYYY-MM-DD');
+        let et = moment(this.dateValue[1]).format('YYYY-MM-DD');
+        this.startTime = st;
+        this.endTime = et;
+        this.tableList();
+      },
+      //获取当前时间：
+      getNowFormatDate(){
+        let date = new Date();
+        // var date_s = date.getTime();//转化为时间戳毫秒数
+        // date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
+        let seperator1 = "-";
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        let currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+      },
       btn_add(){
         $('#right').hide();
       },
@@ -255,60 +203,9 @@
         this.currentPage4 = val;
         $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
       },
-      start_plan(row){//修改人员信息
-        this.deviceIndex = row.id ;
-        this.tableData.forEach((item,index)=>{
-          if(item.id == this.deviceIndex){
-            this.form.nickName = item.nickName ;
-            this.form.username = item.username ;
-            this.form.position = item.position ;
-            this.form.unitId = item.unitId ;
-            this.form.cellPhone = item.cellPhone ;
-            this.form.reviewId = item.reviewId ;
-            this.form.id = item.id ;
-          }
-        })
-      },
-      startRow(formName){
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$fetch("/api/user/addOrUpdateUser",{
-              'reviewContent':this.reviewContent,
-              'review':this.review,
-              'roleId':this.form.roleId,
-              'unitId':this.form.unitId,
-              'id':this.deviceIndex
-            }).then(response=>{
-              //console.log(response)
-            })
-          } else {
-            //console.log('error submit!!');
-            return false;
-          }
-        });
-      },
       show3(row){//跳转
-        //console.log(row.id);
-        this.$store.commit('currentPage',this.currentPage4);
-        this.$store.commit('unitNumber',row.id);
-      },
-      roleSearch(){
-        this.$fetch(
-          "/api/user/queryRoleListByUser"
-        )
-        .then(response => {
-          if (response) {
-            //console.log(response);
-            this.roleList = response.data.roleList;
-            //console.log(this.roleList);
-            $(' .el-select-dropdown__item').mouseover(function(){
-              $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-            });
-          }
-        })
-        .then(err => {
-          // //console.log(err);
-        });
+        console.log(row.id);
+        this.$store.commit('inspectionPlanUserId',row.id);
       },
       unitSearch(){
         this.$fetch(
@@ -330,23 +227,21 @@
       },
       tableList(){
         this.$fetch(
-          "/api/user/queryPagerUserList",{
+          "/api/inspection/inspectionPlanUserListWithNode",{
             currentPager:this.currentPage4,
-            pagerSize:14,
+            pageSize:10,
             unitId:this.unitId,
-            review:this.reviewId,
-            flag:1
+            beginTime:this.startTime,
+            endTime:this.endTime
           }
         )
           .then(response => {
-            //console.log(response);
             if (response.data.pager) {
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               this.tableData.forEach((item,index)=>{
                 if(index == this.tableData.length-1){
                   this.$store.commit('unitNumber',item.id);
-                  //console.log(item.id)
                 }
               })
               if(this.totalList % 10 == 0){
@@ -364,7 +259,6 @@
     mounted(){
       realconsole();
       this.unitSearch();
-      this.roleSearch();
       this.tableList();
       $('#right').show();
     },
@@ -379,11 +273,6 @@
         //console.log(this.unitId);
         this.tableList();
       },
-      reviewId(val,oldVal){
-        this.reviewId = val ;
-        //console.log( this.reviewId );
-        this.tableList();
-      }
     }
   };
 </script>
