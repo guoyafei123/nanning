@@ -270,6 +270,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           },
           optionList:[],//全部单位列表
           files:["file"],
+          
           img_uri:[],
           isShow:false,
           fileVerification:'',//图片验证
@@ -315,33 +316,39 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             this.img_uri.push(fileObj);
             console.log(this.img_uri);
           },
-          uploadSuccess(response, file, fileList){
-              console.log(response);
-              console.log(file);
-              console.log(fileList);
-              this.count++;
-              this.img_uri.push(qiNiuPrefix+response.key);
-              console.log("this.img_uri");
-              console.log(this.img_uri);
-              if(this.count==fileList.length){
-                this.count=0;
-                this.$refs.upload.uploadFiles=[];
-              }
-              this.$nextTick(()=>{
-                if(this.count===0){
-                  this.loading=false;
-                }
-              })
-          },
+         
           handleRemove(file, fileList) {
-            console.log(file, fileList);
+            //删除多余的file：
+            console.log("handleRemove=========>");
+            console.log(file);
+            console.log(fileList);
+            console.log(this.img_uri);
+
           },
           handlePictureCardPreview(file) {
             console.log(file.url);
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
          },
-         alarmFile(){
+        uploadSuccess(response, file, fileList){
+            console.log(response);
+            console.log(file);
+            console.log(fileList);
+            this.count++;
+            this.img_uri.push(qiNiuPrefix+response.key);
+            console.log("this.img_uri");
+            console.log(this.img_uri);
+            if(this.count==fileList.length){
+              this.count=0;
+              this.$refs.upload.uploadFiles=[];
+            }
+            this.$nextTick(()=>{
+              if(this.count===0){
+                this.loading=false;
+              }
+            })
+          },
+        alarmFile(){
           var x = document.getElementById("alarmFile");
           if (!x || !x.value) return;
           var patn = /\.jpg$|\.jpeg$|\.png$/i;
