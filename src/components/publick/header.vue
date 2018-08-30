@@ -201,7 +201,7 @@
       </span>
     </el-dialog>
     <!-- 火情分析 -->
-    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont" data-spy="scroll" data-target="#myScrollspy">      
+    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">
       <div class="dialog-content fireAnalysis clearfix">
           <!-- 标题 -->
           <div class="main_header clearFix">
@@ -210,11 +210,12 @@
               <h2>火情分析</h2>
             </div>
             <!-- <div class="fire-tab col-sm-6" id="myScrollspy">
-                <ul class="nav nav-tabs nav-stacked" data-spy="affix">
-                    <li class="active"><a href="#section-1">火情地图</a></li>
-                    <li><a href="#section-2">火情概况</a></li>
-                    <li><a href="#section-3">起火单位最近数据</a></li>
-                    <li><a href="#section-4">历史数据分析</a></li>
+                <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="60">
+                    <li class="active"><a href="#section-1">第一部分</a></li>
+                    <li><a href="#section-2">第二部分</a></li>
+                    <li><a href="#section-3">第三部分</a></li>
+                    <li><a href="#section-4">第四部分</a></li>
+                    <li><a href="#section-5">第五部分</a></li>
                 </ul>
             </div> -->
             <div class="main_tab col-sm-3 pull-right">
@@ -226,18 +227,19 @@
               </button>
               <button type="button" @click="fireAnalysis = false">
                <i class="el-icon el-icon-close"></i> 关闭
-              </button> 
+              </button>
             </div>
           </div>
-        <section class="col-sm-offset-3 col-sm-6">
-        <div class="row my-scroll size-12">            
+        <section class="col-sm-offset-3 col-sm-6 size-12"  data-spy="scroll" data-target="#myScrollspy">
+        <div class="row my-scroll">
             <div class="col-sm-12">
                 <h2 id="section-1">火情地图</h2>
                 <!-- 地图 -->
-                <div class="fire-map margin-bottom10">
+                <div class="fire-map">
                   <div><!-- 地图容器 --></div>
                   <article><!-- 说明 --></article>
                 </div>
+                <!-- 事故概况 -->
                 <h2 id="section-2">事故概况</h2>
                 <div class="textandimg fire-survey">
                   <article>
@@ -322,8 +324,10 @@
                     </div>
                   </div>
                 </div>
+                <!-- 起火单位最近数据 -->
                 <h2 id="section-3">起火单位最近数据</h2>
-                <section class="fire-unit unit-info margin-bottom30 clearfix bg-black">
+                <section class="fire-unit unit-info clearfix">
+                  <!-- 单位统计 -->
                   <ul class="list-unstyled col-sm-6">
                       <li class="position-relative">
                           <div class="position-absolute-bottom clearfix">
@@ -336,7 +340,7 @@
                           <img src="/static/img/jpg01.c4714ec.jpg" class="img-responsive center-block">
                       </li>
                   </ul>
-                  <ul class="fire-per list-unstyled col-sm-6">
+                  <ul class="fire-per bg-black list-unstyled col-sm-6">
                       <li></li>
                       <li>
                           <div class="pull-left">
@@ -369,7 +373,8 @@
                   <article class="col-sm-12 container-padding10 padding-left10 padding-right10">
                     截止报警时该单位安全评分{安全评分}分，风险系数{风险系数}。{B级因素}因素风险指数较高，相关未解决隐患{数量}个，其中未解决危险品{未解决危险品类隐患数量}个；当日相关巡检{数量}次，有{数量}人参与了巡检，累计发现隐患{数量}个，解决隐患{数量}个。<br>
 该建筑累计发生报警{报警数量}个，其中主机报警{数量}个，人工报警{数量}个，累计火情{数量}起。
-                  </article>                                 
+                  </article>
+                  <!-- 起火位置相关最近一次报警记录 -->                             
                   <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
                     <h5>起火位置相关最近一次报警记录</h5>
                     <hr>                  
@@ -416,6 +421,7 @@
                         </div>
                       </div>                    
                   </div>
+                  <!-- 起火位置相关未解决隐患详情 -->
                   <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
                     <h5>起火位置相关未解决隐患详情</h5>
                     <hr>                  
@@ -453,12 +459,132 @@
                         </div>
                       </div>                    
                   </div>
-              </section>              
+                  <!-- 起火位置最近一次巡检记录 -->
+                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">                    
+                    <h5>起火位置最近一次巡检记录</h5>
+                    <hr>                  
+                      <div class="row textandimg-main clearfix">
+                        <div class="col-sm-4">
+                          <span>任务名称： </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-8">
+                          <span>相关节点 </span>
+                          <strong>xxx</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>巡检员 </span>
+                          <strong>xxx</strong>
+                        </div>
+                        <div class="col-sm-8">
+                          <span>节点相关起止时间 </span>
+                          <strong>2018-02-02 12:52:32</strong>
+                        </div>                  
+                        <div class="col-sm-4">
+                          <span>发现隐患 </span>
+                          <strong class="font-blue">X个</strong>
+                        </div>
+                        <div class="col-sm-8">
+                          <span>解决隐患 </span>
+                          <strong class="font-blue">X个</strong>
+                        </div>
+                      </div>                    
+                  </div>
+              </section>
+              <!-- 历史数据分析 -->
+              <h2 id="section-3">历史数据分析</h2>
+              <div class="textandimg fire-survey">
+                <!-- 筛选 -->
+                <section class="my-filter padding5 bg-gray-111 clearfix">
+                  <!-- 单位筛选 -->
+                  <div class="pull-left">
+                    <el-select class="upd-elselect bg-black" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="瑞和家园">
+                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <!-- 日期筛选 -->
+                  <div class="pull-left padding-left10">
+                    <section>
+                      <div class="upd-elmdate">
+                        <el-date-picker
+                          size="mini"
+                          v-model="value4"
+                          type="datetimerange"
+                          align="right"
+                          range-separator="至"
+                          start-placeholder="开始日期"
+                          end-placeholder="结束日期">
+                        </el-date-picker>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="fire-mini-info pull-right">
+                    <article><span class="bg-yellow"></span>巡检人数</article>
+                    <article><span class="bg-white"></span>巡检任务完成次数</article>
+                    <article><span class="bg-blue"></span>单位安全评分</article>
+                  </div>
+                </section>
+                <div class="" style="width: 100%;height: 240px;margin: 0px auto;"><!-- 折线图 --></div>
+                <!-- 表格 -->
+                <div class="table-responsive big-list-table">
+                  <table class="table toolroute-table">
+                    <thead>
+                      <tr>
+                        <th>时间</th>
+                        <th>巡检人数</th>
+                        <th>巡检任务完成次数</th>
+                        <th>报警数</th>
+                        <th>报警确认数</th>
+                        <th>隐患数</th>
+                        <th>危险品数</th>
+                        <th>建筑安全评分</th>
+                        <th>单位安全评分</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>2018-06-10 0:00</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>5.5</td>
+                        <td>5.5</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- 分页 -->
+                <div class="upd-pagin margin-top10">
+                  <div>
+                    <el-pagination class="pull-left" small layout="total" :total="10">
+                    </el-pagination>
+                    <span>分页</span>
+                    <el-pagination class="pull-right" small layout="prev, pager, next" :page-size="10" :total="20" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="20">
+                    </el-pagination>
+                  </div>
+                </div>
+              </div>        
+            </div>
+            <!-- 按钮 -->
+            <div class="main_tab col-sm-offset-4 col-sm-4">
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon-printer"></i> 打印
+              </button>
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon-share"></i> 导出
+              </button>
+              <button type="button" @click="fireAnalysis = false">
+               <i class="el-icon el-icon-close"></i> 关闭
+              </button>
             </div>
         </div>
         </section>
       </div>
-    </el-dialog> 
+    </el-dialog>
   </header>
 
 </template>
@@ -476,6 +602,34 @@
       return {
         //时间
         date: new Date(),
+        pickerOptions2: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
         // 弹窗
         signIn: false,
         personnelInfo: false,
@@ -538,10 +692,10 @@
       this.getuserinfo();
       this.getWeather();
       let _this = this; //声明一个变量指向vue实例this,保证作用域一致
-      this.timer = setInterval(function () {
+      this.timer = setInterval(()=> {
         _this.date =new Date();//修改数据date
       }, 1000);
-      this.weathers = setInterval(function () {
+      this.weathers = setInterval(()=>  {
         _this.getWeather()
       }, 1000*60*60*5);
     },
@@ -699,7 +853,7 @@
       logout() {
         this.$fetch( "/cas/logout",).then(response => {
           if (response.status===1) {
-            this.$store.commit('route_path', "/login");
+            that.$router.push({path:'/login'});
           }
         });
       },

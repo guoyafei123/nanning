@@ -101,7 +101,7 @@ import { isvalidPhone,isName } from '../../assets/js/validate';
               { required: true, trigger: 'blur', validator: validPhone }//这里需要用到全局变量
             ],
             nickName:[
-              { required: true, trigger: 'blur', validator: Name }
+              { required: true, trigger: 'blur',  message: '请填写姓名' }
             ],
             unitId:[
               { required: true, message: '请选择单位', trigger: 'change' }

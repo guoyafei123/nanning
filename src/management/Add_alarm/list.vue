@@ -23,32 +23,18 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item label="位置" prop="buildingId" class="not-null">
-                  <el-select
-                    v-model="form.buildingId"
-                  placeholder="选择建筑"  class="start col-sm-4">
+                  <el-select v-model="form.buildingId" placeholder="选择建筑"  class="start col-sm-4">
                     <el-option label="室外" value="0"></el-option>
+                    <el-option v-for="item in form.buildList" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
+                  <el-select v-model="form.floorId"  placeholder="选择楼层" class="start col-sm-4">
                     <el-option
-                      v-for="item in form.buildList"
-                      :label="item.name"
-                      :value="item.id">
+                      v-for="item in form.floorList" :label="item.floorName+'层'" :value="item.id">
                     </el-option>
                   </el-select>
-                  <el-select
-                    v-model="form.floorId"
-                    placeholder="选择楼层" class="start col-sm-4">
+                  <el-select v-model="form.roomId"  placeholder="选择房间" class="start col-sm-4">
                     <el-option
-                      v-for="item in form.floorList"
-                      :label="item.floorName+'层'"
-                      :value="item.id">
-                    </el-option>
-                  </el-select>
-                  <el-select
-                    v-model="form.roomId"
-                    placeholder="选择房间" class="start col-sm-4">
-                    <el-option
-                      v-for="item in form.roomList"
-                      :label="item.roomNumber+'房间'"
-                      :value="item.id">
+                      v-for="item in form.roomList"  :label="item.roomNumber+'房间'" :value="item.id">
                     </el-option>
                   </el-select>
                 </el-form-item>
@@ -71,13 +57,7 @@
 
                 <el-form-item label="上报时间" prop="createTime" class="not-null col-sm-8">
                   <div class="block">
-                    <el-date-picker
-                      v-model="form.createTime"
-                      type="datetime"
-                      placeholder="选择时间"
-                      format="yyyy-MM-dd HH:mm:ss"
-                      value-format="yyyy-MM-dd HH:mm:ss"
-                      clearable>
+                    <el-date-picker  v-model="form.createTime" type="datetime" placeholder="选择时间" format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" clearable>
                     </el-date-picker>
                   </div>
                 </el-form-item>
@@ -96,17 +76,12 @@
                   </div>
                 </div>
                 <el-form-item label="描述" prop="cont" class="col-sm-12">
-                  <el-input
-                    type="textarea"
-                    :rows="3"
-                    placeholder="请输入内容"
-                    v-model="form.cont">
-                  </el-input>
+                  <el-input type="textarea" :rows="3" placeholder="请输入内容"  v-model="form.cont"> </el-input>
                 </el-form-item>
               </el-form>
             </div>
             <div class="main_footer">
-              <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+              <a class="btn-ok" @click="submitFrom('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
               <a class="btn-back" @click="back">返回</a>
               <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
                     <i class="el-icon-warning size-14"></i>
@@ -145,28 +120,16 @@
                     v-model="form.buildingId"
                   placeholder="选择建筑"  class="start col-sm-4">
                     <el-option label="室外" value="0"></el-option>
+                    <el-option v-for="item in form.buildList" :label="item.name"  :value="item.id"> </el-option>
+                  </el-select>
+                  <el-select v-model="form.floorId" placeholder="选择楼层" class="start col-sm-4">
                     <el-option
-                      v-for="item in form.buildList"
-                      :label="item.name"
-                      :value="item.id">
+                      v-for="item in form.floorList" :label="item.floorName+'层'" :value="item.id">
                     </el-option>
                   </el-select>
-                  <el-select
-                    v-model="form.floorId"
-                    placeholder="选择楼层" class="start col-sm-4">
+                  <el-select v-model="form.roomId" placeholder="选择房间" class="start col-sm-4">
                     <el-option
-                      v-for="item in form.floorList"
-                      :label="item.floorName+'层'"
-                      :value="item.id">
-                    </el-option>
-                  </el-select>
-                  <el-select
-                    v-model="form.roomId"
-                    placeholder="选择房间" class="start col-sm-4">
-                    <el-option
-                      v-for="item in form.roomList"
-                      :label="item.roomNumber+'房间'"
-                      :value="item.id">
+                      v-for="item in form.roomList" :label="item.roomNumber+'房间'" :value="item.id">
                     </el-option>
                   </el-select>
                 </el-form-item>
@@ -188,13 +151,7 @@
 
                 <el-form-item label="上报时间" prop="createTime" class="not-null col-sm-8">
                   <div class="block">
-                    <el-date-picker
-                      v-model="form.createTime"
-                      type="datetime"
-                      placeholder="选择时间"
-                      format="yyyy-MM-dd HH:mm:ss"
-                      value-format="yyyy-MM-dd HH:mm:ss"
-                      clearable>
+                    <el-date-picker v-model="form.createTime" type="datetime" placeholder="选择时间" format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" clearable>
                     </el-date-picker>
                   </div>
                 </el-form-item>
@@ -223,7 +180,7 @@
               </el-form>
             </div>
             <div class="main_footer">
-              <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+              <a class="btn-ok" @click="submitFrom('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
               <a class="btn-back" @click="back">返回</a>
               <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
                     <i class="el-icon-warning size-14"></i>
@@ -254,7 +211,6 @@ import { isName,isvalidName,isLng } from '../../assets/js/validate';
 import { getTopLeftRate } from '../../assets/js/imgPoint';
     export default {
       data() {
-
         var Name=(rule, value,callback)=>{
             if (!value){
               callback(new Error('请输入上报人姓名'))
@@ -302,7 +258,9 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             Rate:'',
             nickName:'',
             createTime:'',
-            cont:''
+            cont:'',
+            img: '',
+            videoImg:''
           },
           optionList:[],//全部单位列表
           files:["file"],
@@ -333,10 +291,13 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             ]
           },
           svgUrl:'',
-          table_list:[]
+          table_list:[],
+          img:'',
+          videoImg:''
         }
       },
       components:{
+
       },
       methods:{
         floor_btn(id){
@@ -366,7 +327,7 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           $(".mainmenuone ul").append("<li style='margin-bottom:10px;'><input type='file' name='file"+this.index+"'/></li>");
           //console.log(this.files)
         },
-        btn(formName){
+        submitFrom(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
               console.log(111)
@@ -398,8 +359,8 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
                 type: 'POST',
                 dataType: "json",
                 success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+                  console.log("新增成功!!!");
                 
-            
                 },
                 error: function (e) { //服务器响应失败处理函数
                   $.messager.alert('警告', "系统错误", "warning");
@@ -424,6 +385,7 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           $('#right').show();
         },
         unitSearch(){
+          console.log("页面开始加载!!!");
           this.$fetch(
             "/api/unit/queryUnit"
           )
