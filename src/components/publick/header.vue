@@ -201,7 +201,7 @@
       </span>
     </el-dialog>
     <!-- 火情分析 -->
-    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont" data-spy="scroll" data-target="#myScrollspy">      
+    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">
       <div class="dialog-content fireAnalysis clearfix">
           <!-- 标题 -->
           <div class="main_header clearFix">
@@ -210,11 +210,12 @@
               <h2>火情分析</h2>
             </div>
             <!-- <div class="fire-tab col-sm-6" id="myScrollspy">
-                <ul class="nav nav-tabs nav-stacked" data-spy="affix">
-                    <li class="active"><a href="#section-1">火情地图</a></li>
-                    <li><a href="#section-2">火情概况</a></li>
-                    <li><a href="#section-3">起火单位最近数据</a></li>
-                    <li><a href="#section-4">历史数据分析</a></li>
+                <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="60">
+                    <li class="active"><a href="#section-1">第一部分</a></li>
+                    <li><a href="#section-2">第二部分</a></li>
+                    <li><a href="#section-3">第三部分</a></li>
+                    <li><a href="#section-4">第四部分</a></li>
+                    <li><a href="#section-5">第五部分</a></li>
                 </ul>
             </div> -->
             <div class="main_tab col-sm-3 pull-right">
@@ -226,15 +227,15 @@
               </button>
               <button type="button" @click="fireAnalysis = false">
                <i class="el-icon el-icon-close"></i> 关闭
-              </button> 
+              </button>
             </div>
           </div>
-        <section class="col-sm-offset-3 col-sm-6">
-        <div class="row my-scroll size-12">            
+        <section class="col-sm-offset-3 col-sm-6"  data-spy="scroll" data-target="#myScrollspy">
+        <div class="row my-scroll">
             <div class="col-sm-12">
-                <h2 id="section-1">火情地图</h2>
+                <h2 id="section-1">第一部分</h2>
                 <!-- 地图 -->
-                <div class="fire-map margin-bottom10">
+                <div class="fire-map">
                   <div><!-- 地图容器 --></div>
                   <article><!-- 说明 --></article>
                 </div>
@@ -578,12 +579,12 @@
               </button>
               <button type="button" @click="fireAnalysis = false">
                <i class="el-icon el-icon-close"></i> 关闭
-              </button> 
+              </button>
             </div>
         </div>
         </section>
       </div>
-    </el-dialog> 
+    </el-dialog>
   </header>
 
 </template>
@@ -691,10 +692,10 @@
       this.getuserinfo();
       this.getWeather();
       let _this = this; //声明一个变量指向vue实例this,保证作用域一致
-      this.timer = setInterval(function () {
+      this.timer = setInterval(()=> {
         _this.date =new Date();//修改数据date
       }, 1000);
-      this.weathers = setInterval(function () {
+      this.weathers = setInterval(()=>  {
         _this.getWeather()
       }, 1000*60*60*5);
     },
@@ -852,7 +853,7 @@
       logout() {
         this.$fetch( "/cas/logout",).then(response => {
           if (response.status===1) {
-            this.$store.commit('route_path', "/login");
+            that.$router.push({path:'/login'});
           }
         });
       },
