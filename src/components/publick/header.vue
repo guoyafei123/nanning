@@ -177,9 +177,9 @@
     </el-dialog>
     <!-- 签到弹窗 -->
     <div class="punchclock" :class="punchclocktrue?'punchclockani':''">
-      <p class="size-16 margin-top10">19:00打卡提示</p>
-      <p class="size-12">有效时间: 05:00</p>
-      <img class="margin-top10" src="../../assets/images/QR.png">
+      <p class="size-16 margin-top10">{{ ''+punchStartTime.substring(11,16)}}打卡提示</p>
+      <p class="size-12">有效时间: {{ punchExpireTime}}</p>
+      <img class="margin-top10" :src="punchImgUrl">
       <p class="size-10 margin-top10">请通过巡检APP扫描二维码打卡</p>
     </div>
     <!-- 火情分析 -->
@@ -573,6 +573,7 @@
 
 <script>
   import messagesVue from "./messages.vue";
+  import moment from "moment";
   import {mapState} from "vuex";
 
   export default {
@@ -648,7 +649,12 @@
         },
         userCountData: Object,
         userInfoData: Object,
-        punchclocktrue:false
+        punchclocktrue:false,
+        punchImgUrl:'',
+        punchStartTime:'',
+        punchExpireMillisecond:'',
+        punchExpireTime:'',
+        punchInterval: null
       };
     },
     computed: mapState([
@@ -719,7 +725,7 @@
       },
       // 打卡框
       signIn(){
-        this.punchclocktrue=!this.punchclocktrue;
+
       },
       // 显示消息模态窗
       showMessages() {
@@ -815,17 +821,32 @@
         this.$fetch("/api/workPunch/getPunch")
           .then(response => {
             if (response.status==1) {
-              var code=encodeURI(response.data.code);
-              alert(code);
-              this.$fetch("/api/qrcode/img",{content:code})
-              .then(response => {
-                if (response.status==1) {
-                  console.log(response.status)
-                }
-              })
+                  this.punchStartTime =  response.data.startTime ;
+                  var code=encodeURI(response.data.code);
+                  this.punchImgUrl = "/api/qrcode/img?content=" + code ;
+                  this.punchExpireMillisecond = response.data.expireMillisecond ;
+                  this.punchclocktrue = true ;
+                  let that = this;
+                  this.punchInterval = setInterval(()=>  {
+                    that.getExpireTime() ;
+                }, 1000);
+           } else {
+                  this.punchclocktrue = false ;
             }
           })
       },
+      getExpireTime(){
+        let a = new Date(this.punchStartTime).getTime();
+        let b = new Date().getTime() ;
+        let responseMillisecond = moment.duration(this.punchExpireMillisecond - moment.duration(b - a, 'ms'),'ms') ;
+        if(responseMillisecond <= 0){
+          this.punchclocktrue = false ;
+        }
+        let minutes = responseMillisecond.get('minutes') ;
+        let seconds = responseMillisecond.get('seconds') ;
+        this.punchExpireTime =   (minutes < 10 ? '0' + minutes : minutes ) +  ':' + (seconds < 10 ? '0' + seconds : seconds );
+      }
+      ,
       //请求在线
       userAnalyse() {
         this.$fetch("/api/user/userAnalyse", this.userAnalyseDate_param)
