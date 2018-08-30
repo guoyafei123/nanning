@@ -436,7 +436,7 @@
 					// 数据
 					series: [{
 							data: b,
-							name: "每日登录次数",
+							name: "在线人数",
 							type: "line",
 							symbol: "none",
 							smooth: true,

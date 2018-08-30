@@ -42,13 +42,13 @@
 
 			<section>
 				<div class="toolcount">
-					<h4 class="p-title">风险系数</h4>
+					<h4 class="p-title">安全评分</h4>
 					<div id="axis1" style="width: 100%;height:200px;margin: 0 auto;"></div>
 				</div>
 			</section>
 
 			<section v-show="itemtrue==false">
-				<h4 class="p-title margin-top30">风险系数</h4>
+				<h4 class="p-title margin-top30">安全评分</h4>
 				<div class="row cardinfo-style margin-top10 font-gray-999">
 					<p class="col-sm-4">建筑防火 <span>{{unitScoreDetailData.buildingfhScore}}</span></p>
 					<p class="col-sm-4">火灾危险源 <span>{{unitScoreDetailData.fireSourceScore}}</span></p>
@@ -62,7 +62,7 @@
 			</section>
 
 			<section v-show="itemtrue==true">
-				<h4 class="p-title margin-top30">风险系数</h4>
+				<h4 class="p-title margin-top30">安全评分</h4>
 				<div class="row cardinfo-style margin-top10 font-gray-999">
 					<p class="col-sm-4">建筑参数 <span>{{buildingScoreDetailsDetails.buildingParamScore}}</span></p>
 					<p class="col-sm-4">耐火等级 <span>{{buildingScoreDetailsDetails.refractoryScore}}</span></p>
