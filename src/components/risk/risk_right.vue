@@ -408,7 +408,7 @@
 						borderWidth: 1
 					},
 					series: [{
-						name: "风险系数",
+						name: "安全评分",
 						type: "bar",
 						barWidth: "60%",
 						data: axisData,
