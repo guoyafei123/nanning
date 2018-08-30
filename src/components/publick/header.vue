@@ -508,7 +508,7 @@
       logout() {
         this.$fetch( "/cas/logout",).then(response => {
           if (response.status===1) {
-            this.$store.commit('route_path', "/login");
+            that.$router.push({path:'/login'});
           }
         });
       },
