@@ -1215,7 +1215,10 @@ a.min-map-cloase:hover {
     padding: 1px;
 }
 .fire-unit.unit-info img {    
-    max-height: 160px;
+    min-height: 159px;
+}
+.fire-unit.unit-info .unit-brief small {
+    color: #fff;
 }
 .fire-unit.unit-info li:last-child article {
     padding-left: 20px;
@@ -1223,8 +1226,14 @@ a.min-map-cloase:hover {
 .fire-unit.unit-info li:first-child>div {
     border-bottom: none;
 }
+.fire-unit.unit-info ul:first-child {
+    border-bottom: 1px solid #222;
+}
 .fire-per {
+    height: 160px;
     padding: 0 20px!important;
+    border-bottom: 1px solid #222;
+    border-left: 1px solid #222;
 }
 .fire-per .pull-right>article {
     padding: 0 20px!important;
@@ -1251,4 +1260,28 @@ a.min-map-cloase:hover {
 .fire-survey h5 {
     font-size: 14px;
     color: #fff;
+}
+.fire-survey .upd-elselect .el-input__inner,
+.fire-survey .fire-mini-info{
+    height: 30px;
+    line-height: 30px;
+}
+.fire-survey .el-range-input {
+    padding:0 6px;
+}
+.fire-survey .big-list-table tbody>tr>td,
+.fire-survey .big-list-table thead>tr>th {
+    vertical-align: middle!important;
+    text-align: center!important;
+}
+
+.fire-survey .fire-mini-info>article {
+    display: inline-block;
+    margin-right: 10px;
+}
+.fire-survey .fire-mini-info>article>span {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 6px;
 }

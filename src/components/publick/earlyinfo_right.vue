@@ -88,7 +88,10 @@
 							</p>
 							<p class="col-sm-4">
 							<!-- <span class="badge">98s</span> -->
-							<span class="badge">{{(aleamAndtroubleInfos.startTime).split(' ')[1]}}</span>
+							<el-tooltip placement="top">
+								<div slot="content">开始时间：{{aleamAndtroubleInfos.startTime}}</div>
+								<span class="badge">{{(aleamAndtroubleInfos.startTime).split(' ')[1]}}</span>
+							</el-tooltip>
 							</p>
 						</var>
 						</li>
