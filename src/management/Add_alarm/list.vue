@@ -63,15 +63,18 @@
                 </el-form-item>
                 <div class="col-sm-12">
                   <div class="row">
-                    <el-form-item label="图片和视频">
-                       <div class="head-photo">
-                          <input id="alarmFile" name="alarmImg" type="file" @change="alarmFile"/>
-                          <div class="bg-gray-222 text-center">
-                            <i class="el-icon-plus"></i>
-                          </div>
-                      </div>
-                      <img v-show="isShow" src="" id="up_AlarmImg" class="head-pic" />
-                      <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>  
+                    <el-form-item label="图片和视频" :label-width="formLabelWidth">
+                      <el-upload 
+                          list-type="picture-card" 
+                          :http-request="uploadFile"
+                          :file-list="playUrls"
+                          :multiple="true"
+                          :auto-upload="true"
+                          :on-success="uploadSuccess"
+                          :on-preview="handlePictureCardPreview" 
+                          :on-remove="handleRemove">
+                          <i class="el-icon-upload"></i>
+                      </el-upload>
                     </el-form-item>
                   </div>
                 </div>
@@ -203,6 +206,7 @@
   </div>
 </template>
 <script>
+
 import panzoom from 'panzoom';
 import{ mapState } from "vuex";
 import managementMapVue from '../managementMap';
@@ -266,8 +270,12 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           },
           optionList:[],//全部单位列表
           files:["file"],
+          img_uri:[],
           isShow:false,
           fileVerification:'',//图片验证
+          dialogImageUrl: '',
+          dialogVisible: false,
+          count:0,
           rules: {
             name:[
               { required: true, trigger: 'blur', validator: validName }
@@ -296,13 +304,43 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           },
           svgUrl:'',
           table_list:[]
-         
         }
       },
       components:{
         'managementMap-vue': managementMapVue,
       },
       methods:{
+          uploadFile: function (param){
+            var fileObj = param.file;
+            this.img_uri.push(fileObj);
+            console.log(this.img_uri);
+          },
+          uploadSuccess(response, file, fileList){
+              console.log(response);
+              console.log(file);
+              console.log(fileList);
+              this.count++;
+              this.img_uri.push(qiNiuPrefix+response.key);
+              console.log("this.img_uri");
+              console.log(this.img_uri);
+              if(this.count==fileList.length){
+                this.count=0;
+                this.$refs.upload.uploadFiles=[];
+              }
+              this.$nextTick(()=>{
+                if(this.count===0){
+                  this.loading=false;
+                }
+              })
+          },
+          handleRemove(file, fileList) {
+            console.log(file, fileList);
+          },
+          handlePictureCardPreview(file) {
+            console.log(file.url);
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+         },
          alarmFile(){
           var x = document.getElementById("alarmFile");
           if (!x || !x.value) return;
@@ -387,13 +425,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             console.log(response.data.pageBuildIng.result);
             this.table_list = response.data.pageBuildIng.result;
           })
-        },
-        addUploadImg(){
-          this.index++;
-          //console.log(this.index)
-          this.files.push('file'+this.index);
-          $(".mainmenuone ul").append("<li style='margin-bottom:10px;'><input type='file' name='file"+this.index+"'/></li>");
-          //console.log(this.files)
         },
         addAlarmBtn(formName){
           this.$refs[formName].validate((valid) => {
