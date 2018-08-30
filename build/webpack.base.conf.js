@@ -25,6 +25,9 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+  externals:{
+    // 'bootstrap':'bootstrap'
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
