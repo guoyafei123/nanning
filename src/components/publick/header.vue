@@ -851,6 +851,7 @@
       },
       //退出登录
       logout() {
+        
         this.$fetch( "/cas/logout",).then(response => {
           if (response.status===1) {
             this.$router.push({path:'/login'});
