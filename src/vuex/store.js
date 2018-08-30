@@ -58,7 +58,7 @@ var state={
   indexToAlarmTroubel:Object,
   toIndexLeftAlarmChar:Object,
   // 展示端风险
-  toriskitem:false,
+  toriskitem:Object,
   // 展示端建筑
   tobuilditem:Object,
   // 全局权限
