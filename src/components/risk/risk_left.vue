@@ -59,10 +59,10 @@
 											</el-tooltip>
 										</td>
 										<td class="safe">
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=2 && Number((10-item.totalScore)/100).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=4 && Number((10-item.totalScore)/100).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+												<span v-if="Number((100-item.totalScore)/10).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((100-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((100-item.totalScore)/10).toFixed(1)>=2 && Number((100-item.totalScore)/10).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((100-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((100-item.totalScore)/10).toFixed(1)>=4 && Number((100-item.totalScore)/10).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((100-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((100-item.totalScore)/10).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((100-item.totalScore)/10).toFixed(1)}}</span>
 										</td>
 										<td class="risk">
 											{{item.totalScore}}%
