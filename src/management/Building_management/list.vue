@@ -48,8 +48,8 @@
                   v-model="form.timeYear"
                   type="year"
                   placeholder="选择年份"
-                  format="yyyy 年 MM 月 dd 日"
-                  value-format="yyyy-MM-dd">
+                  format="yyyy 年"
+                  value-format="yyyy">
                 </el-date-picker>
               </div>
             </el-form-item>
@@ -75,7 +75,7 @@
               <el-input v-model="form.name"></el-input>
             </el-form-item>
             <el-form-item label="消防负责人电话" prop="phone" class="not-null col-sm-4">
-              <el-input v-model.number="form.phone"></el-input>
+              <el-input maxlength="11" v-model.number="form.phone"></el-input>
             </el-form-item>          
           </el-form>        
         </div>
@@ -87,7 +87,7 @@
       <!-- 地图 -->
       <aside>      
           <div class="maps">
-              <managementMap-vue></managementMap-vue>
+              <managementMap-vue :pointB="this.form.point"></managementMap-vue>
           </div>
       </aside>
     </div>
@@ -150,7 +150,7 @@ import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate'
             timeYear:'',
             name:'',
             phone:'',
-            point:''
+            point:[]
           },
           unit:null,//选择单位
           optionList:[],//全部单位列表
@@ -210,6 +210,8 @@ import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate'
                   this.form.UnitName = item.name;
                 }
               })
+              var point = this.form.point;
+              var pointList = point.split(",");
               this.$fetch("/api/building/addBuilding",{
                 'name':this.form.BuildName,
                 'unitId':this.form.unitId,
@@ -219,12 +221,12 @@ import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate'
                 'heightOfBuilding':this.form.height,
                 'floors':this.form.floor,
                 'structure':this.form.structure,
-                'buildYear':this.form.timeYear,
+                'buildYear':this.form.timeYear+'-01-01',
                 'property':this.form.property,
                 'linkname':this.form.name,
                 'phone':this.form.phone,
-                'pointX':this.form.point[0],
-                'pointY':this.form.point[1],
+                'pointX':pointList[0],
+                'pointY':pointList[1],
                 headers: {'Content-Type': 'application/json'}
               }
               ).then(response=>{
@@ -268,11 +270,20 @@ import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate'
       watch:{
         buildPoint(){
           this.form.point = this.buildPoint;
+        },
+        point(val,oldVal){
+          this.point = val ;
+          console.log(this.point);
         }
       },
-      computed:mapState([
-        'buildPoint'
-      ])
+      computed:{
+        ...mapState([
+          'buildPoint'
+        ]),
+        point(){
+          return this.form.point ;
+        }
+      }
     }
 </script>
 

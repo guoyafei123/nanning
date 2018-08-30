@@ -181,17 +181,17 @@
               class类hint-error为错误提示
              -->
             <div class="main_content">
-              <el-form class="row" ref="form" :label-position="labelPosition" :model="form">
-                <el-form-item label="设备名称" class="not-null">
+              <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+                <el-form-item label="设备名称" prop="name" class="not-null">
                   <!-- <span class="hint-error">设备名称有误或重复</span> -->
-                  <el-input v-model="form.name" class="col-sm-8"></el-input>
+                  <el-input v-model="form.name"  class="col-sm-8"></el-input>
                 </el-form-item>
-                <el-form-item label="所属单位" class="not-null">
+                <el-form-item label="所属单位" prop="unitId" class="not-null">
                   <el-select v-model="form.unitId" :disabled='true' placeholder="选择单位" class="select selectUnit col-sm-4">
                     <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="设备类型" class="not-null">
+                <el-form-item label="设备类型" prop="equipmentId" class="not-null">
                   <el-select
                     v-model="form.equipmentId"
                     placeholder="选择设备类型" class="start col-sm-4">
@@ -202,7 +202,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="设备位置" class="not-null">
+                <el-form-item label="设备位置" prop="buildingId" class="not-null">
                   <el-select
                     v-model="form.buildingId"
                     :disabled='true'
@@ -238,32 +238,40 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="坐标">
-                  <el-input placeholder="X" v-model="form.point.pointX" :disabled='true' class="col-sm-4"></el-input>
-                  <el-input placeholder="Y" v-model="form.point.pointY" :disabled='true' class="col-sm-4"></el-input>
+                <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
+                  <el-input placeholder="经度,纬度" :disabled="true"  v-model="form.point" class="col-sm-8"></el-input>
+                  <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
+                    <i class="el-icon-question size-16"></i>
+                  </el-tooltip>
+                </el-form-item>
+                <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
+                  <el-input placeholder="X,Y" :disabled="true"  v-model="form.Rate" class="col-sm-8"></el-input>
+                  <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
+                    <i class="el-icon-question size-16"></i>
+                  </el-tooltip>
                 </el-form-item>
                 <div class="col-sm-12">
                   <div class="row">
-                    <el-form-item label="物理地址" class="col-sm-4">
+                    <el-form-item label="物理地址" prop="PhysicalAddress"  class="col-sm-4">
                       <el-input v-model="form.PhysicalAddress"></el-input>
                     </el-form-item>
-                    <el-form-item label="控制器ID" class="not-null col-sm-4">
+                    <el-form-item label="控制器ID" prop="controlId" class="not-null col-sm-4">
                       <el-input v-model="form.controlId"></el-input>
                     </el-form-item>
                   </div>
                 </div>
-                <el-form-item label="相对房顶高度 (cm)" class="col-sm-4">
+                <el-form-item label="相对房顶高度 (cm)" prop="RoofHeight"  class="col-sm-4">
                   <el-input v-model="form.RoofHeight"></el-input>
                 </el-form-item>
-                <el-form-item label="相对地板高度 (cm)" class="col-sm-4">
+                <el-form-item label="相对地板高度 (cm)" prop="floorHeight" class="col-sm-4">
                   <el-input v-model="form.floorHeight"></el-input>
                 </el-form-item>
                 <div class="col-sm-12">
                     <div class="row">
-                      <el-form-item label="生产商" class="col-sm-4">
+                      <el-form-item label="生产商" prop="Bike"  class="col-sm-4">
                         <el-input v-model="form.Bike"></el-input>
                       </el-form-item>
-                      <el-form-item label="生产日期" class="col-sm-4">
+                      <el-form-item label="生产日期" prop="ProductionDay" class="col-sm-4">
                         <div class="block">
                           <el-date-picker
                             v-model="form.ProductionDay"
@@ -274,7 +282,7 @@
                           </el-date-picker>
                         </div>
                       </el-form-item>
-                      <el-form-item label="投入使用日期" class="col-sm-4">
+                      <el-form-item label="投入使用日期" prop="startDate" class="col-sm-4">
                         <div class="block">
                           <el-date-picker
                             v-model="form.startDate"
@@ -289,20 +297,20 @@
                     </div>
                   <div class="col-sm-12">
                     <div class="row">
-                      <el-form-item label="维保单位" class="col-sm-4">
+                      <el-form-item label="维保单位" prop="Refundable" class="col-sm-4">
                         <el-input v-model="form.Refundable"></el-input>
                       </el-form-item>
-                      <el-form-item label="维保人员" class="col-sm-4">
+                      <el-form-item label="维保人员" prop="linkname" class="col-sm-4">
                         <el-input v-model="form.linkname"></el-input>
                       </el-form-item>
-                      <el-form-item label="维保电话" class="col-sm-4">
-                        <el-input v-model="form.phone"></el-input>
+                      <el-form-item label="维保电话" prop="phone" class="col-sm-4">
+                        <el-input maxlength="11" v-model.number="form.phone"></el-input>
                       </el-form-item>
                     </div>
                 </div>
                 <div class="col-sm-12 margin-bottom20">
                   <div class="row">
-                    <el-form-item label="更换周期 (天)" class="not-null col-sm-4">
+                    <el-form-item label="更换周期 (天)" prop="Retroperiod" class="not-null col-sm-4">
                       <el-input v-model="form.Retroperiod"></el-input>
                     </el-form-item>
                   </div>
@@ -311,7 +319,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow()" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -342,9 +350,55 @@
 
 <script>
 import { mapState } from 'vuex';
-  import { realconsole } from '../../assets/js/management.js'
+  import { realconsole } from '../../assets/js/management.js';
+  import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
   export default {
     data() {
+      var validPhone=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入手机号码'))
+            }else  if (!isvalidPhone(value)){
+              callback(new Error('请输入正确的11位手机号码'))
+            }else {
+              callback()
+            }
+        }
+        var Name=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入生产商的姓名'))
+            }else  if (!isName(value)){
+              callback(new Error('请输入正确的姓名'))
+            }else {
+              callback()
+            }
+        }
+        var validName=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入设备名称'))
+            }else  if (!isvalidName(value)){
+              callback(new Error('请输入正确的设备名称'))
+            }else {
+              callback()
+            }
+        }
+        var linkName=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入维保人员姓名'))
+            }else  if (!isName(value)){
+              callback(new Error('请输入正确的维保人员姓名'))
+            }else {
+              callback()
+            }
+        }
+        var Lng=(rule, value,callback)=>{
+            if (!value){
+              callback(new Error('请输入坐标'))
+            }else  if (!isLng(value)){
+              callback(new Error('请输入正确的坐标点'))
+            }else {
+              callback()
+            }
+        }
       return {
         labelPosition: 'top',
         form:{
@@ -363,12 +417,8 @@ import { mapState } from 'vuex';
           roomList:[],
           floorList:[],
           buildList:[],
-          point:{
-            pointX:'',
-            pointY:'',
-            xRate:'',
-            yRate:''
-          },
+          point:[],
+          Rate:[],
           PhysicalAddress:'',
           startDate:'',
           lifeMonth:'',
@@ -399,7 +449,63 @@ import { mapState } from 'vuex';
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
-        deviceName:''
+        deviceName:'',
+        rules: {
+            name:[
+              { required: true, trigger: 'blur', validator: validName }
+            ],
+            unitId:[
+              { required: true, message: '请选择单位', trigger: 'change' }
+            ],
+            equipmentId:[
+              { required: true, message: '请选择设备类型', trigger: 'change' }
+            ],
+            buildingId: [
+              { required: true, message: '请选择设备位置', trigger: 'change' }
+            ],
+            PhysicalAddress:[
+              { required: true, message: '请填写物理地址', trigger: 'blur' }
+            ],
+            controlId:[
+              { required: true, trigger: 'blur', message: '请输入控制器ID' }
+            ],
+            RoofHeight:[
+              { required: true, trigger: 'blur', message: '相对房顶高度' },
+              { type: 'number', message: '必须为数字值'}
+            ],
+            floorHeight:[
+              { required: true, trigger: 'blur', message: '请输入相对地板高度' },
+              { type: 'number', message: '必须为数字值'}
+            ],
+            Bike:[
+              { required: true, trigger: 'blur', validator: Name }
+            ],
+            ProductionDay:[
+              { required: true, trigger: 'change', message: '请选择生产日期' }
+            ],
+            startDate:[
+              { required: true, trigger: 'change', message: '请选择投入使用日期' }
+            ],
+            Refundable:[
+              { required: true, trigger: 'blur', message: '请填写维保单位' }
+            ],
+            linkname:[
+              { required: true, trigger: 'blur', validator: linkName }
+            ],
+            phone:[
+              { required: true, trigger: 'blur', validator: validPhone }
+            ],
+            Retroperiod:[
+              { required: true, trigger: 'blur', message: '请输入更换周期' },
+              { type: 'number', message: '必须为数字值'}
+            ],
+            point:[
+              { required: true, trigger: 'blur', validator: Lng }
+            ],
+            Rate:[
+              { required: true, trigger: 'blur', message: '请填写平面图坐标' }
+            ]
+          }
       }
     },
     methods: {
@@ -436,10 +542,10 @@ import { mapState } from 'vuex';
             this.form.roomNumber = item.roomNumber
             this.form.equipmentId = item.deviceTypeId ;
             this.form.deviceTypeName = item.deviceTypeName;
-            this.form.point.pointX = item.pointX ;
-            this.form.point.pointY = item.pointY ;
-            this.form.point.xRate = item.xRate ;
-            this.form.point.yRate = item.yRate ;
+            this.form.point[0] = item.pointX ;
+            this.form.point[1] = item.pointY ;
+            this.form.Rate[0] = item.xRate ;
+            this.form.Rate[1] = item.yRate ;
             this.form.PhysicalAddress = item.mac ;
             this.form.startDate = item.startDate ;
             this.form.RoofHeight = item.height ;
@@ -453,40 +559,51 @@ import { mapState } from 'vuex';
           }
         })
       },
-      startRow(){
-        this.$fetch("/api/device/updateDevice",{
-          'id':this.form.id,
-          'name':this.form.name,
-          'unitId':this.form.unitId,
-          'unitName':this.form.unitName,
-          'buildingId':this.form.buildingId,
-          'buildingName':this.form.buildingName,
-          'floorId':this.form.floorId,
-          'floorNumber':this.form.floorNumber,
-          'roomId':this.form.roomId,
-          'roomNumber':this.form.roomNumber,
-          'deviceTypeId':this.form.equipmentId,
-          'deviceTypeName':this.form.deviceTypeName,
-          'pointX':this.form.point.pointX,
-          'pointY':this.form.point.pointY,
-          'xRate':this.form.point.xRate,
-          'yRate':this.form.point.yRate,
-          'mac':this.form.PhysicalAddress,
-          'startDate':this.form.startDate,
-          'height':this.form.RoofHeight,
-          'fheight':this.form.floorHeight,
-          'lifeMonth':this.form.Retroperiod,
-          'firm':this.form.Bike,
-          'productDate':this.form.ProductionDay,
-          'maintenanceUnit':this.form.Refundable,
-          'maintenanceUser':this.form.linkname,
-          'maintenancePhone':this.form.phone
-        }).then(response=>{
-          if(response){
-            //console.log('修改成功...'+ JSON.stringify(response));
-            this.tableList();
+      startRow(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            var point = this.form.point;
+            var pointList = point.split(",");
+            var Rate = this.form.Rate;
+            var RateList = Rate.split(",");
+            this.$fetch("/api/device/updateDevice",{
+              'id':this.form.id,
+              'name':this.form.name,
+              'unitId':this.form.unitId,
+              'unitName':this.form.unitName,
+              'buildingId':this.form.buildingId,
+              'buildingName':this.form.buildingName,
+              'floorId':this.form.floorId,
+              'floorNumber':this.form.floorNumber,
+              'roomId':this.form.roomId,
+              'roomNumber':this.form.roomNumber,
+              'deviceTypeId':this.form.equipmentId,
+              'deviceTypeName':this.form.deviceTypeName,
+              'pointX':pointList[0],
+              'pointY':pointList[1],
+              'xRate':RateList[0],
+              'yRate':RateList[1],
+              'mac':this.form.PhysicalAddress,
+              'startDate':this.form.startDate,
+              'height':this.form.RoofHeight,
+              'fheight':this.form.floorHeight,
+              'lifeMonth':this.form.Retroperiod,
+              'firm':this.form.Bike,
+              'productDate':this.form.ProductionDay,
+              'maintenanceUnit':this.form.Refundable,
+              'maintenanceUser':this.form.linkname,
+              'maintenancePhone':this.form.phone
+            }).then(response=>{
+              if(response){
+                //console.log('修改成功...'+ JSON.stringify(response));
+                this.tableList();
+              }
+            })
+          } else {
+            //console.log('error submit!!');
+            return false;
           }
-        })
+        });
       },
       delete_plan(row){//删除
         this.deviceName = row.name;

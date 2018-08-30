@@ -31,7 +31,7 @@
               <div class="col-sm-4 font-gray-999 padding0">
                   <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
-                          <h1 class="toolcount-p1"><span class="font-blue"></span>114</h1>
+                          <h1 class="toolcount-p1"><span class="font-blue"></span>{{this.form.countRoom == null ? '-' : this.form.countRoom}}</h1>
                       </li>
                       <li class="margin-top20">
                           <p class="size-10 ">Room Total</p>
@@ -118,7 +118,7 @@
                   </div>
                   <div class="col-sm-12">
                       <span>建筑年份 </span>
-                      <strong v-html="this.form.timeYear"></strong>
+                      <strong v-html="this.form.timeYear.substr(0,4)"></strong>
                   </div>
                   <!-- <div class="col-sm-6">
                       <span>建筑平面图 </span>
@@ -268,10 +268,10 @@
                     <div class="block">
                       <el-date-picker
                         v-model="form.timeYear"
-                        type="date"
+                        type="year"
                         placeholder="选择年份"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="yyyy-MM-dd">
+                        format="yyyy 年"
+                        value-format="yyyy">
                       </el-date-picker>
                     </div>
                   </el-form-item>
@@ -537,7 +537,8 @@
           point:{
             pointX:'',
             pointY:''
-          }
+          },
+          countRoom:''
         },
         optionList:[],//全部单位列表
         tableData: [],//设备列表
@@ -1021,6 +1022,7 @@
                     this.form.property = item.property ;
                     this.form.name = item.linkname ;
                     this.form.phone = item.phone ;
+                    this.form.countRoom = item.countRoom ;
                   }
                 })
               }
@@ -1099,6 +1101,7 @@
               this.form.property = item.property ;
               this.form.name = item.linkname ;
               this.form.phone = item.phone ;
+              this.form.countRoom = item.countRoom ;
             }
           })
           if(this.floorAdd == 1){
@@ -1151,6 +1154,7 @@
                 this.form.property = item.property ;
                 this.form.name = item.linkname ;
                 this.form.phone = item.phone ;
+                this.form.countRoom = item.countRoom ;
               }
             })
           }

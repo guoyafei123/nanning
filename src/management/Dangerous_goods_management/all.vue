@@ -90,7 +90,7 @@
             label="位置">
             <template slot-scope="scope">
               <strong v-if="scope.row.buildingId == 0">室外</strong>
-              <strong v-else><span v-if="scope.row.buildingId != 0">{{ scope.row.buildingName }}</span><span v-if="scope.row.floorNumber != '' && scope.row.floorNumber != null">{{ scope.row.floorNumber }} 楼层</span><span v-if="scope.row.roomNumber != '' && scope.row.roomNumber != null">{{ scope.row.roomNumber }} 房间</span></strong>
+              <strong v-else><span v-if="scope.row.buildingId != 0">{{ scope.row.buildingName }}</span><span v-if="scope.row.floorNumber != '' && scope.row.floorNumber != null">{{ scope.row.floorNumber }} 层</span><span v-if="scope.row.roomNumber != '' && scope.row.roomNumber != null">{{ scope.row.roomNumber }} 房间</span></strong>
             </template>
           </el-table-column>
           <el-table-column

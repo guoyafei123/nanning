@@ -806,3 +806,36 @@ video:hover{
         left: -150px;
         top: 150px;
     }
+
+    /* 打卡 */
+    .punchclock{
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: #111;
+        top: -250px;
+        right: 410px;
+        border: 1px solid #666;
+        padding: 5px;
+        color:#ccc;
+        text-align: center;
+        transition: all 0.5s;
+    }
+    
+    .punchclockani{
+        top:10px;
+    }
+
+    .punchclock>i{
+        position: absolute;
+        right: -15px;
+        top: 0px;
+        color:#fff;
+    }
+
+    .punchclock>img{
+        width: 50%;
+        height: 50%;
+        /* margin-left: 10px;
+        margin-top:10px; */
+    }

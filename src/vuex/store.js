@@ -51,6 +51,8 @@ var state={
   unitNotice:'',
   noticeTableData:'',
   activityTableData:'',
+  //巡检打卡
+  inspectionPlanUserId:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -78,6 +80,8 @@ var state={
   topersonitem:Object,
   // 综合页面传入报警和隐患详情
   aleamAndtroubleInfo:Object,
+  //巡检打卡
+  InspectionPlanUserId:Object,
 
   // 地图相关
   // 全部单位
@@ -282,6 +286,9 @@ var mutations={
   toMapPatternsDanger(state,data){
     state.toMapPatternsDanger=data;
   },
+  inspectionPlanUserId(state,data){
+    state.inspectionPlanUserId = data;
+  }
 }
 
 export default new Vuex.Store({

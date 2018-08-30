@@ -78,7 +78,7 @@
 					<span class="caret"></span>
 					</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item><span @click="signIn = true"><i
+						<el-dropdown-item><span @click="signIn()"><i
               class="icon iconfont icon-huiyuanquerendaodian size-14"></i> 打卡</span></el-dropdown-item>
 						<el-dropdown-item><span @click="getUserInfogetUserInfo()"><i
               class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</span></el-dropdown-item>
@@ -176,30 +176,12 @@
 		  </span>
     </el-dialog>
     <!-- 签到弹窗 -->
-    <el-dialog show-close :visible.sync="signIn" width="30%" center>
-      <div class="dialog-header">
-        <h3 class="el-dialog__title">工作考勤</h3>
-        <small class="font-blue">瑞和家园</small>
-        <button type="button" class="el-dialog__headerbtn" @click="signIn = false">
-          <i class="el-dialog__close el-icon el-icon-close"></i>
-        </button>
-      </div>
-      <div class="dialog-content text-center clearfix">
-        <h2 class="font-blue margin-bottom20" style="display: none;"><i
-          class="el-icon-circle-check-outline size-100"></i><br>今日已打卡</h2>
-        <div class="myhead">
-          <img src="../../assets/images/QR.png" class="img-responsive center-block qrcode">
-          <h2 class="font-red margin-top20">今日尚未打卡</h2>
-          <h4>二维码<span class="font-blue">2分钟</span>更新一次，请使用<span class="font-blue">智慧消防APP</span>扫一扫打卡</h4>
-        </div>
-        <div class="mytotal margin-top10">
-          <h5>本月未打卡 <span class="font-red">3</span>次</h5>
-        </div>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="signIn = false">关 闭</el-button>
-      </span>
-    </el-dialog>
+    <div class="punchclock" :class="punchclocktrue?'punchclockani':''">
+      <p class="size-16 margin-top10">19:00打卡提示</p>
+      <p class="size-12">有效时间: 05:00</p>
+      <img class="margin-top10" src="../../assets/images/QR.png">
+      <p class="size-10 margin-top10">请通过巡检APP扫描二维码打卡</p>
+    </div>
     <!-- 火情分析 -->
     <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">
       <div class="dialog-content fireAnalysis clearfix">
@@ -631,7 +613,6 @@
         },
         value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
         // 弹窗
-        signIn: false,
         personnelInfo: false,
         fireAnalysis: false,
 
@@ -666,7 +647,8 @@
           userId:null
         },
         userCountData: Object,
-        userInfoData: Object
+        userInfoData: Object,
+        punchclocktrue:false
       };
     },
     computed: mapState([
@@ -698,6 +680,9 @@
       this.weathers = setInterval(()=>  {
         _this.getWeather()
       }, 1000*60*60*5);
+      // 获取打卡信息
+      this.getPunch();
+      
     },
     beforeDestroy() {
       if (this.timer) {
@@ -731,6 +716,10 @@
       // 显示消息模态窗
       modal_per() {
         $("#modal_per").modal('show');
+      },
+      // 打卡框
+      signIn(){
+        this.punchclocktrue=!this.punchclocktrue;
       },
       // 显示消息模态窗
       showMessages() {
@@ -821,6 +810,21 @@
           .then(err => {
             //console.log(err);
           });
+      },
+      getPunch() {
+        this.$fetch("/api/workPunch/getPunch")
+          .then(response => {
+            if (response.status==1) {
+              var code=encodeURI(response.data.code);
+              alert(code);
+              this.$fetch("/api/qrcode/img",{content:code})
+              .then(response => {
+                if (response.status==1) {
+                  console.log(response.status)
+                }
+              })
+            }
+          })
       },
       //请求在线
       userAnalyse() {
