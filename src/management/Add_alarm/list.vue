@@ -64,14 +64,14 @@
                 <div class="col-sm-12">
                   <div class="row">
                     <el-form-item label="图片和视频">
-                        <div class="mainmenuone cf">
-                            <ul class="cf col-xs-12">
-                              <li><input id="file" type="file" name="img"/></li>
-                              <!-- <li><input id="file2" type="file" name="img"/></li> -->
-                            </ul>
-                        </div>
-                      <!-- <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>  -->
-                      <!-- <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span>  -->
+                       <div class="head-photo">
+                          <input id="alarmFile" name="alarmImg" type="file" @change="alarmFile"/>
+                          <div class="bg-gray-222 text-center">
+                            <i class="el-icon-plus"></i>
+                          </div>
+                      </div>
+                      <img v-show="isShow" src="" id="up_AlarmImg" class="head-pic" />
+                      <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>  
                     </el-form-item>
                   </div>
                 </div>
@@ -81,7 +81,7 @@
               </el-form>
             </div>
             <div class="main_footer">
-              <a class="btn-ok" @click="submitFrom('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+              <a class="btn-ok" @click="addAlarmBtn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
               <a class="btn-back" @click="back">返回</a>
               <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
                     <i class="el-icon-warning size-14"></i>
@@ -103,34 +103,35 @@
                   <el-input v-model="form.name" class="col-sm-8"></el-input>
                 </el-form-item>
                 <el-form-item label="隐患类别" class="col-sm-12">
-                <el-radio-group v-model="form.unitId">
-                  <el-radio v-model="radio" label="0">损坏</el-radio>
-                  <el-radio v-model="radio" label="1">缺失</el-radio>
-                  <el-radio v-model="radio" label="2">人为因素</el-radio>
-                  <el-radio v-model="radio" label="3">非人为因素</el-radio>
-                </el-radio-group>
-              </el-form-item>
+                  <el-radio-group v-model="form.type">
+                    <el-radio v-model="radio" label="0">损坏</el-radio>
+                    <el-radio v-model="radio" label="1">缺失</el-radio>
+                    <el-radio v-model="radio" label="2">人为因素</el-radio>
+                    <el-radio v-model="radio" label="3">非人为因素</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                <el-form-item label="隐患类别" class="col-sm-12">
+                  <el-radio-group v-model="form.levels">
+                    <el-radio v-model="radio" label="1">低</el-radio>
+                    <el-radio v-model="radio" label="2">中</el-radio>
+                    <el-radio v-model="radio" label="3">高</el-radio>
+                  </el-radio-group>
+                </el-form-item>
                 <el-form-item label="所属单位" prop="unitId" class="not-null">
                   <el-select v-model="form.unitId" placeholder="请选择" class="select selectUnit col-sm-4">
                     <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="位置" prop="buildingId" class="not-null">
-                  <el-select
-                    v-model="form.buildingId"
-                  placeholder="选择建筑"  class="start col-sm-4">
+                  <el-select v-model="form.buildingId" placeholder="选择建筑"  class="start col-sm-4">
                     <el-option label="室外" value="0"></el-option>
                     <el-option v-for="item in form.buildList" :label="item.name"  :value="item.id"> </el-option>
                   </el-select>
                   <el-select v-model="form.floorId" placeholder="选择楼层" class="start col-sm-4">
-                    <el-option
-                      v-for="item in form.floorList" :label="item.floorName+'层'" :value="item.id">
-                    </el-option>
+                    <el-option v-for="item in form.floorList" :label="item.floorName+'层'" :value="item.id"></el-option>
                   </el-select>
                   <el-select v-model="form.roomId" placeholder="选择房间" class="start col-sm-4">
-                    <el-option
-                      v-for="item in form.roomList" :label="item.roomNumber+'房间'" :value="item.id">
-                    </el-option>
+                    <el-option v-for="item in form.roomList" :label="item.roomNumber+'房间'" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
@@ -157,30 +158,26 @@
                 </el-form-item>
                 <div class="col-sm-12">
                   <div class="row">
-                    <el-form-item label="图片和视频">
-                        <div class="mainmenuone cf">
-                            <ul class="cf col-xs-12">
-                              <li><input id="file" type="file" name="img"/></li>
-                              <!-- <li><input id="file2" type="file" name="img"/></li> -->
-                            </ul>
-                        </div>
-                      <!-- <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>  -->
-                      <!-- <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span>  -->
+                   <el-form-item label="图片和视频">
+                       <div class="head-photo">
+                          <input id="troubleFile" name="img" type="file" @change="troubleFile"/>
+                          <div class="bg-gray-222 text-center">
+                            <i class="el-icon-plus"></i>
+                          </div>
+                      </div>
+                      <img v-show="isShow" src="" id="up_TroubleImg" class="head-pic" />
+                      <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>  
                     </el-form-item>
                   </div>
                 </div>
                 <el-form-item label="描述" prop="cont" class="col-sm-12">
-                  <el-input
-                    type="textarea"
-                    :rows="3"
-                    placeholder="请输入内容"
-                    v-model="form.cont">
+                  <el-input type="textarea"  :rows="3"  placeholder="请输入内容" v-model="form.cont">
                   </el-input>
                 </el-form-item>
               </el-form>
             </div>
             <div class="main_footer">
-              <a class="btn-ok" @click="submitFrom('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+              <a class="btn-ok" @click="addTroubleBtn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
               <a class="btn-back" @click="back">返回</a>
               <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
                     <i class="el-icon-warning size-14"></i>
@@ -206,9 +203,12 @@
   </div>
 </template>
 <script>
+import panzoom from 'panzoom';
 import{ mapState } from "vuex";
+import managementMapVue from '../managementMap';
 import { isName,isvalidName,isLng } from '../../assets/js/validate';
 import { getTopLeftRate } from '../../assets/js/imgPoint';
+import { vControl,setPoint } from '../../assets/js/pointDevice';
     export default {
       data() {
         var Name=(rule, value,callback)=>{
@@ -243,6 +243,8 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           index:1,
           form:{
             name:'',
+            type:null,
+            levels:null,
             unitId:null,
             unitName:'',
             buildingId:'',
@@ -264,6 +266,8 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           },
           optionList:[],//全部单位列表
           files:["file"],
+          isShow:false,
+          fileVerification:'',//图片验证
           rules: {
             name:[
               { required: true, trigger: 'blur', validator: validName }
@@ -291,15 +295,75 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             ]
           },
           svgUrl:'',
-          table_list:[],
-          img:'',
-          videoImg:''
+          table_list:[]
+         
         }
       },
       components:{
-
+        'managementMap-vue': managementMapVue,
       },
       methods:{
+         alarmFile(){
+          var x = document.getElementById("alarmFile");
+          if (!x || !x.value) return;
+          var patn = /\.jpg$|\.jpeg$|\.png$/i;
+          if (!patn.test(x.value)) {
+            this.fileVerification="您选择的似乎不是图像文件!!";
+            x.value = "";
+            this.isShow = false ;
+            $("#up_AlarmImg").attr("src",'');
+            return;
+          }
+          this.isShow = true ;
+          $("#up_AlarmImg").attr("src", this.getObjectURL($("#alarmFile")[0]));
+          this.fileVerification="";
+        },
+        troubleFile(){
+          var x = document.getElementById("troubleFile");
+          if (!x || !x.value) return;
+          var patn = /\.jpg$|\.jpeg$|\.png$/i;
+          if (!patn.test(x.value)) {
+            this.fileVerification="您选择的似乎不是图像文件!!";
+            x.value = "";
+            this.isShow = false ;
+            $("#up_TroubleImg").attr("src",'');
+            return;
+          }
+          this.isShow = true ;
+          $("#up_TroubleImg").attr("src", this.getObjectURL($("#troubleFile")[0]));
+          this.fileVerification="";
+        },
+        getObjectURL(node) {
+            var imgURL = "";
+            try {
+                var file = null;
+                if (node.files && node.files[0]) {
+                    file = node.files[0];
+                } else if (node.files && node.files.item(0)) {
+                    file = node.files.item(0);
+                }
+                //Firefox 因安全性问题已无法直接通过input[file].value 获取完整的文件路径
+                try {
+                    //Firefox7.0
+                    imgURL = file.getAsDataURL();
+                    //alert("//Firefox7.0"+imgRUL);
+                } catch (e) {
+                    //Firefox8.0以上
+                    imgURL = window.URL.createObjectURL(file);
+                    //alert("//Firefox8.0以上"+imgRUL);
+                }
+            } catch (e) {      //这里不知道怎么处理了，如果是遨游的话会报这个异常
+                //支持html5的浏览器,比如高版本的firefox、chrome、ie10
+                if (node.files && node.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        imgURL = e.target.result;
+                    };
+                    reader.readAsDataURL(node.files[0]);
+                }
+            }
+            return imgURL;
+        },
         floor_btn(id){
           this.table_list.forEach((item)=>{
             if(item.id == id){
@@ -308,6 +372,11 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
               this.form.floorNumber = item.floorName ;
             }
           })
+          var area = document.getElementById('floorImg');
+          panzoom((area),{
+            maxZoom:1,
+            minZoom:1
+          });
         },
         findPageBuildIngFloor(){
           this.$fetch("/api/building/findPageBuildIngFloor",{
@@ -319,15 +388,63 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             this.table_list = response.data.pageBuildIng.result;
           })
         },
-        add11(){
+        addUploadImg(){
           this.index++;
           //console.log(this.index)
           this.files.push('file'+this.index);
-          
           $(".mainmenuone ul").append("<li style='margin-bottom:10px;'><input type='file' name='file"+this.index+"'/></li>");
           //console.log(this.files)
         },
-        submitFrom(formName){
+        addAlarmBtn(formName){
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              var files =this.files;
+              var that = this ;
+              $.ajaxFileUpload({
+                url: '/api/alarm/uploadUserAlarm',
+                fileElementId:files,
+                data : {
+                  'unitId':this.form.unitId,
+                  'unitName':this.form.unitName,
+                  'buildingId':this.form.buildingId,
+                  'buildingName':this.form.buildingName,
+                  'floorId':this.form.floorId,
+                  'floorNumber':this.form.floorNumber,
+                  'roomId':this.form.roomId,
+                  'roomNumber':this.form.roomNumber,
+                  'xRate':this.form.Rate[0] == undefined ? 0 : this.form.Rate[0] ,
+                  'yRate':this.form.Rate[1] == undefined ? 0 : this.form.Rate[1],
+                  'pointX':this.form.point[0] == undefined ? 0 : this.form.point[0],
+                  'pointY':this.form.point[1] == undefined ? 0 : this.form.point[1],
+                  'img':this.form.img,
+                  'videoImg':this.form.videoImg,
+                  'nickName':this.form.nickName,
+                  'createTime':this.form.createTime,
+                  'cont':this.form.cont,
+                },
+                type: 'POST',
+                dataType: "json",
+                success: function (data, status) { 
+                  console.log("新增成功!!!");
+                },
+                error: function (e) { 
+                  $.messager.alert('警告', "系统错误", "warning");
+                },
+                complete: function (e) {
+                  // console.log(e) 
+                  // $("#file").replaceWith('<input id="file" name="file" type="file"/>');  
+                  // });
+                  that.$router.push({path:'/Add_alarm/all'});
+                }
+                
+              });
+          } else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
+        },
+        addTroubleBtn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
               console.log(111)
@@ -339,8 +456,8 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
                 // secureuri: false,
                 fileElementId:files,
                 data : {
-                  'type':5,
-                  'levels':3,
+                  'type':this.form.type,
+                  'levels':this.form.levels,
                   'dangerName':this.form.name,
                   'unitId':this.form.unitId,
                   'unitName':this.form.unitName,
@@ -350,8 +467,10 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
                   'floorNumber':this.form.floorNumber,
                   'roomId':this.form.roomId,
                   'roomNumber':this.form.roomNumber,
-                  'pointX':this.form.point.pointX,
-                  'pointY':this.form.point.pointY,
+                  'pointX':this.form.point[0] == undefined ? 0 : this.form.point[0],
+                  'pointY':this.form.point[1] == undefined ? 0 : this.form.point[1],
+                  'xRate':this.form.Rate[0] == undefined ? 0 : this.form.Rate[0] ,
+                  'yRate':this.form.Rate[1] == undefined ? 0 : this.form.Rate[1],
                   'nickName':this.form.nickName,
                   'createTime':this.form.createTime,
                   'cont':this.form.cont
@@ -385,7 +504,6 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
           $('#right').show();
         },
         unitSearch(){
-          console.log("页面开始加载!!!");
           this.$fetch(
             "/api/unit/queryUnit"
           )
@@ -436,10 +554,24 @@ import { getTopLeftRate } from '../../assets/js/imgPoint';
             }
           })
         },
-        addDevice(){
+        addDevice(pChoice,event){
+          let zoom = $('#floorImg').css('transform').split(',')[3];
+          let moveX = $('#floorImg').css('transform').split(',')[4];
+          let moveY= $('#floorImg').css('transform').split(',')[5];
+          moveY = moveY.substr(0,moveY.length -1);
+          console.log(zoom);
+          console.log(moveX);
+          console.log(moveY);
           // alert(getTopLeftRate().leftRate + '============>' + getTopLeftRate().topRate);
-          this.form.Rate = [getTopLeftRate().leftRate,getTopLeftRate().topRate];
-          console.log(this.form.Rate)
+          vControl(pChoice,event);
+          // console.log(window.leftRate)
+          let xRate = window.leftRate;
+          let yRate = window.topRate;
+          this.form.Rate = [xRate,yRate];
+          $('#alarmDiv').remove();
+          $('#floorImg').append('<div id="alarmDiv"></div>');
+
+          setPoint('icon-weixianpin-xian-','alarmDiv');
         }
       },
       computed:{

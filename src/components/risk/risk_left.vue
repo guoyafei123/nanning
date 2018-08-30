@@ -65,7 +65,7 @@
 												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
 										</td>
 										<td class="risk">
-											{{item.totalScore}}
+											{{item.totalScore}}%
 										</td>
 										<td>
 											<a v-on:click="toitmeinfo(item)">

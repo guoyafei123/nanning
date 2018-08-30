@@ -59,7 +59,8 @@
                     34:'icon-shoudongbaojinganniu-',
                     35:'icon-down',
                     36:'icon-flag-checkered',
-                    37:'icon-jianzhu-xian-'
+                    37:'icon-jianzhu-xian-',
+                    38:'icon-baojing-xian-'
                 }
         }
       },
@@ -572,6 +573,12 @@
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
           this.mp.addOverlay(this.addlandmarkDanger('','',[e.point.lng,e.point.lat]));
         },
+        showInfoAdd_alarm(e){
+          this.mp.clearOverlays();
+          // alert(e.point.lng + ", " + e.point.lat);
+          this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
+          this.mp.addOverlay(this.addlandmarkerType('','',[e.point.lng,e.point.lat],38));
+        },
       },
       
       watch:{
@@ -675,6 +682,9 @@
         if(this.$route.path == '/Inspection_plan/maps'){
           this.mp.clearOverlays();
           this.inspection();
+        }
+        if(this.$route.path == '/Add_alarm/list'){
+          this.mp.addEventListener("click", this.showInfoAdd_alarm);
         }
         this.$store.commit('iconByType',this.iconByType)
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
