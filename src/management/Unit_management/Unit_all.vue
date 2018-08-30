@@ -80,7 +80,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -88,7 +88,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -285,7 +285,7 @@
                   //alert("//Firefox8.0以上"+imgRUL);
               }
           } catch (e) {      //这里不知道怎么处理了，如果是遨游的话会报这个异常
-              //支持html5的浏览器,比如高版本的firefox、chrome、ie10
+              //支持html5的浏览器,比如高版本的firefox、chrome、ie14
               if (node.files && node.files[0]) {
                   var reader = new FileReader();
                   reader.onload = function (e) {
@@ -413,10 +413,10 @@
                   //console.log(item)
                 }
               })
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })

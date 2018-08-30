@@ -85,7 +85,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -93,7 +93,7 @@
           <el-pagination 
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -364,6 +364,7 @@
       },
       show3(row){//跳转
         //console.log(row.id);
+        this.deviceIndex = row.id;
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('unitNumber',row.id);
       },
@@ -407,7 +408,7 @@
         this.$fetch(
           "/api/user/queryPagerUserList",{
             currentPager:this.currentPage4,
-            pagerSize:16,
+            pagerSize:14,
             unitId:this.unitId,
             roleId:this.roleId
           }
@@ -427,10 +428,10 @@
                   // //console.log(item)
                 }
               })
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })

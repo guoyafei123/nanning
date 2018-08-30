@@ -29,9 +29,10 @@
             </el-form-item>
             <el-form-item label="建筑结构" prop="structure" class="not-null col-sm-4">
               <el-select name="" v-model="form.structure" placeholder="请选择">
-                <el-option label="砖混" value="砖混"></el-option>
+                <el-option label="混凝土结构" value="混凝土结构"></el-option>
+                <el-option label="砌体结构" value="砌体结构"></el-option>
                 <el-option label="钢结构" value="钢结构"></el-option>
-                <el-option label="木质结构" value="木质结构"></el-option>
+                <el-option label="木结构" value="木结构"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="建筑性质" prop="property" class="not-null col-sm-4">

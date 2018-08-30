@@ -109,7 +109,7 @@
             this.$fetch(
                 "/api/unit/queryPagerUnitList",{
                     currentPager:this.currentPage,
-                    pagerSize:10
+                    pagerSize:14
                 }
             )
             .then(response => {
