@@ -66,6 +66,9 @@ import ControlRoomLogVue from '../management/ControlRoomLog/ControlRoomLog';
 import ControlRoomLog_AllVue from '../management/ControlRoomLog/all';
 import Add_alarmVue from '../management/Add_alarm/Add_alarm';
 import Add_alarm_ListVue from '../management/Add_alarm/list';
+import Add_TroubleVue from '../management/Add_trouble/Add_trouble';
+import Add_Trouble_ListVue from '../management/Add_trouble/list';
+
 import Risk_managementVue from '../management/Risk_management/Risk_management';
 import Risk_managementAllVue from '../management/Risk_management/all';
 import Risk_managementUnitVue from '../management/Risk_management/unit';
@@ -264,6 +267,14 @@ export default new Router({
       children:[
         { path:'/Add_alarm/list',component:Add_alarm_ListVue},
         { path:'/Add_alarm',redirect:'/Add_alarm/list'}
+      ]
+    },
+    {
+      path:'/Add_trouble',
+      component:Add_TroubleVue,
+      children:[
+        { path:'/Add_trouble/list',component:Add_Trouble_ListVue},
+        { path:'/Add_trouble',redirect:'/Add_trouble/list'}
       ]
     },
     {
