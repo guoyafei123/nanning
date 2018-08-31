@@ -46,7 +46,7 @@
 						</article>
 					</div>
 				</li>
-				<li v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) != 'undefined'">
+				<li v-if="type==1">
 					<ul id="early-all" class="early-list list-unstyled">
 						<li :class="[aleamAndtroubleInfos.alarmsum!=null ? 'early-more' :'early-single',
 								aleamAndtroubleInfos.eventLevel==0 ? 'fault-list' :'',
@@ -90,14 +90,14 @@
 							<!-- <span class="badge">98s</span> -->
 							<el-tooltip placement="top">
 								<div slot="content">开始时间：{{aleamAndtroubleInfos.startTime}}</div>
-								<span class="badge">{{(aleamAndtroubleInfos.startTime).split(' ')[1]}}</span>
+								<span class="badge">{{(""+aleamAndtroubleInfos.startTime).substring(10)}}</span>
 							</el-tooltip>
 							</p>
 						</var>
 						</li>
 					</ul>
 				</li>
-				<li v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) == 'undefined'">
+				<li v-if="type==2">
 					<ul id="early-all" class="early-list list-unstyled">
 						<li :class="aleamAndtroubleInfos.allCount!=null ? 'early-more' :'early-single'" class="dangers-list">
 					<article>
@@ -137,7 +137,8 @@
             </p>
             <p class="col-sm-4">
               <!-- <span class="badge">98s</span> -->
-              <span class="badge">{{(aleamAndtroubleInfos.createTime).split(' ')[1]}}</span>
+							
+              <span class="badge">{{(""+aleamAndtroubleInfos.createTime).substring(10)}}</span>
             </p>
           </var>
 				</li>
@@ -145,7 +146,7 @@
 				</li>
 			</ul>
 		</section>
-		<section v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) != 'undefined'" class="call-iteminfo margin-top10 size-12">
+		<section v-if="type==1" class="call-iteminfo margin-top10 size-12">
 			<section>
 				<div class="textandimg margin-top20">
 					<h4 class="p-title">报警发起
@@ -276,7 +277,7 @@
 			</section> -->
 		</section>
 
-		<section v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) == 'undefined'" class="call-iteminfo margin-top10 size-12">
+		<section v-if="type==2" class="call-iteminfo margin-top10 size-12">
 			<section>
 				<div class="textandimg margin-top20">
 					<h4 class="p-title">隐患发起
@@ -438,7 +439,8 @@ export default {
         troubleId: null
       },
       troubleDetails: Object,
-      relieveTroubleTime: ""
+			relieveTroubleTime: "",
+			type:1
     };
   },
   computed: mapState(["aleamAndtroubleInfo"]),
@@ -449,7 +451,8 @@ export default {
   },
   methods: {
     fn() {
-      this.aleamAndtroubleInfos = this.aleamAndtroubleInfo[0];
+			this.aleamAndtroubleInfos = this.aleamAndtroubleInfo[0];
+			this.type=this.aleamAndtroubleInfo[1];
       this.queryUnitInfo_parmar.unitId = this.aleamAndtroubleInfos.unitId;
       this.getUnitsSynthesis_parmar.unitId = this.aleamAndtroubleInfos.unitId;
       this.getAlarmDetail_parmar.alarmId = this.aleamAndtroubleInfos.id;
@@ -457,7 +460,7 @@ export default {
       // alert(this.aleamAndtroubleInfos.id)
       this.getqueryUnitInfo();
       this.getgetUnitsSynthesis();
-      if (typeof this.aleamAndtroubleInfos["countOfAlarm"] != "undefined") {
+      if (this.type==1) {
         // 报警详情
         this.getAlarmDetail();
         let a = new Date(this.aleamAndtroubleInfos.startTime).getTime();

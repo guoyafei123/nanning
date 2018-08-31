@@ -120,7 +120,7 @@
 								item.eventLevel==2 ? 'fire-list' :'',
 								]">
 									<article>
-										<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+										<h5 @click="dialogVisibles(item,1)"><i class="icon iconfont icon-early"></i>
 										<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
 										{{item.unitName==null ? '' :item.unitName}}
 										{{item.buildingName==null ? '' :item.buildingName}}
@@ -134,7 +134,7 @@
 										</span></h5>
 										<h4>
 											<a @click="toactive(item,1)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
-											<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+											<a @click="dialogVisibles(item,1)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 											<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 											<a><span class="badge">
 												{{item.alarmsum!=null ? item.alarmsum :''}}
@@ -166,7 +166,7 @@
 							<!-- 聚合隐患循环li -->
 							<li v-for="(item,index) in queryAlarmIng.troubles" :class="item.allCount!=null ? 'early-more' :'early-single'" class="dangers-list">
 								<article>
-									<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+									<h5 @click="dialogVisibles(item,2)"><i class="icon iconfont icon-early"></i>
 									<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
 									{{item.unitName==null ? '' :item.unitName}}
 									{{item.buildingName==null ? '' :item.buildingName}}
@@ -177,7 +177,7 @@
 									</span></h5>
 									<h4>
 										<a @click="toactive(item,2)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
-										<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+										<a @click="dialogVisibles(item,2)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 										<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 										<a><span class="badge">
 											{{item.allCount!=null ? item.allCount :''}}
@@ -221,7 +221,7 @@
 								item.eventLevel==2 ? 'fire-list' :'',
 								]">
 									<article>
-										<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+										<h5 @click="dialogVisibles(item,1)"><i class="icon iconfont icon-early"></i>
 										<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
 										{{item.unitName==null ? '' :item.unitName}}
 										{{item.buildingName==null ? '' :item.buildingName}}
@@ -235,7 +235,7 @@
 										</span></h5>
 										<h4>
 											<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-											<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+											<a @click="dialogVisibles(item,1)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 											<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 											<a><span class="badge">
 												{{item.alarmsum!=null ? item.alarmsum :''}}
@@ -261,7 +261,7 @@
 								</li>
 								<li v-for="(item,index) in queryAlarmIng.closeTrouble" class="ok-list dangers-list" :class="item.allCount!=null ? 'early-more' :'early-single'" >
 											<article>
-												<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+												<h5 @click="dialogVisibles(item,2)"><i class="icon iconfont icon-early"></i>
 									<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
 									{{item.unitName==null ? '' :item.unitName}}
 									{{item.buildingName==null ? '' :item.buildingName}}
@@ -272,7 +272,7 @@
 									</span></h5>
 												<h4>
 									<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-									<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+									<a @click="dialogVisibles(item,2)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 									<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 									<a><span class="badge">
 										{{item.allCount!=null ? item.allCount :''}}
@@ -317,12 +317,12 @@
 					item.eventLevel==2 ? 'fire-list' :'',
 					]">
 								<article>
-									<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+									<h5 @click="dialogVisibles(item,1)"><i class="icon iconfont icon-early"></i>
 						<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
 						{{item.unitName==null ? '' :item.unitName}}
 						{{item.buildingName==null ? '' :item.buildingName}}
-						{{item.floorNumber==null ? '' :item.floorNumber+'层'}}
-						{{item.roomNumber==null ? '' :item.roomNumber}}
+						{{item.floorNumber==null && item.alarmsum==null ||  item.alarmsum>0? '' :item.floorNumber+'层'}}
+						{{item.roomNumber==null && item.alarmsum==null ||  item.alarmsum>0? '' :item.roomNumber}}
 						<span>
 						{{item.alarmsum!=null ? '多处' :''}}
 						{{item.eventLevel==0 ? '发生故障' :''}}
@@ -331,7 +331,7 @@
 						</span></h5>
 									<h4>
 						<a @click="toactive(item,1)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
-						<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+						<a @click="dialogVisibles(item,1)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 						<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 						<a><span class="badge">
 							{{item.alarmsum!=null ? item.alarmsum :''}}
@@ -357,7 +357,7 @@
 				</li>
 				<li v-for="(item,index) in queryAlarmIng.troubles" :class="item.allCount!=null ? 'early-more' :'early-single'" class="dangers-list">
 							<article>
-								<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+								<h5 @click="dialogVisibles(item,2)"><i class="icon iconfont icon-early"></i>
 					<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
 					{{item.unitName==null ? '' :item.unitName}}
 					{{item.buildingName==null ? '' :item.buildingName}}
@@ -368,7 +368,7 @@
 					</span></h5>
 								<h4>
 					<a @click="toactive(item,2)" class="active "><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
-					<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+					<a @click="dialogVisibles(item,2)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 					<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 					<a><span class="badge">
 						{{item.allCount!=null ? item.allCount :''}}
@@ -407,10 +407,11 @@
 					item.eventLevel==2 ? 'fire-list' :'',
 					]">
 								<article>
-									<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+									<h5 @click="dialogVisibles(item,1)"><i class="icon iconfont icon-early"></i>
 						<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
 						{{item.unitName==null ? '' :item.unitName}}
 						{{item.buildingName==null ? '' :item.buildingName}}
+
 						{{item.floorNumber==null ? '' :item.floorNumber+'层'}}
 						{{item.roomNumber==null ? '' :item.roomNumber}}
 						<span>
@@ -421,7 +422,7 @@
 						</span></h5>
 									<h4>
 						<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-						<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+						<a @click="dialogVisibles(item,1)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 						<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 						<a><span class="badge">
 							{{item.alarmsum!=null ? item.alarmsum :''}}
@@ -448,7 +449,7 @@
 
 				<li v-for="(item,index) in queryAlarmIng.closeTrouble" class="ok-list dangers-list" :class="item.allCount!=null ? 'early-more' :'early-single'" >
 							<article>
-								<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+								<h5 @click="dialogVisibles(item,2)"><i class="icon iconfont icon-early"></i>
 					<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
 					{{item.unitName==null ? '' :item.unitName}}
 					{{item.buildingName==null ? '' :item.buildingName}}
@@ -459,7 +460,7 @@
 					</span></h5>
 								<h4>
 					<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-					<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+					<a @click="dialogVisibles(item,2)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 					<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 					<a><span class="badge">
 						{{item.allCount!=null ? item.allCount :''}}
@@ -562,11 +563,11 @@
 				queryUnitInfoinfoc:'',
 				queryUnitInfoimg:require('../../assets/images/jpg01.jpg'),
 				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"',
-				activeAlarmArr:[],
-
+				activeAlarmArr:{},
+				activeTroubleArr:{}
 			};
 		},
-		computed: mapState(["torightdata", "unitid", "userinfo"]),
+		computed: mapState(["torightdata", "unitid", "userinfo","dialogVisiblehide"]),
 		watch: {
 			torightdata() {
 				this.torightdatas = this.torightdata;
@@ -586,6 +587,10 @@
 				this.getgetUnitsSynthesis();
 				this.getqueryAlarmIng(1);
 				this.getqueryUnitInfo();
+			},
+			dialogVisiblehide(){
+				this.dialogVisible=true;
+				this.$store.commit("aleamAndtroubleInfo", [this.dialogVisiblehide[0],this.dialogVisiblehide[1],this.tounpdateIndex++]);
 			}
 		},
 		// 调用方法
@@ -595,12 +600,30 @@
 			// 		=1,传入报警
 			// 		=2,传入隐患
 			toactive(item,type){
-				
+				if(type==1){
+					this.activeAlarmArr[item.id]=true;
+				}else if(type==2){
+					this.activeTroubleArr[item.id]=true;
+				}
+				console.log(this.activeAlarmArr);
+				console.log(this.activeTroubleArr);
 			},
 			// 向单挑详情传值
-			dialogVisibles(item){
-				this.dialogVisible=true;
-				this.$store.commit("aleamAndtroubleInfo", [item,this.tounpdateIndex++]);
+			dialogVisibles(item,type){
+				if(type==1){
+					if(item.alarmsum!=null){
+						this.dialogVisible=false;
+					}else{
+						this.dialogVisible=true;
+					}
+				}else if(type==2){
+					if(item.allCount!=null){
+						this.dialogVisible=false;
+					}else{
+						this.dialogVisible=true;
+					}
+				}
+				this.$store.commit("aleamAndtroubleInfo", [item,type,this.tounpdateIndex++]);
 			},
 			openEarlyList() {
 				$(".unit-info").slideToggle(function() {
