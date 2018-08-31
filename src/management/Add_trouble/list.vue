@@ -4,14 +4,34 @@
     <aside class="em-tab">
         <el-tabs>
           <!-- 添加警报 -->
+          <!-- 添加隐患 -->
           <el-tab-pane>
-            <span slot="label"><i class="icon iconfont icon-baojing-xian-"></i>添加警报</span>
+            <span slot="label"><i class="icon iconfont icon-yinhuan-xian-"></i>添加隐患</span>
             <!-- 表单 -->
             <div class="main_content">
+              <!--
+                class类not-null为必填标识,如需请加在<el-form-item>
+                class类hint-error为错误提示
+               -->
               <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
-                <el-form-item label="警报名称" prop="name" class="not-null">
+                <el-form-item label="隐患名称" prop="name" class="not-null">
                   <!-- <span class="hint-error">设备名称有误或重复</span> -->
                   <el-input v-model="form.name" class="col-sm-8"></el-input>
+                </el-form-item>
+                <el-form-item label="隐患类别" class="col-sm-12">
+                  <el-radio-group v-model="form.type">
+                    <el-radio v-model="radio" label="0">损坏</el-radio>
+                    <el-radio v-model="radio" label="1">缺失</el-radio>
+                    <el-radio v-model="radio" label="2">人为因素</el-radio>
+                    <el-radio v-model="radio" label="3">非人为因素</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                <el-form-item label="隐患类别" class="col-sm-12">
+                  <el-radio-group v-model="form.levels">
+                    <el-radio v-model="radio" label="1">低</el-radio>
+                    <el-radio v-model="radio" label="2">中</el-radio>
+                    <el-radio v-model="radio" label="3">高</el-radio>
+                  </el-radio-group>
                 </el-form-item>
                 <el-form-item label="所属单位" prop="unitId" class="not-null">
                   <el-select v-model="form.unitId" placeholder="请选择" class="select selectUnit col-sm-4">
@@ -21,22 +41,18 @@
                 <el-form-item label="位置" prop="buildingId" class="not-null">
                   <el-select v-model="form.buildingId" placeholder="选择建筑"  class="start col-sm-4">
                     <el-option label="室外" value="0"></el-option>
-                    <el-option v-for="item in form.buildList" :label="item.name" :value="item.id"></el-option>
+                    <el-option v-for="item in form.buildList" :label="item.name"  :value="item.id"> </el-option>
                   </el-select>
-                  <el-select v-model="form.floorId"  placeholder="选择楼层" class="start col-sm-4">
-                    <el-option
-                      v-for="item in form.floorList" :label="item.floorName+'层'" :value="item.id">
-                    </el-option>
+                  <el-select v-model="form.floorId" placeholder="选择楼层" class="start col-sm-4">
+                    <el-option v-for="item in form.floorList" :label="item.floorName+'层'" :value="item.id"></el-option>
                   </el-select>
-                  <el-select v-model="form.roomId"  placeholder="选择房间" class="start col-sm-4">
-                    <el-option
-                      v-for="item in form.roomList"  :label="item.roomNumber+'房间'" :value="item.id">
-                    </el-option>
+                  <el-select v-model="form.roomId" placeholder="选择房间" class="start col-sm-4">
+                    <el-option v-for="item in form.roomList" :label="item.roomNumber+'房间'" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
                   <el-input placeholder="经度,纬度" v-model="form.point" class="col-sm-8"></el-input>
-                  <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top" >
+                  <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
                       <i class="el-icon-question size-16"></i>
                     </el-tooltip>
                 </el-form-item>
@@ -45,15 +61,15 @@
                   <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
                     <i class="el-icon-question size-16"></i>
                   </el-tooltip>
-                </el-form-item>
+                </el-form-item>                
                 <div class="col-sm-12">
                   <div class="row">
                     <el-form-item label="图片和视频" :label-width="formLabelWidth">
                       <el-upload 
                           list-type="picture-card" 
-                          id="alarmFile"
-                          :name="alarmFile"
-                          :http-request="uploadAlarmFile"
+                          id="troubleFile"
+                          :name="troubleFile"
+                          :http-request="uploadTroubleFile"
                           :file-list="playUrls"
                           :multiple="true"
                           :auto-upload="true"
@@ -67,12 +83,13 @@
                   </div>
                 </div>
                 <el-form-item label="描述" prop="cont" class="col-sm-12">
-                  <el-input type="textarea" :rows="3" placeholder="请输入内容"  v-model="form.cont"> </el-input>
+                  <el-input type="textarea"  :rows="3"  placeholder="请输入内容" v-model="form.cont">
+                  </el-input>
                 </el-form-item>
               </el-form>
             </div>
             <div class="main_footer">
-              <a class="btn-ok" @click="addAlarmBtn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+              <a class="btn-ok" @click="addTroubleBtn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
               <a class="btn-back" @click="back">返回</a>
               <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
                     <i class="el-icon-warning size-14"></i>
@@ -199,12 +216,12 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         'managementMap-vue': managementMapVue,
       },
       methods:{
-        uploadAlarmFile: function (param){
+        uploadTroubleFile: function (param){
             var that=this;
             var fileObj = param.file;
-            var FileController = "/api/alarm/uploadAlarmImg";
+            var FileController = "/api/trouble/uploadTroubleImg";
             var form = new FormData();
-            form.append("alarmFile", fileObj);
+            form.append("troubleFile", fileObj);
             var xhr = new XMLHttpRequest();
             xhr.open("post", FileController, true);
             xhr.onload = (()=>{
@@ -255,12 +272,15 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             }
           })
         },
-        addAlarmBtn(formName){
+        addTroubleBtn(formName){
           this.$refs[formName].validate((valid) => {
             var files = this.files.join("=");
             if (valid) {
               var that = this ;
-              this.$fetch("/api/alarm/userAddPCAlarm",{
+              this.$fetch("/api/trouble/userAddPCTrouble",{
+                      'type':this.form.type,
+                      'levels':this.form.levels,
+                      'dangerName':this.form.name,
                       'unitId':this.form.unitId,
                       'unitName':this.form.unitName,
                       'buildingId':this.form.buildingId,
@@ -269,18 +289,20 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                       'floorNumber':this.form.floorNumber,
                       'roomId':this.form.roomId,
                       'roomNumber':this.form.roomNumber,
-                      'xRate':this.form.Rate[0] == undefined ? 0 : this.form.Rate[0] ,
-                      'yRate':this.form.Rate[1] == undefined ? 0 : this.form.Rate[1],
                       'pointX':this.form.point[0] == undefined ? 0 : this.form.point[0],
                       'pointY':this.form.point[1] == undefined ? 0 : this.form.point[1],
+                      'xRate':this.form.Rate[0] == undefined ? 0 : this.form.Rate[0] ,
+                      'yRate':this.form.Rate[1] == undefined ? 0 : this.form.Rate[1],
+                      'nickName':this.form.nickName,
+                      'createTime':this.form.createTime,
                       'cont':this.form.cont,
                       'files':files,
                     }   
                   ).then(response => {
                     if(response.status==1) {
-                      that.$router.push({path:'/Add_alarm/all'});
+                      that.$router.push({path:'/Add_trouble/all'});
                     }else{
-                       console.log("添加报警：失败!!!");
+                       console.log("添加隐患：失败!!!");
                     }
                 });
            } else {
@@ -290,7 +312,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           });
         },
         back(){
-          this.$router.push({path:'/Add_alarm/all'});
+          this.$router.push({path:'/Add_trouble/all'});
           $('#right').show();
         },
         floor_btn(id){
@@ -317,11 +339,11 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             this.table_list = response.data.pageBuildIng.result;
           })
         },
-       
         unitSearch(){
           this.$fetch(
             "/api/unit/queryUnit"
-          ).then(response => {
+          )
+            .then(response => {
               if (response) {
                 this.optionList = response.data.unitList;
                 $(' .el-select-dropdown__item').mouseover(function(){

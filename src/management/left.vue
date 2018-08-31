@@ -47,6 +47,13 @@
               <span>27</span>
             </li>
           </router-link>
+          <router-link to="/RiskScore_management">
+            <li>
+              <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
+              <h2>风险评分</h2>
+              <span>27</span>
+            </li>
+          </router-link>
           <router-link to="/Inspection_plan">
             <li>
               <i class="icon iconfont icon-xunjianguihua-xian-"></i>

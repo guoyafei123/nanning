@@ -58,7 +58,7 @@
             <el-input v-model="form.firemenName"></el-input>
           </el-form-item>
           <el-form-item label="消防负责人电话" prop="firemenTel" class="not-null col-sm-4">
-            <el-input v-model.number="form.firemenTel"></el-input>
+            <el-input maxlength="11" v-model.number="form.firemenTel"></el-input>
           </el-form-item> 
           <el-form-item label="单位图片" class="not-null col-sm-12">
             <div class="head-photo">
@@ -257,6 +257,15 @@
                   // //console.log(e) 
                   that.$router.push({path:'/Unit_management/all'});
                 }
+              });
+              // 添加成功提示
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                message: '<strong>'+ this.form.name +'单位添加成功</strong>',
+                center: true,
+                showClose: true,
+                iconClass:'el-icon-circle-check',
+                customClass:'edit-ok-notification'
               });
             } else {
               //console.log('error submit!!');

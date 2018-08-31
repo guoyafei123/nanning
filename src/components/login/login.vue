@@ -215,7 +215,7 @@
 								localStorage.login = 1;
 								localStorage.name = response.data.user.nickName;
 								localStorage.userId = response.data.user.id;
-								sessionStorage.userinfo=response.data.user;
+								sessionStorage.setItem("roleId", response.data.user.roleId);
 								this.$store.commit('userinfo', response.data);
 
 							} else {

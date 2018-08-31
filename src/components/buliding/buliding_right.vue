@@ -184,7 +184,7 @@
                     </p>
                     <p class="col-sm-12 text-left padding0">
                         <span>
-                            <i class="fas fa-industry"></i> {{Number((10-buildCountDataSocres.totalScore)/100).toFixed(1)?Number((10-buildCountDataSocres.totalScore)/100).toFixed(1):"0"}}</span>
+                            <i class="fas fa-industry"></i> {{Number((10-buildCountDataSocres.totalScore)/10).toFixed(1)?Number((10-buildCountDataSocres.totalScore)/10).toFixed(1):"0"}}</span>
                     </p>
                     <!-- <P class="col-sm-5 text-right padding0">
                         <span class="text-right">
@@ -551,7 +551,7 @@ export default {
             if (response.data) {
                 let data = response.data;
                 this.buildPlanCount = data.buildStatsInfo.planCount;
-                this.buildTotalScore = Number((10-data.buildStatsInfo.totalScore)/100).toFixed(1);
+                this.buildTotalScore = Number((10-data.buildStatsInfo.totalScore)/10).toFixed(1);
                 this.buildAlarmMap = data.buildStatsInfo.buildAlarmMap;
                 this.buildTroubleMap = data.buildStatsInfo.buildingTrouble;
                 this.buildBaseInfo = data.buildInfo;

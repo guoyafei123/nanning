@@ -20,10 +20,10 @@
             <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
           </el-select>
            <!-- 楼层管理 -->
-           <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="display:none;">
+           <!-- <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="display:none;">
             <el-option label="全部楼层" value=""></el-option>
             <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form>
         <div class="main_nav_two float-right">
           <router-link to="/Building_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
@@ -469,14 +469,22 @@ import managementMapVue from '../managementMap';
               if(response){
                 if(response.status == 1){
                   console.log('修改建筑成功...'+ JSON.stringify(response));
-                  $('.primary').attr('data-dismiss','modal');
                   this.tableBuildList();
                 }else{
                   console.log('修改建筑失败...'+ JSON.stringify(response));
                 }
               }
             });
-            $('.modal').attr('data-dismiss','modal')
+            $('.primary').attr('data-dismiss','modal');
+            // 修改成功提示
+            this.$message({
+              dangerouslyUseHTMLString: true,
+              message: '<strong> 修改成功</strong>',
+              center: true,
+              showClose: true,
+              iconClass:'el-icon-circle-check',
+              customClass:'edit-ok-notification'
+            });
           } else {
             console.log('error submit!!');
             return false;

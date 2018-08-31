@@ -45,7 +45,6 @@
             <el-select
               v-model="form.buildingId"
             placeholder="选择建筑"  class="start col-sm-4">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in form.buildList"
                 :label="item.name"
@@ -54,7 +53,7 @@
             </el-select>
             <el-select
               v-model="form.floorId"
-              placeholder="选择楼层" class="start col-sm-4">
+              placeholder="选择楼层" class="start col-sm-4 floor" v-show="see" >
               <el-option
                 v-for="item in form.floorList"
                 :label="item.floorName+'层'"
@@ -63,7 +62,7 @@
             </el-select>
             <el-select
               v-model="form.roomId"
-              placeholder="选择房间" class="start col-sm-4">
+              placeholder="选择房间" class="start col-sm-4 room" v-show="see" >
               <el-option
                 v-for="item in form.roomList"
                 :label="item.roomNumber+'房间'"
@@ -160,15 +159,11 @@
       <div class="maps map">
           <managementMap-vue :pointE="this.form.point"></managementMap-vue>
       </div>
-        <div  class="floorMap maps" style="display:none;overflow: hidden;">
-          <ul class="list-unstyled floor-item" style="top: 120px">
-            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floor }}</li>
-          </ul>
-          <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-            <img  id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
-          </div>
+      <div class="floorMap maps" style="display:none;overflow: hidden;">
+        <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+          <img  id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
+        </div>
       </div>
-
     </aside>
   </div>
 </template>
@@ -181,22 +176,11 @@ import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate'
 import { vControl,setPoint } from '../../assets/js/pointDevice';
     export default {
       data() {
-
- 
         var validPhone=(rule, value,callback)=>{
             if (!value){
               callback(new Error('请输入手机号码'))
             }else  if (!isvalidPhone(value)){
               callback(new Error('请输入正确的11位手机号码'))
-            }else {
-              callback()
-            }
-        }
-        var Name=(rule, value,callback)=>{
-            if (!value){
-              callback(new Error('请输入生产商的姓名'))
-            }else  if (!isName(value)){
-              callback(new Error('请输入正确的姓名'))
             }else {
               callback()
             }
@@ -229,7 +213,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             }
         }
         return {
-          // imgIndex: 0,
+          see: true,
           labelPosition: 'top',
           form:{
             id:'',
@@ -294,7 +278,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               { type: 'number', message: '必须为数字值'}
             ],
             Bike:[
-              { required: true, trigger: 'blur', validator: Name }
+              { required: true, trigger: 'blur', message: '请填写生厂商' }
             ],
             ProductionDay:[
               { required: true, trigger: 'change', message: '请选择生产日期' }
@@ -363,7 +347,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               }
               var Rate = this.form.Rate;
               // console.log(typeof(point))
-              if(typeof(point) == 'string'){
+              if(typeof(Rate) == 'string'){
                 var RateList = Rate.split(",");
               }else{
                 var RateList = this.form.Rate;
@@ -394,13 +378,21 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                 'maintenanceUnit':this.form.Refundable,
                 'maintenanceUser':this.form.linkname,
                 'maintenancePhone':this.form.phone,
-                'controlId':this.form.controlId
+                'controllerId':this.form.controlId
               }).then(response=>{
                 if(response){
                   //console.log('新增成功...'+ JSON.stringify(response));
                   this.$router.push({path:'/Equipment_management/all'});
                 }
               })
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                message: '<strong>'+ this.form.name +'设备添加成功</strong>',
+                center: true,
+                showClose: true,
+                iconClass:'el-icon-circle-check',
+                customClass:'edit-ok-notification'
+              });
             } else {
               //console.log('error submit!!');
               return false;
@@ -515,6 +507,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
       watch:{
         unitId(curVal,oldVal){
           this.form.unitId = curVal;
+          console.log(curVal,oldVal)
           this.formBuildSearch(this.form.unitId);
           this.optionList.forEach((item,index)=>{
             if(item.id == this.form.unitId){
@@ -522,6 +515,18 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               //console.log(this.form.unitName);
             }
           })
+          if(curVal !== oldVal){
+            this.see = false ;
+            $('.floor').hide();
+            $('.room').hide();
+          }
+          
+          this.form.buildingId = '';
+          this.form.buildingName = '';
+          this.form.floorId = '';
+          this.form.roomId = '';
+          this.form.floorNumber = '';
+          this.form.roomNumber = '';
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
@@ -530,9 +535,13 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.form.point = '' ;
           this.form.Rate = '' ;
           if(this.form.buildingId == '0' && this.form.buildingId == 0){
+            $('.floor').hide();
+            $('.room').hide();
             $('.map').show();
             $('.floorMap').hide();
           }else{
+            $('.floor').show();
+            $('.room').hide();
             $('.map').hide();
             $('.floorMap').show();
           }
@@ -545,14 +554,21 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             if(item.id == this.form.buildingId){
               this.form.buildingName = item.name ;
               //console.log(this.form.buildingName);
-            }else if(this.form.buildingId == '0' && this.form.buildingId == 0){
-              this.form.buildingName = '室外';
             }
           })
          
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
+          if(this.form.buildingId == '0' && this.form.buildingId == 0){
+            
+            $('.map').show();
+            $('.floorMap').hide();
+          }else{
+            $('.room').show();
+            $('.map').hide();
+            $('.floorMap').show();
+          }
           this.floor_btn(this.form.floorId);
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);

@@ -1,5 +1,7 @@
 <template>
-  <div class="row" id="unit-manage">
+  <div class="row" id="Add_alarm">
+    <!-- #头部 -->
+    <header-vue></header-vue>
     <!-- #头部 End-->
     <!-- #左边 -->
     <section id="left" class="position-fixed-left z-index-20">
@@ -9,23 +11,17 @@
     <!-- #中间-->
     <section id="manage-center" class="position-fixed-left z-index-20">
       <main-vue></main-vue>
-    </section> 
-    <!-- #右边 -->
-    <section id="right" class="position-fixed-right z-index-20">
-      <div class="overlay"></div>
-      <set_right-vue></set_right-vue>
-    </section>    
-    <!-- #右边 End-->
+    </section>
     <!-- 收起导航 -->
     <div class="fix" @click="hide_left"><i class="el-icon-arrow-right"></i></div>
   </div>
 </template>
 
 <script>
+  import HeaderVue from '../../components/publick/header.vue';
   import Set_leftVue from '../left.vue';
   import MainVue from '../main.vue';
-  import Set_rightVue from './Unit_right.vue';
-  export default {  
+  export default {
     data(){
       return{
 
@@ -41,21 +37,12 @@
       }
     },
     components:{
+      'header-vue':HeaderVue,
       'set_left-vue':Set_leftVue,
-      'set_right-vue':Set_rightVue,
       'main-vue':MainVue
     },
     watch:{
 
-    },
-    mounted(){
-      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
-      if(roleId == 1 || roleId == 2){
-        $("#unit-manage").find("#mymodal input").removeAttr('disabled');
-        $("#unit-manage").find("#mymodal .el-input").removeClass('is-disabled');
-        $("#unit-manage").find(".main_content_table .delete").show();
-      }
-      console.log(JSON.parse(sessionStorage.getItem("roleId")));
     }
   }
 </script>
