@@ -562,8 +562,8 @@
 				queryUnitInfoinfoc:'',
 				queryUnitInfoimg:require('../../assets/images/jpg01.jpg'),
 				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"',
-				activeAlarmArr=[],
-				
+				activeAlarmArr:[],
+
 			};
 		},
 		computed: mapState(["torightdata", "unitid", "userinfo"]),
