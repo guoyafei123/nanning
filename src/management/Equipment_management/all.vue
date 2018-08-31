@@ -470,10 +470,12 @@ import { mapState } from 'vuex';
               { required: true, trigger: 'blur', message: '请输入控制器ID' }
             ],
             RoofHeight:[
-              { required: true, trigger: 'blur', message: '相对房顶高度' }
+              { required: true, trigger: 'blur', message: '相对房顶高度' },
+              { type: 'number', message: '必须为数字值'}
             ],
             floorHeight:[
-              { required: false, trigger: 'blur', message: '请输入相对地板高度' }
+              { required: false, trigger: 'blur', message: '请输入相对地板高度' },
+              { required: false,type: 'number', message: '必须为数字值'}
             ],
             Bike:[
               { required: true, trigger: 'blur', message: '请填写生厂商' }
@@ -494,7 +496,8 @@ import { mapState } from 'vuex';
               { required: true, trigger: 'blur', validator: validPhone }
             ],
             Retroperiod:[
-              { required: false, trigger: 'blur', message: '请输入更换周期' }
+              { required: false, trigger: 'blur', message: '请输入更换周期' },
+              { type:'number',message: '必须为数字值'}
             ],
             point:[
               { required: true, trigger: 'blur', validator: Lng }

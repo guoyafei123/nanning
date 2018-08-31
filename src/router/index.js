@@ -71,6 +71,12 @@ import Risk_managementAllVue from '../management/Risk_management/all';
 import Risk_managementUnitVue from '../management/Risk_management/unit';
 import Risk_managementBuildVue from '../management/Risk_management/build';
 import Risk_managementEditVue from '../management/Risk_management/edit';
+
+import RiskScore_managementVue from '../management/RiskScore_management/RiskScore_management';
+import RiskScore_managementAllVue from '../management/RiskScore_management/all';
+import RiskScore_managementUnitVue from '../management/RiskScore_management/unit';
+import RiskScore_managementBuildVue from '../management/RiskScore_management/build';
+import RiskScore_managementEditVue from '../management/RiskScore_management/edit';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -256,6 +262,18 @@ export default new Router({
         { path:'/Risk_management/Risk_management',component:Risk_managementVue},
         { path:'/Risk_management/all',component:Risk_managementAllVue},
         { path:'/Risk_management',redirect:'/Risk_management/all'}
+      ]
+    },
+    {
+      path:'/RiskScore_management',
+      component:Risk_managementVue,
+      children:[
+        { path:'/RiskScore_management/build',component:RiskScore_managementBuildVue},
+        { path:'/RiskScore_management/edit',component:RiskScore_managementEditVue},
+        { path:'/RiskScore_management/unit',component:RiskScore_managementUnitVue},
+        { path:'/RiskScore_management/RiskScore_management',component:RiskScore_managementVue},
+        { path:'/RiskScore_management/all',component:RiskScore_managementAllVue},
+        { path:'/RiskScore_management',redirect:'/RiskScore_management/all'}
       ]
     },
     {
