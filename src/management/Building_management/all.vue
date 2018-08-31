@@ -469,14 +469,22 @@ import managementMapVue from '../managementMap';
               if(response){
                 if(response.status == 1){
                   console.log('修改建筑成功...'+ JSON.stringify(response));
-                  $('.primary').attr('data-dismiss','modal');
                   this.tableBuildList();
                 }else{
                   console.log('修改建筑失败...'+ JSON.stringify(response));
                 }
               }
             });
-            $('.modal').attr('data-dismiss','modal')
+            $('.primary').attr('data-dismiss','modal');
+            // 修改成功提示
+            this.$message({
+              dangerouslyUseHTMLString: true,
+              message: '<strong> 修改成功</strong>',
+              center: true,
+              showClose: true,
+              iconClass:'el-icon-circle-check',
+              customClass:'edit-ok-notification'
+            });
           } else {
             console.log('error submit!!');
             return false;

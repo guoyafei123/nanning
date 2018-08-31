@@ -425,6 +425,15 @@
         })
       },
       startRow(){
+        // 修改成功提示
+        this.$message({
+          dangerouslyUseHTMLString: true,
+          message: '<strong> 修改成功</strong>',
+          center: true,
+          showClose: true,
+          iconClass:'el-icon-circle-check',
+          customClass:'edit-ok-notification'
+        });
         this.$fetch("/api/trouble/solveTrouble",{
           'troubleId':this.form.id,
           'dangerName':this.form.dangerName,

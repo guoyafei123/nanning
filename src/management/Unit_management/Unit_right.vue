@@ -60,7 +60,7 @@
               <h4 class="p-title">消防信息</h4>
               <div class="row textandimg-main margin-top20 size-12">
                   <div class="col-sm-12">
-                      <span>消防负责人 </span>
+                      <span>消防负责人</span>
                       <strong v-html="this.firemenName"></strong>
                   </div>
                   <div class="col-sm-12">
