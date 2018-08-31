@@ -45,6 +45,7 @@
 							<h4 v-if="getUnitsSynthesis">{{getUnitsSynthesis.ALLINSPECTION}}</h4>
 							<small>巡检完成</small>
 						</article>
+						
 					</div>
 				</li>
 				<!-- 统计2 -->
@@ -75,7 +76,7 @@
 			<span class="toolroute-rect bg-blue"></span>
 			<div class="early-title">
 				<small>Early-Warning</small>
-				<h3 @click="getmp3new()">实时报警
+				<h3>实时报警
                 <a class="pull-right size-12" @click="openEarlyList()"><span class="unit-btn-open">展开 <i class="fas fa-chevron-up font-blue"></i></span><span class="unit-btn-close" style="display: none;">折叠 <i class="fas fa-chevron-down font-blue"></i></span></a>
             </h3>
 			</div>
@@ -91,19 +92,19 @@
 				<ul class="col-lg-12 col-md-12 col-sm-12 early-menu list-inline margin-bottom0 nav nav-tabs">
 					<li class="col-lg-4 col-md-4 col-sm-4 active">
 						<a href="#warning-list" data-toggle="tab">
-							<h4>3</h4>
+							<h4>{{queryAlarmlength}}</h4>
 							<small>今日警报</small>
 						</a>
 					</li>
 					<li class="col-lg-4 col-md-4 col-sm-4">
 						<a href="#danger-list" data-toggle="tab" aria-expanded="true">
-							<h4>2</h4>
+							<h4>{{queryTroublelength}}</h4>
 							<small>今日隐患</small>
 						</a>
 					</li>
 					<li class="col-lg-4 col-md-4 col-sm-4">
 						<a href="#ok-list" data-toggle="tab">
-							<h4>6</h4>
+							<h4>{{queryCloselength}}</h4>
 							<small>复位/关闭</small>
 						</a>
 					</li>
@@ -111,7 +112,7 @@
 				<div id="myTabContent" class="tab-content">
 					<!-- 警报列表 -->
 					<div class="tab-pane fade in active" id="warning-list">
-						<ul class="early-list list-unstyled">
+						<ul class="early-list list-unstyled" style="height:62vh">
 							<!-- 单条火灾循环li -->
 							<li v-for="(item,index) in queryAlarmIng.alarms" :class="[item.alarmsum!=null ? 'early-more' :'early-single',
 								item.eventLevel==0 ? 'fault-list' :'',
@@ -132,10 +133,10 @@
 											{{item.eventLevel==2 ? '发生火情' :''}}
 										</span></h5>
 										<h4>
-											<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+											<a @click="toactive(item,1)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
 											<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-											<a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-											<a href=""><span class="badge">
+											<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+											<a><span class="badge">
 												{{item.alarmsum!=null ? item.alarmsum :''}}
 											</span></a>
 										</h4>
@@ -153,7 +154,7 @@
 										</p>
 										<p class="col-sm-4">
 											<!-- <span class="badge">98s</span> -->
-											<span class="badge">{{(item.startTime).split(' ')[1]}}</span>
+											<span class="badge">{{(""+item.startTime).substring(10)}}</span>
 										</p>
 									</var>
 								</li>
@@ -161,7 +162,7 @@
 					</div>
 					<!-- 隐患列表 -->
 					<div class="tab-pane fade" id="danger-list">
-						<ul class="early-list list-unstyled">
+						<ul class="early-list list-unstyled" style="height:62vh">
 							<!-- 聚合隐患循环li -->
 							<li v-for="(item,index) in queryAlarmIng.troubles" :class="item.allCount!=null ? 'early-more' :'early-single'" class="dangers-list">
 								<article>
@@ -175,10 +176,10 @@
 										{{item.allCount!=null ? '多处' :''}} 发生隐患
 									</span></h5>
 									<h4>
-										<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+										<a @click="toactive(item,2)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
 										<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-										<a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-										<a href=""><span class="badge">
+										<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+										<a><span class="badge">
 											{{item.allCount!=null ? item.allCount :''}}
 										</span></a>
 									</h4>
@@ -204,7 +205,7 @@
 									</p>
 									<p class="col-sm-4">
 										<!-- <span class="badge">98s</span> -->
-										<span class="badge">{{(item.createTime).split(' ')[1]}}</span>
+										<span class="badge">{{(""+item.createTime).substring(10)}}</span>
 									</p>
 								</var>
 							</li>
@@ -212,7 +213,7 @@
 					</div>
 					<!-- 复位关闭 -->
 					<div class="tab-pane fade" id="ok-list">
-						<ul class="early-list list-unstyled">
+						<ul class="early-list list-unstyled" style="height:62vh">
 							<!-- 已解决单条隐患循环li -->
 							<li v-for="(item,index) in queryAlarmIng.colseAlarm" class="ok-list" :class="[item.alarmsum!=null ? 'early-more' :'early-single',
 								item.eventLevel==0 ? 'fault-list' :'',
@@ -235,8 +236,8 @@
 										<h4>
 											<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
 											<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-											<a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-											<a href=""><span class="badge">
+											<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+											<a><span class="badge">
 												{{item.alarmsum!=null ? item.alarmsum :''}}
 											</span></a>
 										</h4>
@@ -254,9 +255,54 @@
 										</p>
 										<p class="col-sm-4">
 											<!-- <span class="badge">98s</span> -->
-											<span class="badge">{{(item.startTime).split(' ')[1]}}</span>
+											<span class="badge" v-if="item.startTime">{{(""+item.startTime).substring(10)}}</span>
 										</p>
 									</var>
+								</li>
+								<li v-for="(item,index) in queryAlarmIng.closeTrouble" class="ok-list dangers-list" :class="item.allCount!=null ? 'early-more' :'early-single'" >
+											<article>
+												<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+									<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
+									{{item.unitName==null ? '' :item.unitName}}
+									{{item.buildingName==null ? '' :item.buildingName}}
+									{{item.floorNumber==null ? '' :item.floorNumber+'层'}}
+									{{item.roomNumber==null ? '' :item.roomNumber}}
+									<span>
+									{{item.allCount!=null ? '多处' :''}} 隐患关闭
+									</span></h5>
+												<h4>
+									<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+									<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+									<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+									<a><span class="badge">
+										{{item.allCount!=null ? item.allCount :''}}
+									</span></a>
+									</h4>
+											</article>
+											<var>
+									<p class="col-sm-8">
+										<i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
+										<template v-if="item.type==1">
+										<i class="icon iconfont icon-sunhuai-mian-"><span>损坏</span></i>
+										</template>
+										<template v-if="item.type==2">
+										<i class="icon iconfont icon-feirenweiyinsuyinhuan-mian-"><span>人为风险</span></i>
+										</template>
+										<template v-if="item.type==3">
+										<i class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1"><span>非人为风险</span></i>
+										</template>
+										<template v-if="item.type==4">
+										<i class="icon iconfont icon-queshi-mian-"><span>缺失</span></i>
+										</template>
+										<template v-if="item.type==5">
+										<i class="icon iconfont icon-weixianpin-mian-"><span>危险品</span></i>
+										</template>
+									</p>
+									<p class="col-sm-4">
+									<!-- <span class="badge">98s</span> -->              
+									<span class="badge">{{(""+item.createTime).substring(10)}}</span>
+									</p>
+								</var>
 								</li>
 						</ul>
 					</div>
@@ -266,139 +312,184 @@
 				<!-- 单条火灾循环li -->
 
 				<li v-for="(item,index) in queryAlarmIng.alarms" :class="[item.alarmsum!=null ? 'early-more' :'early-single',
-        item.eventLevel==0 ? 'fault-list' :'',
-        item.eventLevel==1 ? 'warning-list' :'',
-        item.eventLevel==2 ? 'fire-list' :'',
-        ]">
-					<article>
-						<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
-            <!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
-            {{item.unitName==null ? '' :item.unitName}}
-            {{item.buildingName==null ? '' :item.buildingName}}
-            {{item.floorNumber==null ? '' :item.floorNumber+'层'}}
-            {{item.roomNumber==null ? '' :item.roomNumber}}
-            <span>
-              {{item.alarmsum!=null ? '多处' :''}}
-              {{item.eventLevel==0 ? '发生故障' :''}}
-              {{item.eventLevel==1 ? '发生报警' :''}}
-              {{item.eventLevel==2 ? '发生火情' :''}}
-            </span></h5>
-						<h4>
-              <a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">
-                {{item.alarmsum!=null ? item.alarmsum :''}}
-              </span></a>
-            </h4>
-					</article>
-					<var>
-            <p class="col-sm-8">
-              <template v-if="item.userId!=0 || item.userId!=null">
-                <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
-                <i class="icon iconfont icon-rengongbaojing-mian-"><span>人工报警</span></i>
-              </template>
-              <template v-if="item.userId==0 || item.userId==null">
-                <i class="icon iconfont icon-shebei-mian-"><span>{{item.deviceMac}}</span></i>
-                <i class="icon iconfont icon-miehuoqi-mian-"><span>{{item.deviceTypeName}}</span></i>
-              </template>
-            </p>
-            <p class="col-sm-4">
-              <!-- <span class="badge">98s</span> -->
-              <span class="badge">{{(item.startTime).split(' ')[1]}}</span>
-            </p>
-          </var>
+					item.eventLevel==0 ? 'fault-list' :'',
+					item.eventLevel==1 ? 'warning-list' :'',
+					item.eventLevel==2 ? 'fire-list' :'',
+					]">
+								<article>
+									<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+						<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
+						{{item.unitName==null ? '' :item.unitName}}
+						{{item.buildingName==null ? '' :item.buildingName}}
+						{{item.floorNumber==null ? '' :item.floorNumber+'层'}}
+						{{item.roomNumber==null ? '' :item.roomNumber}}
+						<span>
+						{{item.alarmsum!=null ? '多处' :''}}
+						{{item.eventLevel==0 ? '发生故障' :''}}
+						{{item.eventLevel==1 ? '发生报警' :''}}
+						{{item.eventLevel==2 ? '发生火情' :''}}
+						</span></h5>
+									<h4>
+						<a @click="toactive(item,1)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
+						<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+						<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+						<a><span class="badge">
+							{{item.alarmsum!=null ? item.alarmsum :''}}
+						</span></a>
+						</h4>
+								</article>
+								<var>
+						<p class="col-sm-8">
+						<template v-if="item.userId!=0 || item.userId!=null">
+							<i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
+							<i class="icon iconfont icon-rengongbaojing-mian-"><span>人工报警</span></i>
+						</template>
+						<template v-if="item.userId==0 || item.userId==null">
+							<i class="icon iconfont icon-shebei-mian-"><span>{{item.deviceMac}}</span></i>
+							<i class="icon iconfont icon-miehuoqi-mian-"><span>{{item.deviceTypeName}}</span></i>
+						</template>
+						</p>
+						<p class="col-sm-4">
+						<!-- <span class="badge">98s</span> -->
+						<span class="badge">{{(""+item.startTime).substring(10)}}</span>
+						</p>
+					</var>
 				</li>
-
 				<li v-for="(item,index) in queryAlarmIng.troubles" :class="item.allCount!=null ? 'early-more' :'early-single'" class="dangers-list">
-					<article>
-						<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
-            <!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
-            {{item.unitName==null ? '' :item.unitName}}
-            {{item.buildingName==null ? '' :item.buildingName}}
-            {{item.floorNumber==null ? '' :item.floorNumber+'层'}}
-            {{item.roomNumber==null ? '' :item.roomNumber}}
-            <span>
-              {{item.allCount!=null ? '多处' :''}} 发生隐患
-            </span></h5>
-						<h4>
-              <a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">
-                {{item.allCount!=null ? item.allCount :''}}
-              </span></a>
-            </h4>
-					</article>
-					<var>
-            <p class="col-sm-8">
-                <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
-                <template v-if="item.type==1">
-                  <i class="icon iconfont icon-sunhuai-mian-"><span>损坏</span></i>
-                </template>
-                <template v-if="item.type==2">
-                  <i class="icon iconfont icon-feirenweiyinsuyinhuan-mian-"><span>人为风险</span></i>
-                </template>
-                <template v-if="item.type==3">
-                  <i class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1"><span>非人为风险</span></i>
-                </template>
-                <template v-if="item.type==4">
-                  <i class="icon iconfont icon-queshi-mian-"><span>缺失</span></i>
-                </template>
-                <template v-if="item.type==5">
-                  <i class="icon iconfont icon-weixianpin-mian-"><span>危险品</span></i>
-                </template>
-            </p>
-            <p class="col-sm-4">
-              <!-- <span class="badge">98s</span> -->              
-              <span class="badge">{{(item.createTime).split(' ')[1]}}</span>
-            </p>
-          </var>
+							<article>
+								<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+					<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
+					{{item.unitName==null ? '' :item.unitName}}
+					{{item.buildingName==null ? '' :item.buildingName}}
+					{{item.floorNumber==null ? '' :item.floorNumber+'层'}}
+					{{item.roomNumber==null ? '' :item.roomNumber}}
+					<span>
+					{{item.allCount!=null ? '多处' :''}} 发生隐患
+					</span></h5>
+								<h4>
+					<a @click="toactive(item,2)" class="active "><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
+					<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+					<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+					<a><span class="badge">
+						{{item.allCount!=null ? item.allCount :''}}
+					</span></a>
+					</h4>
+							</article>
+							<var>
+					<p class="col-sm-8">
+						<i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
+						<template v-if="item.type==1">
+						<i class="icon iconfont icon-sunhuai-mian-"><span>损坏</span></i>
+						</template>
+						<template v-if="item.type==2">
+						<i class="icon iconfont icon-feirenweiyinsuyinhuan-mian-"><span>人为风险</span></i>
+						</template>
+						<template v-if="item.type==3">
+						<i class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1"><span>非人为风险</span></i>
+						</template>
+						<template v-if="item.type==4">
+						<i class="icon iconfont icon-queshi-mian-"><span>缺失</span></i>
+						</template>
+						<template v-if="item.type==5">
+						<i class="icon iconfont icon-weixianpin-mian-"><span>危险品</span></i>
+						</template>
+					</p>
+					<p class="col-sm-4">
+					<!-- <span class="badge">98s</span> -->              
+					<span class="badge">{{(""+item.createTime).substring(10)}}</span>
+					</p>
+				</var>
 				</li>
 				
 				<li v-for="(item,index) in queryAlarmIng.colseAlarm" class="ok-list" :class="[item.alarmsum!=null ? 'early-more' :'early-single',
-        item.eventLevel==0 ? 'fault-list' :'',
-        item.eventLevel==1 ? 'warning-list' :'',
-        item.eventLevel==2 ? 'fire-list' :'',
-        ]">
-					<article>
-						<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
-            <!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
-            {{item.unitName==null ? '' :item.unitName}}
-            {{item.buildingName==null ? '' :item.buildingName}}
-            {{item.floorNumber==null ? '' :item.floorNumber+'层'}}
-            {{item.roomNumber==null ? '' :item.roomNumber}}
-            <span>
-              {{item.alarmsum!=null ? '多处' :''}}
-              {{item.eventLevel==0 ? '故障关闭' :''}}
-              {{item.eventLevel==1 ? '报警关闭' :''}}
-              {{item.eventLevel==2 ? '火情关闭' :''}}
-            </span></h5>
-						<h4>
-              <a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-              <a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-              <a href=""><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
-              <a href=""><span class="badge">
-                {{item.alarmsum!=null ? item.alarmsum :''}}
-              </span></a>
-            </h4>
-					</article>
-					<var>
-            <p class="col-sm-8">
-              <template v-if="item.userId!=0 || item.userId!=null">
-                <i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.cancelNickName?item.cancelNickName:'-'}}</span></i>
-                <i class="icon iconfont icon-rengongbaojing-mian-"><span>人工报警</span></i>
-              </template>
-              <template v-if="item.userId==0 || item.userId==null">
-                <i class="icon iconfont icon-shebei-mian-"><span>{{item.deviceMac}}</span></i>
-                <i class="icon iconfont icon-miehuoqi-mian-"><span>{{item.deviceTypeName}}</span></i>
-              </template>
-            </p>
-            <p class="col-sm-4">
-              <!-- <span class="badge">98s</span> -->
-              <span class="badge">{{(item.startTime).split(' ')[1]}}</span>
-            </p>
-          </var>
+					item.eventLevel==0 ? 'fault-list' :'',
+					item.eventLevel==1 ? 'warning-list' :'',
+					item.eventLevel==2 ? 'fire-list' :'',
+					]">
+								<article>
+									<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+						<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
+						{{item.unitName==null ? '' :item.unitName}}
+						{{item.buildingName==null ? '' :item.buildingName}}
+						{{item.floorNumber==null ? '' :item.floorNumber+'层'}}
+						{{item.roomNumber==null ? '' :item.roomNumber}}
+						<span>
+						{{item.alarmsum!=null ? '多处' :''}}
+						{{item.eventLevel==0 ? '故障关闭' :''}}
+						{{item.eventLevel==1 ? '报警关闭' :''}}
+						{{item.eventLevel==2 ? '火情关闭' :''}}
+						</span></h5>
+									<h4>
+						<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+						<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+						<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+						<a><span class="badge">
+							{{item.alarmsum!=null ? item.alarmsum :''}}
+						</span></a>
+						</h4>
+								</article>
+								<var>
+						<p class="col-sm-8">
+						<template v-if="item.userId!=0 || item.userId!=null">
+							<i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.cancelNickName?item.cancelNickName:'-'}}</span></i>
+							<i class="icon iconfont icon-rengongbaojing-mian-"><span>人工报警</span></i>
+						</template>
+						<template v-if="item.userId==0 || item.userId==null">
+							<i class="icon iconfont icon-shebei-mian-"><span>{{item.deviceMac}}</span></i>
+							<i class="icon iconfont icon-miehuoqi-mian-"><span>{{item.deviceTypeName}}</span></i>
+						</template>
+						</p>
+						<p class="col-sm-4">
+						<!-- <span class="badge">98s</span> -->
+						<span class="badge">{{(""+item.startTime).substring(10)}}</span>
+						</p>
+					</var>
+				</li>
+
+				<li v-for="(item,index) in queryAlarmIng.closeTrouble" class="ok-list dangers-list" :class="item.allCount!=null ? 'early-more' :'early-single'" >
+							<article>
+								<h5 @click="dialogVisibles(item)"><i class="icon iconfont icon-early"></i>
+					<!-- {{item.unitName+' '+item.buildingName+' '+item.floorNumber==null?'':''+item.roomNumber}} -->
+					{{item.unitName==null ? '' :item.unitName}}
+					{{item.buildingName==null ? '' :item.buildingName}}
+					{{item.floorNumber==null ? '' :item.floorNumber+'层'}}
+					{{item.roomNumber==null ? '' :item.roomNumber}}
+					<span>
+					{{item.allCount!=null ? '多处' :''}} 隐患关闭
+					</span></h5>
+								<h4>
+					<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
+					<a @click="dialogVisibles(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+					<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+					<a><span class="badge">
+						{{item.allCount!=null ? item.allCount :''}}
+					</span></a>
+					</h4>
+							</article>
+							<var>
+					<p class="col-sm-8">
+						<i class="icon iconfont icon-xunjianyuan-mian-"><span>{{item.nickName}}</span></i>
+						<template v-if="item.type==1">
+						<i class="icon iconfont icon-sunhuai-mian-"><span>损坏</span></i>
+						</template>
+						<template v-if="item.type==2">
+						<i class="icon iconfont icon-feirenweiyinsuyinhuan-mian-"><span>人为风险</span></i>
+						</template>
+						<template v-if="item.type==3">
+						<i class="icon iconfont icon-feirenweiyinsuyinhuan-xian-1"><span>非人为风险</span></i>
+						</template>
+						<template v-if="item.type==4">
+						<i class="icon iconfont icon-queshi-mian-"><span>缺失</span></i>
+						</template>
+						<template v-if="item.type==5">
+						<i class="icon iconfont icon-weixianpin-mian-"><span>危险品</span></i>
+						</template>
+					</p>
+					<p class="col-sm-4">
+					<!-- <span class="badge">98s</span> -->              
+					<span class="badge">{{(""+item.createTime).substring(10)}}</span>
+					</p>
+				</var>
 				</li>
 
 			</ul>
@@ -448,6 +539,9 @@
 					type: 1
 				},
 				queryAlarmIng: Object,
+				queryAlarmlength:0,
+				queryTroublelength:0,
+				queryCloselength:0,
 				// socketid:''
 				websock: null,
 				tounpdateIndex: 1,
@@ -468,6 +562,8 @@
 				queryUnitInfoinfoc:'',
 				queryUnitInfoimg:require('../../assets/images/jpg01.jpg'),
 				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"',
+				activeAlarmArr=[],
+				
 			};
 		},
 		computed: mapState(["torightdata", "unitid", "userinfo"]),
@@ -494,6 +590,14 @@
 		},
 		// 调用方法
 		methods: {
+			//锁定方法
+			// type
+			// 		=1,传入报警
+			// 		=2,传入隐患
+			toactive(item,type){
+				
+			},
+			// 向单挑详情传值
 			dialogVisibles(item){
 				this.dialogVisible=true;
 				this.$store.commit("aleamAndtroubleInfo", [item,this.tounpdateIndex++]);
@@ -637,6 +741,9 @@
 					response => {
 						if(response.data) {
 							this.queryAlarmIng = response.data;
+							this.queryAlarmlength=response.data.alarms.length;
+							this.queryTroublelength=response.data.troubles.length;
+							this.queryCloselength=response.data.colseAlarm.length+response.data.closeTrouble.length;
 							//console.log(this.queryAlarmIng);
 							this.$store.commit("indexToAlarmTroubel", [
 								this.queryAlarmIng,
@@ -646,7 +753,7 @@
 					}
 				);
 			},
-
+			// 勿改,MP3麻烦的很
 			getmp3new(mp3) {
 				this.mp3arr.push(mp3);
 				this.mp3arr.push(require("../../assets/mp3/login.mp3"));
@@ -656,6 +763,7 @@
 				}
 				let that = this;
 			},
+			// 勿改,MP3麻烦的很
 			getmp3() {
 				let myAudio = this.myAudio;
 				this.myAudio = new Audio();
@@ -668,6 +776,7 @@
 				this.myAudio.loop = false;
 				let that = this;
 			},
+			// 勿改,MP3麻烦的很
 			playEndedHandler() {
 				this.myAudio.src = this.mp3arr.shift();
 				this.myAudio.play();
