@@ -181,7 +181,7 @@
               class类hint-error为错误提示
              -->
             <div class="main_content">
-              <el-form class="row" ref="form" :rules="rules" :label-position="labelPosition" :model="form">
+              <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
                 <el-form-item label="设备名称" prop="name" class="not-null">
                   <!-- <span class="hint-error">设备名称有误或重复</span> -->
                   <el-input v-model="form.name"  class="col-sm-8"></el-input>
@@ -311,7 +311,7 @@
                 <div class="col-sm-12 margin-bottom20">
                   <div class="row">
                     <el-form-item label="更换周期 (天)" prop="Retroperiod" class="not-null col-sm-4">
-                      <el-input v-model="form.Retroperiod"></el-input>
+                      <el-input v-model.number="form.Retroperiod"></el-input>
                     </el-form-item>
                   </div>
                 </div>                 
@@ -319,7 +319,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-circle-check-outline" class="primary" data-dismiss="modal">提交</el-button>
+            <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-circle-check-outline" class="primary">提交</el-button>
             <el-button class="back" data-dismiss="modal">取消</el-button>
           </div>
         </div>
@@ -474,11 +474,11 @@ import { mapState } from 'vuex';
               { type: 'number', message: '必须为数字值'}
             ],
             floorHeight:[
-              { required: true, trigger: 'blur', message: '请输入相对地板高度' },
-              { type: 'number', message: '必须为数字值'}
+              { required: false, trigger: 'blur', message: '请输入相对地板高度' },
+              { required: false,type: 'number', message: '必须为数字值'}
             ],
             Bike:[
-              { required: true, trigger: 'blur', validator: Name }
+              { required: true, trigger: 'blur', message: '请填写生厂商' }
             ],
             ProductionDay:[
               { required: true, trigger: 'change', message: '请选择生产日期' }
@@ -496,8 +496,8 @@ import { mapState } from 'vuex';
               { required: true, trigger: 'blur', validator: validPhone }
             ],
             Retroperiod:[
-              { required: true, trigger: 'blur', message: '请输入更换周期' },
-              { type: 'number', message: '必须为数字值'}
+              { required: false, trigger: 'blur', message: '请输入更换周期' },
+              { type:'number',message: '必须为数字值'}
             ],
             point:[
               { required: true, trigger: 'blur', validator: Lng }
@@ -556,16 +556,27 @@ import { mapState } from 'vuex';
             this.form.Refundable = item.maintenanceUnit ;
             this.form.linkname = item.maintenanceUser ;
             this.form.phone = item.maintenancePhone ;
+            this.form.controlId = item.controllerId ;
           }
         })
       },
       startRow(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            console.log(valid)
             var point = this.form.point;
-            var pointList = point.split(",");
+            if(typeof(point) == 'string'){
+              var pointList = point.split(",");
+            }else{
+              var pointList = this.form.point;
+            }
             var Rate = this.form.Rate;
-            var RateList = Rate.split(",");
+            // console.log(typeof(point))
+            if(typeof(Rate) == 'string'){
+              var RateList = Rate.split(",");
+            }else{
+              var RateList = this.form.Rate;
+            }
             this.$fetch("/api/device/updateDevice",{
               'id':this.form.id,
               'name':this.form.name,
@@ -592,13 +603,24 @@ import { mapState } from 'vuex';
               'productDate':this.form.ProductionDay,
               'maintenanceUnit':this.form.Refundable,
               'maintenanceUser':this.form.linkname,
-              'maintenancePhone':this.form.phone
+              'maintenancePhone':this.form.phone,
+              'controllerId':this.form.controlId
             }).then(response=>{
               if(response){
                 //console.log('修改成功...'+ JSON.stringify(response));
                 this.tableList();
               }
             })
+            $('.primary').attr('data-dismiss','modal');
+            // 修改成功提示
+            this.$message({
+              dangerouslyUseHTMLString: true,
+              message: '<strong> 修改成功</strong>',
+              center: true,
+              showClose: true,
+              iconClass:'el-icon-circle-check',
+              customClass:'edit-ok-notification'
+            });
           } else {
             //console.log('error submit!!');
             return false;
@@ -866,6 +888,8 @@ import { mapState } from 'vuex';
       // this.$store.commit('Unit',this.unit);
       if(this.$route.path == '/Equipment_management/all'){
         $('.mapTable').hide();
+        $('.total').hide();
+        $('.plan').show();
       }
     },
     computed:mapState([

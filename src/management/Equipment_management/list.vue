@@ -192,15 +192,15 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               callback()
             }
         }
-        var Name=(rule, value,callback)=>{
-            if (!value){
-              callback(new Error('请输入生产商的姓名'))
-            }else  if (!isName(value)){
-              callback(new Error('请输入正确的姓名'))
-            }else {
-              callback()
-            }
-        }
+        // var Name=(rule, value,callback)=>{
+        //     if (!value){
+        //       callback(new Error('请输入生产商的姓名'))
+        //     }else  if (!isName(value)){
+        //       callback(new Error('请输入正确的姓名'))
+        //     }else {
+        //       callback()
+        //     }
+        // }
         var validName=(rule, value,callback)=>{
             if (!value){
               callback(new Error('请输入设备名称'))
@@ -294,7 +294,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               { type: 'number', message: '必须为数字值'}
             ],
             Bike:[
-              { required: true, trigger: 'blur', validator: Name }
+              { required: true, trigger: 'blur', message: '请填写生厂商' }
             ],
             ProductionDay:[
               { required: true, trigger: 'change', message: '请选择生产日期' }
@@ -363,7 +363,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               }
               var Rate = this.form.Rate;
               // console.log(typeof(point))
-              if(typeof(point) == 'string'){
+              if(typeof(Rate) == 'string'){
                 var RateList = Rate.split(",");
               }else{
                 var RateList = this.form.Rate;
@@ -394,13 +394,21 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                 'maintenanceUnit':this.form.Refundable,
                 'maintenanceUser':this.form.linkname,
                 'maintenancePhone':this.form.phone,
-                'controlId':this.form.controlId
+                'controllerId':this.form.controlId
               }).then(response=>{
                 if(response){
                   //console.log('新增成功...'+ JSON.stringify(response));
                   this.$router.push({path:'/Equipment_management/all'});
                 }
               })
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                message: '<strong>'+ this.form.name +'设备添加成功</strong>',
+                center: true,
+                showClose: true,
+                iconClass:'el-icon-circle-check',
+                customClass:'edit-ok-notification'
+              });
             } else {
               //console.log('error submit!!');
               return false;

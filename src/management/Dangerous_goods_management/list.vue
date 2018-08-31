@@ -279,7 +279,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               }
               var Rate = this.form.Rate;
               // console.log(typeof(point))
-              if(typeof(point) == 'string'){
+              if(typeof(Rate) == 'string'){
                 var RateList = Rate.split(",");
               }else{
                 var RateList = this.form.Rate;
@@ -317,13 +317,18 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                   $.messager.alert('警告', "系统错误", "warning");
                 },
                 complete: function (e) {//只要完成即执行，最后执行
-                  // console.log(e) 
-                    // $("#file").replaceWith('<input id="file" name="file" type="file"/>');  
-                    
-                  // });
+                 
                   that.$router.push({path:'/Dangerous_goods_management/all'});
                 }
                 
+              });
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                message: '<strong>'+ this.form.name +'添加成功</strong>',
+                center: true,
+                showClose: true,
+                iconClass:'el-icon-circle-check',
+                customClass:'edit-ok-notification'
               });
           } else {
               console.log('error submit!!');
