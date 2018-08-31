@@ -11,10 +11,10 @@
                       <span class="bgbox-max bg-gray-333 font-gray-ccc size-10">{{ this.form.roleName }}</span>
                   </span>
                 </p>
-                <p class="col-sm-7 text-left padding0">
+                <p class="col-sm-4 text-left padding0 margin-top10">
                   <span><i class="fas fa-industry"></i> {{ this.form.unitName }}</span>
                 </p>
-                <p class="col-sm-5 text-right padding0">
+                <p class="col-sm-8 text-right padding0 margin-top10">
                   注册时间:<strong class="font-gray-999">{{ this.form.reviewTime }}</strong>            
                 </p>
               </div>

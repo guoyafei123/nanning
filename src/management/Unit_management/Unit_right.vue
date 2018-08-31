@@ -97,7 +97,7 @@
                 if(item.id == this.unitNum){
                     this.id = item.id ;
                     this.name = item.name ;
-                    this.propertperty = item.propertperty ;
+                    this.property = item.property ;
                     this.staffNum  = item.staffNum ;
                     this.location = item.location ;
                     this.firemenName = item.firemenName ;
@@ -109,7 +109,7 @@
             this.$fetch(
                 "/api/unit/queryPagerUnitList",{
                     currentPager:this.currentPage,
-                    pagerSize:10
+                    pagerSize:14
                 }
             )
             .then(response => {

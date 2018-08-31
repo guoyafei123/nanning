@@ -78,7 +78,7 @@
             </el-tooltip>
           </el-form-item>
           <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
-            <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-8"></el-input>
+            <el-input placeholder="X,Y" :disabled="true"  v-model="form.Rate" class="col-sm-8"></el-input>
             <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
               <i class="el-icon-question size-16"></i>
             </el-tooltip>
@@ -137,7 +137,7 @@
                   <el-input v-model="form.linkname"></el-input>
                 </el-form-item>
                 <el-form-item label="维保电话" prop="phone" class="col-sm-4">
-                  <el-input v-model.number="form.phone"></el-input>
+                  <el-input maxlength="11" v-model.number="form.phone"></el-input>
                 </el-form-item>
               </div>
           </div>
@@ -158,11 +158,11 @@
     <!-- 地图 -->
     <aside class="position:relative;" >
       <div class="maps map">
-          <managementMap-vue></managementMap-vue>
+          <managementMap-vue :pointE="this.form.point"></managementMap-vue>
       </div>
         <div  class="floorMap maps" style="display:none;overflow: hidden;">
           <ul class="list-unstyled floor-item" style="top: 120px">
-            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floor }}</li>
           </ul>
           <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
             <img  id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
@@ -355,6 +355,19 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
+              var point = this.form.point;
+              if(typeof(point) == 'string'){
+                var pointList = point.split(",");
+              }else{
+                var pointList = this.form.point;
+              }
+              var Rate = this.form.Rate;
+              // console.log(typeof(point))
+              if(typeof(point) == 'string'){
+                var RateList = Rate.split(",");
+              }else{
+                var RateList = this.form.Rate;
+              }
               this.$fetch("/api/device/addDevice",{
                 'name':this.form.name,
                 'unitId':this.form.unitId,
@@ -367,10 +380,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                 'roomNumber':this.form.roomNumber,
                 'deviceTypeId':this.form.equipmentId,
                 'deviceTypeName':this.form.deviceTypeName,
-                'pointX':this.form.point[0],
-                'pointY':this.form.point[1],
-                'xRate':this.form.Rate[0],
-                'yRate':this.form.Rate[1],
+                'pointX':pointList[0],
+                'pointY':pointList[1],
+                'xRate':RateList[0],
+                'yRate':RateList[1],
                 'mac':this.form.PhysicalAddress,
                 'startDate':this.form.startDate,
                 'height':this.form.RoofHeight,

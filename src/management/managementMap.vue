@@ -59,7 +59,8 @@
                     34:'icon-shoudongbaojinganniu-',
                     35:'icon-down',
                     36:'icon-flag-checkered',
-                    37:'icon-jianzhu-xian-'
+                    37:'icon-jianzhu-xian-',
+                    38:'icon-baojing-xian-'
                 }
         }
       },
@@ -558,7 +559,7 @@
           this.mp.clearOverlays();
           // alert(e.point.lng + ", " + e.point.lat);
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat])
-          this.mp.addOverlay(this.addlandmark('','',[e.point.lng,e.point.lat]));
+          this.mp.addOverlay(this.addlandmark('','',[e.point.lng,e.point.lat],37));
         },
         showInfoDevice(e){
           this.mp.clearOverlays();
@@ -571,6 +572,12 @@
           // alert(e.point.lng + ", " + e.point.lat);
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
           this.mp.addOverlay(this.addlandmarkDanger('','',[e.point.lng,e.point.lat]));
+        },
+        showInfoAdd_alarm(e){
+          this.mp.clearOverlays();
+          // alert(e.point.lng + ", " + e.point.lat);
+          this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
+          this.mp.addOverlay(this.addlandmarkerType('','',[e.point.lng,e.point.lat],38));
         },
       },
       
@@ -604,7 +611,66 @@
           if(this.$route.path == '/Equipment_management/maps'){
             this.DeviceMaps();
           }
-        }
+        },
+        pointB(){
+          // console.log(typeof(this.pointB));
+          var point = this.pointB;
+          if(typeof(point) == 'string'){
+            var pointList = point.split(",");
+          }else{
+            var pointList = this.pointB;
+          }
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Building_management/list'){
+            this.mp.addOverlay(this.addlandmark('','',[pointList[0],pointList[1]],37));
+          }
+        },
+        pointD(){
+          // console.log(typeof(this.pointD));
+          var point = this.pointD;
+          if(typeof(point) == 'string'){
+            var pointList = point.split(",");
+          }else{
+            var pointList = this.pointD;
+          }
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Dangerous_goods_management/list'){
+            this.mp.addOverlay(this.addlandmarkDanger('','',[pointList[0],pointList[1]]));
+          }
+        },
+        pointE(){
+          // console.log(typeof(this.pointE));
+          var point = this.pointE;
+          if(typeof(point) == 'string'){
+            var pointList = point.split(",");
+          }else{
+            var pointList = this.pointE;
+          }
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Equipment_management/list'){
+            this.mp.addOverlay(this.addlandmarkerType('','',[pointList[0],pointList[1]],this.DeviceList));
+          }
+        },
+        pointU(){
+          // console.log(typeof(this.pointU));
+          var point = this.pointU;
+          if(typeof(point) == 'string'){
+            var pointList = point.split(",");
+          }else{
+            var pointList = this.pointU;
+          }
+          this.mp.clearOverlays();
+          if(this.$route.path == '/Unit_management/list'){
+            this.mp.addOverlay(this.addlandmark('','',[pointList[0],pointList[1]],37));
+          }
+        },
+      },
+      props: {
+        pointB: Array,
+        pointD: Array,
+        pointE: Array,
+        pointU: Array,
+        required: true
       },
       mounted(){
         var mapStates = this.getMapToDiv('manage_map');
@@ -632,6 +698,9 @@
         if(this.$route.path == '/Inspection_plan/maps'){
           this.mp.clearOverlays();
           this.inspection();
+        }
+        if(this.$route.path == '/Add_alarm/list'){
+          this.mp.addEventListener("click", this.showInfoAdd_alarm);
         }
         this.$store.commit('iconByType',this.iconByType)
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};

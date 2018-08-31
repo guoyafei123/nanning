@@ -81,7 +81,7 @@
     <!-- 地图 -->
       <aside>      
           <div class="maps">
-              <managementMap-vue></managementMap-vue>
+              <managementMap-vue :pointU="this.form.point"></managementMap-vue>
           </div>
       </aside>
   </div>
@@ -219,6 +219,13 @@
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
+              var point = this.form.point;
+              // console.log(typeof(point))
+              if(typeof(point) == 'string'){
+                var pointList = point.split(",");
+              }else{
+                var pointList = this.form.point;
+              }
               var file = "file";
               var that = this;
               $.ajaxFileUpload({
@@ -234,8 +241,8 @@
                   'firemenName':this.form.firemenName,
                   'firemenTel':this.form.firemenTel,
                   // 'corporation':this.form.corporation,
-                  'pointX':this.form.point[0],
-                  'pointY':this.form.point[1]
+                  'pointX':pointList[0],
+                  'pointY':pointList[1]
                 },
                 type: 'POST',
                 dataType: "plain",

@@ -66,13 +66,13 @@
               </el-tooltip>
           </el-form-item>
           <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
-            <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-8"></el-input>
+            <el-input placeholder="X,Y" :disabled="true" v-model="form.Rate" class="col-sm-8"></el-input>
             <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
               <i class="el-icon-question size-16"></i>
             </el-tooltip>
           </el-form-item>
 
-          <el-form-item label="上报人" prop="nickName" class="not-null col-sm-4">
+          <!-- <el-form-item label="上报人" prop="nickName" class="not-null col-sm-4">
             <el-input v-model="form.nickName"></el-input>
           </el-form-item>
 
@@ -87,7 +87,7 @@
                 clearable>
               </el-date-picker>
             </div>
-          </el-form-item>
+          </el-form-item> -->
           <div class="col-sm-12">
             <div class="row">
               <el-form-item label="图片和视频">
@@ -123,7 +123,7 @@
     <!-- 地图 -->
     <aside>      
       <div class="maps map">
-          <managementMap-vue></managementMap-vue>
+          <managementMap-vue :pointD="this.form.point"></managementMap-vue>
       </div>
       <div class="floorMap maps" style="display:none;position:relative;left:0;top:0;overflow:hidden;">
         <ul class="list-unstyled floor-item" style="top: 120px">
@@ -206,12 +206,12 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             buildingId: [
               { required: true, message: '请选择设备位置', trigger: 'change' }
             ],
-            nickName:[
-              { required: true, trigger: 'blur', validator: Name }
-            ],
-            createTime:[
-              { required: true, trigger: 'change', message: '请选择上报时间' }
-            ],
+            // nickName:[
+            //   { required: true, trigger: 'blur', validator: Name }
+            // ],
+            // createTime:[
+            //   { required: true, trigger: 'change', message: '请选择上报时间' }
+            // ],
             cont:[
               { required: true, trigger: 'blur', message: '请填写内容' }
             ],
@@ -271,6 +271,19 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               console.log(this.form.Rate[1]);
               var files =this.files;
               var that = this ;
+              var point = this.form.point;
+              if(typeof(point) == 'string'){
+                var pointList = point.split(",");
+              }else{
+                var pointList = this.form.point;
+              }
+              var Rate = this.form.Rate;
+              // console.log(typeof(point))
+              if(typeof(point) == 'string'){
+                var RateList = Rate.split(",");
+              }else{
+                var RateList = this.form.Rate;
+              }
               $.ajaxFileUpload({
                 url: '/api/trouble/insertTrouble',
                 fileElementId:files,
@@ -286,10 +299,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                   'floorNumber':this.form.floorNumber,
                   'roomId':this.form.roomId,
                   'roomNumber':this.form.roomNumber,
-                  'pointX':this.form.point[0] == undefined ? 0 : this.form.point[0],
-                  'pointY':this.form.point[1] == undefined ? 0 : this.form.point[1],
-                  'xRate':this.form.Rate[0] == undefined ? 0 : this.form.Rate[0] ,
-                  'yRate':this.form.Rate[1] == undefined ? 0 : this.form.Rate[1],
+                  'pointX':pointList[0] == undefined ? 0 : pointList[0],
+                  'pointY':pointList[1] == undefined ? 0 : pointList[1],
+                  'xRate':RateList[0] == undefined ? 0 : RateList[0] ,
+                  'yRate':RateList[1] == undefined ? 0 : RateList[1],
                   'nickName':this.form.nickName,
                   'createTime':this.form.createTime,
                   'cont':this.form.cont

@@ -77,6 +77,7 @@
           </el-table-column>
           <el-table-column
             prop="buildYear"
+            :formatter="data"
             label="建成年份">
           </el-table-column>
           <el-table-column
@@ -115,7 +116,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -123,7 +124,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -132,7 +133,7 @@
       <div id="list-maps">
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floor }}</li>
             </ul> 
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
               <img :src="this.svgUrl" class="img-responsive">
@@ -140,10 +141,10 @@
           </div>
           <div class="roomMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li>{{ this.floorName }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floor }}</li>
             </ul> 
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="this.roomSvgUrl" class="img-responsive">
+              <img :src="this.svgUrl" class="img-responsive">
             </div>
           </div>
       </div>      
@@ -184,9 +185,10 @@
                     </el-form-item>
                     <el-form-item label="建成结构" prop="structure" class="not-null col-sm-4">
                       <el-select name="" v-model="form.structure" :disabled="true" placeholder="请选择结构">
-                        <el-option label="砖混" value="砖混"></el-option>
+                        <el-option label="混凝土结构" value="混凝土结构"></el-option>
+                        <el-option label="砌体结构" value="砌体结构"></el-option>
                         <el-option label="钢结构" value="钢结构"></el-option>
-                        <el-option label="木质结构" value="木质结构"></el-option>
+                        <el-option label="木结构" value="木结构"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="建成年份" prop="timeYear" class="not-null col-sm-4">
@@ -194,10 +196,10 @@
                         <el-date-picker
                          :disabled="true"
                           v-model="form.timeYear"
-                          type="date"
+                          type="year"
                           placeholder="选择年份"
-                          format="yyyy 年 MM 月 dd 日"
-                          value-format="yyyy-MM-dd">
+                          format="yyyy 年"
+                          value-format="yyyy">
                         </el-date-picker>
                       </div>
                     </el-form-item> 
@@ -387,6 +389,9 @@ import managementMapVue from '../managementMap';
       'managementMap-vue': managementMapVue,
     },
     methods: {
+      data(row, column){
+        return row.buildYear.substr(0,4);
+      },
       floor_btn(id){
         console.log(id);
         this.active = id ;
@@ -424,7 +429,7 @@ import managementMapVue from '../managementMap';
             this.form.height = item.heightOfBuilding ;
             this.form.floor = item.floors ;
             this.form.structure = item.structure ;
-            this.form.timeYear = item.buildYear ;
+            this.form.timeYear = item.buildYear;
             this.form.property = item.property ;
             this.form.name = item.linkname ;
             this.form.phone = item.phone ;
@@ -453,7 +458,7 @@ import managementMapVue from '../managementMap';
               'heightOfBuilding':this.form.height,
               'floors':this.form.floor,
               'structure':this.form.structure,
-              'buildYear':this.form.timeYear,
+              'buildYear':this.form.timeYear+'-01-01',
               'property':this.form.property,
               'linkname':this.form.name,
               'phone':this.form.phone,
@@ -566,10 +571,10 @@ import managementMapVue from '../managementMap';
                   this.$store.commit('buildingId',item.id);
                 }
               })
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })
@@ -585,17 +590,17 @@ import managementMapVue from '../managementMap';
           buildingId:this.deviceIndex
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
-          this.table_list = response.data.pageBuildIng.result;
-          this.table_list.forEach((item,index)=>{
-            if(index == 0){
-              this.svgUrl = item.svgUrl ;
-              this.active = item.id ;
-            }
-             if(this.floorId == item.floor){
-                this.roomSvgUrl = item.svgUrl ;
-                this.floorName = item.floorName ;
-             }
-          })
+          if(response.data.pageBuildIng.result){
+            this.table_list = response.data.pageBuildIng.result;
+            this.table_list.forEach((item,index)=>{
+              if(index == 0){
+                this.svgUrl = item.svgUrl ;
+                this.active = item.id ;
+              }
+            })
+          }else{
+            this.svgUrl = '' ;
+          }
         })
       }
     },

@@ -7,7 +7,8 @@
 					<canvas id="canvas-big" width="260" height="200"></canvas>
 				</div>
 				<div class="tool-charmaxvalue">
-					<p class="line-height86 size-60 font-blue"><span class="size-100">{{unitAssessScore?unitAssessScore:"0"}}</span></p>
+					<p class="line-height86 font-blue">0.52</p>
+					<!-- {{unitAssessScore?unitAssessScore:"0"}} -->
 				</div>
 			</div>
 
@@ -59,13 +60,13 @@
 											</el-tooltip>
 										</td>
 										<td class="safe">
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=2 && Number((10-item.totalScore)/100).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=4 && Number((10-item.totalScore)/100).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+												<span v-if="Number((100-item.totalScore)/10).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((100-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((100-item.totalScore)/10).toFixed(1)>=2 && Number((100-item.totalScore)/10).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((100-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((100-item.totalScore)/10).toFixed(1)>=4 && Number((100-item.totalScore)/10).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((100-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((100-item.totalScore)/10).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((100-item.totalScore)/10).toFixed(1)}}</span>
 										</td>
 										<td class="risk">
-											{{item.totalScore}}
+											{{item.totalScore}}%
 										</td>
 										<td>
 											<a v-on:click="toitmeinfo(item)">
@@ -249,7 +250,7 @@
 					buidingId: null,
 					startTime: null,
 					endTime: null,
-					currentPage: 1,
+					currentPage: 2,
 					pageSize: 10
 				},
 				// 表格返回
@@ -264,7 +265,7 @@
 				).then(response => {
 					let data = response.data;
 					if(response.data) {
-						this.unitAssessScore = Number((10-data.result.socre)/100).toFixed(1);
+						this.unitAssessScore = Number((100-item.totalScore)/10).toFixed(1);
 						this.chart_left(data.result);
 					}
 				});

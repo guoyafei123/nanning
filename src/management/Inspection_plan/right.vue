@@ -271,7 +271,7 @@
                 <el-pagination
                                @current-change="handleCurrent"
                                :current-page="currentPage"
-                               :page-size="5"
+                               :page-size="11"
                                layout="prev, pager, next"
                                :total="totalCount">
                 </el-pagination>
@@ -279,7 +279,7 @@
                 <el-pagination
                                @current-change="handleCurrent"
                                :current-page="currentPage"
-                               :page-size="5"
+                               :page-size="11"
                                layout="total"
                                :total="totalCount">
                 </el-pagination>
@@ -307,7 +307,7 @@
                     <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:160px;"></el-input>
                     <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="width:300px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
                   </el-form-item>
-                  <el-form-item label="是否开启扫描打卡"class="margin-top10">                
+                  <el-form-item label="是否开启扫描打卡" class="margin-top10">                
                     <el-radio-group v-model="isScan">
                       <el-radio-button label="1">是</el-radio-button>
                       <el-radio-button label="0">否</el-radio-button>
@@ -520,10 +520,10 @@
               // //console.log(response.data.inspectionPlanList);
               this.totalCount = response.data.total;
               this.tableDataList = response.data.inspectionPlanList;
-              if(this.totalCount % 10 == 0){
-                this.pageCount = parseInt( this.totalCount / 10 )
+              if(this.totalCount % 11 == 0){
+                this.pageCount = parseInt( this.totalCount / 11 )
               }else{
-                this.pageCount = parseInt( this.totalCount / 10 ) + 1
+                this.pageCount = parseInt( this.totalCount / 11 ) + 1
               }
             }
           })

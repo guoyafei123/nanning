@@ -139,7 +139,7 @@
         this.$fetch(
           "/api/user/queryPagerUserList",{
             currentPager:this.currentPage,
-            pagerSize:10
+            pagerSize:14
           }
         )
         .then(response => {
