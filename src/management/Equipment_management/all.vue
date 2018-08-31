@@ -496,7 +496,7 @@ import { mapState } from 'vuex';
               { required: true, trigger: 'blur', validator: validPhone }
             ],
             Retroperiod:[
-              { required: false, trigger: 'blur', message: '请输入更换周期' },
+              { required: true, trigger: 'blur', message: '请输入更换周期' },
               { type:'number',message: '必须为数字值'}
             ],
             point:[

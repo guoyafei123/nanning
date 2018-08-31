@@ -385,7 +385,7 @@
                 <tr class="add"  style="display:none;">
                     <!-- <td class="col-sm-1 hide">{{ this.index+1 }}</td> -->
                     <td class="col-sm-2">
-                      <input v-model.number="number" class="add-file" />
+                      <input v-model="number" class="add-file" />
                     </td>
                     <td class="col-sm-10">
                       <div class="row">
@@ -401,7 +401,7 @@
                   </tr>
                   <tr v-for="(item,index) in table_list">
                     <!-- <td class="hide">{{ index+1 }}</td> -->
-                    <td class="weixiugai col-sm-2">{{ item.floorName }} 层</td>
+                    <td class="weixiugai col-sm-2">{{ item.floorName }}</td>
                     <td class="xiugai" style="display:none;">
                       <input v-model.number="item.floorName"/>
                     </td>
@@ -818,18 +818,18 @@
         this.$store.commit('floorAdd',1);
         this.$store.commit('buildingId',row.id);
       },
-      // findPageBuildIngFloor(){
-      //   // //console.log(this.buildingId)
-      //   this.$fetch("/api/building/findPageBuildIngFloor",{
-      //     pageIndex:1,
-      //     pageSize:1000,
-      //     buildingId:this.buildingId
-      //   }).then(response=>{
-      //     //console.log(response.data.pageBuildIng.result);
-      //       this.table_list = response.data.pageBuildIng.result;
+      findPageBuildIngFloor(){
+        // //console.log(this.buildingId)
+        this.$fetch("/api/building/findPageBuildIngFloor",{
+          pageIndex:1,
+          pageSize:1000,
+          buildingId:this.buildingId
+        }).then(response=>{
+          //console.log(response.data.pageBuildIng.result);
+            this.table_list = response.data.pageBuildIng.result;
 
-      //   })
-      // },
+        })
+      },
 
 // 房间
 
@@ -873,11 +873,12 @@
         })
       },
       submitFloorRoomList(){
-        //console.log(this.floorRoomList);
+        console.log(JSON.stringify(this.floorRoomList));
+        console.log(this.floorId)
         var floorRoomList = JSON.stringify( this.floorRoomList );
         this.$fetch("/api/building/addBuildingFloorRoom",{
-          floorRoomList:floorRoomList,
-          floorId:this.floorId
+          'floorRoomList':floorRoomList,
+          'floorId':this.floorId
         }).then(response=>{
           //console.log(response);
           this.room_back()

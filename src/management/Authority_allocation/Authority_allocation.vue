@@ -1,8 +1,5 @@
 <template>
   <div class="row" id="allocation">
-    <!-- #头部 -->
-    <header-vue></header-vue>
-    <!-- #头部 End-->
     <!-- #左边 -->
     <section id="left" class="position-fixed-left z-index-20">
       <div class="overlay"></div>
@@ -19,7 +16,6 @@
 </template>
 
 <script>
-  import HeaderVue from '../../components/publick/header.vue';
   import Set_leftVue from '../left.vue';
   import MainVue from '../main.vue';
   import '../../assets/css/setting.scss';
@@ -40,7 +36,6 @@
       }
     },
     components:{
-      'header-vue':HeaderVue,
       'set_left-vue':Set_leftVue,
       'main-vue':MainVue
     },
