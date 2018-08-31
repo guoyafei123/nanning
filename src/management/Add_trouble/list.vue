@@ -271,30 +271,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             }
           })
         },
-        floor_btn(id){
-          this.table_list.forEach((item)=>{
-            if(item.id == id){
-              this.svgUrl = item.svgUrl ;
-              this.form.floorId = item.floor ;
-              this.form.floorNumber = item.floorName ;
-            }
-          })
-          var area = document.getElementById('floorImg');
-          panzoom((area),{
-            maxZoom:1,
-            minZoom:1
-          });
-        },
-        findPageBuildIngFloor(){
-          this.$fetch("/api/building/findPageBuildIngFloor",{
-            pageIndex:1,
-            pageSize:1000,
-            buildingId:this.form.buildingId
-          }).then(response=>{
-            console.log(response.data.pageBuildIng.result);
-            this.table_list = response.data.pageBuildIng.result;
-          })
-        },
         addTroubleBtn(formName){
           this.$refs[formName].validate((valid) => {
             var files = this.files.join("=");
@@ -337,6 +313,30 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         back(){
           this.$router.push({path:'/Add_trouble/all'});
           $('#right').show();
+        },
+        floor_btn(id){
+          this.table_list.forEach((item)=>{
+            if(item.id == id){
+              this.svgUrl = item.svgUrl ;
+              this.form.floorId = item.floor ;
+              this.form.floorNumber = item.floorName ;
+            }
+          })
+          var area = document.getElementById('floorImg');
+          panzoom((area),{
+            maxZoom:1,
+            minZoom:1
+          });
+        },
+        findPageBuildIngFloor(){
+          this.$fetch("/api/building/findPageBuildIngFloor",{
+            pageIndex:1,
+            pageSize:1000,
+            buildingId:this.form.buildingId
+          }).then(response=>{
+            console.log(response.data.pageBuildIng.result);
+            this.table_list = response.data.pageBuildIng.result;
+          })
         },
         unitSearch(){
           this.$fetch(
