@@ -65,7 +65,7 @@ export function setPoint(type, divid) {
     
     $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
     $('#'+divid).css("position","absolute");
-    var y=window.pointTop - 18-parseFloat(matrixH);
+    var y=window.pointTop - 36-parseFloat(matrixH);
     var x=window.pointLeft - 18-parseFloat(matrixW)
     console.log(x+'-----'+y)
     console.log(x/matrixY+'-----'+y/matrixY)
@@ -85,7 +85,7 @@ export function setPointList(xRate,yRate,type, divid) {
     var left = $('#imgPic').offset().left;
     var offsetParent = $('#imgPic').offsetParent().offset().left;
     var LeftPoint = left - offsetParent ;
-    $('#'+divid).css("top",yRate * fjheight - 18);
+    $('#'+divid).css("top",yRate * fjheight - 36);
     $('#'+divid).css("left",xRate * fjwidth + LeftPoint - 18);
     $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
     $('#'+divid).css("position","absolute");

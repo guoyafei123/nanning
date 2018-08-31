@@ -219,10 +219,15 @@
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
+              var point = this.form.point;
+              // console.log(typeof(point))
+              if(typeof(point) == 'string'){
+                var pointList = point.split(",");
+              }else{
+                var pointList = this.form.point;
+              }
               var file = "file";
               var that = this;
-              var point = this.form.point;
-              var pointList = point.split(",");
               $.ajaxFileUpload({
                 url: '/api/unit/addUnit', //用于文件上传的服务器端请求地址
                 /* secureuri : false, */ //一般设置为false

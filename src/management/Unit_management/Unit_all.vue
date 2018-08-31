@@ -65,6 +65,7 @@
             label="操作">
             <template slot-scope="scope">
               <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
@@ -168,6 +169,26 @@
         </div>
       </div>
     </div>
+    <!-- 删除Modal -->
+    <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
+              </div>
+              <div class="modal-body text-center container-padding40">
+                <h3 class="font-red size-14">是否删除</h3>
+                <p class="font-white size-16">{{ buildingName }}</p>
+              </div>
+              <div class="modal-footer">
+                <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
+                <el-button class="back" data-dismiss="modal">取消</el-button>
+              </div>
+            </div>
+          </div>
+    </div>
   </section>
 </template>
 
@@ -225,7 +246,7 @@
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
-        deviceName:'',
+        buildingName:'',
         isShow:true,
         fileVerification:'',//验证图片
         rules: {
@@ -248,6 +269,7 @@
       }
     },
     methods: {
+      
       file(){
         var x = document.getElementById("file");
         if (!x || !x.value) return;
@@ -386,10 +408,28 @@
           }
         });
       },
+      delete_plan(row){//删除
+        this.buildingName = row.name;
+        this.deviceIndex = row.id;
+      },
       show3(row){//跳转
         //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('unitNum',row.id);
+      },
+      deleteRow(){
+          //console.log(this.deviceIndex);
+        this.$fetch("/api/unit/deleteUnit",{
+          'unitId':this.deviceIndex
+        }).then(response=>{
+          if(response){
+            //console.log('删除成功...'+ JSON.stringify(response));
+            this.tableData.splice(this.deviceIndex,1);
+            this.tableList();
+          }
+        }).then(err => {
+          //console.log(err);
+        });
       },
       tableList(){
         this.$fetch(

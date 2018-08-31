@@ -20,7 +20,7 @@
                     <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{this.device.deviceTypeName}}</span>
                 </span>
                 </p>
-                <p class="col-sm-12 text-left padding0">
+                <p class="col-sm-12 text-left padding0 margin-top10">
                     <span>
                         <i class="el-icon-location"></i> {{this.device.location}}</span>
                 </p>

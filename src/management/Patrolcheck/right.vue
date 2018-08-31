@@ -90,7 +90,7 @@
     
     methods: {
       status(row){
-        return row.status == '0' ? '未打卡' : '打卡' ;
+        return row.status == '1' ? '未打卡' : '打卡' ;
       },
       inspectionPlanUser(){
         this.$fetch("/api/inspection/inspectionPlanUserWithNode",{
