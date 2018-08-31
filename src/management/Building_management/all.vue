@@ -133,18 +133,18 @@
       <div id="list-maps">
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floor }}</li>
             </ul> 
-            <div id="floorImg" style="width: 140%;height: 140%;position:relative;left:0;top:0;">
+            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
               <img :src="this.svgUrl" class="img-responsive">
             </div>
           </div>
           <div class="roomMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li>{{ this.floorName }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floor }}</li>
             </ul> 
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="this.roomSvgUrl" class="img-responsive">
+              <img :src="this.svgUrl" class="img-responsive">
             </div>
           </div>
       </div>      
@@ -596,10 +596,6 @@ import managementMapVue from '../managementMap';
               if(index == 0){
                 this.svgUrl = item.svgUrl ;
                 this.active = item.id ;
-              }
-              if(this.floorId == item.floor){
-                  this.roomSvgUrl = item.svgUrl ;
-                  this.floorName = item.floorName ;
               }
             })
           }else{

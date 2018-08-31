@@ -265,7 +265,7 @@
 				).then(response => {
 					let data = response.data;
 					if(response.data) {
-						this.unitAssessScore = Number((10-data.result.socre)/100).toFixed(1);
+						this.unitAssessScore = Number((100-item.totalScore)/10).toFixed(1);
 						this.chart_left(data.result);
 					}
 				});

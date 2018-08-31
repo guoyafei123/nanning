@@ -66,6 +66,8 @@
                     <el-form-item label="图片和视频" :label-width="formLabelWidth">
                       <el-upload 
                           list-type="picture-card" 
+                          id="alarmFile"
+                          :name="img"
                           :http-request="uploadFile"
                           :file-list="playUrls"
                           :multiple="true"
@@ -270,12 +272,17 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           },
           optionList:[],//全部单位列表
           files:["file"],
-          img_uri:[],
+          //上传图片相关
+          img_uri:["file"],
           isShow:false,
           fileVerification:'',//图片验证
           dialogImageUrl: '',
           dialogVisible: false,
           count:0,
+          /** 存放键的数组(遍历用到) */    
+          mapkeys:[],    
+          /** 存放数据 */    
+          mapdata:Object,  
           rules: {
             name:[
               { required: true, trigger: 'blur', validator: validName }
@@ -313,35 +320,38 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           uploadFile: function (param){
             var fileObj = param.file;
             this.img_uri.push(fileObj);
-            console.log(this.img_uri);
+            var data = new Object;
+            if(this.mapdata[fileObj.uid] == null){
+              this.mapkeys.push(fileObj.uid);     
+            }     
+            this.mapdata[fileObj.uid] = this.img_uri.length-1;  
           },
-          uploadSuccess(response, file, fileList){
-              console.log(response);
-              console.log(file);
-              console.log(fileList);
-              this.count++;
-              this.img_uri.push(qiNiuPrefix+response.key);
-              console.log("this.img_uri");
-              console.log(this.img_uri);
-              if(this.count==fileList.length){
-                this.count=0;
-                this.$refs.upload.uploadFiles=[];
-              }
-              this.$nextTick(()=>{
-                if(this.count===0){
-                  this.loading=false;
-                }
-              })
-          },
+         
           handleRemove(file, fileList) {
-            console.log(file, fileList);
+            var index = this.mapdata[file.uid];  
+            this.img_uri.splice(index,1);
           },
           handlePictureCardPreview(file) {
-            console.log(file.url);
+            console.log(file);
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
-         },
-         alarmFile(){
+          },
+          uploadSuccess(response, file, fileList){
+            this.count++;
+            this.img_uri.push(qiNiuPrefix+response.key);
+            console.log("this.img_uri");
+            console.log(this.img_uri);
+            if(this.count==fileList.length){
+              this.count=0;
+              this.$refs.upload.uploadFiles=[];
+            }
+            this.$nextTick(()=>{
+              if(this.count===0){
+                this.loading=false;
+              }
+            })
+          },
+        alarmFile(){
           var x = document.getElementById("alarmFile");
           if (!x || !x.value) return;
           var patn = /\.jpg$|\.jpeg$|\.png$/i;
@@ -430,6 +440,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.$refs[formName].validate((valid) => {
             if (valid) {
               var files =this.files;
+              var files =this.img_uri;
               var that = this ;
               $.ajaxFileUpload({
                 url: '/api/alarm/uploadUserAlarm',
@@ -447,8 +458,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                   'yRate':this.form.Rate[1] == undefined ? 0 : this.form.Rate[1],
                   'pointX':this.form.point[0] == undefined ? 0 : this.form.point[0],
                   'pointY':this.form.point[1] == undefined ? 0 : this.form.point[1],
-                  'img':this.form.img,
-                  'videoImg':this.form.videoImg,
                   'nickName':this.form.nickName,
                   'createTime':this.form.createTime,
                   'cont':this.form.cont,
@@ -510,7 +519,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                 dataType: "json",
                 success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
                   console.log("新增成功!!!");
-                
                 },
                 error: function (e) { //服务器响应失败处理函数
                   $.messager.alert('警告', "系统错误", "warning");

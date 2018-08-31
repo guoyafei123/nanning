@@ -6,22 +6,22 @@
       <section>        
         <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
                   <!-- 已选择 -->
-                  <div class="personinfo">
+                  <div class="personinfo ">
                         <p>                       
                         <span class="size-20 font-blue">{{this.form.BuildName}}</span>
                         <!-- <span class="float-right">
                                 <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分6.9</span>
                             </span> -->
                         </p>
-                        <p class="col-sm-7 text-left padding0">
+                        <p class="col-sm-7 text-left padding0 margin-top10">
                             <span>
                                 <i class="fas fa-industry"></i> {{this.form.UnitName}}</span>
                         </p>
-                        <P class="col-sm-5 text-right padding0">
+                        <!-- <P class="col-sm-5 text-right padding0 margin-top10">
                             <span class="text-right">
                             最后更新：<span class="font-gray-999">{{this.createTime}}</span>
                             </span>
-                        </P>                        
+                        </P>                         -->
                   </div>
         </div>
       </section>
@@ -334,7 +334,7 @@
                                 <i class="incon iconfont icon-jianzhuguanli-xian-"></i> {{this.form.BuildName}}
                             </span>
                         </p>
-                        <p class="col-sm-12 text-left padding0">
+                        <p class="col-sm-12 text-left padding0 margin-top10">
                             <span>
                                 <i class="fas fa-industry"></i> {{this.form.UnitName}}{{this.form.BuildName}}</span>
                         </p>

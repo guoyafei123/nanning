@@ -8,15 +8,15 @@
               <span>标题</span>
               <strong class="font-blue" v-html="this.noticeTitle"></strong>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-12">
               <span>发布人</span>
               <strong v-html="this.noticeSenderName"></strong>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-12">
               <span>所属单位</span>
               <strong v-html="this.noticeSenderUnitName"></strong>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-12">
               <span>发布时间</span>
               <strong v-html="this.noticeSendTime"></strong>
           </div>
@@ -45,7 +45,7 @@
               <span>参加人数</span>
               <strong v-html="activeUserNumber"></strong>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-12">
               <span>举办时间</span>
               <strong v-html="startTime"></strong>
           </div>
