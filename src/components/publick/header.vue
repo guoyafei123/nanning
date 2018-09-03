@@ -38,7 +38,7 @@
             <li class="header-time">
 
               <p class="font-blue size-12">
-               <!-- <i class="icon iconfont icon-qinglang-xian- size-14"></i>--><span>{{weatherData.weather}}</span>
+                <!-- <i class="icon iconfont icon-qinglang-xian- size-14"></i>--><span>{{weatherData.weather}}</span>
               </p>
               <p class="size-36 font-white">
                 {{TimeFormat(date)}}
@@ -84,7 +84,8 @@
               class="icon iconfont icon-xunjianyuan-mian- size-14"></i> 个人信息</span></el-dropdown-item>
 						<el-dropdown-item><router-link to="/operationLog"><i
               class="icon iconfont icon-caozuorizhi-xian- size-14"></i> 操作日志</router-link></el-dropdown-item>
-						<span @click="logout"><el-dropdown-item><i class="icon iconfont icon-guanbi2 size-14"></i> 注销</el-dropdown-item></span>
+						<span @click="logout"><el-dropdown-item><i
+              class="icon iconfont icon-guanbi2 size-14"></i> 注销</el-dropdown-item></span>
 					</el-dropdown-menu>
 					</el-dropdown>
 				</div>
@@ -153,7 +154,7 @@
     <el-dialog show-close :visible.sync="personnelInfo" width="30%" center>
       <div class="dialog-header">
         <h3 class="el-dialog__title">个人信息</h3>
-        <small class="font-blue">{{userInfoData.unitName?userInfoData.unitName:"-"}}</small>
+        <small class="font-blue">{{userInfoData.unitName?userInfoData.unitName:'-'}}</small>
         <button type="button" class="el-dialog__headerbtn" @click="personnelInfo = false">
           <i class="el-dialog__close el-icon el-icon-close"></i>
         </button>
@@ -161,8 +162,9 @@
       <div class="dialog-content text-center clearfix">
         <div class="myhead">
           <img :src="userInfoData.headImgUrl" class="img-responsive img-circle center-block">
-          <h3>{{userInfoData.nickName?userInfoData.nickName:"-"}}</h3>
-          <h4>角色：<span>{{userInfoData.roleName?userInfoData.roleName:"-"}}</span></h4><h4>账号：<span>{{userInfoData.username?userInfoData.username:"-"}}</span></h4>
+          <h3>{{userInfoData.nickName?userInfoData.nickName:'-'}}</h3>
+          <h4>角色：<span>{{userInfoData.roleName?userInfoData.roleName:'-'}}</span></h4><h4>账号：<span>{{userInfoData.username?userInfoData.username:'-'}}</span>
+        </h4>
         </div>
         <ul class="mytotal list-inline col-sm-12">
           <li><h2 class="font-red">{{userCountData.alarmConfirmCount}}</h2>
@@ -183,295 +185,364 @@
       <p class="size-10 margin-top10">请通过巡检APP扫描二维码打卡</p>
     </div>
     <!-- 火情分析 -->
-    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false" append-to-body="ture" class="dialog-cont">
+    <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false"
+               append-to-body="ture" class="dialog-cont">
       <div class="dialog-content fireAnalysis clearfix">
-          <!-- 标题 -->
-          <div class="main_header clearFix">
-            <div class="main_title col-sm-3 pull-left margin-left0 font-red clearFix">
-              <i class="icon iconfont icon-huoqing-xian-"></i>
-              <h2>火情分析</h2>
-            </div>
-            <!-- <div class="fire-tab col-sm-6" id="myScrollspy">
-                <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="60">
-                    <li class="active"><a href="#section-1">第一部分</a></li>
-                    <li><a href="#section-2">第二部分</a></li>
-                    <li><a href="#section-3">第三部分</a></li>
-                    <li><a href="#section-4">第四部分</a></li>
-                    <li><a href="#section-5">第五部分</a></li>
-                </ul>
-            </div> -->
-            <div class="main_tab col-sm-3 pull-right">
-              <button type="button" @click="fireAnalysis = false">
-               <i class="el-icon-printer"></i> 打印
-              </button>
-              <button type="button" @click="fireAnalysis = false">
-               <i class="el-icon-share"></i> 导出
-              </button>
-              <button type="button" @click="fireAnalysis = false">
-               <i class="el-icon el-icon-close"></i> 关闭
-              </button>
-            </div>
+        <!-- 标题 -->
+        <div class="main_header clearFix">
+          <div class="main_title col-sm-3 pull-left margin-left0 font-red clearFix">
+            <i class="icon iconfont icon-huoqing-xian-"></i>
+            <h2>火情分析</h2>
           </div>
-        <section class="col-sm-offset-3 col-sm-6 size-12"  data-spy="scroll" data-target="#myScrollspy">
-        <div class="row my-scroll">
+          <!-- <div class="fire-tab col-sm-6" id="myScrollspy">
+              <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="60">
+                  <li class="active"><a href="#section-1">第一部分</a></li>
+                  <li><a href="#section-2">第二部分</a></li>
+                  <li><a href="#section-3">第三部分</a></li>
+                  <li><a href="#section-4">第四部分</a></li>
+                  <li><a href="#section-5">第五部分</a></li>
+              </ul>
+          </div> -->
+          <div class="main_tab col-sm-3 pull-right">
+            <button type="button" @click="fireAnalysis = false">
+              <i class="el-icon-printer"></i> 打印
+            </button>
+            <button type="button" @click="fireAnalysis = false">
+              <i class="el-icon-share"></i> 导出
+            </button>
+            <button type="button" @click="fireAnalysis = false">
+              <i class="el-icon el-icon-close"></i> 关闭
+            </button>
+          </div>
+        </div>
+        <section class="col-sm-offset-3 col-sm-6 size-12" data-spy="scroll" data-target="#myScrollspy">
+          <div class="row my-scroll">
             <div class="col-sm-12">
-                <h2 id="section-1">火情地图</h2>
-                <!-- 地图 -->
-                <div class="fire-map">
-                  <div><!-- 地图容器 --></div>
-                  <article><!-- 说明 --></article>
+              <h2 id="section-1">火情地图</h2>
+              <!-- 地图 -->
+              <div class="fire-map">
+                <div><!-- 地图容器 --></div>
+                <article><!-- 说明 --></article>
+              </div>
+              <!-- 事故概况 -->
+              <h2 id="section-2">事故概况</h2>
+              <div class="textandimg fire-survey">
+                <article>
+                  <p>
+                    {{queryFireSituationAlarmData.crTime}}，{{queryFireSituationAlarmData.unitName}}
+                    {{queryFireSituationAlarmData.buildingName}}
+                    {{queryFireSituationAlarmData.floorNumber}}
+                    {{queryFireSituationAlarmData.roomNumber}}
+                    {{queryFireSituationAlarmData.deviceName}}
+
+                    {{queryFireSituationAlarmData.deviceName}} {{queryFireSituationAlarmData.nickName}}发起警报，报警时中控室值守人：{{queryFireSituationFireData.lastSinginName}}，
+                    警报时策略圈内的人员有｛人员名称、人员名称｝{{queryFireSituationAlarmData.confirmNickName}}于{{queryFireSituationAlarmData.confirmTime}}将该次警报确认为火情，响应时长：{确认时间-报警时间}。；
+                    {{queryFireSituationAlarmData.cancelNickName}}于{{queryFireSituationAlarmData.cancelTime}}在系统将该火情关闭，累计持续时长：{关闭时间-报警时间}。<br>
+                    报警时天气{{queryFireSituationFireData.realTimeWeatherDesc}}，温度{{queryFireSituationFireData.realTimeTmp}}，湿度{{queryFireSituationFireData.realTimeHum}}，风力{{queryFireSituationFireData.realTimeWinp}}，策略圈内微型消防站{{queryFireSituationFireData.fireHouseAmont}}个，最近消防站相距事故地点{{queryFireSituationFireData.fireHouseDis}}。
+                  </p>
+                </article>
+                <hr>
+                <div class="row textandimg-main clearfix">
+                  <div class="col-sm-4">
+                    <span>建筑风险评估 </span>
+                    <strong>安全评分 {{queryFireSituationFireData.safeScore}} 风险系数 {{queryFireSituation.riskScore}}%</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    <span>详细位置 </span>
+                    <strong>
+                          {{queryFireSituationAlarmData.unitName}}
+                          {{queryFireSituationAlarmData.buildingName}}
+                          {{queryFireSituationAlarmData.floorNumber}}
+                          {{queryFireSituationAlarmData.roomNumber}}
+                          {{queryFireSituationAlarmData.deviceName}}
+                    </strong>
+                  </div>
+                  <div class="col-sm-4">
+                    <span>报警时间 </span>
+                    <strong>{{queryFireSituationAlarmData.crTime}}</strong>
+                  </div>
+                  <div class="col-sm-4">
+                    <span>确认时间 </span>
+                    <strong>{{queryFireSituationAlarmData.confirmTime}}</strong>
+                  </div>
+                  <div class="col-sm-4">
+                    <span>关闭时间 </span>
+                    <strong>{{queryFireSituationAlarmData.cancelTime}}</strong>
+                  </div>
+                  <div class="col-sm-4">
+                    <span>响应时长 </span>
+                    <strong class="font-blue">{{this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.confirmTime)}}秒</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    <span>持续时长 </span>
+                    <strong class="font-blue">{{this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.cancelTime)}}秒</strong>
+                  </div>
+                  <div class="col-sm-4">
+                    <span>报警源 </span>
+                    <strong>{{queryFireSituationAlarmData.deviceName}}{{queryFireSituationAlarmData.nickName}}</strong>
+                  </div>
+                  <div class="col-sm-4">
+                    <span>确认人 </span>
+                    <strong>{{queryFireSituationAlarmData.confirmNickName}}</strong>
+                  </div>
+                  <div class="col-sm-4">
+                    <span>关闭人 </span>
+                    <strong>{{queryFireSituationAlarmData.cancelNickName}}</strong>
+                  </div>
+                  <div class="col-sm-12">
+                    <span>报警说明 </span>
+                    <strong>{{queryFireSituationAlarmData.confirmReason}}</strong>
+                  </div>
+                  <div class="col-sm-12">
+                    <span>图片视频 </span>
+                    <ul class="fire-media list-inline">
+                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                    </ul>
+                  </div>
+                  <div class="col-sm-12">
+                    <span>确认说明 </span>
+                    <strong>{{queryFireSituationAlarmData.confirmReason}}</strong>
+                  </div>
+                  <div class="col-sm-12">
+                    <span>图片视频 </span>
+                    <ul class="fire-media list-inline">
+                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                    </ul>
+                  </div>
+                  <div class="col-sm-12">
+                    <span>关闭说明 </span>
+                    <strong>{{queryFireSituationAlarmData.cancelRemark}}</strong>
+                  </div>
+                  <div class="col-sm-12">
+                    <span>图片视频 </span>
+                    <ul class="fire-media list-inline">
+                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                    </ul>
+                  </div>
                 </div>
-                <!-- 事故概况 -->
-                <h2 id="section-2">事故概况</h2>
-                <div class="textandimg fire-survey">
-                  <article>
-                    <p>｛报警时间｝，｛位置｝｛报警源｝发起警报，报警时中控室值守人：{最近一次PC中控打卡人姓名}，警报时策略圈内的人员有｛人员名称、人员名称｝；确认人｝于｛时间｝将该次警报确认为火情，响应时长：{确认时间-报警时间}。；{关闭人}于{关闭时间}在系统将该火情关闭，累计持续时长：{关闭时间-报警时间}。<br>
-                    报警时天气{天气}，温度{温度}，湿度{湿度}，风力{风力}，策略圈内微型消防站{数量}个，最近消防站相距事故地点{距离}。
-                    </p>
-                  </article>
+              </div>
+              <!-- 起火单位最近数据 -->
+              <h2 id="section-3">起火单位最近数据</h2>
+              <section class="fire-unit unit-info clearfix">
+                <!-- 单位统计 -->
+                <ul class="list-unstyled col-sm-5">
+                  <li class="position-relative">
+                    <div class="position-absolute-bottom clearfix">
+                      <!-- 单位信息 -->
+                      <article class="unit-brief white-space col-sm-10">
+                        <h3 class="size-20">{{queryUnitInfo.name}}</h3>
+                        <small><i class="el-icon-location"></i> {{queryUnitInfo.location}}</small>
+                      </article>
+                    </div>
+                    <img :src="queryUnitInfoImg" :onerror="defaultImg" class="img-responsive center-block">
+                  </li>
+                </ul>
+                <ul class="fire-per bg-black list-unstyled col-sm-7">
+                  <li></li>
+                  <li>
+                    <div class="pull-left">
+                      <!---->
+                      <h4> {{queryUnitInfo.firemenName}}</h4>
+                      <small>{{queryUnitInfo.firemenTel}}</small>
+                      <div>消防负责人
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <article>
+                        <h4>{{getUnitsSynthesisData.ALLALARM}}</h4>
+                        <small>今日警报</small>
+                      </article>
+                      <article>
+                        <h4>{{getUnitsSynthesisData.ALLTROUBLE}}</h4>
+                        <small>今日隐患</small>
+                      </article>
+                      <article>
+                        <h4>{{getUnitsSynthesisData.ALLINSPECTION}}</h4>
+                        <small>巡检完成</small>
+                      </article>
+                    </div>
+                  </li>
+                  <li>
+                    <article>
+                      单位总数<span>{{getUnitsSynthesisData.UNITCOUNT}}</span>
+                    </article>
+                    <article>
+                      建筑总数<span>{{getUnitsSynthesisData.BUILDINGCOUNT}}</span>
+                    </article>
+                    <article>
+                      预案总数<span>{{getUnitsSynthesisData.PREARRANGECOUNT}}</span>
+                    </article>
+                    <article>
+                      设备总数<span>{{getUnitsSynthesisData.DEVICECOUNT}}</span>
+                    </article>
+                    <article>
+                      人员总数<span>{{getUnitsSynthesisData.STAFFNUM}}</span>
+                    </article>
+                    <article>
+                      巡检路线<span>{{getUnitsSynthesisData.INSPECTIONPLANCOUNT}}</span>
+                    </article>
+                  </li>
+                </ul>
+                <article class="col-sm-12 container-padding20 padding-left10 padding-right10">
+                  截止报警时该单位安全评分{{queryAlarmLastTimeData.safeScore}}分，
+                  风险系数{{queryAlarmLastTimeData.riskScore}}。{{queryAlarmLastTimeData.elementName}}因素风险指数较高，
+                  相关未解决隐患{{queryAlarmLastTimeData.noResolvedTrouble}}个，
+                  其中未解决危险品{{queryAlarmLastTimeData.noResolvedDanger}}个；
+                  当日相关巡检{{queryAlarmLastTimeData.inspection}}次，有{{queryAlarmLastTimeData.inspectionPeople}}人参与了巡检，累计发现隐患{{queryAlarmLastTimeData.findCount}}个，
+                  解决隐患{{queryAlarmLastTimeData.resolvedTrouble}}个。<br>
+                  该建筑累计发生报警{{queryAlarmLastTimeData.alarmSum}}个，其中主机报警{{queryAlarmLastTimeData.deviceAlarm}}个，人工报警{{queryAlarmLastTimeData.peopleAlarm}}个，累计火情{{queryAlarmLastTimeData.fireAlarm}}起。
+                </article>
+                <!-- 起火位置相关最近一次报警记录 -->
+                <div class="textandimg fire-survey col-sm-12 border-none clearfix">
+                  <h5>起火位置相关最近一次报警记录</h5>
                   <hr>
                   <div class="row textandimg-main clearfix">
-                    <div class="col-sm-4">
-                      <span>建筑风险评估 </span>
-                      <strong>安全评分 5.5 风险系数 55.2%</strong>
-                    </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                       <span>详细位置 </span>
-                      <strong>xxx</strong>
+                      <strong>
+                        {{queryLastTimeAlarmData.unitName}}
+                        {{queryLastTimeAlarmData.buildingName}}
+                        {{queryLastTimeAlarmData.roomName}}
+                        {{queryLastTimeAlarmData.deviceName}}
+                      </strong>
                     </div>
                     <div class="col-sm-4">
                       <span>报警时间 </span>
-                      <strong>2018-02-02 12:52:32</strong>
+                      <strong>{{queryLastTimeAlarmData.startTime}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>确认时间 </span>
-                      <strong>2018-02-02 12:52:32</strong>
+                      <strong>{{queryLastTimeAlarmData.confirmTime}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>关闭时间 </span>
-                      <strong>2018-02-02 12:52:32</strong>
+                      <strong>{{queryLastTimeAlarmData.cancelTime}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>响应时长 </span>
-                      <strong class="font-blue">326秒</strong>
+                      <strong class="font-blue">{{this.timeFn(queryLastTimeAlarmData.startTime,queryLastTimeAlarmData.confirmTime)}}秒</strong>
                     </div>
                     <div class="col-sm-8">
                       <span>持续时长 </span>
-                      <strong class="font-blue">326秒</strong>
+                      <strong class="font-blue">{{this.timeFn(queryLastTimeAlarmData.startTime ,queryLastTimeAlarmData.cancelTime)}}秒</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>报警源 </span>
-                      <strong>xxx</strong>
+                      <strong v-if="queryLastTimeAlarmData.eventlevel==0">{{queryLastTimeAlarmData.deviceName}}</strong>
+                      <strong v-if="queryLastTimeAlarmData.eventlevel!=0">{{queryLastTimeAlarmData.nickName}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>确认人 </span>
-                      <strong>xxx</strong>
+                      <strong>{{queryLastTimeAlarmData.confirmNickName}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>关闭人 </span>
-                      <strong>xxx</strong>
+                      <strong>{{queryLastTimeAlarmData.cancelNickName}}</strong>
                     </div>
                     <div class="col-sm-12">
-                      <span>报警说明 </span>
-                      <strong>xxx</strong>
+                      <span>报警状态 </span>
+                      <strong>
+                        {{queryLastTimeAlarmData.eventlevel}}
+                        <span class="font-blue" v-if="queryLastTimeAlarmData.eventlevel!= 2">未发生火情</span>
+                        <span class="font-red" v-if="queryLastTimeAlarmData.eventlevel=== 2">发生火情</span>
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+                <!-- 起火位置相关未解决隐患详情 -->
+                <div class="textandimg fire-survey col-sm-12 border-none clearfix">
+                  <h5>起火位置相关未解决隐患详情</h5>
+                  <hr>
+                  <div class="row textandimg-main clearfix" v-for="item in queryLastTimeTroubleData ">
+                    <div class="col-sm-8">
+                      <span>详细位置 </span>
+                      <strong>
+                        {{item.unitName}}
+                        {{item.buildingName}}
+                        {{item.roomName}}
+                        {{item.deviceName}}
+                      </strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>隐患类别 </span>
+                      <strong>
+                        {{item.type===1?'损坏物':null}}
+                        {{item.type===2?'人为风险':null}}
+                        {{item.type===3?'非人为风险':null}}
+                        {{item.type===4?'丢失物':null}}
+                        {{item.type===5?'危险品':null}}
+                      </strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>上报时间 </span>
+                      <strong>{{item.createTime}}</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>上报人 </span>
+                      <strong>{{item.nickName}}</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>优先级</span>
+                      <strong>
+                        <span class="font-blue" v-if="item.levels === 1">低</span>
+                        <span class="font-yellow" v-if="item.levels === 2">中</span>
+                        <span class="font-red" v-if="item.levels === 3">高</span></strong>
+                    </div>
+                    <div class="col-sm-12">
+                      <span>隐患说明 </span>
+                      <strong>{{item.cont}}</strong>
                     </div>
                     <div class="col-sm-12">
                       <span>图片视频 </span>
                       <ul class="fire-media list-inline">
-                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                      </ul>
-                    </div>
-                    <div class="col-sm-12">
-                      <span>确认说明 </span>
-                      <strong>xxx</strong>
-                    </div>
-                    <div class="col-sm-12">
-                      <span>图片视频 </span>
-                      <ul class="fire-media list-inline">
-                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                      </ul>
-                    </div>
-                    <div class="col-sm-12">
-                      <span>关闭说明 </span>
-                      <strong>xxx</strong>
-                    </div>
-                    <div class="col-sm-12">
-                      <span>图片视频 </span>
-                      <ul class="fire-media list-inline">
-                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                        <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                        <li v-for="video in item.confirmUrls">
+                          <video :src="video" alt="" height="80"></video>
+                        </li>
+                        <li v-for="img in item.imgUrl">
+                          <img :src="img" alt="" height="80">
+                        </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-                <!-- 起火单位最近数据 -->
-                <h2 id="section-3">起火单位最近数据</h2>
-                <section class="fire-unit unit-info clearfix">
-                  <!-- 单位统计 -->
-                  <ul class="list-unstyled col-sm-6">
-                      <li class="position-relative">
-                          <div class="position-absolute-bottom clearfix">
-                              <!-- 单位信息 -->
-                            <article class="unit-brief white-space col-sm-10">
-                              <h3 class="size-20" >XXX单位</h3>
-                              <small><i class="el-icon-location" ></i> 广西省南宁市良庆区银海大厦710-2号</small>
-                            </article>
-                          </div>
-                          <img src="/static/img/jpg01.c4714ec.jpg" class="img-responsive center-block">
-                      </li>
-                  </ul>
-                  <ul class="fire-per bg-black list-unstyled col-sm-6">
-                      <li></li>
-                      <li>
-                          <div class="pull-left">
-                              <!---->
-                              <h4>陆浩<small>186011153647</small></h4><div>消防负责人</div></div>
-                          <div class="pull-right">
-                              <article>
-                                  <h4>1</h4> <small>今日警报</small></article>
-                              <article>
-                                  <h4>7</h4> <small>今日隐患</small></article>
-                              <article>
-                                  <h4>0</h4> <small>巡检完成</small></article>
-                          </div>
-                      </li>
-                      <li>
-                          <article>
-                              单位总数<span>7</span></article>
-                          <article>
-                              建筑总数<span>7</span></article>
-                          <article>
-                              预案总数<span>9</span></article>
-                          <article>
-                              设备总数<span>8</span></article>
-                          <article>
-                              人员总数<span>0</span></article>
-                          <article>
-                              巡检路线<span>0</span></article>
-                      </li>
-                  </ul>
-                  <article class="col-sm-12 container-padding10 padding-left10 padding-right10">
-                    截止报警时该单位安全评分{安全评分}分，风险系数{风险系数}。{B级因素}因素风险指数较高，相关未解决隐患{数量}个，其中未解决危险品{未解决危险品类隐患数量}个；当日相关巡检{数量}次，有{数量}人参与了巡检，累计发现隐患{数量}个，解决隐患{数量}个。<br>
-该建筑累计发生报警{报警数量}个，其中主机报警{数量}个，人工报警{数量}个，累计火情{数量}起。
-                  </article>
-                  <!-- 起火位置相关最近一次报警记录 -->
-                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">
-                    <h5>起火位置相关最近一次报警记录</h5>
-                    <hr>
-                      <div class="row textandimg-main clearfix">
-                        <div class="col-sm-12">
-                          <span>详细位置 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>报警时间 </span>
-                          <strong>2018-02-02 12:52:32</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>确认时间 </span>
-                          <strong>2018-02-02 12:52:32</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>关闭时间 </span>
-                          <strong>2018-02-02 12:52:32</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>响应时长 </span>
-                          <strong class="font-blue">326秒</strong>
-                        </div>
-                        <div class="col-sm-8">
-                          <span>持续时长 </span>
-                          <strong class="font-blue">326秒</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>报警源 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>确认人 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>关闭人 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <span>报警状态 </span>
-                          <strong><span class="font-blue">未发生火情</span><span class="font-red">发生火情</span></strong>
-                        </div>
-                      </div>
+                <!-- 起火位置最近一次巡检记录 -->
+                <div class="textandimg fire-survey col-sm-12 border-none clearfix">
+                  <h5>起火位置最近一次巡检记录</h5>
+                  <hr>
+                  <div class="row textandimg-main clearfix">
+                    <div class="col-sm-4">
+                      <span>任务名称： </span>
+                      <strong>{{queryLastTimeInspectionData.inspectionName}}</strong>
+                    </div>
+                    <div class="col-sm-8">
+                      <span>相关节点 </span>
+                      <strong v-for="(item,index) in queryLastTimeInspectionData.inspectionNodes"
+                              v-if="index<1 || index >(queryLastTimeInspectionData.inspectionNodes.length-2)">
+                        {{item.buildingName}}{{item.floorNumber}}{{item.roomNumber}}{{item.deviceName}};
+                      </strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>巡检员 </span>
+                      <span>{{queryLastTimeInspectionData.userName}}</span>
+                    </div>
+                    <div class="col-sm-8">
+                      <span>节点相关起止时间 </span>
+                      <strong>{{queryLastTimeInspectionData.receiveTime}} 至
+                        {{queryLastTimeInspectionData.finishedTime}}</strong>
+                    </div>
+                    <div class="col-sm-4">
+                      <span>发现隐患 </span>
+                      <strong class="font-blue">{{queryLastTimeInspectionData.findTroubleCount}}个</strong>
+                    </div>
+                    <div class="col-sm-8">
+                      <span>解决隐患 </span>
+                      <strong class="font-blue">{{queryLastTimeInspectionData.decideCount}}个</strong>
+                    </div>
                   </div>
-                  <!-- 起火位置相关未解决隐患详情 -->
-                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">
-                    <h5>起火位置相关未解决隐患详情</h5>
-                    <hr>
-                      <div class="row textandimg-main clearfix">
-                        <div class="col-sm-8">
-                          <span>详细位置 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>隐患类别 </span>
-                          <strong></strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>上报时间 </span>
-                          <strong>2018-02-02 12:52:32</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>上报人 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>优先级 </span>
-                          <strong><span class="font-blue">低</span><span class="font-yellow">中</span><span class="font-red">高</span></strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <span>隐患说明 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-12">
-                          <span>图片视频 </span>
-                          <ul class="fire-media list-inline">
-                            <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                            <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                          </ul>
-                        </div>
-                      </div>
-                  </div>
-                  <!-- 起火位置最近一次巡检记录 -->
-                  <div class="textandimg fire-survey col-sm-12 border-none clearfix">
-                    <h5>起火位置最近一次巡检记录</h5>
-                    <hr>
-                      <div class="row textandimg-main clearfix">
-                        <div class="col-sm-4">
-                          <span>任务名称： </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-8">
-                          <span>相关节点 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>巡检员 </span>
-                          <strong>xxx</strong>
-                        </div>
-                        <div class="col-sm-8">
-                          <span>节点相关起止时间 </span>
-                          <strong>2018-02-02 12:52:32</strong>
-                        </div>
-                        <div class="col-sm-4">
-                          <span>发现隐患 </span>
-                          <strong class="font-blue">X个</strong>
-                        </div>
-                        <div class="col-sm-8">
-                          <span>解决隐患 </span>
-                          <strong class="font-blue">X个</strong>
-                        </div>
-                      </div>
-                  </div>
+                </div>
               </section>
               <!-- 历史数据分析 -->
               <h2 id="section-3">历史数据分析</h2>
@@ -480,8 +551,10 @@
                 <section class="my-filter padding5 bg-gray-111 clearfix">
                   <!-- 单位筛选 -->
                   <div class="pull-left">
-                    <el-select class="upd-elselect bg-black" size="mini" v-model="ins_queryInspectionNameListvalueTwo" placeholder="瑞和家园">
-                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name" :value="item.name">
+                    <el-select class="upd-elselect bg-black" size="mini" v-model="ins_queryInspectionNameListvalueTwo"
+                               placeholder="瑞和家园">
+                      <el-option v-for="item in ins_queryInspectionNameList" :key="item.name" :label="item.name"
+                                 :value="item.name">
                       </el-option>
                     </el-select>
                   </div>
@@ -509,61 +582,66 @@
                 </section>
                 <div class="" style="width: 100%;height: 240px;margin: 0px auto;"><!-- 折线图 --></div>
                 <!-- 表格 -->
-                <div class="table-responsive big-list-table">
-                  <table class="table toolroute-table">
-                    <thead>
-                      <tr>
-                        <th>时间</th>
-                        <th>巡检人数</th>
-                        <th>巡检任务完成次数</th>
-                        <th>报警数</th>
-                        <th>报警确认数</th>
-                        <th>隐患数</th>
-                        <th>危险品数</th>
-                        <th>建筑安全评分</th>
-                        <th>单位安全评分</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>2018-06-10 0:00</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>5.5</td>
-                        <td>5.5</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- 分页 -->
-                <div class="upd-pagin margin-top10">
-                  <div>
-                    <el-pagination class="pull-left" small layout="total" :total="10">
-                    </el-pagination>
-                    <span>分页</span>
-                    <el-pagination class="pull-right" small layout="prev, pager, next" :page-size="10" :total="20" current-page.sync="this.queryPersonList_parameter.currentPage" @current-change="20">
-                    </el-pagination>
-                  </div>
+                <div class="main_content_table">
+                  <el-table
+                    :data="tableData"
+                    border="true"
+                    width="100"
+                    style="width: 100%">
+                    <el-table-column
+                      prop="hour"
+                      label="时间"
+                      width="180">
+                    </el-table-column>
+                    <el-table-column
+                      prop="inspectionPersonCount"
+                      label="巡检人数">
+                    </el-table-column>
+                    <el-table-column
+                      prop="inspectionFinishCount"
+                      label="巡检任务完成次数">
+                    </el-table-column>
+                    <el-table-column
+                      prop="alarmNumCount"
+                      label="报警数">
+                    </el-table-column>
+                    <el-table-column
+                      prop="alarmAffirmNumCount"
+                      label="报警确认数">
+                    </el-table-column>
+                    <el-table-column
+                      prop="troubleUnSolvedCount"
+                      label="隐患数">
+                    </el-table-column>
+                    <el-table-column
+                      prop="troubleDangerUnSolvedCount"
+                      label="危险品数">
+                    </el-table-column>
+                    <el-table-column
+                      prop="buildingScore"
+                      label="建筑安全评分">
+                    </el-table-column>
+                    <el-table-column
+                      prop="unitnScore"
+                      label="单位安全评分">
+                    </el-table-column>
+                  </el-table>
                 </div>
               </div>
             </div>
             <!-- 按钮 -->
             <div class="main_tab col-sm-offset-4 col-sm-4">
               <button type="button" @click="fireAnalysis = false">
-               <i class="el-icon-printer"></i> 打印
+                <i class="el-icon-printer"></i> 打印
               </button>
               <button type="button" @click="fireAnalysis = false">
-               <i class="el-icon-share"></i> 导出
+                <i class="el-icon-share"></i> 导出
               </button>
               <button type="button" @click="fireAnalysis = false">
-               <i class="el-icon el-icon-close"></i> 关闭
+                <i class="el-icon el-icon-close"></i> 关闭
               </button>
             </div>
-        </div>
+          </div>
         </section>
       </div>
     </el-dialog>
@@ -572,13 +650,13 @@
 </template>
 
 <script>
-  import messagesVue from "./messages.vue";
-  import moment from "moment";
-  import {mapState} from "vuex";
+  import messagesVue from './messages.vue'
+  import moment from 'moment'
+  import {mapState} from 'vuex'
 
   export default {
     components: {
-      "messages-vue": messagesVue,
+      'messages-vue': messagesVue,
     },
     // 选择器
     data() {
@@ -589,36 +667,35 @@
           shortcuts: [{
             text: '最近一周',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
             }
           }, {
             text: '最近一个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
             }
           }, {
             text: '最近三个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
             }
           }]
         },
-        value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
         // 弹窗
         personnelInfo: false,
         fireAnalysis: false,
 
-        areavalue: "选项2",
-        unitvalue: "全部单位",
+        areavalue: '选项2',
+        unitvalue: '全部单位',
         queryUnit: Object,
         username: '-',
         //人员在线
@@ -626,36 +703,104 @@
         userAnalyseDate_param: {
           unitId: null
         },
-        getBuildingData_parameter:{
-          unitId:null
+        getBuildingData_parameter: {
+          unitId: null
         },
-        getDeviceData_parameter:{
-          unitId:null
+        getDeviceData_parameter: {
+          unitId: null
         },
-        buildCount:null,
-        deviceCount:null,
+        buildCount: null,
+        deviceCount: null,
         //请求天气
-        weatherData:Object,
-        getWeatherData_parameter:{
-          cityName:"nanning"
+        weatherData: Object,
+        getWeatherData_parameter: {
+          cityName: 'nanning'
         },
         //主机在线
-        transmissionDate:Object,
-        getTransmissionDate_parameter:{
-          unitId:null
+        transmissionDate: Object,
+        getTransmissionDate_parameter: {
+          unitId: null
         },
-        queryUserInfo_parameter:{
-          userId:null
+        queryUserInfo_parameter: {
+          userId: null
         },
         userCountData: Object,
         userInfoData: Object,
-        punchclocktrue:false,
-        punchImgUrl:'',
-        punchStartTime:'',
-        punchExpireMillisecond:'',
-        punchExpireTime:'',
-        punchInterval: null
-      };
+        punchclocktrue: false,
+        punchImgUrl: '',
+        punchStartTime: '',
+        punchExpireMillisecond: '',
+        punchExpireTime: '',
+        punchInterval: null,
+        //火情分析列表数据
+        queryFirehistoryData_parameter: {
+          buildingId: 3,
+          startTime: '2018-08-31'
+        },
+        tableData: {
+          id: null,
+          hour: null,
+          inspectionPersonCount: null,
+          inspectionFinishCount: null,
+          alarmNumCount: null,
+          alarmAffirmNumCount: null,
+          troubleUnSolvedCount: null,
+          troubleDangerUnSolvedCount: null,
+          buildingScore: null,
+          unitnScore: null
+        },
+        queryAlarmLastTimeData: {
+          findCount: Number,
+          safeScore: Number,
+          ResolvedTrouble: Number,
+          inspectionPeople: Number,
+          deviceAlarm: Number,
+          noResolvedTrouble: Number,
+          alarmSum: Number,
+          elementName: String,
+          noResolvedDanger: Number,
+          peopleAlarm: Number,
+          riskScore: Number,
+          fireAlarm: Number,
+          inspection: Number
+        },
+        //起火单位最近数据
+        queryAlarmLastTime_param: {
+          alarmId: 1862,
+        },
+        //起火位置最近一次的报警记录
+        queryLastTimeAlarmData: Object,
+        queryLastTimeAlarm_param: {
+          alarmId: 1862,
+        },
+        //起火位置相关未解决隐患详情
+        queryLastTimeTroubleData: Object,
+        queryLastTimeTrouble_param: {
+          alarmId: 1862,
+        },
+        //起火位置最近一次巡检记录
+        queryLastTimeInspectionData: Object,
+        queryLastTimeInspection_param: {
+          alarmId: 1862,
+        },
+        //事故概况
+        queryFireSituationAlarmData: Object,
+        queryFireSituationFireData: Object,
+        queryFireSituation_param: {
+          alarmId: 1862,
+        },
+        //单位信息
+        queryUnitInfo: Object,
+        queryUnitInfo_param: {
+          unitId: 13
+        },
+        queryUnitInfoImg: require('../../assets/images/jpg01.jpg'),
+        //单位统计
+        getUnitsSynthesisData: Object,
+        getUnitsSynthesis_param: {
+          unitId: 13
+        },
+      }
     },
     computed: mapState([
       'userinfo',
@@ -669,279 +814,473 @@
     //其他
     mounted() {
       // //console.log(this.userinfo);
-      this.userAnalyse();
-      this.getBuildingData();
-      this.getDeviceData();
-      this.getTransmission();
-      this.mini_go("header-canvas-cpu", 1);
-      this.mini_go("header-canvas-memory", 1);
-      $("[data-toggle='tooltip']").tooltip();
-      this.getunitlist();
-      this.getuserinfo();
-      this.getWeather();
-      let _this = this; //声明一个变量指向vue实例this,保证作用域一致
-      this.timer = setInterval(()=> {
-        _this.date =new Date();//修改数据date
-      }, 1000);
-      this.weathers = setInterval(()=>  {
+      this.userAnalyse()
+      this.getBuildingData()
+      this.getDeviceData()
+      this.getTransmission()
+      this.mini_go('header-canvas-cpu', 1)
+      this.mini_go('header-canvas-memory', 1)
+      $('[data-toggle=\'tooltip\']').tooltip()
+      this.getunitlist()
+      this.getuserinfo()
+      this.getWeather()
+      let _this = this //声明一个变量指向vue实例this,保证作用域一致
+      this.timer = setInterval(() => {
+        _this.date = new Date()//修改数据date
+      }, 1000)
+      this.weathers = setInterval(() => {
         _this.getWeather()
-      }, 1000*60*60*5);
+      }, 1000 * 60 * 60 * 5)
       // 获取打卡信息
-      this.getPunch();
-      
-    },
-    beforeDestroy() {
-      if (this.timer) {
-        clearInterval(this.timer);//在vue实例销毁钱，清除我们的定时器
-      }
-      if (this.weathers) {
-        clearInterval(this.weathers);//在vue实例销毁钱，清除我们的定时器
-      }
-    },
+      this.getPunch()
 
-    methods: {
-      TimeFormat:function(time) {
-        let date=new Date(time);
-        let hours=date.getHours()<10 ? "0"+date.getHours() : date.getHours();
-        let minutes=date.getMinutes()<10 ? "0"+date.getMinutes() : date.getMinutes();
-        let seconds=date.getSeconds()<10 ? "0"+date.getSeconds() : date.getSeconds();
-        // 拼接
-        return  hours+":"+minutes+":"+seconds;
-      },
-      dateFormat:function(time) {
-        /* 在日期格式中，月份是从0开始的，因此要加0
-      * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
-      * */
-        let date=new Date(time);
-        let year=date.getFullYear();
-        let month= date.getMonth()+1<10 ? "0"+(date.getMonth()+1) : date.getMonth()+1;
-        let day=date.getDate()<10 ? "0"+date.getDate() : date.getDate();
-        // 拼接
-        return year+"-"+month+"-"+day ;
-      },
-      // 显示消息模态窗
-      modal_per() {
-        $("#modal_per").modal('show');
-      },
-      // 打卡框
-      signIn(){
-
-      },
-      // 显示消息模态窗
-      showMessages() {
-        $("#showmessages").modal("toggle");
-        $("#showmessages").on("show.bs.modal", function () {
-          $(".icon-xiaoxi-mian--").addClass("font-white");
-        });
-      },
-      // 开关声音
-      voice() {
-        $(".icon-tongzhi-mian-").toggleClass("font-blue");
-      },
-
-      mini_go(id, num) {
-        //画底圆
-        //mini图配置
-        var canvas_mini = document.getElementById(id);
-
-        canvas_mini.width = canvas_mini.width;
-        canvas_mini.height = canvas_mini.height;
-        var cxt_mini = canvas_mini.getContext("2d");
-        cxt_mini.fillStyle = "rgba(255, 255, 255, 0)";
-        // cxt_mini.globalAlpha= (Math.sin(0) + 1) / 2;
-        var mini_width = canvas_mini.width;
-        var mini_height = canvas_mini.height;
-        var mini_r = mini_width / 2;
-        cxt_mini.translate(mini_width / 2, mini_height / 2);
-        var radi2_mini = mini_r * 0.855;
-        cxt_mini.rotate(5.5);
-        // 画底圆
-        cxt_mini.translate(-25, -25);
-        cxt_mini.translate(mini_width / 2, mini_height / 2);
-        cxt_mini.clearRect(0, 0, mini_width, mini_height);
-        cxt_mini.beginPath();
-        cxt_mini.lineWidth = 2;
-        cxt_mini.strokeStyle = "#fff";
-        cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI);
-        cxt_mini.stroke();
-        cxt_mini.closePath();
-        //画比例圆
-        cxt_mini.beginPath();
-        cxt_mini.lineWidth = 2;
-        cxt_mini.strokeStyle = "#bad616";
-        cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI * num, true);
-        cxt_mini.stroke();
-        cxt_mini.closePath();
-        //画斜杠
-        cxt_mini.beginPath();
-        cxt_mini.lineWidth = 2;
-        cxt_mini.strokeStyle = "#fff";
-        var moveto = mini_width * 0.133333333;
-        var lineto = mini_width * 0.377777777;
-        cxt_mini.moveTo(moveto, 0);
-        cxt_mini.lineTo(lineto, 0);
-        cxt_mini.stroke();
-        cxt_mini.closePath();
-      },
-      getunitlist() {
-        this.$fetch("/api/unit/queryUnit")
-          .then(response => {
-            if (response) {
-              this.queryUnit = response.data.unitList;
-              this.$store.commit('mapAllUnit', response.data.unitList);
-              //console.log(this.queryUnit);
-              //console.log(this.queryUnit.length);
-              if (this.queryUnit.length == 1) {
-                this.unitvalue = this.queryUnit[0].name;
-                this.$store.commit('unitid', this.queryUnit[0].id);
-              } else if (this.queryUnit.length > 1) {
-                if (sessionStorage.unitid) {
-                  response.data.unitList.forEach(element => {
-                    if (element.id == sessionStorage.unitid) {
-                      this.unitvalue = element.name;
-                      return;
-                    }
-                  });
-                } else {
-                  this.unitvalue = '全部单位';
-                }
-                this.queryUnit.unshift({
-                  id: 0,
-                  name: '全部单位'
-                })
-                this.$store.commit('unitid', null);
-              }
-            }
-          })
-          .then(err => {
-            //console.log(err);
-          });
-      },
-      getPunch() {
-        this.$fetch("/api/workPunch/getPunch")
-          .then(response => {
-            if (response.status==1) {
-                  this.punchStartTime =  response.data.startTime ;
-                  var code=encodeURI(response.data.code);
-                  this.punchImgUrl = "/api/qrcode/img?content=" + code ;
-                  this.punchExpireMillisecond = response.data.expireMillisecond ;
-                  this.punchclocktrue = true ;
-                  let that = this;
-                  this.punchInterval = setInterval(()=>  {
-                    that.getExpireTime() ;
-                }, 1000);
-           } else {
-                  this.punchclocktrue = false ;
-            }
-          })
-      },
-      getExpireTime(){
-        let a = new Date(this.punchStartTime).getTime();
-        let b = new Date().getTime() ;
-        let responseMillisecond = moment.duration(this.punchExpireMillisecond - moment.duration(b - a, 'ms'),'ms') ;
-        if(responseMillisecond <= 0){
-          this.punchclocktrue = false ;
+      //火情分析
+      this.queryFirehistoryData()
+      // this.queryAlarmLastTime()
+      this.queryLastTimeAlarm()
+      this.queryLastTimeTrouble()
+      this.queryLastTimeInspection()
+      this.getUnitsSynthesis()
+      this.getQueryUnitInfo()
+      this.queryFireSituation()
+       },
+      beforeDestroy()
+      {
+        if (this.timer) {
+          clearInterval(this.timer)//在vue实例销毁钱，清除我们的定时器
         }
-        let minutes = responseMillisecond.get('minutes') ;
-        let seconds = responseMillisecond.get('seconds') ;
-        this.punchExpireTime =   (minutes < 10 ? '0' + minutes : minutes ) +  ':' + (seconds < 10 ? '0' + seconds : seconds );
+        if (this.weathers) {
+          clearInterval(this.weathers)//在vue实例销毁钱，清除我们的定时器
+        }
       }
+    ,
+
+      methods: {
+        timeFn: function (date1, date2) {//di作为一个变量传进来
+          //如果时间格式是正确的，那下面这一步转化时间格式就可以不用了
+          // let dateBegin = new Date(date1.replace(/-/g, '/'))//将-转化为/，使用new Date
+          // let dateEnd = new Date(date2.replace(/-/g, '/'))//获取当前时间
+          // let dateDiff = dateEnd.getTime() - dateBegin.getTime()//时间差的毫秒数
+          // let dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000))//计算出相差天数
+          // let leave1 = dateDiff % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+          // let hours = Math.floor(leave1 / (3600 * 1000))//计算出小时数
+          // //计算相差分钟数
+          // let leave2 = leave1 % (3600 * 1000)    //计算小时数后剩余的毫秒数
+          // let minutes = Math.floor(leave2 / (60 * 1000))//计算相差分钟数
+          // //计算相差秒数
+          // let leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+          // let seconds = Math.round(leave3 / 1000)
+          // console.log(' 相差 ' + dayDiff + '天 ' + hours + '小时 ' + minutes + ' 分钟' + seconds + ' 秒')
+          // console.log(dateDiff + '时间差的毫秒数', dayDiff + '计算出相差天数', leave1 + '计算天数后剩余的毫秒数'
+          //   , hours + '计算出小时数', minutes + '计算相差分钟数', seconds + '计算相差秒数')
+          let seconds = 15;
+          return seconds
+        }
       ,
-      //请求在线
-      userAnalyse() {
-        this.$fetch("/api/user/userAnalyse", this.userAnalyseDate_param)
-          .then(response => {
-            if (response) {
-              this.userAnalyseDate = response.data.userAnalyse;
-              let number = (this.userAnalyseDate.userOnlineCount) / (this.userAnalyseDate.userCount);
-              let str = Number(number).toFixed(2);
+        TimeFormat: function (time) {
+          let date = new Date(time)
+          let hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+          let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+          let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+          // 拼接
+          return hours + ':' + minutes + ':' + seconds
+        }
+      ,
+        dateFormat: function (time) {
+          /* 在日期格式中，月份是从0开始的，因此要加0
+        * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+        * */
+          let date = new Date(time)
+          let year = date.getFullYear()
+          let month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+          let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+          // 拼接
+          return year + '-' + month + '-' + day
+        }
+      ,
+        // 显示消息模态窗
+        modal_per()
+        {
+          $('#modal_per').modal('show')
+        }
+      ,
+        // 打卡框
+        signIn()
+        {
+
+        }
+      ,
+        // 显示消息模态窗
+        showMessages()
+        {
+          $('#showmessages').modal('toggle')
+          $('#showmessages').on('show.bs.modal', function () {
+            $('.icon-xiaoxi-mian--').addClass('font-white')
+          })
+        }
+      ,
+        // 开关声音
+        voice()
+        {
+          $('.icon-tongzhi-mian-').toggleClass('font-blue')
+        }
+      ,
+
+        mini_go(id, num)
+        {
+          //画底圆
+          //mini图配置
+          var canvas_mini = document.getElementById(id)
+
+          canvas_mini.width = canvas_mini.width
+          canvas_mini.height = canvas_mini.height
+          var cxt_mini = canvas_mini.getContext('2d')
+          cxt_mini.fillStyle = 'rgba(255, 255, 255, 0)'
+          // cxt_mini.globalAlpha= (Math.sin(0) + 1) / 2;
+          var mini_width = canvas_mini.width
+          var mini_height = canvas_mini.height
+          var mini_r = mini_width / 2
+          cxt_mini.translate(mini_width / 2, mini_height / 2)
+          var radi2_mini = mini_r * 0.855
+          cxt_mini.rotate(5.5)
+          // 画底圆
+          cxt_mini.translate(-25, -25)
+          cxt_mini.translate(mini_width / 2, mini_height / 2)
+          cxt_mini.clearRect(0, 0, mini_width, mini_height)
+          cxt_mini.beginPath()
+          cxt_mini.lineWidth = 2
+          cxt_mini.strokeStyle = '#fff'
+          cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI)
+          cxt_mini.stroke()
+          cxt_mini.closePath()
+          //画比例圆
+          cxt_mini.beginPath()
+          cxt_mini.lineWidth = 2
+          cxt_mini.strokeStyle = '#bad616'
+          cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI * num, true)
+          cxt_mini.stroke()
+          cxt_mini.closePath()
+          //画斜杠
+          cxt_mini.beginPath()
+          cxt_mini.lineWidth = 2
+          cxt_mini.strokeStyle = '#fff'
+          var moveto = mini_width * 0.133333333
+          var lineto = mini_width * 0.377777777
+          cxt_mini.moveTo(moveto, 0)
+          cxt_mini.lineTo(lineto, 0)
+          cxt_mini.stroke()
+          cxt_mini.closePath()
+        }
+      ,
+        getunitlist()
+        {
+          this.$fetch('/api/unit/queryUnit')
+            .then(response => {
+              if (response) {
+                this.queryUnit = response.data.unitList
+                this.$store.commit('mapAllUnit', response.data.unitList)
+                //console.log(this.queryUnit);
+                //console.log(this.queryUnit.length);
+                if (this.queryUnit.length == 1) {
+                  this.unitvalue = this.queryUnit[0].name
+                  this.$store.commit('unitid', this.queryUnit[0].id)
+                } else if (this.queryUnit.length > 1) {
+                  if (sessionStorage.unitid) {
+                    response.data.unitList.forEach(element => {
+                      if (element.id == sessionStorage.unitid) {
+                        this.unitvalue = element.name
+                        return
+                      }
+                    })
+                  } else {
+                    this.unitvalue = '全部单位'
+                  }
+                  this.queryUnit.unshift({
+                    id: 0,
+                    name: '全部单位'
+                  })
+                  this.$store.commit('unitid', null)
+                }
+              }
+            })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        getPunch()
+        {
+          this.$fetch('/api/workPunch/getPunch')
+            .then(response => {
+              if (response.status == 1) {
+                this.punchStartTime = response.data.startTime
+                var code = encodeURI(response.data.code)
+                this.punchImgUrl = '/api/qrcode/img?content=' + code
+                this.punchExpireMillisecond = response.data.expireMillisecond
+                this.punchclocktrue = true
+                let that = this
+                this.punchInterval = setInterval(() => {
+                  that.getExpireTime()
+                }, 1000)
+              } else {
+                this.punchclocktrue = false
+              }
+            })
+        }
+      ,
+        getExpireTime()
+        {
+          let a = new Date(this.punchStartTime).getTime()
+          let b = new Date().getTime()
+          let responseMillisecond = moment.duration(this.punchExpireMillisecond - moment.duration(b - a, 'ms'), 'ms')
+          if (responseMillisecond <= 0) {
+            this.punchclocktrue = false
+          }
+          let minutes = responseMillisecond.get('minutes')
+          let seconds = responseMillisecond.get('seconds')
+          this.punchExpireTime = (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)
+        }
+      ,
+        //请求在线
+        userAnalyse()
+        {
+          this.$fetch('/api/user/userAnalyse', this.userAnalyseDate_param)
+            .then(response => {
+              if (response) {
+                this.userAnalyseDate = response.data.userAnalyse
+                let number = (this.userAnalyseDate.userOnlineCount) / (this.userAnalyseDate.userCount)
+                let str = Number(number).toFixed(2)
+                if (str == 1) {
+                  str = 0
+                }
+                this.mini_go('header-canvas-people', 1 - str)
+              }
+            })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //建筑
+        getBuildingData()
+        {
+          this.$fetch('/api/building/queryBuildStatisInfo', this.getBuildingData_parameter
+          ).then(response => {
+            if (response.data) {
+              this.buildCount = response.data.buildStats.TOTALBUILD
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //退出登录
+        logout()
+        {
+
+          this.$fetch('/cas/logout',).then(response => {
+            if (response.status === 1) {
+              this.$router.push({path: '/login'})
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //请求天气接口
+        getWeather()
+        {
+          this.$fetch('/api/weather/toDayWeather', this.getWeatherData_parameter
+          ).then(response => {
+            if (response.data) {
+              this.weatherData = response.data.weather
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //设备
+        getDeviceData()
+        {
+          this.$fetch('/api/device/alarmAndMalfunctionDeviceCount', this.getDeviceData_parameter
+          ).then(response => {
+            if (response.data) {
+              this.deviceCount = response.data.deviceTotal
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //主机在线
+        getTransmission()
+        {
+          this.$fetch('/api/device/transmission_analyse', this.getTransmissionDate_parameter
+          ).then(response => {
+            if (response.data) {
+              this.transmissionDate = response.data.transmissionAnalyse
+              let number = (this.userAnalyseDate.transmissionOnlineCount) / (this.userAnalyseDate.transmissionCount)
+              let str = Number(number).toFixed(2)
               if (str == 1) {
                 str = 0
               }
-              this.mini_go("header-canvas-people", 1 - str);
+              this.mini_go('header-canvas-host', 1 - str)
             }
           })
-          .then(err => {
-            //console.log(err);
-          });
-      },
-      //建筑
-      getBuildingData() {
-        this.$fetch( "/api/building/queryBuildStatisInfo", this.getBuildingData_parameter
-        ).then(response => {
-          if (response.data) {
-            this.buildCount = response.data.buildStats.TOTALBUILD
-          }
-        });
-      },
-      //退出登录
-      logout() {
-        
-        this.$fetch( "/cas/logout",).then(response => {
-          if (response.status===1) {
-            this.$router.push({path:'/login'});
-          }
-        });
-      },
-      //请求天气接口
-      getWeather() {
-        this.$fetch( "/api/weather/toDayWeather", this.getWeatherData_parameter
-        ).then(response => {
-          if (response.data) {
-            this.weatherData = response.data.weather
-          }
-        });
-      },
-      //设备
-      getDeviceData() {
-        this.$fetch( "/api/device/alarmAndMalfunctionDeviceCount", this.getDeviceData_parameter
-        ).then(response => {
-          if (response.data) {
-            this.deviceCount = response.data.deviceTotal;
-          }
-        });
-      },
-      //主机在线
-      getTransmission() {
-        this.$fetch( "/api/device/transmission_analyse", this.getTransmissionDate_parameter
-        ).then(response => {
-          if (response.data) {
-            this.transmissionDate = response.data.transmissionAnalyse
-            let number = (this.userAnalyseDate.transmissionOnlineCount) / (this.userAnalyseDate.transmissionCount);
-            let str = Number(number).toFixed(2);
-            if (str == 1) {
-              str = 0
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        getUserInfogetUserInfo()
+        {
+          this.queryUserInfo_parameter.userId = localStorage.userId
+          this.personnelInfo = true
+          this.$fetch('/api/alarmstats/queryUserData',
+            this.queryUserInfo_parameter)
+            .then(response => {
+              if (response.data) {
+                let data = response.data
+                this.userCountData = data.info
+                this.userInfoData = data.info.user
+              }
+            })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //火情分析折线图下列表
+        queryFirehistoryData()
+        {
+          this.$fetch('/api/alarmstats/queryFirehistoryData', this.queryFirehistoryData_parameter
+          ).then(response => {
+            if (response.data) {
+              this.tableData = response.data.result.fireAnalyzeList
+              console.log(this.tableDatas)
             }
-            this.mini_go("header-canvas-host", 1-str);
-          }
-        });
-      },
-      getUserInfogetUserInfo(){
-        this.queryUserInfo_parameter.userId = localStorage.userId;
-        this.personnelInfo = true;
-        this.$fetch("/api/alarmstats/queryUserData",
-                this.queryUserInfo_parameter)
-                .then(response => {
-                if (response.data) {
-                  let data = response.data;
-                  this.userCountData = data.info;
-                  this.userInfoData = data.info.user;
-                }
-				});
-      },
-      optionchange() {
-        //console.log(this.unitvalue);
-        sessionStorage.unitid = this.unitvalue;
-        this.$store.commit('unitid', this.unitvalue);
-      },
-      getuserinfo() {
-        this.username = localStorage.name
-      },
-      management() {
-        this.$store.commit('mapShow', false);
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //火情分析 起火单位最近数据
+        queryAlarmLastTime()
+        {
+          this.$fetch('/api/alarmstats/queryAlarmLastTime', this.queryAlarmLastTime_param
+          ).then(response => {
+            if (response.data) {
+              this.queryAlarmLastTimeData = response.data.trouble
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //起火位置相关最近一次报警记录
+        queryLastTimeAlarm()
+        {
+          this.$fetch('/api/alarm/queryLastTimeAlarm', this.queryLastTimeAlarm_param
+          ).then(response => {
+            if (response.data) {
+              this.queryLastTimeAlarmData = response.data.alarm
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //起火位置相关未解决隐患详情
+        queryLastTimeTrouble()
+        {
+          this.$fetch('/api/trouble/queryLastTimeTrouble', this.queryLastTimeTrouble_param
+          ).then(response => {
+            if (response.data) {
+              this.queryLastTimeTroubleData = response.data.troubles
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //起火位置最近一次巡检记录
+        queryLastTimeInspection()
+        {
+          this.$fetch('/api/alarmstats/queryLastTimeInspection', this.queryLastTimeInspection_param
+          ).then(response => {
+            if (response.data) {
+              this.queryLastTimeInspectionData = response.data.information
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //事故概况
+        queryFireSituation()
+        {
+          this.$fetch('/api/alarmstats/queryFireSituation', this.queryFireSituation_param
+          ).then(response => {
+            if (response.data) {
+              this.queryFireSituationAlarmData = response.data.result.alarm,
+              this.queryFireSituationFireData = response.data.result.alarmFire
+            }
+          })
+            .then(err => {
+              //console.log(err);
+            })
+        }
+      ,
+        //单位信息
+        getQueryUnitInfo()
+        {
+          this.$fetch("/api/unit/queryUnitInfo", this.queryUnitInfo_param)
+            .then(response => {
+              if (response.data) {
+                this.queryUnitInfo = response.data.unitInfo;
+                this.queryUnitInfoImg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.queryUnitInfo_param.unitId + '.jpg';
+              }
+            });
+        }
+      ,
+        //单位统计
+        getUnitsSynthesis()
+        {
+          this.$fetch("/api/unit/getUnitsSynthesis", this.getUnitsSynthesis_param
+          ).then(response => {
+            if (response.data) {
+              this.getUnitsSynthesisData = response.data.result;
+            }
+          });
+        }
+      ,
+        optionchange()
+        {
+          sessionStorage.unitid = this.unitvalue
+          this.$store.commit('unitid', this.unitvalue)
+        }
+      ,
+        getuserinfo()
+        {
+          this.username = localStorage.name
+        }
+      ,
+        management()
+        {
+          this.$store.commit('mapShow', false)
+        }
       }
     }
-  };
 </script>
 
 <style scoped>

@@ -244,25 +244,17 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             xhr.send(form);
         },
         handleFileEnlarge(file){//放大图片
-          console.log(file)
         },
         handleRemove(file, fileList) { //删除预览图片
-          console.log("删除图片===============》");
           var index = this.mapdata[file.uid];  
           this.imgUrls.splice(index,1);
           this.files.splice(index,1);
-          console.log(this.imgUrls);
-          console.log(this.files);
         },
         handlePictureCardPreview(file) { //预览图片墙
-          console.log("预览图片墙===============》");
-          console.log(file);
           this.dialogImageUrl = file.url;
           this.dialogVisible = true;
         },
         uploadSuccess(response, file, fileList){ //上传成功
-          console.log("上传成功===============》");
-          console.log(this.files);
           if(this.count==fileList.length){
             this.count=0;
             this.$refs.upload.uploadFiles=[];
