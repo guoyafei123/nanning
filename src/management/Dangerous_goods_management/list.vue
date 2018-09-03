@@ -90,16 +90,21 @@
           </el-form-item> -->
           <div class="col-sm-12">
             <div class="row">
-              <el-form-item label="图片和视频">
-                  <div class="mainmenuone cf">
-                      <ul class="cf col-xs-12">
-                        <li><input id="file" type="file" name="img"  @change="file"/></li>
-                        <!-- <li><input id="file2" type="file" name="img"/></li> -->
-                      </ul>
-                  </div>
-                   <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
-                <!-- <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>  -->
-                <!-- <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span>  -->
+              <el-form-item label="图片和视频" :label-width="formLabelWidth">
+                <el-upload 
+                    list-type="picture-card" 
+                    id="troubleFile"
+                    :name="troubleFile"
+                    :http-request="uploadTroubleFile"
+                    :file-list="playUrls"
+                    :multiple="true"
+                    :auto-upload="true"
+                    :on-success="uploadSuccess"
+                    :on-preview="handlePictureCardPreview" 
+                    :on-remove="handleRemove">
+                    <i class="el-icon-upload"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
               </el-form-item>
             </div>
           </div>          
@@ -198,7 +203,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             cont:''
           },
           optionList:[],//全部单位列表
-          files:["file"],
           rules: {
             name:[
               { required: true, trigger: 'blur', validator: validName }
@@ -227,23 +231,75 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           },
           svgUrl:'',
           table_list:[],
-          fileVerification:""
+          //上传图片相关
+          files:[],
+          imgUrls:[],
+          mapkeys:[],    
+          mapdata:Object,  
+          dialogImageUrl: '',
+          dialogVisible: false,
+          count:0,
         }
       },
       components:{
         'managementMap-vue': managementMapVue,
       },
       methods:{
-        file(){
-          var x = document.getElementById("file");
-          if (!x || !x.value) return;
-          var patn = /\.jpg$|\.jpeg$|\.png$|\.avi$|\.mpg$|\.mpeg$|\.mp4$/i;
-          if (!patn.test(x.value)) {
-            this.fileVerification="您选择的似乎不是图像、视频文件!!";
-            x.value = "";
-            return;
+        uploadTroubleFile: function (param){
+            var that=this;
+            var fileObj = param.file;
+            var FileController = "/api/trouble/uploadTroubleImg";
+            var form = new FormData();
+            form.append("troubleFile", fileObj);
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", FileController, true);
+            xhr.onload = (()=>{
+                var data = JSON.parse(xhr.response);
+                var status = data.status;
+                if(status == 1){
+                    var listUrl = data.data.src;
+                    this.files.push(listUrl);     
+                    this.imgUrls.push(fileObj);
+                    if(this.mapdata[fileObj.uid] == null){
+                      this.mapkeys.push(fileObj.uid);     
+                    }
+                    this.mapdata[fileObj.uid] = this.imgUrls.length-1;
+                }else{
+                    //上传失败，删除预览图片
+                    this.handleRemove(fileObj);
+                }
+            });
+            xhr.send(form);
+        },
+        handleFileEnlarge(file){//放大图片
+          console.log(file)
+        },
+        handleRemove(file, fileList) { //删除预览图片
+          console.log("删除图片===============》");
+          var index = this.mapdata[file.uid];  
+          this.imgUrls.splice(index,1);
+          this.files.splice(index,1);
+          console.log(this.imgUrls);
+          console.log(this.files);
+        },
+        handlePictureCardPreview(file) { //预览图片墙
+          console.log("预览图片墙===============》");
+          console.log(file);
+          this.dialogImageUrl = file.url;
+          this.dialogVisible = true;
+        },
+        uploadSuccess(response, file, fileList){ //上传成功
+          console.log("上传成功===============》");
+          console.log(this.files);
+          if(this.count==fileList.length){
+            this.count=0;
+            this.$refs.upload.uploadFiles=[];
           }
-          this.fileVerification="";
+          this.$nextTick(()=>{
+            if(this.count===0){
+              this.loading=false;
+            }
+          })
         },
         floor_btn(id){
           this.table_list.forEach((item)=>{
@@ -280,74 +336,44 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              if(this.fileVerification==""){
-                console.log(this.form.point[0]);
-                console.log(this.form.point[1]);
-                console.log(this.form.Rate[0]);
-                console.log(this.form.Rate[1]);
-                var files =this.files;
+                var files = this.files.join("=");
                 var that = this ;
                 var point = this.form.point;
-                if(typeof(point) == 'string'){
-                  var pointList = point.split(",");
-                }else{
-                  var pointList = this.form.point;
-                }
+                if(typeof(point) == 'string'){var pointList = point.split(",");}else{var pointList = this.form.point;}
                 var Rate = this.form.Rate;
-                // console.log(typeof(point))
-                if(typeof(Rate) == 'string'){
-                  var RateList = Rate.split(",");
-                }else{
-                  var RateList = this.form.Rate;
-                }
-                $.ajaxFileUpload({
-                  url: '/api/trouble/insertTrouble',
-                  fileElementId:files,
-                  data : {
-                    'type':5,
-                    'levels':3,
-                    'dangerName':this.form.name,
-                    'unitId':this.form.unitId,
-                    'unitName':this.form.unitName,
-                    'buildingId':this.form.buildingId,
-                    'buildingName':this.form.buildingName,
-                    'floorId':this.form.floorId,
-                    'floorNumber':this.form.floorNumber,
-                    'roomId':this.form.roomId,
-                    'roomNumber':this.form.roomNumber,
-                    'pointX':pointList[0] == undefined ? 0 : pointList[0],
-                    'pointY':pointList[1] == undefined ? 0 : pointList[1],
-                    'xRate':RateList[0] == undefined ? 0 : RateList[0] ,
-                    'yRate':RateList[1] == undefined ? 0 : RateList[1],
-                    'nickName':this.form.nickName,
-                    'createTime':this.form.createTime,
-                    'cont':this.form.cont
-                  },
-                  type: 'POST',
-                  dataType: "json",
-                  success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-                  
-              
-                  },
-                  error: function (e) { //服务器响应失败处理函数
-                    $.messager.alert('警告', "系统错误", "warning");
-                  },
-                  complete: function (e) {//只要完成即执行，最后执行
-                  
-                    that.$router.push({path:'/Dangerous_goods_management/all'});
-                  }
-                  
-                });
-                this.$message({
-                  dangerouslyUseHTMLString: true,
-                  message: '<strong>'+ this.form.name +'添加成功</strong>',
-                  center: true,
-                  showClose: true,
-                  iconClass:'el-icon-circle-check',
-                  customClass:'edit-ok-notification'
-                });
-              }
-          } else {
+                if(typeof(Rate) == 'string'){ var RateList = Rate.split(",");}else{var RateList = this.form.Rate;}
+                this.$fetch("/api/trouble/userAddPCTrouble",{
+                  'type':5,
+                  'levels':3,
+                  'dangerName':this.form.name,
+                  'unitId':this.form.unitId,
+                  'unitName':this.form.unitName,
+                  'buildingId':this.form.buildingId,
+                  'buildingName':this.form.buildingName,
+                  'floorId':this.form.floorId,
+                  'floorNumber':this.form.floorNumber,
+                  'roomId':this.form.roomId,
+                  'roomNumber':this.form.roomNumber,
+                  'pointX':pointList[0] == undefined ? 0 : pointList[0],
+                  'pointY':pointList[1] == undefined ? 0 : pointList[1],
+                  'xRate':RateList[0] == undefined ? 0 : RateList[0] ,
+                  'yRate':RateList[1] == undefined ? 0 : RateList[1],
+                  'nickName':this.form.nickName,
+                  'createTime':this.form.createTime,
+                  'cont':this.form.cont,
+                  'files':files
+                }).then(res=>{
+                  that.$router.push({path:'/Dangerous_goods_management/all'});
+                  this.$message({
+                    dangerouslyUseHTMLString: true,
+                    message: '<strong>'+ this.form.name +'添加成功</strong>',
+                    center: true,
+                    showClose: true,
+                    iconClass:'el-icon-circle-check',
+                    customClass:'edit-ok-notification'
+                  });
+                })
+            } else {
               console.log('error submit!!');
               return false;
             }

@@ -296,7 +296,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                       'nickName':this.form.nickName,
                       'createTime':this.form.createTime,
                       'cont':this.form.cont,
-                      'files':files,
+                      'files':files
                     }   
                   ).then(response => {
                     if(response.status==1) {
