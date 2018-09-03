@@ -351,7 +351,8 @@ p {
 .margin-top100 { margin-top:100px !important; }
 .margin-top110 { margin-top:110px !important; }
 .margin-top120 { margin-top:120px !important; }
-
+.margin-top140 { margin-top:140px !important; }
+.margin-top160 { margin-top:160px !important; }
 
 .margin-bottom5 { margin-bottom:5px !important; }
 .margin-bottom10 { margin-bottom:10px !important; }
@@ -367,7 +368,8 @@ p {
 .margin-bottom100 { margin-bottom:100px !important; }
 .margin-bottom110 { margin-bottom:110px !important; }
 .margin-bottom120 { margin-bottom:120px !important; }
-
+.margin-bottom140 { margin-bottom:140px !important; }
+.margin-bottom160 { margin-bottom:160px !important; }
 .margin-top-20{
   margin-top: -20px;
 }
