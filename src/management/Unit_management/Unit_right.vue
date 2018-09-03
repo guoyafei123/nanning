@@ -12,7 +12,7 @@
             </div>
           <!-- 单位图片 -->
           <div class="imgSrc">
-            <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.id +'.jpg?'+new Date().getTime()" :id="'up_img'+ this.id" class="img-responsive center-block" />
+            <img :src="'/img/xf/api/unit_img/'+ this.id +'.jpg?'+new Date().getTime()" :id="'up_img'+ this.id" class="img-responsive center-block" />
           </div>
         </li>
         <!-- 统计1 -->

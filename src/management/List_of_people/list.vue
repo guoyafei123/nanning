@@ -176,8 +176,27 @@ import { isvalidPhone,isName } from '../../assets/js/validate';
                     },
                     complete: function (e) {//只要完成即执行，最后执行
                       // //console.log(e) 
+                      if($.parseJSON(e.responseXML.documentElement.innerText).status == 0){
+                        that.$message.error({
+                          dangerouslyUseHTMLString: true,
+                          message: `<strong>${ $.parseJSON(e.responseXML.documentElement.innerText).message }</strong>`,
+                          center: true,
+                          showClose: true,
+                          iconClass:'el-icon-circle-check',
+                          customClass:'del-notification'
+                        })
+                        return ;
+                      }
                       that.$router.push({path:'/List_of_people/all'});
-                      
+                      // 添加成功提示
+                      this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: '<strong>'+ this.form.nickName +'的人员信息添加成功</strong>',
+                        center: true,
+                        showClose: true,
+                        iconClass:'el-icon-circle-check',
+                        customClass:'edit-ok-notification'
+                      });
                     }
                 });
 

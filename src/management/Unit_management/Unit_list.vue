@@ -255,18 +255,31 @@
                 },
                 complete: function (e) {//只要完成即执行，最后执行
                   // //console.log(e) 
+                  if($.parseJSON(e.responseXML.documentElement.innerText).status == 0){
+                    that.$message.error({
+                      dangerouslyUseHTMLString: true,
+                      message: `<strong>${ $.parseJSON(e.responseXML.documentElement.innerText).message }</strong>`,
+                      center: true,
+                      showClose: true,
+                      iconClass:'el-icon-circle-check',
+                      customClass:'del-notification'
+                    })
+                    return ;
+                  }
+                  
+                  // 添加成功提示
+                  this.$message({
+                    dangerouslyUseHTMLString: true,
+                    message: '<strong>'+ this.form.name +'单位添加成功</strong>',
+                    center: true,
+                    showClose: true,
+                    iconClass:'el-icon-circle-check',
+                    customClass:'edit-ok-notification'
+                  });
                   that.$router.push({path:'/Unit_management/all'});
                 }
               });
-              // 添加成功提示
-              this.$message({
-                dangerouslyUseHTMLString: true,
-                message: '<strong>'+ this.form.name +'单位添加成功</strong>',
-                center: true,
-                showClose: true,
-                iconClass:'el-icon-circle-check',
-                customClass:'edit-ok-notification'
-              });
+              
             } else {
               //console.log('error submit!!');
               return false;

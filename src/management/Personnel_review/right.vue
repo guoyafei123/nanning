@@ -27,7 +27,7 @@
                             <li class="col-xs-offset-1 col-xs-10 margin-bottom10 padding-left5 text-center">
                               <!-- <h1 class="toolcount-p1">8.7</h1> -->
                               <!-- <img src="../../assets/images/head.jpg" class="img-responsive img-circle"> -->
-                              <img :src="this.form.headImgUrl" id="up_img" class="img-responsive img-circle center-block" style="width:100px;height:100px;"/>
+                              <img :src="'/img'+this.form.headImgUrl" id="up_img" class="img-responsive img-circle center-block" style="width:100px;height:100px;"/>
                             </li>
                             <li class="col-xs-offset-1 col-xs-10 padding-left5 text-center">
                               <h4 class="size-16 font-blue show">{{ this.form.nickName }}</h4>

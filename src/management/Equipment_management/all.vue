@@ -101,6 +101,7 @@
           <el-table-column
             prop="startDate"
             :show-overflow-tooltip="true"
+            :formatter="data"
             label="投入使用时间">
           </el-table-column>
           <el-table-column
@@ -500,6 +501,9 @@ import { mapState } from 'vuex';
       }
     },
     methods: {
+      data(row, column){
+        return row.startDate.substr(0,10);
+      },
       formatter(row, column){
         if(row.startDate){
           return this.dateMinus(row.startDate)

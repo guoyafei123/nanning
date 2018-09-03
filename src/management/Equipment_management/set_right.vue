@@ -61,7 +61,7 @@
                           <p class="size-10 set-scaleright">Repair Statistics</p>
                       </li>
                       <li class="margin-top10">
-                          <p class="set-width-100">投入时间 <span class="font-white">{{this.device.startDate}}</span></p>
+                          <p class="set-width-100">投入时间 <span class="font-white margin-left10">{{this.device.startDate.substr(0,10)}}</span></p>
                           <!-- <p class="pull-right">
                               <a class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="查看监控摄像头">
                                     <i class="icon iconfont icon-jiankong-mian-"></i> 监控</a>
@@ -145,15 +145,15 @@
               <div class="row textandimg-main margin-top10 size-12">
                   <div class="col-sm-6">
                       <span>生产厂商 </span>
-                      <strong v-html="this.device.firm == null ? '-' : this.firm"></strong>
+                      <strong v-html="this.device.firm == null ? '-' : this.device.firm"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>生产日期 </span>
-                      <strong v-html="this.device.productDate == null ? '-' : this.productDate"> </strong>
+                      <strong v-html="this.device.productDate == null ? '-' : this.device.productDate.substr(0,10)"> </strong>
                   </div>
                   <div class="col-sm-12">
                     <span>物理地址</span>
-                    <strong v-html="this.device.mac == null ? '-' : this.mac"></strong>
+                    <strong v-html="this.device.mac == null ? '-' : this.device.mac"></strong>
                   </div>                 
                 </div>
           </div>
@@ -511,6 +511,7 @@
           lifeMonth:'',
           firm:'',
           productDate:'',
+          maintenanceLinkname:'',
           maintenanceUnit:'',
           maintenancePhone:''
         },
@@ -643,6 +644,7 @@
             this.device.startDate = item.startDate ;
             this.device.lifeMonth = item.lifeMonth ;
             this.device.firm = item.firm ;
+            this.device.maintenanceLinkname = item.maintenanceUser ;
             this.device.productDate = item.productDate ;
             this.device.maintenanceUnit = item.maintenanceUnit ;
             this.device.maintenancePhone = item.maintenancePhone ;
@@ -729,6 +731,7 @@
                     this.device.lifeMonth = item.lifeMonth ;
                     this.device.firm = item.firm ;
                     this.device.productDate = item.productDate ;
+                    this.device.maintenanceLinkname = item.maintenanceUser ;
                     this.device.maintenanceUnit = item.maintenanceUnit ;
                     this.device.maintenancePhone = item.maintenancePhone ;
                   }
@@ -876,6 +879,7 @@
               this.device.lifeMonth = item.lifeMonth ;
               this.device.firm = item.firm ;
               this.device.productDate = item.productDate ;
+              this.device.maintenanceLinkname = item.maintenanceUser ;
               this.device.maintenanceUnit = item.maintenanceUnit ;
               this.device.maintenancePhone = item.maintenancePhone ;
         }

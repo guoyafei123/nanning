@@ -133,7 +133,7 @@
       <div id="list-maps">
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floor }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
             </ul> 
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
               <img :src="this.svgUrl" class="img-responsive">
@@ -141,10 +141,10 @@
           </div>
           <div class="roomMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floor }}</li>
-            </ul> 
+              <li>{{ this.floorName }}</li>
+            </ul>
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="this.svgUrl" class="img-responsive">
+              <img :src="this.roomSvgUrl" class="img-responsive">
             </div>
           </div>
       </div>      
@@ -332,7 +332,6 @@ import managementMapVue from '../managementMap';
           }
         },
         buildUnit:null,//选择单位
-        floorId:'',
         optionList:[],//全部单位列表
         floorList:[],//楼层列表
         tableData: [],//设备列表
@@ -508,6 +507,7 @@ import managementMapVue from '../managementMap';
         $('.floorMap').show();
         this.$store.commit('floorAdd',1);
         this.$store.commit('buildingId',row.id);
+        
         this.$store.commit('currentPage',this.currentPage4);
         this.deviceIndex = row.id;
         this.findPageBuildIngFloor();
@@ -581,6 +581,7 @@ import managementMapVue from '../managementMap';
                 // console.log(111)
                 if(index == this.tableData.length-1){
                   this.$store.commit('buildingId',item.id);
+                  localStorage.setItem('buildingId',item.id);
                 }
               })
               if(this.totalList % 14 == 0){
@@ -604,12 +605,7 @@ import managementMapVue from '../managementMap';
           console.log(response.data.pageBuildIng.result);
           if(response.data.pageBuildIng.result){
             this.table_list = response.data.pageBuildIng.result;
-            this.table_list.forEach((item,index)=>{
-              if(index == 0){
-                this.svgUrl = item.svgUrl ;
-                this.active = item.id ;
-              }
-            })
+            
           }else{
             this.svgUrl = '' ;
           }
@@ -627,6 +623,13 @@ import managementMapVue from '../managementMap';
         $("#Build_management").find("#mymodal input").removeAttr('disabled');
         $("#Build_management").find("#mymodal .el-input").removeClass('is-disabled');
       }
+      let floorId = localStorage.getItem('floorId');
+      this.table_list.forEach(item=>{
+        if(floorId == item.id){
+          this.roomSvgUrl = item.svgUrl ;
+          this.floorName = item.floorName ;
+        }
+      })
     },
     watch:{
       $route: {
@@ -651,6 +654,15 @@ import managementMapVue from '../managementMap';
       },
       Refresh(){
         this.findPageBuildIngFloor();
+      },
+      floorId(){
+        // console.log(this.floorId)
+        this.table_list.forEach(item=>{
+          if(this.floorId == item.id){
+            this.roomSvgUrl = item.svgUrl ;
+            this.floorName = item.floorName ;
+          }
+        })
       }
     },
      computed:mapState([
