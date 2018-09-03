@@ -271,11 +271,11 @@
                   </div>
                   <div class="col-sm-4">
                     <span>响应时长 </span>
-                    <strong class="font-blue">326秒</strong>
+                    <strong class="font-blue">{{this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.confirmTime)}}秒</strong>
                   </div>
                   <div class="col-sm-8">
                     <span>持续时长 </span>
-                    <strong class="font-blue">326秒</strong>
+                    <strong class="font-blue">{{this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.cancelTime)}}秒</strong>
                   </div>
                   <div class="col-sm-4">
                     <span>报警源 </span>
@@ -423,11 +423,11 @@
                     </div>
                     <div class="col-sm-4">
                       <span>响应时长 </span>
-                      <strong class="font-blue">326秒</strong>
+                      <strong class="font-blue">{{this.timeFn(queryLastTimeAlarmData.startTime,queryLastTimeAlarmData.confirmTime)}}秒</strong>
                     </div>
                     <div class="col-sm-8">
                       <span>持续时长 </span>
-                      <strong class="font-blue">326秒</strong>
+                      <strong class="font-blue">{{this.timeFn(queryLastTimeAlarmData.startTime ,queryLastTimeAlarmData.cancelTime)}}秒</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>报警源 </span>
