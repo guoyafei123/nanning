@@ -23,7 +23,6 @@
           <el-select
               v-model="building"
             placeholder="选择建筑"  class="start">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
                 :label="item.name"
@@ -245,6 +244,9 @@ import managementMapVue from '../managementMap';
     watch:{
       unit(curVal,oldVal){
         this.unit = curVal;
+        this.building = '';
+        this.floor = '';
+        this.room = '';
         this.buildSearch(this.unit);
         this.$store.commit('Unit',this.unit);
       },
@@ -253,7 +255,6 @@ import managementMapVue from '../managementMap';
         //console.log(this.building);
         this.floor = '';
         this.room = '';
-        this.equipment = '';
         this.table_list = [];
         this.floorSearch(this.building);
         this.$store.commit('buildDevice',this.building);
@@ -268,6 +269,7 @@ import managementMapVue from '../managementMap';
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
+        this.room = '';
         //console.log(this.floor);
         if(this.floor !== 0){
           this.roomSearch(this.floor);

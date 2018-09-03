@@ -55,7 +55,7 @@
               </div>
     </section>
     <!-- 消防信息 -->
-      <section>
+      <!-- <section>
         <div class="textandimg margin-top30">
               <h4 class="p-title">消防信息</h4>
               <div class="row textandimg-main margin-top20 size-12">
@@ -69,7 +69,7 @@
                   </div>                 
                 </div>
           </div>
-      </section>  
+      </section>   -->
   </div>
 </template>
 

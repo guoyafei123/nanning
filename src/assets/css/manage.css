@@ -583,6 +583,9 @@
   color: #666;
   text-align: right;
 }
+#dangerous .modal .modal-body .el-form-item__label{
+  color:#fff !important;
+}
 .modal-content .el-form-item__content .el-input__inner {
   font-size: 12px;
   height: 34px;

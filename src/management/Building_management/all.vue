@@ -539,7 +539,11 @@ import managementMapVue from '../managementMap';
         });
       },
       qrcode(){
-        window.open("/api/qrcode/buildingImgs?unitId="+this.buildUnit);
+        if(this.buildUnit == null){
+          window.open("/api/qrcode/buildingImgs?unitId=");
+        }else{
+          window.open("/api/qrcode/buildingImgs?unitId="+this.buildUnit);
+        }
       },
       unitSearch(){
         this.$fetch(
@@ -618,6 +622,11 @@ import managementMapVue from '../managementMap';
       this.tableBuildList();
       $('#right').show();
       this.$store.commit('route_path',this.$route.path);
+      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
+      if(roleId == 1 || roleId == 2){
+        $("#Build_management").find("#mymodal input").removeAttr('disabled');
+        $("#Build_management").find("#mymodal .el-input").removeClass('is-disabled');
+      }
     },
     watch:{
       $route: {

@@ -22,7 +22,6 @@
           <el-select
               v-model="building"
             placeholder="选择建筑"  class="start">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
                 :label="item.name"
@@ -181,17 +180,17 @@
               class类hint-error为错误提示
              -->
             <div class="main_content">
-              <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
-                <el-form-item label="设备名称" prop="name" class="not-null">
+              <el-form class="row" ref="form" status-icon :label-position="labelPosition" :model="form">
+                <el-form-item label="设备名称" prop="name" :rules="rules.name" class="not-null">
                   <!-- <span class="hint-error">设备名称有误或重复</span> -->
                   <el-input v-model="form.name"  class="col-sm-8"></el-input>
                 </el-form-item>
-                <el-form-item label="所属单位" prop="unitId" class="not-null">
+                <el-form-item label="所属单位" prop="unitId" :rules="rules.unitId" class="not-null">
                   <el-select v-model="form.unitId" :disabled='true' placeholder="选择单位" class="select selectUnit col-sm-4">
                     <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="设备类型" prop="equipmentId" class="not-null">
+                <el-form-item label="设备类型" prop="equipmentId" :rules="rules.equipmentId" class="not-null">
                   <el-select
                     v-model="form.equipmentId"
                     placeholder="选择设备类型" class="start col-sm-4">
@@ -202,7 +201,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="设备位置" prop="buildingId" class="not-null">
+                <el-form-item label="设备位置" prop="buildingId" :rules="rules.buildingId" class="not-null">
                   <el-select
                     v-model="form.buildingId"
                     :disabled='true'
@@ -238,13 +237,13 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
-                  <el-input placeholder="经度,纬度" :disabled="true"  v-model="form.point" class="col-sm-8"></el-input>
+                <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point" :rules="rules.point" class="not-null">
+                  <el-input placeholder="经度,纬度" :disabled="true"  v-model="form.point" class=" col-sm-8"></el-input>
                   <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
                     <i class="el-icon-question size-16"></i>
                   </el-tooltip>
                 </el-form-item>
-                <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
+                <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate" :rules="rules.Rate" class="not-null">
                   <el-input placeholder="X,Y" :disabled="true"  v-model="form.Rate" class="col-sm-8"></el-input>
                   <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
                     <i class="el-icon-question size-16"></i>
@@ -252,26 +251,26 @@
                 </el-form-item>
                 <div class="col-sm-12">
                   <div class="row">
-                    <el-form-item label="物理地址" prop="PhysicalAddress"  class="col-sm-4">
+                    <el-form-item label="物理地址" prop="PhysicalAddress"  :rules="rules.PhysicalAddress" class="not-null col-sm-4">
                       <el-input v-model="form.PhysicalAddress"></el-input>
                     </el-form-item>
-                    <el-form-item label="控制器ID" prop="controlId" class="not-null col-sm-4">
+                    <el-form-item label="控制器ID" prop="controlId" :rules="rules.controlId" class="not-null col-sm-4">
                       <el-input v-model="form.controlId"></el-input>
                     </el-form-item>
                   </div>
                 </div>
-                <el-form-item label="相对房顶高度 (cm)" prop="RoofHeight"  class="col-sm-4">
+                <el-form-item label="相对房顶高度 (cm)" prop="RoofHeight"  :rules="rules.RoofHeight" class="not-null col-sm-4">
                   <el-input v-model="form.RoofHeight"></el-input>
                 </el-form-item>
-                <el-form-item label="相对地板高度 (cm)" prop="floorHeight" class="col-sm-4">
+                <el-form-item label="相对地板高度 (cm)" prop="floorHeight" :rules="rules.floorHeight" class=" not-null col-sm-4">
                   <el-input v-model="form.floorHeight"></el-input>
                 </el-form-item>
                 <div class="col-sm-12">
                     <div class="row">
-                      <el-form-item label="生产商" prop="Bike"  class="col-sm-4">
+                      <el-form-item label="生产商" prop="Bike" :rules="this.form.Bike == '' ? [{ required: false, trigger: 'blur', message: '请填写生厂商(非必填)' }] : rules.Bike"  class="col-sm-4">
                         <el-input v-model="form.Bike"></el-input>
                       </el-form-item>
-                      <el-form-item label="生产日期" prop="ProductionDay" class="col-sm-4">
+                      <el-form-item label="生产日期" prop="ProductionDay" :rules="this.form.ProductionDay == '' ? [{ required: false, trigger: 'blur', message: '请选择生产日期(非必填)' }] : rules.ProductionDay"  class="col-sm-4">
                         <div class="block">
                           <el-date-picker
                             v-model="form.ProductionDay"
@@ -282,7 +281,7 @@
                           </el-date-picker>
                         </div>
                       </el-form-item>
-                      <el-form-item label="投入使用日期" prop="startDate" class="col-sm-4">
+                      <el-form-item label="投入使用日期" prop="startDate" :rules="rules.startDate" class="not-null col-sm-4">
                         <div class="block">
                           <el-date-picker
                             v-model="form.startDate"
@@ -297,25 +296,26 @@
                     </div>
                   <div class="col-sm-12">
                     <div class="row">
-                      <el-form-item label="维保单位" prop="Refundable" class="col-sm-4">
+                      <el-form-item label="维保单位" prop="Refundable"  :rules="this.form.Refundable == '' ? [{ required: false, trigger: 'blur',  message: '请填写维保单位(非必填)' }] : rules.Refundable" class="col-sm-4">
                         <el-input v-model="form.Refundable"></el-input>
                       </el-form-item>
-                      <el-form-item label="维保人员" prop="linkname" class="col-sm-4">
+                      <el-form-item label="维保人员"  prop="linkname"  :rules="this.form.linkname == '' ? [{ required: false, trigger: 'blur',  validator: linkName  }] : rules.linkname" class="col-sm-4">
                         <el-input v-model="form.linkname"></el-input>
                       </el-form-item>
-                      <el-form-item label="维保电话" prop="phone" class="col-sm-4">
+                      <el-form-item label="维保电话" prop="phone"  :rules="this.form.phone == '' ? [{ required: false, trigger: 'blur',  validator: validPhone }] : rules.phone" class="col-sm-4">
                         <el-input maxlength="11" v-model.number="form.phone"></el-input>
                       </el-form-item>
                     </div>
                 </div>
                 <div class="col-sm-12 margin-bottom20">
                   <div class="row">
-                    <el-form-item label="更换周期 (天)" prop="Retroperiod" class="not-null col-sm-4">
+                    <el-form-item label="更换周期 (天)" prop="Retroperiod" :rules="rules.Retroperiod" class="not-null col-sm-4">
                       <el-input v-model.number="form.Retroperiod"></el-input>
                     </el-form-item>
                   </div>
                 </div>                 
               </el-form>
+               <p class="not-null font-red text-center">非必填选项，如若不填写不影响提交</p>
             </div>
           </div>
           <div class="modal-footer">
@@ -356,18 +356,9 @@ import { mapState } from 'vuex';
     data() {
       var validPhone=(rule, value,callback)=>{
             if (!value){
-              callback(new Error('请输入手机号码'))
+              callback(new Error('请输入手机号码(非必填)'))
             }else  if (!isvalidPhone(value)){
-              callback(new Error('请输入正确的11位手机号码'))
-            }else {
-              callback()
-            }
-        }
-        var Name=(rule, value,callback)=>{
-            if (!value){
-              callback(new Error('请输入生产商的姓名'))
-            }else  if (!isName(value)){
-              callback(new Error('请输入正确的姓名'))
+              callback(new Error('请输入正确的11位手机号码(非必填)'))
             }else {
               callback()
             }
@@ -383,9 +374,9 @@ import { mapState } from 'vuex';
         }
         var linkName=(rule, value,callback)=>{
             if (!value){
-              callback(new Error('请输入维保人员姓名'))
+              callback(new Error('请输入维保人员姓名(非必填)'))
             }else  if (!isName(value)){
-              callback(new Error('请输入正确的维保人员姓名'))
+              callback(new Error('请输入正确的维保人员姓名(非必填)'))
             }else {
               callback()
             }
@@ -474,20 +465,20 @@ import { mapState } from 'vuex';
               { type: 'number', message: '必须为数字值'}
             ],
             floorHeight:[
-              { required: false, trigger: 'blur', message: '请输入相对地板高度' },
-              { required: false,type: 'number', message: '必须为数字值'}
+              { required: true, trigger: 'blur', message: '请输入相对地板高度' },
+              { type: 'number', message: '必须为数字值'}
             ],
             Bike:[
-              { required: true, trigger: 'blur', message: '请填写生厂商' }
+              { required: true, trigger: 'blur', message: '请填写生厂商(非必填)' }
             ],
             ProductionDay:[
-              { required: true, trigger: 'change', message: '请选择生产日期' }
+              { required: true, trigger: 'change', message: '请选择生产日期(非必填)' }
             ],
             startDate:[
               { required: true, trigger: 'change', message: '请选择投入使用日期' }
             ],
             Refundable:[
-              { required: true, trigger: 'blur', message: '请填写维保单位' }
+              { required: true, trigger: 'blur', message: '请填写维保单位(非必填)' }
             ],
             linkname:[
               { required: true, trigger: 'blur', validator: linkName }
@@ -634,11 +625,10 @@ import { mapState } from 'vuex';
       show3(row){//跳转
         //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
-        this.$store.commit('deviceId',row.id);
+        this.$store.commit('deviceId',row);
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
-        console.log(row.id)
       },
       deleteRow(){
           //console.log(this.deviceIndex);
@@ -703,7 +693,7 @@ import { mapState } from 'vuex';
               this.tableData.forEach((item,index)=>{
                 // //console.log(111)
                 if(index == this.tableData.length-1){
-                  this.$store.commit('deviceId',item.id);
+                  this.$store.commit('deviceId',item);
                 }
               })
               if(this.totalList % 14 == 0){
@@ -818,7 +808,9 @@ import { mapState } from 'vuex';
       },
       unit(curVal,oldVal){
         this.unit = curVal;
-        
+        this.building = '';
+        this.floor = '';
+        this.room = '';
         this.buildSearch(this.unit);
         this.$store.commit('Unit',this.unit);
         this.tableList();
@@ -828,12 +820,12 @@ import { mapState } from 'vuex';
         //console.log(this.building);
         this.floor = '';
         this.room = '';
-        this.equipment = '';
         this.floorSearch(this.building);
         this.tableList();
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
+        this.room = '';
         //console.log(this.floor);
         if(this.floor !== 0){
           this.roomSearch(this.floor);
@@ -852,7 +844,10 @@ import { mapState } from 'vuex';
       },
       unitId(curVal,oldVal){
         this.form.unitId = curVal;
-        console.log(curVal)
+        // console.log(curVal);
+        this.form.buildingId = '';
+        this.form.floorId = '';
+        this.form.roomId = '';
         this.formBuildSearch(this.form.unitId);
       },
       buildingId(curVal,oldVal){
@@ -860,11 +855,11 @@ import { mapState } from 'vuex';
         //console.log(this.form.buildingId)
         this.form.floorId = '';
         this.form.roomId = '';
-        this.form.equipmentId = '';
         this.formFloorSearch(this.form.buildingId);
       },
       floorId(curVal,oldVal){
         this.form.floorId = curVal;
+        this.form.roomId = '';
         if(this.form.floorId !== 0){
           this.formRoomSearch(this.form.floorId);
         }
@@ -885,6 +880,11 @@ import { mapState } from 'vuex';
       this.unitSearch();
       this.equipmentSearch();
       $('#right').show();
+      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
+      if(roleId == 1 || roleId == 2){
+        $("#equipment").find("#mymodal input").removeAttr('disabled');
+        $("#equipment").find("#mymodal .el-input").removeClass('is-disabled');
+      }
       // this.$store.commit('Unit',this.unit);
       if(this.$route.path == '/Equipment_management/all'){
         $('.mapTable').hide();

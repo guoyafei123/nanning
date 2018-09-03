@@ -65,7 +65,7 @@
             label="操作">
             <template slot-scope="scope">
               <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
-              <button @click="delete_plan(scope.row)" class="delete" style="display:none;" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <button @click="delete_plan(scope.row)" v-show="isDelete" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
@@ -147,7 +147,7 @@
                     <el-input v-model="form.firemenName"></el-input>
                   </el-form-item>
                   <el-form-item label="消防负责人电话" prop="firemenTel" class="not-null col-sm-4">
-                    <el-input v-model="form.firemenTel"></el-input>
+                    <el-input maxlength="11" v-model="form.firemenTel"></el-input>
                   </el-form-item>
                   <el-form-item label="单位图片" class="not-null col-sm-12">
                     <div class="head-photo">
@@ -265,7 +265,8 @@
           firemenTel:[
             { required: true, trigger: 'blur', validator: validPhone }
           ]
-        }
+        },
+        isDelete:false
       }
     },
     methods: {
@@ -469,6 +470,12 @@
       realconsole();
       this.tableList();
       $('#right').show();
+      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
+      if(roleId == 1 || roleId ==2){
+        $("#unit-manage").find("#mymodal input").removeAttr('disabled');
+        $("#unit-manage").find("#mymodal .el-input").removeClass('is-disabled');
+        this.isDelete = true ;
+      }
     },
     watch:{
       currentPage4(val, oldVal){

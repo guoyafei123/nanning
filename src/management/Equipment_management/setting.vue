@@ -38,6 +38,13 @@
       'set_left-vue':Set_leftVue,
       'set_right-vue':Set_rightVue,
       'main-vue':MainVue
+    },
+    mounted(){
+      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
+      if(roleId == 1 || roleId == 2){
+        $("#equipment").find("#mymodal input").removeAttr('disabled');
+        $("#equipment").find("#mymodal .el-input").removeClass('is-disabled');
+      }
     }
   }
 </script>
