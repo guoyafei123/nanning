@@ -90,14 +90,14 @@
             label="位置">
             <template slot-scope="scope">
               <strong v-if="scope.row.buildingId == 0">室外</strong>
-              <strong v-else><span v-if="scope.row.buildingId != 0">{{ scope.row.buildingName }}</span><span v-if="scope.row.floorNumber != '' && scope.row.floorNumber != null">{{ scope.row.floorNumber }} 楼层</span><span v-if="scope.row.roomNumber != '' && scope.row.roomNumber != null">{{ scope.row.roomNumber }} 房间</span></strong>
+              <strong v-else><span v-if="scope.row.buildingId != 0">{{ scope.row.buildingName }}</span><span v-if="scope.row.floorNumber != '' && scope.row.floorNumber != null">{{ scope.row.floorNumber }} 层</span><span v-if="scope.row.roomNumber != '' && scope.row.roomNumber != null">{{ scope.row.roomNumber }} 房间</span></strong>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="cont"
             :show-overflow-tooltip="true"
             label="危险品简介">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="nickName"
             label="上报人">
@@ -115,18 +115,20 @@
               <el-tag
                 :type="scope.row.status === 0 ? 'red' : 'green'"
                 disable-transitions v-if='scope.row.status==0'>未解决 
-                <el-tooltip placement="top">
+                <!-- <el-tooltip placement="top">
                   <div slot="content" class="text-center">{{scope.row.nickName}}<br/>于{{scope.row.createTime}}上报</div>
                   <i class="fas fa-exclamation-circle font-red"></i>
-                </el-tooltip>
+                </el-tooltip> -->
+                 <i class="fas fa-exclamation-circle font-red"></i>
                 </el-tag>
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
                 disable-transitions v-if='scope.row.status==1'>已解决 
-                <el-tooltip placement="top">
+                <!-- <el-tooltip placement="top">
                   <div slot="content" class="text-center">{{scope.row.reviewerName}}<br/>于{{ scope.row.reviewTime }}解决</div>
                   <i class="fas fa-check-circle font-blue"></i>
-                </el-tooltip>
+                </el-tooltip> -->
+                <i class="fas fa-check-circle font-blue"></i>
               </el-tag>
             </template>
           </el-table-column>
@@ -139,11 +141,11 @@
             prop="reviewTime"
             label="解决时间">
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="treatment"
             :show-overflow-tooltip="true"
             label="解决原因">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             fixed="right"
             label="操作">
@@ -165,7 +167,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -173,7 +175,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -280,7 +282,7 @@
                     </el-date-picker>
                   </div>
                 </el-form-item>                -->
-                <el-form-item label="解决原因" class="not-null col-sm-12">
+                <el-form-item label="解决原因" class="not-null font-gray-ccc col-sm-12">
                   <el-input
                     type="textarea"
                     :rows="4"
@@ -425,6 +427,7 @@
         })
       },
       startRow(){
+        
         this.$fetch("/api/trouble/solveTrouble",{
           'troubleId':this.form.id,
           'dangerName':this.form.dangerName,
@@ -433,6 +436,15 @@
           if(response){
             //console.log('处理成功...'+ JSON.stringify(response));
             this.tableList();
+            // 修改成功提示
+            this.$message({
+              dangerouslyUseHTMLString: true,
+              message: '<strong> 修改成功</strong>',
+              center: true,
+              showClose: true,
+              iconClass:'el-icon-circle-check',
+              customClass:'edit-ok-notification'
+            });
           }
         })
       },
@@ -507,10 +519,10 @@
                   }
                 })
               }
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })
@@ -670,4 +682,5 @@
   };
 </script>
 <style lang="scss" scoped>
+
 </style>

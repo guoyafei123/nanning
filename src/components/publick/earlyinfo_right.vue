@@ -46,7 +46,7 @@
 						</article>
 					</div>
 				</li>
-				<li v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) != 'undefined'">
+				<li v-if="type==1">
 					<ul id="early-all" class="early-list list-unstyled">
 						<li :class="[aleamAndtroubleInfos.alarmsum!=null ? 'early-more' :'early-single',
 								aleamAndtroubleInfos.eventLevel==0 ? 'fault-list' :'',
@@ -90,14 +90,14 @@
 							<!-- <span class="badge">98s</span> -->
 							<el-tooltip placement="top">
 								<div slot="content">开始时间：{{aleamAndtroubleInfos.startTime}}</div>
-								<span class="badge">{{(aleamAndtroubleInfos.startTime).split(' ')[1]}}</span>
+								<span class="badge">{{(""+aleamAndtroubleInfos.startTime).substring(10)}}</span>
 							</el-tooltip>
 							</p>
 						</var>
 						</li>
 					</ul>
 				</li>
-				<li v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) == 'undefined'">
+				<li v-if="type==2">
 					<ul id="early-all" class="early-list list-unstyled">
 						<li :class="aleamAndtroubleInfos.allCount!=null ? 'early-more' :'early-single'" class="dangers-list">
 					<article>
@@ -137,7 +137,8 @@
             </p>
             <p class="col-sm-4">
               <!-- <span class="badge">98s</span> -->
-              <span class="badge">{{(aleamAndtroubleInfos.createTime).split(' ')[1]}}</span>
+							
+              <span class="badge">{{(""+aleamAndtroubleInfos.createTime).substring(10)}}</span>
             </p>
           </var>
 				</li>
@@ -145,7 +146,7 @@
 				</li>
 			</ul>
 		</section>
-		<section v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) != 'undefined'" class="call-iteminfo margin-top10 size-12">
+		<section v-if="type==1" class="call-iteminfo margin-top10 size-12">
 			<section>
 				<div class="textandimg margin-top20">
 					<h4 class="p-title">报警发起
@@ -276,7 +277,7 @@
 			</section> -->
 		</section>
 
-		<section v-if="(typeof this.aleamAndtroubleInfos['countOfAlarm']) == 'undefined'" class="call-iteminfo margin-top10 size-12">
+		<section v-if="type==2" class="call-iteminfo margin-top10 size-12">
 			<section>
 				<div class="textandimg margin-top20">
 					<h4 class="p-title">隐患发起
@@ -411,143 +412,157 @@
 </template>
 
 <script>
-	import moment from "moment";
-	import { mapState } from "vuex";
-	export default {
-		data() {
-			return {
-				aleamAndtroubleInfos: Object,
-				queryUnitInfoimg: require('../../assets/images/jpg01.jpg'),
-				defaultImg: 'this.src="' + require('../../assets/images/jpg01.jpg') + '"',
-				queryUnitInfo_parmar: {
-					unitId: 0
-				},
-				queryUnitInfo: Object,
-				queryUnitInfoinfo: Object,
-				getUnitsSynthesis_parmar: {
-					unitId: null
-				},
-				getUnitsSynthesis: Object,
-				aleamAndtroubleInfoTime:'',
-				aleamAndtroubleInfoTimeconfirm:'',
-				getAlarmDetail_parmar:{
-					alarmId:null
-				},
-				getAlarmDetails:Object,
-				troubleDetail_parmar:{
-					troubleId:null
-				},
-				troubleDetails:Object,
-        relieveTroubleTime : ''
+import moment from "moment";
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      aleamAndtroubleInfos: Object,
+      queryUnitInfoimg: require("../../assets/images/jpg01.jpg"),
+      defaultImg: 'this.src="' + require("../../assets/images/jpg01.jpg") + '"',
+      queryUnitInfo_parmar: {
+        unitId: 0
+      },
+      queryUnitInfo: Object,
+      queryUnitInfoinfo: Object,
+      getUnitsSynthesis_parmar: {
+        unitId: null
+      },
+      getUnitsSynthesis: Object,
+      aleamAndtroubleInfoTime: "",
+      aleamAndtroubleInfoTimeconfirm: "",
+      getAlarmDetail_parmar: {
+        alarmId: null
+      },
+      getAlarmDetails: Object,
+      troubleDetail_parmar: {
+        troubleId: null
+      },
+      troubleDetails: Object,
+			relieveTroubleTime: "",
+			type:1
+    };
+  },
+  computed: mapState(["aleamAndtroubleInfo"]),
+  watch: {
+    aleamAndtroubleInfo() {
+      this.fn();
+    }
+  },
+  methods: {
+    fn() {
+			this.aleamAndtroubleInfos = this.aleamAndtroubleInfo[0];
+			this.type=this.aleamAndtroubleInfo[1];
+      this.queryUnitInfo_parmar.unitId = this.aleamAndtroubleInfos.unitId;
+      this.getUnitsSynthesis_parmar.unitId = this.aleamAndtroubleInfos.unitId;
+      this.getAlarmDetail_parmar.alarmId = this.aleamAndtroubleInfos.id;
+      this.troubleDetail_parmar.troubleId = this.aleamAndtroubleInfos.id;
+      // alert(this.aleamAndtroubleInfos.id)
+      this.getqueryUnitInfo();
+      this.getgetUnitsSynthesis();
+      if (this.type==1) {
+        // 报警详情
+        this.getAlarmDetail();
+        let a = new Date(this.aleamAndtroubleInfos.startTime).getTime();
+        let confrimTime = this.aleamAndtroubleInfos.confirmTime;
+        let b = new Date().getTime();
+        if (confrimTime != null) {
+          b = new Date(confrimTime).getTime();
+        }
+        let responseMillisecond = moment.duration(b - a, "ms");
+        let responseTime =
+          responseMillisecond.get("hours") +
+          ":" +
+          responseMillisecond.get("minutes") +
+          ":" +
+          responseMillisecond.get("seconds");
+        this.aleamAndtroubleInfoTime = responseTime; //设置响应时长
+        let cancelTime = this.aleamAndtroubleInfos.cancelTime; //
+        let relieveTime = "";
+        if (cancelTime != null) {
+          b = new Date(cancelTime).getTime();
+          let cancelMillisecond = moment.duration(b - a, "ms");
+          relieveTime =
+            cancelMillisecond.get("hours") +
+            ":" +
+            cancelMillisecond.get("minutes") +
+            ":" +
+            cancelMillisecond.get("seconds");
+        }
+        this.aleamAndtroubleInfoTimeconfirm = relieveTime; //设置解除时长
+      } else {
+        // 隐患详情
+        this.troubleDetail();
+        let a = new Date(this.aleamAndtroubleInfos.createTime).getTime();
+        let reviewTime = this.aleamAndtroubleInfos.reviewTime;
+        let b = new Date().getTime();
+        let responseTime = "-";
+        if (reviewTime != null) {
+          b = new Date(reviewTime).getTime();
+          let responseMillisecond = moment.duration(b - a, "ms");
+          responseTime =
+            responseMillisecond.get("hours") +
+            ":" +
+            responseMillisecond.get("minutes") +
+            ":" +
+            responseMillisecond.get("seconds");
+        }
 
-			}
-		},
-		computed: mapState([
-			'aleamAndtroubleInfo'
-		]),
-		watch: {
-			aleamAndtroubleInfo() {
-				this.fn();
-			}
-		},
-		methods: {
-			fn() {
-				this.aleamAndtroubleInfos = this.aleamAndtroubleInfo[0];
-				this.queryUnitInfo_parmar.unitId = this.aleamAndtroubleInfos.unitId;
-				this.getUnitsSynthesis_parmar.unitId = this.aleamAndtroubleInfos.unitId;
-				this.getAlarmDetail_parmar.alarmId=this.aleamAndtroubleInfos.id;
-				this.troubleDetail_parmar.troubleId=this.aleamAndtroubleInfos.id;
-				// alert(this.aleamAndtroubleInfos.id)
-				this.getqueryUnitInfo();
-				this.getgetUnitsSynthesis();
-				if((typeof this.aleamAndtroubleInfos['countOfAlarm']) != 'undefined'){
-					// 报警详情
-					this.getAlarmDetail();
-          let a = new Date(this.aleamAndtroubleInfos.startTime).getTime();
-          let confrimTime = this.aleamAndtroubleInfos.confirmTime;
-          let b = new Date().getTime();
-          if(confrimTime != null){
-            b = new Date(confrimTime).getTime();
+        this.relieveTroubleTime = responseTime;
+      }
+    },
+    getqueryUnitInfo() {
+      this.$fetch("/api/unit/queryUnitInfo", this.queryUnitInfo_parmar).then(
+        response => {
+          if (response.data) {
+            this.queryUnitInfo = response.data;
+            this.queryUnitInfoinfo = response.data.unitInfo;
+            if (
+              this.queryUnitInfo_parmar.unitId == null ||
+              this.queryUnitInfo_parmar.unitId == 0
+            ) {
+              this.queryUnitInfoimg = require("../../assets/images/jpg01.jpg");
+            } else {
+              this.queryUnitInfoimg =
+                "http://img.nanninglq.51play.com/xf/api/unit_img/" +
+                this.queryUnitInfo_parmar.unitId +
+                ".jpg";
+            }
           }
-          let responseMillisecond = moment.duration(b - a, 'ms')
-          let responseTime = responseMillisecond.get('hours') +':' + responseMillisecond.get('minutes') + ':' + responseMillisecond.get('seconds');
-          this.aleamAndtroubleInfoTime = responseTime; //设置响应时长
-          let cancelTime = this.aleamAndtroubleInfos.cancelTime;//
-          let relieveTime = '';
-          if(cancelTime != null){
-            b = new Date(cancelTime).getTime();
-            let cancelMillisecond = moment.duration(b - a, 'ms');
-            relieveTime = cancelMillisecond.get('hours') +':' + cancelMillisecond.get('minutes') + ':' + cancelMillisecond.get('seconds');
+        }
+      );
+    },
+    getgetUnitsSynthesis() {
+      this.$fetch(
+        "/api/unit/getUnitsSynthesis",
+        this.getUnitsSynthesis_parmar
+      ).then(response => {
+        if (response.data) {
+          this.getUnitsSynthesis = response.data.result;
+        }
+      });
+    },
+    getAlarmDetail() {
+      this.$fetch("/api/alarm/getAlarmDetail", this.getAlarmDetail_parmar).then(
+        response => {
+          if (response.data) {
+            this.getAlarmDetails = response.data.alarm;
           }
-          this.aleamAndtroubleInfoTimeconfirm = relieveTime; //设置解除时长
-				}else{
-					// 隐患详情
-					this.troubleDetail();
-          let a = new Date(this.aleamAndtroubleInfos.createTime).getTime();
-          let reviewTime = this.aleamAndtroubleInfos.reviewTime;
-          let b = new Date().getTime();
-          let responseTime = '-';
-          if(reviewTime != null){
-            b = new Date(reviewTime).getTime();
-            let responseMillisecond = moment.duration(b - a, 'ms')
-            responseTime = responseMillisecond.get('hours') +':' + responseMillisecond.get('minutes') + ':' + responseMillisecond.get('seconds');
+        }
+      );
+    },
+    troubleDetail() {
+      this.$fetch("/api/trouble/troubleDetail", this.troubleDetail_parmar).then(
+        response => {
+          if (response.data) {
+            this.troubleDetails = response.data.trouble;
           }
-
-          this.relieveTroubleTime = responseTime;
-				}
-				
-				
-			},
-			getqueryUnitInfo() {
-				this.$fetch(
-					"/api/unit/queryUnitInfo",
-					this.queryUnitInfo_parmar
-				).then(response => {
-					if(response.data) {
-						this.queryUnitInfo = response.data;
-						this.queryUnitInfoinfo = response.data.unitInfo
-						if(this.queryUnitInfo_parmar.unitId == null || this.queryUnitInfo_parmar.unitId == 0) {
-							this.queryUnitInfoimg = require('../../assets/images/jpg01.jpg');
-						} else {
-							this.queryUnitInfoimg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.queryUnitInfo_parmar.unitId + '.jpg';
-						}
-					}
-				});
-			},
-			getgetUnitsSynthesis() {
-				this.$fetch(
-					"/api/unit/getUnitsSynthesis",
-					this.getUnitsSynthesis_parmar
-				).then(response => {
-					if(response.data) {
-						this.getUnitsSynthesis = response.data.result;
-					}
-				});
-			},
-			getAlarmDetail() {
-				this.$fetch(
-					"/api/alarm/getAlarmDetail",
-					this.getAlarmDetail_parmar
-				).then(response => {
-					if(response.data) {
-						this.getAlarmDetails = response.data.alarm;
-					}
-				});
-			},
-			troubleDetail() {
-				this.$fetch(
-					"/api/trouble/troubleDetail",
-					this.troubleDetail_parmar
-				).then(response => {
-					if(response.data) {
-						this.troubleDetails = response.data.trouble;
-					}
-				});
-			},
-
-		},
-		mounted() {
-			this.fn();
-		}
-	}
+        }
+      );
+    }
+  },
+  mounted() {
+    this.fn();
+  }
+};
 </script>

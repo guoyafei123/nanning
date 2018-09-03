@@ -58,7 +58,7 @@
             <el-input v-model="form.firemenName"></el-input>
           </el-form-item>
           <el-form-item label="消防负责人电话" prop="firemenTel" class="not-null col-sm-4">
-            <el-input v-model.number="form.firemenTel"></el-input>
+            <el-input maxlength="11" v-model.number="form.firemenTel"></el-input>
           </el-form-item> 
           <el-form-item label="单位图片" class="not-null col-sm-12">
             <div class="head-photo">
@@ -81,7 +81,7 @@
     <!-- 地图 -->
       <aside>      
           <div class="maps">
-              <managementMap-vue></managementMap-vue>
+              <managementMap-vue :pointU="this.form.point"></managementMap-vue>
           </div>
       </aside>
   </div>
@@ -219,6 +219,13 @@
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
+              var point = this.form.point;
+              // console.log(typeof(point))
+              if(typeof(point) == 'string'){
+                var pointList = point.split(",");
+              }else{
+                var pointList = this.form.point;
+              }
               var file = "file";
               var that = this;
               $.ajaxFileUpload({
@@ -234,8 +241,8 @@
                   'firemenName':this.form.firemenName,
                   'firemenTel':this.form.firemenTel,
                   // 'corporation':this.form.corporation,
-                  'pointX':this.form.point[0],
-                  'pointY':this.form.point[1]
+                  'pointX':pointList[0],
+                  'pointY':pointList[1]
                 },
                 type: 'POST',
                 dataType: "plain",
@@ -250,6 +257,15 @@
                   // //console.log(e) 
                   that.$router.push({path:'/Unit_management/all'});
                 }
+              });
+              // 添加成功提示
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                message: '<strong>'+ this.form.name +'单位添加成功</strong>',
+                center: true,
+                showClose: true,
+                iconClass:'el-icon-circle-check',
+                customClass:'edit-ok-notification'
               });
             } else {
               //console.log('error submit!!');

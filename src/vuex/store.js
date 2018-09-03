@@ -49,6 +49,10 @@ var state={
   //消息
   noticeId:'',
   unitNotice:'',
+  noticeTableData:'',
+  activityTableData:'',
+  //巡检打卡
+  inspectionPlanUserId:'',
   // 展示端的store
   setvuextest:'',
   queryUnitBuildList:Object,
@@ -58,7 +62,7 @@ var state={
   indexToAlarmTroubel:Object,
   toIndexLeftAlarmChar:Object,
   // 展示端风险
-  toriskitem:false,
+  toriskitem:Object,
   // 展示端建筑
   tobuilditem:Object,
   // 全局权限
@@ -76,12 +80,16 @@ var state={
   topersonitem:Object,
   // 综合页面传入报警和隐患详情
   aleamAndtroubleInfo:Object,
+  //巡检打卡
+  InspectionPlanUserId:Object,
 
   // 地图相关
   // 全部单位
   mapAllUnit:Object,
   toMapPatterns:Object,
-  toMapPatternsDanger:Object
+  toMapPatternsDanger:Object,
+  // 综合页面小地图向详情传值
+  dialogVisiblehide:Object
 }
 
 var mutations={
@@ -208,6 +216,12 @@ var mutations={
   unitNotice(state,data){
     state.unitNotice = data ;
   },
+  noticeTableData(state,data){
+    state.noticeTableData = data ;
+  },
+  activityTableData(state,data){
+    state.activityTableData = data ;
+  },
   // 展示端的store
   setvuextest(state,data){
     state.setvuextest = data;
@@ -274,6 +288,13 @@ var mutations={
   toMapPatternsDanger(state,data){
     state.toMapPatternsDanger=data;
   },
+  inspectionPlanUserId(state,data){
+    state.inspectionPlanUserId = data;
+  },
+  dialogVisiblehide(state,data){
+
+    state.dialogVisiblehide = data;
+  }
 }
 
 export default new Vuex.Store({

@@ -15,10 +15,10 @@
                   <span class="bgbox-max bg-red font-black size-10" v-if="this.inspectionPlan.status == 2">未激活</span>
               </span>
             </p>
-            <p class="col-sm-7 text-left padding0">
+            <p class="col-sm-4 text-left padding0 margin-top10">
               <span><i class="fas fa-industry"></i> {{ inspectionPlan.unitName }}</span>
             </p>
-            <p class="col-sm-5 text-right padding0">
+            <p class="col-sm-8 text-right padding0 margin-top10">
               最后更新:<strong class="font-gray-999">{{inspectionPlan.createTime}}</strong>            
             </p>
           </div>
@@ -30,7 +30,7 @@
             <div class="col-sm-4 font-gray-999 padding0">
               <ul class="toolcount-left margin-bottom0 padding-left15">
                 <li>
-                  <h1 class="toolcount-p1 font-white" v-html="this.inspectionPlan.amount">17</h1>
+                  <h1 class="toolcount-p1 font-white" v-html="this.inspectionPlan.amount"></h1>
                 </li>
                 <li class="margin-top30">
                   <p class="size-10">Rated Counts</p>
@@ -64,7 +64,7 @@
                     <p>节点总数</p>
                   </div>
                   <div class="col-sm-4 container-padding0">
-                    <p class="size-16 show font-blue">20</p>
+                    <p class="size-16 show font-blue">----</p>
                     <p>巡检人数</p>
                   </div>
                 </li>
@@ -271,7 +271,7 @@
                 <el-pagination
                                @current-change="handleCurrent"
                                :current-page="currentPage"
-                               :page-size="5"
+                               :page-size="11"
                                layout="prev, pager, next"
                                :total="totalCount">
                 </el-pagination>
@@ -279,7 +279,7 @@
                 <el-pagination
                                @current-change="handleCurrent"
                                :current-page="currentPage"
-                               :page-size="5"
+                               :page-size="11"
                                layout="total"
                                :total="totalCount">
                 </el-pagination>
@@ -307,7 +307,7 @@
                     <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:160px;"></el-input>
                     <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="width:300px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
                   </el-form-item>
-                  <el-form-item label="是否开启扫描打卡"class="margin-top10">                
+                  <el-form-item label="是否开启扫描打卡" class="margin-top10">                
                     <el-radio-group v-model="isScan">
                       <el-radio-button label="1">是</el-radio-button>
                       <el-radio-button label="0">否</el-radio-button>
@@ -520,10 +520,10 @@
               // //console.log(response.data.inspectionPlanList);
               this.totalCount = response.data.total;
               this.tableDataList = response.data.inspectionPlanList;
-              if(this.totalCount % 10 == 0){
-                this.pageCount = parseInt( this.totalCount / 10 )
+              if(this.totalCount % 11 == 0){
+                this.pageCount = parseInt( this.totalCount / 11 )
               }else{
-                this.pageCount = parseInt( this.totalCount / 10 ) + 1
+                this.pageCount = parseInt( this.totalCount / 11 ) + 1
               }
             }
           })
@@ -642,7 +642,7 @@
           $('.total').hide();
           $('.mapTable').hide();
         }
-        //console.log(this.inspectionId);
+        console.log(this.inspectionId);
         this.$fetch("/api/admin/inspection/queryInspectionNodeByPlanId",{
           planId:this.inspectionId
         }).then(response=>{

@@ -55,12 +55,12 @@
               </div>
     </section>
     <!-- 消防信息 -->
-      <section>
+      <!-- <section>
         <div class="textandimg margin-top30">
               <h4 class="p-title">消防信息</h4>
               <div class="row textandimg-main margin-top20 size-12">
                   <div class="col-sm-12">
-                      <span>消防负责人 </span>
+                      <span>消防负责人</span>
                       <strong v-html="this.firemenName"></strong>
                   </div>
                   <div class="col-sm-12">
@@ -69,7 +69,7 @@
                   </div>                 
                 </div>
           </div>
-      </section>  
+      </section>   -->
   </div>
 </template>
 
@@ -97,7 +97,7 @@
                 if(item.id == this.unitNum){
                     this.id = item.id ;
                     this.name = item.name ;
-                    this.propertperty = item.propertperty ;
+                    this.property = item.property ;
                     this.staffNum  = item.staffNum ;
                     this.location = item.location ;
                     this.firemenName = item.firemenName ;
@@ -109,7 +109,7 @@
             this.$fetch(
                 "/api/unit/queryPagerUnitList",{
                     currentPager:this.currentPage,
-                    pagerSize:10
+                    pagerSize:14
                 }
             )
             .then(response => {

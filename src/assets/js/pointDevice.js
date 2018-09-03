@@ -60,15 +60,14 @@ export function setPoint(type, divid) {
     var matrixY = $('#floorImg').css('transform').replace(/[^0-9\-.,]/g, '').split(',')[3];
     var matrixW = $('#floorImg').css('transform').replace(/[^0-9\-.,]/g, '').split(',')[4];
     var matrixH = $('#floorImg').css('transform').replace(/[^0-9\-.,]/g, '').split(',')[5];
-    console.log(matrixY);
     var fw=$('#imgPic').width()/$('#floorImg').width()
     
     $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
     $('#'+divid).css("position","absolute");
-    var y=window.pointTop - 18-parseFloat(matrixH);
+    var y=window.pointTop - 36-parseFloat(matrixH);
     var x=window.pointLeft - 18-parseFloat(matrixW)
-    console.log(x+'-----'+y)
-    console.log(x/matrixY+'-----'+y/matrixY)
+    // console.log(x+'-----'+y)
+    // console.log(x/matrixY+'-----'+y/matrixY)
     $('#'+divid).css("top",y);
     $('#'+divid).css("left",x);
     // var xx=x*matrixY;
@@ -85,7 +84,7 @@ export function setPointList(xRate,yRate,type, divid) {
     var left = $('#imgPic').offset().left;
     var offsetParent = $('#imgPic').offsetParent().offset().left;
     var LeftPoint = left - offsetParent ;
-    $('#'+divid).css("top",yRate * fjheight - 18);
+    $('#'+divid).css("top",yRate * fjheight - 36);
     $('#'+divid).css("left",xRate * fjwidth + LeftPoint - 18);
     $('#'+divid).html('<i class="icon iconfont icon-shuidi-"><i class="icon iconfont '+type+'"></i></i>');
     $('#'+divid).css("position","absolute");

@@ -7,7 +7,8 @@
 					<canvas id="canvas-big" width="260" height="200"></canvas>
 				</div>
 				<div class="tool-charmaxvalue">
-					<p class="line-height86 size-60 font-blue"><span class="size-100">{{unitAssessScore?unitAssessScore:"0"}}</span></p>
+					<p class="line-height86 font-blue">0.52</p>
+					<!-- {{unitAssessScore?unitAssessScore:"0"}} -->
 				</div>
 			</div>
 
@@ -59,13 +60,13 @@
 											</el-tooltip>
 										</td>
 										<td class="safe">
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=2 && Number((10-item.totalScore)/100).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=4 && Number((10-item.totalScore)/100).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-												<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+												<span v-if="Number((10-item.totalScore)/10).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((10-item.totalScore)/10).toFixed(1)>=2 && Number((10-item.totalScore)/10).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((10-item.totalScore)/10).toFixed(1)>=4 && Number((10-item.totalScore)/10).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/10).toFixed(1)}}</span>
+												<span v-if="Number((10-item.totalScore)/10).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/10).toFixed(1)}}</span>
 										</td>
 										<td class="risk">
-											{{item.totalScore}}
+											{{item.totalScore}}%
 										</td>
 										<td>
 											<a v-on:click="toitmeinfo(item)">
@@ -139,10 +140,10 @@
 							<td class="safe">
 								<el-tooltip placement="top">
 									<div slot="content">安全评分 8.0</div>
-									<span v-if="Number((10-item.totalScore)/100).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-									<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=2 && Number((10-item.totalScore)/100).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-									<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=4 && Number((10-item.totalScore)/100).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
-									<span v-if="Number((10-item.totalScore)/100).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+									<span v-if="Number((10-item.totalScore)/10).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/100).toFixed(1)}}</span>
+									<span v-if="Number((10-item.totalScore)/10).toFixed(1)>=2 && Number((10-item.totalScore)/10).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/10).toFixed(1)}}</span>
+									<span v-if="Number((10-item.totalScore)/10).toFixed(1)>=4 && Number((10-item.totalScore)/10).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number((10-item.totalScore)/10).toFixed(1)}}</span>
+									<span v-if="Number((10-item.totalScore)/10).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number((10-item.totalScore)/10).toFixed(1)}}</span>
 								</el-tooltip>
 							</td>
 							<td class="risk">
@@ -249,7 +250,7 @@
 					buidingId: null,
 					startTime: null,
 					endTime: null,
-					currentPage: 1,
+					currentPage: 2,
 					pageSize: 10
 				},
 				// 表格返回
@@ -264,7 +265,7 @@
 				).then(response => {
 					let data = response.data;
 					if(response.data) {
-						this.unitAssessScore = Number((10-data.result.socre)/100).toFixed(1);
+						this.unitAssessScore = Number((10-item.totalScore)/10).toFixed(1);
 						this.chart_left(data.result);
 					}
 				});
@@ -435,7 +436,7 @@
 					}
 
 					//计算要画的前景色块比例
-					var n = Math.round(100-data.socre / 100 * 360 * 0.0833333);
+					var n = Math.round((10-data.socre) / 10 * 360 * 0.0833333);
 					//再次绘制比例圆
 					for(var i = 0, angle = Math.PI, tmp, len; i < n; i++) {
 						cxt.beginPath();

@@ -9,26 +9,27 @@
       <!-- 设备名称 -->
       <section>        
         <div class="toolcount font-gray-999 size-12 margin-top20 clearfix">
-                  <!-- 已选择 -->
-                  <div class="personinfo">
-                        <p>                       
-                        <span class="size-20 font-blue">
-                          <!-- <i class="icon iconfont icon-jiankong-mian- size-20"></i> <span> -->{{ this.device.name }}</span>
-                        </span>
-                        <span class="float-right">
-                                <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{this.device.deviceTypeName}}</span>
-                            </span>
-                        </p>
-                        <p class="col-sm-12 text-left padding0">
-                            <span>
-                                <i class="el-icon-location"></i> {{this.device.location}}</span>
-                        </p>
-                        <!-- <P class="col-sm-5 text-right padding0">
-                            <span class="text-right">
-                            最后更新：<span class="font-gray-999">2018.07.09 08:00:00</span>
-                            </span>
-                        </P>  -->                       
-                  </div>
+          <!-- 已选择 -->
+          <div class="personinfo">
+                <p>                       
+                <span class="size-20 font-blue">
+                  <!-- <i class="icon iconfont icon-jiankong-mian- size-20"></i> -->
+                  <span>{{ this.device.name }}</span>
+                </span>
+                <span class="float-right">
+                    <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{this.device.deviceTypeName}}</span>
+                </span>
+                </p>
+                <p class="col-sm-12 text-left padding0 margin-top10">
+                    <span>
+                        <i class="el-icon-location"></i> {{this.device.location}}</span>
+                </p>
+                <!-- <P class="col-sm-5 text-right padding0">
+                    <span class="text-right">
+                    最后更新：<span class="font-gray-999">2018.07.09 08:00:00</span>
+                    </span>
+                </P>  -->                       
+          </div>
         </div>
       </section>
       <!-- 设备信息统计 -->
@@ -68,7 +69,7 @@
                       </li>
                       <li class="row text-center padding-right16 margin-top10">
                           <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-blue">18</p>
+                              <p class="size-16 show font-blue">{{this.dateMinus(this.device.startDate)}}</p>
                               <p>运行(天)</p>
                           </div>                          
                           <div class="col-sm-4 personnel-borderright">
@@ -122,12 +123,12 @@
                   </div>  
                   <div class="col-sm-6">
                       <span>运行时长 </span>
-                      <strong v-html="this.device.timeYear+'天'"></strong>
+                      <strong v-html="this.dateMinus(this.device.startDate)+'天'"></strong>
                   </div>  
-                  <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
                       <span>投入时间 </span>
                       <strong v-html="this.device.startDate == null ? '-' : this.device.startDate"></strong>
-                  </div>
+                  </div> -->
                   <div class="col-sm-6">
                       <span>设备二维码 </span>
                       <el-tooltip class="item" content="设备二维码" placement="top">
@@ -274,7 +275,7 @@
                 <el-pagination
                               @current-change="handleCurrentChange"
                               :current-page="currentPage4"
-                              :page-size="6"
+                              :page-size="11"
                               layout="prev, pager, next"
                               :total="totalList">
                 </el-pagination>
@@ -282,7 +283,7 @@
                 <el-pagination
                               @current-change="handleCurrentChange"
                               :current-page="currentPage4"
-                              :page-size="6"
+                              :page-size="11"
                               layout="total"
                               :total="totalList">
                 </el-pagination>
@@ -662,6 +663,13 @@
             //console.log(err);
           });
       },
+      dateMinus(sDate){ 
+    　　var sdate = new Date(sDate.replace(/-/g, "/")); 
+    　　var now = new Date(); 
+    　　var days = now.getTime() - sdate.getTime(); 
+    　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
+    　　return day; 
+      },
       qrcode(){
         window.open("/api/qrcode/deviceImgs?unitId="+this.Unit+'&buildingId='+this.buildDevice+'&floorId='+this.floorDevice+'&roomId='+this.roomDevice+'&deviceTypeId='+this.equipmentDevice);
       },
@@ -726,10 +734,10 @@
                   }
                 })
               }
-              if(this.totalList % 9 == 0){
-                this.page = parseInt( this.totalList / 9 )
+              if(this.totalList % 11 == 0){
+                this.page = parseInt( this.totalList / 11 )
               }else{
-                this.page = parseInt( this.totalList / 9 ) + 1
+                this.page = parseInt( this.totalList  / 11 ) + 1
               }
             }
           })
@@ -854,9 +862,7 @@
           $('.plan').show();
           $('.total').hide();
           $('.mapTable').hide();
-          this.tableData.forEach((item,index)=>{
-            if(item.id == this.deviceId){
-              console.log(item.id,this.deviceId);
+              const item = this.deviceId ;
               this.device.status = item.status ;
               this.device.name = item.name ;
               this.device.deviceTypeName = item.deviceTypeName ;
@@ -872,12 +878,7 @@
               this.device.productDate = item.productDate ;
               this.device.maintenanceUnit = item.maintenanceUnit ;
               this.device.maintenancePhone = item.maintenancePhone ;
-            }
-          })
         }
-        console.log(this.tableData)
-        
-        //console.log(this.deviceId);
       },
       Unit(){
         this.tableList();

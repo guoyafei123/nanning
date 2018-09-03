@@ -32,9 +32,9 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="举办地点" prop="location" class="not-null">
+          <!-- <el-form-item label="举办地点" prop="location" class="not-null">
               <el-input v-model="form.location" placeholder="请填写举办地点" class="col-sm-10"></el-input>
-          </el-form-item>   
+          </el-form-item>    -->
           <el-form-item label="活动主题" prop="name" class="not-null">
             <el-input v-model="form.name" class="col-sm-10"></el-input>
           </el-form-item>
@@ -157,8 +157,8 @@ import { isvalidName } from '../../assets/js/validate';
               { id:1,name:'多' },
               { id:2,name:'中' },
               { id:3,name:'少'}
-            ],
-            location:''
+            ]
+            // location:''
           },
           rules: {
             unitId:[
@@ -190,10 +190,10 @@ import { isvalidName } from '../../assets/js/validate';
             ],
             content:[
               { required: true, message: '请填写公告内容', trigger: 'blur' }
-            ],
-            location:[
-              { required: true, message: '请填写举办地点', trigger: 'blur' }
             ]
+            // location:[
+            //   { required: true, message: '请填写举办地点', trigger: 'blur' }
+            // ]
           }
         }
       },
@@ -223,7 +223,7 @@ import { isvalidName } from '../../assets/js/validate';
           this.$fetch("/api/event/sendEventMessage",{
             name:this.form.name,
             levels:this.form.levels,
-            location:this.form.location,
+            // location:this.form.location,
             activeUserNumber:this.form.activeUserNumber,
             startTime:this.form.startTime,
             smoking:this.form.smoking,

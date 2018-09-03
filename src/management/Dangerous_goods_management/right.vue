@@ -19,22 +19,25 @@
                   <i class="icon iconfont icon-weixianpin-mian- size-20" data-toggle="tooltip" title="危险品"></i>
                   <span>{{ this.trouble.dangerName }}</span>
                 </span>
-                <span class="float-right font-black size-10">
+                <!-- <span class="float-right font-black size-10">
                   <span class="bgbox-max bg-yellow" v-if="this.trouble.status == 0">未解决</span>
                   <span class="bgbox-max bg-blue" v-if="this.trouble.status == 1">已解决</span>
-                </span>
+                </span> -->
               </p>
-              <p class="col-sm-7 text-left font-gray-999 padding0">
+              <p class="col-sm-4 text-left font-gray-999 padding0 margin-top10">
                 <span>
                   <i class="fas fa-industry"></i> {{ this.trouble.unitName }}
                 </span>
               </p>
-              <P class="col-sm-5 text-right padding0">
-                <span class="text-right" v-if="this.trouble.status == 0">
+              <P class="col-sm-8 text-right padding0 margin-top10">
+                <!-- <span class="text-right" v-if="this.trouble.status == 0">
                   上报时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
                 </span>
                 <span class="text-right" v-if="this.trouble.status == 1">
                   解决时间：<span class="font-gray-999">{{this.trouble.reviewTime}}</span>
+                </span> -->
+                <span class="text-right">
+                  上报时间：<span class="font-gray-999">{{this.trouble.createTime}}</span>
                 </span>
               </P>
           </div>         
@@ -47,12 +50,12 @@
                   <ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
                       <li>
                           <h1 class="toolcount-p1 cn-status">
-                            <span class="font-yellow" v-if="this.trouble.status == 0">未解决</span>
-                            <span class="font-blue" v-if="this.trouble.status == 1">已解决</span>
+                            <span class="font-yellow size-40" v-if="this.trouble.status == 0">未解决</span>
+                            <span class="font-blue size-40" v-if="this.trouble.status == 1">已解决</span>
                           </h1>
                       </li>
                       <li class="margin-top40">
-                          <p class="size-10 ">Dangerous Status</p>
+                          <p class="size-10">Dangerous Status</p>
                       </li>
                       <li>
                           <p class="size-16 font-blue">危险品状态</p>
@@ -108,33 +111,28 @@
                       <span>名称</span>
                       <strong v-html="this.trouble.dangerName"></strong>
                   </div>                  
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                       <span>所属单位</span>
                       <strong v-html="this.trouble.unitName"></strong>
                   </div>
-                  <div class="col-sm-6">
-                      <span>状态</span>
-                      <strong class="font-yellow" v-if="this.trouble.status == 0">未解决</strong>
-                      <strong class="font-blue"  v-if="this.trouble.status == 1">已解决</strong>
-                  </div>
-                  <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
                       <span>位置</span>
                       <strong v-if="this.trouble.buildingName == '室外'">室外</strong>
                       <strong v-else><span v-if="this.trouble.buildingName != '' && this.trouble.buildingName != null">{{ this.trouble.buildingName }} 建筑</span><span v-if="this.trouble.floorNumber != '' && this.trouble.floorNumber != null">{{ this.trouble.floorNumber }} 楼层</span><span v-if="this.trouble.roomNumber != '' && this.trouble.roomNumber != null">{{ this.trouble.roomNumber }} 房间</span></strong>
-                  </div>
+                  </div> -->
                   <div class="col-sm-12">
                       <span>坐标 </span>
                       <strong v-html="this.trouble.point.pointX"></strong>
                       <strong v-html="this.trouble.point.pointY"></strong>
                   </div>
-                  <div class="col-sm-6">
+                  <!-- <div class="col-sm-6">
                     <span>上报人</span>
                     <strong v-html="this.trouble.nickName"></strong>
                   </div>
                   <div class="col-sm-12">
                       <span>上报时间</span>
                       <strong v-html="this.trouble.createTime"></strong>
-                  </div>
+                  </div> -->
                   <div class="col-sm-12">
                       <span>描述 </span>
                       <strong v-html="this.trouble.cont"></strong>
@@ -153,14 +151,14 @@
                    <!-- {{ this.trouble.dangerName }} -->处理记录
                 </h4>
                 <div class="row textandimg-main margin-top20">
-                  <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
                       <span>解决人</span>
                       <strong v-html="this.trouble.reviewerName"></strong>
                   </div>
                   <div class="col-sm-12">
                       <span>解决时间 </span>
                       <strong v-html="this.trouble.reviewTime"></strong>
-                  </div>                  
+                  </div>                   -->
                   <div class="col-sm-12">
                       <span>解决原因 </span>
                       <strong v-html="this.trouble.treatment"></strong>
@@ -282,7 +280,7 @@
               <el-pagination
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
-                            :page-size="6"
+                            :page-size="11"
                             layout="prev, pager, next"
                             :total="totalList">
               </el-pagination>
@@ -290,7 +288,7 @@
               <el-pagination style="float: right;"
                             @current-change="handleCurrentChange"
                             :current-page="currentPage4"
-                            :page-size="6"
+                            :page-size="11"
                             layout="total"
                             :total="totalList">
               </el-pagination>
@@ -382,7 +380,7 @@
                     <li class="col-sm-3"><img :src="this.form.imgUrl" class="img-responsive" /></li>
                   </ul>
                 </el-form-item> -->
-                <el-form-item label="解决人" class="not-null">
+                <!-- <el-form-item label="解决人" class="not-null">
                   <el-input v-model="form.reviewerName" class="not-null col-sm-6"></el-input>
                 </el-form-item>
                 <el-form-item label="解决时间" class="not-null col-sm-6">
@@ -395,7 +393,7 @@
                       value-format="yyyy-MM-dd">
                     </el-date-picker>
                   </div>
-                </el-form-item>               
+                </el-form-item>                -->
                 <el-form-item label="解决原因" class="not-null col-sm-12">
                   <el-input
                     type="textarea"
@@ -651,10 +649,10 @@
                   }
                 })
               }
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 11 == 0){
+                this.page = parseInt( this.totalList / 11 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 11 ) + 1
               }
             }
           })

@@ -65,6 +65,7 @@
             label="操作">
             <template slot-scope="scope">
               <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="delete_plan(scope.row)" v-show="isDelete" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
@@ -80,7 +81,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="prev, pager, next"
                          :total="totalList">
           </el-pagination>
@@ -88,7 +89,7 @@
           <el-pagination
                          @current-change="handleCurrentChange"
                          :current-page="currentPage4"
-                         :page-size="10"
+                         :page-size="14"
                          layout="total"
                          :total="totalList">
           </el-pagination>
@@ -146,7 +147,7 @@
                     <el-input v-model="form.firemenName"></el-input>
                   </el-form-item>
                   <el-form-item label="消防负责人电话" prop="firemenTel" class="not-null col-sm-4">
-                    <el-input v-model="form.firemenTel"></el-input>
+                    <el-input maxlength="11" v-model="form.firemenTel"></el-input>
                   </el-form-item>
                   <el-form-item label="单位图片" class="not-null col-sm-12">
                     <div class="head-photo">
@@ -167,6 +168,26 @@
           </div>
         </div>
       </div>
+    </div>
+    <!-- 删除Modal -->
+    <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
+              </div>
+              <div class="modal-body text-center container-padding40">
+                <h3 class="font-red size-14">是否删除</h3>
+                <p class="font-white size-16">{{ buildingName }}</p>
+              </div>
+              <div class="modal-footer">
+                <el-button type="danger" @click.native.prevent="deleteRow()" icon="el-icon-delete" class="danger" data-dismiss="modal">删除</el-button>
+                <el-button class="back" data-dismiss="modal">取消</el-button>
+              </div>
+            </div>
+          </div>
     </div>
   </section>
 </template>
@@ -225,7 +246,7 @@
         currentPage4: 1,//当前页
         totalList:null,//总条数
         deviceIndex:'',
-        deviceName:'',
+        buildingName:'',
         isShow:true,
         fileVerification:'',//验证图片
         rules: {
@@ -244,10 +265,12 @@
           firemenTel:[
             { required: true, trigger: 'blur', validator: validPhone }
           ]
-        }
+        },
+        isDelete:false
       }
     },
     methods: {
+      
       file(){
         var x = document.getElementById("file");
         if (!x || !x.value) return;
@@ -285,7 +308,7 @@
                   //alert("//Firefox8.0以上"+imgRUL);
               }
           } catch (e) {      //这里不知道怎么处理了，如果是遨游的话会报这个异常
-              //支持html5的浏览器,比如高版本的firefox、chrome、ie10
+              //支持html5的浏览器,比如高版本的firefox、chrome、ie14
               if (node.files && node.files[0]) {
                   var reader = new FileReader();
                   reader.onload = function (e) {
@@ -386,10 +409,28 @@
           }
         });
       },
+      delete_plan(row){//删除
+        this.buildingName = row.name;
+        this.deviceIndex = row.id;
+      },
       show3(row){//跳转
         //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
         this.$store.commit('unitNum',row.id);
+      },
+      deleteRow(){
+          //console.log(this.deviceIndex);
+        this.$fetch("/api/unit/deleteUnit",{
+          'unitId':this.deviceIndex
+        }).then(response=>{
+          if(response){
+            //console.log('删除成功...'+ JSON.stringify(response));
+            this.tableData.splice(this.deviceIndex,1);
+            this.tableList();
+          }
+        }).then(err => {
+          //console.log(err);
+        });
       },
       tableList(){
         this.$fetch(
@@ -413,10 +454,10 @@
                   //console.log(item)
                 }
               })
-              if(this.totalList % 10 == 0){
-                this.page = parseInt( this.totalList / 10 )
+              if(this.totalList % 14 == 0){
+                this.page = parseInt( this.totalList / 14 )
               }else{
-                this.page = parseInt( this.totalList / 10 ) + 1
+                this.page = parseInt( this.totalList / 14 ) + 1
               }
             }
           })
@@ -429,6 +470,12 @@
       realconsole();
       this.tableList();
       $('#right').show();
+      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
+      if(roleId == 1 || roleId ==2){
+        $("#unit-manage").find("#mymodal input").removeAttr('disabled');
+        $("#unit-manage").find("#mymodal .el-input").removeClass('is-disabled');
+        this.isDelete = true ;
+      }
     },
     watch:{
       currentPage4(val, oldVal){

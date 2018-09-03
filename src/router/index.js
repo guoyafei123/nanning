@@ -66,11 +66,20 @@ import ControlRoomLogVue from '../management/ControlRoomLog/ControlRoomLog';
 import ControlRoomLog_AllVue from '../management/ControlRoomLog/all';
 import Add_alarmVue from '../management/Add_alarm/Add_alarm';
 import Add_alarm_ListVue from '../management/Add_alarm/list';
+import Add_TroubleVue from '../management/Add_trouble/Add_trouble';
+import Add_Trouble_ListVue from '../management/Add_trouble/list';
+
 import Risk_managementVue from '../management/Risk_management/Risk_management';
 import Risk_managementAllVue from '../management/Risk_management/all';
 import Risk_managementUnitVue from '../management/Risk_management/unit';
 import Risk_managementBuildVue from '../management/Risk_management/build';
 import Risk_managementEditVue from '../management/Risk_management/edit';
+
+import RiskScore_managementVue from '../management/RiskScore_management/RiskScore_management';
+import RiskScore_managementAllVue from '../management/RiskScore_management/all';
+import RiskScore_managementUnitVue from '../management/RiskScore_management/unit';
+import RiskScore_managementBuildVue from '../management/RiskScore_management/build';
+import RiskScore_managementEditVue from '../management/RiskScore_management/edit';
 import { registerDecorator } from 'handlebars';
 export default new Router({
   routes: [
@@ -259,11 +268,31 @@ export default new Router({
       ]
     },
     {
+      path:'/RiskScore_management',
+      component:Risk_managementVue,
+      children:[
+        { path:'/RiskScore_management/build',component:RiskScore_managementBuildVue},
+        { path:'/RiskScore_management/edit',component:RiskScore_managementEditVue},
+        { path:'/RiskScore_management/unit',component:RiskScore_managementUnitVue},
+        { path:'/RiskScore_management/RiskScore_management',component:RiskScore_managementVue},
+        { path:'/RiskScore_management/all',component:RiskScore_managementAllVue},
+        { path:'/RiskScore_management',redirect:'/RiskScore_management/all'}
+      ]
+    },
+    {
       path:'/Add_alarm',
       component:Add_alarmVue,
       children:[
         { path:'/Add_alarm/list',component:Add_alarm_ListVue},
         { path:'/Add_alarm',redirect:'/Add_alarm/list'}
+      ]
+    },
+    {
+      path:'/Add_trouble',
+      component:Add_TroubleVue,
+      children:[
+        { path:'/Add_trouble/list',component:Add_Trouble_ListVue},
+        { path:'/Add_trouble',redirect:'/Add_trouble/list'}
       ]
     },
     {
