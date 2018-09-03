@@ -33,7 +33,7 @@
 						<p>
 							<span class="size-20 font-blue">{{itemData.buildingName}}</span>
 							<span class="float-right">
-                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分{{Number((10-itemData.troubleScore)/100).toFixed(1)}}</span>
+                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分{{Number(10-itemData.troubleScore/10).toFixed(1)}}</span>
 							</span>
 						</p>
 					</div>
