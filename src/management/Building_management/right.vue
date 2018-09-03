@@ -586,6 +586,8 @@
         form: {
           unitId:'',
           UnitName:'',
+          buildingMapsId:'',
+          floorMapsId:'',
           BuildName:'',
           height:'',
           floor:'',
@@ -684,7 +686,7 @@
         $('.add').hide();
         this.floor_index = this.index;
         var file = "file";
-        let array={ 'buildingId': this.buildingId, 'floor': this.floor_index, 'floorName': this.number}
+        let array={ 'buildingId': this.form.buildingMapsId, 'floor': this.floor_index, 'floorName': this.number}
               
               this.table_list.push(array);
               //console.log(this.table_list);
@@ -693,7 +695,7 @@
             /* secureuri : false, */ //一般设置为false
             fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
             data : {
-              'buildingId':this.buildingId,
+              'buildingId':this.form.buildingMapsId,
               'floor':this.floor_index,
               'floorName':this.number
             },
@@ -746,7 +748,7 @@
                 fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
                 data : {
                   'id' : item.id,
-                  'buildingId':item.buildingId,
+                  'buildingId':item.form.buildingMapsId,
                   'floor':item.floor,
                   'floorName':item.floorName,
                   'svgUrl':item.svgUrl
@@ -797,11 +799,12 @@
         $('.map').hide();
         $('.floorMap').hide();
         $('.roomMap').show();
+        console.log(item.id)
         this.floorName = item.floorName ;
         this.$store.commit('floorAdd',3);
-        this.$store.commit('floorId',item.id);
-        //console.log(item.id);
+        this.form.floorMapsId = item.id ;
         this.floorRoomListShow();
+        this.$store.commit('floorId',item.id);
       },
       floor_build(row){
         $('.build').hide();
@@ -816,18 +819,19 @@
         $('.map').hide();
         $('.floorMap').show();
         this.$store.commit('floorAdd',1);
+        this.form.buildingMapsId = row.id ;
+        
         this.$store.commit('buildingId',row.id);
       },
-      findPageBuildIngFloor(){
-        // //console.log(this.buildingId)
+      findPageBuildIngFloor(build){
+        // console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
           pageSize:1000,
-          buildingId:this.buildingId
+          buildingId:build
         }).then(response=>{
           //console.log(response.data.pageBuildIng.result);
             this.table_list = response.data.pageBuildIng.result;
-
         })
       },
 
@@ -856,7 +860,7 @@
         });
         this.$fetch("/api/building/deleteByFloorUnit",{
           floorUnit:this.unitBuilding,
-          floorId:this.floorId
+          floorId:this.form.floorMapsId
         }).then(response=>{
           //console.log(response);
           this.RoomChild.splice(this.indexUnit,1);
@@ -874,11 +878,10 @@
       },
       submitFloorRoomList(){
         console.log(JSON.stringify(this.floorRoomList));
-        console.log(this.floorId)
         var floorRoomList = JSON.stringify( this.floorRoomList );
         this.$fetch("/api/building/addBuildingFloorRoom",{
           'floorRoomList':floorRoomList,
-          'floorId':this.floorId
+          'floorId':this.form.floorMapsId
         }).then(response=>{
           //console.log(response);
           this.room_back()
@@ -888,7 +891,7 @@
         this.$fetch("/api/building/findPageBuildIngFloorRoom",{
           pageIndex:1,
           pageSize:1000,
-          floorId:this.floorId
+          floorId:this.form.floorMapsId
         }).then(response=>{
           //console.log(JSON.stringify(response));
           var pageBuildIng = response.data.pageBuildIng.result;
@@ -1044,7 +1047,8 @@
       show3(row){//跳转
         //console.log(row.id);
         this.$store.commit('floorAdd',2)
-        this.$store.commit('buildingId',row.id);
+        this.form.buildingMapsId = row.id ;
+        // this.$store.commit('buildingId',row.id);
         $('.plan').show();
         $('.total').hide();
         $('.floor_wrap').hide();
@@ -1154,7 +1158,8 @@
         $('.total').hide();
         $('.floor_wrap').hide();
         $('.room_wrap').hide();
-        this.findPageBuildIngFloor();
+        let build = localStorage.getItem('buildingId');
+        this.findPageBuildIngFloor(build);
       }
     },
     watch:{
@@ -1167,6 +1172,8 @@
             $('.floor_wrap').hide();
             $('.room_wrap').hide();
             this.tableList();
+            localStorage.removeItem('buildingId');
+            
           }
           if(this.$route.path == '/Building_management/all'){
             $('.total').hide();
@@ -1183,11 +1190,11 @@
         // //console.log(this.currentPage4);
         this.tableList();
       },
-      buildingId(){
+      buildingMapsId(){//right
         if(this.$route.path == '/Building_management/maps'){
           $('.total').hide();
           this.tableData.forEach((item,index)=>{
-            if(item.id == this.buildingId){
+            if(item.id == this.buildingMapsId){
               //console.log(item);
               this.form.BuildName = item.name ;
               this.form.unitId = item.unitId ;
@@ -1210,21 +1217,22 @@
             $('.floor_wrap').show();
             $('.map').hide();
             this.tableData.forEach((item,index)=>{
-              if(item.id == this.buildingId){
+              if(item.id == this.buildingMapsId){
                 // //console.log(item);
                 this.form.BuildName = item.name ;
                 this.form.unitId = item.unitId ;
                 this.form.UnitName = item.unitName ;
               }
             })
-            this.findPageBuildIngFloor();
+            this.findPageBuildIngFloor(this.buildingMapsId);
           }
-           
+          return ;
         }
+      },
+      buildingId(){//all
         if(this.$route.path == '/Building_management/all'){
           if(this.floorAdd == 1){
-            // //console.log(this.buildingId)
-            this.findPageBuildIngFloor();
+            this.findPageBuildIngFloor(this.buildingId);
             $('.plan').hide();
             $('.total').hide();
             $('.floor_wrap').show();
@@ -1259,20 +1267,15 @@
             })
           }
         }
-        // //console.log(this.buildingId);
       },
-      floorId(){
-        this.findPageBuildIngFloor();
-        if(this.$route.path == '/Building_management/all'){
-          if(this.floorAdd == 3){
-            $('.plan').hide();
-            $('.total').hide();
-            $('.floor_wrap').hide();
-            $('.room-wrap').show();
-          }
-          // //console.log(this.floorId);
-          this.floorRoomListShow()
-        }
+      floorMapsId(){
+        $('.plan').hide();
+        $('.total').hide();
+        $('.floor_wrap').hide();
+        $('.room_wrap').show();
+        this.floorRoomListShow();
+        
+        this.findPageBuildIngFloor(this.buildingId);
       },
       buildUnit(){
         this.tableList();
@@ -1281,13 +1284,20 @@
         this.currentPage4 = this.currentPage;
       }
     },
-    computed:mapState([
-      'buildUnit',
-      'buildingId',
-      'floorAdd',
-      'floorId',
-      'currentPage'
-    ])
+    computed:{
+      ...mapState([
+        'buildUnit',
+        'buildingId',
+        'floorAdd',
+        'currentPage'
+      ]),
+      buildingMapsId(){
+        return this.form.buildingMapsId ;
+      },
+      floorMapsId(){
+        return this.form.floorMapsId ;
+      }
+    }
   }
 </script>
 

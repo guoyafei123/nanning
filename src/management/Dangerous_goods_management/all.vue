@@ -563,54 +563,54 @@
           }
         })
       },
-      formBuildSearch(unitId){
-        this.$fetch("/api/building/selectNode",{
-          unitId:unitId
-        }).then(response=>{
-          //console.log('formBuildSearch:'+JSON.stringify(response));
-          if (response) {
-            this.form.buildList = response.data.list;
-            //console.log(this.form.buildList);
-          }
-        })
-      },
-      formFloorSearch(buildIngId){
-        this.$fetch("/api/building/selectNode",{
-          buildIngId:buildIngId
-        }).then(response=>{
-          //console.log('formFloorSearch:'+response);
-          if (response) {
-            this.form.floorList = response.data.list;
-            //console.log(this.form.floorList);
-          }
-        })
-      },
-      formRoomSearch(floorId){
-        this.$fetch("/api/building/selectNode",{
-          floorId:floorId
-        }).then(response=>{
-          //console.log('formRoomSearch:'+response);
-          if (response) {
-            this.form.roomList = response.data.list;
-            //console.log(this.form.roomList);
-          }
-        })
-      }
+      // formBuildSearch(unitId){
+      //   this.$fetch("/api/building/selectNode",{
+      //     unitId:unitId
+      //   }).then(response=>{
+      //     //console.log('formBuildSearch:'+JSON.stringify(response));
+      //     if (response) {
+      //       this.form.buildList = response.data.list;
+      //       //console.log(this.form.buildList);
+      //     }
+      //   })
+      // },
+      // formFloorSearch(buildIngId){
+      //   this.$fetch("/api/building/selectNode",{
+      //     buildIngId:buildIngId
+      //   }).then(response=>{
+      //     //console.log('formFloorSearch:'+response);
+      //     if (response) {
+      //       this.form.floorList = response.data.list;
+      //       //console.log(this.form.floorList);
+      //     }
+      //   })
+      // },
+      // formRoomSearch(floorId){
+      //   this.$fetch("/api/building/selectNode",{
+      //     floorId:floorId
+      //   }).then(response=>{
+      //     //console.log('formRoomSearch:'+response);
+      //     if (response) {
+      //       this.form.roomList = response.data.list;
+      //       //console.log(this.form.roomList);
+      //     }
+      //   })
+      // }
     },
-    computed:{
-      unitId(){
-        return this.form.unitId;
-      },
-      buildingId(){
-        return this.form.buildingId;
-      },
-      floorId(){
-        return this.form.floorId;
-      },
-      roomId(){
-        return this.form.roomId;
-      }
-    },
+    // computed:{
+    //   unitId(){
+    //     return this.form.unitId;
+    //   },
+    //   buildingId(){
+    //     return this.form.buildingId;
+    //   },
+    //   floorId(){
+    //     return this.form.floorId;
+    //   },
+    //   roomId(){
+    //     return this.form.roomId;
+    //   }
+    // },
     watch:{
       status(curVal,oldVal){
         this.status = curVal ;
@@ -624,7 +624,14 @@
       unit(curVal,oldVal){
         this.unit = curVal;
         this.tableList();
-        this.buildSearch(this.unit);
+        this.building = '';
+        this.floor = '';
+        this.room = '';
+        if(this.unit == '' && this.unit == null){
+
+        }else{
+          this.buildSearch(this.unit);
+        }
         this.$store.commit('Unit',this.unit);
       },
       building(curVal,oldVal){
@@ -632,13 +639,17 @@
         //console.log(this.building);
         this.floor = '';
         this.room = '';
-        this.floorSearch(this.building);
+        if(this.building == '' && this.building == null){
+
+        }else{
+          this.floorSearch(this.building);
+        }
         this.tableList();
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
         //console.log(this.floor);
-        if(this.floor !== 0){
+        if(this.floor !== ''){
           this.roomSearch(this.floor);
           this.tableList();
         }
@@ -648,27 +659,27 @@
         //console.log(this.room);
         this.tableList();
       },
-      unitId(curVal,oldVal){
-        this.form.unitId = curVal;
-        this.formBuildSearch(this.form.unitId);
-      },
-      buildingId(curVal,oldVal){
-        this.form.buildingId = curVal;
-        //console.log(this.form.buildingId)
-        this.form.floorId = '';
-        this.form.roomId = '';
-        this.form.equipmentId = '';
-        this.formFloorSearch(this.form.buildingId);
-      },
-      floorId(curVal,oldVal){
-        this.form.floorId = curVal;
-        if(this.form.floorId !== 0){
-          this.formRoomSearch(this.form.floorId);
-        }
-      },
-      roomId(curVal,oldVal){
-        this.form.roomId = curVal ;
-      }
+      // unitId(curVal,oldVal){
+      //   this.form.unitId = curVal;
+      //   this.formBuildSearch(this.form.unitId);
+      // },
+      // buildingId(curVal,oldVal){
+      //   this.form.buildingId = curVal;
+      //   //console.log(this.form.buildingId)
+      //   this.form.floorId = '';
+      //   this.form.roomId = '';
+      //   this.form.equipmentId = '';
+      //   this.formFloorSearch(this.form.buildingId);
+      // },
+      // floorId(curVal,oldVal){
+      //   this.form.floorId = curVal;
+      //   if(this.form.floorId !== 0){
+      //     this.formRoomSearch(this.form.floorId);
+      //   }
+      // },
+      // roomId(curVal,oldVal){
+      //   this.form.roomId = curVal ;
+      // }
     },
     mounted(){
       realconsole();
