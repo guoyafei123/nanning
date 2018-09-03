@@ -235,8 +235,9 @@
                     {{queryFireSituationAlarmData.roomNumber}}
                     {{queryFireSituationAlarmData.deviceName}}
 
-                    {{queryFireSituationAlarmData.deviceName}} {{queryFireSituationAlarmData.nickName}}发起警报，报警时中控室值守人：{{queryFireSituationFireData.lastSinginName}}，
-                    警报时策略圈内的人员有｛人员名称、人员名称｝{{queryFireSituationAlarmData.confirmNickName}}于{{queryFireSituationAlarmData.confirmTime}}将该次警报确认为火情，响应时长：{确认时间-报警时间}。；
+                    {{queryFireSituationAlarmData.deviceName}}
+                    <span v-if="queryFireSituationAlarmData.isUser===0">{{queryFireSituationAlarmData.nickName}}</span>发起警报，报警时中控室值守人：{{queryFireSituationFireData.lastSinginName}}，
+                    警报时策略圈内的人员有｛人员名称、人员名称｝{{queryFireSituationAlarmData.confirmNickName}}于{{queryFireSituationAlarmData.confirmTime}}将该次警报确认为火情，响应时长：{确认时间-报警时间};
                     {{queryFireSituationAlarmData.cancelNickName}}于{{queryFireSituationAlarmData.cancelTime}}在系统将该火情关闭，累计持续时长：{关闭时间-报警时间}。<br>
                     报警时天气{{queryFireSituationFireData.realTimeWeatherDesc}}，温度{{queryFireSituationFireData.realTimeTmp}}，湿度{{queryFireSituationFireData.realTimeHum}}，风力{{queryFireSituationFireData.realTimeWinp}}，策略圈内微型消防站{{queryFireSituationFireData.fireHouseAmont}}个，最近消防站相距事故地点{{queryFireSituationFireData.fireHouseDis}}。
                   </p>
@@ -245,16 +246,17 @@
                 <div class="row textandimg-main clearfix">
                   <div class="col-sm-4">
                     <span>建筑风险评估 </span>
-                    <strong>安全评分 {{queryFireSituationFireData.safeScore}} 风险系数 {{queryFireSituation.riskScore}}%</strong>
+                    <strong>安全评分 {{queryFireSituationFireData.safeScore}} 风险系数
+                      {{queryFireSituationFireData.riskScore}}%</strong>
                   </div>
                   <div class="col-sm-8">
                     <span>详细位置 </span>
                     <strong>
-                          {{queryFireSituationAlarmData.unitName}}
-                          {{queryFireSituationAlarmData.buildingName}}
-                          {{queryFireSituationAlarmData.floorNumber}}
-                          {{queryFireSituationAlarmData.roomNumber}}
-                          {{queryFireSituationAlarmData.deviceName}}
+                      {{queryFireSituationAlarmData.unitName}}
+                      {{queryFireSituationAlarmData.buildingName}}
+                      {{queryFireSituationAlarmData.floorNumber}}
+                      {{queryFireSituationAlarmData.roomNumber}}
+                      {{queryFireSituationAlarmData.deviceName}}
                     </strong>
                   </div>
                   <div class="col-sm-4">
@@ -279,7 +281,8 @@
                   </div>
                   <div class="col-sm-4">
                     <span>报警源 </span>
-                    <strong>{{queryFireSituationAlarmData.deviceName}}{{queryFireSituationAlarmData.nickName}}</strong>
+                    <strong  v-if="queryFireSituationAlarmData.isUser===1"> {{queryFireSituationAlarmData.deviceName}}</strong>
+                    <strong v-if="queryFireSituationAlarmData.isUser===0">{{queryFireSituationAlarmData.nickName}}</strong>
                   </div>
                   <div class="col-sm-4">
                     <span>确认人 </span>
@@ -296,8 +299,9 @@
                   <div class="col-sm-12">
                     <span>图片视频 </span>
                     <ul class="fire-media list-inline">
-                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      <li v-for="item in queryFireSituationAlarmData.addAlarmImgList">
+                        <img :src="item" alt="" height="80">
+                      </li>
                     </ul>
                   </div>
                   <div class="col-sm-12">
@@ -307,8 +311,9 @@
                   <div class="col-sm-12">
                     <span>图片视频 </span>
                     <ul class="fire-media list-inline">
-                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      <li v-for="item in queryFireSituationAlarmData.confirmAlarmImgList">
+                        <img :src="item" alt="" height="80">
+                      </li>
                     </ul>
                   </div>
                   <div class="col-sm-12">
@@ -318,8 +323,9 @@
                   <div class="col-sm-12">
                     <span>图片视频 </span>
                     <ul class="fire-media list-inline">
-                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
-                      <li><img src="http://photocdn.sohu.com/20131130/Img391053859.jpg" alt="" height="80"></li>
+                      <li v-for="item in queryFireSituationAlarmData.relieveAlarmImgList">
+                        <img :src="item" alt="" height="80">
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -499,10 +505,10 @@
                       <span>图片视频 </span>
                       <ul class="fire-media list-inline">
                         <li v-for="video in item.confirmUrls">
-                          <video :src="video" alt="" height="80"></video>
+                          <video :src="ossUrl+video" alt="" height="80"></video>
                         </li>
                         <li v-for="img in item.imgUrl">
-                          <img :src="img" alt="" height="80">
+                          <img :src="ossUrl+img" alt="" height="80">
                         </li>
                       </ul>
                     </div>
@@ -733,6 +739,7 @@
         punchExpireTime: '',
         punchInterval: null,
         //火情分析列表数据
+        ossUrl:' img.nanninglq.51play.com',
         queryFirehistoryData_parameter: {
           buildingId: 3,
           startTime: '2018-08-31'
@@ -843,444 +850,399 @@
       this.getUnitsSynthesis()
       this.getQueryUnitInfo()
       this.queryFireSituation()
-       },
-      beforeDestroy()
-      {
-        if (this.timer) {
-          clearInterval(this.timer)//在vue实例销毁钱，清除我们的定时器
-        }
-        if (this.weathers) {
-          clearInterval(this.weathers)//在vue实例销毁钱，清除我们的定时器
-        }
+    },
+    beforeDestroy() {
+      if (this.timer) {
+        clearInterval(this.timer)//在vue实例销毁钱，清除我们的定时器
       }
+      if (this.weathers) {
+        clearInterval(this.weathers)//在vue实例销毁钱，清除我们的定时器
+      }
+    }
     ,
 
-      methods: {
-        timeFn: function (date1, date2) {//di作为一个变量传进来
-          //如果时间格式是正确的，那下面这一步转化时间格式就可以不用了
-          // let dateBegin = new Date(date1.replace(/-/g, '/'))//将-转化为/，使用new Date
-          // let dateEnd = new Date(date2.replace(/-/g, '/'))//获取当前时间
-          // let dateDiff = dateEnd.getTime() - dateBegin.getTime()//时间差的毫秒数
-          // let dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000))//计算出相差天数
-          // let leave1 = dateDiff % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
-          // let hours = Math.floor(leave1 / (3600 * 1000))//计算出小时数
-          // //计算相差分钟数
-          // let leave2 = leave1 % (3600 * 1000)    //计算小时数后剩余的毫秒数
-          // let minutes = Math.floor(leave2 / (60 * 1000))//计算相差分钟数
-          // //计算相差秒数
-          // let leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
-          // let seconds = Math.round(leave3 / 1000)
-          // console.log(' 相差 ' + dayDiff + '天 ' + hours + '小时 ' + minutes + ' 分钟' + seconds + ' 秒')
-          // console.log(dateDiff + '时间差的毫秒数', dayDiff + '计算出相差天数', leave1 + '计算天数后剩余的毫秒数'
-          //   , hours + '计算出小时数', minutes + '计算相差分钟数', seconds + '计算相差秒数')
-          let seconds = 15;
-          return seconds
-        }
+    methods: {
+      timeFn: function (beginTime, endTime) {
+        let iDays = parseInt(Math.abs( new Date(beginTime).getTime()-new Date(endTime).getTime()) / 1000  ) //把相差的毫秒数转换为天数
+        return iDays
+      },
+      TimeFormat: function (time) {
+        let date = new Date(time)
+        let hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+        let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+        let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+        // 拼接
+        return hours + ':' + minutes + ':' + seconds
+      }
       ,
-        TimeFormat: function (time) {
-          let date = new Date(time)
-          let hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-          let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-          let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
-          // 拼接
-          return hours + ':' + minutes + ':' + seconds
-        }
+      dateFormat: function (time) {
+        /* 在日期格式中，月份是从0开始的，因此要加0
+      * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+      * */
+        let date = new Date(time)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+        let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+        // 拼接
+        return year + '-' + month + '-' + day
+      }
       ,
-        dateFormat: function (time) {
-          /* 在日期格式中，月份是从0开始的，因此要加0
-        * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
-        * */
-          let date = new Date(time)
-          let year = date.getFullYear()
-          let month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
-          let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-          // 拼接
-          return year + '-' + month + '-' + day
-        }
+      // 显示消息模态窗
+      modal_per() {
+        $('#modal_per').modal('show')
+      }
       ,
-        // 显示消息模态窗
-        modal_per()
-        {
-          $('#modal_per').modal('show')
-        }
-      ,
-        // 打卡框
-        signIn()
-        {
+      // 打卡框
+      signIn() {
 
-        }
+      }
       ,
-        // 显示消息模态窗
-        showMessages()
-        {
-          $('#showmessages').modal('toggle')
-          $('#showmessages').on('show.bs.modal', function () {
-            $('.icon-xiaoxi-mian--').addClass('font-white')
-          })
-        }
+      // 显示消息模态窗
+      showMessages() {
+        $('#showmessages').modal('toggle')
+        $('#showmessages').on('show.bs.modal', function () {
+          $('.icon-xiaoxi-mian--').addClass('font-white')
+        })
+      }
       ,
-        // 开关声音
-        voice()
-        {
-          $('.icon-tongzhi-mian-').toggleClass('font-blue')
-        }
+      // 开关声音
+      voice() {
+        $('.icon-tongzhi-mian-').toggleClass('font-blue')
+      }
       ,
 
-        mini_go(id, num)
-        {
-          //画底圆
-          //mini图配置
-          var canvas_mini = document.getElementById(id)
+      mini_go(id, num) {
+        //画底圆
+        //mini图配置
+        var canvas_mini = document.getElementById(id)
 
-          canvas_mini.width = canvas_mini.width
-          canvas_mini.height = canvas_mini.height
-          var cxt_mini = canvas_mini.getContext('2d')
-          cxt_mini.fillStyle = 'rgba(255, 255, 255, 0)'
-          // cxt_mini.globalAlpha= (Math.sin(0) + 1) / 2;
-          var mini_width = canvas_mini.width
-          var mini_height = canvas_mini.height
-          var mini_r = mini_width / 2
-          cxt_mini.translate(mini_width / 2, mini_height / 2)
-          var radi2_mini = mini_r * 0.855
-          cxt_mini.rotate(5.5)
-          // 画底圆
-          cxt_mini.translate(-25, -25)
-          cxt_mini.translate(mini_width / 2, mini_height / 2)
-          cxt_mini.clearRect(0, 0, mini_width, mini_height)
-          cxt_mini.beginPath()
-          cxt_mini.lineWidth = 2
-          cxt_mini.strokeStyle = '#fff'
-          cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI)
-          cxt_mini.stroke()
-          cxt_mini.closePath()
-          //画比例圆
-          cxt_mini.beginPath()
-          cxt_mini.lineWidth = 2
-          cxt_mini.strokeStyle = '#bad616'
-          cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI * num, true)
-          cxt_mini.stroke()
-          cxt_mini.closePath()
-          //画斜杠
-          cxt_mini.beginPath()
-          cxt_mini.lineWidth = 2
-          cxt_mini.strokeStyle = '#fff'
-          var moveto = mini_width * 0.133333333
-          var lineto = mini_width * 0.377777777
-          cxt_mini.moveTo(moveto, 0)
-          cxt_mini.lineTo(lineto, 0)
-          cxt_mini.stroke()
-          cxt_mini.closePath()
-        }
+        canvas_mini.width = canvas_mini.width
+        canvas_mini.height = canvas_mini.height
+        var cxt_mini = canvas_mini.getContext('2d')
+        cxt_mini.fillStyle = 'rgba(255, 255, 255, 0)'
+        // cxt_mini.globalAlpha= (Math.sin(0) + 1) / 2;
+        var mini_width = canvas_mini.width
+        var mini_height = canvas_mini.height
+        var mini_r = mini_width / 2
+        cxt_mini.translate(mini_width / 2, mini_height / 2)
+        var radi2_mini = mini_r * 0.855
+        cxt_mini.rotate(5.5)
+        // 画底圆
+        cxt_mini.translate(-25, -25)
+        cxt_mini.translate(mini_width / 2, mini_height / 2)
+        cxt_mini.clearRect(0, 0, mini_width, mini_height)
+        cxt_mini.beginPath()
+        cxt_mini.lineWidth = 2
+        cxt_mini.strokeStyle = '#fff'
+        cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI)
+        cxt_mini.stroke()
+        cxt_mini.closePath()
+        //画比例圆
+        cxt_mini.beginPath()
+        cxt_mini.lineWidth = 2
+        cxt_mini.strokeStyle = '#bad616'
+        cxt_mini.arc(0, 0, mini_r * 0.75, 0, 2 * Math.PI * num, true)
+        cxt_mini.stroke()
+        cxt_mini.closePath()
+        //画斜杠
+        cxt_mini.beginPath()
+        cxt_mini.lineWidth = 2
+        cxt_mini.strokeStyle = '#fff'
+        var moveto = mini_width * 0.133333333
+        var lineto = mini_width * 0.377777777
+        cxt_mini.moveTo(moveto, 0)
+        cxt_mini.lineTo(lineto, 0)
+        cxt_mini.stroke()
+        cxt_mini.closePath()
+      }
       ,
-        getunitlist()
-        {
-          this.$fetch('/api/unit/queryUnit')
-            .then(response => {
-              if (response) {
-                this.queryUnit = response.data.unitList
-                this.$store.commit('mapAllUnit', response.data.unitList)
-                //console.log(this.queryUnit);
-                //console.log(this.queryUnit.length);
-                if (this.queryUnit.length == 1) {
-                  this.unitvalue = this.queryUnit[0].name
-                  this.$store.commit('unitid', this.queryUnit[0].id)
-                } else if (this.queryUnit.length > 1) {
-                  if (sessionStorage.unitid) {
-                    response.data.unitList.forEach(element => {
-                      if (element.id == sessionStorage.unitid) {
-                        this.unitvalue = element.name
-                        return
-                      }
-                    })
-                  } else {
-                    this.unitvalue = '全部单位'
-                  }
-                  this.queryUnit.unshift({
-                    id: 0,
-                    name: '全部单位'
+      getunitlist() {
+        this.$fetch('/api/unit/queryUnit')
+          .then(response => {
+            if (response) {
+              this.queryUnit = response.data.unitList
+              this.$store.commit('mapAllUnit', response.data.unitList)
+              //console.log(this.queryUnit);
+              //console.log(this.queryUnit.length);
+              if (this.queryUnit.length == 1) {
+                this.unitvalue = this.queryUnit[0].name
+                this.$store.commit('unitid', this.queryUnit[0].id)
+              } else if (this.queryUnit.length > 1) {
+                if (sessionStorage.unitid) {
+                  response.data.unitList.forEach(element => {
+                    if (element.id == sessionStorage.unitid) {
+                      this.unitvalue = element.name
+                      return
+                    }
                   })
-                  this.$store.commit('unitid', null)
+                } else {
+                  this.unitvalue = '全部单位'
                 }
+                this.queryUnit.unshift({
+                  id: 0,
+                  name: '全部单位'
+                })
+                this.$store.commit('unitid', null)
               }
-            })
-            .then(err => {
-              //console.log(err);
-            })
-        }
-      ,
-        getPunch()
-        {
-          this.$fetch('/api/workPunch/getPunch')
-            .then(response => {
-              if (response.status == 1) {
-                this.punchStartTime = response.data.startTime
-                var code = encodeURI(response.data.code)
-                this.punchImgUrl = '/api/qrcode/img?content=' + code
-                this.punchExpireMillisecond = response.data.expireMillisecond
-                this.punchclocktrue = true
-                let that = this
-                this.punchInterval = setInterval(() => {
-                  that.getExpireTime()
-                }, 1000)
-              } else {
-                this.punchclocktrue = false
-              }
-            })
-        }
-      ,
-        getExpireTime()
-        {
-          let a = new Date(this.punchStartTime).getTime()
-          let b = new Date().getTime()
-          let responseMillisecond = moment.duration(this.punchExpireMillisecond - moment.duration(b - a, 'ms'), 'ms')
-          if (responseMillisecond <= 0) {
-            this.punchclocktrue = false
-          }
-          let minutes = responseMillisecond.get('minutes')
-          let seconds = responseMillisecond.get('seconds')
-          this.punchExpireTime = (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)
-        }
-      ,
-        //请求在线
-        userAnalyse()
-        {
-          this.$fetch('/api/user/userAnalyse', this.userAnalyseDate_param)
-            .then(response => {
-              if (response) {
-                this.userAnalyseDate = response.data.userAnalyse
-                let number = (this.userAnalyseDate.userOnlineCount) / (this.userAnalyseDate.userCount)
-                let str = Number(number).toFixed(2)
-                if (str == 1) {
-                  str = 0
-                }
-                this.mini_go('header-canvas-people', 1 - str)
-              }
-            })
-            .then(err => {
-              //console.log(err);
-            })
-        }
-      ,
-        //建筑
-        getBuildingData()
-        {
-          this.$fetch('/api/building/queryBuildStatisInfo', this.getBuildingData_parameter
-          ).then(response => {
-            if (response.data) {
-              this.buildCount = response.data.buildStats.TOTALBUILD
             }
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+          .then(err => {
+            //console.log(err);
+          })
+      }
       ,
-        //退出登录
-        logout()
-        {
-
-          this.$fetch('/cas/logout',).then(response => {
-            if (response.status === 1) {
-              this.$router.push({path: '/login'})
+      getPunch() {
+        this.$fetch('/api/workPunch/getPunch')
+          .then(response => {
+            if (response.status == 1) {
+              this.punchStartTime = response.data.startTime
+              var code = encodeURI(response.data.code)
+              this.punchImgUrl = '/api/qrcode/img?content=' + code
+              this.punchExpireMillisecond = response.data.expireMillisecond
+              this.punchclocktrue = true
+              let that = this
+              this.punchInterval = setInterval(() => {
+                that.getExpireTime()
+              }, 1000)
+            } else {
+              this.punchclocktrue = false
             }
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+      }
       ,
-        //请求天气接口
-        getWeather()
-        {
-          this.$fetch('/api/weather/toDayWeather', this.getWeatherData_parameter
-          ).then(response => {
-            if (response.data) {
-              this.weatherData = response.data.weather
-            }
-          })
-            .then(err => {
-              //console.log(err);
-            })
+      getExpireTime() {
+        let a = new Date(this.punchStartTime).getTime()
+        let b = new Date().getTime()
+        let responseMillisecond = moment.duration(this.punchExpireMillisecond - moment.duration(b - a, 'ms'), 'ms')
+        if (responseMillisecond <= 0) {
+          this.punchclocktrue = false
         }
+        let minutes = responseMillisecond.get('minutes')
+        let seconds = responseMillisecond.get('seconds')
+        this.punchExpireTime = (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)
+      }
       ,
-        //设备
-        getDeviceData()
-        {
-          this.$fetch('/api/device/alarmAndMalfunctionDeviceCount', this.getDeviceData_parameter
-          ).then(response => {
-            if (response.data) {
-              this.deviceCount = response.data.deviceTotal
-            }
-          })
-            .then(err => {
-              //console.log(err);
-            })
-        }
-      ,
-        //主机在线
-        getTransmission()
-        {
-          this.$fetch('/api/device/transmission_analyse', this.getTransmissionDate_parameter
-          ).then(response => {
-            if (response.data) {
-              this.transmissionDate = response.data.transmissionAnalyse
-              let number = (this.userAnalyseDate.transmissionOnlineCount) / (this.userAnalyseDate.transmissionCount)
+      //请求在线
+      userAnalyse() {
+        this.$fetch('/api/user/userAnalyse', this.userAnalyseDate_param)
+          .then(response => {
+            if (response) {
+              this.userAnalyseDate = response.data.userAnalyse
+              let number = (this.userAnalyseDate.userOnlineCount) / (this.userAnalyseDate.userCount)
               let str = Number(number).toFixed(2)
               if (str == 1) {
                 str = 0
               }
-              this.mini_go('header-canvas-host', 1 - str)
+              this.mini_go('header-canvas-people', 1 - str)
             }
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+          .then(err => {
+            //console.log(err);
+          })
+      }
       ,
-        getUserInfogetUserInfo()
-        {
-          this.queryUserInfo_parameter.userId = localStorage.userId
-          this.personnelInfo = true
-          this.$fetch('/api/alarmstats/queryUserData',
-            this.queryUserInfo_parameter)
-            .then(response => {
-              if (response.data) {
-                let data = response.data
-                this.userCountData = data.info
-                this.userInfoData = data.info.user
-              }
-            })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+      //建筑
+      getBuildingData() {
+        this.$fetch('/api/building/queryBuildStatisInfo', this.getBuildingData_parameter
+        ).then(response => {
+          if (response.data) {
+            this.buildCount = response.data.buildStats.TOTALBUILD
+          }
+        })
+          .then(err => {
+            //console.log(err);
+          })
+      }
       ,
-        //火情分析折线图下列表
-        queryFirehistoryData()
-        {
-          this.$fetch('/api/alarmstats/queryFirehistoryData', this.queryFirehistoryData_parameter
-          ).then(response => {
+      //退出登录
+      logout() {
+
+        this.$fetch('/cas/logout',).then(response => {
+          if (response.status === 1) {
+            this.$router.push({path: '/login'})
+          }
+        })
+          .then(err => {
+            //console.log(err);
+          })
+      }
+      ,
+      //请求天气接口
+      getWeather() {
+        this.$fetch('/api/weather/toDayWeather', this.getWeatherData_parameter
+        ).then(response => {
+          if (response.data) {
+            this.weatherData = response.data.weather
+          }
+        })
+          .then(err => {
+            //console.log(err);
+          })
+      }
+      ,
+      //设备
+      getDeviceData() {
+        this.$fetch('/api/device/alarmAndMalfunctionDeviceCount', this.getDeviceData_parameter
+        ).then(response => {
+          if (response.data) {
+            this.deviceCount = response.data.deviceTotal
+          }
+        })
+          .then(err => {
+            //console.log(err);
+          })
+      }
+      ,
+      //主机在线
+      getTransmission() {
+        this.$fetch('/api/device/transmission_analyse', this.getTransmissionDate_parameter
+        ).then(response => {
+          if (response.data) {
+            this.transmissionDate = response.data.transmissionAnalyse
+            let number = (this.userAnalyseDate.transmissionOnlineCount) / (this.userAnalyseDate.transmissionCount)
+            let str = Number(number).toFixed(2)
+            if (str == 1) {
+              str = 0
+            }
+            this.mini_go('header-canvas-host', 1 - str)
+          }
+        })
+          .then(err => {
+            //console.log(err);
+          })
+      }
+      ,
+      getUserInfogetUserInfo() {
+        this.queryUserInfo_parameter.userId = localStorage.userId
+        this.personnelInfo = true
+        this.$fetch('/api/alarmstats/queryUserData',
+          this.queryUserInfo_parameter)
+          .then(response => {
             if (response.data) {
-              this.tableData = response.data.result.fireAnalyzeList
-              console.log(this.tableDatas)
+              let data = response.data
+              this.userCountData = data.info
+              this.userInfoData = data.info.user
             }
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
-      ,
-        //火情分析 起火单位最近数据
-        queryAlarmLastTime()
-        {
-          this.$fetch('/api/alarmstats/queryAlarmLastTime', this.queryAlarmLastTime_param
-          ).then(response => {
-            if (response.data) {
-              this.queryAlarmLastTimeData = response.data.trouble
-            }
+          .then(err => {
+            //console.log(err);
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+      }
       ,
-        //起火位置相关最近一次报警记录
-        queryLastTimeAlarm()
-        {
-          this.$fetch('/api/alarm/queryLastTimeAlarm', this.queryLastTimeAlarm_param
-          ).then(response => {
-            if (response.data) {
-              this.queryLastTimeAlarmData = response.data.alarm
-            }
+      //火情分析折线图下列表
+      queryFirehistoryData() {
+        this.$fetch('/api/alarmstats/queryFirehistoryData', this.queryFirehistoryData_parameter
+        ).then(response => {
+          if (response.data) {
+            this.tableData = response.data.result.fireAnalyzeList
+          }
+        })
+          .then(err => {
+            //console.log(err);
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+      }
       ,
-        //起火位置相关未解决隐患详情
-        queryLastTimeTrouble()
-        {
-          this.$fetch('/api/trouble/queryLastTimeTrouble', this.queryLastTimeTrouble_param
-          ).then(response => {
-            if (response.data) {
-              this.queryLastTimeTroubleData = response.data.troubles
-            }
+      //火情分析 起火单位最近数据
+      queryAlarmLastTime() {
+        this.$fetch('/api/alarmstats/queryAlarmLastTime', this.queryAlarmLastTime_param
+        ).then(response => {
+          if (response.data) {
+            this.queryAlarmLastTimeData = response.data.trouble
+          }
+        })
+          .then(err => {
+            //console.log(err);
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+      }
       ,
-        //起火位置最近一次巡检记录
-        queryLastTimeInspection()
-        {
-          this.$fetch('/api/alarmstats/queryLastTimeInspection', this.queryLastTimeInspection_param
-          ).then(response => {
-            if (response.data) {
-              this.queryLastTimeInspectionData = response.data.information
-            }
+      //起火位置相关最近一次报警记录
+      queryLastTimeAlarm() {
+        this.$fetch('/api/alarm/queryLastTimeAlarm', this.queryLastTimeAlarm_param
+        ).then(response => {
+          if (response.data) {
+            this.queryLastTimeAlarmData = response.data.alarm
+          }
+        })
+          .then(err => {
+            //console.log(err);
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+      }
       ,
-        //事故概况
-        queryFireSituation()
-        {
-          this.$fetch('/api/alarmstats/queryFireSituation', this.queryFireSituation_param
-          ).then(response => {
-            if (response.data) {
-              this.queryFireSituationAlarmData = response.data.result.alarm,
+      //起火位置相关未解决隐患详情
+      queryLastTimeTrouble() {
+        this.$fetch('/api/trouble/queryLastTimeTrouble', this.queryLastTimeTrouble_param
+        ).then(response => {
+          if (response.data) {
+            this.queryLastTimeTroubleData = response.data.troubles
+          }
+        })
+          .then(err => {
+            //console.log(err);
+          })
+      }
+      ,
+      //起火位置最近一次巡检记录
+      queryLastTimeInspection() {
+        this.$fetch('/api/alarmstats/queryLastTimeInspection', this.queryLastTimeInspection_param
+        ).then(response => {
+          if (response.data) {
+            this.queryLastTimeInspectionData = response.data.information
+          }
+        })
+          .then(err => {
+            //console.log(err);
+          })
+      }
+      ,
+      //事故概况
+      queryFireSituation() {
+        this.$fetch('/api/alarmstats/queryFireSituation', this.queryFireSituation_param
+        ).then(response => {
+          if (response.data) {
+            this.queryFireSituationAlarmData = response.data.result.alarm,
               this.queryFireSituationFireData = response.data.result.alarmFire
-            }
+          }
+        })
+          .then(err => {
+            //console.log(err);
           })
-            .then(err => {
-              //console.log(err);
-            })
-        }
+      }
       ,
-        //单位信息
-        getQueryUnitInfo()
-        {
-          this.$fetch("/api/unit/queryUnitInfo", this.queryUnitInfo_param)
-            .then(response => {
-              if (response.data) {
-                this.queryUnitInfo = response.data.unitInfo;
-                this.queryUnitInfoImg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.queryUnitInfo_param.unitId + '.jpg';
-              }
-            });
-        }
-      ,
-        //单位统计
-        getUnitsSynthesis()
-        {
-          this.$fetch("/api/unit/getUnitsSynthesis", this.getUnitsSynthesis_param
-          ).then(response => {
+      //单位信息
+      getQueryUnitInfo() {
+        this.$fetch("/api/unit/queryUnitInfo", this.queryUnitInfo_param)
+          .then(response => {
             if (response.data) {
-              this.getUnitsSynthesisData = response.data.result;
+              this.queryUnitInfo = response.data.unitInfo;
+              this.queryUnitInfoImg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.queryUnitInfo_param.unitId + '.jpg';
             }
           });
-        }
+      }
       ,
-        optionchange()
-        {
-          sessionStorage.unitid = this.unitvalue
-          this.$store.commit('unitid', this.unitvalue)
-        }
+      //单位统计
+      getUnitsSynthesis() {
+        this.$fetch("/api/unit/getUnitsSynthesis", this.getUnitsSynthesis_param
+        ).then(response => {
+          if (response.data) {
+            this.getUnitsSynthesisData = response.data.result;
+          }
+        });
+      }
       ,
-        getuserinfo()
-        {
-          this.username = localStorage.name
-        }
+      optionchange() {
+        sessionStorage.unitid = this.unitvalue
+        this.$store.commit('unitid', this.unitvalue)
+      }
       ,
-        management()
-        {
-          this.$store.commit('mapShow', false)
-        }
+      getuserinfo() {
+        this.username = localStorage.name
+      }
+      ,
+      management() {
+        this.$store.commit('mapShow', false)
       }
     }
+  }
 </script>
 
 <style scoped>
