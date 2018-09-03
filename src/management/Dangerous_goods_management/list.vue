@@ -93,8 +93,8 @@
               <el-form-item label="图片和视频" :label-width="formLabelWidth">
                 <el-upload 
                     list-type="picture-card" 
-                    id="troubleFile"
-                    :name="troubleFile"
+                    id="file"
+                    :name="file"
                     :http-request="uploadTroubleFile"
                     :file-list="playUrls"
                     :multiple="true"
@@ -248,9 +248,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         uploadTroubleFile: function (param){
             var that=this;
             var fileObj = param.file;
-            var FileController = "/api/trouble/uploadTroubleImg";
+            var FileController = "/api/upload/uploadImg";
             var form = new FormData();
-            form.append("troubleFile", fileObj);
+            form.append("file", fileObj);
+            form.append("type",2);
             var xhr = new XMLHttpRequest();
             xhr.open("post", FileController, true);
             xhr.onload = (()=>{

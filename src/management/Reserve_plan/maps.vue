@@ -290,8 +290,28 @@
             },
             complete: function (e) {//只要完成即执行，最后执行
               //console.log(e) 
+              if($.parseJSON(e.responseXML.documentElement.innerText).status == 0){
+                that.$message.error({
+                  dangerouslyUseHTMLString: true,
+                  message: `<strong>${ $.parseJSON(e.responseXML.documentElement.innerText).message }</strong>`,
+                  center: true,
+                  showClose: true,
+                  iconClass:'el-icon-circle-check',
+                  customClass:'del-notification'
+                })
+                return ;
+              }
+              // 修改成功提示
+              that.$message({
+                dangerouslyUseHTMLString: true,
+                message: '<strong>'+ this.deviceName +'预案修改成功</strong>',
+                center: true,
+                showClose: true,
+                iconClass:'el-icon-circle-check',
+                customClass:'edit-ok-notification'
+              });
               that.tableList();
-              
+              $('.primary').attr('data-dismiss','modal');
               $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                 $("#file").on("change", function(){  
                   //console.log($("#up_img"+that.form.id+""))
@@ -300,7 +320,6 @@
               });
             }
         });
-        $('.primary').attr('data-dismiss','modal');
       },
       delete_plan(row){
         $('#mymodal2').css({

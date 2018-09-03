@@ -178,11 +178,6 @@
                   this.form.floorName = element.floor ;
                 }
               })
-              // //console.log(this.form.name )
-              // //console.log(this.form.unitId )
-              // //console.log(this.form.unitName )
-              // //console.log(this.form.building )
-              // //console.log(this.form.buildingName )
               var file = "file";
               var that = this ;
               $.ajaxFileUpload({
@@ -210,10 +205,25 @@
                 },
                 complete: function (e) {//只要完成即执行，最后执行
                   // //console.log(e) 
+                  if($.parseJSON(e.responseXML.documentElement.innerText).status == 0){
+                    that.$message.error({
+                      dangerouslyUseHTMLString: true,
+                      message: `<strong>${ $.parseJSON(e.responseXML.documentElement.innerText).message }</strong>`,
+                      center: true,
+                      showClose: true,
+                      iconClass:'el-icon-circle-check',
+                      customClass:'del-notification'
+                    })
+                    return ;
+                  }
                   that.$router.push({path:'/Reserve_plan/maps'});
-                  that.$message({
-                    message: '恭喜你，添加预案成功',
-                    type: 'success'
+                  this.$message({
+                    dangerouslyUseHTMLString: true,
+                    message: '<strong>'+ this.form.name +'预案添加成功</strong>',
+                    center: true,
+                    showClose: true,
+                    iconClass:'el-icon-circle-check',
+                    customClass:'edit-ok-notification'
                   });
                 }
               });
