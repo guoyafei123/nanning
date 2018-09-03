@@ -15,10 +15,10 @@
                   <span class="bgbox-max bg-red font-black size-10" v-if="this.inspectionPlan.status == 2">未激活</span>
               </span>
             </p>
-            <p class="col-sm-7 text-left padding0">
+            <p class="col-sm-4 text-left padding0 margin-top10">
               <span><i class="fas fa-industry"></i> {{ inspectionPlan.unitName }}</span>
             </p>
-            <p class="col-sm-5 text-right padding0">
+            <p class="col-sm-8 text-right padding0 margin-top10">
               最后更新:<strong class="font-gray-999">{{inspectionPlan.createTime}}</strong>            
             </p>
           </div>
@@ -30,7 +30,7 @@
             <div class="col-sm-4 font-gray-999 padding0">
               <ul class="toolcount-left margin-bottom0 padding-left15">
                 <li>
-                  <h1 class="toolcount-p1 font-white" v-html="this.inspectionPlan.amount">17</h1>
+                  <h1 class="toolcount-p1 font-white" v-html="this.inspectionPlan.amount"></h1>
                 </li>
                 <li class="margin-top30">
                   <p class="size-10">Rated Counts</p>
@@ -64,7 +64,7 @@
                     <p>节点总数</p>
                   </div>
                   <div class="col-sm-4 container-padding0">
-                    <p class="size-16 show font-blue">20</p>
+                    <p class="size-16 show font-blue">----</p>
                     <p>巡检人数</p>
                   </div>
                 </li>
@@ -642,7 +642,7 @@
           $('.total').hide();
           $('.mapTable').hide();
         }
-        //console.log(this.inspectionId);
+        console.log(this.inspectionId);
         this.$fetch("/api/admin/inspection/queryInspectionNodeByPlanId",{
           planId:this.inspectionId
         }).then(response=>{

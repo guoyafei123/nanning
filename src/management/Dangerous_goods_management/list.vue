@@ -42,7 +42,7 @@
             </el-select>
             <el-select
               v-model="form.floorId"
-              placeholder="选择楼层" class="start col-sm-4">
+              placeholder="选择楼层" class="start col-sm-4"  v-show="seeFloor">
               <el-option
                 v-for="item in form.floorList"
                 :label="item.floorName+'层'"
@@ -51,7 +51,7 @@
             </el-select>
             <el-select
               v-model="form.roomId"
-              placeholder="选择房间" class="start col-sm-4">
+              placeholder="选择房间" class="start col-sm-4" v-show="seeRoom" >
               <el-option
                 v-for="item in form.roomList"
                 :label="item.roomNumber+'房间'"
@@ -93,10 +93,11 @@
               <el-form-item label="图片和视频">
                   <div class="mainmenuone cf">
                       <ul class="cf col-xs-12">
-                        <li><input id="file" type="file" name="img"/></li>
+                        <li><input id="file" type="file" name="img"  @change="file"/></li>
                         <!-- <li><input id="file2" type="file" name="img"/></li> -->
                       </ul>
                   </div>
+                   <span class="hint-error" v-show="fileVerification">{{ fileVerification }}</span>
                 <!-- <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>  -->
                 <!-- <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span>  -->
               </el-form-item>
@@ -173,6 +174,8 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             }
         }
         return {
+          seeFloor: false,
+          seeRoom :false ,
           labelPosition: 'top',
           index:1,
           form:{
@@ -223,13 +226,25 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             ]
           },
           svgUrl:'',
-          table_list:[]
+          table_list:[],
+          fileVerification:""
         }
       },
       components:{
         'managementMap-vue': managementMapVue,
       },
       methods:{
+        file(){
+          var x = document.getElementById("file");
+          if (!x || !x.value) return;
+          var patn = /\.jpg$|\.jpeg$|\.png$|\.avi$|\.mpg$|\.mpeg$|\.mp4$/i;
+          if (!patn.test(x.value)) {
+            this.fileVerification="您选择的似乎不是图像、视频文件!!";
+            x.value = "";
+            return;
+          }
+          this.fileVerification="";
+        },
         floor_btn(id){
           this.table_list.forEach((item)=>{
             if(item.id == id){
@@ -265,71 +280,73 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              console.log(this.form.point[0]);
-              console.log(this.form.point[1]);
-              console.log(this.form.Rate[0]);
-              console.log(this.form.Rate[1]);
-              var files =this.files;
-              var that = this ;
-              var point = this.form.point;
-              if(typeof(point) == 'string'){
-                var pointList = point.split(",");
-              }else{
-                var pointList = this.form.point;
-              }
-              var Rate = this.form.Rate;
-              // console.log(typeof(point))
-              if(typeof(Rate) == 'string'){
-                var RateList = Rate.split(",");
-              }else{
-                var RateList = this.form.Rate;
-              }
-              $.ajaxFileUpload({
-                url: '/api/trouble/insertTrouble',
-                fileElementId:files,
-                data : {
-                  'type':5,
-                  'levels':3,
-                  'dangerName':this.form.name,
-                  'unitId':this.form.unitId,
-                  'unitName':this.form.unitName,
-                  'buildingId':this.form.buildingId,
-                  'buildingName':this.form.buildingName,
-                  'floorId':this.form.floorId,
-                  'floorNumber':this.form.floorNumber,
-                  'roomId':this.form.roomId,
-                  'roomNumber':this.form.roomNumber,
-                  'pointX':pointList[0] == undefined ? 0 : pointList[0],
-                  'pointY':pointList[1] == undefined ? 0 : pointList[1],
-                  'xRate':RateList[0] == undefined ? 0 : RateList[0] ,
-                  'yRate':RateList[1] == undefined ? 0 : RateList[1],
-                  'nickName':this.form.nickName,
-                  'createTime':this.form.createTime,
-                  'cont':this.form.cont
-                },
-                type: 'POST',
-                dataType: "json",
-                success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-                
-            
-                },
-                error: function (e) { //服务器响应失败处理函数
-                  $.messager.alert('警告', "系统错误", "warning");
-                },
-                complete: function (e) {//只要完成即执行，最后执行
-                 
-                  that.$router.push({path:'/Dangerous_goods_management/all'});
+              if(this.fileVerification==""){
+                console.log(this.form.point[0]);
+                console.log(this.form.point[1]);
+                console.log(this.form.Rate[0]);
+                console.log(this.form.Rate[1]);
+                var files =this.files;
+                var that = this ;
+                var point = this.form.point;
+                if(typeof(point) == 'string'){
+                  var pointList = point.split(",");
+                }else{
+                  var pointList = this.form.point;
                 }
-                
-              });
-              this.$message({
-                dangerouslyUseHTMLString: true,
-                message: '<strong>'+ this.form.name +'添加成功</strong>',
-                center: true,
-                showClose: true,
-                iconClass:'el-icon-circle-check',
-                customClass:'edit-ok-notification'
-              });
+                var Rate = this.form.Rate;
+                // console.log(typeof(point))
+                if(typeof(Rate) == 'string'){
+                  var RateList = Rate.split(",");
+                }else{
+                  var RateList = this.form.Rate;
+                }
+                $.ajaxFileUpload({
+                  url: '/api/trouble/insertTrouble',
+                  fileElementId:files,
+                  data : {
+                    'type':5,
+                    'levels':3,
+                    'dangerName':this.form.name,
+                    'unitId':this.form.unitId,
+                    'unitName':this.form.unitName,
+                    'buildingId':this.form.buildingId,
+                    'buildingName':this.form.buildingName,
+                    'floorId':this.form.floorId,
+                    'floorNumber':this.form.floorNumber,
+                    'roomId':this.form.roomId,
+                    'roomNumber':this.form.roomNumber,
+                    'pointX':pointList[0] == undefined ? 0 : pointList[0],
+                    'pointY':pointList[1] == undefined ? 0 : pointList[1],
+                    'xRate':RateList[0] == undefined ? 0 : RateList[0] ,
+                    'yRate':RateList[1] == undefined ? 0 : RateList[1],
+                    'nickName':this.form.nickName,
+                    'createTime':this.form.createTime,
+                    'cont':this.form.cont
+                  },
+                  type: 'POST',
+                  dataType: "json",
+                  success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
+                  
+              
+                  },
+                  error: function (e) { //服务器响应失败处理函数
+                    $.messager.alert('警告', "系统错误", "warning");
+                  },
+                  complete: function (e) {//只要完成即执行，最后执行
+                  
+                    that.$router.push({path:'/Dangerous_goods_management/all'});
+                  }
+                  
+                });
+                this.$message({
+                  dangerouslyUseHTMLString: true,
+                  message: '<strong>'+ this.form.name +'添加成功</strong>',
+                  center: true,
+                  showClose: true,
+                  iconClass:'el-icon-circle-check',
+                  customClass:'edit-ok-notification'
+                });
+              }
           } else {
               console.log('error submit!!');
               return false;
@@ -439,6 +456,16 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               //console.log(this.form.unitName);
             }
           })
+          if(curVal !== oldVal){
+            this.seeFloor = false ;
+            this.seeRoom = false ;
+          }
+          this.form.buildingId = '';
+          this.form.buildingName = '';
+          this.form.floorId = '';
+          this.form.roomId = '';
+          this.form.floorNumber = '';
+          this.form.roomNumber = '';
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
@@ -448,35 +475,43 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.form.roomId = '';
           this.form.floorNumber = '';
           this.form.roomNumber = '';
+          this.form.point = '' ;
+          this.form.Rate = '' ;
           this.formFloorSearch(this.form.buildingId);
           if(this.form.buildingId == '0' && this.form.buildingId == 0){
-            $('.map').show();
-            $('.floorMap').hide();
-          }else{
-            $('.map').hide();
-            $('.floorMap').show();
+            this.seeFloor = false ;
+            this.seeRoom = false ;
+          }
+          if(this.form.buildingId !== '' && this.form.buildingId !== 0){
+            this.seeRoom = true ;
           }
           this.form.buildList.forEach((item,index)=>{
             if(item.id == this.form.buildingId){
               this.form.buildingName = item.name ;
               //console.log(this.form.buildingName);
-            }else if(this.form.buildingId == '0' && this.form.buildingId == 0){
-              this.form.buildingName = '室外';
             }
           })
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
-          
+          if(this.form.buildingId == '0' && this.form.buildingId == 0){
+            $('.map').show();
+            $('.floorMap').hide();
+          }else{
+            this.seeRoom = true ;
+            $('.map').hide();
+            $('.floorMap').show();
+          }
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }
+          this.floor_btn(this.form.floorId);
           this.form.floorList.forEach((item,index)=>{
             if(item.id == this.form.floorId){
               this.form.floorNumber = item.floorName ;
               console.log(this.form.floorNumber);
               
-              this.floor_btn(this.form.floorId);
+              // this.floor_btn(this.form.floorId);
             }
           })
         },

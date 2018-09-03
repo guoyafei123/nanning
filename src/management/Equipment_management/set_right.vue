@@ -69,7 +69,7 @@
                       </li>
                       <li class="row text-center padding-right16 margin-top10">
                           <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-blue">18</p>
+                              <p class="size-16 show font-blue">{{this.dateMinus(this.device.startDate)}}</p>
                               <p>运行(天)</p>
                           </div>                          
                           <div class="col-sm-4 personnel-borderright">
@@ -123,12 +123,12 @@
                   </div>  
                   <div class="col-sm-6">
                       <span>运行时长 </span>
-                      <strong v-html="this.device.timeYear+'天'"></strong>
+                      <strong v-html="this.dateMinus(this.device.startDate)+'天'"></strong>
                   </div>  
-                  <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
                       <span>投入时间 </span>
                       <strong v-html="this.device.startDate == null ? '-' : this.device.startDate"></strong>
-                  </div>
+                  </div> -->
                   <div class="col-sm-6">
                       <span>设备二维码 </span>
                       <el-tooltip class="item" content="设备二维码" placement="top">
@@ -663,6 +663,13 @@
             //console.log(err);
           });
       },
+      dateMinus(sDate){ 
+    　　var sdate = new Date(sDate.replace(/-/g, "/")); 
+    　　var now = new Date(); 
+    　　var days = now.getTime() - sdate.getTime(); 
+    　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
+    　　return day; 
+      },
       qrcode(){
         window.open("/api/qrcode/deviceImgs?unitId="+this.Unit+'&buildingId='+this.buildDevice+'&floorId='+this.floorDevice+'&roomId='+this.roomDevice+'&deviceTypeId='+this.equipmentDevice);
       },
@@ -855,9 +862,7 @@
           $('.plan').show();
           $('.total').hide();
           $('.mapTable').hide();
-          this.tableData.forEach((item,index)=>{
-            if(item.id == this.deviceId){
-              console.log(item.id,this.deviceId);
+              const item = this.deviceId ;
               this.device.status = item.status ;
               this.device.name = item.name ;
               this.device.deviceTypeName = item.deviceTypeName ;
@@ -873,12 +878,7 @@
               this.device.productDate = item.productDate ;
               this.device.maintenanceUnit = item.maintenanceUnit ;
               this.device.maintenancePhone = item.maintenancePhone ;
-            }
-          })
         }
-        console.log(this.tableData)
-        
-        //console.log(this.deviceId);
       },
       Unit(){
         this.tableList();
