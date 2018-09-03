@@ -27,7 +27,7 @@
                   <span class="btn_add" @click="saveUnitScore"><i class="el-icon-circle-check-outline"></i>提交</span>
                 </div>
               </div>
-            <div class="main_content_table position-relative big-list-table">
+              <div class="main_content_table position-relative big-list-table">
                 <div class="table-scroll">
                   <table id="unitTable" class="table toolroute-table">
                     <thead>
@@ -393,6 +393,7 @@
                         <th>C级权重</th>
                         <th>D级要素</th>
                         <th>D级权重</th>
+                        <th>评分</th>
                       </tr>
                     </thead>
                     <tbody>

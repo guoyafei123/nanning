@@ -107,7 +107,7 @@
           </router-link>
           <router-link to="/Patrolcheck">
             <li>
-              <i class="icon iconfont icon-qiandao-kaoqindaqia"></i>
+              <i class="icon iconfont icon-caozuorizhi-xian-"></i>
               <h2>巡检打卡</h2>
               <span>6</span>
             </li>

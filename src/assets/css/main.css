@@ -1285,3 +1285,17 @@ a.min-map-cloase:hover {
     display: inline-block;
     margin-right: 6px;
 }
+.tablist-itemtitle .panel-title>a:after {
+    content: "\E603";
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform .3s;
+    float: right;
+    line-height: 24px;
+    font-weight: 300;
+    font-family: element-icons!important;
+}
+.tablist-itemtitle .panel-title>a.collapsed:after {
+    content: "\E603";
+    transform: rotate(-90deg);
+}

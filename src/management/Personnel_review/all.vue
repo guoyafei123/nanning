@@ -65,16 +65,16 @@
               <el-tooltip placement="top" :type="scope.row.review === 1 ? 'green' : 'red'"
                 disable-transitions v-if='scope.row.review==1'>
                 <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
-                  <span class="font-blue">审核通过 <i class="el-icon-warning"></i></span>
+                  <span class="font-blue"><i class="el-icon-warning"></i> 审核通过</span>
               </el-tooltip>
               <el-tooltip placement="top" :type="scope.row.review === 2 ? 'red' : 'green'"
                 disable-transitions v-if='scope.row.review==2'>
                 <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
-              <span class="font-yellow">审核未通过</span></el-tooltip>
+              <span class="font-yellow"><i class="el-icon-warning"></i> 审核未通过</span></el-tooltip>
               <el-tooltip placement="top" :type="scope.row.review === 3 ? 'yellow' : 'green'"
                 disable-transitions v-if='scope.row.review==3'>
                 <div slot="content">{{scope.row.reviewName}} {{scope.row.reviewTime}}</div>
-                <span class="font-red">待审核</span></el-tooltip>
+                <span class="font-red"><i class="el-icon-warning"></i> 待审核</span></el-tooltip>
             </template>
           </el-table-column>
           <el-table-column

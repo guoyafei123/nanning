@@ -422,9 +422,11 @@ p.toolcount-p2 {
     line-height: 24px;
 }
 .itemtitle-value{
-    padding:0 5px !important;
+    padding:2px!important;
+    color: #000;
     border-radius: 0;
-
+    transform: scale(0.84,0.84);
+    -webkit-transform: scale(0.84,0.84);
 }
 .tablist-itemul li{
     border-bottom: 1px solid #333;

@@ -22,7 +22,7 @@
           </div>
           <div class="col-sm-12">
               <span>内容</span>
-              <div class="font-white margin-top10">{{ noticeContent }}</div>
+              <strong class="font-white margin-top10">{{ noticeContent }}</strong>
           </div>          
       </div>
     </section> 
@@ -67,7 +67,7 @@
           </div>                
           <div class="col-sm-12">
               <span>内容 </span>
-              <div class="font-white margin-top10" v-html="content"></div>
+              <strong class="font-white margin-top10" v-html="content"></strong>
           </div>          
       </div>
     </section> 

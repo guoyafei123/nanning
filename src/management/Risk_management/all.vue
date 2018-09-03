@@ -12,7 +12,7 @@
           <!-- 单位模板 -->
           <el-tab-pane>
             <span slot="label"><i class="icon iconfont icon-danweiguanli-xian-2"></i>单位权重</span>
-            <div class="main_header clearFix">
+            <div class="main_all_content">
               <div class="main_content_top">
                 <div class="main_nav_two float-right">
                   <span class="btn_add" @click="btn_save_unit"><i class="el-icon-circle-check-outline"></i>提交</span>
@@ -301,7 +301,7 @@
           <!-- 建筑模板 -->
           <el-tab-pane>
             <span slot="label"><i class="icon iconfont icon-jianzhu-xian-"></i>建筑权重</span>
-            <div class="main_header clearFix">
+            <div class="main_all_content">
               <div class="main_content_top">
                 <div class="main_nav_two float-right">
                   <span class="btn_add" @click="btn_save_building"><i class="el-icon-circle-check-outline"></i>提交</span>

@@ -2,7 +2,7 @@
   <section>
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-renyuanliebiao-mian-"></i>
+        <i class="icon iconfont icon-qiandao-kaoqindaqia"></i>
         <h2>巡检打卡</h2>
       </div>
     </div>
