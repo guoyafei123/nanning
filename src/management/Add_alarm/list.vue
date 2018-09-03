@@ -238,8 +238,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           console.log(this.files);
         },
         handlePictureCardPreview(file) { //预览图片墙
-          console.log("预览图片墙===============》");
-          console.log(file);
           this.dialogImageUrl = file.url;
           this.dialogVisible = true;
         },
