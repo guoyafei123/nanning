@@ -51,8 +51,8 @@
                     <el-form-item label="图片和视频" :label-width="formLabelWidth">
                       <el-upload 
                           list-type="picture-card" 
-                          id="alarmFile"
-                          :name="alarmFile"
+                          id="file"
+                          :name="file"
                           :http-request="uploadAlarmFile"
                           :file-list="playUrls"
                           :multiple="true"
@@ -202,9 +202,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         uploadAlarmFile: function (param){
             var that=this;
             var fileObj = param.file;
-            var FileController = "/api/alarm/uploadAlarmImg";
+            var FileController = "/api/upload/uploadImg";
             var form = new FormData();
-            form.append("alarmFile", fileObj);
+            form.append("file", fileObj);
+            form.append("type",1);
             var xhr = new XMLHttpRequest();
             xhr.open("post", FileController, true);
             xhr.onload = (()=>{
