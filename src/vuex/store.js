@@ -87,7 +87,9 @@ var state={
   // 全部单位
   mapAllUnit:Object,
   toMapPatterns:Object,
-  toMapPatternsDanger:Object
+  toMapPatternsDanger:Object,
+  // 综合页面小地图向详情传值
+  dialogVisiblehide:Object
 }
 
 var mutations={
@@ -288,6 +290,10 @@ var mutations={
   },
   inspectionPlanUserId(state,data){
     state.inspectionPlanUserId = data;
+  },
+  dialogVisiblehide(state,data){
+
+    state.dialogVisiblehide = data;
   }
 }
 

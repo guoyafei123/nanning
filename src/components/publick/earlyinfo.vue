@@ -85,6 +85,7 @@
 				this.aleamAndtroubleInfos=this.aleamAndtroubleInfo
 				this.$store.commit("aleamAndtroubleInfos", [this.aleamAndtroubleInfo,this.tounpdateIndex++]);
 				// alert(this.aleamAndtroubleInfos.id+'-'+this.aleamAndtroubleInfo.pointY);
+				
 			}
 		},
 		mounted(){
