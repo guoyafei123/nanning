@@ -278,181 +278,235 @@
 		},
 		methods: {
 			getMapToDiv(divId) {
-				var MAP_STYLE_SMALL = [{
-						featureType: "land",
-						elementType: "all",
-						stylers: {
-							color: "#000000ff",
-							hue: "#000000"
-						}
-					},
-					{
-						featureType: "highway",
-						elementType: "all",
-						stylers: {
-							lightness: -42,
-							saturation: -91
-						}
-					},
-					{
-						featureType: "arterial",
-						elementType: "geometry",
-						stylers: {
-							color: "#111111ff",
-							lightness: 1
-						}
-					},
-					{
-						featureType: "green",
-						elementType: "geometry",
-						stylers: {
-							color: "#1b1b1b"
-						}
-					},
-					{
-						featureType: "water",
-						elementType: "geometry",
-						stylers: {
-							color: "#181818"
-						}
-					},
-					{
-						featureType: "subway",
-						elementType: "geometry.stroke",
-						stylers: {
-							color: "#181818"
-						}
-					},
-					{
-						featureType: "subway",
-						elementType: "all",
-						stylers: {
-							color: "#444444ff",
-							visibility: "off"
-						}
-					},
-					{
-						featureType: "all",
-						elementType: "labels.text.stroke",
-						stylers: {
-							color: "#313131"
-						}
-					},
-					{
-						featureType: "all",
-						elementType: "labels.text.fill",
-						stylers: {
-							color: "#8b8787"
-						}
-					},
-					{
-						featureType: "manmade",
-						elementType: "geometry",
-						stylers: {
-							color: "#1b1b1b"
-						}
-					},
-					{
-						featureType: "local",
-						elementType: "geometry",
-						stylers: {
-							color: "#1a1a1aff"
-						}
-					},
-					{
-						featureType: "subway",
-						elementType: "geometry",
-						stylers: {
-							lightness: -65
-						}
-					},
-					{
-						featureType: "railway",
-						elementType: "all",
-						stylers: {
-							lightness: -40
-						}
-					},
-					{
-						featureType: "boundary",
-						elementType: "geometry",
-						stylers: {
-							color: "#8b8787",
-							weight: "1",
-							lightness: -29
-						}
-					},
-					{
-						featureType: "building",
-						elementType: "all",
-						stylers: {
-							color: "#111111ff",
-							visibility: "on"
-						}
-					},
-					{
-						featureType: "poilabel",
-						elementType: "all",
-						stylers: {
-							visibility: "off"
-						}
-					},
-					{
-						featureType: "subwaystation",
-						elementType: "all",
-						stylers: {
-							color: "#666666ff"
-						}
-					},
-					{
-						featureType: "local",
-						elementType: "labels",
-						stylers: {
-							visibility: "off"
-						}
-					},
-					{
-						featureType: "arterial",
-						elementType: "labels",
-						stylers: {
-							visibility: "off"
-						}
-					},
-					{
-						featureType: "highway",
-						elementType: "all",
-						stylers: {
-							visibility: "off"
-						}
-					},
-					{
-						featureType: "manmade",
-						elementType: "all",
-						stylers: {
-							visibility: "off"
-						}
-					},
-					{
-						featureType: "town",
-						elementType: "labels",
-						stylers: {
-							visibility: "off"
-						}
-					},
-					{
-						featureType: "district",
-						elementType: "labels",
-						stylers: {
-							visibility: "off"
-						}
-					},
-					{
-						featureType: "railway",
-						elementType: "geometry",
-						stylers: {
-							color: "#111111ff"
-						}
-					}
+				var MAP_STYLE_SMALL = [
+				          {
+				                    "featureType": "land",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#000000ff",
+				                              "hue": "#000000"
+				                    }
+				          },
+				          {
+				                    "featureType": "highway",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#444444ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "green",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#000000ff"
+				                    }
+				          },
+				          {
+				                    "featureType": "water",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#181818"
+				                    }
+				          },
+				          {
+				                    "featureType": "local",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#222222ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "subway",
+				                    "elementType": "all",
+				                    "stylers": {
+				                              "color": "#666666ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "railway",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#999999ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "boundary",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#666666ff",
+				                              "weight": "1"
+				                    }
+				          },
+				          {
+				                    "featureType": "building",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#333333ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "poilabel",
+				                    "elementType": "all",
+				                    "stylers": {
+				                              "visibility": "off"
+				                    }
+				          },
+				          {
+				                    "featureType": "railway",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#333333ff"
+				                    }
+				          },
+				          {
+				                    "featureType": "subway",
+				                    "elementType": "labels.text.stroke",
+				                    "stylers": {
+				                              "color": "#666666ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "local",
+				                    "elementType": "labels.text.stroke",
+				                    "stylers": {
+				                              "color": "#222222ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "arterial",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#333333ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "arterial",
+				                    "elementType": "labels.text.stroke",
+				                    "stylers": {
+				                              "color": "#333333ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "arterial",
+				                    "elementType": "labels.text.fill",
+				                    "stylers": {
+				                              "color": "#999999ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "manmade",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#111111ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "manmade",
+				                    "elementType": "labels.text.stroke",
+				                    "stylers": {
+				                              "color": "#222222ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "manmade",
+				                    "elementType": "labels.text.fill",
+				                    "stylers": {
+				                              "color": "#999999ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "subwaystation",
+				                    "elementType": "geometry",
+				                    "stylers": {
+				                              "color": "#999999ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "highway",
+				                    "elementType": "labels.text.stroke",
+				                    "stylers": {
+				                              "color": "#444444ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "highway",
+				                    "elementType": "labels.text.fill",
+				                    "stylers": {
+				                              "color": "#999999ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "district",
+				                    "elementType": "labels.text.stroke",
+				                    "stylers": {
+				                              "color": "#bad616ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "district",
+				                    "elementType": "labels.text.fill",
+				                    "stylers": {
+				                              "color": "#ffffffff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "districtlabel",
+				                    "elementType": "labels.text.fill",
+				                    "stylers": {
+				                              "color": "#999999ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "city",
+				                    "elementType": "labels.text.fill",
+				                    "stylers": {
+				                              "color": "#d2f217ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "districtlabel",
+				                    "elementType": "labels.text.stroke",
+				                    "stylers": {
+				                              "color": "#111111ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "city",
+				                    "elementType": "labels.text.stroke",
+				                    "stylers": {
+				                              "color": "#111111ff",
+				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "subway",
+				                    "elementType": "labels.text.fill",
+				                    "stylers": {
+				                              "color": "#ffffffff",
+				                              "visibility": "on"
+				                    }
+				          }
 				];
 				var MAP_CENTER_POINT = new BMap.Point(this.point[0], this.point[1]);
 				var mapArr = {};
