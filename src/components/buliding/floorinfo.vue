@@ -159,6 +159,6 @@
 	padding-left: 5px;
 }
 .floor-item{
-	top: 0px;
+	top: 0px !important;
 }
 </style>
