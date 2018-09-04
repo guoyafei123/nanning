@@ -275,9 +275,9 @@
   background-color: #000!important;
 }
 
-.mapTable tr {
+/*.mapTable tr {
   background-color: #000!important;
-}
+}*/
 .mapTable tr.hover-row:hover,
 .mapTable tr.hover-row:hover td,
 .mapTable tr.hover-row:hover th {
@@ -1461,4 +1461,11 @@ height: 640px;
 }
 .big-list-table .table-scroll::-webkit-scrollbar-thumb {
   background-color: #999;
+}
+
+#right .el-table__header-wrapper thead>tr>th:hover,
+#right .el-table__header-wrapper tbody>tr>td:hover,
+#right .el-table__header-wrapper thead>tr>th>div.cell:hover,
+#right .el-table__header-wrapper tbody>tr>td>div.cell:hover {
+  background-color: transparent!important;
 }
