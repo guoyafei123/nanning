@@ -843,7 +843,7 @@
 
       //火情分析
       // this.queryFirehistoryData()
-      // // this.queryAlarmLastTime()
+      // this.queryAlarmLastTime()
       // this.queryLastTimeAlarm()
       // this.queryLastTimeTrouble()
       // this.queryLastTimeInspection()
