@@ -250,7 +250,7 @@
 					buidingId: null,
 					startTime: null,
 					endTime: null,
-					currentPage: 2,
+					currentPage: 1,
 					pageSize: 10
 				},
 				// 表格返回

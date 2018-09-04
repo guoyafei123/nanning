@@ -870,3 +870,8 @@ video:hover{
         top: 5px;
         left: 30px;
   }
+  .notallowed{
+    color: #333!important;
+    cursor: not-allowed;
+  } 
+  

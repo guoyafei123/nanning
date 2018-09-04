@@ -135,7 +135,7 @@
 										<h4>
 											<a @click="toactive(item,1)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
 											<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-											<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+											<a @click="closeAlarmOrTround(item,1)" :class="item.alarmsum!=null?'notallowed':''"><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 											<a><span class="badge">
 												{{item.alarmsum!=null ? item.alarmsum :''}}
 											</span></a>
@@ -178,7 +178,7 @@
 									<h4>
 										<a @click="toactive(item,2)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
 										<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-										<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+										<a @click="closeAlarmOrTround(item,2)" :class="item.allCount!=null?'notallowed':''"><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 										<a><span class="badge">
 											{{item.allCount!=null ? item.allCount :''}}
 										</span></a>
@@ -332,7 +332,8 @@
 									<h4>
 						<a @click="toactive(item,1)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
 						<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-						<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+						<a @click="closeAlarmOrTround(item,1)" :class="item.alarmsum!=null?'notallowed':''"><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+						
 						<a><span class="badge">
 							{{item.alarmsum!=null ? item.alarmsum :''}}
 						</span></a>
@@ -369,7 +370,7 @@
 								<h4>
 					<a @click="toactive(item,2)" class="active "><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
 					<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
-					<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
+					<a @click="closeAlarmOrTround(item,2)" :class="item.allCount!=null?'notallowed':''"><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 					<a><span class="badge">
 						{{item.allCount!=null ? item.allCount :''}}
 					</span></a>
