@@ -842,14 +842,14 @@
       this.getPunch()
 
       //火情分析
-      this.queryFirehistoryData()
+      // this.queryFirehistoryData()
       // this.queryAlarmLastTime()
-      this.queryLastTimeAlarm()
-      this.queryLastTimeTrouble()
-      this.queryLastTimeInspection()
-      this.getUnitsSynthesis()
-      this.getQueryUnitInfo()
-      this.queryFireSituation()
+      // this.queryLastTimeAlarm()
+      // this.queryLastTimeTrouble()
+      // this.queryLastTimeInspection()
+      // this.getUnitsSynthesis()
+      // this.getQueryUnitInfo()
+      // this.queryFireSituation()
     },
     beforeDestroy() {
       if (this.timer) {
