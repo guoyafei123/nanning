@@ -64,6 +64,7 @@
                         <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
                           <li>
                             <p class="size-18 font-white">信息统计</p>
+                            <button class="foorBtn" @click="toFloorInfo()">查看楼层</button>
                           </li>
                           <li>
                             <p class="size-10 set-scaleright">Repair Statistics</p>
@@ -220,13 +221,24 @@
                   </div>
                 </section>
 		        </section>
+            <el-dialog title="" :visible.sync="dialogVisible" top="120px">
+              <el-tooltip class="item" content="关闭" placement="top">
+                <a class="go-back" @click="dialogVisible = false"><i class="el-icon-circle-close-outline size-24"></i></a>
+                </el-tooltip> 
+              <floorinfo></floorinfo>
+            </el-dialog>
 	</div>
+  
 </template>
 
 <script>
+import Floorinfo from "./floorinfo.vue";
 import moment from "moment";
 import{mapState} from "vuex";
 export default {
+  components: {
+			'floorinfo':Floorinfo
+		},
   data() {
     return {
       // 时间筛选
@@ -288,7 +300,8 @@ export default {
       buildTroubleMap: Object,
       buildBaseInfo: Object,
       buidyear: "",
-      getunitid:Object
+      getunitid:Object,
+      dialogVisible:false
     };
   },
   computed:mapState([
@@ -330,6 +343,9 @@ export default {
     }
   },
   methods: {
+    toFloorInfo(){
+      this.dialogVisible=true;
+    },
     moren() {
       $(".bulid-iteminfo")
         .addClass("display-block")
@@ -572,3 +588,4 @@ export default {
   }
 };
 </script>
+

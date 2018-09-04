@@ -860,3 +860,11 @@ video:hover{
         top: 0;
         /* z-index: 10; */
     }
+    .foorBtn{
+        background: rgba(0,0,0,0);
+        border: 1px solid;
+        padding: 5px 10px;
+        position: relative;
+        top: 5px;
+        left: 30px;
+  }
