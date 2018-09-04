@@ -93,11 +93,11 @@
               <strong v-else><span v-if="scope.row.buildingId != 0">{{ scope.row.buildingName }}</span><span v-if="scope.row.floorNumber != '' && scope.row.floorNumber != null">{{ scope.row.floorNumber }} 层</span><span v-if="scope.row.roomNumber != '' && scope.row.roomNumber != null">{{ scope.row.roomNumber }} 房间</span></strong>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="cont"
             :show-overflow-tooltip="true"
             label="危险品简介">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="nickName"
             label="上报人">
@@ -115,18 +115,20 @@
               <el-tag
                 :type="scope.row.status === 0 ? 'red' : 'green'"
                 disable-transitions v-if='scope.row.status==0'>未解决 
-                <el-tooltip placement="top">
+                <!-- <el-tooltip placement="top">
                   <div slot="content" class="text-center">{{scope.row.nickName}}<br/>于{{scope.row.createTime}}上报</div>
                   <i class="fas fa-exclamation-circle font-red"></i>
-                </el-tooltip>
+                </el-tooltip> -->
+                 <i class="fas fa-exclamation-circle font-red"></i>
                 </el-tag>
               <el-tag
                 :type="scope.row.status === 1 ? 'green' : 'red'"
                 disable-transitions v-if='scope.row.status==1'>已解决 
-                <el-tooltip placement="top">
+                <!-- <el-tooltip placement="top">
                   <div slot="content" class="text-center">{{scope.row.reviewerName}}<br/>于{{ scope.row.reviewTime }}解决</div>
                   <i class="fas fa-check-circle font-blue"></i>
-                </el-tooltip>
+                </el-tooltip> -->
+                <i class="fas fa-check-circle font-blue"></i>
               </el-tag>
             </template>
           </el-table-column>
@@ -139,11 +141,11 @@
             prop="reviewTime"
             label="解决时间">
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="treatment"
             :show-overflow-tooltip="true"
             label="解决原因">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             fixed="right"
             label="操作">
@@ -280,7 +282,7 @@
                     </el-date-picker>
                   </div>
                 </el-form-item>                -->
-                <el-form-item label="解决原因" class="not-null col-sm-12">
+                <el-form-item label="解决原因" class="not-null font-gray-ccc col-sm-12">
                   <el-input
                     type="textarea"
                     :rows="4"
@@ -425,15 +427,7 @@
         })
       },
       startRow(){
-        // 修改成功提示
-        this.$message({
-          dangerouslyUseHTMLString: true,
-          message: '<strong> 修改成功</strong>',
-          center: true,
-          showClose: true,
-          iconClass:'el-icon-circle-check',
-          customClass:'edit-ok-notification'
-        });
+        
         this.$fetch("/api/trouble/solveTrouble",{
           'troubleId':this.form.id,
           'dangerName':this.form.dangerName,
@@ -442,6 +436,15 @@
           if(response){
             //console.log('处理成功...'+ JSON.stringify(response));
             this.tableList();
+            // 修改成功提示
+            this.$message({
+              dangerouslyUseHTMLString: true,
+              message: '<strong> 修改成功</strong>',
+              center: true,
+              showClose: true,
+              iconClass:'el-icon-circle-check',
+              customClass:'edit-ok-notification'
+            });
           }
         })
       },
@@ -560,54 +563,54 @@
           }
         })
       },
-      formBuildSearch(unitId){
-        this.$fetch("/api/building/selectNode",{
-          unitId:unitId
-        }).then(response=>{
-          //console.log('formBuildSearch:'+JSON.stringify(response));
-          if (response) {
-            this.form.buildList = response.data.list;
-            //console.log(this.form.buildList);
-          }
-        })
-      },
-      formFloorSearch(buildIngId){
-        this.$fetch("/api/building/selectNode",{
-          buildIngId:buildIngId
-        }).then(response=>{
-          //console.log('formFloorSearch:'+response);
-          if (response) {
-            this.form.floorList = response.data.list;
-            //console.log(this.form.floorList);
-          }
-        })
-      },
-      formRoomSearch(floorId){
-        this.$fetch("/api/building/selectNode",{
-          floorId:floorId
-        }).then(response=>{
-          //console.log('formRoomSearch:'+response);
-          if (response) {
-            this.form.roomList = response.data.list;
-            //console.log(this.form.roomList);
-          }
-        })
-      }
+      // formBuildSearch(unitId){
+      //   this.$fetch("/api/building/selectNode",{
+      //     unitId:unitId
+      //   }).then(response=>{
+      //     //console.log('formBuildSearch:'+JSON.stringify(response));
+      //     if (response) {
+      //       this.form.buildList = response.data.list;
+      //       //console.log(this.form.buildList);
+      //     }
+      //   })
+      // },
+      // formFloorSearch(buildIngId){
+      //   this.$fetch("/api/building/selectNode",{
+      //     buildIngId:buildIngId
+      //   }).then(response=>{
+      //     //console.log('formFloorSearch:'+response);
+      //     if (response) {
+      //       this.form.floorList = response.data.list;
+      //       //console.log(this.form.floorList);
+      //     }
+      //   })
+      // },
+      // formRoomSearch(floorId){
+      //   this.$fetch("/api/building/selectNode",{
+      //     floorId:floorId
+      //   }).then(response=>{
+      //     //console.log('formRoomSearch:'+response);
+      //     if (response) {
+      //       this.form.roomList = response.data.list;
+      //       //console.log(this.form.roomList);
+      //     }
+      //   })
+      // }
     },
-    computed:{
-      unitId(){
-        return this.form.unitId;
-      },
-      buildingId(){
-        return this.form.buildingId;
-      },
-      floorId(){
-        return this.form.floorId;
-      },
-      roomId(){
-        return this.form.roomId;
-      }
-    },
+    // computed:{
+    //   unitId(){
+    //     return this.form.unitId;
+    //   },
+    //   buildingId(){
+    //     return this.form.buildingId;
+    //   },
+    //   floorId(){
+    //     return this.form.floorId;
+    //   },
+    //   roomId(){
+    //     return this.form.roomId;
+    //   }
+    // },
     watch:{
       status(curVal,oldVal){
         this.status = curVal ;
@@ -621,7 +624,14 @@
       unit(curVal,oldVal){
         this.unit = curVal;
         this.tableList();
-        this.buildSearch(this.unit);
+        this.building = '';
+        this.floor = '';
+        this.room = '';
+        if(this.unit == '' && this.unit == null){
+
+        }else{
+          this.buildSearch(this.unit);
+        }
         this.$store.commit('Unit',this.unit);
       },
       building(curVal,oldVal){
@@ -629,13 +639,17 @@
         //console.log(this.building);
         this.floor = '';
         this.room = '';
-        this.floorSearch(this.building);
+        if(this.building == '' && this.building == null){
+
+        }else{
+          this.floorSearch(this.building);
+        }
         this.tableList();
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
         //console.log(this.floor);
-        if(this.floor !== 0){
+        if(this.floor !== ''){
           this.roomSearch(this.floor);
           this.tableList();
         }
@@ -645,27 +659,27 @@
         //console.log(this.room);
         this.tableList();
       },
-      unitId(curVal,oldVal){
-        this.form.unitId = curVal;
-        this.formBuildSearch(this.form.unitId);
-      },
-      buildingId(curVal,oldVal){
-        this.form.buildingId = curVal;
-        //console.log(this.form.buildingId)
-        this.form.floorId = '';
-        this.form.roomId = '';
-        this.form.equipmentId = '';
-        this.formFloorSearch(this.form.buildingId);
-      },
-      floorId(curVal,oldVal){
-        this.form.floorId = curVal;
-        if(this.form.floorId !== 0){
-          this.formRoomSearch(this.form.floorId);
-        }
-      },
-      roomId(curVal,oldVal){
-        this.form.roomId = curVal ;
-      }
+      // unitId(curVal,oldVal){
+      //   this.form.unitId = curVal;
+      //   this.formBuildSearch(this.form.unitId);
+      // },
+      // buildingId(curVal,oldVal){
+      //   this.form.buildingId = curVal;
+      //   //console.log(this.form.buildingId)
+      //   this.form.floorId = '';
+      //   this.form.roomId = '';
+      //   this.form.equipmentId = '';
+      //   this.formFloorSearch(this.form.buildingId);
+      // },
+      // floorId(curVal,oldVal){
+      //   this.form.floorId = curVal;
+      //   if(this.form.floorId !== 0){
+      //     this.formRoomSearch(this.form.floorId);
+      //   }
+      // },
+      // roomId(curVal,oldVal){
+      //   this.form.roomId = curVal ;
+      // }
     },
     mounted(){
       realconsole();
@@ -679,4 +693,5 @@
   };
 </script>
 <style lang="scss" scoped>
+
 </style>

@@ -1,11 +1,26 @@
 <template>
     <section>
-        <div class="tree-box">
-            <div class="zTreeDemoBackground left">
-                <ul id="treeDemo" class="ztree"></ul>
+        <!-- 标题 -->
+        <div class="main_header clearFix">
+          <div class="main_title float-left clearFix">
+            <i class="icon iconfont icon-quanxianfenpei-xian-"></i>
+            <h2>权限分配</h2>
+          </div>
+        </div>
+        <div class="main_all_content">
+            <div class="main_content_table">
+                <div class="table-scroll">
+                    <div class="tree-box">
+                        <div class="zTreeDemoBackground left">
+                            <ul id="treeDemo" class="ztree"></ul>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="main_content_bottom col-xs-12 bg-gray-111">
+                    <button class="btn-ok"  @click="success()">保存</button>
+                </div>
             </div>
         </div>
-        <el-button size="medium" class="btn-ok"  @click="success()">保存</el-button>
     </section>
 </template>
 <script>
@@ -90,13 +105,4 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
-    button{
-        width:200px;
-        position: absolute;
-        left:50%;
-        top:80%;
-        margin-left:-100px;
-    }
-</style>
 

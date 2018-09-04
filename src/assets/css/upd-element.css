@@ -228,7 +228,7 @@
     min-width: 650px !important;
 }
 .el-notification.right{
-    margin: 110px auto !important;
+    margin: 104px auto !important;
     left: 0px;
     right: 0px;
 }
@@ -239,9 +239,18 @@
 .notify-right{
     border-left: 1px solid black;
 }
+.notify-right i>span {
+    font-size: 14px;
+    margin-left: 4px;
+}
 .notify-left>span{
     position: relative;
     bottom: 6px;
+}
+.el-notification__closeBtn {
+    top: 6px;
+    font-size: 20px;
+    font-weight: bold;
 }
 .el-notification-fade-enter{
     left: 2000px !important;

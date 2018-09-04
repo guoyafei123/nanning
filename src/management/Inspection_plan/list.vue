@@ -20,22 +20,22 @@
           class类hint-error为错误提示
          -->
         <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form" >
-          <el-form-item label="路线名称" class="not-null">
+          <el-form-item label="路线名称" prop="name" class="not-null">
             <!-- <span class="hint-error">单位名称有误或重复</span> -->
             <el-input v-model="form.name" class="col-sm-10"></el-input>
           </el-form-item>
-          <el-form-item label="所属单位" class="not-null">
-            <el-select v-model="region1" placeholder="请选择" class="select col-sm-4">
+          <el-form-item label="所属单位" prop="region1"  class="not-null">
+            <el-select v-model="region1" placeholder="请选择" :disabled="isdisabled" class="select col-sm-4">
               <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="巡检类型" class="not-null">
+          <el-form-item label="巡检类型" prop="region2" class="not-null">
             <el-select v-model="form.region2" placeholder="请选择" class="select col-sm-4">
               <el-option v-for="item in inspectionTypeList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="起点" class="line-start not-null col-sm-12">
+          <el-form-item label="起点" prop="building" class="line-start not-null col-sm-12">
             <el-select
               v-model="building"
             placeholder="选择建筑"  class="start" :disabled="isdisabled">
@@ -84,7 +84,7 @@
               </el-tooltip>
             </div>
           </el-form-item>
-          <el-form-item label="终点" class="line-end not-null col-sm-12">
+          <el-form-item label="终点" prop="buildings" class="line-end not-null col-sm-12">
             <el-select
               v-model="buildings"
               placeholder="选择建筑" class="end" :disabled="isdisableds">
@@ -133,7 +133,7 @@
             </el-tooltip>
             </div>
           </el-form-item>
-          <el-form-item label="节点" class="line-node not-null col-sm-12">
+          <el-form-item label="节点" prop="buildingNode" class="line-node not-null col-sm-12">
             <div class="contentNode">
               <ul class="list-unstyled margin-bottom0">
                 <li class="margin-bottom0" v-for="(item,index) in inspectionListNode">
@@ -195,7 +195,7 @@
         </el-form>
       </div>
       <div class="main_footer">
-        <a class="btn-ok" @click="btn"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
+        <a class="btn-ok" @click="btn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
         <a class="btn-back" @click="back">返回</a>
       </div>
     </aside>
@@ -213,6 +213,7 @@
 <script>
     export default {
       data() {
+
         return {
           labelPosition: 'top',
           form: {
@@ -254,8 +255,6 @@
           isdisabled:false,
           isdisableds:false,
           inspectionTypeList:[{//巡检类型列表
-            name:'全部',id:0
-          },{
             name:'举报检查',id:1
           },{
             name:'活动检查',id:2
@@ -271,12 +270,33 @@
             name:'恢复工作检查',id:7
           }, {
             name: '其他检查', id: 8
-          }]
+          }],
+          rules: {
+            name:[
+              { required: true, trigger: 'blur',  message: '请填写路线名称' }
+            ],
+            region1:[
+              { required: true, message: '请选择所属单位', trigger: 'change' }
+            ],
+            region2:[
+              { required: true, message: '请选择巡检类型', trigger: 'change' }
+            ],
+            building: [
+              { required: true, message: '请选择巡检起点', trigger: 'change' }
+            ],
+            buildings:[
+              { required: true, message: '请选择巡检终点', trigger: 'change' }
+            ],
+            buildingNode:[
+              { required: true, message: '请选择巡检节点', trigger: 'change' }
+            ]
+          }
         }
       },
       methods:{
         jinyong(){//禁用选择框
           this.isdisabled=true;
+          $('')
         },
         kaiqi(){//开启
           this.isdisabled=false;
@@ -291,82 +311,89 @@
           this.inspectionNodes.splice(index,1);
           this.inspectionListNode.splice(index,1)
         },
-        btn(){//保存、提交
-          this.inspectionNode();
+        btn(formName){//保存、提交
+         this.$refs[formName].validate((valid) => {
+            if (valid) {
+              this.inspectionNode();
 
-          //循环得出需要的id、name值
-          var buildListName = '';
-          var floorListName = '';
-          var roomListName = '';
-          var equipmentListName = '';
-          var buildListsName = '';
-          var floorListsName = '';
-          var roomListsName = '';
-          var equipmentListsName = '';
-          //起点
-          this.buildList.forEach((item,index)=>{
-            // //console.log(item.id)
-            if(item.id == this.building){
-              // //console.log(item.name);
-              buildListName = item.name;
-            }
-          });
-          this.floorList.forEach((item,index)=>{
-            if(item.id == this.floor){
-              floorListName = item.floorName;
-            }
-          });
-          this.roomList.forEach((item,index)=>{
-            if(item.id == this.room){
-              roomListName = item.roomNumber;
-            }
-          });
-          this.equipmentList.forEach((item,index)=>{
-            if(item.id == this.equipment){
-              equipmentListName = item.name;
-            }
-          });
+              //循环得出需要的id、name值
+              var buildListName = '';
+              var floorListName = '';
+              var roomListName = '';
+              var equipmentListName = '';
+              var buildListsName = '';
+              var floorListsName = '';
+              var roomListsName = '';
+              var equipmentListsName = '';
+              //起点
+              this.buildList.forEach((item,index)=>{
+                // //console.log(item.id)
+                if(item.id == this.building){
+                  // //console.log(item.name);
+                  buildListName = item.name;
+                }
+              });
+              this.floorList.forEach((item,index)=>{
+                if(item.id == this.floor){
+                  floorListName = item.floorName;
+                }
+              });
+              this.roomList.forEach((item,index)=>{
+                if(item.id == this.room){
+                  roomListName = item.roomNumber;
+                }
+              });
+              this.equipmentList.forEach((item,index)=>{
+                if(item.id == this.equipment){
+                  equipmentListName = item.name;
+                }
+              });
 
-          //终点
-          this.buildLists.forEach((item,index)=>{
-            // //console.log(item.id)
-            if(item.id == this.buildings){
-              // //console.log(item.name);
-              buildListsName = item.name;
-            }
-          });
-          this.floorLists.forEach((item,index)=>{
-            if(item.id == this.floors){
-              floorListsName = item.floorName;
-            }
-          });
-          this.roomLists.forEach((item,index)=>{
-            if(item.id == this.rooms){
-              roomListsName = item.roomNumber;
-            }
-          });
-          this.equipmentLists.forEach((item,index)=>{
-            if(item.id == this.equipments){
-              equipmentListsName = item.name;
-            }
-          });
-
-
-          if(this.building !== 0 && this.building !== '0'){//起点
-            this.inspectionNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
-          }else{
-            this.inspectionNodes.push({sorting:0,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipment,deviceName:equipmentListName});
-          }
-          if(this.buildings !== 0 && this.buildings !== '0'){//终点
-            this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
-          }else{
-            this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
-          }
-          //console.log(this.endNodes);
+              //终点
+              this.buildLists.forEach((item,index)=>{
+                // //console.log(item.id)
+                if(item.id == this.buildings){
+                  // //console.log(item.name);
+                  buildListsName = item.name;
+                }
+              });
+              this.floorLists.forEach((item,index)=>{
+                if(item.id == this.floors){
+                  floorListsName = item.floorName;
+                }
+              });
+              this.roomLists.forEach((item,index)=>{
+                if(item.id == this.rooms){
+                  roomListsName = item.roomNumber;
+                }
+              });
+              this.equipmentLists.forEach((item,index)=>{
+                if(item.id == this.equipments){
+                  equipmentListsName = item.name;
+                }
+              });
 
 
-          this.$router.push({path:'/Inspection_plan/all'});
-          $('#right').show();
+              if(this.building !== 0 && this.building !== '0'){//起点
+                this.inspectionNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
+              }else{
+                this.inspectionNodes.push({sorting:0,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipment,deviceName:equipmentListName});
+              }
+              if(this.buildings !== 0 && this.buildings !== '0'){//终点
+                this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
+              }else{
+                this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
+              }
+              //console.log(this.endNodes);
+
+
+              this.$router.push({path:'/Inspection_plan/all'});
+              $('#right').show();
+            } else {
+              //console.log('error submit!!');
+              return false;
+            }
+          });
         },
         back(){
           this.$router.push({path:'/Inspection_plan/all'});

@@ -18,11 +18,6 @@
               <el-option label="全部单位" value=""></el-option>
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
-            <!-- 楼层管理 -->
-            <el-select v-model="floorId" placeholder="选择楼层" class="select floor" style="display:none;margin-left: 15px;">
-              <el-option label="全部楼层" value=""></el-option>
-              <el-option v-for="item in floorList" :label="item.name" :value="item.id"></el-option>
-            </el-select>
           </el-form>
           <div class="main_nav_two float-right">
             <router-link to="/Building_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
@@ -64,7 +59,6 @@ import panzoom from 'panzoom';
     data() {
       return {
         buildUnit:null,//选择单位,
-        floorId:'',
         optionList:[],//全部单位列表,
         floorList:[],//楼层列表
         svgUrl:'',
@@ -112,7 +106,7 @@ import panzoom from 'panzoom';
           });
       },
       findPageBuildIngFloor(){
-        //console.log(this.buildingId)
+        console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
           pageSize:1000,
@@ -121,7 +115,7 @@ import panzoom from 'panzoom';
           //console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;
           this.table_list.forEach(item=>{
-             if(this.floorId == item.floor){
+             if(this.floorId == item.id){
                 this.roomSvgUrl = item.svgUrl ;
                 this.floorName = item.floorName ;
              }
@@ -152,7 +146,16 @@ import panzoom from 'panzoom';
         this.$store.commit('buildUnit',this.buildUnit);
       },
       buildingId(){
+        console.log(this.buildingId)
         this.findPageBuildIngFloor();
+      },
+      floorId(){
+        this.table_list.forEach(item=>{
+          if(this.floorId == item.id){
+            this.roomSvgUrl = item.svgUrl ;
+            this.floorName = item.floorName ;
+          }
+        })
       }
     },
     mounted(){

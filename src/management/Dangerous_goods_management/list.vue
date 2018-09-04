@@ -42,7 +42,7 @@
             </el-select>
             <el-select
               v-model="form.floorId"
-              placeholder="选择楼层" class="start col-sm-4">
+              placeholder="选择楼层" class="start col-sm-4"  v-show="seeFloor">
               <el-option
                 v-for="item in form.floorList"
                 :label="item.floorName+'层'"
@@ -51,7 +51,7 @@
             </el-select>
             <el-select
               v-model="form.roomId"
-              placeholder="选择房间" class="start col-sm-4">
+              placeholder="选择房间" class="start col-sm-4" v-show="seeRoom" >
               <el-option
                 v-for="item in form.roomList"
                 :label="item.roomNumber+'房间'"
@@ -90,15 +90,21 @@
           </el-form-item> -->
           <div class="col-sm-12">
             <div class="row">
-              <el-form-item label="图片和视频">
-                  <div class="mainmenuone cf">
-                      <ul class="cf col-xs-12">
-                        <li><input id="file" type="file" name="img"/></li>
-                        <!-- <li><input id="file2" type="file" name="img"/></li> -->
-                      </ul>
-                  </div>
-                <!-- <img :src="'http://img.nanninglq.51play.com/xf/api/unit_img/'+ this.form.id +'.jpg'" :id="'up_img'+ this.form.id" style="width:80px;height:80px;"/>  -->
-                <!-- <span @click="add11" style="float:right;margin-top:10px;margin-right:30px;width:30px;height:30px;border:none;outline:none;background:#bad616;color:#000;font-size:25px;text-align:center;line-height:30px;">+</span>  -->
+              <el-form-item label="图片和视频" :label-width="formLabelWidth">
+                <el-upload 
+                    list-type="picture-card" 
+                    id="file"
+                    :name="file"
+                    :http-request="uploadTroubleFile"
+                    :file-list="playUrls"
+                    :multiple="true"
+                    :auto-upload="true"
+                    :on-success="uploadSuccess"
+                    :on-preview="handlePictureCardPreview" 
+                    :on-remove="handleRemove">
+                    <i class="el-icon-upload"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
               </el-form-item>
             </div>
           </div>          
@@ -173,6 +179,8 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             }
         }
         return {
+          seeFloor: false,
+          seeRoom :false ,
           labelPosition: 'top',
           index:1,
           form:{
@@ -195,7 +203,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             cont:''
           },
           optionList:[],//全部单位列表
-          files:["file"],
           rules: {
             name:[
               { required: true, trigger: 'blur', validator: validName }
@@ -223,13 +230,78 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             ]
           },
           svgUrl:'',
-          table_list:[]
+          table_list:[],
+          //上传图片相关
+          files:[],
+          imgUrls:[],
+          mapkeys:[],    
+          mapdata:Object,  
+          dialogImageUrl: '',
+          dialogVisible: false,
+          count:0,
         }
       },
       components:{
         'managementMap-vue': managementMapVue,
       },
       methods:{
+        uploadTroubleFile: function (param){
+            var that=this;
+            var fileObj = param.file;
+            var FileController = "/api/upload/uploadImg";
+            var form = new FormData();
+            form.append("file", fileObj);
+            form.append("type",2);
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", FileController, true);
+            xhr.onload = (()=>{
+                var data = JSON.parse(xhr.response);
+                var status = data.status;
+                if(status == 1){
+                    var listUrl = data.data.src;
+                    this.files.push(listUrl);     
+                    this.imgUrls.push(fileObj);
+                    if(this.mapdata[fileObj.uid] == null){
+                      this.mapkeys.push(fileObj.uid);     
+                    }
+                    this.mapdata[fileObj.uid] = this.imgUrls.length-1;
+                }else{
+                    //上传失败，删除预览图片
+                    this.handleRemove(fileObj);
+                }
+            });
+            xhr.send(form);
+        },
+        handleFileEnlarge(file){//放大图片
+          console.log(file)
+        },
+        handleRemove(file, fileList) { //删除预览图片
+          console.log("删除图片===============》");
+          var index = this.mapdata[file.uid];  
+          this.imgUrls.splice(index,1);
+          this.files.splice(index,1);
+          console.log(this.imgUrls);
+          console.log(this.files);
+        },
+        handlePictureCardPreview(file) { //预览图片墙
+          console.log("预览图片墙===============》");
+          console.log(file);
+          this.dialogImageUrl = file.url;
+          this.dialogVisible = true;
+        },
+        uploadSuccess(response, file, fileList){ //上传成功
+          console.log("上传成功===============》");
+          console.log(this.files);
+          if(this.count==fileList.length){
+            this.count=0;
+            this.$refs.upload.uploadFiles=[];
+          }
+          this.$nextTick(()=>{
+            if(this.count===0){
+              this.loading=false;
+            }
+          })
+        },
         floor_btn(id){
           this.table_list.forEach((item)=>{
             if(item.id == id){
@@ -265,29 +337,13 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         btn(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              console.log(this.form.point[0]);
-              console.log(this.form.point[1]);
-              console.log(this.form.Rate[0]);
-              console.log(this.form.Rate[1]);
-              var files =this.files;
-              var that = this ;
-              var point = this.form.point;
-              if(typeof(point) == 'string'){
-                var pointList = point.split(",");
-              }else{
-                var pointList = this.form.point;
-              }
-              var Rate = this.form.Rate;
-              // console.log(typeof(point))
-              if(typeof(Rate) == 'string'){
-                var RateList = Rate.split(",");
-              }else{
-                var RateList = this.form.Rate;
-              }
-              $.ajaxFileUpload({
-                url: '/api/trouble/insertTrouble',
-                fileElementId:files,
-                data : {
+                var files = this.files.join("=");
+                var that = this ;
+                var point = this.form.point;
+                if(typeof(point) == 'string'){var pointList = point.split(",");}else{var pointList = this.form.point;}
+                var Rate = this.form.Rate;
+                if(typeof(Rate) == 'string'){ var RateList = Rate.split(",");}else{var RateList = this.form.Rate;}
+                this.$fetch("/api/trouble/userAddPCTrouble",{
                   'type':5,
                   'levels':3,
                   'dangerName':this.form.name,
@@ -305,32 +361,20 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                   'yRate':RateList[1] == undefined ? 0 : RateList[1],
                   'nickName':this.form.nickName,
                   'createTime':this.form.createTime,
-                  'cont':this.form.cont
-                },
-                type: 'POST',
-                dataType: "json",
-                success: function (data, status) { //服务器成功响应处理函数 //服务器成功响应处理函数
-                
-            
-                },
-                error: function (e) { //服务器响应失败处理函数
-                  $.messager.alert('警告', "系统错误", "warning");
-                },
-                complete: function (e) {//只要完成即执行，最后执行
-                 
+                  'cont':this.form.cont,
+                  'files':files
+                }).then(res=>{
                   that.$router.push({path:'/Dangerous_goods_management/all'});
-                }
-                
-              });
-              this.$message({
-                dangerouslyUseHTMLString: true,
-                message: '<strong>'+ this.form.name +'添加成功</strong>',
-                center: true,
-                showClose: true,
-                iconClass:'el-icon-circle-check',
-                customClass:'edit-ok-notification'
-              });
-          } else {
+                  this.$message({
+                    dangerouslyUseHTMLString: true,
+                    message: '<strong>'+ this.form.name +'添加成功</strong>',
+                    center: true,
+                    showClose: true,
+                    iconClass:'el-icon-circle-check',
+                    customClass:'edit-ok-notification'
+                  });
+                })
+            } else {
               console.log('error submit!!');
               return false;
             }
@@ -439,6 +483,16 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               //console.log(this.form.unitName);
             }
           })
+          if(curVal !== oldVal){
+            this.seeFloor = false ;
+            this.seeRoom = false ;
+          }
+          this.form.buildingId = '';
+          this.form.buildingName = '';
+          this.form.floorId = '';
+          this.form.roomId = '';
+          this.form.floorNumber = '';
+          this.form.roomNumber = '';
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
@@ -448,35 +502,43 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.form.roomId = '';
           this.form.floorNumber = '';
           this.form.roomNumber = '';
+          this.form.point = '' ;
+          this.form.Rate = '' ;
           this.formFloorSearch(this.form.buildingId);
           if(this.form.buildingId == '0' && this.form.buildingId == 0){
-            $('.map').show();
-            $('.floorMap').hide();
-          }else{
-            $('.map').hide();
-            $('.floorMap').show();
+            this.seeFloor = false ;
+            this.seeRoom = false ;
+          }
+          if(this.form.buildingId !== '' && this.form.buildingId !== 0){
+            this.seeRoom = true ;
           }
           this.form.buildList.forEach((item,index)=>{
             if(item.id == this.form.buildingId){
               this.form.buildingName = item.name ;
               //console.log(this.form.buildingName);
-            }else if(this.form.buildingId == '0' && this.form.buildingId == 0){
-              this.form.buildingName = '室外';
             }
           })
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;
-          
+          if(this.form.buildingId == '0' && this.form.buildingId == 0){
+            $('.map').show();
+            $('.floorMap').hide();
+          }else{
+            this.seeRoom = true ;
+            $('.map').hide();
+            $('.floorMap').show();
+          }
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }
+          this.floor_btn(this.form.floorId);
           this.form.floorList.forEach((item,index)=>{
             if(item.id == this.form.floorId){
               this.form.floorNumber = item.floorName ;
               console.log(this.form.floorNumber);
               
-              this.floor_btn(this.form.floorId);
+              // this.floor_btn(this.form.floorId);
             }
           })
         },

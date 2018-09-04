@@ -7,14 +7,18 @@
         <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
         <h2>风险分析</h2>
       </div>
-      <div class="main_nav float-right">
-        <span class="btn_add" @click="btn_save"><i class="el-icon-circle-check-outline"></i>提交</span>
-      </div>
     </div>
     <el-tabs>
           <!-- 单位模板 -->
           <el-tab-pane>
             <span slot="label"><i class="icon iconfont icon-danweiguanli-xian-2"></i>单位权重</span>
+            <div class="main_all_content">
+              <div class="main_content_top">
+                <div class="main_nav_two float-right">
+                  <span class="btn_add" @click="btn_save_unit"><i class="el-icon-circle-check-outline"></i>提交</span>
+                </div>
+              </div>
+            </div>
             <div class="main_content_table position-relative big-list-table">
                 <div class="table-scroll">
                   <table id="unitTable" class="table toolroute-table">
@@ -297,6 +301,13 @@
           <!-- 建筑模板 -->
           <el-tab-pane>
             <span slot="label"><i class="icon iconfont icon-jianzhu-xian-"></i>建筑权重</span>
+            <div class="main_all_content">
+              <div class="main_content_top">
+                <div class="main_nav_two float-right">
+                  <span class="btn_add" @click="btn_save_building"><i class="el-icon-circle-check-outline"></i>提交</span>
+                </div>
+              </div>
+            </div>
             <div class="main_content_table position-relative big-list-table">
                 <div class="table-scroll">
                   <table id="buildingTable" class="table toolroute-table">
@@ -533,7 +544,7 @@
                   </table>
                 </div>
               </div>
-        </el-tab-pane>
+          </el-tab-pane>
         </el-tabs>
   </section>
 </template>
@@ -1058,7 +1069,10 @@
 
         })
       },
-      btn_save() {
+      btn_save_unit () {
+        this.saveUnitScore();
+      },
+      btn_save_building () {
         this.saveBuildingList();
       }
 

@@ -3,7 +3,7 @@
     <!-- 标题 -->
     <div class="main_header clearFix">
       <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-kongzhitai_"></i>
+        <i class="icon iconfont icon-quanxianfenpei-xian-"></i>
         <h2>权限分配</h2>
       </div>
     </div>

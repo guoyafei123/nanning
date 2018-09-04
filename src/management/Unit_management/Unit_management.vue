@@ -53,7 +53,6 @@
       if(roleId == 1 || roleId == 2){
         $("#unit-manage").find("#mymodal input").removeAttr('disabled');
         $("#unit-manage").find("#mymodal .el-input").removeClass('is-disabled');
-        $("#unit-manage").find(".main_content_table .delete").show();
       }
       console.log(JSON.parse(sessionStorage.getItem("roleId")));
     }

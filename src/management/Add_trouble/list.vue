@@ -52,23 +52,21 @@
                 </el-form-item>
                 <el-form-item v-if="this.form.buildingId==0"  label="地图坐标" prop="point">
                   <el-input placeholder="经度,纬度" v-model="form.point" class="col-sm-8"></el-input>
-                  <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
+                  <el-tooltip class="item icon-help font-blue pull-right" aria-hidden="false" content="右侧地图添加位置" placement="top">
                       <i class="el-icon-question size-16"></i>
                     </el-tooltip>
                 </el-form-item>
                 <el-form-item v-if="this.form.buildingId!=0" label="平面图坐标" prop="Rate">
-                  <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-8"></el-input>
+                  <el-input placeholder="X,Y" v-model="form.Rate" class="col-sm-8"></el-input>                  
                   <el-tooltip class="item icon-help font-blue pull-right" content="右侧地图添加位置" placement="top">
                     <i class="el-icon-question size-16"></i>
                   </el-tooltip>
-                </el-form-item>                
-                <div class="col-sm-12">
-                  <div class="row">
-                    <el-form-item label="图片和视频" :label-width="formLabelWidth">
-                      <el-upload 
+                </el-form-item>
+                <el-form-item label="图片和视频" :label-width="formLabelWidth" class="col-sm-12">
+                  <el-upload 
                           list-type="picture-card" 
-                          id="troubleFile"
-                          :name="troubleFile"
+                          id="file"
+                          :name="file"
                           :http-request="uploadTroubleFile"
                           :file-list="playUrls"
                           :multiple="true"
@@ -77,11 +75,9 @@
                           :on-preview="handlePictureCardPreview" 
                           :on-remove="handleRemove">
                           <i class="el-icon-upload"></i>
-                      </el-upload>
-                      <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
-                    </el-form-item>
-                  </div>
-                </div>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
+                </el-form-item>
                 <el-form-item label="描述" prop="cont" class="col-sm-12">
                   <el-input type="textarea"  :rows="3"  placeholder="请输入内容" v-model="form.cont">
                   </el-input>
@@ -91,7 +87,7 @@
             <div class="main_footer">
               <a class="btn-ok" @click="addTroubleBtn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
               <a class="btn-back" @click="back">返回</a>
-              <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
+              <el-tooltip class="item icon-help font-red pull-right" aria-hidden="false" content="提交后不可修改" placement="top">
                     <i class="el-icon-warning size-14"></i>
                   </el-tooltip>
             </div>
@@ -219,9 +215,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         uploadTroubleFile: function (param){
             var that=this;
             var fileObj = param.file;
-            var FileController = "/api/trouble/uploadTroubleImg";
+            var FileController = "/api/upload/uploadImg";
             var form = new FormData();
-            form.append("troubleFile", fileObj);
+            form.append("file", fileObj);
+            form.append("type",2);
             var xhr = new XMLHttpRequest();
             xhr.open("post", FileController, true);
             xhr.onload = (()=>{
@@ -243,25 +240,17 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             xhr.send(form);
         },
         handleFileEnlarge(file){//放大图片
-          console.log(file)
         },
         handleRemove(file, fileList) { //删除预览图片
-          console.log("删除图片===============》");
           var index = this.mapdata[file.uid];  
           this.imgUrls.splice(index,1);
           this.files.splice(index,1);
-          console.log(this.imgUrls);
-          console.log(this.files);
         },
         handlePictureCardPreview(file) { //预览图片墙
-          console.log("预览图片墙===============》");
-          console.log(file);
           this.dialogImageUrl = file.url;
           this.dialogVisible = true;
         },
         uploadSuccess(response, file, fileList){ //上传成功
-          console.log("上传成功===============》");
-          console.log(this.files);
           if(this.count==fileList.length){
             this.count=0;
             this.$refs.upload.uploadFiles=[];
@@ -296,7 +285,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
                       'nickName':this.form.nickName,
                       'createTime':this.form.createTime,
                       'cont':this.form.cont,
-                      'files':files,
+                      'files':files
                     }   
                   ).then(response => {
                     if(response.status==1) {

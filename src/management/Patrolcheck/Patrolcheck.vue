@@ -1,5 +1,5 @@
 <template>
-  <div class="row" id="Personnel_review">
+  <div class="row" id="Patrolcheck">
     <!-- #左边 -->
     <section id="left" class="position-fixed-left z-index-20">
       <div class="overlay"></div>
@@ -14,13 +14,9 @@
       <div class="overlay"></div>
       <set_right-vue></set_right-vue>
     </section>
-    <div class="fix" @click="show" style="display:none;width:20px;height:60px;position: fixed;top:35%;left:0;background:#333;text-align:center;line-height: 60px;">
-      <span style="font-size: 23px;
-    display: block;
-    font-weight: normal;
-    transform: scale(1, 2.5);color: #fff;">&gt;</span>
-    </div>
     <!-- #右边 End-->
+    <!-- 收起导航 -->
+    <div class="fix" @click="hide_left"><i class="el-icon-arrow-right"></i></div>
   </div>
 </template>
 

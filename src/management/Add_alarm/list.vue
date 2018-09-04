@@ -46,13 +46,11 @@
                     <i class="el-icon-question size-16"></i>
                   </el-tooltip>
                 </el-form-item>
-                <div class="col-sm-12">
-                  <div class="row">
-                    <el-form-item label="图片和视频" :label-width="formLabelWidth">
-                      <el-upload 
+                <el-form-item label="图片和视频" :label-width="formLabelWidth" class="col-sm-12">
+                    <el-upload 
                           list-type="picture-card" 
-                          id="alarmFile"
-                          :name="alarmFile"
+                          id="file"
+                          :name="file"
                           :http-request="uploadAlarmFile"
                           :file-list="playUrls"
                           :multiple="true"
@@ -61,11 +59,9 @@
                           :on-preview="handlePictureCardPreview" 
                           :on-remove="handleRemove">
                           <i class="el-icon-upload"></i>
-                      </el-upload>
-                      <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
-                    </el-form-item>
-                  </div>
-                </div>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
+                </el-form-item>
                 <el-form-item label="描述" prop="cont" class="col-sm-12">
                   <el-input type="textarea" :rows="3" placeholder="请输入内容"  v-model="form.cont"> </el-input>
                 </el-form-item>
@@ -74,7 +70,7 @@
             <div class="main_footer">
               <a class="btn-ok" @click="addAlarmBtn('form')"><i class="el-icon-circle-check-outline"></i> 保存并提交</a>
               <a class="btn-back" @click="back">返回</a>
-              <el-tooltip class="item icon-help font-red pull-right" content="提交后不可修改" placement="top">
+              <el-tooltip class="item icon-help font-red pull-right" aria-hidden="false" content="提交后不可修改" placement="top">
                     <i class="el-icon-warning size-14"></i>
                   </el-tooltip>
             </div>
@@ -202,9 +198,10 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         uploadAlarmFile: function (param){
             var that=this;
             var fileObj = param.file;
-            var FileController = "/api/alarm/uploadAlarmImg";
+            var FileController = "/api/upload/uploadImg";
             var form = new FormData();
-            form.append("alarmFile", fileObj);
+            form.append("file", fileObj);
+            form.append("type",1);
             var xhr = new XMLHttpRequest();
             xhr.open("post", FileController, true);
             xhr.onload = (()=>{
@@ -237,8 +234,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           console.log(this.files);
         },
         handlePictureCardPreview(file) { //预览图片墙
-          console.log("预览图片墙===============》");
-          console.log(file);
           this.dialogImageUrl = file.url;
           this.dialogVisible = true;
         },

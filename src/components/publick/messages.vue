@@ -6,8 +6,11 @@
         <h2>消息中心
           <small>messages</small>
         </h2>
-        <router-link to="/Message_management/list_notice"  @click.native="Show()"><i class="icon iconfont icon-fasong-xian- size-20"
-                                                                   data-toggle="tooltip" title="发消息"></i></router-link>
+        <router-link to="/Message_management/list_notice"  @click.native="Show()">
+          <el-tooltip class="item" content="发消息" placement="top">
+            <i class="icon iconfont icon-fasong-xian- size-20"></i>
+          </el-tooltip>
+        </router-link>
       </div>
       <!-- 标签 -->
       <ul id="myTab" class="nav nav-tabs">

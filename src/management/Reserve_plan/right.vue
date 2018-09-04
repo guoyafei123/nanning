@@ -33,7 +33,7 @@
               <a href="javascript:;" class="display-inline-block font-blue size-12"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i> 下载</a>
           </div>
           <div class="col-sm-12 margin-top10">
-            <img :src="url" class="img-responsive" alt="火情确认须知">
+            <img :src="'/img'+url" class="img-responsive" alt="火情确认须知">
           </div>
       </div>
     </section>  

@@ -1,5 +1,5 @@
 <template>
-	<footer id="footer" class="col-sm-12 position-fixed-bottom z-index-9999">
+	<footer id="footer" class="col-sm-12 position-fixed-bottom z-index-10">
 		<div class="footer">
 			<ul class="list-inline margin-bottom20" @click="management">
 				<li class="footer-nav-active">

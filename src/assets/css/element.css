@@ -1,4 +1,27 @@
-
+/*图片上传插件*/
+/*.el-form-item__content {
+  margin-top: 10px;
+}*/
+.el-upload-list--picture-card .el-upload-list__item,.el-upload--picture-card {
+    border: 1px solid #333;
+    border-radius: 0; 
+    width: 76px;
+    height: 76px;  
+    margin: 0 5px 0 0;
+    background-color: #111;
+}
+.el-upload--picture-card {
+    width: 76px;
+    height: 76px; 
+    line-height: 76px;
+    background-color: #111;
+}
+.el-upload--picture-card i {
+  color: #999;
+}
+.el-upload--picture-card .el-upload__input {
+  display: none!important;
+}
 /*弹框*/
 .el-dialog {
   padding: 20px 0!important;
@@ -59,6 +82,15 @@
 }
 .el-message-box__title {
   color: #f13131;
+  text-align: center;
+  font-size: 16px;
+}
+.el-message-box__content {
+  background-color: #000;
+  margin: 6px 10px;
+}
+.el-message-box {
+  padding-bottom: 0;
 }
 .el-message-box__btns .el-button,.el-dialog .el-button {
     color: #000;
@@ -73,6 +105,12 @@
     background-color: #cfef16;
     border-color: #cfef16;
     color: #000;
+}
+.el-message-box__headerbtn:focus .el-message-box__close, .el-message-box__headerbtn:hover .el-message-box__close {
+    color: #bad616;
+}
+.el-message-box__headerbtn .el-message-box__close {
+    color: #fff;
 }
 /*横幅消息*/
 .el-notification__content .notify-left {

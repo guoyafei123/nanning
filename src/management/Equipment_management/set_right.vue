@@ -61,7 +61,7 @@
                           <p class="size-10 set-scaleright">Repair Statistics</p>
                       </li>
                       <li class="margin-top10">
-                          <p class="set-width-100">投入时间 <span class="font-white">{{this.device.startDate}}</span></p>
+                          <p class="set-width-100">投入时间 <span class="font-white margin-left10">{{this.device.startDate.substr(0,10)}}</span></p>
                           <!-- <p class="pull-right">
                               <a class="bgbox-min bg-blue font-black size-10" data-toggle="tooltip" title="查看监控摄像头">
                                     <i class="icon iconfont icon-jiankong-mian-"></i> 监控</a>
@@ -69,7 +69,7 @@
                       </li>
                       <li class="row text-center padding-right16 margin-top10">
                           <div class="col-sm-4 personnel-borderright">
-                              <p class="size-16 show font-blue">18</p>
+                              <p class="size-16 show font-blue">{{this.dateMinus(this.device.startDate)}}</p>
                               <p>运行(天)</p>
                           </div>                          
                           <div class="col-sm-4 personnel-borderright">
@@ -123,12 +123,12 @@
                   </div>  
                   <div class="col-sm-6">
                       <span>运行时长 </span>
-                      <strong v-html="this.device.timeYear+'天'"></strong>
+                      <strong v-html="this.dateMinus(this.device.startDate)+'天'"></strong>
                   </div>  
-                  <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
                       <span>投入时间 </span>
                       <strong v-html="this.device.startDate == null ? '-' : this.device.startDate"></strong>
-                  </div>
+                  </div> -->
                   <div class="col-sm-6">
                       <span>设备二维码 </span>
                       <el-tooltip class="item" content="设备二维码" placement="top">
@@ -145,15 +145,15 @@
               <div class="row textandimg-main margin-top10 size-12">
                   <div class="col-sm-6">
                       <span>生产厂商 </span>
-                      <strong v-html="this.device.firm == null ? '-' : this.firm"></strong>
+                      <strong v-html="this.device.firm == null ? '-' : this.device.firm"></strong>
                   </div>
                   <div class="col-sm-6">
                       <span>生产日期 </span>
-                      <strong v-html="this.device.productDate == null ? '-' : this.productDate"> </strong>
+                      <strong v-html="this.device.productDate == null ? '-' : this.device.productDate.substr(0,10)"> </strong>
                   </div>
                   <div class="col-sm-12">
                     <span>物理地址</span>
-                    <strong v-html="this.device.mac == null ? '-' : this.mac"></strong>
+                    <strong v-html="this.device.mac == null ? '-' : this.device.mac"></strong>
                   </div>                 
                 </div>
           </div>
@@ -511,6 +511,7 @@
           lifeMonth:'',
           firm:'',
           productDate:'',
+          maintenanceLinkname:'',
           maintenanceUnit:'',
           maintenancePhone:''
         },
@@ -643,6 +644,7 @@
             this.device.startDate = item.startDate ;
             this.device.lifeMonth = item.lifeMonth ;
             this.device.firm = item.firm ;
+            this.device.maintenanceLinkname = item.maintenanceUser ;
             this.device.productDate = item.productDate ;
             this.device.maintenanceUnit = item.maintenanceUnit ;
             this.device.maintenancePhone = item.maintenancePhone ;
@@ -662,6 +664,13 @@
           }).then(err => {
             //console.log(err);
           });
+      },
+      dateMinus(sDate){ 
+    　　var sdate = new Date(sDate.replace(/-/g, "/")); 
+    　　var now = new Date(); 
+    　　var days = now.getTime() - sdate.getTime(); 
+    　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
+    　　return day; 
       },
       qrcode(){
         window.open("/api/qrcode/deviceImgs?unitId="+this.Unit+'&buildingId='+this.buildDevice+'&floorId='+this.floorDevice+'&roomId='+this.roomDevice+'&deviceTypeId='+this.equipmentDevice);
@@ -722,6 +731,7 @@
                     this.device.lifeMonth = item.lifeMonth ;
                     this.device.firm = item.firm ;
                     this.device.productDate = item.productDate ;
+                    this.device.maintenanceLinkname = item.maintenanceUser ;
                     this.device.maintenanceUnit = item.maintenanceUnit ;
                     this.device.maintenancePhone = item.maintenancePhone ;
                   }
@@ -855,9 +865,7 @@
           $('.plan').show();
           $('.total').hide();
           $('.mapTable').hide();
-          this.tableData.forEach((item,index)=>{
-            if(item.id == this.deviceId){
-              console.log(item.id,this.deviceId);
+              const item = this.deviceId ;
               this.device.status = item.status ;
               this.device.name = item.name ;
               this.device.deviceTypeName = item.deviceTypeName ;
@@ -871,14 +879,10 @@
               this.device.lifeMonth = item.lifeMonth ;
               this.device.firm = item.firm ;
               this.device.productDate = item.productDate ;
+              this.device.maintenanceLinkname = item.maintenanceUser ;
               this.device.maintenanceUnit = item.maintenanceUnit ;
               this.device.maintenancePhone = item.maintenancePhone ;
-            }
-          })
         }
-        console.log(this.tableData)
-        
-        //console.log(this.deviceId);
       },
       Unit(){
         this.tableList();

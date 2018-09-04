@@ -47,14 +47,17 @@
           </el-table-column>
           <el-table-column
             prop="name"
+            :show-overflow-tooltip="true"
             label="路线名称">
           </el-table-column>
           <el-table-column
             prop="unitName"
+            :show-overflow-tooltip="true"
             label="巡检单位">
           </el-table-column>
           <el-table-column
-            prop="type" :formatter="formatType"
+            prop="type"
+            :formatter="formatType"
             label="巡检类型">
           </el-table-column>
           <el-table-column
@@ -63,12 +66,13 @@
           </el-table-column>
           <el-table-column
             prop="createTime"
+            :show-overflow-tooltip="true"
             label="发布日期">
           </el-table-column>
           <el-table-column
-                prop="nodeCount"
-                label="节点数">
-              </el-table-column>
+            prop="nodeCount"
+            label="节点数">
+          </el-table-column>
           <el-table-column
             prop="amount"
             label="额定次数/日">
@@ -136,11 +140,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">激活</h4>
-            <h5 class="modal-p">{{ inspectionName }}</h5>
-            <!-- 错误提示 -->
-              <div class="text-center">
-                <span class="font-red size-12"><i class="el-icon-warning"></i> 未选择是否生成图形码</span>
-              </div>
+            <h5 class="modal-p font-blue">{{ inspectionName }}</h5>
           </div>
           <div class="modal-body text-left container-padding40">            
             <el-form ref="form" status-icon :label-position="labelPosition" :model="form">              
@@ -148,14 +148,14 @@
                   label="每日额定完成次数"
                   prop="age">
                 <el-input type="age" v-model.number="amountNumber" auto-complete="off" style="width:160px;"></el-input>
-                <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="width:300px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
+                <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="cursor:auto;width:300px;">设定该路线每日额定完成数量，<span class="font-red">激活后不可修改！</span></el-button>
               </el-form-item>
               <el-form-item label="是否开启扫描打卡" class="margin-top10">                
                 <el-radio-group v-model="isScan">
                   <el-radio-button label="1">是</el-radio-button>
                   <el-radio-button label="0">否</el-radio-button>
                 </el-radio-group>
-                <el-button type="primary" round icon="el-icon-question" class="badge-tip size-10" style="width:300px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
+                <el-button type="primary" round icon="el-icon-question"  class="badge-tip size-10" style="cursor:auto;width:300px;">巡检节点是否开启扫码打卡，<span class="font-red">激活后不可修改！</span></el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -276,6 +276,7 @@
       },
       start_plan(row){//启用
         this.inspectionIndex = row.id ;
+        this.inspectionName = row.name;
       },
       startRow(){
           this.$fetch("/api/inspection/start_plan",{
@@ -297,7 +298,8 @@
       show3(row){//跳转
         //console.log(row.id);
         this.$store.commit('currentPage',this.currentPage4);
-        this.$store.commit('inspectionPlanId',row.id);
+        this.$store.commit('inspectionId',row.id);
+        console.log(row.id)
         $('.plan').show();
         $('.mapTable').hide();
         $('.total').hide();
