@@ -842,14 +842,14 @@
       this.getPunch()
 
       //火情分析
-      this.queryFirehistoryData()
-      // this.queryAlarmLastTime()
-      this.queryLastTimeAlarm()
-      this.queryLastTimeTrouble()
-      this.queryLastTimeInspection()
-      this.getUnitsSynthesis()
-      this.getQueryUnitInfo()
-      this.queryFireSituation()
+      // this.queryFirehistoryData()
+      // // this.queryAlarmLastTime()
+      // this.queryLastTimeAlarm()
+      // this.queryLastTimeTrouble()
+      // this.queryLastTimeInspection()
+      // this.getUnitsSynthesis()
+      // this.getQueryUnitInfo()
+      // this.queryFireSituation()
     },
     beforeDestroy() {
       if (this.timer) {
@@ -863,7 +863,8 @@
 
     methods: {
       timeFn: function (beginTime, endTime) {
-        let iDays = parseInt(Math.abs( new Date(beginTime).getTime()-new Date(endTime).getTime()) / 1000  ) //把相差的毫秒数转换为天数
+
+       let iDays = parseInt(Math.abs( new Date(beginTime).getTime()-new Date(endTime).getTime()) / 1000  ) //把相差的毫秒数转换为天数
         return iDays
       },
       TimeFormat: function (time) {
