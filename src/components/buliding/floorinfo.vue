@@ -3,17 +3,15 @@
 		<section id="common-cont" class="position-fixed-left z-index-20">
 
 			<section class="position-relative">
-				<ul class="list-unstyled floor-item">
-					<li>5</li>
-					<li>4</li>
-					<li class="active">3</li>
-					<li>2</li>
-					<li>1</li>
+				<ul class="list-unstyled floor-item" v-for="(item,index) in floorList">
+					<li @click="goFloorInfo(item)" v-if="index==0" class="active">{{item.floorName == null ? '-' : item.floorName}}</li>
+					<li @click="goFloorInfo(item)">{{item.floorName == null ? '-' : item.floorName}}</li>
 				</ul>
 			</section>
 			<div class="floorplans" style="overflow: hidden;">
 				<div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-					<img  id="imgPic" src="../../assets/images/111.jpg" class="img-responsive" style="position:relative;">
+					<img v-if="svgUrl!=imageP"  id="imgPic" :src="svgUrl" class="img-responsive" style="position:relative;">
+					<p v-if="svgUrl==imageP">暂无图片</p>
 				</div>
 			</div>
 		</section>
@@ -28,9 +26,7 @@
 							<!-- 已选择 -->
 							<div class="personinfo">
 									<p>
-									<span class="size-20 font-blue">建筑</span>
-									<el-tooltip content="安全评分" placement="top">
-									<span class="bgbox-min bg-blue font-black size-10">评分</span>
+									<span class="size-20 font-blue">{{buildInfo.name}} {{floorInfo.floorName}}层</span>
 								</el-tooltip>
 									<span class="float-right">
 											<span class="bgbox-max bg-gray-333 font-gray-999 size-10">介绍</span>
@@ -38,7 +34,7 @@
 									</p>
 									<p class="col-sm-12 text-left padding0">
 										<span>
-											<i class="fas fa-industry"></i>134</span>
+											<i class="fas fa-industry"></i>位置:{{buildInfo.location?buildInfo.location:"暂无图片"}}</span>
 									</p>
 							</div>
 						</div>
@@ -47,7 +43,7 @@
 								<div class="col-sm-4 font-gray-999 padding-right0">
 									<ul class="toolcount-left margin-bottom0 padding-left0" id="toolcount">
 									<li>
-										<h1 class="toolcount-p1">13</h1>
+										<h1 class="toolcount-p1">{{floorRoomNum}}</h1>
 									</li>
 									<li>
 										<p class="size-10 ">Room Total</p>
@@ -67,16 +63,12 @@
 									</li>
 									<li class="row text-center padding-right16 margin-top40">
 										<div class="col-sm-4 personnel-borderright">
-										<p class="size-16 show font-white">123</p>
+										<p class="size-16 show font-white">{{floorRoomNum}}</p>
 										<p>楼层数量</p>
 										</div>
 										<div class="col-sm-4 personnel-borderright">
-										<p class="size-16 show font-white">123</p>
+										<p class="size-16 show font-white">{{floorDeviceNum}}</p>
 										<p>设备数量</p>
-										</div>
-										<div class="col-sm-4">
-										<p class="size-16 show font-white">123</p>
-										<p>面积 m²</p>
 										</div>
 									</li>
 									</ul>
@@ -88,19 +80,19 @@
 								<div class="row text-center font-gray-999 size-12">
 									<div class="col-sm-4">
 										<div class="newpiechar">
-											<p>12</p>
+											<p>{{floorTroubleData.NOWTROUBLE}}</p>
 										</div>
 										<p class="margin-top10">当前隐患数</p>
 									</div>
 									<div class="col-sm-4">
 										<div class="newpiechar">
-											<p>12</p>
+											<p>{{floorAlarmData.NOWALARM}}</p>
 										</div>
 										<p class="margin-top10">当前报警数</p>
 									</div>
 									<div class="col-sm-4">
 										<div class="newpiechar">
-											<p>12</p>
+											<p>{{floorTroubleData.nowDanger}}</p>
 										</div>
 										<p class="margin-top10">当前危险品数</p>
 									</div>
@@ -110,10 +102,10 @@
 						<section>
 							<h4 class="p-title margin-top30">统计</h4>
 							<div class="row cardinfo-style margin-top10 font-gray-999">
-								<p class="col-sm-4">历史隐患数<span class="font-yellow">12</span></p>
-								<p class="col-sm-4">历史报警数<span class="font-red">123</span></p>
-								<p class="col-sm-4">历史危险品数<span class="font-yellow">123</span></p>
-								<p class="col-sm-4">相关巡检路线<span class="font-white">123</span></p>
+								<p class="col-sm-4">历史隐患数<span class="font-yellow">{{floorTroubleData.ALLTROUBLE}}</span></p>
+								<p class="col-sm-4">历史报警数<span class="font-red">{{floorAlarmData.ALLALARM}}</span></p>
+								<p class="col-sm-4">历史危险品数<span class="font-yellow">{{floorTroubleData.allDanger}}</span></p>
+								<p class="col-sm-4">相关巡检路线<span class="font-white">{{floorStats.floorPlanCount}}</span></p>
 							</div>
 						</section>
 					</section>		
@@ -126,31 +118,99 @@
 </template>
 
 <script>
+	import Global from '../../Global.vue';
+	import moment from "moment";
 	import panzoom from 'panzoom';
 	import{mapState} from "vuex";
-
 	import { vControl,setPoint } from '../../assets/js/pointDevice';
-
 	export default {
 		components: {
+
 		},
 		data(){
 			return{
-				svgUrl:'../../assets/images/111.jpg',
+				svgUrl:'',
+				buildFloorDetails_parameter: {
+					buildingId: null
+				},
+				floorDetails_parameter: {
+					floorId: null
+				},
+				buildInfo:Object,
+				floorInfo:Object,
+				floorStats:Object,
+				floorList:Object,
+				floorAlarmData:Object,
+				floorTroubleData:Object,
+				floorPlanData:Object,
+				floorDeviceNum:0,
+				floorRoomNum:0,
+				imageP:''
 			}
 		},
 		computed:mapState([
+			"toFloorInfo"
 		]),
 		watch:{
+
 		},
 		methods: {
+			//默认加载数据
+			queryBuildDefaultFloor() {
+				this.$fetch("/api/building/queryBuildDefaultFloor",this.buildFloorDetails_parameter).then(response => {
+					let data = response.data
+					if (data) {
+						this.floorInfo = data.result.floor;
+						if(this.floorInfo.svgUrl != "" && this.floorInfo.svgUrl != null){
+							this.svgUrl = Global.imgPath +this.floorInfo.svgUrl;
+						}
+						this.floorList = data.result.floorList;
+						this.floorDeviceNum = data.result.countDevice;
+						this.floorRoomNum =  data.result.countRoom;
+
+						this.floorStats = data.floorStats;
+						this.floorAlarmData = this.floorStats.floorAlarmMap;
+						this.floorTroubleData = this.floorStats.floorTrouble;
+						this.floorPlanData = this.floorStats.floorPlanCount;
+					}
+				});
+			},
+			//点击图片
+			goFloorInfo(data){
+				this.floorInfo = data;
+				this.floorDetails_parameter.floorId = this.floorInfo.id ;
+				this.queryFloorInfo();
+			},
+			//查看楼层详情
+			queryFloorInfo() {
+				this.$fetch("/api/building/queryFloorInfo",this.floorDetails_parameter).then(response => {
+					let data = response.data
+					if (data) {
+						this.floorInfo = data.result.floor;
+						if(this.floorInfo.svgUrl != "" && this.floorInfo.svgUrl != null){
+							this.svgUrl = Global.imgPath +this.floorInfo.svgUrl;
+						}
+						this.floorDeviceNum = data.result.countDevice;
+						this.floorRoomNum =  data.result.countRoom;
+
+						this.floorStats = data.floorStats;
+						this.floorAlarmData = this.floorStats.floorAlarmMap;
+						this.floorTroubleData = this.floorStats.floorTrouble;
+						this.floorPlanData = this.floorStats.floorPlanCount;
+					}
+				});
+    		},
 		},
 		mounted(){
+			this.imageP=Global.imgPath;
 			var area = document.getElementById('floorImg');
 			panzoom((area),{
                 maxZoom:1,
                 minZoom:1
-              });
+			});
+			this.buildInfo = this.toFloorInfo;
+			this.buildFloorDetails_parameter.buildingId = this.buildInfo.id;
+			this.queryBuildDefaultFloor();
 		}
 	}
 </script>

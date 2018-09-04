@@ -64,7 +64,7 @@
                         <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
                           <li>
                             <p class="size-18 font-white">信息统计</p>
-                            <button class="foorBtn" @click="toFloorInfo()">查看楼层</button>
+                            <button class="foorBtn" @click="toFloorInfo(builddata)">查看楼层</button>
                           </li>
                           <li>
                             <p class="size-10 set-scaleright">Repair Statistics</p>
@@ -343,8 +343,9 @@ export default {
     }
   },
   methods: {
-    toFloorInfo(){
+    toFloorInfo(data){
       this.dialogVisible=true;
+      this.$store.commit("toFloorInfo", data);
     },
     moren() {
       $(".bulid-iteminfo")
