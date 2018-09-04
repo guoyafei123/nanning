@@ -199,27 +199,27 @@
                   </h4>
         					<div id="pieb1" class="margin-top10" style="width: 100%;height:160px;margin: 0 auto;"></div>
         				</div>
-			</section>
-			<section>
-				<div class="toolcount margin-top10">
-					<h4 class="p-title">
-                    建筑报警数量
-                  </h4>
-					<div id="axis1" style="width: 100%;height:160px;margin: 0 auto;"></div>
-				</div>
-			</section>
-			<section>
-				<div class="toolcount margin-top10">
-					<h4 class="p-title">
-                    建筑隐患数量
-                    <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-14"></i>
-                    </span>
-                  </h4>
-					<div id="myChart1" style="width: 100%;height:160px;margin: 0 auto;"></div>
-				</div>
-			</section>
-		</section>
+                </section>
+                <section>
+                  <div class="toolcount margin-top10">
+                    <h4 class="p-title">
+                              建筑报警数量
+                            </h4>
+                    <div id="axis1" style="width: 100%;height:160px;margin: 0 auto;"></div>
+                  </div>
+                </section>
+                <section>
+                  <div class="toolcount margin-top10">
+                    <h4 class="p-title">
+                              建筑隐患数量
+                              <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666" data-toggle="tooltip" title="全屏">
+                                <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+                              </span>
+                            </h4>
+                    <div id="myChart1" style="width: 100%;height:160px;margin: 0 auto;"></div>
+                  </div>
+                </section>
+		        </section>
 	</div>
 </template>
 

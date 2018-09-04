@@ -89,7 +89,10 @@ var state={
   toMapPatterns:Object,
   toMapPatternsDanger:Object,
   // 综合页面小地图向详情传值
-  dialogVisiblehide:Object
+  dialogVisiblehide:Object,
+  // 综合实时列表单个锁定位置
+  toMapPoint:Object,
+  closePeopleInterver:Object
 }
 
 var mutations={
@@ -292,9 +295,14 @@ var mutations={
     state.inspectionPlanUserId = data;
   },
   dialogVisiblehide(state,data){
-
     state.dialogVisiblehide = data;
-  }
+  },
+  toMapPoint(state,data){
+    state.toMapPoint = data;
+  },
+  closePeopleInterver(state,data){
+    state.closePeopleInterver = data;
+  },
 }
 
 export default new Vuex.Store({

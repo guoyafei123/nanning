@@ -3,6 +3,8 @@
 </template>
 
 <script>
+	import Global from '../../Global.vue';
+
 	import { mapState } from "vuex";
 	export default {
 		data() {
@@ -41,7 +43,9 @@
 					3: 2000000
 				},
 				alarmsize: 500,
-				alarmMinicon:[]
+				alarmMinicon:[],
+				personnelInterval:null,
+				personnelArr:[]
 			};
 		},
 		computed: mapState([
@@ -51,9 +55,20 @@
 			"route_path",
 			"unitid",
 			"toMapPatterns",
-			"toMapPatternsDanger"
+			"toMapPatternsDanger",
+			"toMapPoint",
+			"closePeopleInterver"
 		]),
 		watch: {
+			closePeopleInterver(){
+				clearInterval(this.personnelInterval);
+			},
+			toMapPoint(){
+				console.log(this.toMapPoint);
+				let x=this.toMapPoint.pointX;
+				let y=this.toMapPoint.pointY
+				this.mp.setCenter(new BMap.Point(x, y));
+			},
 			toMapPatterns(){
 				this.mp.clearOverlays();
 				// 全部建筑
@@ -250,6 +265,9 @@
 				}
 				else if(this.routepath == "/information") {
 					this.path_information();
+				}
+				else if(this.routepath == "/personnel") {
+					this.path_personnel();
 				}
 				
 			},
@@ -1015,6 +1033,40 @@
 					}
 				})
 			},
+			toPersonnel(){
+				this.$fetch("/api/lbs/query_unit_staff_location")
+					.then(response => {
+						if(response) {
+							var getList=response.data.users;
+							getList.forEach(element => {
+								var a=element.loc.coordinates[0]
+								var b=element.loc.coordinates[1]
+								var name=element.extensions.HUMAN_ROLE+'-'+element.title;
+								var url=Global.imgPath + element.extensions.USER_AVATAR;
+								console.log(url);
+								var online=element.extensions.ONLINE_STATUS;
+								var marker;
+								if(online){
+									marker=this.addpeople(url, "2", [a,b],name)
+								}else{
+									marker=this.addpeople(url, "1", [a,b],name)
+								}
+								this.mp.addOverlay(marker);
+								this.personnelArr.push(marker);
+							});
+						}
+					});
+			},
+			path_personnel(){
+				this.toPersonnel();
+				this.personnelInterval=setInterval(() => {
+					this.personnelArr.forEach(element => {
+						this.mp.removeOverlay(element);
+					});
+					this.toPersonnel();
+				}, 5000);
+			},
+
 			showInfo(e){
 				// alert(e.point.lng + ", " + e.point.lat);
 			}

@@ -34,6 +34,9 @@
 		},
 		computed: mapState([]),
 		watch: {},
+		destroyed(){
+			this.$store.commit('closePeopleInterver', new Date().getTime());
+		}
 	}
 </script>
 
