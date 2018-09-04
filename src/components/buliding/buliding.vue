@@ -23,6 +23,11 @@
 	import Buliding_left from './buliding_left.vue';
 	import Buliding_right from './buliding_right.vue';
 	export default {
+		data(){
+			return{
+				
+			}
+		},
 		components: {
 			'header-vue': HeaderVue,
 			'buliding_left': Buliding_left,

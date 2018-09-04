@@ -134,7 +134,7 @@
 										</span></h5>
 										<h4>
 											<a @click="toactive(item,1)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
-											<a @click="dialogVisibles(item,1)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+											<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 											<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 											<a><span class="badge">
 												{{item.alarmsum!=null ? item.alarmsum :''}}
@@ -177,7 +177,7 @@
 									</span></h5>
 									<h4>
 										<a @click="toactive(item,2)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
-										<a @click="dialogVisibles(item,2)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+										<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 										<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 										<a><span class="badge">
 											{{item.allCount!=null ? item.allCount :''}}
@@ -235,7 +235,7 @@
 										</span></h5>
 										<h4>
 											<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-											<a @click="dialogVisibles(item,1)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+											<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 											<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 											<a><span class="badge">
 												{{item.alarmsum!=null ? item.alarmsum :''}}
@@ -272,7 +272,7 @@
 									</span></h5>
 												<h4>
 									<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-									<a @click="dialogVisibles(item,2)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+									<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 									<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 									<a><span class="badge">
 										{{item.allCount!=null ? item.allCount :''}}
@@ -331,7 +331,7 @@
 						</span></h5>
 									<h4>
 						<a @click="toactive(item,1)" class="active"><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
-						<a @click="dialogVisibles(item,1)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+						<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 						<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 						<a><span class="badge">
 							{{item.alarmsum!=null ? item.alarmsum :''}}
@@ -368,7 +368,7 @@
 					</span></h5>
 								<h4>
 					<a @click="toactive(item,2)" class="active "><i class="icon iconfont icon-suo-guan-mian- font-gray-ccc" data-toggle="tooltip" title="锁定"></i></a>
-					<a @click="dialogVisibles(item,2)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+					<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 					<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 					<a><span class="badge">
 						{{item.allCount!=null ? item.allCount :''}}
@@ -422,7 +422,7 @@
 						</span></h5>
 									<h4>
 						<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-						<a @click="dialogVisibles(item,1)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+						<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 						<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 						<a><span class="badge">
 							{{item.alarmsum!=null ? item.alarmsum :''}}
@@ -460,7 +460,7 @@
 					</span></h5>
 								<h4>
 					<a class="active"><i class="icon iconfont icon-suo-guan-mian-" data-toggle="tooltip" title="锁定"></i></a>
-					<a @click="dialogVisibles(item,2)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
+					<a @click="toMapPoint(item)"><i class="fas fa-bullseye" data-toggle="tooltip" title="详情"></i></a>
 					<a><i class="icon iconfont icon-guanbi-mian-" data-toggle="tooltip" title="关闭"></i></a>
 					<a><span class="badge">
 						{{item.allCount!=null ? item.allCount :''}}
@@ -595,6 +595,10 @@
 		},
 		// 调用方法
 		methods: {
+			// 单个锁定位置
+			toMapPoint(item){
+				this.$store.commit("toMapPoint",item);
+			},
 			//锁定方法
 			// type
 			// 		=1,传入报警

@@ -64,6 +64,7 @@
                         <ul class="toolcount-right padding-left15 margin-bottom0 margin-left15 size-12">
                           <li>
                             <p class="size-18 font-white">信息统计</p>
+                            <button class="foorBtn" @click="toFloorInfo()">查看楼层</button>
                           </li>
                           <li>
                             <p class="size-10 set-scaleright">Repair Statistics</p>
@@ -199,34 +200,45 @@
                   </h4>
         					<div id="pieb1" class="margin-top10" style="width: 100%;height:160px;margin: 0 auto;"></div>
         				</div>
-			</section>
-			<section>
-				<div class="toolcount margin-top10">
-					<h4 class="p-title">
-                    建筑报警数量
-                  </h4>
-					<div id="axis1" style="width: 100%;height:160px;margin: 0 auto;"></div>
-				</div>
-			</section>
-			<section>
-				<div class="toolcount margin-top10">
-					<h4 class="p-title">
-                    建筑隐患数量
-                    <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666" data-toggle="tooltip" title="全屏">
-                      <i class="icon iconfont icon-weibiaoti10 size-14"></i>
-                    </span>
-                  </h4>
-					<div id="myChart1" style="width: 100%;height:160px;margin: 0 auto;"></div>
-				</div>
-			</section>
-		</section>
+                </section>
+                <section>
+                  <div class="toolcount margin-top10">
+                    <h4 class="p-title">
+                              建筑报警数量
+                            </h4>
+                    <div id="axis1" style="width: 100%;height:160px;margin: 0 auto;"></div>
+                  </div>
+                </section>
+                <section>
+                  <div class="toolcount margin-top10">
+                    <h4 class="p-title">
+                              建筑隐患数量
+                              <span class="float-right xunjian-left-main-bottom-padding8 popup-inspectbtn font-gray-666" data-toggle="tooltip" title="全屏">
+                                <i class="icon iconfont icon-weibiaoti10 size-14"></i>
+                              </span>
+                            </h4>
+                    <div id="myChart1" style="width: 100%;height:160px;margin: 0 auto;"></div>
+                  </div>
+                </section>
+		        </section>
+            <el-dialog title="" :visible.sync="dialogVisible" top="120px">
+              <el-tooltip class="item" content="关闭" placement="top">
+                <a class="go-back" @click="dialogVisible = false"><i class="el-icon-circle-close-outline size-24"></i></a>
+                </el-tooltip> 
+              <floorinfo></floorinfo>
+            </el-dialog>
 	</div>
+  
 </template>
 
 <script>
+import Floorinfo from "./floorinfo.vue";
 import moment from "moment";
 import{mapState} from "vuex";
 export default {
+  components: {
+			'floorinfo':Floorinfo
+		},
   data() {
     return {
       // 时间筛选
@@ -288,7 +300,8 @@ export default {
       buildTroubleMap: Object,
       buildBaseInfo: Object,
       buidyear: "",
-      getunitid:Object
+      getunitid:Object,
+      dialogVisible:false
     };
   },
   computed:mapState([
@@ -330,6 +343,9 @@ export default {
     }
   },
   methods: {
+    toFloorInfo(){
+      this.dialogVisible=true;
+    },
     moren() {
       $(".bulid-iteminfo")
         .addClass("display-block")
@@ -572,3 +588,4 @@ export default {
   }
 };
 </script>
+
