@@ -63,7 +63,7 @@
           <el-form-item label="单位图片" class="not-null col-sm-12">
             <div class="head-photo">
               <input id="file" name="file" type="file" @change="file"/>
-              <div class="bg-gray-222 text-center">
+              <div class="text-center">
                 <i class="el-icon-plus"></i>
               </div>
             </div>
