@@ -284,238 +284,6 @@ export default {
       var MAP_STYLE_SMALL = [
         {
           featureType: "land",
-          elementType: "all",
-          stylers: {
-            color: "#222222ff",
-            hue: "#000000"
-          }
-        },
-        {
-          featureType: "highway",
-          elementType: "all",
-          stylers: {
-            color: "#333333ff",
-            lightness: -42,
-            saturation: -91
-          }
-        },
-        {
-          featureType: "arterial",
-          elementType: "geometry",
-          stylers: {
-            color: "#333333ff",
-            lightness: 1
-          }
-        },
-        {
-          featureType: "green",
-          elementType: "geometry",
-          stylers: {
-            color: "#1b1b1bff"
-          }
-        },
-        {
-          featureType: "water",
-          elementType: "geometry",
-          stylers: {
-            color: "#181818"
-          }
-        },
-        {
-          featureType: "subway",
-          elementType: "geometry.stroke",
-          stylers: {
-            color: "#181818"
-          }
-        },
-        {
-          featureType: "subway",
-          elementType: "all",
-          stylers: {
-            color: "#444444ff",
-            visibility: "off"
-          }
-        },
-        {
-          featureType: "all",
-          elementType: "labels.text.stroke",
-          stylers: {
-            color: "#313131"
-          }
-        },
-        {
-          featureType: "all",
-          elementType: "labels.text.fill",
-          stylers: {
-            color: "#8b8787"
-          }
-        },
-        {
-          featureType: "manmade",
-          elementType: "geometry",
-          stylers: {
-            color: "#1b1b1bff"
-          }
-        },
-        {
-          featureType: "local",
-          elementType: "geometry",
-          stylers: {
-            color: "#1a1a1aff"
-          }
-        },
-        {
-          featureType: "subway",
-          elementType: "geometry",
-          stylers: {}
-        },
-        {
-          featureType: "railway",
-          elementType: "all",
-          stylers: {
-            lightness: -40
-          }
-        },
-        {
-          featureType: "boundary",
-          elementType: "geometry",
-          stylers: {
-            color: "#bad616ff",
-            weight: "1",
-            lightness: -29
-          }
-        },
-        {
-          featureType: "building",
-          elementType: "all",
-          stylers: {
-            color: "#555555ff",
-            visibility: "on"
-          }
-        },
-        {
-          featureType: "poilabel",
-          elementType: "all",
-          stylers: {
-            visibility: "off"
-          }
-        },
-        {
-          featureType: "subwaystation",
-          elementType: "all",
-          stylers: {
-            color: "#666666ff"
-          }
-        },
-        {
-          featureType: "arterial",
-          elementType: "labels.text.stroke",
-          stylers: {
-            color: "#333333ff",
-            visibility: "on"
-          }
-        },
-        {
-          featureType: "highway",
-          elementType: "all",
-          stylers: {
-            visibility: "off"
-          }
-        },
-        {
-          featureType: "manmade",
-          elementType: "labels.text.fill",
-          stylers: {
-            color: "#999999ff",
-            visibility: "on"
-          }
-        },
-        {
-          featureType: "town",
-          elementType: "labels",
-          stylers: {
-            visibility: "off"
-          }
-        },
-        {
-          featureType: "district",
-          elementType: "labels",
-          stylers: {
-            color: "#666666ff",
-            visibility: "on"
-          }
-        },
-        {
-          featureType: "railway",
-          elementType: "geometry",
-          stylers: {
-            color: "#333333ff"
-          }
-        },
-        {
-          featureType: "local",
-          elementType: "labels.text.stroke",
-          stylers: {
-            color: "#333333ff",
-            visibility: "on"
-          }
-        }
-      ];
-      var MAP_CENTER_POINT = new BMap.Point(this.point[0], this.point[1]);
-      var mapArr = {};
-      var map_id = ["right_top_map", "allmap"];
-      var map = mapArr[divId];
-      if (map != null && map != undefined && map_id.indexOf(divId) > -1) {
-        return map;
-      }
-      map = new BMap.Map(divId, {
-        enableMapClick: false
-      });
-      map.centerAndZoom(MAP_CENTER_POINT, this.zoom); // 初始化地图,设置中心点坐标和地图级别
-      map.setMinZoom(this.minroom);
-      map.setMaxZoom(this.maxroom);
-      map.disableDoubleClickZoom();
-      map.enableScrollWheelZoom();
-      map.setMapStyle({
-        styleJson: MAP_STYLE_SMALL
-      });
-      map.setCurrentCity("北京");
-      mapArr[divId] = map;
-      return map;
-    },
-    getunitlist() {
-      this.$fetch("/api/unit/queryUnit")
-        .then(response => {
-          if (response) {
-            var unitlist = response.data.unitList;
-            unitlist.forEach(element => {
-              var a = element.pointX;
-              var b = element.pointY;
-              this.mp.addOverlay(this.addlandmark(element.name, "1", [a, b]));
-            });
-          }
-        })
-        .then(err => {});
-    },
-
-    getbuildlist() {
-      this.$fetch("/api/building/selectNode", { unitId: null })
-        .then(response => {
-          if (response) {
-            var buildlist = response.data.list;
-            buildlist.forEach(element => {
-              var a = element.pointX;
-              var b = element.pointY;
-              this.mp.addOverlay(this.addpeople("", "3", [a, b], element.name));
-            });
-          }
-        })
-        .then(err => {});
-    },
-    getMapToDiv(divId) {
-      var MAP_STYLE_SMALL = [
-        {
-          featureType: "land",
           elementType: "geometry",
           stylers: {
             color: "#000000ff",
@@ -765,7 +533,36 @@ export default {
       mapArr[divId] = map;
       return map;
     },
+    getunitlist() {
+      this.$fetch("/api/unit/queryUnit")
+        .then(response => {
+          if (response) {
+            var unitlist = response.data.unitList;
+            unitlist.forEach(element => {
+              var a = element.pointX;
+              var b = element.pointY;
+              this.mp.addOverlay(this.addlandmark(element.name, "1", [a, b]));
+            });
+          }
+        })
+        .then(err => {});
+    },
 
+    getbuildlist() {
+      this.$fetch("/api/building/selectNode", { unitId: null })
+        .then(response => {
+          if (response) {
+            var buildlist = response.data.list;
+            buildlist.forEach(element => {
+              var a = element.pointX;
+              var b = element.pointY;
+              this.mp.addOverlay(this.addpeople("", "3", [a, b], element.name));
+            });
+          }
+        })
+        .then(err => {});
+    },
+    
     getunitidbyheater(unitid) {
       if (unitid != null && unitid != 0) {
         this.queryUnit.unitId = this.unitid;
