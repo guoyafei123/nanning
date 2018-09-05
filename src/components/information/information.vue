@@ -157,13 +157,17 @@
 							<!-- 已选择 -->
 							<div class="personinfo">
 								<p>
-									<span class="size-20 font-blue">中心小学</span>
+									<span class="size-20 font-blue">{{unitInfo.name}}</span>
 									<el-tooltip content="安全评分" placement="top">
-									<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
-								</el-tooltip>
+										<span v-if="unitInfo.totalScore == 0" class="bgbox-min bg-blue font-black">无评分</span>
+										<span v-if="unitInfo.totalScore < 2" class="bgbox-min bg-red font-black">评分:{{unitInfo.totalScore}}</span>
+										<span v-if="unitInfo.totalScore >=2 && unitInfo.totalScore < 4" class="bgbox-min bg-orange font-black">评分:{{unitInfo.totalScore}}</span>
+										<span v-if="unitInfo.totalScore >=4 && unitInfo.totalScore < 6" class="bgbox-min bg-yellow font-black">评分:{{unitInfo.totalScore}}</span>
+										<span v-if="unitInfo.totalScore>=6" class="bgbox-min bg-blue font-black">评分:{{unitInfo.totalScore}}</span>
+									</el-tooltip>
 								</p>
 								<p class="text-left padding0">
-									<span><i class="el-icon-location"></i> 怀化市银海大道710-2号</span>
+									<span><i class="el-icon-location"></i> {{unitInfo.location}}</span>
 								</p>
 								<!-- <P class="col-sm-5 text-right padding0">
 									<span class="text-right">
@@ -519,7 +523,16 @@
 				deviceiteminfodiff:'',
 				xRates:'',
 				yRates:'',
-				startDates:''
+				startDates:'',
+				//获取单位信息
+				unitInfo_parameter:{
+					unitId:null,
+				},
+				unitInfo:{
+					name:"",
+					location:"",
+					totalScore:0
+				},
 			}
 		},
 		computed:mapState([
@@ -542,7 +555,7 @@
 				this.selectNode_parameter.unitId=this.getunitid;
 				this.selectNodevalue_model='';
 				this.deviceList_parameter.buildingId='';
-				
+				this.unitInfo_parameter.unitId = this.getunitid;
 				this.getTable();
 				this.getData();
 				this.get_axis();
@@ -659,6 +672,22 @@
 					});
 			},
 			getData() {
+				// 获取单位信息
+				if(this.unitInfo_parameter.unitId==0 || this.unitInfo_parameter.unitId==null){
+					this.unitInfo.name = "管理单位";
+					this.unitInfo.location = "无位置";
+					this.unitInfo.totalScore = 0;
+				}else{
+					this.$fetch("/api/unit/queryUnitInfo",
+							this.unitInfo_parameter).then(response => {
+						let data = response.data;
+						if(response.data) {
+							this.unitInfo.name = data.unitInfo.name;
+							this.unitInfo.location = data.unitInfo.location;
+							this.unitInfo.totalScore = data.totalScore;
+						}
+					});
+				}
 				// 请求报警统计
 				this.$fetch(
 						"/api/device/deviceCountByUnit",
@@ -1087,6 +1116,7 @@
 				this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.unitId=sessionStorage.unitid;
 				this.trendLine_parameter.unitId=sessionStorage.unitid;
 				this.selectNode_parameter.unitId=sessionStorage.unitid;
+				this.unitInfo_parameter.unitId = sessionStorage.unitid;
 			}
 			if(sessionStorage.unitid==0){
 				this.deviceList_parameter.unitId='';
@@ -1095,6 +1125,10 @@
 				this.queryDeviceMacfunctionOrAlarmOfTypeByTime_parameter.unitId='';
 				this.trendLine_parameter.unitId='';
 				this.selectNode_parameter.unitId='';
+				this.unitInfo_parameter.unitId = null ;
+				this.unitInfo.name = "管理单位";
+				this.unitInfo.location = "无位置";
+				this.unitInfo.totalScore = 0;
 			}
 
 			this.$store.commit('route_path', this.$route.path);

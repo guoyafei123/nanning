@@ -848,7 +848,7 @@
         this.floorRoomList.push({unitBuilding:'',roomList:[]})
       },
       addRoom(item,index){
-        item.roomList.push({roomNumber:'',roomId:'',imgKey:null})
+        item.roomList.push({roomNumber:'',id:'',imgKey:null})
       },
       deleteUnit(key,index,item){
         this.unitBuilding = key ;
@@ -876,7 +876,7 @@
       deleteRoom(key,item,index){
         console.info(key);
         this.$fetch("/api/building/deleteBuildingFloorRoom",{
-          roomId:key.roomId
+          roomId:key.id
         }).then(response=>{
           //console.log(response);
           item.splice(index,1);
@@ -884,13 +884,13 @@
         })
       },
       submitFloorRoomList(){
-        // console.log(JSON.stringify(this.floorRoomList));
-        var floorRoomList = JSON.stringify( this.floorRoomList );
-        // console.log(typeof floorRoomList)
-        this.$post("/api/building/addBuildingFloorRoom",{
-          'floorRoomList':floorRoomList,
-          'floorId':this.form.floorMapsId
-        },{
+        
+        var floorRoomList = {
+          'floorId':this.form.floorMapsId,
+          'floorRoomList':this.floorRoomList
+        }
+        console.log(JSON.stringify(floorRoomList));
+        this.$post("/api/building/addBuildingFloorRoom",floorRoomList,{
           headers: {
             'Content-Type': 'application/json'
           }
@@ -905,21 +905,19 @@
           pageSize:1000,
           floorId:this.form.floorMapsId
         }).then(response=>{
-          //console.log(JSON.stringify(response));
+          console.log(JSON.stringify(response));
           var pageBuildIng = response.data.pageBuildIng.result;
           var floorUnitList = response.data.floorUnitList;
-          // //console.log(floorUnitList);
           this.floorRoomList.length = 0 ;
           floorUnitList.forEach((item,index)=>{
             var newarr = pageBuildIng.filter(function (obj) {
               return obj.floorUnit == item;
             });
             newarr.forEach((item,index)=>{
-              var key = 'roomId';
+              var key = 'id';
               item[key] = item['id'];
-              delete item['id'];
             })
-            //console.log(newarr);
+            // console.log(newarr);
             this.floorRoomList.push({unitBuilding:item,roomList:newarr})
           })
           

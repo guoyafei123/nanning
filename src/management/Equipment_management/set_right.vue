@@ -712,31 +712,31 @@
               this.totalList = response.data.pager.totalRow;
               this.tableData = response.data.pager.result;
               //console.log(this.tableData)
-              this.$store.commit('DeviceMap',this.tableData);
-              if(this.$route.path == '/Equipment_management/all'){
-                $('.plan').show();
-                this.tableData.forEach((item,index)=>{
-                  if(index == this.tableData.length-1){
-                    //console.log(item);
-                    this.device.status = item.status ;
-                    this.device.name = item.name ;
-                    this.device.deviceTypeName = item.deviceTypeName ;
-                    this.device.location = item.location ;
-                    this.device.point.pointX = item.pointX ;
-                    this.device.point.pointY = item.pointY ;
-                    this.device.mac = item.mac ;
-                    this.device.height = item.height ;
-                    this.device.fheight = item.fheight ;
-                    this.device.startDate = item.startDate ;
-                    this.device.lifeMonth = item.lifeMonth ;
-                    this.device.firm = item.firm ;
-                    this.device.productDate = item.productDate ;
-                    this.device.maintenanceLinkname = item.maintenanceUser ;
-                    this.device.maintenanceUnit = item.maintenanceUnit ;
-                    this.device.maintenancePhone = item.maintenancePhone ;
-                  }
-                })
-              }
+              // this.$store.commit('DeviceMap',this.tableData);
+              // if(this.$route.path == '/Equipment_management/all'){
+              //   $('.plan').show();
+              //   this.tableData.forEach((item,index)=>{
+              //     if(index == this.tableData.length-1){
+              //       //console.log(item);
+              //       this.device.status = item.status ;
+              //       this.device.name = item.name ;
+              //       this.device.deviceTypeName = item.deviceTypeName ;
+              //       this.device.location = item.location ;
+              //       this.device.point.pointX = item.pointX ;
+              //       this.device.point.pointY = item.pointY ;
+              //       this.device.mac = item.mac ;
+              //       this.device.height = item.height ;
+              //       this.device.fheight = item.fheight ;
+              //       this.device.startDate = item.startDate ;
+              //       this.device.lifeMonth = item.lifeMonth ;
+              //       this.device.firm = item.firm ;
+              //       this.device.productDate = item.productDate ;
+              //       this.device.maintenanceLinkname = item.maintenanceUser ;
+              //       this.device.maintenanceUnit = item.maintenanceUnit ;
+              //       this.device.maintenancePhone = item.maintenancePhone ;
+              //     }
+              //   })
+              // }
               if(this.totalList % 11 == 0){
                 this.page = parseInt( this.totalList / 11 )
               }else{
@@ -812,9 +812,9 @@
         $('.mapTable').show();
         $('.total').show();
         $('.plan').hide();
-        
+        this.tableList();
       }
-      this.tableList();
+      
       this.unitSearch();
     },
     watch:{

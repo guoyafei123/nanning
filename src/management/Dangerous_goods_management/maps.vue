@@ -21,7 +21,6 @@
             <el-select
               v-model="building"
             placeholder="选择建筑"  class="sbwz_138_32 start float-left">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
                 :label="item.name"
@@ -33,7 +32,7 @@
               placeholder="选择楼层" class="sbwz_90_32 start startFloor">
               <el-option
                 v-for="item in floorList"
-                :label="item.floor+'层'"
+                :label="item.floorName"
                 :value="item.id">
               </el-option>
             </el-select>
@@ -42,7 +41,7 @@
               placeholder="选择房间" class="sbwz_90_32 start startRoom">
               <el-option
                 v-for="item in roomList"
-                :label="item.roomNumber+'房间'"
+                :label="item.roomNumber"
                 :value="item.id">
               </el-option>
             </el-select>
@@ -72,7 +71,7 @@
                 <!-- 平面图楼层 -->
           <div class="floorMap maps" style="display:none;">
             <ul class="list-unstyled floor-item" style="top: 120px">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.floorId)" :class="{'active': item.floorId == active}">{{ item.floorNumber }}</li>
+                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
             </ul> 
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
               <img id="imgPic" :src="this.svgUrl" class="img-responsive">
@@ -93,6 +92,7 @@ import panzoom from 'panzoom';
 import{mapState} from "vuex";
   import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
+  import { setPointList } from '../../assets/js/pointDevice';
   export default {
     data() {
       return {
@@ -126,9 +126,9 @@ import{mapState} from "vuex";
       floor_btn(id){
         this.active = id ;
         this.table_list.forEach((item)=>{
-          if(item.floorId == id){
+          if(item.id == id){
             this.svgUrl = item.imgUrl ;
-            this.floor = floorId ;
+            this.floor = id ;
           }
         });
         var area = document.getElementById('floorImg');
@@ -138,19 +138,19 @@ import{mapState} from "vuex";
         });
       },
       findPageBuildIngFloor(){
-        this.$fetch("/api/trouble/queryTroubleByFloorId",{
-          floorId:this.floor,
-          type:5,
-          status:0
+        this.$fetch("/api/building/findPageBuildIngFloor",{
+          pageIndex:1,
+          pageSize:1000,
+          buildingId:this.building
         }).then(response=>{
-          console.log(response.data.troubles);
-          this.table_list = response.data.troubles;  
+          console.log(response.data.pageBuildIng.result);
+          this.table_list = response.data.pageBuildIng.result;    
           this.table_list.forEach((item,index)=>{
             if(index == 0){
-              this.svgUrl = item.imgUrl ;
-              this.active = item.floorId ;
+              this.svgUrl = item.svgUrl ;
+              this.active = item.id ;
             }
-          })            
+          })             
         })
       },
       btn_add(){
@@ -214,49 +214,54 @@ import{mapState} from "vuex";
         this.$store.commit('dengerStatus',this.status);
       },
       unit(curVal,oldVal){
-        this.unit = curVal;
+        this.unit = curVal
+        this.building = '';
+        this.floor = '';
+        this.room = '';
         this.buildSearch(this.unit);
         this.$store.commit('dangerUnit',this.unit);
+        $('.floorMap').hide();
+        $('.map').show();
       },
       building(curVal,oldVal){
         this.building = curVal ;
         //console.log(this.building);
-        if(this.building !== 0 && this.building !== '0'){
-          this.floor = '';
-          this.room = '';
-          this.equipment = '';
-          this.floorSearch(this.building);
-          this.$store.commit('dangerBuild',this.building);
+        this.floor = '';
+        this.room = '';
+        this.table_list = [];
+        this.floorSearch(this.building);
+        this.$store.commit('dangerBuild',this.building);
+        $('.floorMap').hide();
+        $('.map').show();
+      },
+      floor(curVal,oldVal){
+        this.floor = curVal ;
+        this.room = '';
+        //console.log(this.floor);
+        if(this.floor != ''){
           $('.floorMap').show();
           $('.map').hide();
           this.findPageBuildIngFloor();
         }else{
-          this.floor = '';
-          this.room = '';
-          this.equipment = '';
-          this.equipmentSearch(this.building);
-          this.$store.commit('dangerBuild',this.building);
           $('.floorMap').hide();
           $('.map').show();
         }
-      },
-      floor(curVal,oldVal){
-        this.floor = curVal ;
-        //console.log(this.floor);
-        if(this.floor !== 0){
+        if(this.floor !== ''){
           this.roomSearch(this.floor);
           $('.startRoom').show();
           this.floor_btn(this.floor);
           this.$store.commit('dangerFloor',this.floor);
-          this.$fetch("/api/device/queryDevice",{
-            floorId:this.floor
+          this.$fetch("/api/trouble/queryTroubleByFloorId",{
+            floorId:this.floor,
+            type:5,
+            status:0
           }).then(res=>{
-            console.log(res.data.deviceList);
-            this.deviceList = res.data.deviceList ;
+            console.log(res.data.troubles);
+            this.deviceList = res.data.troubles ;
             console.log(this.deviceList);
             $("#floorImg div").remove();
             this.deviceList.forEach((element,index) => {
-              $('#floorImg').append('<div id="alarmDiv'+ element.id +'" data-toggle="tooltip" data-placement="top" title="'+element.name+'"></div>');
+              $('#floorImg').append('<div id="alarmDiv'+ element.id +'" data-toggle="tooltip" data-placement="top" title="'+element.dangerName+'"></div>');
               setPointList(element.xRate,element.yRate,this.iconByType[element.deviceTypeId],'alarmDiv'+ element.id);
             });
           });
@@ -265,9 +270,7 @@ import{mapState} from "vuex";
       room(curVal,oldVal){
         this.room = curVal ;
         //console.log(this.room);
-        if(this.room !== 0){
-          this.equipmentSearch(this.room);
-          $('.startDevice').show();
+        if(this.room !== ''){
           this.$store.commit('dangerRoom',this.room);
         }
       },
