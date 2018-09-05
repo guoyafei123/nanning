@@ -596,6 +596,7 @@ import managementMapVue from '../managementMap';
           });
       },
       findPageBuildIngFloor(){
+        alert(1234);
         // console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
@@ -653,6 +654,7 @@ import managementMapVue from '../managementMap';
         this.tableBuildList();
       },
       Refresh(){
+        
         this.findPageBuildIngFloor();
       },
       floorId(){

@@ -1,7 +1,7 @@
 <template>
 	<section class="min-map">
 		<!-- 关闭小窗 -->
-		<a class="min-map-cloase">关闭</a>
+		<a  class="min-map-cloase">关闭</a>
 		<!-- 上翻 -->
 		<a class="arrow-prev" data-toggle="tooltip" title="上翻">
 			<i class="el-icon-arrow-up"></i>
