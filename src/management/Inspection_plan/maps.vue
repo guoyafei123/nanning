@@ -106,6 +106,11 @@
           });
       }
     },
+    computed:{
+      region1(){
+        return this.form.region1;
+      }
+    },
     watch:{
       form:{
         //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
@@ -116,6 +121,9 @@
           this.$store.commit('form',this.form);
         },
         deep:true
+      },
+      region1(){
+        this.$store.commit('inspectionUnitId',this.form.region1);
       }
     },
     mounted(){

@@ -593,7 +593,7 @@ import managementMapVue from '../managementMap';
           });
       },
       findPageBuildIngFloor(){
-        alert(1234);
+        // alert(1234);
         // console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
