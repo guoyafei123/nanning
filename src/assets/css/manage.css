@@ -918,21 +918,24 @@ height: 640px;
 .head-photo label {
   margin-bottom: 8px;
 }
-.head-photo div {
+.head-photo>div {
   text-align: center;
   background-color: #222;
   width: 76px;
   height: 76px;
   line-height: 76px;
 }
+.head-photo>input {
+  background-color: #222;
+}
 .head-photo:hover,
 .head-photo:focus,
-.head-photo div:hover,
-.head-photo div:focus,
-.head-photo input:hover,
-.head-photo input:focus {
+.head-photo>div:hover,
+.head-photo>div:focus,
+.head-photo>input:hover,
+.head-photo>input:focus {
     border-color: transparent;
-    color: #fff;
+    color: #fff!important;
     background-color: #333!important;
 }
 .head-photo input {
