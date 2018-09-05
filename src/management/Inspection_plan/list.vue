@@ -39,7 +39,6 @@
             <el-select
               v-model="form.building"
             placeholder="选择建筑"  class="start" :disabled="isdisabled">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
                 :label="item.name"
@@ -88,7 +87,6 @@
             <el-select
               v-model="form.buildings"
               placeholder="选择建筑" class="end" :disabled="isdisableds">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildLists"
                 :label="item.name"
@@ -152,7 +150,6 @@
             <el-select
               v-model="form.buildingNode"
               placeholder="选择建筑" class="Node">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildListNode"
                 :label="item.name"
@@ -691,6 +688,9 @@
         },
         buildings(){
           return this.form.buildings ;
+        },
+        buildingNode(){
+          return this.form.buildingNode ;
         }
       },
       watch:{
