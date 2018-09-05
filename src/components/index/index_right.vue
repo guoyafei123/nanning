@@ -508,6 +508,63 @@
 				</el-tooltip>
 			<earlyinfo-vue></earlyinfo-vue>
 		</el-dialog>
+
+		<el-dialog
+			title="确认"
+			:visible.sync="isCloseAlarmOrTround"
+			width="30%"
+			center>
+			<div>
+				<!-- <h4>室外</h4>
+				<p>报警人员: 123</p>
+				<p>报警时间: 123546</p>
+				<p>报警描述:</p>
+				<p>546546468416516515156165</p>
+				<hr/>
+				<h4>火情确认</h4>
+				<p>是否发生火情:
+					<button>是</button>
+					<button>否</button>
+				</p>
+				<p>确认描述:</p>
+				<p>546546468416516515156165</p>
+				<hr/> -->
+				<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+
+					<el-form-item label="报警人员" prop="name">
+						<span>123</span>
+					</el-form-item>
+					<el-form-item label="报警时间" prop="name">
+						<span>123</span>
+					</el-form-item>
+					<el-form-item label="报警描述" prop="name">
+						<span>123</span>
+					</el-form-item>
+					<hr>
+					<el-form-item label="是否发生火情" prop="name">
+						<span>
+							<button>是</button>
+					<button>否</button>
+						</span>
+					</el-form-item>
+					<el-form-item label="报警描述" prop="name">
+						<el-input type="textarea" v-model="ruleForm.desc"></el-input>
+					</el-form-item>
+					<el-form-item label="请上传相关图片和视频" prop="name">
+						<el-input type="textarea" v-model="ruleForm.desc"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+						<el-button @click="resetForm('ruleForm')">重置</el-button>
+					</el-form-item>
+				</el-form>
+			</div>
+			
+			<!-- <span slot="footer" class="dialog-footer">
+				<el-button @click="centerDialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+			</span> -->
+		</el-dialog>
 	</div>
 
 </template>
@@ -565,7 +622,45 @@
 				queryUnitInfoimg:require('../../assets/images/jpg01.jpg'),
 				defaultImg:'this.src="' +require('../../assets/images/jpg01.jpg') + '"',
 				activeAlarmArr:{},
-				activeTroubleArr:{}
+				activeTroubleArr:{},
+				isCloseAlarmOrTround:false,
+
+
+				// form
+				ruleForm: {
+					name: '',
+					region: '',
+					date1: '',
+					date2: '',
+					delivery: false,
+					type: [],
+					resource: '',
+					desc: ''
+				},
+				rules: {
+					name: [
+						{ required: true, message: '请输入活动名称', trigger: 'blur' },
+						{ min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+					],
+					region: [
+						{ required: true, message: '请选择活动区域', trigger: 'change' }
+					],
+					date1: [
+						{ type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+					],
+					date2: [
+						{ type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+					],
+					type: [
+						{ type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+					],
+					resource: [
+						{ required: true, message: '请选择活动资源', trigger: 'change' }
+					],
+					desc: [
+						{ required: true, message: '请填写活动形式', trigger: 'blur' }
+					]
+				}
 			};
 		},
 		computed: mapState(["torightdata", "unitid", "userinfo","dialogVisiblehide"]),
@@ -596,6 +691,22 @@
 		},
 		// 调用方法
 		methods: {
+			submitForm(formName) {
+				this.$refs[formName].validate((valid) => {
+				if (valid) {
+					alert('submit!');
+				} else {
+					console.log('error submit!!');
+					return false;
+				}
+				});
+			},
+			resetForm(formName) {
+				this.$refs[formName].resetFields();
+			},
+			closeAlarmOrTround(){
+				this.isCloseAlarmOrTround=true;
+			},
 			// 单个锁定位置
 			toMapPoint(item){
 				this.$store.commit("toMapPoint",item);
