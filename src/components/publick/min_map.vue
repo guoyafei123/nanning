@@ -4,7 +4,7 @@
 		<a class="min-map-cloase"@click="closeMinimap()">关闭</a>
 		<!-- 上翻 -->
 		<a class="arrow-prev">
-			<el-tooltip content="上翻" placement="top">
+			<el-tooltip content="鼠标滚动上翻" placement="top">
 			<i class="el-icon-arrow-up"></i>
 			</el-tooltip>
 		</a>
@@ -73,7 +73,7 @@
 		</div>
 		<!-- 下翻 -->		
 		<a class="arrow-next">
-			<el-tooltip content="下翻" placement="top">
+			<el-tooltip content="鼠标滚动下翻" placement="top">
 				<i class="el-icon-arrow-down"></i>
 			</el-tooltip>
 		</a>
