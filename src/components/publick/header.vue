@@ -505,10 +505,10 @@
                       <span>图片视频 </span>
                       <ul class="fire-media list-inline">
                         <li v-for="video in item.confirmUrls">
-                          <video :src="ossUrl+video" alt="" height="80"></video>
+                          <video :src="Global.imgPath+video" alt="" height="80"></video>
                         </li>
                         <li v-for="img in item.imgUrl">
-                          <img :src="ossUrl+img" alt="" height="80">
+                          <img :src="Global.imgPath+img" alt="" height="80">
                         </li>
                       </ul>
                     </div>
@@ -642,7 +642,7 @@
   import messagesVue from './messages.vue'
   import moment from 'moment'
   import {mapState} from 'vuex'
-
+  import Global from "../../Global.vue";
   export default {
     components: {
       'messages-vue': messagesVue,
@@ -718,7 +718,6 @@
         punchExpireTime: '',
         punchInterval: null,
         //火情分析列表数据
-        ossUrl:' img.nanninglq.51play.com',
         queryFirehistoryData_parameter: {
           buildingId: 3,
           startTime: '2018-08-31 18:24:23'
