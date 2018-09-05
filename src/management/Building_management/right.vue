@@ -524,7 +524,7 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabelRoom">提示</h4>
-                <h5 class="modal-p">删除操作并不影响之前的统计数据</h5>
+                <h5 class="modal-p">删除操作会影响之前的统计数据</h5>
               </div>
               <div class="modal-body text-center container-padding40">
                 <h3 class="font-red size-14">是否删除</h3>
@@ -884,11 +884,16 @@
         })
       },
       submitFloorRoomList(){
-        console.log(JSON.stringify(this.floorRoomList));
+        // console.log(JSON.stringify(this.floorRoomList));
         var floorRoomList = JSON.stringify( this.floorRoomList );
-        this.$fetch("/api/building/addBuildingFloorRoom",{
+        // console.log(typeof floorRoomList)
+        this.$post("/api/building/addBuildingFloorRoom",{
           'floorRoomList':floorRoomList,
           'floorId':this.form.floorMapsId
+        },{
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }).then(response=>{
           //console.log(response);
           this.room_back()

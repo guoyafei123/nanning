@@ -1,7 +1,11 @@
 <template>
 	<section class="min-map">
 		<!-- 关闭小窗 -->
+<<<<<<< HEAD
+		<a  class="min-map-cloase">关闭</a>
+=======
 		<a class="min-map-cloase"@click="closeMinimap()">关闭</a>
+>>>>>>> 03c976ee5f71b967d2968836d4b4f317d7142878
 		<!-- 上翻 -->
 		<a class="arrow-prev">
 			<el-tooltip content="鼠标滚动上翻" placement="top">
