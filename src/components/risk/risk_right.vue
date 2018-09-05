@@ -41,7 +41,7 @@
 			</section>
 
 			<section>
-				<div class="toolcount">
+				<div class="toolcount margin-top20">
 					<h4 class="p-title">安全评分</h4>
 					<div id="axis1" style="width: 100%;height:200px;margin: 0 auto;"></div>
 				</div>
@@ -331,7 +331,10 @@
 					},
 					// 图例
 					legend: {
-						data: ["安全评分"]
+						data: ["安全评分"],
+						textStyle:{
+							color: "#999"
+						}
 					},
 					// 调整实际显示的 margin
 					grid: {
@@ -374,12 +377,12 @@
 				var axisData = data.score;
 				// 根据值判断柱子颜色的柱状图
 				var option1 = {
-					color: ["#3398DB"],
+					color: ["#bad616"],
 					tooltip: {
 						trigger: "axis",
 						axisPointer: {
 							// 坐标轴指示器，坐标轴触发有效
-							type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+							type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
 						}
 					},
 					grid: {
@@ -394,7 +397,8 @@
 						data: axisDate,
 						axisTick: {
 							alignWithLabel: true
-						}
+						},
+
 					}],
 					yAxis: [{
 						type: "value",

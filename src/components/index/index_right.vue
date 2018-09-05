@@ -501,70 +501,60 @@
       </audio> -->
 			<div id="audioBox"></div>
 		</template>
-		<!-- 弹窗 -->
+		<!-- 警报弹窗 -->
 		<el-dialog title="" :visible.sync="dialogVisible" top="120px">
 			<el-tooltip class="item" content="关闭" placement="top">
 				<a class="go-back" @click="dialogVisible = false"><i class="el-icon-circle-close-outline size-24"></i></a>
 				</el-tooltip>
 			<earlyinfo-vue></earlyinfo-vue>
 		</el-dialog>
-
-		<el-dialog
-			title="确认"
-			:visible.sync="isCloseAlarmOrTround"
-			width="30%"
-			center>
-			<div>
-				<!-- <h4>室外</h4>
-				<p>报警人员: 123</p>
-				<p>报警时间: 123546</p>
-				<p>报警描述:</p>
-				<p>546546468416516515156165</p>
-				<hr/>
-				<h4>火情确认</h4>
-				<p>是否发生火情:
-					<button>是</button>
-					<button>否</button>
-				</p>
-				<p>确认描述:</p>
-				<p>546546468416516515156165</p>
-				<hr/> -->
-				<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-
-					<el-form-item label="报警人员" prop="name">
-						<span>123</span>
-					</el-form-item>
-					<el-form-item label="报警时间" prop="name">
-						<span>123</span>
-					</el-form-item>
-					<el-form-item label="报警描述" prop="name">
-						<span>123</span>
-					</el-form-item>
-					<hr>
-					<el-form-item label="是否发生火情" prop="name">
-						<span>
-							<button>是</button>
-					<button>否</button>
-						</span>
-					</el-form-item>
-					<el-form-item label="报警描述" prop="name">
-						<el-input type="textarea" v-model="ruleForm.desc"></el-input>
-					</el-form-item>
-					<el-form-item label="请上传相关图片和视频" prop="name">
-						<el-input type="textarea" v-model="ruleForm.desc"></el-input>
-					</el-form-item>
-					<el-form-item>
-						<el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-						<el-button @click="resetForm('ruleForm')">重置</el-button>
-					</el-form-item>
+		<!-- 确认火情 -->
+		<el-dialog show-close :visible.sync="isCloseAlarmOrTround" width="26%" center>
+      <div class="dialog-header">
+        <h3 class="el-dialog__title">确认火情</h3>
+        <small class="font-blue">溆浦红花工业园1号宿舍楼1层101房间ios审核员于2018-09-05 11:32:37发出的报警</small>
+        <button type="button" class="el-dialog__headerbtn" @click="isCloseAlarmOrTround = false">
+        	<el-tooltip content="关闭" placement="top">
+	          <i class="el-dialog__close el-icon el-icon-close"></i>
+	      	</el-tooltip>
+        </button>
+      </div>
+      <div class="dialog-content clearfix">
+      		<div class="main_content">
+				<el-form status-icon :model="ruleForm" :rules="rules" ref="ruleForm">
+					<el-form-item label="是否发生火情" prop="name" class="col-sm-12">                
+		                <el-radio-group v-model="isScan">
+		                  <el-radio-button label="1">是</el-radio-button>
+		                  <el-radio-button label="0">否</el-radio-button>
+		                </el-radio-group>
+		            </el-form-item>
+					<el-form-item label="图片和视频" prop="name" :label-width="formLabelWidth" class="col-sm-12">
+                    <el-upload 
+                          list-type="picture-card" 
+                          id="file"
+                          :name="file"
+                          :http-request="uploadAlarmFile"
+                          :file-list="playUrls"
+                          :multiple="true"
+                          :auto-upload="true"
+                          :on-success="uploadSuccess"
+                          :on-preview="handlePictureCardPreview" 
+                          :on-remove="handleRemove">
+                          <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
+                </el-form-item>
+					<el-form-item label="操作描述" prop="name">
+						<el-input type="textarea" v-model="ruleForm.desc" class="col-sm-8"></el-input>
+					</el-form-item>					
 				</el-form>
 			</div>
-			
-			<!-- <span slot="footer" class="dialog-footer">
-				<el-button @click="centerDialogVisible = false">取 消</el-button>
-				<el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
-			</span> -->
-		</el-dialog>
+      </div>
+      <span slot="footer" class="dialog-footer">
+		    <el-button @click="submitForm('ruleForm')"><i class="el-icon-circle-check-outline"></i> 确认并提交</el-button>
+		    <el-button class="btn-back" @click="resetForm('ruleForm')">重 置</el-button>
+		  </span>
+    </el-dialog>
 	</div>
 
 </template>
@@ -690,7 +680,7 @@
 			}
 		},
 		// 调用方法
-		methods: {
+		methods: {			
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 				if (valid) {

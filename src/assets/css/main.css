@@ -305,16 +305,16 @@ span.point {
     filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=1);
 }
 #left .overlay {
-    background: -moz-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .6),rgba(0, 0, 0, .7),rgba(0, 0, 0, 1));
-    background: -o-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .6),rgba(0, 0, 0, .7),rgba(0, 0, 0, 1));
-    background: -ms-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .6),rgba(0, 0, 0, .7),rgba(0, 0, 0, 1));
-    background: -webkit-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .6),rgba(0, 0, 0, .7),rgba(0, 0, 0, 1));
+    background: -moz-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -o-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -ms-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -webkit-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
 }
 #right .overlay {
-    background: -moz-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .6),rgba(0, 0, 0, .7),rgba(0, 0, 0, 1));
-    background: -o-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .6),rgba(0, 0, 0, .7),rgba(0, 0, 0, 1));
-    background: -ms-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .6),rgba(0, 0, 0, .7),rgba(0, 0, 0, 1));
-    background: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .6),rgba(0, 0, 0, .7),rgba(0, 0, 0, 1));
+    background: -moz-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -o-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -ms-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
 }
 
 /* 综合 */
@@ -1059,7 +1059,38 @@ a.min-map-cloase:hover {
 .dialog-cont .main_nav_tab {
     display: none;
 }
-
+.dialog-content .el-form-item__label,.dialog-content .el-form-item__content {
+    clear: both;
+    width: inherit;
+    text-align: left;
+    display: block;
+}
+.dialog-content .el-form-item__label {
+    margin-bottom: 10px;
+}
+.dialog-footer {
+    text-align: center;
+}
+.dialog-footer button,.dialog-footer a {
+    display: inline-block;
+    transition: background 0.3s;
+    -webkit-transition: background 0.3s;
+}
+.dialog-footer .btn-back {
+    position: inherit;
+    top: inherit;
+    left: inherit;
+    right: inherit;
+    width: 56px;
+    background-color: transparent;
+    border-color: #333!important;
+    color: #999;
+}
+.dialog-footer .btn-back:hover,.dialog-footer .btn-back:focus {
+    background-color: transparent;
+    border-color: #666!important;
+    color: #ccc!important;
+}
 /*火情分析*/
 
 .main_tab {

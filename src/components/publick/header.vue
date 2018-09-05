@@ -156,7 +156,9 @@
         <h3 class="el-dialog__title">个人信息</h3>
         <small class="font-blue">{{userInfoData.unitName?userInfoData.unitName:'-'}}</small>
         <button type="button" class="el-dialog__headerbtn" @click="personnelInfo = false">
-          <i class="el-dialog__close el-icon el-icon-close"></i>
+          <el-tooltip content="关闭" placement="top">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </el-tooltip>
         </button>
       </div>
       <div class="dialog-content text-center clearfix">
