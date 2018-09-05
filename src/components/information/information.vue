@@ -101,7 +101,7 @@
 												<td>
 													<el-tooltip placement="top">
 														<div slot="content">{{item.deviceTypeName == null ? '-' : item.deviceTypeName}}</div>
-														<i class="icon iconfont set-ciontop3" :class="iconByType[item.deviceTypeId]" :title="item.deviceTypeName"></i>
+														<i class="icon iconfont set-ciontop3 font-white" :class="iconByType[item.deviceTypeId]" :title="item.deviceTypeName"></i>
 													</el-tooltip>
 												</td>
 												<td v-if="item.status==1" class="font-blue">正常</td>
