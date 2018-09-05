@@ -367,7 +367,7 @@
 				                    "featureType": "subway",
 				                    "elementType": "labels.text.stroke",
 				                    "stylers": {
-				                              "color": "#666666ff",
+				                              "color": "#333333ff",
 				                              "visibility": "on"
 				                    }
 				          },
@@ -503,8 +503,15 @@
 				                    "featureType": "subway",
 				                    "elementType": "labels.text.fill",
 				                    "stylers": {
-				                              "color": "#ffffffff",
+				                              "color": "#ccccccff",
 				                              "visibility": "on"
+				                    }
+				          },
+				          {
+				                    "featureType": "highway",
+				                    "elementType": "labels.icon",
+				                    "stylers": {
+				                              "visibility": "off"
 				                    }
 				          }
 				];
