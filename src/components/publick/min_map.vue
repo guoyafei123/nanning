@@ -24,7 +24,9 @@
 			    		</h5>
 					</figure>
 					<!-- 关闭按钮 -->
-					<!-- <a><i class="el-icon-error" data-toggle="tooltip" title="关闭"></i></a> -->
+					<el-tooltip class="item" content="关闭" placement="top">
+						<a href=""><i class="el-icon-error" data-toggle="tooltip" title="关闭"></i></a>
+					</el-tooltip>
 					<!-- 报警源 -->
 					<!-- <strong><span>A34F5E65R2</span></strong> -->
 					<!-- 警报点位 -->
@@ -48,7 +50,9 @@
 			    		</h5>
 					</figure>
 					<!-- 关闭按钮 -->
-					<!-- <a><i class="el-icon-error" data-toggle="tooltip" title="关闭"></i></a> -->
+					<el-tooltip class="item" content="关闭" placement="top">
+						<a href=""><i class="el-icon-error" data-toggle="tooltip" title="关闭"></i></a>
+					</el-tooltip>
 					<!-- 报警源 -->
 					<!-- <strong><span>A34F5E65R2</span></strong> -->
 					<!-- 警报点位 -->
