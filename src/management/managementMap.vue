@@ -15,13 +15,14 @@
           maxroom:19,
           minroom:1,
           zoom:16,
-          point:[108.363609,22.815612],
+          point:[108.335801,22.733686],
           mp:Object,
           deviceListInner:[],
           deviceListOutside:[],
           inspectionNodes:[],
           innerTrouble:[],
           outsideTrouble:[],
+          unitId:null,
           iconByType:{
                     1:'icon-ranqiganying-mian-',
                     2:'icon-ganyanqi-',
@@ -327,8 +328,8 @@
           return marker;
         },
         legend_landmarker(content,id) {
-          if(content.innerCount){
-            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.innerCount }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.innerCount }</span></i></div>`;
+          if(content.countofbuilding){
+            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
           }else if(content.count){
             var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.count }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.count }</span></i></div>`;
           }
@@ -433,12 +434,106 @@
           });
           return polyline;
         },
+        // 创建自定义marker-建筑标志和值
+        addlandmarkLine(name, value, p) {
+          let that = this;
+          function landmark(point, name, value) {
+            this._point = point;
+            this._name = name;
+            this._value = value;
+          }
+          landmark.prototype = new BMap.Overlay();
+          landmark.prototype.initialize = function(map) {
+            this._map = map;
+            var div = (this._div = document.createElement("div"));
+            $(div).addClass("landmark_marker");
+            div.style.position = "absolute";
+
+            $(div).append(that.legend_landmarkLine(this._name, this._value));
+            map.getPanes().labelPane.appendChild(div);
+            return div;
+          };
+          landmark.prototype.draw = function() {
+            var map = this._map;
+            var pixel = map.pointToOverlayPixel(this._point);
+            this._div.style.left = pixel.x - 0 + "px";
+            this._div.style.top = pixel.y - 0 + "px";
+          };
+          var marker = new landmark(new BMap.Point(p[0], p[1]), name, value);
+          
+          return marker;
+        },
+        // 创建自定义marker-建筑标志和值
+        legend_landmarkLine(name, value) {
+          var style;
+          if(value <= 1) {
+            style = "bg-blue";
+          } else if(value <= 2) {
+            style = "bg-yellow";
+          } else if(value <= 9) {
+            style = "bg-orange";
+          } else {
+            style = "bg-red";
+          }
+
+          var html =
+            `
+            <div   class="legend-landmark font-block" style="top:-88px;left:-20px">
+              <span class="landmark-rect ` +
+                style +
+                `"></span>
+              <span class="marker-name">` +
+                name +
+                `</span><br/>
+              <span class="font-block ` +
+                style +
+                `">` +
+                value +
+                `</span>
+            </div>
+          `;
+            
+          return html;
+        },
+
+        getunitlist() {
+          this.$fetch("/api/unit/queryUnit")
+          .then(response => {
+            if(response) {
+              var unitlist=response.data.unitList;
+              unitlist.forEach(element => {
+                var a=element.pointX;
+                var b=element.pointY;
+                this.mp.addOverlay(
+                  this.addlandmarkLine(element.name, "1", [a, b],37)
+                );
+              });
+            }
+          })
+          .then(err => {
+          });
+        },
+        getbuildlist() {
+          this.$fetch("/api/building/selectNode",{unitId:null})
+          .then(response => {
+            if(response) {
+              var buildlist=response.data.list;
+              buildlist.forEach(element => {
+                var a=element.pointX;
+                var b=element.pointY;
+                this.mp.addOverlay(this.addlandmark(element.id,element.name,[a,b],37));
+              });
+            }
+          })
+          .then(err => {
+          });
+        },
         tableDatas(){
           this.tableData.forEach(item => {
             //console.log(item.pointX);
             //console.log(item.pointY);
             this.mp.addOverlay(this.addlandmark(item.id,item.name,[item.pointX,item.pointY],37));
-            this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
+            // this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
             $("#map" + item.id).click(()=>{
               $('.build').hide();
               $('.floor').show();
@@ -459,10 +554,10 @@
             unitId:this.Unit
           }).then(res=>{
             console.log(res.data.deviceListInner);
-            this.deviceListInner = res.data.deviceListInner ;
+            this.deviceListInner = res.data.buildingList ;
             this.deviceListInner.forEach(item=>{
               this.mp.addOverlay(this.addlandmarker(item.buildingId,item,[item.pointX,item.pointY]));
-              this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
+              // this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
               $(document).on('click', "#map"+item.buildingId,()=>{
                 $('.floorMap').show();
                 $('.map').hide();
@@ -586,12 +681,14 @@
           this.mp.clearOverlays();
           if(this.$route.path == '/Building_management/maps'){
             this.tableDatas();
+            this.unitId = this.buildUnit;
           }
         },
         Unit(){
           this.mp.clearOverlays();
           if(this.$route.path == '/Equipment_management/maps'){
             this.DeviceMaps();
+            this.unitId = this.Unit;
           }
         },
         dangerUnit(){
@@ -673,8 +770,16 @@
         required: true
       },
       mounted(){
+        
         var mapStates = this.getMapToDiv('manage_map');
+      
         this.mp = mapStates;
+        this.getunitlist();
+        this.getbuildlist();
+        if(this.$route.path == '/Building_management/maps'){
+          this.mp.clearOverlays();
+          this.tableDatas();
+        }
 	      if(this.$route.path == '/Building_management/list'){
           this.mp.addEventListener("click", this.showInfo);
         }
@@ -702,10 +807,11 @@
         if(this.$route.path == '/Add_alarm/list'){
           this.mp.addEventListener("click", this.showInfoAdd_alarm);
         }
-        this.$store.commit('iconByType',this.iconByType)
+        this.$store.commit('iconByType',this.iconByType);
         if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};
       },
       computed:mapState([
+        'buildUnit',
         'tableData',
         'InspectionMap',
         'buildPoint',

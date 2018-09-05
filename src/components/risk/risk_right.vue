@@ -19,7 +19,7 @@
 							<span class="size-20 font-blue">{{unitInfo.name}}</span>
 							<span class="float-right">
 								<el-tooltip content="安全评分" placement="top">
-			                          <span class="bgbox-max bg-blue font-black size-10">评分{{unitInfo.totalScore}}</span>
+			                          <span class="bgbox-max bg-blue font-black size-10">单位评分{{unitInfo.totalScore}}</span>
 			                      </el-tooltip>
 							</span>
 						</p>
@@ -33,7 +33,7 @@
 						<p>
 							<span class="size-20 font-blue">{{itemData.buildingName}}</span>
 							<span class="float-right">
-                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">评分{{Number(10-itemData.troubleScore/10).toFixed(1)}}</span>
+                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
 							</span>
 						</p>
 					</div>
@@ -41,7 +41,7 @@
 			</section>
 
 			<section>
-				<div class="toolcount">
+				<div class="toolcount margin-top20">
 					<h4 class="p-title">安全评分</h4>
 					<div id="axis1" style="width: 100%;height:200px;margin: 0 auto;"></div>
 				</div>
@@ -154,6 +154,7 @@
 					totalScore:0
 				},
 				itemData:Object,
+				buildScore:0,
 				//风险统计参数
 				unitScoreDetail_parameter: {
 					unitId:null,
@@ -182,6 +183,7 @@
 			toriskitem() {
 				this.itemtrue = true;
 				this.itemData = this.toriskitem;
+				this.buildScore = Number(10-this.itemData.totalScore/10).toFixed(1);
 				this.buildingScoreDetails_parameter.buildingId = this.toriskitem.buildingId;
 				this.getBuildDetail();
 			},
@@ -241,6 +243,7 @@
 				if(this.unitInfo_parameter.unitId==0 || this.unitInfo_parameter.unitId==null){
 					this.unitInfo.name = "管理单位";
 					this.unitInfo.location = "无位置";
+					this.unitInfo.totalScore = 0;
 				}else{
 					this.$fetch("/api/unit/queryUnitInfo",
 							this.unitInfo_parameter).then(response => {
@@ -331,7 +334,10 @@
 					},
 					// 图例
 					legend: {
-						data: ["安全评分"]
+						data: ["安全评分"],
+						textStyle:{
+							color: "#999"
+						}
 					},
 					// 调整实际显示的 margin
 					grid: {
@@ -374,12 +380,12 @@
 				var axisData = data.score;
 				// 根据值判断柱子颜色的柱状图
 				var option1 = {
-					color: ["#3398DB"],
+					color: ["#bad616"],
 					tooltip: {
 						trigger: "axis",
 						axisPointer: {
 							// 坐标轴指示器，坐标轴触发有效
-							type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+							type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
 						}
 					},
 					grid: {
@@ -394,7 +400,8 @@
 						data: axisDate,
 						axisTick: {
 							alignWithLabel: true
-						}
+						},
+
 					}],
 					yAxis: [{
 						type: "value",
@@ -467,6 +474,7 @@
 				this.unitInfo_parameter.unitId == null;
 				this.unitInfo.name = "管理单位";
 				this.unitInfo.location = "无位置";
+				this.unitInfo.totalScore = 0;
 			}
 			this.$store.commit("route_path", this.$route.path);
 			this.defaultTimeVaule();

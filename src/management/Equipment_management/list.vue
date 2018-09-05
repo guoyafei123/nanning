@@ -53,7 +53,7 @@
             </el-select>
             <el-select
               v-model="form.floorId"
-              placeholder="选择楼层" class="start col-sm-4 floor" v-show="seeFloor" >
+              placeholder="选择楼层" class="start col-sm-4 " v-show="seeFloor" >
               <el-option
                 v-for="item in form.floorList"
                 :label="item.floorName+'层'"
@@ -62,7 +62,7 @@
             </el-select>
             <el-select
               v-model="form.roomId"
-              placeholder="选择房间" class="start col-sm-4 room" v-show="seeRoom" >
+              placeholder="选择房间" class="start col-sm-4 " v-show="seeRoom" >
               <el-option
                 v-for="item in form.roomList"
                 :label="item.roomNumber+'房间'"
@@ -156,14 +156,15 @@
       </div>
     </aside>
     <!-- 地图 -->
-    <aside class="position:relative;" >
+    <aside>
       <div class="maps map">
           <managementMap-vue :pointE="this.form.point"></managementMap-vue>
       </div>
       <div class="floorMap maps" style="display:none;overflow: hidden;">
-        <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-          <img  id="imgPic" :src="this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
+        <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;" v-show="this.svgUrl != null">
+          <img  id="imgPic" v-show="this.svgUrl != null" :src="'/img'+this.svgUrl" class="img-responsive" style="position:relative;" @click="addDevice('GETMOUSEPOSINPIC',$event)">
         </div>
+        <p style="color:#fff;text-align:center;margin-top:35%;" v-show="this.svgUrl == null">该楼层未添加平面图</p>
       </div>
     </aside>
   </div>
@@ -517,17 +518,22 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               //console.log(this.form.unitName);
             }
           })
-          if(curVal !== oldVal){
-            this.seeFloor = false ;
-            this.seeRoom = false ;
-          }
-          
           this.form.buildingId = '';
           this.form.buildingName = '';
           this.form.floorId = '';
           this.form.roomId = '';
           this.form.floorNumber = '';
           this.form.roomNumber = '';
+          this.form.point = '';
+          if(curVal !== oldVal){
+            this.seeFloor = false ;
+            this.seeRoom = false ;
+          }
+          if(this.form.buildingId == '' && this.form.buildingId ==  null){
+            this.seeFloor = false ;
+            this.seeRoom = false ;
+          }
+          
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
@@ -539,8 +545,13 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             this.seeFloor = false ;
             this.seeRoom = false ;
           }
+          if(this.form.buildingId == '' && this.form.buildingId ==  null){
+            this.seeFloor = false ;
+            this.seeRoom = false ;
+          }
           if(this.form.buildingId !== '' && this.form.buildingId !== 0){
-            this.seeRoom = true ;
+            this.seeFloor = true ;
+            this.seeRoom = false ;
           }
           this.form.floorId = '';
           this.form.roomId = '';
@@ -565,7 +576,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             $('.map').hide();
             $('.floorMap').show();
           }
-          this.floor_btn(this.form.floorId);
+          this.floor_btn(this.form.floorId);  
           if(this.form.floorId !== 0){
             this.formRoomSearch(this.form.floorId);
           }

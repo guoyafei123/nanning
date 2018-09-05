@@ -1,10 +1,16 @@
 <template>
 	<section class="min-map">
 		<!-- 关闭小窗 -->
+<<<<<<< HEAD
 		<a  class="min-map-cloase">关闭</a>
+=======
+		<a class="min-map-cloase"@click="closeMinimap()">关闭</a>
+>>>>>>> 03c976ee5f71b967d2968836d4b4f317d7142878
 		<!-- 上翻 -->
-		<a class="arrow-prev" data-toggle="tooltip" title="上翻">
+		<a class="arrow-prev">
+			<el-tooltip content="鼠标滚动上翻" placement="top">
 			<i class="el-icon-arrow-up"></i>
+			</el-tooltip>
 		</a>
 		<!-- 主体 -->
 		<div class="min-cont">
@@ -24,7 +30,9 @@
 			    		</h5>
 					</figure>
 					<!-- 关闭按钮 -->
-					<!-- <a><i class="el-icon-error" data-toggle="tooltip" title="关闭"></i></a> -->
+					<el-tooltip content="关闭" placement="top">
+						<a><i class="el-icon-error"></i></a>
+					</el-tooltip>
 					<!-- 报警源 -->
 					<!-- <strong><span>A34F5E65R2</span></strong> -->
 					<!-- 警报点位 -->
@@ -48,7 +56,9 @@
 			    		</h5>
 					</figure>
 					<!-- 关闭按钮 -->
-					<!-- <a><i class="el-icon-error" data-toggle="tooltip" title="关闭"></i></a> -->
+					<el-tooltip content="关闭" placement="top">
+						<a><i class="el-icon-error"></i></a>
+					</el-tooltip>
 					<!-- 报警源 -->
 					<!-- <strong><span>A34F5E65R2</span></strong> -->
 					<!-- 警报点位 -->
@@ -65,9 +75,11 @@
 				</li>
 			</ul>
 		</div>
-		<!-- 下翻 -->
-		<a class="arrow-next" data-toggle="tooltip" title="下翻">
-			<i class="el-icon-arrow-down"></i>
+		<!-- 下翻 -->		
+		<a class="arrow-next">
+			<el-tooltip content="鼠标滚动下翻" placement="top">
+				<i class="el-icon-arrow-down"></i>
+			</el-tooltip>
 		</a>
 	</section>
 </template>
@@ -82,6 +94,10 @@
 			}
 		},
 		methods: {
+			// 关闭集合地图
+			closeMinimap() {
+				$("#min-map").hide();
+			},
 			dialogVisibles(item,type){
 				if(type==1){
 					if(item.alarmsum!=null){

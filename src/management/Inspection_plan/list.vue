@@ -25,7 +25,7 @@
             <el-input v-model="form.name" class="col-sm-10"></el-input>
           </el-form-item>
           <el-form-item label="所属单位" prop="region1"  class="not-null">
-            <el-select v-model="region1" placeholder="请选择" :disabled="isdisabled" class="select col-sm-4">
+            <el-select v-model="form.region1" placeholder="请选择" :disabled="isdisabled" class="select col-sm-4">
               <!-- <el-option label="全部单位" value=""></el-option> -->
               <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -37,7 +37,7 @@
           </el-form-item>
           <el-form-item label="起点" prop="building" class="line-start not-null col-sm-12">
             <el-select
-              v-model="building"
+              v-model="form.building"
             placeholder="选择建筑"  class="start" :disabled="isdisabled">
               <el-option label="室外" value="0"></el-option>
               <el-option
@@ -86,7 +86,7 @@
           </el-form-item>
           <el-form-item label="终点" prop="buildings" class="line-end not-null col-sm-12">
             <el-select
-              v-model="buildings"
+              v-model="form.buildings"
               placeholder="选择建筑" class="end" :disabled="isdisableds">
               <el-option label="室外" value="0"></el-option>
               <el-option
@@ -150,7 +150,7 @@
               </ul>
             </div>
             <el-select
-              v-model="buildingNode"
+              v-model="form.buildingNode"
               placeholder="选择建筑" class="Node">
               <el-option label="室外" value="0"></el-option>
               <el-option
@@ -219,12 +219,15 @@
           form: {
             name: '',//路线名称
             region: '',//巡检类型
-            region2:''//巡检类型
+            region1:'',//选择单位
+            region2:'',//巡检类型
+            building:'',//选择建筑（开始）
+            buildings:'',//选择建筑（结束）
+            buildingNode:'',//选择建筑节点
           },
-          region1:'',//选择单位
-          building:'',//选择建筑（开始）
-          buildings:'',//选择建筑（结束）
-          buildingNode:'',//选择建筑节点
+          
+          
+          
           floor:'',//选择楼层（开始）
           floors:'',//选择楼层（结束）
           floorNode:'',//选择楼层节点
@@ -328,7 +331,7 @@
               //起点
               this.buildList.forEach((item,index)=>{
                 // //console.log(item.id)
-                if(item.id == this.building){
+                if(item.id == this.form.building){
                   // //console.log(item.name);
                   buildListName = item.name;
                 }
@@ -352,7 +355,7 @@
               //终点
               this.buildLists.forEach((item,index)=>{
                 // //console.log(item.id)
-                if(item.id == this.buildings){
+                if(item.id == this.form.buildings){
                   // //console.log(item.name);
                   buildListsName = item.name;
                 }
@@ -374,13 +377,13 @@
               });
 
 
-              if(this.building !== 0 && this.building !== '0'){//起点
-                this.inspectionNodes.push({sorting:0,buildingId:this.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
+              if(this.form.building !== 0 && this.form.building !== '0'){//起点
+                this.inspectionNodes.push({sorting:0,buildingId:this.form.building,buildingName:buildListName,floorId:this.floor,floorNumber:floorListName,roomId:this.room,roomNumber:roomListName,deviceId:this.equipment,deviceName:equipmentListName});
               }else{
                 this.inspectionNodes.push({sorting:0,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipment,deviceName:equipmentListName});
               }
-              if(this.buildings !== 0 && this.buildings !== '0'){//终点
-                this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
+              if(this.form.buildings !== 0 && this.form.buildings !== '0'){//终点
+                this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:this.form.buildings,buildingName:buildListsName,floorId:this.floors,floorNumber:floorListsName,roomId:this.rooms,roomNumber:roomListsName,deviceId:this.equipments,deviceName:equipmentListsName});
               }else{
                 this.inspectionNodes.push({sorting:this.inspectionNodes.length+1,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:this.equipments,deviceName:equipmentListsName});
               }
@@ -419,7 +422,7 @@
           //中间节点
           this.buildListNode.forEach((item,index)=>{
             // //console.log(item.id)
-            if(item.id == this.buildingNode){
+            if(item.id == this.form.buildingNode){
               // //console.log(item.name);
               buildId = item.id;
               buildName = item.name;
@@ -454,14 +457,14 @@
 
           //添加节点数组的内容
 
-          if(this.buildingNode !== 0 && this.buildingNode !== '0'){//节点
+          if(this.form.buildingNode !== 0 && this.form.buildingNode !== '0'){//节点
             this.inspectionNodes.push({sorting:this.inspectionListIndex,buildingId:buildId,buildingName:buildName,floorId:floorId,floorNumber:floorName,roomId:roomId,roomNumber:roomName,deviceId:deviceId,deviceName:equipmentName});
             this.inspectionListNode.push({build:buildName,floor:floorName,room:roomName,equipment:equipmentName})
           }else{
             this.inspectionNodes.push({sorting:this.inspectionListIndex,buildingId:0,buildingName:'室外',floorId:0,floorNumber:'',roomId:0,roomNumber:'',deviceId:deviceId,deviceName:equipmentName});
             this.inspectionListNode.push({build:'室外',floor:'',room:'',equipment:equipmentName})
           }
-          this.buildingNode = '';
+          this.form.buildingNode = '';
 
           //获取数组长度   inspectionNodes
           //console.log(this.inspectionNodes.length+1);
@@ -653,11 +656,11 @@
         inspectionNode(){
           var unitName = '';
           this.optionList.forEach((item,index)=>{
-            if(item.id == this.region1){
+            if(item.id == this.form.region1){
               unitName = item.name;
             }
           });
-          var inspectionNodes = { name:this.form.name,type:this.form.region2,unitId:this.region1,unitName:unitName,inspectionNodes:this.inspectionNodes };
+          var inspectionNodes = { name:this.form.name,type:this.form.region2,unitId:this.form.region1,unitName:unitName,inspectionNodes:this.inspectionNodes };
           this.$post("/api/admin/inspection/insertInspectionPlan",inspectionNodes,{
             headers: {
               'Content-Type': 'application/json'
@@ -679,6 +682,17 @@
         $('.modal-body .el-input__inner').css({'background-color':'#111','border-color':'#282828','border-radius':'0'});
         this.unitSearch();
       },
+      computed:{
+        region1(){
+          return this.form.region1 ;
+        },
+        building(){
+          return this.form.building ;
+        },
+        buildings(){
+          return this.form.buildings ;
+        }
+      },
       watch:{
         // form:{
         //   //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
@@ -691,29 +705,29 @@
         //   deep:true
         // },
         region1(curVal,oldVal){
-          this.region1 = curVal ;
-          this.buildSearch(this.region1);
-          this.buildSearchs(this.region1);
-          this.buildSearchNode(this.region1);
+          this.form.region1 = curVal ;
+          this.buildSearch(this.form.region1);
+          this.buildSearchs(this.form.region1);
+          this.buildSearchNode(this.form.region1);
         },
         building(curVal,oldVal){
-          this.building = curVal ;
-          //console.log(this.building);
-          //console.log(typeof this.building)
-          if(this.building !== 0 && this.building !== '0'){
+          this.form.building = curVal ;
+          //console.log(this.form.building);
+          //console.log(typeof this.form.building)
+          if(this.form.building !== 0 && this.form.building !== '0'){
             $('.startFloor').show();
             $('.startDevice').hide();
             this.floor = '';
             this.room = '';
             this.equipment = '';
-            this.floorSearch(this.building);
+            this.floorSearch(this.form.building);
           }else{
             $('.startFloor').hide();
             $('.startRoom').hide();
             $('.startDevice').show();
             this.equipment = '';
-            console.log(this.building)
-            this.equipmentSearchOut(this.region1,this.building);
+            console.log(this.form.building)
+            this.equipmentSearchOut(this.form.region1,this.form.building);
           }
         },
         floor(curVal,oldVal){
@@ -733,21 +747,21 @@
           }
         },
         buildings(curVal,oldVal){
-          this.buildings = curVal ;
-          // //console.log(this.building);
-          if(this.buildings !== 0 && this.buildings !== '0'){
+          this.form.buildings = curVal ;
+          // //console.log(this.form.building);
+          if(this.form.buildings !== 0 && this.form.buildings !== '0'){
             $('.endFloor').show();
             $('.endDevice').hide();
             this.floors = '';
             this.rooms = '';
             this.equipments = '';
-            this.floorSearchs(this.buildings);
+            this.floorSearchs(this.form.buildings);
           }else{
             $('.endFloor').hide();
             $('.endRoom').hide();
             $('.endDevice').show();
             this.equipments = '';
-            this.equipmentSearchsOut(this.region1,this.buildings);
+            this.equipmentSearchsOut(this.form.region1,this.form.buildings);
           }
         },
         floors(curVal,oldVal){
@@ -767,20 +781,20 @@
           }
         },
         buildingNode(curVal,oldVal){
-          this.buildingNode = curVal ;
-          if(this.buildingNode !== 0 && this.buildingNode !== '0'){
+          this.form.buildingNode = curVal ;
+          if(this.form.buildingNode !== 0 && this.form.buildingNode !== '0'){
             $('.NodeFloor').show();
             $('.NodeDevice').hide();
             this.floorNode = '';
             this.roomNode = '';
             this.equipmentNode = '';
-            this.floorSearchNode(this.buildingNode);
+            this.floorSearchNode(this.form.buildingNode);
           }else{
             $('.NodeFloor').hide();
             $('.NodeRoom').hide();
             $('.NodeDevice').show();
             this.equipmentNode = '';
-            this.equipmentSearchNodeOut(this.region1,this.buildingNode);
+            this.equipmentSearchNodeOut(this.form.region1,this.form.buildingNode);
           }
         },
         floorNode(curVal,oldVal){
