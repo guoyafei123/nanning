@@ -48,7 +48,10 @@
 
                     </div>
                     <div class="col-sm-3 text-center">
-                      <span class="size-36 font-red">{{buildDataTotalScore ? buildDataTotalScore : "-"}}</span>
+                      <span v-if="buildDataTotalScore < 2" class="size-36 font-red">{{buildDataTotalScore ? buildDataTotalScore : "-"}}</span>
+                      <span v-if="buildDataTotalScore >=2 && buildDataTotalScore < 4" class="size-36 font-orange">{{buildDataTotalScore ? buildDataTotalScore : "-"}}</span>
+                      <span v-if="buildDataTotalScore >=4 && buildDataTotalScore < 6" class="size-36 font-yellow">{{buildDataTotalScore ? buildDataTotalScore : "-"}}</span>
+                      <span v-if="buildDataTotalScore>=6" class="size-36 font-blue">{{buildDataTotalScore ? buildDataTotalScore : "-"}}</span>
                       <small>安全评分</small>
 							</div>
 						</div>

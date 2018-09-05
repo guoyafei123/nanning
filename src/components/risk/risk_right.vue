@@ -19,7 +19,10 @@
 							<span class="size-20 font-blue">{{unitInfo.name}}</span>
 							<span class="float-right">
 								<el-tooltip content="安全评分" placement="top">
-			                          <span class="bgbox-max bg-blue font-black size-10">单位评分{{unitInfo.totalScore}}</span>
+									<span v-if="unitInfo.totalScore < 2" class="bgbox-max bg-red font-black size-10">单位评分{{unitInfo.totalScore}}</span>
+									<span v-if="unitInfo.totalScore >=2 && unitInfo.totalScore < 4" class="bgbox-max bg-orange font-black size-10">单位评分{{unitInfo.totalScore}}</span>
+									<span v-if="unitInfo.totalScore >=4 && unitInfo.totalScore < 6" class="bgbox-max bg-yellow font-black size-10">单位评分{{unitInfo.totalScore}}</span>
+									<span v-if="unitInfo.totalScore>=6" class="bgbox-max bg-blue font-black size-10">单位评分{{unitInfo.totalScore}}</span>
 			                      </el-tooltip>
 							</span>
 						</p>
@@ -33,7 +36,10 @@
 						<p>
 							<span class="size-20 font-blue">{{itemData.buildingName}}</span>
 							<span class="float-right">
-                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
+								<span v-if="buildScore < 2" class="bgbox-max bg-red font-black size-10"  data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
+								<span v-if="buildScore >=2 && buildScore < 4" class="bgbox-max bg-orange font-black size-10"  data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
+								<span v-if="buildScore >=4 && buildScore < 6" class="bgbox-max bg-yellow font-black size-10"  data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
+								<span v-if="buildScore>=6" class="bgbox-max bg-blue font-black size-10"  data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
 							</span>
 						</p>
 					</div>

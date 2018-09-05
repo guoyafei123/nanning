@@ -7,8 +7,10 @@
 					<canvas id="canvas-big" width="260" height="200"></canvas>
 				</div>
 				<div class="tool-charmaxvalue">
-					<p class="line-height86 font-blue">{{unitAssessScore}}</p>
-					<!-- {{unitAssessScore?unitAssessScore:"0"}} -->
+					<p v-if="unitAssessScore < 2" class="line-height86 font-red">{{unitAssessScore}}</p>
+					<p v-if="unitAssessScore >=2 && unitAssessScore < 4" class="line-height86 font-orange">{{unitAssessScore}}</p>
+					<p v-if="unitAssessScore >=4 && unitAssessScore < 6" class="line-height86 font-yellow">{{unitAssessScore}}</p>
+					<p v-if="unitAssessScore>=6" class="line-height86 font-blue">{{unitAssessScore}}</p>
 				</div>
 			</div>
 
@@ -60,9 +62,9 @@
 											</el-tooltip>
 										</td>
 										<td class="safe">
-												<span v-if="Number(10-item.totalScore/10).toFixed(1)< 2" class="bgbox-max bg-red font-black">{{Number(10-item.totalScore/10).toFixed(1)}}</span>
-												<span v-if="Number(10-item.totalScore/10).toFixed(1)>=2 && Number(10-item.totalScore/10).toFixed(1) < 4" class="bgbox-max bg-red font-black">{{Number(10-item.totalScore/10).toFixed(1)}}</span>
-												<span v-if="Number(10-item.totalScore/10).toFixed(1)>=4 && Number(10-item.totalScore/10).toFixed(1) < 6" class="bgbox-max bg-red font-black">{{Number(10-item.totalScore/10).toFixed(1)}}</span>
+												<span v-if="Number(10-item.totalScore/10).toFixed(1)< 2" class="bgbox-max bg-red font-red">{{Number(10-item.totalScore/10).toFixed(1)}}</span>
+												<span v-if="Number(10-item.totalScore/10).toFixed(1)>=2 && Number(10-item.totalScore/10).toFixed(1) < 4" class="bgbox-max bg-red font-orange">{{Number(10-item.totalScore/10).toFixed(1)}}</span>
+												<span v-if="Number(10-item.totalScore/10).toFixed(1)>=4 && Number(10-item.totalScore/10).toFixed(1) < 6" class="bgbox-max bg-red font-yellow">{{Number(10-item.totalScore/10).toFixed(1)}}</span>
 												<span v-if="Number(10-item.totalScore/10).toFixed(1)>=6" class="bgbox-max bg-blue font-black">{{Number(10-item.totalScore/10).toFixed(1)}}</span>
 										</td>
 										<td class="risk">

@@ -159,7 +159,10 @@
 								<p>
 									<span class="size-20 font-blue">中心小学</span>
 									<el-tooltip content="安全评分" placement="top">
-									<span class="bgbox-min bg-blue font-black size-10">评分6.9</span>
+									<span v-if="unitTotalScore < 2" class="bgbox-min bg-red font-red">评分:{{unitTotalScore}}</span>
+									<span v-if="unitTotalScore >=2 && unitTotalScore < 4" class="bgbox-min bg-red font-orange">评分:{{unitTotalScore}}</span>
+									<span v-if="unitTotalScore >=4 && unitTotalScore < 6" class="bgbox-min bg-red font-yellow">评分:{{unitTotalScore}}</span>
+									<span v-if="unitTotalScore>=6" class="bgbox-min bg-blue font-black">评分:{{unitTotalScore}}</span>
 								</el-tooltip>
 								</p>
 								<p class="text-left padding0">
@@ -426,6 +429,7 @@
 					]
 				},
 				dateValue: "",
+				unitTotalScore:7.5,
 				queryInspectionNameList: Object,
 				queryInspectionNameListvalue: "全部建筑",
 				// 表格-请求

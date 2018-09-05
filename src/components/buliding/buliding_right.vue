@@ -29,7 +29,10 @@
                             <p>
                             <span class="size-20 font-blue">{{buildBaseInfo.name?buildBaseInfo.name:"暂无名称"}}</span>
                             <el-tooltip content="安全评分" placement="top">
-                            <span class="bgbox-min bg-blue font-black size-10">评分{{buildTotalScore ? buildTotalScore:"0"}}</span>
+                            <span v-if="buildTotalScore < 2" class="bgbox-min bg-red font-red">{{buildTotalScore}}</span>
+                            <span v-if="buildTotalScore >=2 && unitAssessScore < 4" class="bgbox-min bg-red font-orange">{{buildTotalScore}}</span>
+                            <span v-if="buildTotalScore >=4 && unitAssessScore < 6" class="bgbox-min bg-red font-yellow">{{buildTotalScore}}</span>
+                            <span v-if="buildTotalScore>=6" class="bgbox-min bg-blue font-black">{{buildTotalScore}}</span>
                           </el-tooltip>
                             <span class="float-right">
                                     <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property?buildBaseInfo.property:"无"}}</span>
@@ -184,8 +187,10 @@
                         </span>
                     </p>
                     <p class="col-sm-12 text-left padding0">
-                        <span>
-                            <i class="fas fa-industry"></i> {{Number(10-buildCountDataSocres.totalScore/10).toFixed(1)?Number(10-buildCountDataSocres.totalScore/10).toFixed(1):"0"}}</span>
+                        <span v-if="Number(10-buildCountDataSocres.totalScore/10).toFixed(1) < 2" class="bgbox-max bg-red font-red">评分:{{Number(10-buildCountDataSocres.totalScore/10).toFixed(1)}}</span>
+                        <span v-if="Number(10-buildCountDataSocres.totalScore/10).toFixed(1) >=2 && Number(10-buildCountDataSocres.totalScore/10).toFixed(1) < 4" class="bgbox-max bg-red font-orange">评分:{{Number(10-buildCountDataSocres.totalScore/10).toFixed(1)}}</span>
+                        <span v-if="Number(10-buildCountDataSocres.totalScore/10).toFixed(1) >=4 && Number(10-buildCountDataSocres.totalScore/10).toFixed(1) < 6" class="bgbox-max bg-red font-yellow">评分:{{Number(10-buildCountDataSocres.totalScore/10).toFixed(1)}}</span>
+                        <span v-if="Number(10-buildCountDataSocres.totalScore/10).toFixed(1)>=6" class="bgbox-max bg-blue font-black">评分:{{Number(10-buildCountDataSocres.totalScore/10).toFixed(1)}}</span>
                     </p>
                     <!-- <P class="col-sm-5 text-right padding0">
                         <span class="text-right">
