@@ -41,7 +41,7 @@
 						<ul class="toolcount-left padding-left0" id="toolcount">
 							<li class="col-xs-offset-1 col-xs-10 margin-bottom10 padding-left5">
 								<!-- <h1 class="toolcount-p1">8.7</h1> -->
-								<img :src="userInfo.headImgUrl" class="img-responsive img-circle">
+								<img :src="imageP+userInfo.headImgUrl" class="img-responsive img-circle">
 								<!-- <img src=""+{{userInfo.headImgUrl?userInfo.headImgUrl:"../../assets/images/head.jpg"}}+"" class="img-responsive img-circle" alt="段亚伟"> -->
 							</li>
 							<li class="col-xs-offset-1 col-xs-10 padding-left5 text-center">
@@ -225,6 +225,7 @@
 </template>
 
 <script>
+	import Global from '../../Global.vue';
 	import moment from "moment";
 	import { mapState } from "vuex";
 	// import Per_leftVue from './per_left.vue';
@@ -307,6 +308,7 @@
 					pageSize: 10
 				},
 				tableData: Object,
+				imageP:''
 			}
 
 		},
@@ -544,6 +546,7 @@
 			},
 		},
 		mounted() {
+			this.imageP=Global.imgPath;
 			// 左侧
 			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
 				this.queryUserCount_parameter.unitId=sessionStorage.unitid;

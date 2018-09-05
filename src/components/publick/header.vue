@@ -163,7 +163,7 @@
       </div>
       <div class="dialog-content text-center clearfix">
         <div class="myhead">
-          <img :src="userInfoData.headImgUrl" class="img-responsive img-circle center-block">
+          <img :src="imageP+userInfoData.headImgUrl" class="img-responsive img-circle center-block">
           <h3>{{userInfoData.nickName?userInfoData.nickName:'-'}}</h3>
           <h4>角色：<span>{{userInfoData.roleName?userInfoData.roleName:'-'}}</span></h4><h4>账号：<span>{{userInfoData.username?userInfoData.username:'-'}}</span>
         </h4>
@@ -796,6 +796,7 @@
         getUnitsSynthesis_param: {
           unitId: 13
         },
+        imageP:''
       }
     },
     computed: mapState([
@@ -813,7 +814,7 @@
     },
     //其他
     mounted() {
-      // //console.log(this.userinfo);
+      this.imageP=Global.imgPath;
       this.userAnalyse()
       this.getBuildingData()
       this.getDeviceData()
