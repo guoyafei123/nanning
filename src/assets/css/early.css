@@ -307,7 +307,7 @@
         padding: 2px 4px;
     }
     .fault-list .icon-early:before {
-        content: "\e681";
+        content: "\e685a";
     }
     /*隐患*/
     .dangers-list article h5 i:first-child,

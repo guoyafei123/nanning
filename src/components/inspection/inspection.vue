@@ -112,7 +112,7 @@
 												<td>{{item.userName}}</td>
 
 												<!-- <td>{{item.status}}</td> -->
-												<td class="font-red " style="max-width:20px !important;">
+												<td>
 													<el-tooltip content="已领取" placement="top">
 														<i v-if="item.status==1" class="icon iconfont icon-yilingqu-mian- font-yellow"></i>
 													</el-tooltip>
@@ -120,7 +120,7 @@
 														<i v-if="item.status==2" class="icon iconfont icon-xunjianzhong-mian-1 font-blue"></i>
 													</el-tooltip>
 													<el-tooltip content="已完成" placement="top">
-														<i v-if="item.status==3" class="icon iconfont icon-yiwancheng-mian- font-gray-999"></i>
+														<i v-if="item.status==3" class="icon iconfont icon-yiwancheng-mian- font-gray-ccc"></i>
 													</el-tooltip>
 													<el-tooltip content="未完成" placement="top">
 														<i v-if="item.status==4" class="icon iconfont icon-test font-red"></i>
@@ -286,7 +286,7 @@
 											</div>
 											<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 												<div class="panel-body padding0">
-													<ul class="size-12 font-gray-999 tablist-itemul">
+													<ul class="size-12 font-gray-ccc tablist-itemul">
 														<li v-for="item in queryPlanUserDetails.listNode">
 															<span>{{item.buildingName}}
 															</span>
