@@ -686,16 +686,19 @@
         $('.add').hide();
         this.floor_index = this.index;
         var file = "file";
-        let array={ 'buildingId': this.form.buildingMapsId, 'floor': this.floor_index, 'floorName': this.number}
-              
-              this.table_list.push(array);
-              //console.log(this.table_list);
+        if(this.$route.path == '/Building_management/maps'){
+          var buildingId = this.form.buildingMapsId ;
+        }else{
+          var buildingId = this.buildingId ;
+        }
+        let array={ 'buildingId': buildingId, 'floor': this.floor_index, 'floorName': this.number}
+        this.table_list.push(array);
         $.ajaxFileUpload({
             url: '/api/building/addBuildingFloor', //用于文件上传的服务器端请求地址
             /* secureuri : false, */ //一般设置为false
             fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
             data : {
-              'buildingId':this.form.buildingMapsId,
+              'buildingId':buildingId,
               'floor':this.floor_index,
               'floorName':this.number
             },
@@ -736,7 +739,7 @@
         this.table_list.forEach((item,index)=>{
           // //console.log(item.floorName)
           if(indexs == index){
-            //console.log(item.buildingId)
+            console.log(item.buildingId)
             $('.weixiugai:eq('+indexs+')').show();
             $('.xiugai:eq('+indexs+')').hide();
             $('.weixiugai_edit:eq('+indexs+')').show();
@@ -748,7 +751,7 @@
                 fileElementId: file,  //文件上传控件的id属性  <input type="file" id="file" name="file" /> 注意，这里一定要有name值
                 data : {
                   'id' : item.id,
-                  'buildingId':item.form.buildingMapsId,
+                  'buildingId':item.buildingId,
                   'floor':item.floor,
                   'floorName':item.floorName,
                   'svgUrl':item.svgUrl
@@ -784,7 +787,11 @@
         }).then(response=>{
           // //console.log(response.data);
           this.table_list.splice(indexs,1);
-          this.findPageBuildIngFloor();
+          if(this.$route.path == '/Building_management/maps'){
+            this.findPageBuildIngFloor(this.form.buildingMapsId);
+            return ;
+          }
+          this.findPageBuildIngFloor(this.buildingId);
         })
       },
       room_build(item){
@@ -831,7 +838,7 @@
           buildingId:build
         }).then(response=>{
           //console.log(response.data.pageBuildIng.result);
-            this.table_list = response.data.pageBuildIng.result;
+          this.table_list = response.data.pageBuildIng.result;
         })
       },
 
@@ -1224,7 +1231,7 @@
                 this.form.UnitName = item.unitName ;
               }
             })
-            this.findPageBuildIngFloor(this.buildingMapsId);
+            this.findPageBuildIngFloor(this.form.buildingMapsId);
           }
           return ;
         }

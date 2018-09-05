@@ -279,7 +279,7 @@
                   </div>
                   <div class="col-sm-8">
                     <span>持续时长 </span>
-                    <strong class="font-blue">{{this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.cancelTime)}}秒</strong>
+                    <strong class="font-blue" v-if="queryFireSituationAlarmData.cancelTime!=null">{{this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.cancelTime)}}秒</strong>
                   </div>
                   <div class="col-sm-4">
                     <span>报警源 </span>
@@ -507,10 +507,10 @@
                       <span>图片视频 </span>
                       <ul class="fire-media list-inline">
                         <li v-for="video in item.confirmUrls">
-                          <video :src="ossUrl+video" alt="" height="80"></video>
+                          <video :src="Global.imgPath+video" alt="" height="80"></video>
                         </li>
                         <li v-for="img in item.imgUrl">
-                          <img :src="ossUrl+img" alt="" height="80">
+                          <img :src="Global.imgPath+img" alt="" height="80">
                         </li>
                       </ul>
                     </div>
@@ -529,7 +529,7 @@
                       <span>相关节点 </span>
                       <strong v-for="(item,index) in queryLastTimeInspectionData.inspectionNodes"
                               v-if="index<1 || index >(queryLastTimeInspectionData.inspectionNodes.length-2)">
-                        {{item.buildingName}}{{item.floorNumber}}{{item.roomNumber}}{{item.deviceName}};
+                        {{index<1?'起点：':'终点：'}}{{item.buildingName}}{{item.floorNumber}}{{item.roomNumber}}{{item.deviceName}};
                       </strong>
                     </div>
                     <div class="col-sm-4">
@@ -558,17 +558,15 @@
                 <!-- 筛选 -->
                 <section class="my-filter padding5 bg-gray-111 clearfix">
                   <!-- 日期筛选 -->
-                  <div class="pull-left padding-left10">
+                  <div class="pull-left padding-left50">
                     <section>
                       <div class="upd-elmdate">
-                        <el-date-picker
-                          size="mini"
-                          v-model="value4"
-                          type="datetimerange"
-                          align="right"
-                          range-separator="至"
-                          start-placeholder="开始日期"
-                          end-placeholder="结束日期">
+                       <el-date-picker
+                        v-model="dateValue"
+                        type="datetime"
+                        placeholder="选择日期时间"
+                        align="center"
+                        :picker-options="pickerOptions1">
                         </el-date-picker>
                       </div>
                     </section>
@@ -646,7 +644,7 @@
   import messagesVue from './messages.vue'
   import moment from 'moment'
   import {mapState} from 'vuex'
-
+  import Global from "../../Global.vue";
   export default {
     components: {
       'messages-vue': messagesVue,
@@ -656,34 +654,29 @@
       return {
         //时间
         date: new Date(),
-        pickerOptions2: {
+        pickerOptions1: {
           shortcuts: [{
-            text: '最近一周',
+            text: '今天',
             onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', [start, end])
+              picker.$emit('pick', new Date());
             }
           }, {
-            text: '最近一个月',
+            text: '昨天',
             onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-              picker.$emit('pick', [start, end])
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
             }
           }, {
-            text: '最近三个月',
+            text: '一周前',
             onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-              picker.$emit('pick', [start, end])
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
             }
           }]
         },
-        value4:null,
+        dateValue:null,
         // 弹窗
         personnelInfo: false,
         fireAnalysis: false,
@@ -727,7 +720,6 @@
         punchExpireTime: '',
         punchInterval: null,
         //火情分析列表数据
-        ossUrl:' img.nanninglq.51play.com',
         queryFirehistoryData_parameter: {
           buildingId: 3,
           startTime: '2018-08-31 18:24:23'
@@ -804,10 +796,6 @@
         getUnitsSynthesis_param: {
           unitId: 13
         },
-
-        ins_queryInspectionNameList:{
-          name:["全部数据","巡检人数","巡检任务完成次数","报警数","报警确认数","隐患数","危险品数","温度","湿度","单位安全评分","建筑安全评分"]
-        }
       }
     },
     computed: mapState([
@@ -817,7 +805,11 @@
       userinfo() {
         //this.getuserinfo=this.userinfo;
         //console.log(this.userinfo);
-      }
+      },
+      dateValue(val){//普通的watch监听
+        this.queryFirehistoryData_parameter.startTime = val;
+        this.queryFirehistoryData();
+      },
     },
     //其他
     mounted() {
@@ -843,13 +835,13 @@
       this.getPunch()
 
       //火情分析
-      this.queryFirehistoryData()
-      //this.queryAlarmLastTime()
-      this.queryLastTimeAlarm()
-      this.queryLastTimeTrouble()
-      this.queryLastTimeInspection()
-      this.getUnitsSynthesis()
-      this.getQueryUnitInfo()
+      this.queryFirehistoryData();
+      //this.queryAlarmLastTime();
+      this.queryLastTimeAlarm();
+      this.queryLastTimeTrouble();
+      this.queryLastTimeInspection();
+      this.getUnitsSynthesis();
+      this.getQueryUnitInfo();
       this.queryFireSituation();
     },
     beforeDestroy() {
@@ -1253,8 +1245,8 @@
           .then(err => {
             //console.log(err);
           })
-      }
-      ,
+      } ,
+
       //火情分析 起火单位最近数据
       queryAlarmLastTime() {
         this.$fetch('/api/alarmstats/queryAlarmLastTime', this.queryAlarmLastTime_param
@@ -1266,8 +1258,8 @@
           .then(err => {
             //console.log(err);
           })
-      }
-      ,
+      }  ,
+
       //起火位置相关最近一次报警记录
       queryLastTimeAlarm() {
         this.$fetch('/api/alarm/queryLastTimeAlarm', this.queryLastTimeAlarm_param

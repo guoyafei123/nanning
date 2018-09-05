@@ -21,13 +21,12 @@
           </el-form>
           <div class="main_nav_two float-right">
             <router-link to="/Building_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
-          <router-link to="/Building_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
+            <router-link to="/Building_management/maps"><span><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
           </div>
         </div>
         <div class="maps map">
-        <managementMap-vue></managementMap-vue>
+          <managementMap-vue></managementMap-vue>
         </div>
-        
         <div class="floorMap maps" style="display:none;">
           <ul class="list-unstyled floor-item">
               <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>

@@ -186,12 +186,12 @@
 				).then(response => {
 					if(response.data) {
 						this.queryAlarmData = response.data.result;
-						if(response.data.result.alarmLineChart) {
+						if(this.queryAlarmData.alarmLineChart.lineDate) {
 							this.draw_line(
-								"charalarm", this.queryAlarmData.alarmLineChart.lineChartsDate, this.queryAlarmData.alarmLineChart.lineChartsCount
+								"charalarm", this.queryAlarmData.alarmLineChart.lineDate, this.queryAlarmData.alarmLineChart.lineCount
 							);
 						} else {
-							var a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+							var a = [0, 1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
 							var b = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 							this.draw_line(
 								"charalarm", a, b
@@ -207,12 +207,12 @@
 				).then(response => {
 					if(response.data) {
 						this.queryTroubleData = response.data.result;
-						if(response.data.result.troubleLineChart) {
+						if(this.queryTroubleData.troubleLineChart.lineDate) {
 							this.draw_line(
-								"chartrouble", this.queryTroubleData.troubleLineChart.lineChartsDate, this.queryTroubleData.troubleLineChart.lineChartsCount
+								"chartrouble", this.queryTroubleData.troubleLineChart.lineDate, this.queryTroubleData.troubleLineChart.lineCount
 							);
 						} else {
-							var a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+							var a = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
 							var b = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 							this.draw_line(
 								"chartrouble", a, b
