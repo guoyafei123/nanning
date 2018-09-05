@@ -328,8 +328,8 @@
           return marker;
         },
         legend_landmarker(content,id) {
-          if(content.innerCount){
-            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.innerCount }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.innerCount }</span></i></div>`;
+          if(content.countofbuilding){
+            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
           }else if(content.count){
             var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.count }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.count }</span></i></div>`;
           }
@@ -495,44 +495,17 @@
             
           return html;
         },
+
         getunitlist() {
           this.$fetch("/api/unit/queryUnit")
           .then(response => {
             if(response) {
               var unitlist=response.data.unitList;
               unitlist.forEach(element => {
-                if(element.id == this.unitId){
-                  console.log(element)
-                  var a=element.pointX;
-                  var b=element.pointY;
-                  this.mp.addOverlay(
-                    this.addlandmarkLine(element.name, "1", [a, b],37)
-                  );
-
-                  this.mp.setCenter(new BMap.Point(a, b));
-                }else{
-                  var a=element.pointX;
-                  var b=element.pointY;
-                  this.mp.addOverlay(
-                    this.addlandmarkLine(element.name, "1", [a, b],37)
-                  );  
-                }
-              });
-            }
-          })
-          .then(err => {
-          });
-        },
-        getbuildlist() {
-          this.$fetch("/api/building/selectNode",{unitId:this.unitId})
-          .then(response => {
-            if(response) {
-              var buildlist=response.data.list;
-              buildlist.forEach(element => {
                 var a=element.pointX;
                 var b=element.pointY;
                 this.mp.addOverlay(
-                  this.addpeople('', "3", [a,b],element.name)
+                  this.addlandmarkLine(element.name, "1", [a, b],37)
                 );
               });
             }
@@ -540,45 +513,21 @@
           .then(err => {
           });
         },
-
-        getunitlist1() {
-				this.$fetch("/api/unit/queryUnit")
-				.then(response => {
-					if(response) {
-						var unitlist=response.data.unitList;
-						unitlist.forEach(element => {
-							var a=element.pointX;
-							var b=element.pointY;
-							this.mp.addOverlay(
-                // this.addlandmark(element.name, "1", [a, b])
-                 this.addlandmarkLine(element.name, "1", [a, b],37)
-              );
-             
-						});
-					}
-				})
-				.then(err => {
-				});
-			},
-
-			getbuildlist1() {
-				this.$fetch("/api/building/selectNode",{unitId:null})
-				.then(response => {
-					if(response) {
-						var buildlist=response.data.list;
-						buildlist.forEach(element => {
-							var a=element.pointX;
-							var b=element.pointY;
-							// this.mp.addOverlay(
-							// 	this.addpeople('', "3", [a,b],element.name)
-              // );
-              this.mp.addOverlay(this.addlandmark(element.id,element.name,[a,b],37));
-						});
-					}
-				})
-				.then(err => {
-				});
-			},
+        getbuildlist() {
+          this.$fetch("/api/building/selectNode",{unitId:null})
+          .then(response => {
+            if(response) {
+              var buildlist=response.data.list;
+              buildlist.forEach(element => {
+                var a=element.pointX;
+                var b=element.pointY;
+                this.mp.addOverlay(this.addlandmark(element.id,element.name,[a,b],37));
+              });
+            }
+          })
+          .then(err => {
+          });
+        },
         tableDatas(){
           this.tableData.forEach(item => {
             //console.log(item.pointX);
@@ -605,7 +554,7 @@
             unitId:this.Unit
           }).then(res=>{
             console.log(res.data.deviceListInner);
-            this.deviceListInner = res.data.deviceListInner ;
+            this.deviceListInner = res.data.buildingList ;
             this.deviceListInner.forEach(item=>{
               this.mp.addOverlay(this.addlandmarker(item.buildingId,item,[item.pointX,item.pointY]));
               // this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
@@ -733,7 +682,6 @@
           if(this.$route.path == '/Building_management/maps'){
             this.tableDatas();
             this.unitId = this.buildUnit;
-            this.getunitlist();
           }
         },
         Unit(){
@@ -741,29 +689,24 @@
           if(this.$route.path == '/Equipment_management/maps'){
             this.DeviceMaps();
             this.unitId = this.Unit;
-            console.log(this.unitId)
-            this.getunitlist();
           }
         },
         dangerUnit(){
           this.mp.clearOverlays();
           if(this.$route.path == '/Dangerous_goods_management/maps'){
             this.Danger();
-            this.getunitlist();
           }
         },
         inspectionId(){
           this.mp.clearOverlays();
           if(this.$route.path == '/Inspection_plan/maps'){
             this.inspection();
-            this.getunitlist();
           }
         },
         currentPageDevice(){
           this.mp.clearOverlays();
           if(this.$route.path == '/Equipment_management/maps'){
             this.DeviceMaps();
-            this.getunitlist();
           }
         },
         pointB(){
@@ -831,8 +774,8 @@
         var mapStates = this.getMapToDiv('manage_map');
       
         this.mp = mapStates;
-        this.getunitlist1();
-        this.getbuildlist1();
+        this.getunitlist();
+        this.getbuildlist();
         if(this.$route.path == '/Building_management/maps'){
           this.mp.clearOverlays();
           this.tableDatas();
@@ -852,17 +795,14 @@
         if(this.$route.path == '/Equipment_management/maps'){
           this.mp.clearOverlays();
           this.DeviceMaps();
-          this.getunitlist();
         }
         if(this.$route.path == '/Dangerous_goods_management/maps'){
           this.mp.clearOverlays();
           this.Danger();
-          this.getunitlist();
         }
         if(this.$route.path == '/Inspection_plan/maps'){
           this.mp.clearOverlays();
           this.inspection();
-          this.getunitlist();
         }
         if(this.$route.path == '/Add_alarm/list'){
           this.mp.addEventListener("click", this.showInfoAdd_alarm);
