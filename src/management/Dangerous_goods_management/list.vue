@@ -88,10 +88,8 @@
               </el-date-picker>
             </div>
           </el-form-item> -->
-          <div class="col-sm-12">
-            <div class="row">
-              <el-form-item label="图片和视频" :label-width="formLabelWidth">
-                <el-upload 
+          <el-form-item label="图片和视频" :label-width="formLabelWidth" class="col-sm-12">
+            <el-upload 
                     list-type="picture-card" 
                     id="file"
                     :name="file"
@@ -102,12 +100,10 @@
                     :on-success="uploadSuccess"
                     :on-preview="handlePictureCardPreview" 
                     :on-remove="handleRemove">
-                    <i class="el-icon-upload"></i>
-                </el-upload>
-                <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
-              </el-form-item>
-            </div>
-          </div>          
+                    <i class="el-icon-plus"></i>
+              </el-upload>
+            <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
+          </el-form-item>
           <el-form-item label="描述" prop="cont" class="col-sm-12">
             <el-input
               type="textarea"

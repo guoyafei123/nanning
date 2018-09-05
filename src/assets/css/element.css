@@ -2,8 +2,18 @@
 /*.el-form-item__content {
   margin-top: 10px;
 }*/
+.el-upload--picture-card:hover i,
+.el-upload--picture-card:focus i {
+    color: #fff;
+}
+.el-upload--picture-card:hover,
+.el-upload:focus {
+    border-color: transparent;
+    color: #fff;
+    background-color: #333;
+}
 .el-upload-list--picture-card .el-upload-list__item,.el-upload--picture-card {
-    border: 1px solid #333;
+    border: 1px solid transparent;
     border-radius: 0; 
     width: 76px;
     height: 76px;  
@@ -12,12 +22,14 @@
 }
 .el-upload--picture-card {
     width: 76px;
-    height: 76px; 
+    height: 76px;
     line-height: 76px;
-    background-color: #111;
+    background-color: #222;
+    vertical-align: middle;
 }
 .el-upload--picture-card i {
   color: #999;
+  vertical-align: middle;
 }
 .el-upload--picture-card .el-upload__input {
   display: none!important;

@@ -16,7 +16,7 @@ export default {
       maxroom: 19,
       minroom: 1,
       zoom: 16,
-      point: [108.335801, 22.733686],
+      point:[],
       mp: Object,
       alarms: Object,
       listenerScale: 500,
@@ -483,7 +483,6 @@ export default {
       mapArr[divId] = map;
       return map;
     },
-
     getunitlist() {
       this.$fetch("/api/unit/queryUnit")
         .then(response => {
@@ -513,6 +512,259 @@ export default {
         })
         .then(err => {});
     },
+    getMapToDiv(divId) {
+      var MAP_STYLE_SMALL = [
+        {
+          featureType: "land",
+          elementType: "geometry",
+          stylers: {
+            color: "#000000ff",
+            hue: "#000000"
+          }
+        },
+        {
+          featureType: "highway",
+          elementType: "geometry",
+          stylers: {
+            color: "#444444ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "green",
+          elementType: "geometry",
+          stylers: {
+            color: "#000000ff"
+          }
+        },
+        {
+          featureType: "water",
+          elementType: "geometry",
+          stylers: {
+            color: "#181818"
+          }
+        },
+        {
+          featureType: "local",
+          elementType: "geometry",
+          stylers: {
+            color: "#222222ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "subway",
+          elementType: "all",
+          stylers: {
+            color: "#666666ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "railway",
+          elementType: "geometry",
+          stylers: {
+            color: "#999999ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "boundary",
+          elementType: "geometry",
+          stylers: {
+            color: "#666666ff",
+            weight: "1"
+          }
+        },
+        {
+          featureType: "building",
+          elementType: "geometry",
+          stylers: {
+            color: "#333333ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "poilabel",
+          elementType: "all",
+          stylers: {
+            visibility: "off"
+          }
+        },
+        {
+          featureType: "railway",
+          elementType: "geometry",
+          stylers: {
+            color: "#333333ff"
+          }
+        },
+        {
+          featureType: "subway",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#666666ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "local",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#222222ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "arterial",
+          elementType: "geometry",
+          stylers: {
+            color: "#333333ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "arterial",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#333333ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "arterial",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#999999ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "manmade",
+          elementType: "geometry",
+          stylers: {
+            color: "#111111ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "manmade",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#222222ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "manmade",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#999999ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "subwaystation",
+          elementType: "geometry",
+          stylers: {
+            color: "#999999ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "highway",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#444444ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "highway",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#999999ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "district",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#bad616ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "district",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#ffffffff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "districtlabel",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#999999ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "city",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#d2f217ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "districtlabel",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#111111ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "city",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#111111ff",
+            visibility: "on"
+          }
+        },
+        {
+          featureType: "subway",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#ffffffff",
+            visibility: "on"
+          }
+        }
+      ];
+      var MAP_CENTER_POINT = new BMap.Point(this.point[0], this.point[1]);
+      var mapArr = {};
+      var map_id = ["right_top_map", "allmap"];
+      var map = mapArr[divId];
+      if (map != null && map != undefined && map_id.indexOf(divId) > -1) {
+        return map;
+      }
+      map = new BMap.Map(divId, {
+        enableMapClick: false
+      });
+      map.centerAndZoom(MAP_CENTER_POINT, this.zoom); // 初始化地图,设置中心点坐标和地图级别
+      map.setMinZoom(this.minroom);
+      map.setMaxZoom(this.maxroom);
+      map.disableDoubleClickZoom();
+      map.enableScrollWheelZoom();
+      map.setMapStyle({
+        styleJson: MAP_STYLE_SMALL
+      });
+      map.setCurrentCity("北京");
+      mapArr[divId] = map;
+      return map;
+    },
 
     getunitidbyheater(unitid) {
       if (unitid != null && unitid != 0) {
@@ -537,7 +789,7 @@ export default {
           })
           .then(err => {});
       } else {
-        this.mp.setCenter(new BMap.Point(108.335801, 22.733686));
+        this.mp.setCenter(new BMap.Point(Global.point[0],Global.point[1]));
       }
     },
 
@@ -1084,6 +1336,7 @@ export default {
     }
   },
   mounted() {
+    this.point=Global.point;
     var map = this.getMapToDiv("allmap");
     this.mp = map;
     var that = this;
