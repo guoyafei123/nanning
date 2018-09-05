@@ -136,7 +136,7 @@
                 <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
             </ul> 
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="this.svgUrl" class="img-responsive">
+              <img :src="'/img'+this.svgUrl" class="img-responsive">
             </div>
           </div>
           <div class="roomMap maps" style="display:none;">
@@ -144,7 +144,7 @@
               <li>{{ this.floorName }}</li>
             </ul>
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="this.roomSvgUrl" class="img-responsive">
+              <img :src="'/img'+this.roomSvgUrl" class="img-responsive">
             </div>
           </div>
       </div>      
@@ -208,9 +208,8 @@
                     </el-form-item>
                     <!-- <el-form-item label="经纬度" prop="point" class="not-null"> -->
                       <!-- <el-input v-model="form.point" class="col-sm-4"></el-input> -->
-                    <el-form-item label="经纬度" class="not-null">
-                      <el-input v-model="form.point.pointX" :disabled="true" class="col-sm-4"></el-input>
-                      <el-input v-model="form.point.pointY" :disabled="true" class="col-sm-4"></el-input>
+                    <el-form-item label="经纬度" prop="point" class="not-null">
+                      <el-input v-model="form.point" :disabled="true" class="col-sm-4"></el-input>
                     </el-form-item>
                     <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-4">
                       <el-input v-model.number="form.area" :disabled="true"></el-input>
@@ -326,10 +325,7 @@ import managementMapVue from '../managementMap';
           name:'',
           phone:'',
           // point:''
-          point:{
-            pointX:'',
-            pointY:''
-          }
+          point:[]
         },
         buildUnit:null,//选择单位
         optionList:[],//全部单位列表
@@ -377,10 +373,10 @@ import managementMapVue from '../managementMap';
           ],
           phone:[
             { required: true, trigger: 'blur', validator: validPhone }
+          ],
+          point:[
+            { required: true, trigger: 'blur', validator: Lng }
           ]
-          // point:[
-          //   { required: true, trigger: 'blur', validator: Lng }
-          // ]
         }
       }
     },
@@ -432,8 +428,8 @@ import managementMapVue from '../managementMap';
             this.form.property = item.property ;
             this.form.name = item.linkname ;
             this.form.phone = item.phone ;
-            this.form.point.pointX = item.pointX ;
-            this.form.point.pointY = item.pointY ;
+            this.form.point[0] = item.pointX ;
+            this.form.point[1] = item.pointY ;
           }
         })
         // $('#right').removeClass('position-fixed-right');
@@ -461,13 +457,22 @@ import managementMapVue from '../managementMap';
               'property':this.form.property,
               'linkname':this.form.name,
               'phone':this.form.phone,
-              'pointX':this.form.point.pointX,
-              'pointY':this.form.point.pointY,
+              'pointX':this.form.point[0],
+              'pointY':this.form.point[1],
               headers: {'Content-Type': 'application/json'}
             }).then(response=>{
               if(response){
                 if(response.status == 1){
                   console.log('修改建筑成功...'+ JSON.stringify(response));
+                   // 修改成功提示
+                  this.$message({
+                    dangerouslyUseHTMLString: true,
+                    message: '<strong> 修改成功</strong>',
+                    center: true,
+                    showClose: true,
+                    iconClass:'el-icon-circle-check',
+                    customClass:'edit-ok-notification'
+                  });
                   this.tableBuildList();
                 }else{
                   console.log('修改建筑失败...'+ JSON.stringify(response));
@@ -475,15 +480,7 @@ import managementMapVue from '../managementMap';
               }
             });
             $('.primary').attr('data-dismiss','modal');
-            // 修改成功提示
-            this.$message({
-              dangerouslyUseHTMLString: true,
-              message: '<strong> 修改成功</strong>',
-              center: true,
-              showClose: true,
-              iconClass:'el-icon-circle-check',
-              customClass:'edit-ok-notification'
-            });
+           
           } else {
             console.log('error submit!!');
             return false;

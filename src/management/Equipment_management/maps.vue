@@ -258,6 +258,11 @@ import managementMapVue from '../managementMap';
         this.table_list = [];
         this.floorSearch(this.building);
         this.$store.commit('buildDevice',this.building);
+      },
+      floor(curVal,oldVal){
+        this.floor = curVal ;
+        this.room = '';
+        //console.log(this.floor);
         if(this.building != 0 && this.building != '0'){
           $('.floorMap').show();
           $('.map').hide();
@@ -266,11 +271,6 @@ import managementMapVue from '../managementMap';
           $('.floorMap').hide();
           $('.map').show();
         }
-      },
-      floor(curVal,oldVal){
-        this.floor = curVal ;
-        this.room = '';
-        //console.log(this.floor);
         if(this.floor !== 0){
           this.roomSearch(this.floor);
           this.floor_btn(this.floor);
