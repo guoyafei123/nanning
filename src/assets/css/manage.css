@@ -909,8 +909,8 @@ height: 640px;
 /*上传*/
 .head-photo{  
   position:relative;
-  width: 80px;
-  height: 80px;
+  width: 76px;
+  height: 76px;
   margin-top: 5px;
   overflow:hidden;
   float:left;
@@ -921,30 +921,44 @@ height: 640px;
 .head-photo div {
   text-align: center;
   background-color: #222;
-  width: 80px;
-  height: 80px;
-  line-height: 80px;
+  width: 76px;
+  height: 76px;
+  line-height: 76px;
+}
+.head-photo:hover,
+.head-photo:focus,
+.head-photo div:hover,
+.head-photo div:focus,
+.head-photo input:hover,
+.head-photo input:focus {
+    border-color: transparent;
+    color: #fff;
+    background-color: #333!important;
 }
 .head-photo input {
   float: left;
   cursor: pointer;
-  width:80px;
-  height:80px;
+  width:76px;
+  height:76px;
   opacity: 0;
   filter: alpha(opacity=0);
   position: absolute;
   right:0;
   top:0;
 }
-.head-photo i.el-icon-plus {
-  font-size: 40px;
-  line-height: 80px;
+.head-photo i {
+  font-size: 28px;
+  line-height: 76px;
   color: #ccc;
 }
-.head-pic  {
+.head-photo:hover i,
+.head-photo:focus i {
+  color: #fff;
+}
+.head-pic {
   background-color: #222;
-  width: 80px;
-  height: 80px;
+  width: 76px;
+  height: 76px;
   margin-top: 5px;
 }
 /*设备*/
@@ -1469,3 +1483,4 @@ height: 640px;
 #right .el-table__header-wrapper tbody>tr>td>div.cell:hover {
   background-color: transparent!important;
 }
+

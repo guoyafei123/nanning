@@ -271,7 +271,7 @@
                 let data = response.data;
                 this.buildCountDataStats = response.data.buildStats;
                 this.buildCountDataSocre = response.data.assessScore;
-                this.buildDataTotalScore = Number(10-this.buildCountDataSocre.totalScore/10).toFixed(1);
+                this.buildDataTotalScore = Number(10-(this.buildCountDataSocre.totalScore/10)).toFixed(2);
                 this.$store.commit("buildCountDataSocre", this.buildCountDataSocre);
             }
         });

@@ -58,7 +58,7 @@
                           :on-success="uploadSuccess"
                           :on-preview="handlePictureCardPreview" 
                           :on-remove="handleRemove">
-                          <i class="el-icon-upload"></i>
+                          <i class="el-icon-plus"></i>
                     </el-upload>
                     <el-dialog :visible.sync="dialogVisible"><img width="100%" :src="dialogImageUrl" alt></el-dialog>
                 </el-form-item>

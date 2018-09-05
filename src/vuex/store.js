@@ -65,6 +65,8 @@ var state={
   toriskitem:Object,
   // 展示端建筑
   tobuilditem:Object,
+   // 展示端楼层
+  toFloorInfo:Object,
   // 全局权限
   unitid:null,
   // 用户登录信息
@@ -254,6 +256,10 @@ var mutations={
   // 展示端建筑
   tobuilditem(state,data){
     state.tobuilditem=data;
+  },
+  // 展示端楼层
+  toFloorInfo(state,data){
+    state.toFloorInfo=data;
   },
   // 展示人员
   topersonitem(state,data){
