@@ -29,11 +29,12 @@
                             <p>
                             <span class="size-20 font-blue">{{buildBaseInfo.name?buildBaseInfo.name:"暂无名称"}}</span>
                             <el-tooltip content="安全评分" placement="top">
-                            <span v-if="buildTotalScore < 2" class="bgbox-min bg-red font-red">{{buildTotalScore}}</span>
-                            <span v-if="buildTotalScore >=2 && unitAssessScore < 4" class="bgbox-min bg-red font-orange">{{buildTotalScore}}</span>
-                            <span v-if="buildTotalScore >=4 && unitAssessScore < 6" class="bgbox-min bg-red font-yellow">{{buildTotalScore}}</span>
-                            <span v-if="buildTotalScore>=6" class="bgbox-min bg-blue font-black">{{buildTotalScore}}</span>
-                          </el-tooltip>
+                              <span v-if="buildTotalScore == 0" class="bgbox-min bg-blue font-black">无评分</span>
+                              <span v-if="buildTotalScore < 2" class="bgbox-min bg-red font-black">{{buildTotalScore}}</span>
+                              <span v-if="buildTotalScore >=2 && unitAssessScore < 4" class="bgbox-min bg-orange font-black">{{buildTotalScore}}</span>
+                              <span v-if="buildTotalScore >=4 && unitAssessScore < 6" class="bgbox-min bg-yellow font-black">{{buildTotalScore}}</span>
+                              <span v-if="buildTotalScore>=6" class="bgbox-min bg-blue font-black">{{buildTotalScore}}</span>
+                            </el-tooltip>
                             <span class="float-right">
                                     <span class="bgbox-max bg-gray-333 font-gray-999 size-10">{{buildBaseInfo.property?buildBaseInfo.property:"无"}}</span>
                                 </span>

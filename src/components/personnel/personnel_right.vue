@@ -10,6 +10,26 @@
 				</div>
 			</div>
 		</section>
+		<section class="dan-lineinfo ">
+			<div class="unit-info toolcount font-gray-999 size-12 margin-top20 clearfix">
+				<!-- 已选择 -->
+				<div class="personinfo">
+					<p>
+						<span class="size-20 font-blue">{{unitInfo.name}}</span>
+						<el-tooltip content="安全评分" placement="top">
+							<span v-if="unitInfo.totalScore == 0" class="bgbox-min bg-blue font-black">无评分</span>
+							<span v-if="unitInfo.totalScore < 2" class="bgbox-min bg-red font-black">评分:{{unitInfo.totalScore}}</span>
+							<span v-if="unitInfo.totalScore >=2 && unitInfo.totalScore < 4" class="bgbox-min bg-orange font-black">评分:{{unitInfo.totalScore}}</span>
+							<span v-if="unitInfo.totalScore >=4 && unitInfo.totalScore < 6" class="bgbox-min bg-yellow font-black">评分:{{unitInfo.totalScore}}</span>
+							<span v-if="unitInfo.totalScore>=6" class="bgbox-min bg-blue font-black">评分:{{unitInfo.totalScore}}</span>
+						</el-tooltip>
+					</p>
+					<p class="text-left padding0">
+						<span><i class="el-icon-location"></i> {{unitInfo.location}}</span>
+					</p>
+				</div>
+			</div>
+		</section>				
 		<!-- 详情 -->
 		<section class="per-iteminfo display-none">
 			<a class="btn-back" @click="jianzhu"><i class="el-icon-arrow-left"></i>返回</a>
@@ -308,7 +328,16 @@
 					pageSize: 10
 				},
 				tableData: Object,
-				imageP:''
+				imageP:'',
+				//获取单位信息
+				unitInfo_parameter:{
+					unitId:null,
+				},
+				unitInfo:{
+					name:"",
+					location:"",
+					totalScore:0
+				},
 			}
 
 		},
@@ -320,8 +349,11 @@
 			// 人员详情
 			topersonitem(){
 				this.toPersonDetailInfo =this.topersonitem;
+				console.log(this.topersonitem);
 				this.queryUserData_parameter.userId = this.toPersonDetailInfo.id;
 				this.queryUserInspectionList_parameter.userId = this.toPersonDetailInfo.id;
+				this.unitInfo_parameter.unitId = this.toPersonDetailInfo.unitId;
+				this.getUnitInfo();
 				this.getPersonDetailInfo();
 				this.getPersionInpectionLog();
 			},
@@ -332,6 +364,7 @@
 					this.getunitid=null;
 				}
 				this.queryUserCount_parameter.unitId=this.getunitid;
+				this.unitInfo_parameter.unitId=this.getunitid;
 				this.getData();
 			}
 		},
@@ -367,6 +400,24 @@
 				}
 				var currentdate = year + seperator1 + month + seperator1 + strDate;
 				return currentdate;
+			},
+			getUnitInfo(){
+				// 获取单位信息
+				if(this.unitInfo_parameter.unitId==0 || this.unitInfo_parameter.unitId==null){
+					this.unitInfo.name = "管理单位";
+					this.unitInfo.location = "无位置";
+					this.unitInfo.totalScore = 0;
+				}else{
+					this.$fetch("/api/unit/queryUnitInfo",
+							this.unitInfo_parameter).then(response => {
+						let data = response.data;
+						if(response.data) {
+							this.unitInfo.name = data.unitInfo.name;
+							this.unitInfo.location = data.unitInfo.location;
+							this.unitInfo.totalScore = data.totalScore;
+						}
+					});
+				}
 			},
 			//获取人员右侧统计数据
 			getData(){
@@ -550,12 +601,18 @@
 			// 左侧
 			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
 				this.queryUserCount_parameter.unitId=sessionStorage.unitid;
+				this.unitInfo_parameter.unitId=this.getunitid;
 			}
 			if(sessionStorage.unitid==0){
 				this.queryUserCount_parameter.unitId==null;
+				this.unitInfo_parameter.unitId == null;
+				this.unitInfo.name = "管理单位";
+				this.unitInfo.location = "无位置";
+				this.unitInfo.totalScore = 0;
 			}
 			this.$store.commit('route_path', this.$route.path);
 			this.defaultTimeVaule();
+			this.getUnitInfo();
 			this.getData();
 		},
 	}
