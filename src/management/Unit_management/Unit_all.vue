@@ -377,10 +377,10 @@
                   console.log(data)
                 },
                 error: function (e) { //服务器响应失败处理函数
-                  console.log(e)
+                  // console.log(e)
                 },
                 complete: function (e) {//只要完成即执行，最后执行
-                  console.log($.parseJSON(e.responseXML.documentElement.innerText)) ;
+                  // console.log($.parseJSON(e.responseXML.documentElement.innerText)) ;
                   if($.parseJSON(e.responseXML.documentElement.innerText).status == 0){
                     that.$message.error({
                       dangerouslyUseHTMLString: true,
@@ -392,16 +392,16 @@
                     })
                     return ;
                   }
+                  $('.primary').attr('data-dismiss','modal');
                   // 修改成功提示
                   that.$message({
                     dangerouslyUseHTMLString: true,
-                    message: '<strong>'+ this.form.name +'单位信息修改成功</strong>',
+                    message: '<strong>'+ that.form.name +'单位信息修改成功</strong>',
                     center: true,
                     showClose: true,
                     iconClass:'el-icon-circle-check',
                     customClass:'edit-ok-notification'
                   });
-                  $('.primary').attr('data-dismiss','modal');
                   that.tableList();
                   $("#file").replaceWith('<input id="file" name="file" type="file" style="width:80px;height:80px;opacity: 0;filter: alpha(opacity=0);position: absolute;right:0;top:0;"/>');  
                     $("#file").on("change", function(){  
