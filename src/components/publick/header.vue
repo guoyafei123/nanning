@@ -1099,7 +1099,7 @@
           .then(response => {
             if (response.status == 1) {
               this.punchStartTime = response.data.startTime
-              var code = encodeURI(response.data.code)
+              var code = encodeURIComponent(response.data.code)
               this.punchImgUrl = '/api/qrcode/img?content=' + code
               this.punchExpireMillisecond = response.data.expireMillisecond
               this.punchclocktrue = true
