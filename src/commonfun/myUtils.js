@@ -1,17 +1,38 @@
-export default {
-    data() {
-        return {
-            unitInfo:{
-                name:"",
-                location:"",
-                totalScore:0
-            }
-        }
-    },
-    /* 获取当前时间 ：
-    * @param: days - 时间加减天数
-    * */
-    getNowFormatDate:function(days){
+export default class myUtils {
+    /**
+     * 判断字符串是否为空
+     * @param str
+     * @returns {boolean}
+     */
+    static isNull(str) {
+        return str == null || str.length === 0 || str === '';
+    }
+
+    /**
+     *
+     * @desc  判断是否为身份证号
+     * @param  {String|Number} str
+     * @return {Boolean}
+     */
+    static isIdCard(str) {
+        return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(str)
+    }
+
+    /**
+     *
+     * @desc   判断是否为手机号
+     * @param  {String|Number} str
+     * @return {Boolean}
+     */
+    static isPhoneNum(str) {
+        return /^(0|86|17951)?(1[3-9][0-9])[0-9]{8}$/.test(str)
+    }
+    /**
+     * @desc   获取当前时间
+     * @param  {Number} days 加减时间天数
+     * @return {String}
+     */
+    static getNowFormatDate(days){
         var date = new Date();
         var date_s = date.getTime();//转化为时间戳毫秒数
         date.setTime(date_s + days * 1000 * 60 * 60 * 24);//设置新时间比旧时间多一天
@@ -27,8 +48,8 @@ export default {
         }
         var currentdate = year + seperator1 + month + seperator1 + strDate;
         return currentdate;
-    },
-    /* 根据文件名后缀区分 文件类型
+    }
+    /* 根据文件名后缀区分返回文件类型
     * @param: fileName - 文件名称
     * @param: 数据返回 1) 无后缀匹配 - false
     * @param: 数据返回 2) 匹配图片 - image
@@ -41,7 +62,7 @@ export default {
     * @param: 数据返回 9) 匹配 音频 - radio
     * @param: 数据返回 10) 其他匹配项 - other
     */
-    matchType:function(fileName){
+    static matchType(fileName){
         // 后缀获取
         var suffix = '';
         // 获取类型结果
@@ -133,24 +154,29 @@ export default {
         // 其他 文件类型
         result = 'other';
         return result;
-    },
-    getByIdUnitInfo:function(unitId){
-        console.log(unitId);
+    }
+    static getByIdUnitInfo(unitId){
+        var unitInfo = {
+            name:"",
+            location:"",
+            totalScore:0
+        }
         // 获取单位信息
         if(unitId==0 || unitId==null){
-            this.unitInfo.name = "管理单位";
-            this.unitInfo.location = "无位置";
-            this.unitInfo.totalScore = 0;
+            unitInfo.name = "管理单位";
+            unitInfo.location = "无位置";
+            unitInfo.totalScore = 0;
         }else{
             this.$fetch("/api/unit/queryUnitInfo",{'unitId':unitId}).then(response => {
                 let data = response.data;
                 if(response.data) {
-                    this.unitInfo.name = data.unitInfo.name;
-                    this.unitInfo.location = data.unitInfo.location;
-                    this.unitInfo.totalScore = data.totalScore;
+                    unitInfo.name = data.unitInfo.name;
+                    unitInfo.location = data.unitInfo.location;
+                    unitInfo.totalScore = data.totalScore;
                 }
             });
         }
-        return this.unitInfo;
-    },
+        console.log(unitInfo);
+        return unitInfo;
+    }
 }

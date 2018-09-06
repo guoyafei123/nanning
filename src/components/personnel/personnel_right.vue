@@ -245,7 +245,6 @@
 </template>
 
 <script>
-	import Global from '../../Global.vue';
 	import moment from "moment";
 	import { mapState } from "vuex";
 	// import Per_leftVue from './per_left.vue';
@@ -349,7 +348,6 @@
 			// 人员详情
 			topersonitem(){
 				this.toPersonDetailInfo =this.topersonitem;
-				console.log(this.topersonitem);
 				this.queryUserData_parameter.userId = this.toPersonDetailInfo.id;
 				this.queryUserInspectionList_parameter.userId = this.toPersonDetailInfo.id;
 				this.unitInfo_parameter.unitId = this.toPersonDetailInfo.unitId;
@@ -597,7 +595,7 @@
 			},
 		},
 		mounted() {
-			this.imageP=Global.imgPath;
+			this.imageP=this.config.baseImg;
 			// 左侧
 			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
 				this.queryUserCount_parameter.unitId=sessionStorage.unitid;

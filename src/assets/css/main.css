@@ -265,13 +265,13 @@ h4.p-title:before {
 .top-btn li:first-child {
     padding-left: 0!important;
 }
-.top-btn a {
-    color: #999;
+.top-btn a,.top-btn span {
+    color: #ccc;
 }
-.top-btn a:hover,.top-btn a.active {
-    color: #fff;
+.top-btn a:hover,.top-btn a.active,.top-btn span:hover,.top-btn span.active {
+    color: #bad616;
 }
-.top-btn a i {
+.top-btn i {
     font-size: 20px;
 }
 span.point {
@@ -309,6 +309,12 @@ header .header-left .el-input--mini .el-input__inner:hover {
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
     /*IE4-IE9*/
     filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=1);
+}
+#header .overlay {
+    background: -moz-linear-gradient(bottom,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -o-linear-gradient(bottom,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -ms-linear-gradient(bottom,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -webkit-linear-gradient(bottom,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
 }
 #left .overlay {
     background: -moz-linear-gradient(right,rgba(0, 0, 0, 0),rgba(0, 0, 0, .5),rgba(0, 0, 0, .5),rgba(0, 0, 0, .6),rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
