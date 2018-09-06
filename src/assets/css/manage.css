@@ -674,6 +674,7 @@
 #list-maps{
   height: 100%;
   width: 100%;
+  position:relative;
 }
 #list-maps .maps {
 height: 640px;  
