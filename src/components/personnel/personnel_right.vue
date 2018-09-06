@@ -348,7 +348,6 @@
 			// 人员详情
 			topersonitem(){
 				this.toPersonDetailInfo =this.topersonitem;
-				console.log(this.topersonitem);
 				this.queryUserData_parameter.userId = this.toPersonDetailInfo.id;
 				this.queryUserInspectionList_parameter.userId = this.toPersonDetailInfo.id;
 				this.unitInfo_parameter.unitId = this.toPersonDetailInfo.unitId;
