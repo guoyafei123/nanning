@@ -501,7 +501,7 @@
                 var a=element.pointX;
                 var b=element.pointY;
                 this.mp.addOverlay(
-                  this.addlandmarkLine(element.name, "1", [a, b],37)
+                  this.addlandmarkLine(element.name, "1", [a, b])
                 );
               });
             }
@@ -562,9 +562,8 @@
               $('.floorMap').show();
               $('.map').hide();
               this.$store.commit('floorAdd',1);
-              // this.$store.commit('building',item.id);
-              this.$emit('childByValue',item.id)
-              console.log(item.id)
+              this.$store.commit('building',[item.id,new Date().getTime()]);
+              this.$emit('childByValue',item.id);
             });
           })
         },
@@ -668,6 +667,14 @@
             // console.log(linearray)
 				    this.mp.addOverlay(this.addline(linearray, 1));
           })
+        },
+        showInfoUnit(e){
+          this.mp.clearOverlays();
+          this.getunitlist();
+          this.getbuildlist();
+          // alert(e.point.lng + ", " + e.point.lat);
+          this.$store.commit('buildPoint',[e.point.lng,e.point.lat])
+          this.mp.addOverlay(this.addlandmarkLine('','1',[e.point.lng,e.point.lat]));
         },
         showInfo(e){
           this.mp.clearOverlays();
@@ -809,7 +816,7 @@
           }
           this.mp.clearOverlays();
           if(this.$route.path == '/Unit_management/list'){
-            this.mp.addOverlay(this.addlandmark('','',[pointList[0],pointList[1]],37));
+            this.mp.addOverlay(this.addlandmarkLine('','1',[pointList[0],pointList[1]]));
           }
         },
       },
@@ -835,7 +842,7 @@
           this.mp.addEventListener("click", this.showInfo);
         }
         if(this.$route.path == '/Unit_management/list'){
-          this.mp.addEventListener("click", this.showInfo);
+          this.mp.addEventListener("click", this.showInfoUnit);
         }
         if(this.$route.path == '/Equipment_management/list'){
           this.mp.addEventListener("click", this.showInfoDevice);

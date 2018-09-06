@@ -29,11 +29,12 @@ var state={
   //建筑
   buildUnit:'',
   buildingId:'',
+  buildingIdRight:'',
   tableData:[],
   floorAdd:'',
-  floorId:'',
+  floorId:Object,
   buildPoint:'',
-  Refresh:'',
+  refresh:'',
   //人员
   unitNumber:'',
   peopleTableData:'',
@@ -97,7 +98,8 @@ var state={
   dialogVisiblehide:Object,
   // 综合实时列表单个锁定位置
   toMapPoint:Object,
-  closePeopleInterver:Object
+  closePeopleInterver:Object,
+  building:Object
 }
 
 var mutations={
@@ -172,6 +174,9 @@ var mutations={
   buildingId(state,data){
     state.buildingId = data;
   },
+  buildingIdRight(state,data){
+    state.buildingIdRight = data;
+  },
   tableData(state,data){
     state.tableData = data ;
   },
@@ -184,8 +189,8 @@ var mutations={
   buildPoint(state,data){
     state.buildPoint = data ;
   },
-  Refresh(state,data){
-    state.Refresh = data ;
+  refresh(state,data){
+    state.refresh = data ;
   },
   //人员
   unitNumber(state,data){
@@ -321,6 +326,9 @@ var mutations={
   },
   closePeopleInterver(state,data){
     state.closePeopleInterver = data;
+  },
+  building(state,data){
+    state.building = data;
   },
 }
 

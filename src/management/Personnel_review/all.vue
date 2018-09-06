@@ -129,13 +129,10 @@
           <div class="modal-body">
             <el-form ref="form" status-icon :rules="rules" :label-position="labelPosition" :inline="true" :model="form">
               <el-form-item label="姓名" prop="nickName">
-                <el-input v-model="form.nickName" :disabled="true"></el-input>
-              </el-form-item>
-              <el-form-item label="职位" prop="position">
-                <el-input v-model="form.position" :disabled="true"></el-input>
+                <el-input v-model="form.nickName" ></el-input>
               </el-form-item>
               <el-form-item label="联系电话" prop="cellPhone">
-                <el-input v-model="form.cellPhone" :disabled="true"></el-input>
+                <el-input v-model="form.cellPhone" ></el-input>
               </el-form-item>
               <el-form-item label="审核意见" prop="review">
                 <el-radio v-model="review" label="1">通过</el-radio>
@@ -204,7 +201,6 @@
           id:'',
           nickName:'',
           username:'',
-          position:'',
           unitId:'',
           cellPhone:'',
           reviewId:'',
@@ -226,10 +222,7 @@
         review:'',
         rules: {
           nickName:[
-            { required: true, trigger: 'blur', validator: Name }
-          ],
-          position:[
-            { required: true, message: '请填写所在公司的职位', trigger: 'blur' }
+            { required: true, trigger: 'blur', message: '请填写人员姓名' }
           ],
           cellPhone:[
             { required: true, trigger: 'blur', validator: validPhone }
@@ -263,7 +256,6 @@
           if(item.id == this.deviceIndex){
             this.form.nickName = item.nickName ;
             this.form.username = item.username ;
-            this.form.position = item.position ;
             this.form.unitId = item.unitId ;
             this.form.cellPhone = item.cellPhone ;
             this.form.reviewId = item.reviewId ;

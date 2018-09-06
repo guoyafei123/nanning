@@ -49,12 +49,13 @@
 
     },
     mounted(){
-      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
-      if(roleId == 1 || roleId == 2){
-        $("#unit-manage").find("#mymodal input").removeAttr('disabled');
-        $("#unit-manage").find("#mymodal .el-input").removeClass('is-disabled');
-      }
-      console.log(JSON.parse(sessionStorage.getItem("roleId")));
+      // var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
+      // if(roleId == 1 || roleId == 2){
+
+      // }else{
+        
+      // }
+      // console.log(JSON.parse(sessionStorage.getItem("roleId")));
     }
   }
 </script>

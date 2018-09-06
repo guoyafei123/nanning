@@ -97,7 +97,8 @@
             width="140"
             label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button v-if="roleId" @click="start_plan(scope.row)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button v-else><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
               <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
               <button @click="floor_build(scope.row)"><i class="icon iconfont icon-danweiguanli-mian-1" data-toggle="tooltip" title="楼层管理"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
@@ -131,20 +132,22 @@
         </div>
       </div>
       <div id="list-maps">
+          <ul class="list-unstyled floor-item list_unstyled" style="display:none;" >
+            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
+          </ul>
           <div class="floorMap maps" style="display:none;">
-            <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
-            </ul> 
-            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="'/img'+this.svgUrl" class="img-responsive">
+            <div id="floorImg" style="width: 100%;height: 100%;position:absolute;left:0;top:0;">
+              <img v-if="svgUrl!=null" :src="'/img'+this.svgUrl" class="img-responsive">
+              <p v-if="svgUrl==null" class="font-gray-ccc">该楼层暂无平面图</p>
             </div>
           </div>
           <div class="roomMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
               <li>{{ this.floorName }}</li>
             </ul>
-            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="'/img'+this.roomSvgUrl" class="img-responsive">
+            <div id="RoomImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+              <img v-if="roomSvgUrl!=null" :src="'/img'+this.roomSvgUrl" class="img-responsive">
+              <p v-if="roomSvgUrl==null" class="font-gray-ccc">该楼层暂无平面图</p>
             </div>
           </div>
       </div>      
@@ -172,7 +175,7 @@
                       <el-input v-model="form.buildName" class="col-sm-4"></el-input>
                     </el-form-item>
                     <el-form-item label="所属单位" prop="unitId" class="not-null">
-                      <el-select v-model="form.unitId" placeholder="选择单位" :disabled="true" class="select col-sm-4">
+                      <el-select v-model="form.unitId" placeholder="选择单位"  class="select col-sm-4">
                         <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                       </el-select>
                     </el-form-item>
@@ -184,7 +187,7 @@
                       </el-select>
                     </el-form-item>
                     <el-form-item label="建成结构" prop="structure" class="not-null col-sm-4">
-                      <el-select name="" v-model="form.structure" :disabled="true" placeholder="请选择结构">
+                      <el-select name="" v-model="form.structure"  placeholder="请选择结构">
                         <el-option label="混凝土结构" value="混凝土结构"></el-option>
                         <el-option label="砌体结构" value="砌体结构"></el-option>
                         <el-option label="钢结构" value="钢结构"></el-option>
@@ -194,7 +197,7 @@
                     <el-form-item label="建成年份" prop="timeYear" class="not-null col-sm-4">
                       <div class="block">
                         <el-date-picker
-                         :disabled="true"
+                          :editable="false"
                           v-model="form.timeYear"
                           type="year"
                           placeholder="选择年份"
@@ -204,19 +207,19 @@
                       </div>
                     </el-form-item> 
                     <el-form-item label="建筑地址" prop="address" class="not-null">
-                      <el-input v-model="form.address" :disabled="true" class="col-sm-8"></el-input>
+                      <el-input v-model="form.address"  class="col-sm-8"></el-input>
                     </el-form-item>
                     <el-form-item label="经纬度" prop="point" class="not-null">
-                      <el-input v-model="form.point" :disabled="true" class="col-sm-4"></el-input>
+                      <el-input v-model="form.point"  class="col-sm-4"></el-input>
                     </el-form-item>
                     <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-4">
-                      <el-input v-model.number="form.area" :disabled="true"></el-input>
+                      <el-input v-model.number="form.area" ></el-input>
                     </el-form-item>
                     <el-form-item label="高度 (m)" prop="height" class="not-null col-sm-4">
-                      <el-input v-model="form.height" :disabled="true"></el-input>
+                      <el-input v-model="form.height" ></el-input>
                     </el-form-item>
                     <el-form-item label="总楼层" prop="floor" class="not-null col-sm-4">
-                      <el-input v-model="form.floor" :disabled="true"></el-input>
+                      <el-input v-model="form.floor" ></el-input>
                     </el-form-item>                           
                     <el-form-item label="消防负责人" prop="name" class="not-null col-sm-4">
                       <el-input v-model="form.name"></el-input>
@@ -311,6 +314,7 @@ import managementMapVue from '../managementMap';
       return {
         labelPosition: 'top',
         active:'',
+        roleId:true,
         form: {
           unitId:'',
           unitName:'',
@@ -390,14 +394,10 @@ import managementMapVue from '../managementMap';
         this.active = id ;
         this.table_list.forEach((item)=>{
           if(item.id == id){
+            // alert(item.svgUrl);
             this.svgUrl = item.svgUrl ;
           }
         })
-        var area = document.getElementById('floorImg');
-        panzoom((area),{
-          maxZoom:1,
-          minZoom:1
-        });
       },
       back(){
         // $('#right').addClass('position-fixed-right');
@@ -441,6 +441,12 @@ import managementMapVue from '../managementMap';
                 this.form.unitName = item.name;
               }
             })
+            var point = this.form.point;
+            if(typeof(point) == 'string'){
+              var pointList = point.split(",");
+            }else{
+              var pointList = this.form.point;
+            }
             this.$fetch("/api/building/updateBuilding",{
               'id':this.deviceIndex,
               'name':this.form.buildName,
@@ -455,13 +461,14 @@ import managementMapVue from '../managementMap';
               'property':this.form.property,
               'linkname':this.form.name,
               'phone':this.form.phone,
-              'pointX':this.form.point[0],
-              'pointY':this.form.point[1],
+              'pointX':pointList[0],
+              'pointY':pointList[1],
               headers: {'Content-Type': 'application/json'}
             }).then(response=>{
               if(response){
                 if(response.status == 1){
-                  console.log('修改建筑成功...'+ JSON.stringify(response));
+                  // console.log('修改建筑成功...'+ JSON.stringify(response));
+                  $('.primary').attr('data-dismiss','modal');
                    // 修改成功提示
                   this.$message({
                     dangerouslyUseHTMLString: true,
@@ -471,10 +478,10 @@ import managementMapVue from '../managementMap';
                     iconClass:'el-icon-circle-check',
                     customClass:'edit-ok-notification'
                   });
-                  $('.primary').attr('data-dismiss','modal');
+                 
                   this.tableBuildList();
                 }else{
-                  console.log('修改建筑失败...'+ JSON.stringify(response));
+                  // console.log('修改建筑失败...'+ JSON.stringify(response));
                 }
               }
             });
@@ -491,16 +498,16 @@ import managementMapVue from '../managementMap';
       },
       floor_build(row){
         $('.build').hide();
-        $('.floor').show();
         $('.main_all_content .main_content_table').hide();
         $('.main_all_content .main_content_bottom').hide();
         $('.plan').hide();
         $('.total').hide();
         $('.floor_wrap').show();
-        $('.room_wrap').hide();
         $('.floorMap').show();
+        $('.list_unstyled').show();
+        $('.room_wrap').hide();
         this.$store.commit('floorAdd',1);
-        this.$store.commit('buildingId',row.id);
+        this.$store.commit('buildingId',[row.id,new Date().getTime()]);
         
         this.$store.commit('currentPage',this.currentPage4);
         this.deviceIndex = row.id;
@@ -510,7 +517,7 @@ import managementMapVue from '../managementMap';
         console.log(row.id);
         this.$store.commit('floorAdd',2);
         this.$store.commit('currentPage',this.currentPage4);
-        this.$store.commit('buildingId',row.id);
+        this.$store.commit('buildingId',[row.id,new Date().getTime()]);
         $('.plan').show();
         $('.total').hide();
       },
@@ -574,8 +581,8 @@ import managementMapVue from '../managementMap';
               this.tableData.forEach((item,index)=>{
                 // console.log(111)
                 if(index == this.tableData.length-1){
-                  this.$store.commit('buildingId',item.id);
-                  localStorage.setItem('buildingId',item.id);
+                  this.$store.commit('buildingId',[item.id,new Date().getTime()]);
+                  // localStorage.setItem('buildingId',[item.id,new Date().getTime()]);
                 }
               })
               if(this.totalList % 14 == 0){
@@ -599,11 +606,13 @@ import managementMapVue from '../managementMap';
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
           if(response.data.pageBuildIng.result){
+            this.table_list = [];
             this.table_list = response.data.pageBuildIng.result;
-            
           }else{
             this.svgUrl = '' ;
           }
+          // $('.list-unstyled li').last().click();
+          this.floor_btn(this.table_list[this.table_list.length-1].id);
         })
       }
     },
@@ -612,19 +621,29 @@ import managementMapVue from '../managementMap';
       this.unitSearch();
       this.tableBuildList();
       $('#right').show();
-      this.$store.commit('route_path',this.$route.path);
+      // let floorId = localStorage.getItem('floorId');
+      // this.table_list.forEach(item=>{
+      //   if(floorId == item.id){
+      //     this.roomSvgUrl = item.svgUrl ;
+      //     this.floorName = item.floorName ;
+      //   }
+      // })
       var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
       if(roleId == 1 || roleId == 2){
-        $("#Build_management").find("#mymodal input").removeAttr('disabled');
-        $("#Build_management").find("#mymodal .el-input").removeClass('is-disabled');
+        return ;
       }
-      let floorId = localStorage.getItem('floorId');
-      this.table_list.forEach(item=>{
-        if(floorId == item.id){
-          this.roomSvgUrl = item.svgUrl ;
-          this.floorName = item.floorName ;
-        }
-      })
+      this.roleId = false;
+      var area = document.getElementById('floorImg');
+      panzoom((area),{
+        maxZoom:1,
+        minZoom:1
+      });
+      
+      var areaRoom = document.getElementById('RoomImg');
+      panzoom((areaRoom),{
+        maxZoom:1,
+        minZoom:1
+      });
     },
     watch:{
       $route: {
@@ -647,14 +666,13 @@ import managementMapVue from '../managementMap';
         this.buildUnit = val;
         this.tableBuildList();
       },
-      Refresh(){
-        
+      refresh(){
         this.findPageBuildIngFloor();
       },
       floorId(){
         // console.log(this.floorId)
         this.table_list.forEach(item=>{
-          if(this.floorId == item.id){
+          if(this.floorId[0] == item.id){
             this.roomSvgUrl = item.svgUrl ;
             this.floorName = item.floorName ;
           }
@@ -663,7 +681,7 @@ import managementMapVue from '../managementMap';
     },
      computed:mapState([
        'floorId',
-       'Refresh'
+       'refresh'
     ])
   };
 </script>

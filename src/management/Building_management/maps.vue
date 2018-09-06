@@ -27,20 +27,24 @@
         <div class="maps map">
           <managementMap-vue v-on:childByValue="childByValue"></managementMap-vue>
         </div>
-        <div class="floorMap maps" style="display:none;">
-          <ul class="list-unstyled floor-item">
-              <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
+        <div id="list-maps">
+          <ul class="list-unstyled floor-item list_unstyled" style="display:none;" >
+            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)">{{ item.floorName }}</li>
           </ul>
-          <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-             <img :src="this.svgUrl" class="img-responsive">
-          </div>
-        </div>  
-        <div class="roomMap maps" style="display:none;">
-          <ul class="list-unstyled floor-item">
-              <li>{{ this.floorName }}</li>
-          </ul>
-          <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-            <img :src="this.roomSvgUrl" class="img-responsive">
+          <div class="floorMap maps" style="display:none;">
+            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+              <img v-if="svgUrl!=null" :src="'/img'+this.svgUrl" class="img-responsive">
+              <p v-if="svgUrl==null" class="font-gray-ccc">该楼层暂无平面图</p>
+            </div>
+          </div>  
+          <div class="roomMap maps" style="display:none;">
+            <ul class="list-unstyled floor-item">
+                <li>{{ this.floorName }}</li>
+            </ul>
+            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+              <img v-if="roomSvgUrl!=null" :src="'/img'+this.roomSvgUrl" class="img-responsive">
+              <p v-if="roomSvgUrl==null" class="font-gray-ccc">该楼层暂无平面图</p>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +81,6 @@
         this.buildingId = childValue;
         console.log(childValue);
         this.findPageBuildIngFloor(childValue);
-        
       },
       floor_btn(id){
         //console.log(id)
@@ -139,13 +142,14 @@
           buildingId:buildId
         }).then(response=>{
           //console.log(response.data.pageBuildIng.result);
-          this.table_list = response.data.pageBuildIng.result;
-          this.table_list.forEach(item=>{
-             if(this.floorId == item.id){
-                this.roomSvgUrl = item.svgUrl ;
-                this.floorName = item.floorName ;
-             }
-          })
+          if(response.data.pageBuildIng.result){
+            this.table_list = [];
+            this.table_list = response.data.pageBuildIng.result;
+          }else{
+            this.svgUrl = '' ;
+          }
+          // $('.list-unstyled li').last().click();
+          this.floor_btn(this.table_list[this.table_list.length-1].id);
          
         })
       }
@@ -171,13 +175,13 @@
         //console.log(this.buildUnit);
         this.$store.commit('buildUnit',this.buildUnit);
       },
-      buildingId(){
-        console.log(this.buildingId)
-        Bus.$emit('building_managementId', this.buildingId)
+      buildingIdRight(){
+        // console.log(this.buildingIdRight);
+        this.findPageBuildIngFloor(this.buildingIdRight[0]);
       },
       floorId(){
         this.table_list.forEach(item=>{
-          if(this.floorId == item.id){
+          if(this.floorId[0] == item.id){
             this.roomSvgUrl = item.svgUrl ;
             this.floorName = item.floorName ;
           }
@@ -187,12 +191,10 @@
     mounted(){
       realconsole();
       this.unitSearch();
-      this.findPageBuildIngFloor();
-      this.$store.commit('route_path',this.$route.path);
     },
     
-     computed:mapState([
-      //  'buildingId',
+    computed:mapState([
+       'buildingIdRight',
        'floorId'
     ])
   };

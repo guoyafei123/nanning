@@ -905,7 +905,8 @@ a.min-map-cloase:hover {
     z-index: 99;
     height: auto;
     max-height: 72.3%;
-    overflow-y: auto;
+    /* overflow-y: auto; */
+    overflow-y: scroll;
 }
 .floor-item li {
     width: 32px;

@@ -48,7 +48,10 @@ import './assets/css/manage.css';
 import './assets/css/media.css';
 // axios请求
 import { post,fetch } from './assets/js/http';
+//公共js
+import common from './commonfun/common.js';
 //定义全局变量
+Vue.prototype.common = common;
 Vue.prototype.$post=post;
 Vue.prototype.$fetch=fetch;
 Vue.prototype.$http = axios;

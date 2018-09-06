@@ -40,11 +40,11 @@
       'main-vue':MainVue
     },
     mounted(){
-      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
-      if(roleId == 1 || roleId == 2){
-        $("#Build_management").find("#mymodal input").removeAttr('disabled');
-        $("#Build_management").find("#mymodal .el-input").removeClass('is-disabled');
-      }
+      // var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
+      // if(roleId == 1 || roleId == 2){
+      //   $("#Build_management").find("#mymodal input").removeAttr('disabled');
+      //   $("#Build_management").find("#mymodal .el-input").removeClass('is-disabled');
+      // }
     }
   }
 </script>

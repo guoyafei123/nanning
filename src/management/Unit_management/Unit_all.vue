@@ -64,8 +64,9 @@
             fixed="right"
             label="操作">
             <template slot-scope="scope">
-              <button @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
-              <button @click="delete_plan(scope.row)" v-show="isDelete" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
+              <button v-if="roleId" @click="start_plan(scope.row,scope.$index)" data-toggle="modal" data-target="#mymodal"><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button v-else><i class="el-icon-edit-outline" data-toggle="tooltip" title="编辑"></i></button>
+              <button @click="delete_plan(scope.row)" data-toggle="modal" data-target="#mymodal2"><i class="el-icon-delete" data-toggle="tooltip" title="删除"></i></button>
               <button @click="show3(scope.row)"><i class="fas fa-chevron-circle-right" data-toggle="tooltip" title="详情"></i></button>
             </template>
           </el-table-column>
@@ -113,10 +114,10 @@
              <div class="main_content">
                 <el-form class="row" status-icon ref="form" :rules="rules" :label-position="labelPosition" :model="form">
                   <el-form-item label="单位名称"  prop="name" class="not-null">
-                    <el-input v-model="form.name" :disabled="true" class="col-sm-4"></el-input>
+                    <el-input v-model="form.name"  class="col-sm-4"></el-input>
                   </el-form-item>
                   <el-form-item label="单位性质" prop="property" class="not-null">
-                    <el-select name="" v-model="form.property" :disabled="true" placeholder="请选择结构" class="col-sm-4">
+                    <el-select name="" v-model="form.property"  placeholder="请选择结构" class="col-sm-4">
                       <el-option label="事业单位" value="事业单位"></el-option>
                       <el-option label="国家行政机关" value="国家行政机关"></el-option>
                       <el-option label="政府" value="政府"></el-option>
@@ -137,11 +138,11 @@
                     <el-input v-model="form.staffNum"></el-input>
                   </el-form-item> -->
                   <el-form-item label="单位地址"  prop="location" class="not-null">
-                    <el-input v-model="form.location" :disabled="true" class="col-sm-8"></el-input>
+                    <el-input v-model="form.location"  class="col-sm-8"></el-input>
                   </el-form-item>  
                   <el-form-item label="经纬度" class="not-null">
-                    <el-input v-model="form.point.pointX == 0 ? '-' : form.point.pointX" :disabled="true" class="col-sm-4"></el-input>
-                    <el-input v-model="form.point.pointY == 0 ? '-' : form.point.pointY" :disabled="true" class="col-sm-4"></el-input>
+                    <el-input v-model="form.point.pointX == 0 ? '-' : form.point.pointX"  class="col-sm-4"></el-input>
+                    <el-input v-model="form.point.pointY == 0 ? '-' : form.point.pointY"  class="col-sm-4"></el-input>
                   </el-form-item>                          
                   <el-form-item label="消防负责人" prop="firemenName" class="not-null col-sm-4">
                     <el-input v-model="form.firemenName"></el-input>
@@ -226,6 +227,7 @@
       }
       return {
         labelPosition: 'top',
+        roleId:true,
         form: {
           id:'',
           name:'',
@@ -480,16 +482,15 @@
       this.tableList();
       $('#right').show();
       var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
-      if(roleId == 1 || roleId ==2){
-        $("#unit-manage").find("#mymodal input").removeAttr('disabled');
-        $("#unit-manage").find("#mymodal .el-input").removeClass('is-disabled');
-        this.isDelete = true ;
+      if(roleId == 1 || roleId == 2){
+        return ;
       }
+      this.roleId = false;
     },
     watch:{
       currentPage4(val, oldVal){
         this.currentPage4 = val;
-        //console.log(this.currentPage4);
+        console.log(this.currentPage4);
         this.tableList();
       }
     }

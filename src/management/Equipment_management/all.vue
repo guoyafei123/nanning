@@ -187,7 +187,7 @@
                   <el-input v-model="form.name"  class="col-sm-8"></el-input>
                 </el-form-item>
                 <el-form-item label="所属单位" prop="unitId" :rules="rules.unitId" class="not-null">
-                  <el-select v-model="form.unitId" :disabled='true' placeholder="选择单位" class="select selectUnit col-sm-4">
+                  <el-select v-model="form.unitId"  placeholder="选择单位" class="select selectUnit col-sm-4">
                     <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -205,10 +205,8 @@
                 <el-form-item label="设备位置" prop="buildingId" :rules="rules.buildingId" class="not-null">
                   <el-select
                     v-model="form.buildingId"
-                    :disabled='true'
                     placeholder="选择建筑"
                     class="start col-sm-4">
-                    <el-option label="室外" value="0"></el-option>
                     <el-option
                       v-for="item in form.buildList"
                       :label="item.name"
@@ -217,7 +215,6 @@
                   </el-select>
                   <el-select
                     v-model="form.floorId"
-                    :disabled='true'
                     placeholder="选择楼层"
                     class="start col-sm-4">
                     <el-option
@@ -228,7 +225,6 @@
                   </el-select>
                   <el-select
                     v-model="form.roomId"
-                    :disabled='true'
                     placeholder="选择房间"
                     class="start col-sm-4">
                     <el-option
@@ -273,6 +269,7 @@
                           <el-date-picker
                             v-model="form.ProductionDay"
                             type="date"
+                            :editable="false"
                             placeholder="选择日期"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="yyyy-MM-dd">
@@ -284,6 +281,7 @@
                           <el-date-picker
                             v-model="form.startDate"
                             type="date"
+                            :editable="false"
                             placeholder="选择日期"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="yyyy-MM-dd">
@@ -526,11 +524,27 @@ import { mapState } from 'vuex';
             this.form.name = item.name ;
             this.form.unitId = item.unitId ;
             this.form.unitName = item.unitName ;
-            this.form.buildingId = item.buildingId ;
+            
+            if(item.buildingId == 0){
+              this.form.buildingId = 0 ;
+            }else{
+              this.form.buildingId = item.buildingId ;
+            }
             this.form.buildingName = item.buildingName ;
-            this.form.floorId = item.floorId ;
+
+            if(item.floorId == 0){
+              this.form.floorId = '' ;
+            }else{
+              this.form.floorId = item.floorId ;
+            }
+            
             this.form.floorNumber = item.floorNumber ;
-            this.form.roomId = item.roomId ;
+
+            if(item.roomId == 0){
+              this.form.roomId = '' ;
+            }else{
+              this.form.roomId = item.roomId ;
+            }
             this.form.roomNumber = item.roomNumber
             this.form.equipmentId = item.deviceTypeId ;
             this.form.deviceTypeName = item.deviceTypeName;
@@ -715,7 +729,7 @@ import { mapState } from 'vuex';
           //console.log('buildSearch:'+JSON.stringify(response));
           if (response) {
             this.buildList = response.data.list;
-            //console.log(this.buildList);
+            console.log(this.buildList);
           }
         })
       },
@@ -757,7 +771,7 @@ import { mapState } from 'vuex';
           //console.log('formBuildSearch:'+JSON.stringify(response));
           if (response) {
             this.form.buildList = response.data.list;
-            //console.log(this.form.buildList);
+            console.log(this.form.buildList);
           }
         })
       },
@@ -785,6 +799,9 @@ import { mapState } from 'vuex';
       }
     },
     computed:{
+      ...mapState([
+        'Refresh'
+      ]),
       unitId(){
         return this.form.unitId;
       },
@@ -850,6 +867,7 @@ import { mapState } from 'vuex';
         this.form.floorId = '';
         this.form.roomId = '';
         this.formBuildSearch(this.form.unitId);
+        console.log(this.form.unitId)
       },
       buildingId(curVal,oldVal){
         this.form.buildingId = curVal;
@@ -892,9 +910,6 @@ import { mapState } from 'vuex';
         $('.total').hide();
         $('.plan').show();
       }
-    },
-    computed:mapState([
-      'Refresh'
-    ])
+    }
   };
 </script>
