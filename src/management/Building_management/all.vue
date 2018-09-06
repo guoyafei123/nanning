@@ -131,20 +131,22 @@
         </div>
       </div>
       <div id="list-maps">
+          <ul class="list-unstyled floor-item list_unstyled" style="display:none;" >
+            <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
+          </ul>
           <div class="floorMap maps" style="display:none;">
-            <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
-            </ul> 
-            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="'/img'+this.svgUrl" class="img-responsive">
+            <div id="floorImg" style="width: 100%;height: 100%;position:absolute;left:0;top:0;">
+              <img v-if="svgUrl!=null" :src="'/img'+this.svgUrl" class="img-responsive">
+              <p v-if="svgUrl==null" class="font-gray-ccc">该楼层暂无平面图</p>
             </div>
           </div>
           <div class="roomMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
               <li>{{ this.floorName }}</li>
             </ul>
-            <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="'/img'+this.roomSvgUrl" class="img-responsive">
+            <div id="RoomImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
+              <img v-if="roomSvgUrl!=null" :src="'/img'+this.roomSvgUrl" class="img-responsive">
+              <p v-if="roomSvgUrl==null" class="font-gray-ccc">该楼层暂无平面图</p>
             </div>
           </div>
       </div>      
@@ -392,14 +394,10 @@ import managementMapVue from '../managementMap';
         this.active = id ;
         this.table_list.forEach((item)=>{
           if(item.id == id){
+            // alert(item.svgUrl);
             this.svgUrl = item.svgUrl ;
           }
         })
-        var area = document.getElementById('floorImg');
-        panzoom((area),{
-          maxZoom:1,
-          minZoom:1
-        });
       },
       back(){
         // $('#right').addClass('position-fixed-right');
@@ -494,14 +492,14 @@ import managementMapVue from '../managementMap';
       },
       floor_build(row){
         $('.build').hide();
-        $('.floor').show();
         $('.main_all_content .main_content_table').hide();
         $('.main_all_content .main_content_bottom').hide();
         $('.plan').hide();
         $('.total').hide();
         $('.floor_wrap').show();
-        $('.room_wrap').hide();
         $('.floorMap').show();
+        $('.list_unstyled').show();
+        $('.room_wrap').hide();
         this.$store.commit('floorAdd',1);
         this.$store.commit('buildingId',row.id);
         
@@ -602,11 +600,13 @@ import managementMapVue from '../managementMap';
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
           if(response.data.pageBuildIng.result){
+            this.table_list = [];
             this.table_list = response.data.pageBuildIng.result;
-            
           }else{
             this.svgUrl = '' ;
           }
+          // $('.list-unstyled li').last().click();
+          this.floor_btn(this.table_list[this.table_list.length-1].id);
         })
       }
     },
@@ -628,6 +628,17 @@ import managementMapVue from '../managementMap';
           this.floorName = item.floorName ;
         }
       })
+      var area = document.getElementById('floorImg');
+      panzoom((area),{
+        maxZoom:1,
+        minZoom:1
+      });
+      
+      var areaRoom = document.getElementById('RoomImg');
+      panzoom((areaRoom),{
+        maxZoom:1,
+        minZoom:1
+      });
     },
     watch:{
       $route: {
@@ -650,8 +661,7 @@ import managementMapVue from '../managementMap';
         this.buildUnit = val;
         this.tableBuildList();
       },
-      Refresh(){
-        
+      refresh(){
         this.findPageBuildIngFloor();
       },
       floorId(){
@@ -666,7 +676,7 @@ import managementMapVue from '../managementMap';
     },
      computed:mapState([
        'floorId',
-       'Refresh'
+       'refresh'
     ])
   };
 </script>

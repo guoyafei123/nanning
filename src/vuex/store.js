@@ -33,7 +33,7 @@ var state={
   floorAdd:'',
   floorId:'',
   buildPoint:'',
-  Refresh:'',
+  refresh:'',
   //人员
   unitNumber:'',
   peopleTableData:'',
@@ -181,8 +181,8 @@ var mutations={
   buildPoint(state,data){
     state.buildPoint = data ;
   },
-  Refresh(state,data){
-    state.Refresh = data ;
+  refresh(state,data){
+    state.refresh = data ;
   },
   //人员
   unitNumber(state,data){
