@@ -50,9 +50,9 @@
 
                   {{queryFireSituationAlarmData.deviceName}}
                   <span v-if="queryFireSituationAlarmData.isUser===0">{{queryFireSituationAlarmData.nickName}}</span>发起警报，报警时中控室值守人：{{queryFireSituationFireData.lastSinginName}}，
-                  警报时策略圈内的人员有｛人员名称、人员名称｝{{queryFireSituationAlarmData.confirmNickName}}于{{queryFireSituationAlarmData.confirmTime}}将该次警报确认为火情，响应时长：{确认时间-报警时间};
-                  {{queryFireSituationAlarmData.cancelNickName}}于{{queryFireSituationAlarmData.cancelTime}}在系统将该火情关闭，累计持续时长：{关闭时间-报警时间}。<br>
-                  报警时天气{{queryFireSituationFireData.realTimeWeatherDesc}}，温度{{queryFireSituationFireData.realTimeTmp}}，湿度{{queryFireSituationFireData.realTimeHum}}，风力{{queryFireSituationFireData.realTimeWinp}}，策略圈内微型消防站{{queryFireSituationFireData.fireHouseAmont}}个，最近消防站相距事故地点{{queryFireSituationFireData.fireHouseDis}}。
+                  警报时策略圈内的人员有｛人员名称、人员名称｝{{queryFireSituationAlarmData.confirmNickName}}于{{queryFireSituationAlarmData.confirmTime}}将该次警报确认为火情，响应时长：{{this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.confirmTime)}}秒;
+                  {{queryFireSituationAlarmData.cancelNickName}}于{{queryFireSituationAlarmData.cancelTime}}在系统将该火情关闭，累计持续时长：{{queryFireSituationAlarmData.cancelTime==null?'- ':this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.cancelTime)}}秒。<br>
+                  报警时天气{{queryFireSituationFireData.realTimeWeatherDesc}}，温度{{queryFireSituationFireData.realTimeTmp}}，湿度{{queryFireSituationFireData.realTimeHum}}，风力{{queryFireSituationFireData.realTimeWinp}}，策略圈内微型消防站{{queryFireSituationFireData.fireHouseAmont}}个，最近消防站相距事故地点{{queryFireSituationFireData.fireHouseDis}}米。
                 </p>
               </article>
               <hr>
@@ -462,11 +462,6 @@
           }]
         },
         dateValue:null,
-        //火情分析列表数据
-        queryFirehistoryData_parameter: {
-          alarmId: 2002,
-          startTime: null
-        },
         tableData:Object,
         alarmAffirmNumLineChartData:Object,
         alarmNumLineChartData:Object,
@@ -493,48 +488,33 @@
           inspection: Number
         },
         //起火单位最近数据
-        queryAlarmLastTime_param: {
+        param: {
+          unitId: 13,
           alarmId: 2002,
+          startTime: null
         },
         //起火位置最近一次的报警记录
         queryLastTimeAlarmData: Object,
-        queryLastTimeAlarm_param: {
-          alarmId: 2002,
-        },
+
         //起火位置相关未解决隐患详情
         queryLastTimeTroubleData: Object,
-        queryLastTimeTrouble_param: {
-          alarmId: 2002,
-        },
         //起火位置最近一次巡检记录
         queryLastTimeInspectionData: Object,
-        queryLastTimeInspection_param: {
-          alarmId: 2002,
-        },
         //事故概况
         queryFireSituationAlarmData: Object,
         queryFireSituationFireData: Object,
-        queryFireSituation_param: {
-          alarmId: 2002,
-        },
         //单位信息
         queryUnitInfo: Object,
-        queryUnitInfo_param: {
-          unitId: 13
-        },
         queryUnitInfoImg: require('../../assets/images/jpg01.jpg'),
         //单位统计
         getUnitsSynthesisData: Object,
-        getUnitsSynthesis_param: {
-          unitId: 13
-        },
         imageP:''
       }
     },
     watch: {
-
+      '$route': 'getParams',
       dateValue(val){
-        this.queryFirehistoryData_parameter.startTime = val;
+        this.param.startTime = val;
         this.queryFirehistoryData();
       },
     },
@@ -556,7 +536,12 @@
         let iDays = parseInt(Math.abs( new Date(beginTime).getTime()-new Date(endTime).getTime()) / 1000  ) //把相差的毫秒数转换为天数
         return iDays
       },
-
+      getParams () {
+        // 取到路由带过来的参数
+        let routerParams = this.$route.params.fireData
+        // 将数据放在当前组件的数据内
+        this.param.alarmId = routerParams.id
+      },
       //绘制折线图
       draw_line(id,data){
         //巡检人数
@@ -666,7 +651,7 @@
       },
       //火情分析折线图下列表
       queryFirehistoryData() {
-        this.$fetch('/api/alarmstats/queryFirehistoryData', this.queryFirehistoryData_parameter
+        this.$fetch('/api/alarmstats/queryFirehistoryData', this.param
         ).then(response => {
           if (response.data) {
             //列表数据
@@ -681,7 +666,7 @@
 
       //火情分析 起火单位最近数据
       queryAlarmLastTime() {
-        this.$fetch('/api/alarmstats/queryAlarmLastTime', this.queryAlarmLastTime_param
+        this.$fetch('/api/alarmstats/queryAlarmLastTime', this.param
         ).then(response => {
           if (response.data) {
             this.queryAlarmLastTimeData = response.data.trouble
@@ -694,7 +679,7 @@
 
       //起火位置相关最近一次报警记录
       queryLastTimeAlarm() {
-        this.$fetch('/api/alarm/queryLastTimeAlarm', this.queryLastTimeAlarm_param
+        this.$fetch('/api/alarm/queryLastTimeAlarm', this.param
         ).then(response => {
           if (response.data) {
             this.queryLastTimeAlarmData = response.data.alarm
@@ -707,7 +692,7 @@
       ,
       //起火位置相关未解决隐患详情
       queryLastTimeTrouble() {
-        this.$fetch('/api/trouble/queryLastTimeTrouble', this.queryLastTimeTrouble_param
+        this.$fetch('/api/trouble/queryLastTimeTrouble', this.param
         ).then(response => {
           if (response.data) {
             this.queryLastTimeTroubleData = response.data.troubles
@@ -720,7 +705,7 @@
       ,
       //起火位置最近一次巡检记录
       queryLastTimeInspection() {
-        this.$fetch('/api/alarmstats/queryLastTimeInspection', this.queryLastTimeInspection_param
+        this.$fetch('/api/alarmstats/queryLastTimeInspection',this.param
         ).then(response => {
           if (response.data) {
             this.queryLastTimeInspectionData = response.data.information
@@ -733,7 +718,7 @@
       ,
       //事故概况
       queryFireSituation() {
-        this.$fetch('/api/alarmstats/queryFireSituation', this.queryFireSituation_param
+        this.$fetch('/api/alarmstats/queryFireSituation', this.param
         ).then(response => {
           if (response.data) {
             this.queryFireSituationAlarmData = response.data.result.alarm,
@@ -746,23 +731,24 @@
       }  ,
       //单位信息
       getQueryUnitInfo() {
-        this.$fetch("/api/unit/queryUnitInfo", this.queryUnitInfo_param)
+        this.$fetch("/api/unit/queryUnitInfo", this.param)
           .then(response => {
             if (response.data) {
               this.queryUnitInfo = response.data.unitInfo;
-              this.queryUnitInfoImg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.queryUnitInfo_param.unitId + '.jpg';
+              this.queryUnitInfoImg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.param.unitId + '.jpg';
             }
           });
       } ,
       //单位统计
       getUnitsSynthesis() {
-        this.$fetch("/api/unit/getUnitsSynthesis", this.getUnitsSynthesis_param
+        this.$fetch("/api/unit/getUnitsSynthesis", this.param
         ).then(response => {
           if (response.data) {
             this.getUnitsSynthesisData = response.data.result;
           }
         });
-      }  ,
+      } ,
+
     }
   }
 </script>
