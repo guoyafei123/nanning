@@ -23,7 +23,7 @@
 						</div>
 					</template>
 					<!-- 单位图片 -->
-					<img :src="queryUnitInfoimg" :onerror="defaultImg" class="img-responsive center-block" alt="单位图片">
+					<img :src="config.baseImg+queryUnitInfoimg" :onerror="defaultImg" class="img-responsive center-block" alt="单位图片">
 				</li>
 				<!-- 统计1 -->
 				<li>
@@ -209,12 +209,12 @@
 						<div class="textandimg-img imgs-nthof">
 							<template v-for="item in getAlarmDetails.addAlarmImgList">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-									<video :src="item" width="100%" controls="controls"></video>
+									<video :src="config.baseImg+item" width="100%" controls="controls"></video>
 								</div>
 							</template>
 							<template v-for="item in getAlarmDetails.addAlarmImgList">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-									<img :src="item">
+									<img :src="config.baseImg+item">
 								</div>
 							</template>
 						</div>
@@ -256,7 +256,7 @@
 							</template>
 							<template v-for="item in getAlarmDetails.confirmAlarmImgList">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-									<img :src="item">
+									<img :src="config.baseImg+item">
 								</div>
 							</template>
 						</div>
@@ -349,7 +349,7 @@
 							</template>
 							<template v-for="item in troubleDetails.imgUrl">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-									<img :src="item">
+									<img :src="config.baseImg+item">
 								</div>
 							</template>
 						</div>
@@ -383,12 +383,12 @@
 						<div class="textandimg-img imgs-nthof" v-if="troubleDetails.confirmUrls">
 							<template v-for="item in troubleDetails.confirmUrls">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-									<video :src="item" width="100%" controls="controls"></video>
+									<video :src="config.baseImg+item" width="100%" controls="controls"></video>
 								</div>
 							</template>
 							<template v-for="item in troubleDetails.confirmUrls">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-									<img :src="item">
+									<img :src="config.baseImg+item">
 								</div>
 							</template>
 						</div>

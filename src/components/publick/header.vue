@@ -167,7 +167,7 @@
       </div>
       <div class="dialog-content text-center clearfix">
         <div class="myhead">
-          <img :src="imageP+userInfoData.headImgUrl" class="img-responsive img-circle center-block">
+          <img :src="config.baseImg+userInfoData.headImgUrl" class="img-responsive img-circle center-block">
           <h3>{{userInfoData.nickName?userInfoData.nickName:'-'}}</h3>
           <h4>角色：<span>{{userInfoData.roleName?userInfoData.roleName:'-'}}</span></h4><h4>账号：<span>{{userInfoData.username?userInfoData.username:'-'}}</span>
         </h4>
@@ -198,7 +198,6 @@
   import messagesVue from './messages.vue';
   import moment from 'moment';
   import {mapState} from 'vuex';
-  import Global from "../../Global.vue";
   export default {
     components: {
       'messages-vue': messagesVue,

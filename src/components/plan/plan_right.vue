@@ -69,15 +69,15 @@
 									<figure>
 										<div class="plan-listimg">
 											
-											<img v-if="item.pattern!='pdf'" :src=item.url class="img-responsive" :alt=item.name>
-											<img v-if="item.pattern=='pdf'" :src="item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern!='pdf'" :src="config.baseImg+item.url" class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern=='pdf'" :src="config.baseImg+item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
 										</div>
 										<div class="caption">
 											<h4 data-toggle="tooltip">{{item.name}}</h4>
 											<h5>{{item.unitName}}</h5>
 											<p>
 												<small>{{item.createTime.substring(5)}}</small>
-												<a :href="item.url+'?filename='+item.name+'.'+item.pattern">
+												<a :href="config.baseImg+item.url+'?filename='+item.name+'.'+item.pattern">
 													<el-tooltip content="下载" placement="top">
 														<i class="el-icon-download"></i>
 													</el-tooltip>
@@ -97,15 +97,15 @@
 									<figure>
 										<div class="plan-listimg">
 											
-											<img v-if="item.pattern!='pdf'" :src=item.url class="img-responsive" :alt=item.name>
-											<img v-if="item.pattern=='pdf'" :src="item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern!='pdf'" :src="config.baseImg+item.url" class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern=='pdf'" :src="config.baseImg+item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
 										</div>
 										<div class="caption">
 											<h4 data-toggle="tooltip">{{item.name}}</h4>
 											<h5>{{item.unitName}}</h5>
 											<p>
 												<small>{{item.createTime.substring(5)}}</small>
-												<a :href="item.url+'?filename='+item.name+'.'+item.pattern"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+												<a :href="config.baseImg+item.url+'?filename='+item.name+'.'+item.pattern"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
 											</p>
 										</div>
 									</figure>
@@ -121,15 +121,15 @@
 									<figure>
 										<div class="plan-listimg">
 											
-											<img v-if="item.pattern!='pdf'" :src=item.url class="img-responsive" :alt=item.name>
-											<img v-if="item.pattern=='pdf'" :src="item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern!='pdf'" :src="config.baseImg+item.url" class="img-responsive" :alt=item.name>
+											<img v-if="item.pattern=='pdf'" :src="config.baseImg+item.url.replace('.pdf','_0.png')" class="img-responsive" :alt=item.name>
 										</div>
 										<div class="caption">
 											<h4 data-toggle="tooltip">{{item.name}}</h4>
 											<h5>{{item.unitName}}</h5>
 											<p>
 												<small>{{item.createTime.substring(5)}}</small>
-												<a :href="item.url+'?filename='+item.name+'.'+item.pattern"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
+												<a :href="config.baseImg+item.url+'?filename='+item.name+'.'+item.pattern"><i class="el-icon-download" data-toggle="tooltip" title="下载"></i></a>
 											</p>
 										</div>
 									</figure>

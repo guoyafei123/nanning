@@ -48,10 +48,13 @@ import './assets/css/manage.css';
 import './assets/css/media.css';
 // axios请求
 import { post,fetch } from './assets/js/http';
-//公共js
-import common from './commonfun/common.js';
-//定义全局变量
-Vue.prototype.common = common;
+//公共变量和js
+import config from './commonfun/config.js';
+import myUtils from './commonfun/myUtils.js';
+//定义全局变量和function
+Vue.prototype.config = config;
+Vue.prototype.myUtils = myUtils;
+
 Vue.prototype.$post=post;
 Vue.prototype.$fetch=fetch;
 Vue.prototype.$http = axios;
