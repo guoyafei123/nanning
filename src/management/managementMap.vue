@@ -17,7 +17,7 @@
           zoom:16,
           point:[108.335801,22.733686],
           mp:Object,
-          deviceListInner:[],
+          buildingList:[],
           deviceListOutside:[],
           inspectionNodes:[],
           innerTrouble:[],
@@ -328,12 +328,8 @@
           return marker;
         },
         legend_landmarker(content,id) {
-          if(content.countofbuilding){
-            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.name }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
-          }else if(content.count){
-            var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.buildingName }${ content.count }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.count }</span></i></div>`;
-          }
-            
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.name }${ content.countofbuilding }个设备"><i class="icon iconfont icon-shuidi-"><span>${ content.countofbuilding }</span></i></div>`;
+          
           return html;
         },
         //设备marker点
@@ -565,7 +561,10 @@
               $('.room_wrap').hide();
               $('.floorMap').show();
               $('.map').hide();
-              this.$store.commit('buildingId',item.id);
+              this.$store.commit('floorAdd',1);
+              // this.$store.commit('building',item.id);
+              this.$emit('childByValue',item.id)
+              console.log(item.id)
             });
           })
         },
@@ -573,12 +572,12 @@
           this.$fetch("/api/device/queryDeviceOfBuildingByGroup",{
             unitId:this.Unit
           }).then(res=>{
-            console.log(res.data.deviceListInner);
-            this.deviceListInner = res.data.buildingList ;
-            this.deviceListInner.forEach(item=>{
-              this.mp.addOverlay(this.addlandmarker(item.buildingId,item,[item.pointX,item.pointY]));
+            console.log(res.data.buildingList);
+            this.buildingList = res.data.buildingList ;
+            this.buildingList.forEach(item=>{
+              this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
               // this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
-              $(document).on('click', "#map"+item.buildingId,()=>{
+              $(document).on('click', "#map"+item.id,()=>{
                 $('.floorMap').show();
                 $('.map').hide();
                 // console.log(item.buildingId)
@@ -609,12 +608,12 @@
             // console.log(res.data.innerTrouble);
             this.innerTrouble = res.data.innerTrouble ;
             this.innerTrouble.forEach(item=>{
-              this.mp.addOverlay(this.addlandmarker(item.buildingId,item,[item.pointX,item.pointY]));
+              this.mp.addOverlay(this.addlandmarker(item.id,item,[item.pointX,item.pointY]));
               // this.mp.setCenter(new BMap.Point(item.pointX, item.pointY));
-              $(document).on('click', "#map"+item.buildingId,()=>{
+              $(document).on('click', "#map"+item.id,()=>{
                 $('.floorMap').show();
                 $('.map').hide();
-                this.$emit('childByValue', item)
+                this.$emit('childByValue', item);
               });
             })
             this.outsideTrouble = res.data.outsideTrouble ;
@@ -672,24 +671,32 @@
         },
         showInfo(e){
           this.mp.clearOverlays();
+          this.getunitlist();
+          this.getbuildlist();
           // alert(e.point.lng + ", " + e.point.lat);
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat])
           this.mp.addOverlay(this.addlandmark('','',[e.point.lng,e.point.lat],37));
         },
         showInfoDevice(e){
           this.mp.clearOverlays();
+          this.getunitlist();
+          this.getbuildlist();
           // alert(e.point.lng + ", " + e.point.lat);
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
           this.mp.addOverlay(this.addlandmarkerType('','',[e.point.lng,e.point.lat],this.DeviceList));
         },
         showInfoDanger(e){
           this.mp.clearOverlays();
+          this.getunitlist();
+          this.getbuildlist();
           // alert(e.point.lng + ", " + e.point.lat);
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
           this.mp.addOverlay(this.addlandmarkDanger('','',[e.point.lng,e.point.lat]));
         },
         showInfoAdd_alarm(e){
           this.mp.clearOverlays();
+          this.getunitlist();
+          this.getbuildlist();
           // alert(e.point.lng + ", " + e.point.lat);
           this.$store.commit('buildPoint',[e.point.lng,e.point.lat]);
           this.mp.addOverlay(this.addlandmarkerType('','',[e.point.lng,e.point.lat],38));
@@ -726,6 +733,16 @@
             return ;
           }
           this.queryBuildingsByUnitId(this.dangerBuild);
+        },
+        dangerUnitList(){
+          this.queryById(this.dangerUnitList);
+        },
+        dangerBuildList(){
+          if(this.dangerBuildList == 0){
+            this.queryById(this.dangerUnitList);
+            return ;
+          }
+          this.queryBuildingsByUnitId(this.dangerBuildList);
         },
         inspectionId(){
           this.mp.clearOverlays();
@@ -809,7 +826,7 @@
       
         this.mp = mapStates;
         this.getunitlist();
-        this.getbuildlist();
+        // this.getbuildlist();
         if(this.$route.path == '/Building_management/maps'){
           this.mp.clearOverlays();
           this.tableDatas();
@@ -856,6 +873,8 @@
         'inspectionUnitId',
         'dangerUnit',
         'dangerBuild',
+        'dangerUnitList',
+        'dangerBuildList',
         'currentPageDevice'
       ])
     }

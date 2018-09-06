@@ -227,100 +227,99 @@
         </div>
         <!-- 修改建筑Modal -->
         <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <!-- <div id="add-new" class="add-map add-modal"> -->
-        <!-- <aside> -->
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">修改建筑</h4>
-                <h5 class="modal-p font-blue">{{this.form.buildName}}</h5>
-              </div>
-              <div class="modal-body">
-                <div class="main_content">
-                  <!--
-                  class类not-null为必填标识,如需请加在<el-form-item>
-                  class类hint-error为错误提示
-                -->
-                  <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
-                    <el-form-item label="建筑名称" prop="buildName" class="not-null">
-                      <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
-                      <el-input v-model="form.buildName" class="col-sm-4"></el-input>
-                    </el-form-item>
-                    <el-form-item label="所属单位" prop="unitId" class="not-null">
-                      <el-select v-model="form.unitId" placeholder="选择单位" :disabled="true" class="select col-sm-4">
-                        <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-                      </el-select>
-                    </el-form-item>
-                    <el-form-item label="建筑性质" prop="property" class="not-null col-sm-4">
-                      <el-select v-model="form.property" placeholder="建筑性质">
-                        <el-option label="居住" value="居住"></el-option>
-                        <el-option label="公共" value="公共"></el-option>
-                        <el-option label="工业" value="工业"></el-option>
-                      </el-select>
-                    </el-form-item>
-                    <el-form-item label="建成结构" prop="structure" class="not-null col-sm-4">
-                      <el-select name="" v-model="form.structure" :disabled="true" placeholder="请选择结构">
-                        <el-option label="混凝土结构" value="混凝土结构"></el-option>
-                        <el-option label="砌体结构" value="砌体结构"></el-option>
-                        <el-option label="钢结构" value="钢结构"></el-option>
-                        <el-option label="木结构" value="木结构"></el-option>
-                      </el-select>
-                    </el-form-item>
-                    <el-form-item label="建成年份" prop="timeYear" class="not-null col-sm-4">
-                      <div class="block">
-                        <el-date-picker
-                         :disabled="true"
-                          v-model="form.timeYear"
-                          type="year"
-                          placeholder="选择年份"
-                          format="yyyy 年"
-                          value-format="yyyy">
-                        </el-date-picker>
-                      </div>
-                    </el-form-item> 
-                    <el-form-item label="建筑地址" prop="address" class="not-null">
-                      <el-input v-model="form.address" :disabled="true" class="col-sm-8"></el-input>
-                    </el-form-item>
-                    <!-- <el-form-item label="经纬度" prop="point" class="not-null"> -->
-                      <!-- <el-input v-model="form.point" class="col-sm-4"></el-input> -->
-                    <el-form-item label="经纬度" class="not-null">
-                      <el-input v-model="form.point.pointX" :disabled="true" class="col-sm-4"></el-input>
-                      <el-input v-model="form.point.pointY" :disabled="true" class="col-sm-4"></el-input>
-                    </el-form-item>
-                    <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-4">
-                      <el-input v-model.number="form.area" :disabled="true"></el-input>
-                    </el-form-item>
-                    <el-form-item label="高度 (m)" prop="height" class="not-null col-sm-4">
-                      <el-input v-model="form.height" :disabled="true"></el-input>
-                    </el-form-item>
-                    <el-form-item label="总楼层" prop="floor" class="not-null col-sm-4">
-                      <el-input v-model="form.floor" :disabled="true"></el-input>
-                    </el-form-item>                           
-                    <el-form-item label="消防负责人" prop="name" class="not-null col-sm-4">
-                      <el-input v-model="form.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="消防负责人电话" prop="phone" class="not-null col-sm-4">
-                      <el-input v-model="form.phone"></el-input>
-                    </el-form-item>
-                  </el-form>
+          <!-- <div id="add-new" class="add-map add-modal"> -->
+            <!-- <aside> -->
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改建筑</h4>
+                    <h5 class="modal-p font-blue">{{this.form.buildName}}</h5>
+                  </div>
+                  <div class="modal-body">
+                    <div class="main_content">
+                      <!--
+                      class类not-null为必填标识,如需请加在<el-form-item>
+                      class类hint-error为错误提示
+                    -->
+                      <el-form class="row" ref="form" status-icon :rules="rules" :label-position="labelPosition" :model="form">
+                        <el-form-item label="建筑名称" prop="buildName" class="not-null">
+                          <!-- <span class="font-red" style="position: absolute;top:-45px;right:20px;">建筑名称有误或重复</span> -->
+                          <el-input v-model="form.buildName" class="col-sm-4"></el-input>
+                        </el-form-item>
+                        <el-form-item label="所属单位" prop="unitId" class="not-null">
+                          <el-select v-model="form.unitId" placeholder="选择单位" :disabled="true" class="select col-sm-4">
+                            <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
+                          </el-select>
+                        </el-form-item>
+                        <el-form-item label="建筑性质" prop="property" class="not-null col-sm-4">
+                          <el-select v-model="form.property" placeholder="建筑性质">
+                            <el-option label="居住" value="居住"></el-option>
+                            <el-option label="公共" value="公共"></el-option>
+                            <el-option label="工业" value="工业"></el-option>
+                          </el-select>
+                        </el-form-item>
+                        <el-form-item label="建成结构" prop="structure" class="not-null col-sm-4">
+                          <el-select name="" v-model="form.structure" :disabled="true" placeholder="请选择结构">
+                            <el-option label="混凝土结构" value="混凝土结构"></el-option>
+                            <el-option label="砌体结构" value="砌体结构"></el-option>
+                            <el-option label="钢结构" value="钢结构"></el-option>
+                            <el-option label="木结构" value="木结构"></el-option>
+                          </el-select>
+                        </el-form-item>
+                        <el-form-item label="建成年份" prop="timeYear" class="not-null col-sm-4">
+                          <div class="block">
+                            <el-date-picker
+                            :disabled="true"
+                              v-model="form.timeYear"
+                              type="year"
+                              placeholder="选择年份"
+                              format="yyyy 年"
+                              value-format="yyyy">
+                            </el-date-picker>
+                          </div>
+                        </el-form-item> 
+                        <el-form-item label="建筑地址" prop="address" class="not-null">
+                          <el-input v-model="form.address" :disabled="true" class="col-sm-8"></el-input>
+                        </el-form-item>
+                        <!-- <el-form-item label="经纬度" prop="point" class="not-null"> -->
+                          <!-- <el-input v-model="form.point" class="col-sm-4"></el-input> -->
+                        <el-form-item label="经纬度" prop="point" class="not-null">
+                          <el-input v-model="form.point" :disabled="true" class="col-sm-4"></el-input>
+                        </el-form-item>
+                        <el-form-item label="占地面积 (㎡)" prop="area" class="not-null col-sm-4">
+                          <el-input v-model.number="form.area" :disabled="true"></el-input>
+                        </el-form-item>
+                        <el-form-item label="高度 (m)" prop="height" class="not-null col-sm-4">
+                          <el-input v-model="form.height" :disabled="true"></el-input>
+                        </el-form-item>
+                        <el-form-item label="总楼层" prop="floor" class="not-null col-sm-4">
+                          <el-input v-model="form.floor" :disabled="true"></el-input>
+                        </el-form-item>                           
+                        <el-form-item label="消防负责人" prop="name" class="not-null col-sm-4">
+                          <el-input v-model="form.name"></el-input>
+                        </el-form-item>
+                        <el-form-item label="消防负责人电话" prop="phone" class="not-null col-sm-4">
+                          <el-input v-model="form.phone"></el-input>
+                        </el-form-item>
+                      </el-form>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-circle-check-outline" class="primary">编辑并提交</el-button>
+                    <el-button class="back" @click="back" data-dismiss="modal">取消</el-button>
+                  </div>
                 </div>
               </div>
-              <div class="modal-footer">
-                <el-button type="primary" @click.native.prevent="startRow('form')" icon="el-icon-circle-check-outline" class="primary">编辑并提交</el-button>
-                <el-button class="back" @click="back" data-dismiss="modal">取消</el-button>
+            <!-- </aside> -->
+            <!-- 地图 -->
+            <!-- <aside>      
+              <div class="maps">
+                  <managementMap-vue></managementMap-vue>
               </div>
-            </div>
-          </div>
-        <!-- </aside> -->
-        <!-- 地图 -->
-        <!-- <aside>      
-          <div class="maps">
-              <managementMap-vue></managementMap-vue>
-          </div>
-        </aside> -->
-      <!-- </div> -->
-    </div>
+            </aside> -->
+          <!-- </div> -->
+        </div>
         <!-- 删除Modal -->
         <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
           <div class="modal-dialog" role="document">
@@ -541,6 +540,7 @@
 </template>
 
 <script>
+  import Bus from '../../assets/js/bus.js';
   import{ mapState } from "vuex";
   import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
   export default {
@@ -596,10 +596,7 @@
           timeYear:'',
           name:'',
           phone:'',
-          point:{
-            pointX:'',
-            pointY:''
-          },
+          point:[],
           countRoom:''
         },
         optionList:[],//全部单位列表
@@ -651,31 +648,15 @@
           ],
           phone:[
             { required: true, trigger: 'blur', validator: validPhone }
+          ],
+          point:[
+            { required: true, trigger: 'blur', validator: Lng }
           ]
-          // point:[
-          //   { required: true, trigger: 'blur', validator: Lng }
-          // ]
         }
       };
     },
     
     methods: {
-    // 显示上传文件名
-    // showInputFileName(){
-    //   $(".pmian-up").on("change","input[type='file']",function(){
-    //     var filePath=$(this).val();
-    //     if(filePath.indexOf("jpg")!=-1 || filePath.indexOf("png")!=-1){
-    //         $(".fileerrorTip").html("").hide();
-    //         var arr=filePath.split('\\');
-    //         var fileName=arr[arr.length-1];
-    //         $(".showFileName").html(fileName);
-    //     }else{
-    //         $(".showFileName").html("");
-    //         $(".fileerrorTip").html("您未上传文件，或者您上传文件类型有误！").show();
-    //         return false 
-    //     }
-    // })
-    // },
 //楼层
       add(){
         $('.add').show();
@@ -942,7 +923,6 @@
           $('.total').show();
           $('.floor_wrap').hide();
           $('.room_wrap').hide();
-          
           $('.main_all_content .main_content_table').show();
           $('.main_all_content .main_content_bottom').show();
           $('.map').show();
@@ -998,8 +978,8 @@
         this.tableData.forEach((item,index)=>{
           if(item.id == this.deviceIndex){
             // //console.log(item);
-            this.form.point.pointX = item.pointX;
-            this.form.point.pointY = item.pointY;
+            this.form.point[0] = item.pointX ;
+            this.form.point[1] = item.pointY ;
             this.form.BuildName = item.name ;
             this.form.unitId = item.unitId ;
             this.form.UnitName = item.unitName ;
@@ -1032,10 +1012,12 @@
           'heightOfBuilding':this.form.height,
           'floors':this.form.floor,
           'structure':this.form.structure,
-          'buildYear':this.form.timeYear,
+          'buildYear':this.form.timeYear+'-01-01',
           'property':this.form.property,
           'linkname':this.form.name,
           'phone':this.form.phone,
+          'pointX':this.form.point[0],
+          'pointY':this.form.point[1],
           headers: {'Content-Type': 'application/json'}
         },
       
@@ -1043,6 +1025,16 @@
           if(response){
             if(response.status == 1){
               //console.log('修改建筑成功...'+ JSON.stringify(response));
+              // 修改成功提示
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                message: '<strong> 修改成功</strong>',
+                center: true,
+                showClose: true,
+                iconClass:'el-icon-circle-check',
+                customClass:'edit-ok-notification'
+              });
+              $('.primary').attr('data-dismiss','modal');
               this.tableList();
             }else{
               //console.log('修改建筑失败...'+ JSON.stringify(response));
@@ -1058,7 +1050,6 @@
         //console.log(row.id);
         this.$store.commit('floorAdd',2)
         this.form.buildingMapsId = row.id ;
-        // this.$store.commit('buildingId',row.id);
         $('.plan').show();
         $('.total').hide();
         $('.floor_wrap').hide();
@@ -1154,7 +1145,6 @@
       }
     },
     mounted() {
-      this.tableList();
       this.unitSearch();
       if(this.$route.path == '/Building_management/maps'){
         $('.total').show();
@@ -1162,6 +1152,7 @@
         $('.floor_wrap').hide();
         $('.room_wrap').hide();
         this.tableList();
+        
       }
       if(this.$route.path == '/Building_management/all'){
         $('.plan').show();
@@ -1204,8 +1195,7 @@
         if(this.$route.path == '/Building_management/maps'){
           $('.total').hide();
           this.tableData.forEach((item,index)=>{
-            if(item.id == this.buildingMapsId){
-              //console.log(item);
+            if(item.id == this.form.buildingMapsId){
               this.form.BuildName = item.name ;
               this.form.unitId = item.unitId ;
               this.form.UnitName = item.unitName ;
@@ -1227,8 +1217,7 @@
             $('.floor_wrap').show();
             $('.map').hide();
             this.tableData.forEach((item,index)=>{
-              if(item.id == this.buildingMapsId){
-                // //console.log(item);
+              if(item.id == this.form.buildingMapsId){
                 this.form.BuildName = item.name ;
                 this.form.unitId = item.unitId ;
                 this.form.UnitName = item.unitName ;
@@ -1299,7 +1288,8 @@
         'buildUnit',
         'buildingId',
         'floorAdd',
-        'currentPage'
+        'currentPage',
+        'building'
       ]),
       buildingMapsId(){
         return this.form.buildingMapsId ;

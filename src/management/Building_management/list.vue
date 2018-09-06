@@ -278,13 +278,20 @@ import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate'
         },
         point(val,oldVal){
           this.point = val ;
-          console.log(this.point);
+        },
+        unitId(val,oldVal){
+          this.unitId = val ;
+          console.log(this.unitId)
+          this.$store.commit('buildUnit',this.unitId);
         }
       },
       computed:{
         ...mapState([
           'buildPoint'
         ]),
+        unitId(){
+          return this.form.unitId ;
+        },
         point(){
           return this.form.point ;
         }

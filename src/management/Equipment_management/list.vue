@@ -510,7 +510,6 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
       watch:{
         unitId(curVal,oldVal){
           this.form.unitId = curVal;
-          console.log(curVal,oldVal)
           this.formBuildSearch(this.form.unitId);
           this.optionList.forEach((item,index)=>{
             if(item.id == this.form.unitId){
@@ -533,7 +532,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
             this.seeFloor = false ;
             this.seeRoom = false ;
           }
-          
+          this.$store.commit('Unit',this.form.unitId);
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
@@ -564,7 +563,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               //console.log(this.form.buildingName);
             }
           })
-         
+          this.$store.commit('buildDevice',this.form.buildingId);
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;

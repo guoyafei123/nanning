@@ -206,8 +206,6 @@
                     <el-form-item label="建筑地址" prop="address" class="not-null">
                       <el-input v-model="form.address" :disabled="true" class="col-sm-8"></el-input>
                     </el-form-item>
-                    <!-- <el-form-item label="经纬度" prop="point" class="not-null"> -->
-                      <!-- <el-input v-model="form.point" class="col-sm-4"></el-input> -->
                     <el-form-item label="经纬度" prop="point" class="not-null">
                       <el-input v-model="form.point" :disabled="true" class="col-sm-4"></el-input>
                     </el-form-item>
@@ -473,14 +471,13 @@ import managementMapVue from '../managementMap';
                     iconClass:'el-icon-circle-check',
                     customClass:'edit-ok-notification'
                   });
+                  $('.primary').attr('data-dismiss','modal');
                   this.tableBuildList();
                 }else{
                   console.log('修改建筑失败...'+ JSON.stringify(response));
                 }
               }
             });
-            $('.primary').attr('data-dismiss','modal');
-           
           } else {
             console.log('error submit!!');
             return false;

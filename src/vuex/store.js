@@ -45,6 +45,8 @@ var state={
   dangerFloor:'',
   dangerRoom:'',
   DangerSimple:'',
+  dangerUnitList:'',
+  dangerBuildList:'',
   //预案
   unitPlan:'',
   //消息
@@ -99,6 +101,7 @@ var state={
 }
 
 var mutations={
+
   iconByType(state,data){
     state.iconByType = data ;
   },
@@ -212,6 +215,12 @@ var mutations={
   },
   DangerSimple(state,data){
     state.DangerSimple = data ;
+  },
+  dangerUnitList(state,data){
+    state.dangerUnitList = data ;
+  },
+  dangerBuildList(state,data){
+    state.dangerBuildList = data ;
   },
   //预案
   unitPlan(state,data){

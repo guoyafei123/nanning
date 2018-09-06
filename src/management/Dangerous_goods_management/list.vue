@@ -33,7 +33,6 @@
             <el-select
               v-model="form.buildingId"
             placeholder="选择建筑"  class="start col-sm-4">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in form.buildList"
                 :label="item.name"
@@ -489,10 +488,11 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
           this.form.roomId = '';
           this.form.floorNumber = '';
           this.form.roomNumber = '';
+          this.$store.commit('dangerUnitList',this.form.unitId);
         },
         buildingId(curVal,oldVal){
           this.form.buildingId = curVal;
-          console.log(this.form.buildingId);
+          // console.log(this.form.buildingId);
           this.findPageBuildIngFloor();
           this.form.floorId = '';
           this.form.roomId = '';
@@ -514,6 +514,7 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
               //console.log(this.form.buildingName);
             }
           })
+          this.$store.commit('dangerBuildList',this.form.buildingId);
         },
         floorId(curVal,oldVal){
           this.form.floorId = curVal;

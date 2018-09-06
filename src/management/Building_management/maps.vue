@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="maps map">
-          <managementMap-vue></managementMap-vue>
+          <managementMap-vue v-on:childByValue="childByValue"></managementMap-vue>
         </div>
         <div class="floorMap maps" style="display:none;">
           <ul class="list-unstyled floor-item">
@@ -50,14 +50,16 @@
 </template>
 
 <script> 
-import panzoom from 'panzoom';
- import{ mapState } from "vuex";
+  import Bus from '../../assets/js/bus.js';
+  import panzoom from 'panzoom';
+  import{ mapState } from "vuex";
   import managementMapVue from '../managementMap';
   import { realconsole } from '../../assets/js/management.js'
   export default {
     data() {
       return {
         buildUnit:null,//选择单位,
+        buildingId:'',
         optionList:[],//全部单位列表,
         floorList:[],//楼层列表
         svgUrl:'',
@@ -70,6 +72,13 @@ import panzoom from 'panzoom';
       'managementMap-vue': managementMapVue,
     },
     methods: {
+      childByValue: function (childValue) {
+        // childValue就是子组件传过来的值
+        this.buildingId = childValue;
+        console.log(childValue);
+        this.findPageBuildIngFloor(childValue);
+        
+      },
       floor_btn(id){
         //console.log(id)
         this.table_list.forEach((item)=>{
@@ -104,12 +113,30 @@ import panzoom from 'panzoom';
             // //console.log(err);
           });
       },
-      findPageBuildIngFloor(){
-        console.log(this.buildingId)
+      // findPageBuildIngFloor(){
+      //   // console.log(this.buildingId)
+      //   this.$fetch("/api/building/findPageBuildIngFloor",{
+      //     pageIndex:1,
+      //     pageSize:1000,
+      //     buildingId:this.buildingId
+      //   }).then(response=>{
+      //     //console.log(response.data.pageBuildIng.result);
+      //     this.table_list = response.data.pageBuildIng.result;
+      //     this.table_list.forEach(item=>{
+      //        if(this.floorId == item.id){
+      //           this.roomSvgUrl = item.svgUrl ;
+      //           this.floorName = item.floorName ;
+      //        }
+      //     })
+         
+      //   })
+      // },
+      findPageBuildIngFloor(buildId){
+        // console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
           pageSize:1000,
-          buildingId:this.buildingId
+          buildingId:buildId
         }).then(response=>{
           //console.log(response.data.pageBuildIng.result);
           this.table_list = response.data.pageBuildIng.result;
@@ -146,7 +173,7 @@ import panzoom from 'panzoom';
       },
       buildingId(){
         console.log(this.buildingId)
-        this.findPageBuildIngFloor();
+        Bus.$emit('building_managementId', this.buildingId)
       },
       floorId(){
         this.table_list.forEach(item=>{
@@ -165,7 +192,7 @@ import panzoom from 'panzoom';
     },
     
      computed:mapState([
-       'buildingId',
+      //  'buildingId',
        'floorId'
     ])
   };
