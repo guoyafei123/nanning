@@ -385,48 +385,32 @@
               <div style="width: 750px;height: 600px; " id="fireLineChart"><!-- 折线图 --></div>
               <!-- 表格 -->
               <div class="main_content_table">
-                <el-table
-                  :data="tableData"
-                  border="true"
-                  width="100">
-                  <el-table-column
-                    prop="hour"
-                    label="时间"
-                    width="150">
-                  </el-table-column>
-                  <el-table-column
-                    prop="inspectionPersonCount"
-                    label="巡检人数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="inspectionFinishCount"
-                    label="巡检任务完成次数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="alarmNumCount"
-                    label="报警数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="alarmAffirmNumCount"
-                    label="报警确认数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="troubleUnSolvedCount"
-                    label="隐患数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="troubleDangerUnSolvedCount"
-                    label="危险品数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="buildingScore"
-                    label="建筑安全评分">
-                  </el-table-column>
-                  <el-table-column
-                    prop="unitnScore"
-                    label="单位安全评分">
-                  </el-table-column>
-                </el-table>
+                <table  class="table toolroute-table">
+                  <thead>
+                    <td>时间</td>
+                    <td>巡检人数</td>
+                    <td>巡检任务完成次数</td>
+                    <td>报警数</td>
+                    <td>报警确认数</td>
+                    <td>隐患数</td>
+                    <td>危险品数</td>
+                    <td>建筑安全评分</td>
+                    <td>单位安全评分</td>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in tableData">
+                        <td>{{item.hour}}</td>
+                        <td>{{item.inspectionPersonCount}}</td>
+                        <td>{{item.inspectionFinishCount}}</td>
+                        <td>{{item.alarmNumCount}}</td>
+                        <td>{{item.alarmAffirmNumCount}}</td>
+                        <td>{{item.troubleUnSolvedCount}}</td>
+                        <td>{{item.troubleDangerUnSolvedCount}}</td>
+                        <td>{{item.buildingScore}}</td>
+                        <td>{{item.unitnScore}}</td>
+                     </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -448,8 +432,6 @@
 </template>
 
 <script>
-  import moment from 'moment';
-  import {mapState} from 'vuex';
   import Global from "../../Global.vue";
   export default {
     // 选择器
@@ -485,18 +467,7 @@
           alarmId: 2002,
           startTime: null
         },
-        tableData: {
-          id: null,
-          hour: null,
-          inspectionPersonCount: null,
-          inspectionFinishCount: null,
-          alarmNumCount: null,
-          alarmAffirmNumCount: null,
-          troubleUnSolvedCount: null,
-          troubleDangerUnSolvedCount: null,
-          buildingScore: null,
-          unitnScore: null
-        },
+        tableData:Object,
         alarmAffirmNumLineChartData:Object,
         alarmNumLineChartData:Object,
         inspectionPersonLineChartData:Object,
@@ -700,7 +671,7 @@
           if (response.data) {
             //列表数据
             this.tableData = response.data.result.fireAnalyzeList;
-            this.draw_line("fireLineChart",response.data.result)
+            this.draw_line("fireLineChart",response.data.result);
           }
         })
           .then(err => {
