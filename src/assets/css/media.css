@@ -73,6 +73,9 @@
     #right{
         width: 28%;
     }
+    .punchclock {
+        right: 28%;
+    }
     .common-left-statistics h5 {
         margin-right: 0px;
         font-size: 12px;
@@ -161,6 +164,9 @@
     #right{
         width: 23%;
     }
+    .punchclock {
+        right: 23%;
+    }
     #right .toolcount-p1 {
         font-size: 48px;
         line-height: 48px;
@@ -241,6 +247,9 @@
     }
     #right{
         width: 23%;
+    }
+    .punchclock {
+        right: 23%;
     }
     #right .toolcount-p1 {
         font-size: 42px;
@@ -328,7 +337,9 @@
     #right{
         width: 22%;
     }
-    
+    .punchclock {
+        right: 22%;
+    }
     #right .toolcount-p1 {
         font-size: 60px;
         line-height: 60px;
@@ -414,6 +425,9 @@
     }
     #right{
         width: 19%;
+    }
+    .punchclock {
+        right: 19%;
     }
     .header-middle {
         width: 96%;

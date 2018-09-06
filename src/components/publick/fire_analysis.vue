@@ -7,6 +7,17 @@
           <i class="icon iconfont icon-huoqing-xian-"></i>
           <h2>火情分析</h2>
         </div>
+        <div class="main_tab col-sm-3 pull-right">
+            <button type="button" @click="fireAnalysis = false">
+              <i class="el-icon-printer"></i> 打印
+            </button>
+            <button type="button" @click="fireAnalysis = false">
+              <i class="el-icon-share"></i> 导出
+            </button>
+            <button type="button" @click="fireAnalysis = false">
+              <i class="el-icon el-icon-close"></i> 关闭
+            </button>
+          </div>
       </div>
       <section class="col-sm-offset-3 col-sm-6 size-12" data-spy="scroll" data-target="#myScrollspy">
         <div class="row my-scroll">
@@ -251,7 +262,7 @@
                 </div>
               </div>
               <!-- 起火位置相关未解决隐患详情 -->
-              <div class="textandimg fire-survey col-sm-12 border-none clearfix">
+              <div class="textandimg fire-survey fire-trouble col-sm-12 border-none clearfix">
                 <h5>起火位置相关未解决隐患详情</h5>
                 <hr>
                 <div class="row textandimg-main clearfix" v-for="item in queryLastTimeTroubleData ">
@@ -343,39 +354,39 @@
               </div>
             </section>
             <!-- 历史数据分析 -->
-            <h2 id="section-3">历史数据分析</h2>
-            <div class="textandimg fire-survey">
-              <!-- 筛选 -->
-              <section class="my-filter padding5 bg-gray-111 clearfix">
-                <!-- 日期筛选 -->
-                <div class="pull-left padding-left50">
-                  <section>
-                    <div class="upd-elmdate">
-                      <el-date-picker
+            <h2 id="section-3">历史数据分析</h2>            
+            <div class="textandimg fire-survey padding0">
+                <!-- 筛选 -->
+                <section class="my-filter bg-gray-111 clearfix">
+                  <!-- 日期筛选 -->
+                  <div class="main_all_content">
+                  <div class="main_content_top padding-left5">
+                      <div class="upd-elselect padding-top5">
+                       <el-date-picker
                         v-model="dateValue"
                         type="datetime"
                         placeholder="选择日期时间"
                         align="center"
                         :picker-options="pickerOptions1">
-                      </el-date-picker>
+                        </el-date-picker>
+                      </div>
                     </div>
-                  </section>
-                </div>
-              </section>
-              <div style="width: 750px;height: 600px; " id="fireLineChart"><!-- 折线图 --></div>
-              <!-- 表格 -->
-              <div class="main_content_table">
+                  </div>
+                </section>
+              <div style="width: 100%;height: 300px; margin-top: 20px;" id="fireLineChart"><!-- 折线图 --></div>
+                <!-- 表格 -->
+                <div class="main_content_table margin-top10">
                 <table  class="table toolroute-table">
                   <thead>
-                    <td>时间</td>
-                    <td>巡检人数</td>
-                    <td>巡检任务完成次数</td>
-                    <td>报警数</td>
-                    <td>报警确认数</td>
-                    <td>隐患数</td>
-                    <td>危险品数</td>
-                    <td>建筑安全评分</td>
-                    <td>单位安全评分</td>
+                    <th>时间</th>
+                    <th>巡检人数</th>
+                    <th>巡检任务完成次数</th>
+                    <th>报警数</th>
+                    <th>报警确认数</th>
+                    <th>隐患数</th>
+                    <th>危险品数</th>
+                    <th>建筑安全评分</th>
+                    <th>单位安全评分</th>
                   </thead>
                   <tbody>
                     <tr v-for="item in tableData">
@@ -416,6 +427,8 @@
     // 选择器
     data() {
       return {
+        // 弹窗
+        fireAnalysis: false,
         //时间
         date: new Date(),
         pickerOptions1: {
@@ -547,17 +560,21 @@
           },
           legend: {
             data:["巡检人数","巡检任务完成次数","报警数","报警确认数","隐患数","危险品数","单位安全评分","建筑安全评分"],
+            color:["#fff","#bad616","#ff7800","#f13131","#ffb709","#ffb709","#ccc","#ccc"],
             selected: {
               '报警数' : false,
               '报警确认数' : false,
               '隐患数' : false,
               '危险品数' : false,
               '建筑安全评分' : false,
+            },
+            textStyle:{
+              color: "#fff"
             }
           },
           grid: {
-            left: '4%',
-            right: '4%',
+            left: '2%',
+            right: '2%',
             bottom: '2%',
             containLabel: true
           },
@@ -570,57 +587,75 @@
             type: 'category',
             boundaryGap: false,
             data: alarmAffirmNumData,
+            axisLabel:{
+              textStyle: {
+                color: "#999"
+              }
+            }
           },
           yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLabel:{
+              textStyle: {
+                color: "#999"
+              }
+            }
           },
           series: [
             {
               name:'巡检人数',
               type:'line',
               stack: '总量',
+              color:"#fff",
               data:alarmAffirmlineChartsCount
             },
             {
               name:'巡检任务完成次数',
               type:'line',
               stack: '总量',
+              color:"#bad616",
               data:alarmNumLineCount
             },
             {
               name:'报警数',
               type:'line',
               stack: '总量',
+              color:"#ff7800",
               data:inspectionPersonCount
             },
             {
               name:'报警确认数',
               type:'line',
               stack: '总量',
+              color:"#f13131",
               data:troubleUnSolvedCount
             },
             {
               name:'隐患数',
               type:'line',
               stack: '总量',
+              color:"#ffb709",
               data:troubleDangerUnSolvedCount
             },
             {
               name:'危险品数',
               type:'line',
               stack: '总量',
+              color:"#ffb709",
               data:inspectionFinishCount
             },
             {
               name:'单位安全评分',
               type:'line',
               stack: '总量',
+              color:"#ccc",
               data:unitScoreCount
             },
             {
               name:'建筑安全评分',
               type:'line',
               stack: '总量',
+              color:"#ccc",
               data:buildScoreCount
             }
           ]
