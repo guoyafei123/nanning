@@ -850,7 +850,7 @@
         $('.room_wrap').show();
         $('.map').hide();
         $('.floorMap').hide();
-        $('.floorListNew').hide();
+        $('.list_unstyled').hide();
         $('.roomMap').show();
         console.log(item.id)
         this.floorName = item.floorName ;
@@ -869,7 +869,7 @@
         $('.floor_wrap').show();
         $('.room_wrap').hide();
         $('.floorMap').show();
-        $('.floorListNew').show();
+        $('.list_unstyled').show();
         $('.map').hide();
         this.$store.commit('floorAdd',1);
         this.form.buildingMapsId = row.id ;
@@ -895,7 +895,7 @@
         this.floorRoomList.push({unitBuilding:'',roomList:[]})
       },
       addRoom(item,index){
-        item.roomList.push({roomNumber:'',id:'',imgKey:null})
+        item.roomList.push({roomNumber:'',roomId:'',imgKey:null})
       },
       deleteUnit(key,index,item){
         this.unitBuilding = key ;
@@ -923,7 +923,7 @@
       deleteRoom(key,item,index){
         console.info(key);
         this.$fetch("/api/building/deleteBuildingFloorRoom",{
-          roomId:key.id
+          roomId:key.roomId
         }).then(response=>{
           //console.log(response);
           item.splice(index,1);
@@ -931,19 +931,19 @@
         })
       },
       submitFloorRoomList(){
-        
-        var floorRoomList = {
-          'floorId':this.form.floorMapsId,
-          'floorRoomList':this.floorRoomList
-        }
-        console.log(JSON.stringify(floorRoomList));
-        this.$post("/api/building/addBuildingFloorRoom",floorRoomList,{
+        // console.log(JSON.stringify(this.floorRoomList));
+        var floorRoomList = JSON.stringify( this.floorRoomList );
+        // console.log(typeof floorRoomList)
+        this.$post("/api/building/addBuildingFloorRoom",{
+          'floorRoomList':floorRoomList,
+          'floorId':this.form.floorMapsId
+        },{
           headers: {
             'Content-Type': 'application/json'
           }
         }).then(response=>{
           //console.log(response);
-          console.log(response);
+          // alert(1);
           this.room_back()
         })
       },
@@ -953,18 +953,19 @@
           pageSize:1000,
           floorId:this.form.floorMapsId
         }).then(response=>{
-          console.log(response);
           //console.log(JSON.stringify(response));
           var pageBuildIng = response.data.pageBuildIng.result;
           var floorUnitList = response.data.floorUnitList;
+          // //console.log(floorUnitList);
           this.floorRoomList.length = 0 ;
           floorUnitList.forEach((item,index)=>{
             var newarr = pageBuildIng.filter(function (obj) {
               return obj.floorUnit == item;
             });
             newarr.forEach((item,index)=>{
-              var key = 'id';
+              var key = 'roomId';
               item[key] = item['id'];
+              delete item['id'];
             })
             //console.log(newarr);
             // alert(1);
@@ -997,7 +998,7 @@
           $('.main_all_content .main_content_bottom').show();
           $('.map').show();
           $('.floorMap').hide();
-          $('.floorListNew').hide();
+          $('.list_unstyled').hide();
           $('.roomMap').hide();
         }else{
           $('.build').show();
@@ -1009,7 +1010,7 @@
           $('.floor_wrap').hide();
           $('.room_wrap').hide();
           $('.floorMap').hide();
-          $('.floorListNew').hide();
+          $('.list_unstyled').hide();
           $('.roomMap').hide();
         }
       },
@@ -1026,7 +1027,7 @@
           $('.room_wrap').hide();  
           $('.map').hide();
           $('.floorMap').show();
-          $('.floorListNew').show();
+          $('.list_unstyled').show();
           $('.roomMap').hide();
         }else{
           $('.build').hide();
@@ -1038,7 +1039,7 @@
           $('.floor_wrap').show();
           $('.room_wrap').hide();
           $('.floorMap').show();
-          $('.floorListNew').show();
+          $('.list_unstyled').show();
           $('.roomMap').hide();
         }
       },
