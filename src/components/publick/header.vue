@@ -1,7 +1,8 @@
 <template>
   <header id="header" class="position-fixed-top z-index-30">
+    <div class="overlay"></div>
     <div class="header-main">
-      <div class="header-left margin-top30 position-left20 z-index-100">
+      <div class="header-left position-left20 z-index-100">
         <p class="version-title">
           <!-- 数雨如歌 -->智慧消防大数据监控平台 政府版
           <span class="size-10 version-num">BETA3.0</span>
@@ -33,7 +34,7 @@
               <p class="size-12">主机在线</p>
             </div>
           </li>
-          <el-tooltip class="item" placement="top">
+          <el-tooltip placement="top">
             <div slot="content" class="text-center"> {{dateFormat(date)}}<br><span v-if="weatherData!=null">{{weatherData.weather}}</span></div>
             <li class="header-time">
 
@@ -95,49 +96,52 @@
           <li>
             <span class="point"></span>
             <a class="showMessages" @click="showMessages()">
-              <el-tooltip class="item" content="消息" placement="top">
+              <el-tooltip content="消息" placement="top">
                 <i class="icon iconfont icon-xiaoxi-mian--"></i>
               </el-tooltip>
             </a>
           </li>
           <li>
             <a href="#">
-              <el-tooltip class="item" content="搜索" placement="top">
+              <el-tooltip content="搜索" placement="top">
                 <i class="icon iconfont icon-sousuo-mian-"></i>
               </el-tooltip>
             </a>
           </li>
           <li>
             <router-link to="/Unit_management" @click.native="management">
-              <el-tooltip class="item" content="管理" placement="top">
+              <el-tooltip content="管理" placement="top">
                 <i class="icon iconfont icon-shezhi-mian-"></i>
               </el-tooltip>
             </router-link>
           </li>
-          <li>
-            <router-link to="/Add_alarm">
-              <el-tooltip class="item" content="添加警报" placement="top">
-                <i class="icon iconfont icon-jingshi-xian-"></i>
-              </el-tooltip>
-            </router-link>
+          <li>            
+              <el-dropdown trigger="click">
+                <span class="el-dropdown-link"><i class="icon iconfont icon-jingshi-xian-"></i></span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item><router-link to="/Add_alarm"><i class="icon iconfont icon-baojing-xian-"></i> 添加警报</router-link></el-dropdown-item>
+                  <el-dropdown-item><router-link to="/Add_trouble"><i class="icon iconfont icon-yinhuan-xian-"></i> 添加隐患</router-link></el-dropdown-item>
+                  <!-- <el-dropdown-item><router-link to="/Dangerous_goods_management/list"><i class="icon iconfont icon-weixianpin-xian-"></i> 添加危险品</router-link></el-dropdown-item> -->
+                </el-dropdown-menu>
+            </el-dropdown>
           </li>
           <!-- <li>
                       <a href="#">
-                          <el-tooltip class="item" content="九屏监控" placement="top">
+                          <el-tooltip content="九屏监控" placement="top">
                               <i class="icon iconfont icon-jiuping-mian-"></i>
                           </el-tooltip>
                       </a>
                   </li> -->
           <li>
             <a @click="voice()" class="voice">
-              <el-tooltip class="item" content="声音" placement="top">
+              <el-tooltip content="声音" placement="top">
                 <i class="icon iconfont icon-tongzhi-mian-"></i>
               </el-tooltip>
             </a>
           </li>
           <li>
             <a href="#" @click="fireAnalysis = true">
-              <el-tooltip class="item" content="帮助" placement="top">
+              <el-tooltip content="帮助" placement="top">
                 <i class="icon iconfont icon-bangzhu-mian-" @click="queryFirehistoryData()"></i>
               </el-tooltip>
             </a>

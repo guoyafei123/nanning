@@ -323,6 +323,7 @@ footer .el-button:hover,footer .el-button:focus {
 .el-dropdown-menu__item {
     line-height: 34px;
     font-size: 12px;
+    padding: 0 15px;
     color: #999;
     border-top: 1px solid #111;
 }

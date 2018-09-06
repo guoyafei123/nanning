@@ -32,9 +32,8 @@
 }
 .manage-menu-title {
   height: 100px;
-}
-.manage-menu-title>div {
-        padding-left: 0;
+  font-size: 12px;
+  padding-right: 15px;
 }
 .manage-menu-title a {
     cursor: pointer;
@@ -51,6 +50,11 @@
     color: #bad616;
     text-decoration: none;
 }
+.router-icon a {
+  width: 100%;
+  margin-right: 0!important;
+  padding-right: 0!important;
+}
 .system_title {
   font-size: 12px;
   color: #666!important;
@@ -61,7 +65,7 @@
     line-height:0;
 }
 .manage-menu i.iconfont {
-  color: #999;
+  color: #ccc;
 }
 .manage-menu .main_aside{
     width: 100%;
@@ -143,6 +147,7 @@
 .manage-menu .main_aside a>li.p-red>span {
     color:#f13131;
 }
+.manage-menu .main_aside a>li.p-red>span,
 .manage-menu .main_aside a:hover>li.p-red>span,
 .manage-menu .main_aside .router-link-active>li.p-red>span{
     color:#000!important;
@@ -170,16 +175,20 @@
     padding:0 15px;
     background-color: #111;
   }
+  #add-new .main_title {
+    color:#bad616;
+    border-bottom: 1px solid #bad616;
+  }
   .main_title{
     display: flex;
-    align-items: center;
+    align-items: center;    
   }
   .main_title i{    
     margin-right:10px;
   }
   .main_title h2{
     line-height: 60px;
-    color: #fff;
+    color: #bad616;
     font-size: 14px;
   }
 /*  .main_header button,.main_nav_two button{
@@ -203,7 +212,7 @@
     border-left:none;
   }
 .main_title i {
-  color: #999;
+  color: #bad616;
 }
 .main_header .btn_add{    
     background: #bad616!important;
