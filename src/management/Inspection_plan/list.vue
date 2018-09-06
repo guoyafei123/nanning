@@ -39,7 +39,6 @@
             <el-select
               v-model="form.building"
             placeholder="选择建筑"  class="start" :disabled="isdisabled">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildList"
                 :label="item.name"
@@ -51,7 +50,7 @@
               placeholder="选择楼层" class="start startFloor" style="display: none;" :disabled="isdisabled">
               <el-option
                 v-for="item in floorList"
-                :label="item.floor+'层'"
+                :label="item.floor"
                 :value="item.id">
               </el-option>
             </el-select>
@@ -60,7 +59,7 @@
               placeholder="选择房间" class="start startRoom"  style="display: none;" :disabled="isdisabled">
               <el-option
                 v-for="item in roomList"
-                :label="item.roomNumber+'房间'"
+                :label="item.roomNumber"
                 :value="item.id">
               </el-option>
             </el-select>
@@ -88,7 +87,6 @@
             <el-select
               v-model="form.buildings"
               placeholder="选择建筑" class="end" :disabled="isdisableds">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildLists"
                 :label="item.name"
@@ -100,7 +98,7 @@
               placeholder="选择楼层" class="end endFloor" style="display: none;" :disabled="isdisableds">
               <el-option
                 v-for="item in floorLists"
-                :label="item.floor+'层'"
+                :label="item.floor"
                 :value="item.id">
               </el-option>
             </el-select>
@@ -109,7 +107,7 @@
               placeholder="选择房间" class="end endRoom" style="display: none;" :disabled="isdisableds">
               <el-option
                 v-for="item in roomLists"
-                :label="item.roomNumber+'房间'"
+                :label="item.roomNumber"
                 :value="item.id">
               </el-option>
             </el-select>
@@ -152,7 +150,6 @@
             <el-select
               v-model="form.buildingNode"
               placeholder="选择建筑" class="Node">
-              <el-option label="室外" value="0"></el-option>
               <el-option
                 v-for="item in buildListNode"
                 :label="item.name"
@@ -161,25 +158,25 @@
             </el-select>
             <el-select
               v-model="floorNode"
-              placeholder="选择楼层" class="Node NodeFloor">
+              placeholder="选择楼层" class="Node NodeFloor"  style="display: none;">
               <el-option
                 v-for="item in floorListNode"
-                :label="item.floor+'层'"
+                :label="item.floor"
                 :value="item.id">
               </el-option>
             </el-select>
             <el-select
               v-model="roomNode"
-              placeholder="选择房间" class="Node NodeRoom">
+              placeholder="选择房间" class="Node NodeRoom"  style="display: none;">
               <el-option
                 v-for="item in roomListNode"
-                :label="item.roomNumber+'房间'"
+                :label="item.roomNumber"
                 :value="item.id">
               </el-option>
             </el-select>
             <el-select
               v-model="equipmentNode"
-              placeholder="选择设备" class="Node NodeDevice">
+              placeholder="选择设备" class="Node NodeDevice"  style="display: none;">
               <el-option
                 v-for="item in equipmentListNode"
                 :label="item.name"
@@ -203,7 +200,7 @@
     <aside>      
         <div class="maps">
           <div class="text-center padding-top120">
-            <h1 class="size-80 font-white">地图</h1>
+            <!-- <h1 class="size-80 font-white">地图</h1> -->
           </div>
         </div>
     </aside>
@@ -691,6 +688,9 @@
         },
         buildings(){
           return this.form.buildings ;
+        },
+        buildingNode(){
+          return this.form.buildingNode ;
         }
       },
       watch:{
@@ -784,6 +784,7 @@
           this.form.buildingNode = curVal ;
           if(this.form.buildingNode !== 0 && this.form.buildingNode !== '0'){
             $('.NodeFloor').show();
+            $('.NodeRoom').hide();
             $('.NodeDevice').hide();
             this.floorNode = '';
             this.roomNode = '';
@@ -803,6 +804,7 @@
           if(this.floorNode !== 0){
             this.roomSearchNode(this.floorNode);
             $('.NodeRoom').show();
+            $('.NodeDevice').hide();
           }
         },
         roomNode(curVal,oldVal){

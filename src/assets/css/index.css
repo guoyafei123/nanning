@@ -807,16 +807,54 @@ video:hover{
     }
 
     .map-Pattern{
+        width: 120px;
+        height: auto;
         position: absolute;
-        left: -112px;
-        top: 126px;
+        left: -120px;
+        top: 120px;
+        background: rgba(0,0,0,.7);
+        border:1px solid #333;
+    }
+    .map-Pattern .el-collapse-item__header,
+    .map-Pattern .el-collapse-item__wrap {
+        background-color: transparent;
+        border-bottom:none;
+        height: 32px;
+        line-height: 32px;
+        color: #ccc;
+        font-size: 12px;
+        text-align: center;
+    }
+    .map-Pattern .el-collapse-item__wrap {
+        border-top:1px solid #333;
+        padding: 15px 20px;
+        text-align: left;
+        display: block;
+        height: 100%;
+    }
+    .map-Pattern .el-collapse-item__wrap .el-collapse-item__content {
+        padding-bottom: 0;
+    }
+    .map-Pattern .el-collapse-item__wrap .el-collapse-item__content .el-radio:last-child {
+        margin-bottom: 0;
+    }
+    .map-Pattern .el-collapse-item__arrow {
+        height: 32px;
+        line-height: 32px;
+        margin-right: 0;
+        float: none;
+    }
+    .map-Pattern .el-collapse-item__arrow.el-icon-arrow-right:before {
+        content: "\E603";
+    }
+    .map-Pattern .el-collapse-item__arrow.is-active {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
     }
     .map-Pattern button{
-        background: rgba(0,0,0,.5);
-        border:1px solid #333;
         font-size: 12px;
-        padding: 5px 10px;
         color: #ccc;
+        margin:15px auto;
     }
 
 
@@ -825,16 +863,18 @@ video:hover{
         position: absolute;
         width: 200px;
         height: 200px;
-        background: #111;
+        background-color: #111;
         top: -250px;
         right: 410px;
-        border: 1px solid #666;
+        border: 1px solid #333;
         padding: 5px;
         color:#ccc;
         text-align: center;
         transition: all 0.5s;
     }
-    
+    .punchclock p:first-child {
+        color: #bad616;
+    }
     .punchclockani{
         top:10px;
     }

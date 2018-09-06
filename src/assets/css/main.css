@@ -282,6 +282,12 @@ span.point {
     border-radius: 50%;
     top: 2px;
 }
+header .header-left .el-select .el-input--suffix .el-input__inner {
+    color: #bad616!important
+}
+header .header-left .el-input--mini .el-input__inner:hover {
+    color: #daff00!important;
+}
 /*渐变底色*/
 #left .overlay,
 #right .overlay,
@@ -1144,7 +1150,7 @@ a.min-map-cloase:hover {
     /*top: 60px;*/
 }
 .fireAnalysis>section hr {
-    border-color: #111;
+    border-color: #222;
     margin:15px auto;
 }
 .fireAnalysis .fire-map {
@@ -1292,6 +1298,9 @@ a.min-map-cloase:hover {
     font-size: 14px;
     color: #fff;
 }
+.my-filter .upd-elselect .el-input__inner {
+    padding-left: 35px;
+}
 .fire-survey .upd-elselect .el-input__inner,
 .fire-survey .fire-mini-info{
     height: 30px;
@@ -1299,6 +1308,19 @@ a.min-map-cloase:hover {
 }
 .fire-survey .el-range-input {
     padding:0 6px;
+}
+.fire-survey table {
+    border-bottom: 0!important;
+}
+.fire-survey table>thead>tr>th,
+.fire-survey table>tbody>tr>td {
+    border-left: 0!important;
+}
+.fire-survey table>thead {
+    background-color: #111;
+}
+.fire-survey table>thead>tr>th {
+    border-bottom: 0!important;
 }
 .fire-survey .big-list-table tbody>tr>td,
 .fire-survey .big-list-table thead>tr>th {
@@ -1315,6 +1337,12 @@ a.min-map-cloase:hover {
     height: 10px;
     display: inline-block;
     margin-right: 6px;
+}
+.fire-trouble .textandimg-main:after {
+    border-bottom: 1px dashed #111;
+    display: block;
+    content: "";
+    margin:10px 15px;
 }
 .tablist-itemtitle .panel-title>a:after {
     content: "\E603";

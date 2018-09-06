@@ -19,7 +19,11 @@
 							<span class="size-20 font-blue">{{unitInfo.name}}</span>
 							<span class="float-right">
 								<el-tooltip content="安全评分" placement="top">
-			                          <span class="bgbox-max bg-blue font-black size-10">单位评分{{unitInfo.totalScore}}</span>
+									<span v-if="unitInfo.totalScore == 0" class="bgbox-max bg-blue font-black">无评分</span>
+									<span v-if="unitInfo.totalScore < 2" class="bgbox-max bg-red font-black size-10">单位评分{{unitInfo.totalScore}}</span>
+									<span v-if="unitInfo.totalScore >=2 && unitInfo.totalScore < 4" class="bgbox-max bg-orange font-black size-10">单位评分{{unitInfo.totalScore}}</span>
+									<span v-if="unitInfo.totalScore >=4 && unitInfo.totalScore < 6" class="bgbox-max bg-yellow font-black size-10">单位评分{{unitInfo.totalScore}}</span>
+									<span v-if="unitInfo.totalScore>=6" class="bgbox-max bg-blue font-black size-10">单位评分{{unitInfo.totalScore}}</span>
 			                      </el-tooltip>
 							</span>
 						</p>
@@ -33,7 +37,10 @@
 						<p>
 							<span class="size-20 font-blue">{{itemData.buildingName}}</span>
 							<span class="float-right">
-                          <span class="bgbox-max bg-blue font-black size-10" data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
+								<span v-if="buildScore < 2" class="bgbox-max bg-red font-black size-10"  data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
+								<span v-if="buildScore >=2 && buildScore < 4" class="bgbox-max bg-orange font-black size-10"  data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
+								<span v-if="buildScore >=4 && buildScore < 6" class="bgbox-max bg-yellow font-black size-10"  data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
+								<span v-if="buildScore>=6" class="bgbox-max bg-blue font-black size-10"  data-toggle="tooltip" title="安全评分">建筑评分{{buildScore}}</span>
 							</span>
 						</p>
 					</div>
@@ -50,29 +57,29 @@
 			<section v-show="itemtrue==false">
 				<h4 class="p-title margin-top30">安全评分</h4>
 				<div class="row cardinfo-style margin-top10 font-gray-999">
-					<p class="col-sm-4">建筑防火 <span>{{unitScoreDetailData.buildingfhScore}}</span></p>
-					<p class="col-sm-4">火灾危险源 <span>{{unitScoreDetailData.fireSourceScore}}</span></p>
-					<p class="col-sm-4">消防设施 <span>{{unitScoreDetailData.xfdeviceScore}}</span></p>
-					<p class="col-sm-4">消防安全管理 <span>{{unitScoreDetailData.anquanScore}}</span></p>
-					<p class="col-sm-4">灭火救援 <span>{{unitScoreDetailData.miehuoScore}}</span></p>
-					<p class="col-sm-4">建筑评估 <span>{{unitScoreDetailData.buildingpgScore}}</span></p>
-					<p class="col-sm-4">生活用火隐患 <span>{{unitScoreDetailData.shenghuoScore}}</span></p>
-					<p class="col-sm-4">消防给水 <span>{{unitScoreDetailData.waterSupplyScore}}</span></p>
+					<p class="col-sm-6">建筑防火 <span>{{unitScoreDetailData.buildingfhScore}}</span></p>
+					<p class="col-sm-6">火灾危险源 <span>{{unitScoreDetailData.fireSourceScore}}</span></p>
+					<p class="col-sm-6">消防设施 <span>{{unitScoreDetailData.xfdeviceScore}}</span></p>
+					<p class="col-sm-6">消防安全管理 <span>{{unitScoreDetailData.anquanScore}}</span></p>
+					<p class="col-sm-6">灭火救援 <span>{{unitScoreDetailData.miehuoScore}}</span></p>
+					<p class="col-sm-6">建筑评估 <span>{{unitScoreDetailData.buildingpgScore}}</span></p>
+					<p class="col-sm-6">生活用火隐患 <span>{{unitScoreDetailData.shenghuoScore}}</span></p>
+					<p class="col-sm-6">消防给水 <span>{{unitScoreDetailData.waterSupplyScore}}</span></p>
 				</div>
 			</section>
 
 			<section v-show="itemtrue==true">
 				<h4 class="p-title margin-top30">安全评分</h4>
 				<div class="row cardinfo-style margin-top10 font-gray-999">
-					<p class="col-sm-4">建筑参数 <span>{{buildingScoreDetailsDetails.buildingParamScore}}</span></p>
-					<p class="col-sm-4">耐火等级 <span>{{buildingScoreDetailsDetails.refractoryScore}}</span></p>
-					<p class="col-sm-4">建筑内防火间距 <span>{{buildingScoreDetailsDetails.spacingScore}}</span></p>
-					<p class="col-sm-4">安全疏散条件 <span>{{buildingScoreDetailsDetails.evacuateScore}}</span></p>
-					<p class="col-sm-4">避雷 <span>{{buildingScoreDetailsDetails.lightningScore}}</span></p>
-					<p class="col-sm-4">电气设备隐患 <span>{{buildingScoreDetailsDetails.applianceScore}}</span></p>
-					<p class="col-sm-4">火灾警报系统 <span>{{buildingScoreDetailsDetails.fireAlarmScore}}</span></p>
-					<p class="col-sm-4">消防给水 <span>{{buildingScoreDetailsDetails.waterSupplyScore}}</span></p>
-					<p class="col-sm-4">灭火设备 <span>{{buildingScoreDetailsDetails.outfireScore}}</span></p>
+					<p class="col-sm-6">建筑参数 <span>{{buildingScoreDetailsDetails.buildingParamScore}}</span></p>
+					<p class="col-sm-6">耐火等级 <span>{{buildingScoreDetailsDetails.refractoryScore}}</span></p>
+					<p class="col-sm-6">建筑内防火间距 <span>{{buildingScoreDetailsDetails.spacingScore}}</span></p>
+					<p class="col-sm-6">安全疏散条件 <span>{{buildingScoreDetailsDetails.evacuateScore}}</span></p>
+					<p class="col-sm-6">避雷 <span>{{buildingScoreDetailsDetails.lightningScore}}</span></p>
+					<p class="col-sm-6">电气设备隐患 <span>{{buildingScoreDetailsDetails.applianceScore}}</span></p>
+					<p class="col-sm-6">火灾警报系统 <span>{{buildingScoreDetailsDetails.fireAlarmScore}}</span></p>
+					<p class="col-sm-6">消防给水 <span>{{buildingScoreDetailsDetails.waterSupplyScore}}</span></p>
+					<p class="col-sm-6">灭火设备 <span>{{buildingScoreDetailsDetails.outfireScore}}</span></p>
 				</div>
 			</section>
 
@@ -315,7 +322,8 @@
 							lineStyle: {
 								color: "#999"
 							}
-						}
+						},
+						
 					},
 
 					yAxis: {
@@ -325,10 +333,16 @@
 								color: "#999"
 							}
 						},
+						nameTextStyle: {
+							color: "#fff"
+						},
 						splitLine: {
 							lineStyle: {
 								// 使用深浅的间隔色
 								color: ["#333"]
+							},
+							textStyle:{
+								color: "#999"
 							}
 						}
 					},
@@ -357,9 +371,10 @@
 						color: {
 							colorStops: [{
 								offset: 0,
-								color: "#333"
+								color: "#bad616"
 							}]
-						}
+						},
+						
 					}],
 					tooltip: {
 						enterable: true,
@@ -374,7 +389,7 @@
 				lineChart.clear();
 				lineChart.setOption(option, true);
 			},
-			//left-柱状图
+			//RIGHT-柱状图
 			drawPieChart(id, data) {
 				var axisDate = data.name;
 				var axisData = data.score;
@@ -401,7 +416,12 @@
 						axisTick: {
 							alignWithLabel: true
 						},
-
+						axisLine: {
+							lineStyle: {
+								color: "#999"
+							}
+						},
+						
 					}],
 					yAxis: [{
 						type: "value",
@@ -427,12 +447,14 @@
 									position: "top",
 									textStyle: {
 										color: function(params) {
-											if(params.value > 0 && params.value < 100) {
-												return "#333333";
-											} else if(params.value >= 100 && params.value <= 200) {
-												return "#666666";
-											} else if(params.value >= 200 && params.value <= 300) {
-												return "#999999";
+											if(params.value > 0 && params.value < 2) {
+												return "#f13131";
+											} else if(params.value >= 2 && params.value < 4) {
+												return "#ff7800";
+											} else if(params.value >= 4 && params.value <6) {
+												return "#ffb709";
+											}else if(params.value >= 6) {
+												return "#bad616";
 											}
 											return "#bad616";
 										}
@@ -446,12 +468,14 @@
 									}
 								},
 								color: function(params) {
-									if(params.value > 0 && params.value < 10) {
-										return "#333333";
-									} else if(params.value >= 10 && params.value <= 30) {
-										return "#666666";
-									} else if(params.value >= 30 && params.value <= 50) {
-										return "#999999";
+									if(params.value > 0 && params.value < 2) {
+													return "#f13131";
+									} else if(params.value >= 2 && params.value < 4) {
+										return "#ff7800";
+									} else if(params.value >= 4 && params.value <6) {
+										return "#ffb709";
+									}else if(params.value >= 6) {
+										return "#bad616";
 									}
 									return "#bad616";
 								}

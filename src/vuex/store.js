@@ -12,6 +12,7 @@ var state={
   //巡检
   region:'',
   inspectionId:'',
+  inspectionUnitId:'',
   form:{},
   InspectionMap:[],
   //设备
@@ -120,6 +121,9 @@ var mutations={
   },
   inspectionId(state,data){
     state.inspectionId = data;
+  },
+  inspectionUnitId(state,data){
+    state.inspectionUnitId = data;
   },
   form(state,data){
     state.form= data;

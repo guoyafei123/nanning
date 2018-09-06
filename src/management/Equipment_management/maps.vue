@@ -249,6 +249,8 @@ import managementMapVue from '../managementMap';
         this.room = '';
         this.buildSearch(this.unit);
         this.$store.commit('Unit',this.unit);
+        $('.floorMap').hide();
+        $('.map').show();
       },
       building(curVal,oldVal){
         this.building = curVal ;
@@ -256,14 +258,20 @@ import managementMapVue from '../managementMap';
         this.floor = '';
         this.room = '';
         this.table_list = [];
-        this.floorSearch(this.building);
+        
         this.$store.commit('buildDevice',this.building);
+        $('.floorMap').hide();
+        $('.map').show();
+        if(this.building == '0' && this.building == 0){
+          return ;
+        }
+        this.floorSearch(this.building);
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
         this.room = '';
         //console.log(this.floor);
-        if(this.building != 0 && this.building != '0'){
+        if(this.floor != ''){
           $('.floorMap').show();
           $('.map').hide();
           this.findPageBuildIngFloor();
@@ -271,7 +279,7 @@ import managementMapVue from '../managementMap';
           $('.floorMap').hide();
           $('.map').show();
         }
-        if(this.floor !== 0){
+        if(this.floor !== ''){
           this.roomSearch(this.floor);
           this.floor_btn(this.floor);
           this.$store.commit('floorDevice',this.floor);

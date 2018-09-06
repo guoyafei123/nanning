@@ -163,7 +163,7 @@
       </div>
       <div class="dialog-content text-center clearfix">
         <div class="myhead">
-          <img :src="userInfoData.headImgUrl" class="img-responsive img-circle center-block">
+          <img :src="imageP+userInfoData.headImgUrl" class="img-responsive img-circle center-block">
           <h3>{{userInfoData.nickName?userInfoData.nickName:'-'}}</h3>
           <h4>角色：<span>{{userInfoData.roleName?userInfoData.roleName:'-'}}</span></h4><h4>账号：<span>{{userInfoData.username?userInfoData.username:'-'}}</span>
         </h4>
@@ -182,7 +182,7 @@
     <!-- 签到弹窗 -->
     <div class="punchclock" :class="punchclocktrue?'punchclockani':''">
       <p class="size-16 margin-top10">{{ ''+punchStartTime.substring(11,16)}}打卡提示</p>
-      <p class="size-12">有效时间: {{ punchExpireTime}}</p>
+      <p class="size-12">有效时间 <span class="font-red">{{ punchExpireTime}}</span></p>
       <img class="margin-top10" :src="punchImgUrl">
       <p class="size-10 margin-top10">请通过巡检APP扫描二维码打卡</p>
     </div>
@@ -271,7 +271,7 @@
                   </div>
                   <div class="col-sm-4">
                     <span>关闭时间 </span>
-                    <strong>{{queryFireSituationAlarmData.cancelTime}}</strong>
+                    <strong>{{queryFireSituationAlarmData.cancelTime==null? '-':queryFireSituationAlarmData.cancelTime}}</strong>
                   </div>
                   <div class="col-sm-4">
                     <span>响应时长 </span>
@@ -292,7 +292,7 @@
                   </div>
                   <div class="col-sm-4">
                     <span>关闭人 </span>
-                    <strong>{{queryFireSituationAlarmData.cancelNickName}}</strong>
+                    <strong>{{queryFireSituationAlarmData.cancelNickName==null? '-':queryFireSituationAlarmData.cancelNickName}}</strong>
                   </div>
                   <div class="col-sm-12">
                     <span>报警说明 </span>
@@ -314,7 +314,7 @@
                     <span>图片视频 </span>
                     <ul class="fire-media list-inline">
                       <li v-for="item in queryFireSituationAlarmData.confirmAlarmImgList">
-                        <img :src="item" alt="" height="80">
+                        <img :src="imgUrl+item" alt="" height="80">
                       </li>
                     </ul>
                   </div>
@@ -326,7 +326,7 @@
                     <span>图片视频 </span>
                     <ul class="fire-media list-inline">
                       <li v-for="item in queryFireSituationAlarmData.relieveAlarmImgList">
-                        <img :src="item" alt="" height="80">
+                        <img :src="imgUrl+item" alt="" height="80">
                       </li>
                     </ul>
                   </div>
@@ -407,61 +407,60 @@
                 <div class="textandimg fire-survey col-sm-12 border-none clearfix">
                   <h5>起火位置相关最近一次报警记录</h5>
                   <hr>
-                  <div class="row textandimg-main clearfix"  v-for="item in queryLastTimeAlarmData" >
+                  <div class="row textandimg-main clearfix">
                     <div class="col-sm-12">
                       <span>详细位置 </span>
                       <strong>
-                        {{item.unitName}}
-                        {{item.buildingName}}
-                        {{item.roomName}}
-                        {{item.deviceName}}
+                        {{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.unitName}}
+                        {{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.buildingName}}
+                        {{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.roomName}}
+                        {{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.deviceName}}
                       </strong>
                     </div>
                     <div class="col-sm-4">
                       <span>报警时间 </span>
-                      <strong>{{item.startTime}}</strong>
+                      <strong>{{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.startTime}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>确认时间 </span>
-                      <strong>{{item.confirmTime}}</strong>
+                      <strong>{{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.confirmTime}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>关闭时间 </span>
-                      <strong>{{item.cancelTime}}</strong>
+                      <strong>{{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.cancelTime}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>响应时长 </span>
-                      <strong class="font-blue">{{this.timeFn(item.startTime,item.confirmTime)}}秒</strong>
+                      <strong class="font-blue" v-if="queryLastTimeAlarmData!=null">{{this.timeFn(queryLastTimeAlarmData.startTime,queryLastTimeAlarmData.confirmTime)}}秒</strong>
                     </div>
                     <div class="col-sm-8">
                       <span>持续时长 </span>
-                      <strong class="font-blue">{{this.timeFn(item.startTime ,item.cancelTime)}}秒</strong>
+                      <strong class="font-blue" v-if="queryLastTimeAlarmData!=null">{{this.timeFn(queryLastTimeAlarmData.startTime ,queryLastTimeAlarmData.cancelTime)}}秒</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>报警源 </span>
-                      <strong v-if="item.eventlevel==0">{{item.deviceName}}</strong>
-                      <strong v-if="item.eventlevel!=0">{{item.nickName}}</strong>
+                      <strong v-if=" queryLastTimeAlarmData!=null && queryLastTimeAlarmData.eventlevel==0">{{queryLastTimeAlarmData.deviceName}}</strong>
+                      <strong v-if="queryLastTimeAlarmData!=null && queryLastTimeAlarmData.eventlevel!=0">{{queryLastTimeAlarmData.nickName}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>确认人 </span>
-                      <strong>{{item.confirmNickName}}</strong>
+                      <strong>{{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.confirmNickName}}</strong>
                     </div>
                     <div class="col-sm-4">
                       <span>关闭人 </span>
-                      <strong>{{item.cancelNickName}}</strong>
+                      <strong>{{queryLastTimeAlarmData==null?'-':queryLastTimeAlarmData.cancelNickName}}</strong>
                     </div>
                     <div class="col-sm-12">
                       <span>报警状态 </span>
                       <strong>
-                        {{item.eventlevel}}
-                        <span class="font-blue" v-if="item.eventlevel!= 2">未发生火情</span>
-                        <span class="font-red" v-if="item.eventlevel=== 2">发生火情</span>
+                        <span class="font-blue" v-if="queryLastTimeAlarmData!=null && queryLastTimeAlarmData.eventlevel!= 2">未发生火情</span>
+                        <span class="font-red" v-if="queryLastTimeAlarmData!=null && queryLastTimeAlarmData.eventlevel=== 2">发生火情</span>
                       </strong>
                     </div>
                   </div>
                 </div>
                 <!-- 起火位置相关未解决隐患详情 -->
-                <div class="textandimg fire-survey col-sm-12 border-none clearfix">
+                <div class="textandimg fire-survey fire-trouble col-sm-12 border-none clearfix">
                   <h5>起火位置相关未解决隐患详情</h5>
                   <hr>
                   <div class="row textandimg-main clearfix" v-for="item in queryLastTimeTroubleData ">
@@ -507,10 +506,10 @@
                       <span>图片视频 </span>
                       <ul class="fire-media list-inline">
                         <li v-for="video in item.confirmUrls">
-                          <video :src="Global.imgPath+video" alt="" height="80"></video>
+                          <video :src="imgUrl+video" alt="" height="80"></video>
                         </li>
                         <li v-for="img in item.imgUrl">
-                          <img :src="Global.imgPath+img" alt="" height="80">
+                          <img :src="imgUrl+img" alt="" height="80">
                         </li>
                       </ul>
                     </div>
@@ -554,13 +553,13 @@
               </section>
               <!-- 历史数据分析 -->
               <h2 id="section-3">历史数据分析</h2>
-              <div class="textandimg fire-survey">
+              <div class="textandimg fire-survey padding0">
                 <!-- 筛选 -->
-                <section class="my-filter padding5 bg-gray-111 clearfix">
+                <section class="my-filter bg-gray-111 clearfix">
                   <!-- 日期筛选 -->
-                  <div class="pull-left padding-left50">
-                    <section>
-                      <div class="upd-elmdate">
+                  <div class="main_all_content">
+                  <div class="main_content_top padding-left5">
+                      <div class="upd-elselect padding-top5">
                        <el-date-picker
                         v-model="dateValue"
                         type="datetime"
@@ -569,20 +568,17 @@
                         :picker-options="pickerOptions1">
                         </el-date-picker>
                       </div>
-                    </section>
+                    </div>
                   </div>
                 </section>
-                <div style="width: 750px;height: 600px; " id="fireLineChart"><!-- 折线图 --></div>
+                <div style="width: 100%;height: 300px; margin-top: 20px;" id="fireLineChart"><!-- 折线图 --></div>
                 <!-- 表格 -->
-                <div class="main_content_table">
+                <div class="main_content_table margin-top10">
                   <el-table
-                    :data="tableData"
-                    border="true"
-                    width="100">
+                    :data="tableData">
                     <el-table-column
                       prop="hour"
-                      label="时间"
-                      width="150">
+                      label="时间">
                     </el-table-column>
                     <el-table-column
                       prop="inspectionPersonCount"
@@ -622,10 +618,10 @@
             </div>
             <!-- 按钮 -->
             <div class="main_tab col-sm-offset-4 col-sm-4">
-              <button type="button" @click="fireAnalysis = false">
+              <button type="button">
                 <i class="el-icon-printer"></i> 打印
               </button>
-              <button type="button" @click="fireAnalysis = false">
+              <button type="button">
                 <i class="el-icon-share"></i> 导出
               </button>
               <button type="button" @click="fireAnalysis = false">
@@ -721,8 +717,8 @@
         punchInterval: null,
         //火情分析列表数据
         queryFirehistoryData_parameter: {
-          buildingId: 3,
-          startTime: '2018-08-31 18:24:23'
+          alarmId: 2002,
+          startTime: null
         },
         tableData: {
           id: null,
@@ -796,6 +792,7 @@
         getUnitsSynthesis_param: {
           unitId: 13
         },
+        imageP:''
       }
     },
     computed: mapState([
@@ -813,7 +810,7 @@
     },
     //其他
     mounted() {
-      // //console.log(this.userinfo);
+      this.imageP=Global.imgPath;
       this.userAnalyse()
       this.getBuildingData()
       this.getDeviceData()
@@ -977,18 +974,21 @@
           },
           legend: {
             data:["巡检人数","巡检任务完成次数","报警数","报警确认数","隐患数","危险品数","单位安全评分","建筑安全评分"],
+            color:["#fff","#bad616","#ff7800","#f13131","#ffb709","#ffb709","#ccc","#ccc"],
             selected: {
               '报警数' : false,
               '报警确认数' : false,
               '隐患数' : false,
               '危险品数' : false,
               '建筑安全评分' : false,
+            },
+            textStyle:{
+              color: "#fff"
             }
-
           },
           grid: {
-            left: '4%',
-            right: '4%',
+            left: '2%',
+            right: '2%',
             bottom: '2%',
             containLabel: true
           },
@@ -1001,57 +1001,75 @@
             type: 'category',
             boundaryGap: false,
             data: alarmAffirmNumData,
+            axisLabel:{
+              textStyle: {
+                color: "#999"
+              }
+            }
           },
           yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLabel:{
+              textStyle: {
+                color: "#999"
+              }
+            }
           },
           series: [
             {
               name:'巡检人数',
               type:'line',
               stack: '总量',
+              color:"#fff",
               data:alarmAffirmlineChartsCount
             },
             {
               name:'巡检任务完成次数',
               type:'line',
               stack: '总量',
+              color:"#bad616",
               data:alarmNumLineCount
             },
             {
               name:'报警数',
               type:'line',
               stack: '总量',
+              color:"#ff7800",
               data:inspectionPersonCount
             },
             {
               name:'报警确认数',
               type:'line',
               stack: '总量',
+              color:"#f13131",
               data:troubleUnSolvedCount
             },
             {
               name:'隐患数',
               type:'line',
               stack: '总量',
+              color:"#ffb709",
               data:troubleDangerUnSolvedCount
             },
             {
               name:'危险品数',
               type:'line',
               stack: '总量',
+              color:"#ffb709",
               data:inspectionFinishCount
             },
             {
               name:'单位安全评分',
               type:'line',
               stack: '总量',
+              color:"#ccc",
               data:unitScoreCount
             },
             {
               name:'建筑安全评分',
               type:'line',
               stack: '总量',
+              color:"#ccc",
               data:buildScoreCount
             }
           ]
@@ -1099,7 +1117,7 @@
           .then(response => {
             if (response.status == 1) {
               this.punchStartTime = response.data.startTime
-              var code = encodeURI(response.data.code)
+              var code = encodeURIComponent(response.data.code)
               this.punchImgUrl = '/api/qrcode/img?content=' + code
               this.punchExpireMillisecond = response.data.expireMillisecond
               this.punchclocktrue = true
