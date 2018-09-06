@@ -151,7 +151,7 @@
           )
             .then(response => {
               if (response) {
-                this.reviewCount =response.data.pager.totalRow
+                // this.reviewCount =response.data.pager.totalRow
               }
             })
             .then(err => {
