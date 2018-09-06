@@ -22,21 +22,18 @@
             <li>
               <i class="icon iconfont icon-danweiguanli-xian-2"></i>
               <h2>单位管理</h2>
-              <span>2</span>
             </li>
           </router-link>
           <router-link to="/Building_management">
             <li>
               <i class="icon iconfont icon-jianzhuguanli-xian-"></i>
               <h2>建筑管理</h2>
-              <span>37</span>
             </li>
           </router-link>
           <router-link to="/Equipment_management">
             <li>
               <i class="icon iconfont icon-shebeiguanli-xian-"></i>
               <h2>设备管理</h2>
-              <span>2074</span>
             </li>
           </router-link>
           <li class="system_title">风险防控</li>
@@ -44,28 +41,24 @@
             <li>
               <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
               <h2>风险分析</h2>
-              <span>27</span>
             </li>
           </router-link>
           <router-link to="/RiskScore_management">
             <li>
               <i class="icon iconfont icon-fengxianfenxi-xian-"></i>
               <h2>风险评分</h2>
-              <span>27</span>
             </li>
           </router-link>
           <router-link to="/Inspection_plan">
             <li>
               <i class="icon iconfont icon-xunjianguihua-xian-"></i>
               <h2>巡检规划</h2>
-              <span>168</span>
             </li>
           </router-link>
           <router-link to="/Dangerous_goods_management">
             <li>
               <i class="icon iconfont icon-weixianpin-xian-"></i>
               <h2>危险品管理</h2>
-              <span>19</span>
             </li>
           </router-link>
           <li class="system_title">人员管理</li>
@@ -80,14 +73,12 @@
             <li>
               <i class="icon iconfont icon-renyuanliebiao-xian-"></i>
               <h2>人员列表</h2>
-              <span>118</span>
             </li>
           </router-link>
           <router-link to="/Authority_allocation">
             <li>
               <i class="icon iconfont icon-quanxianfenpei-xian-"></i>
               <h2>权限分配</h2>
-              <span>6</span>
             </li>
           </router-link>
           <li class="system_title">档案管理</li>
@@ -95,28 +86,24 @@
             <li class="p-red">
               <i class="icon iconfont icon-xiaoxi-"></i>
               <h2>消息管理</h2>
-              <span data-toggle="tooltip" title="未读消息 3 条">3</span>
             </li>
           </router-link>
           <router-link to="/Reserve_plan">
             <li>
               <i class="icon iconfont icon-yingjiyuan"></i>
               <h2>预案管理</h2>
-              <span data-toggle="tooltip" title="预案总数">36</span>
             </li>
           </router-link>
           <router-link to="/Patrolcheck">
             <li>
               <i class="icon iconfont icon-qiandao-kaoqindaqia"></i>
               <h2>巡检打卡</h2>
-              <span>6</span>
             </li>
           </router-link>
           <router-link to="/ControlRoomLog">
             <li>
               <i class="icon iconfont icon-kongzhitai_"></i>
               <h2>控制室日常</h2>
-              <span>6</span>
             </li>
           </router-link>
         </ul>
