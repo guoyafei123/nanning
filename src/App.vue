@@ -34,7 +34,7 @@
     name: 'app',
     data () {
       return {
-        mapAndFooter:true
+        mapAndFooter:false
       }
     },
     components: {

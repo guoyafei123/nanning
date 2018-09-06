@@ -749,7 +749,7 @@
           .then(response => {
             if (response.data) {
               this.queryUnitInfo = response.data.unitInfo;
-              this.queryUnitInfoImg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.param.unitId + '.jpg';
+              this.queryUnitInfoImg = '/xf/api/unit_img/' + this.param.unitId + '.jpg';
             }
           });
       } ,
