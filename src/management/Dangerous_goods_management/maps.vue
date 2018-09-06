@@ -105,7 +105,11 @@ import{mapState} from "vuex";
         roomList:[],
         floorList:[],
         buildList:[],
-        statusList:[],
+        statusList:[
+          { name: '全部状态' , id:'' },
+          { name:'未解决', id:0 },
+          { name:'已解决', id:1 }
+        ],
         optionList:[],//全部单位列表
         svgUrl:'',
         table_list:[],
@@ -229,10 +233,14 @@ import{mapState} from "vuex";
         this.floor = '';
         this.room = '';
         this.table_list = [];
-        this.floorSearch(this.building);
         this.$store.commit('dangerBuild',this.building);
         $('.floorMap').hide();
         $('.map').show();
+        if(this.building == '0' && this.building == 0){
+          return ;
+        }
+        this.floorSearch(this.building);
+        
       },
       floor(curVal,oldVal){
         this.floor = curVal ;
