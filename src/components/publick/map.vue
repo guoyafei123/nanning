@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import Global from "../../Global.vue";
 
 import { mapState } from "vuex";
 export default {
@@ -600,7 +599,7 @@ export default {
           })
           .then(err => {});
       } else {
-        this.mp.setCenter(new BMap.Point(Global.point[0],Global.point[1]));
+        this.mp.setCenter(new BMap.Point(this.config.point[0],this.config.point[1]));
       }
     },
 
@@ -1117,7 +1116,7 @@ export default {
             var a = element.loc.coordinates[0];
             var b = element.loc.coordinates[1];
             var name = element.extensions.HUMAN_ROLE + "-" + element.title;
-            var url = Global.imgPath + element.extensions.USER_AVATAR;
+            var url = this.config.baseImg + element.extensions.USER_AVATAR;
             console.log(url);
             var online = element.extensions.ONLINE_STATUS;
             var marker;
@@ -1147,7 +1146,7 @@ export default {
     }
   },
   mounted() {
-    this.point=Global.point;
+    this.point=this.config.point;
     var map = this.getMapToDiv("allmap");
     this.mp = map;
     var that = this;

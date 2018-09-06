@@ -118,7 +118,6 @@
 </template>
 
 <script>
-	import Global from '../../Global.vue';
 	import moment from "moment";
 	import panzoom from 'panzoom';
 	import{mapState} from "vuex";
@@ -162,7 +161,7 @@
 					if (data) {
 						this.floorInfo = data.result.floor;
 						if(this.floorInfo.svgUrl != "" && this.floorInfo.svgUrl != null){
-							this.svgUrl = Global.imgPath +this.floorInfo.svgUrl;
+							this.svgUrl = this.config.baseImg +this.floorInfo.svgUrl;
 						}
 						this.floorList = data.result.floorList;
 						this.floorDeviceNum = data.result.countDevice;
@@ -188,7 +187,7 @@
 					if (data) {
 						this.floorInfo = data.result.floor;
 						if(this.floorInfo.svgUrl != "" && this.floorInfo.svgUrl != null){
-							this.svgUrl = Global.imgPath +this.floorInfo.svgUrl;
+							this.svgUrl = this.config.baseImg +this.floorInfo.svgUrl;
 						}
 						this.floorDeviceNum = data.result.countDevice;
 						this.floorRoomNum =  data.result.countRoom;
@@ -202,7 +201,7 @@
     		},
 		},
 		mounted(){
-			this.imageP=Global.imgPath;
+			this.imageP=this.config.baseImg;
 			var area = document.getElementById('floorImg');
 			panzoom((area),{
                 maxZoom:1,

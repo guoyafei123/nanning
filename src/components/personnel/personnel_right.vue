@@ -245,7 +245,6 @@
 </template>
 
 <script>
-	import Global from '../../Global.vue';
 	import moment from "moment";
 	import { mapState } from "vuex";
 	// import Per_leftVue from './per_left.vue';
@@ -597,7 +596,7 @@
 			},
 		},
 		mounted() {
-			this.imageP=Global.imgPath;
+			this.imageP=this.config.baseImg;
 			// 左侧
 			if(sessionStorage.unitid !=undefined || sessionStorage.unitid !=''){
 				this.queryUserCount_parameter.unitId=sessionStorage.unitid;

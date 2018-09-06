@@ -398,12 +398,12 @@
 									<div class="textandimg-img imgs-nthof">
 										<template v-for="item in getAlarmDetail.addAlarmImgList">
 											<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-												<video :src="config.base.img+item" width="100%" controls="controls"></video>
+												<video :src="config.baseImg+item" width="100%" controls="controls"></video>
 											</div>
 										</template>
 										<template v-for="item in getAlarmDetail.addAlarmImgList">
 											<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-												<img :src="config.base.img+item">
+												<img :src="config.baseImg+item">
 											</div>
 										</template>
 									</div>

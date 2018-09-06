@@ -113,7 +113,7 @@
                   <span>图片视频 </span>
                   <ul class="fire-media list-inline">
                     <li v-for="item in queryFireSituationAlarmData.addAlarmImgList">
-                      <img :src="item" alt="" height="80">
+                      <img :src="config.baseImg+item" alt="" height="80">
                     </li>
                   </ul>
                 </div>
@@ -156,7 +156,7 @@
                       <small><i class="el-icon-location"></i> {{queryUnitInfo.location}}</small>
                     </article>
                   </div>
-                  <img :src="queryUnitInfoImg" :onerror="defaultImg" class="img-responsive center-block">
+                  <img :src="config.baseImg+queryUnitInfoImg" :onerror="defaultImg" class="img-responsive center-block">
                 </li>
               </ul>
               <ul class="fire-per bg-black list-unstyled col-sm-7">
@@ -450,7 +450,6 @@
 <script>
   import moment from 'moment';
   import {mapState} from 'vuex';
-  import Global from "../../Global.vue";
   export default {
     // 选择器
     data() {
@@ -569,7 +568,7 @@
     },
     //其他
     mounted() {
-      this.imageP=Global.imgPath;
+      this.imageP=this.config.baseImg;
       //火情分析
       this.queryFirehistoryData();
       //this.queryAlarmLastTime();

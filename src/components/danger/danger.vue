@@ -425,7 +425,7 @@
 											</template>
 											<template v-for="item in troubleDetail.imgUrl">
 												<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-													<img :src="item">
+													<img :src="config.baseImg+item">
 												</div>
 											</template>
 										</div>
@@ -450,7 +450,7 @@
 											</template>
 											<template v-for="item in troubleDetail.confirmUrls">
 												<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-													<img :src="item">
+													<img :src="config.baseImg+item">
 												</div>
 											</template>
 										</div>

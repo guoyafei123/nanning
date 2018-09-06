@@ -125,7 +125,7 @@
                   <span>图片视频 </span>
                   <ul class="fire-media list-inline">
                     <li v-for="item in queryFireSituationAlarmData.confirmAlarmImgList">
-                      <img :src="imgUrl+item" alt="" height="80">
+                      <img :src="config.baseImg+item" alt="" height="80">
                     </li>
                   </ul>
                 </div>
@@ -137,7 +137,7 @@
                   <span>图片视频 </span>
                   <ul class="fire-media list-inline">
                     <li v-for="item in queryFireSituationAlarmData.relieveAlarmImgList">
-                      <img :src="imgUrl+item" alt="" height="80">
+                      <img :src="config.baseImg+item" alt="" height="80">
                     </li>
                   </ul>
                 </div>
@@ -317,10 +317,10 @@
                     <span>图片视频 </span>
                     <ul class="fire-media list-inline">
                       <li v-for="video in item.confirmUrls">
-                        <video :src="imgUrl+video" alt="" height="80"></video>
+                        <video :src="config.baseImg+video" alt="" height="80"></video>
                       </li>
                       <li v-for="img in item.imgUrl">
-                        <img :src="imgUrl+img" alt="" height="80">
+                        <img :src="config.baseImg+img" alt="" height="80">
                       </li>
                     </ul>
                   </div>
@@ -448,7 +448,6 @@
 </template>
 
 <script>
-  import Global from "../../Global.vue";
   export default {
     // 选择器
     data() {
@@ -567,7 +566,7 @@
     },
     //其他
     mounted() {
-      this.imageP=Global.imgPath;
+      this.imageP=this.config.baseImg;
       //火情分析
       this.queryFirehistoryData();
       //this.queryAlarmLastTime();
