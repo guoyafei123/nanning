@@ -23,7 +23,7 @@
 						</div>
 					</template>
 					<!-- 单位图片 -->
-					<img :src="queryUnitInfoimg" :onerror="defaultImg" class="img-responsive center-block" alt="单位图片">
+					<img :src="config.baseImg+queryUnitInfoimg" :onerror="defaultImg" class="img-responsive center-block" alt="单位图片">
 				</li>
 				<!-- 统计1 -->
 				<li>
@@ -73,7 +73,7 @@
 							<a href=""><span class="badge">
 								{{aleamAndtroubleInfos.alarmsum!=null ? aleamAndtroubleInfos.alarmsum :''}}
 							</span></a>
-							</h4>
+							</h4>							
 											</article>
 											<var>
 							<p class="col-sm-8">
@@ -152,7 +152,7 @@
 					<h4 class="p-title">报警发起
 						<span class="float-right">
 							<!-- <span class="bgbox-min bg-blue font-black size-10">
-							<i class="icon iconfont icon-jiankong-mian-"></i> 监控</span> -->
+							<i class="icon iconfont icon-jiankong-mian-"></i> 火情分析</span> -->
 						</span>
 					</h4>
 					<div class="row textandimg-main margin-top20 size-12">
@@ -209,12 +209,12 @@
 						<div class="textandimg-img imgs-nthof">
 							<template v-for="item in getAlarmDetails.addAlarmImgList">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-									<video :src="item" width="100%" controls="controls"></video>
+									<video :src="config.baseImg+item" width="100%" controls="controls"></video>
 								</div>
 							</template>
 							<template v-for="item in getAlarmDetails.addAlarmImgList">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-									<img :src="item">
+									<img :src="config.baseImg+item">
 								</div>
 							</template>
 						</div>
@@ -223,7 +223,10 @@
 			</section>
 			<section>
 				<div class="textandimg margin-top20" v-if="aleamAndtroubleInfos.eventLevel==2">
-					<h4 class="p-title">报警确认</h4>
+					<h4 class="p-title">报警确认
+						<button class="pull-right btn-fire" @click="dialogFire = true">
+							<i class="icon iconfont icon-lightningbshandian"></i> 火情分析</button>
+					</h4>
 					<div class="row textandimg-main margin-top20 size-12">
 						<div class="col-sm-7">
 							<span>确认人 </span>
@@ -244,7 +247,7 @@
                               <i class="icon iconfont icon-tongzhi-xian-"></i> 32S</span> -->
                           <span>{{aleamAndtroubleInfos.confirmReason}}</span>
                       </strong>
-						</div>
+						</div>						
 						<div class="textandimg-img imgs-nthof">
 							<template v-for="item in getAlarmDetails.confirmAlarmImgList">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
@@ -253,7 +256,7 @@
 							</template>
 							<template v-for="item in getAlarmDetails.confirmAlarmImgList">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-									<img :src="item">
+									<img :src="config.baseImg+item">
 								</div>
 							</template>
 						</div>
@@ -346,7 +349,7 @@
 							</template>
 							<template v-for="item in troubleDetails.imgUrl">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-									<img :src="item">
+									<img :src="config.baseImg+item">
 								</div>
 							</template>
 						</div>
@@ -380,12 +383,12 @@
 						<div class="textandimg-img imgs-nthof" v-if="troubleDetails.confirmUrls">
 							<template v-for="item in troubleDetails.confirmUrls">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='mp4'">
-									<video :src="item" width="100%" controls="controls"></video>
+									<video :src="config.baseImg+item" width="100%" controls="controls"></video>
 								</div>
 							</template>
 							<template v-for="item in troubleDetails.confirmUrls">
 								<div class="col-sm-3" v-if="item.substring(item.length -3)=='jpg' || item.substring(item.length-3)=='png'">
-									<img :src="item">
+									<img :src="config.baseImg+item">
 								</div>
 							</template>
 						</div>
@@ -408,15 +411,26 @@
 				</div>
 			</section> -->
 		</section>
+		<!-- 火情分析弹窗 -->
+      	 <el-dialog width="100%" show-close :visible.sync="dialogFire" center lock-scroll fullscreen="ture" show-close="false"
+             append-to-body="ture" class="dialog-cont">
+			<fire_analysis-vue></fire_analysis-vue>
+		</el-dialog>
 	</div>
 </template>
 
 <script>
+import FireAnalysisVue from './fire_analysis.vue';
 import moment from "moment";
 import { mapState } from "vuex";
 export default {
+	components: {
+			'fire_analysis-vue': FireAnalysisVue
+	},
   data() {
     return {
+    // 弹火情分析
+	dialogFire: false,
       aleamAndtroubleInfos: Object,
       queryUnitInfoimg: require("../../assets/images/jpg01.jpg"),
       defaultImg: 'this.src="' + require("../../assets/images/jpg01.jpg") + '"',
@@ -442,7 +456,7 @@ export default {
 			relieveTroubleTime: "",
 			type:1
     };
-  },
+  },  
   computed: mapState(["aleamAndtroubleInfo"]),
   watch: {
     aleamAndtroubleInfo() {

@@ -41,9 +41,13 @@ export function fetch(url,params = {}){
         if(response.data.errorCode=='20013'){
           // alert('未登录')
           this.$router.push("/login");
-          
           return;
         }
+        // console.log((''+this.$route.path).split('/')[1]);
+        // let path=(''+this.$route.path).split('/')[1];
+        // if(path=='Unit_management'){
+
+        // }
       },err => {
         reject(err)
       })

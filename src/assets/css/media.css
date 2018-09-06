@@ -50,8 +50,8 @@
         margin-top: 0!important;
     }
     .manage-menu-title h1 {
-        font-size: 56px;
-        line-height: 56px;
+        font-size: 64px;
+        line-height: 64px;
     }
     #add-new.add-map aside:last-child {
         margin-right:23%;
@@ -72,6 +72,9 @@
     }
     #right{
         width: 28%;
+    }
+    .punchclock {
+        right: 28%;
     }
     .common-left-statistics h5 {
         margin-right: 0px;
@@ -161,6 +164,9 @@
     #right{
         width: 23%;
     }
+    .punchclock {
+        right: 23%;
+    }
     #right .toolcount-p1 {
         font-size: 48px;
         line-height: 48px;
@@ -220,7 +226,7 @@
         line-height: 72px;
     }
     .manage-menu-title>div>a:last-child {
-        margin-top: 10px!important;
+        margin-top: 5px!important;
     }
     #add-new.add-map aside:last-child {
         margin-right:16%;
@@ -241,6 +247,9 @@
     }
     #right{
         width: 23%;
+    }
+    .punchclock {
+        right: 23%;
     }
     #right .toolcount-p1 {
         font-size: 42px;
@@ -305,7 +314,7 @@
         line-height: 72px;
     }
     .manage-menu-title>div>a:last-child {
-        margin-top: 15px!important;
+        margin-top: 5px!important;
     }
     #add-new.add-map aside:last-child {
         margin-right:11%;
@@ -328,7 +337,9 @@
     #right{
         width: 22%;
     }
-    
+    .punchclock {
+        right: 22%;
+    }
     #right .toolcount-p1 {
         font-size: 60px;
         line-height: 60px;
@@ -393,7 +404,7 @@
         margin-left: 6px;
     }
     .manage-menu-title>div>a:last-child {
-        margin-top: 25px!important;
+        margin-top: 10px!important;
     }
     #add-new.add-map aside:last-child {
         margin-right:4%;
@@ -414,6 +425,9 @@
     }
     #right{
         width: 19%;
+    }
+    .punchclock {
+        right: 19%;
     }
     .header-middle {
         width: 96%;

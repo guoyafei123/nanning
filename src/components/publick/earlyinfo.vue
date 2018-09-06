@@ -41,7 +41,6 @@
 		<!-- #左边 End-->
 		<!-- #右边 -->
 		<section id="right" class="position-fixed-right z-index-20">
-			<div class="overlay"></div>
 			<earlyinfo_right-vue></earlyinfo_right-vue>
 		</section>
 		<!-- #右边 End-->

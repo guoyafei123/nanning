@@ -257,12 +257,11 @@
 			getunit() {
 				// unit/getUnitAndInspectionCount
 				this.$fetch(
-						"/api/unit/getUnitAndInspectionCount"
+						"/api/app/unit/getAllUnit"
 					)
 					.then(response => {
 						if(response) {
 							this.unitlist = response.data.unitList;
-
 						}
 					})
 					.then(err => {
