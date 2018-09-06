@@ -392,6 +392,7 @@ import managementMapVue from '../managementMap';
         this.active = id ;
         this.table_list.forEach((item)=>{
           if(item.id == id){
+            alert(item.svgUrl);
             this.svgUrl = item.svgUrl ;
           }
         })
@@ -593,7 +594,7 @@ import managementMapVue from '../managementMap';
           });
       },
       findPageBuildIngFloor(){
-        alert(1234);
+        // alert(1234);
         // console.log(this.buildingId)
         this.$fetch("/api/building/findPageBuildIngFloor",{
           pageIndex:1,
@@ -602,8 +603,12 @@ import managementMapVue from '../managementMap';
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
           if(response.data.pageBuildIng.result){
+            this.table_list = [];
             this.table_list = response.data.pageBuildIng.result;
             
+            this.table_list.forEach(item=>{
+              console.log(item);
+            })
           }else{
             this.svgUrl = '' ;
           }
@@ -650,8 +655,7 @@ import managementMapVue from '../managementMap';
         this.buildUnit = val;
         this.tableBuildList();
       },
-      Refresh(){
-        
+      refresh(){
         this.findPageBuildIngFloor();
       },
       floorId(){
@@ -666,7 +670,7 @@ import managementMapVue from '../managementMap';
     },
      computed:mapState([
        'floorId',
-       'Refresh'
+       'refresh'
     ])
   };
 </script>
