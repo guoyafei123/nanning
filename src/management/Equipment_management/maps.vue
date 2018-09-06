@@ -258,10 +258,14 @@ import managementMapVue from '../managementMap';
         this.floor = '';
         this.room = '';
         this.table_list = [];
-        this.floorSearch(this.building);
+        
         this.$store.commit('buildDevice',this.building);
         $('.floorMap').hide();
         $('.map').show();
+        if(this.building == '0' && this.building == 0){
+          return ;
+        }
+        this.floorSearch(this.building);
       },
       floor(curVal,oldVal){
         this.floor = curVal ;

@@ -405,7 +405,7 @@
         },
         legend_landmarkDanger(content,id) {
           
-          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content.name }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i></div>`;
+          var html = `<div id="map${ id }" style="position:absolute;top:-35px;left:-15px;" data-toggle="tooltip" data-placement="top" title="${ content }"><i class="icon iconfont icon-shuidi-"><i class="icon iconfont icon-weixianpin-xian-"></i></i></div>`;
           
           return html;
         },
@@ -606,7 +606,7 @@
             unitId:this.dangerUnit,
             type:5
           }).then(res=>{
-            console.log(res.data.innerTrouble);
+            // console.log(res.data.innerTrouble);
             this.innerTrouble = res.data.innerTrouble ;
             this.innerTrouble.forEach(item=>{
               this.mp.addOverlay(this.addlandmarker(item.buildingId,item,[item.pointX,item.pointY]));
@@ -618,9 +618,9 @@
               });
             })
             this.outsideTrouble = res.data.outsideTrouble ;
-            console.log(this.outsideTrouble);
+            // console.log(this.outsideTrouble);
             this.outsideTrouble.forEach(item=>{
-              this.mp.addOverlay(this.addlandmarkerType(item.id,item.name,[item.pointX,item.pointY],item.deviceTypeId));
+              this.mp.addOverlay(this.addlandmarkDanger(item.id,item.dangerName,[item.pointX,item.pointY]));
               $(document).on('click', "#map"+item.id,()=>{
                 $('.plan').show();        
                 $('.total').hide();
@@ -698,22 +698,16 @@
       
       watch:{
         buildUnit(){
-          this.unitId = this.buildUnit;
-          this.queryById(this.unitId);
+          this.queryById(this.buildUnit);
         },
-        // tableData(){
-        //   this.mp.clearOverlays();
-        //   if(this.$route.path == '/Building_management/maps'){
-        //     this.tableDatas();
-        //     this.unitId = this.buildUnit;
-        //     this.queryById(this.unitId);
-        //   }
-        // },
         Unit(){
-          this.unitId = this.Unit;
-          this.queryById(this.unitId);
+          this.queryById(this.Unit);
         },
         buildDevice(){
+          if(this.buildDevice == 0){
+            this.queryById(this.Unit);
+            return ;
+          }
           this.queryBuildingsByUnitId(this.buildDevice);
         },
         dangerUnit(){
@@ -721,8 +715,17 @@
           if(this.$route.path == '/Dangerous_goods_management/maps'){
             this.Danger();
             this.getunitlist();
+            this.getbuildlist();
             this.queryById(this.dangerUnit);
           }
+        },
+        dangerBuild(){
+          // console.log(this.dangerBuild)
+          if(this.dangerBuild == 0){
+            this.queryById(this.dangerUnit);
+            return ;
+          }
+          this.queryBuildingsByUnitId(this.dangerBuild);
         },
         inspectionId(){
           this.mp.clearOverlays();
@@ -852,6 +855,7 @@
         'inspectionId',
         'inspectionUnitId',
         'dangerUnit',
+        'dangerBuild',
         'currentPageDevice'
       ])
     }
