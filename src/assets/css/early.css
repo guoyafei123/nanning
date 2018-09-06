@@ -1,4 +1,17 @@
 @charset "utf-8";
+.btn-fire {
+    width: 80px;
+    height: 18px;
+    line-height: 18px;
+    margin: 0 10px;
+    background-color: #f13131;
+    border: 0;
+    color: #000;
+    font-size: 12px;
+}
+.btn-fire>i {
+    font-size: 14px;
+}
 /*综合切换报警的所有和分类列表*/
 .early-tab {
     transition: height .2s;
@@ -359,9 +372,12 @@
 /*报警详情*/
 #early #right {    
     top: 120px;
+    background: -moz-linear-gradient(top,rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -o-linear-gradient(top,rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -ms-linear-gradient(top,rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
+    background: -webkit-linear-gradient(top,rgba(0, 0, 0, 7),rgba(0, 0, 0, .8),rgba(0, 0, 0, .9),rgba(0, 0, 0, 1));
 }
 #early #right .toolright {
-    background-color: #000;
     padding-left: 0;
     margin-left: 20px;
     height: 78%;
@@ -390,7 +406,7 @@
     width: 100%;
 }
 .call-iteminfo {
-    height: 46.6%;
+    height: 60.6%;
     overflow-y: auto!important;
     overflow-x: hidden;
 }
