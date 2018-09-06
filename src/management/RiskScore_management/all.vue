@@ -225,7 +225,7 @@
                        <td id="d113"></td>
                        <td><input id="s113" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td rowspan="22" class="unitB">动态评分</td>
                        <td rowspan="22" id="b69"></td>
                        <td class="unitC">建筑评分</td>
@@ -234,121 +234,121 @@
                        <td id="d115"></td>
                        <td><input id="s115" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitC">报警火情</td>
                        <td id="c116"></td>
                        <td class="unitD">火情发生率</td>
                        <td id="d117"></td>
                        <td><input id="s117" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td rowspan="3" class="unitC">隐患危险</td>
                        <td rowspan="3" id="c118"></td>
                        <td class="unitD">隐患问题上报</td>
                        <td id="d119"></td>
                        <td><input id="s119" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">隐患问题整改</td>
                        <td id="d120"></td>
                        <td><input id="s120" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">危险品处理率</td>
                        <td id="d121"></td>
                        <td><input id="s121" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td rowspan="5" class="unitC">巡检执勤</td>
                        <td rowspan="5" id="c122"></td>
                        <td class="unitD">巡检人员活跃度</td>
                        <td id="d123"></td>
                        <td><input id="s123" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">巡检任务执行率</td>
                        <td id="d124"></td>
                        <td><input id="s124" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">防火巡查检查</td>
                        <td id="d125"></td>
                        <td><input id="s125" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">终端巡查人数</td>
                        <td id="d126"></td>
                        <td><input id="s126" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">消防控制室中心人员值守</td>
                        <td id="d127"></td>
                        <td><input id="s127" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitC">设备故障</td>
                        <td id="c128"></td>
                        <td class="unitD">设备故障率</td>
                        <td id="d129"></td>
                        <td><input id="s129" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitC">预案编制</td>
                        <td id="c130"></td>
                        <td class="unitD">火灾应急预案编制</td>
                        <td id="d131"></td>
                        <td><input id="s131" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td rowspan="4" class="unitC">气象因素</td>
                        <td rowspan="4" id="c132"></td>
                        <td class="unitD">季节因素</td>
                        <td id="d133"></td>
                        <td><input id="s133" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">温度条件</td>
                        <td id="d134"></td>
                        <td><input id="s134" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">湿度条件</td>
                        <td id="d135"></td>
                        <td><input id="s135" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">风力条件</td>
                        <td id="d136"></td>
                        <td><input id="s136" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td rowspan="6" class="unitC">活动因素</td>
                        <td rowspan="6" id="c137"></td>
                        <td class="unitD">活动重要性</td>
                        <td id="d138"></td>
                        <td><input id="s138" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">参加人数</td>
                        <td id="d139"></td>
                        <td><input id="s139" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">举办时间</td>
                        <td id="d140"></td>
                        <td><input id="s140" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">活动是否有明火</td>
                        <td id="d143"></td>
                        <td><input id="s143" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">活动是否禁烟</td>
                        <td id="d141"></td>
                        <td><input id="s141" type="text" autocomplete="off" class="el-input__inner"></td>
                      </tr>
-                     <tr>
+                     <tr style="display:none">
                        <td class="unitD">引入危险源</td>
                        <td id="d142"></td>
                        <td><input id="s142" type="text" autocomplete="off" class="el-input__inner"></td>
@@ -561,7 +561,7 @@
                       <td id="d40"></td>
                       <td><input id="s40" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td rowspan="17">建筑动态评分</td>
                       <td rowspan="17" id="b4"></td>
                       <td rowspan="2">报警火情</td>
@@ -570,92 +570,92 @@
                       <td id="d54"></td>
                       <td><input id="s54" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>建筑内报警占比</td>
                       <td id="d55"></td>
                       <td><input id="s55" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td rowspan="3">隐患危险</td>
                       <td rowspan="3" id="c56"></td>
                       <td>隐患问题上报</td>
                       <td id="d57"></td>
                       <td><input id="s57" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>隐患问题整改</td>
                       <td id="d58"></td>
                       <td><input id="s58" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>危险品处理</td>
                       <td id="d59"></td>
                       <td><input id="s59" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>设备故障</td>
                       <td id="c60"></td>
                       <td>设备故障率</td>
                       <td id="d61"></td>
                       <td><input id="s61" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>预案编制</td>
                       <td id="c62"></td>
                       <td>火灾应急预案编制</td>
                       <td id="d63"></td>
                       <td><input id="s63" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td rowspan="4">气象因素</td>
                       <td rowspan="4" id="c45"></td>
                       <td>季节因素</td>
                       <td id="d41"></td>
                       <td><input id="s41" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>温度条件</td>
                       <td id="d42"></td>
                       <td><input id="s42" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>湿度条件</td>
                       <td id="d43"></td>
                       <td><input id="s43" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>风力条件</td>
                       <td id="d44"></td>
                       <td><input id="s44" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td rowspan="6">室内活动</td>
                       <td rowspan="6" id="c46"></td>
                       <td>活动重要性</td>
                       <td id="d47"></td>
                       <td><input id="s47" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>参加人数</td>
                       <td id="d48"></td>
                       <td><input id="s48" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>举办时间</td>
                       <td id="d49"></td>
                       <td><input id="s49" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>活动是否有明火</td>
                       <td id="d50"></td>
                       <td><input id="s50" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>活动是否禁烟</td>
                       <td id="d51"></td>
                       <td><input id="s51" type="text" autocomplete="off" class="el-input__inner"></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                       <td>引入危险源</td>
                       <td id="d52"></td>
                       <td><input id="s52" type="text" autocomplete="off" class="el-input__inner"></td>

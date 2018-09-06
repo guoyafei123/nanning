@@ -7,26 +7,6 @@
           <i class="icon iconfont icon-huoqing-xian-"></i>
           <h2>火情分析</h2>
         </div>
-        <!-- <div class="fire-tab col-sm-6" id="myScrollspy">
-            <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="60">
-                <li class="active"><a href="#section-1">第一部分</a></li>
-                <li><a href="#section-2">第二部分</a></li>
-                <li><a href="#section-3">第三部分</a></li>
-                <li><a href="#section-4">第四部分</a></li>
-                <li><a href="#section-5">第五部分</a></li>
-            </ul>
-        </div> -->
-        <div class="main_tab col-sm-3 pull-right">
-          <button type="button" @click="fireAnalysis = false">
-            <i class="el-icon-printer"></i> 打印
-          </button>
-          <button type="button" @click="fireAnalysis = false">
-            <i class="el-icon-share"></i> 导出
-          </button>
-          <button type="button" @click="fireAnalysis = false">
-            <i class="el-icon el-icon-close"></i> 关闭
-          </button>
-        </div>
       </div>
       <section class="col-sm-offset-3 col-sm-6 size-12" data-spy="scroll" data-target="#myScrollspy">
         <div class="row my-scroll">
@@ -50,9 +30,9 @@
 
                   {{queryFireSituationAlarmData.deviceName}}
                   <span v-if="queryFireSituationAlarmData.isUser===0">{{queryFireSituationAlarmData.nickName}}</span>发起警报，报警时中控室值守人：{{queryFireSituationFireData.lastSinginName}}，
-                  警报时策略圈内的人员有｛人员名称、人员名称｝{{queryFireSituationAlarmData.confirmNickName}}于{{queryFireSituationAlarmData.confirmTime}}将该次警报确认为火情，响应时长：{确认时间-报警时间};
-                  {{queryFireSituationAlarmData.cancelNickName}}于{{queryFireSituationAlarmData.cancelTime}}在系统将该火情关闭，累计持续时长：{关闭时间-报警时间}。<br>
-                  报警时天气{{queryFireSituationFireData.realTimeWeatherDesc}}，温度{{queryFireSituationFireData.realTimeTmp}}，湿度{{queryFireSituationFireData.realTimeHum}}，风力{{queryFireSituationFireData.realTimeWinp}}，策略圈内微型消防站{{queryFireSituationFireData.fireHouseAmont}}个，最近消防站相距事故地点{{queryFireSituationFireData.fireHouseDis}}。
+                  警报时策略圈内的人员有｛人员名称、人员名称｝{{queryFireSituationAlarmData.confirmNickName}}于{{queryFireSituationAlarmData.confirmTime}}将该次警报确认为火情，响应时长：{{this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.confirmTime)}}秒;
+                  {{queryFireSituationAlarmData.cancelNickName}}于{{queryFireSituationAlarmData.cancelTime}}在系统将该火情关闭，累计持续时长：{{queryFireSituationAlarmData.cancelTime==null?'- ':this.timeFn(queryFireSituationAlarmData.startTime,queryFireSituationAlarmData.cancelTime)}}秒。<br>
+                  报警时天气{{queryFireSituationFireData.realTimeWeatherDesc}}，温度{{queryFireSituationFireData.realTimeTmp}}，湿度{{queryFireSituationFireData.realTimeHum}}，风力{{queryFireSituationFireData.realTimeWinp}}，策略圈内微型消防站{{queryFireSituationFireData.fireHouseAmont}}个，最近消防站相距事故地点{{queryFireSituationFireData.fireHouseDis}}米。
                 </p>
               </article>
               <hr>
@@ -385,48 +365,32 @@
               <div style="width: 750px;height: 600px; " id="fireLineChart"><!-- 折线图 --></div>
               <!-- 表格 -->
               <div class="main_content_table">
-                <el-table
-                  :data="tableData"
-                  border="true"
-                  width="100">
-                  <el-table-column
-                    prop="hour"
-                    label="时间"
-                    width="150">
-                  </el-table-column>
-                  <el-table-column
-                    prop="inspectionPersonCount"
-                    label="巡检人数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="inspectionFinishCount"
-                    label="巡检任务完成次数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="alarmNumCount"
-                    label="报警数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="alarmAffirmNumCount"
-                    label="报警确认数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="troubleUnSolvedCount"
-                    label="隐患数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="troubleDangerUnSolvedCount"
-                    label="危险品数">
-                  </el-table-column>
-                  <el-table-column
-                    prop="buildingScore"
-                    label="建筑安全评分">
-                  </el-table-column>
-                  <el-table-column
-                    prop="unitnScore"
-                    label="单位安全评分">
-                  </el-table-column>
-                </el-table>
+                <table  class="table toolroute-table">
+                  <thead>
+                    <td>时间</td>
+                    <td>巡检人数</td>
+                    <td>巡检任务完成次数</td>
+                    <td>报警数</td>
+                    <td>报警确认数</td>
+                    <td>隐患数</td>
+                    <td>危险品数</td>
+                    <td>建筑安全评分</td>
+                    <td>单位安全评分</td>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in tableData">
+                        <td>{{item.hour}}</td>
+                        <td>{{item.inspectionPersonCount}}</td>
+                        <td>{{item.inspectionFinishCount}}</td>
+                        <td>{{item.alarmNumCount}}</td>
+                        <td>{{item.alarmAffirmNumCount}}</td>
+                        <td>{{item.troubleUnSolvedCount}}</td>
+                        <td>{{item.troubleDangerUnSolvedCount}}</td>
+                        <td>{{item.buildingScore}}</td>
+                        <td>{{item.unitnScore}}</td>
+                     </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -448,8 +412,6 @@
 </template>
 
 <script>
-  import moment from 'moment';
-  import {mapState} from 'vuex';
   export default {
     // 选择器
     data() {
@@ -479,23 +441,7 @@
           }]
         },
         dateValue:null,
-        //火情分析列表数据
-        queryFirehistoryData_parameter: {
-          alarmId: 2002,
-          startTime: null
-        },
-        tableData: {
-          id: null,
-          hour: null,
-          inspectionPersonCount: null,
-          inspectionFinishCount: null,
-          alarmNumCount: null,
-          alarmAffirmNumCount: null,
-          troubleUnSolvedCount: null,
-          troubleDangerUnSolvedCount: null,
-          buildingScore: null,
-          unitnScore: null
-        },
+        tableData:Object,
         alarmAffirmNumLineChartData:Object,
         alarmNumLineChartData:Object,
         inspectionPersonLineChartData:Object,
@@ -521,48 +467,33 @@
           inspection: Number
         },
         //起火单位最近数据
-        queryAlarmLastTime_param: {
+        param: {
+          unitId: 13,
           alarmId: 2002,
+          startTime: null
         },
         //起火位置最近一次的报警记录
         queryLastTimeAlarmData: Object,
-        queryLastTimeAlarm_param: {
-          alarmId: 2002,
-        },
+
         //起火位置相关未解决隐患详情
         queryLastTimeTroubleData: Object,
-        queryLastTimeTrouble_param: {
-          alarmId: 2002,
-        },
         //起火位置最近一次巡检记录
         queryLastTimeInspectionData: Object,
-        queryLastTimeInspection_param: {
-          alarmId: 2002,
-        },
         //事故概况
         queryFireSituationAlarmData: Object,
         queryFireSituationFireData: Object,
-        queryFireSituation_param: {
-          alarmId: 2002,
-        },
         //单位信息
         queryUnitInfo: Object,
-        queryUnitInfo_param: {
-          unitId: 13
-        },
         queryUnitInfoImg: require('../../assets/images/jpg01.jpg'),
         //单位统计
         getUnitsSynthesisData: Object,
-        getUnitsSynthesis_param: {
-          unitId: 13
-        },
         imageP:''
       }
     },
     watch: {
-
+      '$route': 'getParams',
       dateValue(val){
-        this.queryFirehistoryData_parameter.startTime = val;
+        this.param.startTime = val;
         this.queryFirehistoryData();
       },
     },
@@ -584,7 +515,12 @@
         let iDays = parseInt(Math.abs( new Date(beginTime).getTime()-new Date(endTime).getTime()) / 1000  ) //把相差的毫秒数转换为天数
         return iDays
       },
-
+      getParams () {
+        // 取到路由带过来的参数
+        let routerParams = this.$route.params.fireData
+        // 将数据放在当前组件的数据内
+        this.param.alarmId = routerParams.id
+      },
       //绘制折线图
       draw_line(id,data){
         //巡检人数
@@ -694,12 +630,12 @@
       },
       //火情分析折线图下列表
       queryFirehistoryData() {
-        this.$fetch('/api/alarmstats/queryFirehistoryData', this.queryFirehistoryData_parameter
+        this.$fetch('/api/alarmstats/queryFirehistoryData', this.param
         ).then(response => {
           if (response.data) {
             //列表数据
             this.tableData = response.data.result.fireAnalyzeList;
-            this.draw_line("fireLineChart",response.data.result)
+            this.draw_line("fireLineChart",response.data.result);
           }
         })
           .then(err => {
@@ -709,7 +645,7 @@
 
       //火情分析 起火单位最近数据
       queryAlarmLastTime() {
-        this.$fetch('/api/alarmstats/queryAlarmLastTime', this.queryAlarmLastTime_param
+        this.$fetch('/api/alarmstats/queryAlarmLastTime', this.param
         ).then(response => {
           if (response.data) {
             this.queryAlarmLastTimeData = response.data.trouble
@@ -722,7 +658,7 @@
 
       //起火位置相关最近一次报警记录
       queryLastTimeAlarm() {
-        this.$fetch('/api/alarm/queryLastTimeAlarm', this.queryLastTimeAlarm_param
+        this.$fetch('/api/alarm/queryLastTimeAlarm', this.param
         ).then(response => {
           if (response.data) {
             this.queryLastTimeAlarmData = response.data.alarm
@@ -735,7 +671,7 @@
       ,
       //起火位置相关未解决隐患详情
       queryLastTimeTrouble() {
-        this.$fetch('/api/trouble/queryLastTimeTrouble', this.queryLastTimeTrouble_param
+        this.$fetch('/api/trouble/queryLastTimeTrouble', this.param
         ).then(response => {
           if (response.data) {
             this.queryLastTimeTroubleData = response.data.troubles
@@ -748,7 +684,7 @@
       ,
       //起火位置最近一次巡检记录
       queryLastTimeInspection() {
-        this.$fetch('/api/alarmstats/queryLastTimeInspection', this.queryLastTimeInspection_param
+        this.$fetch('/api/alarmstats/queryLastTimeInspection',this.param
         ).then(response => {
           if (response.data) {
             this.queryLastTimeInspectionData = response.data.information
@@ -761,7 +697,7 @@
       ,
       //事故概况
       queryFireSituation() {
-        this.$fetch('/api/alarmstats/queryFireSituation', this.queryFireSituation_param
+        this.$fetch('/api/alarmstats/queryFireSituation', this.param
         ).then(response => {
           if (response.data) {
             this.queryFireSituationAlarmData = response.data.result.alarm,
@@ -774,23 +710,24 @@
       }  ,
       //单位信息
       getQueryUnitInfo() {
-        this.$fetch("/api/unit/queryUnitInfo", this.queryUnitInfo_param)
+        this.$fetch("/api/unit/queryUnitInfo", this.param)
           .then(response => {
             if (response.data) {
               this.queryUnitInfo = response.data.unitInfo;
-              this.queryUnitInfoImg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.queryUnitInfo_param.unitId + '.jpg';
+              this.queryUnitInfoImg = 'http://img.nanninglq.51play.com/xf/api/unit_img/' + this.param.unitId + '.jpg';
             }
           });
       } ,
       //单位统计
       getUnitsSynthesis() {
-        this.$fetch("/api/unit/getUnitsSynthesis", this.getUnitsSynthesis_param
+        this.$fetch("/api/unit/getUnitsSynthesis", this.param
         ).then(response => {
           if (response.data) {
             this.getUnitsSynthesisData = response.data.result;
           }
         });
-      }  ,
+      } ,
+
     }
   }
 </script>
