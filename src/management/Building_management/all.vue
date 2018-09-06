@@ -131,22 +131,24 @@
         </div>
       </div>
       <div id="list-maps">
-          <div class="floorMap maps" style="display:none;">
-            <ul class="list-unstyled floor-item">
-                <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
-            </ul> 
+          <ul class="list-unstyled floor-item floorListNew"  style="display:none;">
+              <li v-for="(item,index) in table_list" @click="floor_btn(item.id)" :class="{'active': item.id == active}">{{ item.floorName }}</li>
+          </ul>
+          <div class="floorMap maps " style="display:none;">
+            
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
-              <img :src="'/img'+this.svgUrl" class="img-responsive">
+              <img v-if="svgUrl!=null" :src="'/img'+this.svgUrl" class="img-responsive">
+              <p v-if="svgUrl==null" class="font-gray-ccc">该楼层暂无平面图</p>
             </div>
           </div>
-          <div class="roomMap maps" style="display:none;">
+          <!-- <div class="roomMap maps" style="display:none;">
             <ul class="list-unstyled floor-item">
               <li>{{ this.floorName }}</li>
             </ul>
             <div id="floorImg" style="width: 100%;height: 100%;position:relative;left:0;top:0;">
               <img :src="'/img'+this.roomSvgUrl" class="img-responsive">
             </div>
-          </div>
+          </div> -->
       </div>      
     </div>
     <!-- 编辑Modal -->
@@ -392,6 +394,7 @@ import managementMapVue from '../managementMap';
         this.active = id ;
         this.table_list.forEach((item)=>{
           if(item.id == id){
+            // alert(item.svgUrl);
             this.svgUrl = item.svgUrl ;
           }
         })
@@ -502,6 +505,7 @@ import managementMapVue from '../managementMap';
         $('.floor_wrap').show();
         $('.room_wrap').hide();
         $('.floorMap').show();
+        $('.floorListNew').show();
         this.$store.commit('floorAdd',1);
         this.$store.commit('buildingId',row.id);
         
@@ -602,11 +606,13 @@ import managementMapVue from '../managementMap';
         }).then(response=>{
           console.log(response.data.pageBuildIng.result);
           if(response.data.pageBuildIng.result){
+            this.table_list = [];
             this.table_list = response.data.pageBuildIng.result;
-            
           }else{
             this.svgUrl = '' ;
           }
+          // $('.list-unstyled li').last().click();
+          this.floor_btn(this.table_list[this.table_list.length-1].id);
         })
       }
     },
@@ -650,8 +656,7 @@ import managementMapVue from '../managementMap';
         this.buildUnit = val;
         this.tableBuildList();
       },
-      Refresh(){
-        
+      refresh(){
         this.findPageBuildIngFloor();
       },
       floorId(){
@@ -666,8 +671,14 @@ import managementMapVue from '../managementMap';
     },
      computed:mapState([
        'floorId',
-       'Refresh'
+       'refresh'
     ])
   };
 </script>
+<style>
+.list-unstyled{
+  top:auto !important;
+}
+</style>
+
 

@@ -1,7 +1,7 @@
 <template>
         <div class="toolright">
           <!-- 筛选 -->
-            <section class="my-filter padding5 bg-gray-222 clearfix">
+            <section v-show="dateshow == true" class="my-filter padding5 bg-gray-222 clearfix">
                 <!-- 日期筛选 -->
                 <div class="col-sm-12 padding0">
                 <div class="upd-elmdate">
@@ -307,7 +307,8 @@ export default {
       buildBaseInfo: Object,
       buidyear: "",
       getunitid:Object,
-      dialogVisible:false
+      dialogVisible:false,
+      dateshow:false,
     };
   },
   computed:mapState([
@@ -319,6 +320,7 @@ export default {
   watch:{
     // 建筑详情
     tobuilditem(){
+      this.dateshow = true;
       this.builddata =this.tobuilditem;
       this.itemDataInfo = this.tobuilditem;
       this.buildDetails_parameter.buildingId = this.builddata.id;
@@ -592,6 +594,11 @@ export default {
     }
     this.defaultTimeVaule();
     this.getData();
+    // var date = this.common.getNowFormatDate(1);
+    // var fileType = this.common.matchType("abc.mp4");
+    // console.log(date);
+    // console.log(fileType);
+		// console.log(this.common.getByIdUnitInfo(this.getBuildIngAssess_parameter.unitId));
   }
 };
 </script>

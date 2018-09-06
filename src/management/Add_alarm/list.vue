@@ -198,6 +198,12 @@ import { vControl,setPoint } from '../../assets/js/pointDevice';
         uploadAlarmFile: function (param){
             var that=this;
             var fileObj = param.file;
+            //判断是否是图片或者视频文件
+            var flag = false;
+            if(flag){
+              console.log("不是合格的图片和视频格式=============>");
+              return alert("请选择正确的文件格式");
+            }
             var FileController = "/api/upload/uploadImg";
             var form = new FormData();
             form.append("file", fileObj);
