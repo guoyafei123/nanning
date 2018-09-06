@@ -191,9 +191,10 @@
 </template>
 
 <script>
-  import messagesVue from './messages.vue'
-  import moment from 'moment'
-  import {mapState} from 'vuex'
+  import messagesVue from './messages.vue';
+  import moment from 'moment';
+  import {mapState} from 'vuex';
+  import Global from "../../Global.vue";
   export default {
     components: {
       'messages-vue': messagesVue,

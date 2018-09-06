@@ -1,7 +1,5 @@
 <template>
   <!-- 火情分析 -->
-  <el-dialog show-close :visible.sync="fireAnalysis" center lock-scroll fullscreen="ture" show-close="false"
-             append-to-body="ture" class="dialog-cont">
     <div class="dialog-content fireAnalysis clearfix">
       <!-- 标题 -->
       <div class="main_header clearFix">
@@ -447,15 +445,11 @@
         </div>
       </section>
     </div>
-  </el-dialog>
 </template>
 
 <script>
   import Global from "../../Global.vue";
   export default {
-    components: {
-      'messages-vue': messagesVue,
-    },
     // 选择器
     data() {
       return {
@@ -799,7 +793,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>

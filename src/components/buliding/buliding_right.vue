@@ -594,11 +594,6 @@ export default {
     }
     this.defaultTimeVaule();
     this.getData();
-    // var date = this.common.getNowFormatDate(1);
-    // var fileType = this.common.matchType("abc.mp4");
-    // console.log(date);
-    // console.log(fileType);
-		// console.log(this.common.getByIdUnitInfo(this.getBuildIngAssess_parameter.unitId));
   }
 };
 </script>
