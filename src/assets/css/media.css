@@ -50,8 +50,8 @@
         margin-top: 0!important;
     }
     .manage-menu-title h1 {
-        font-size: 56px;
-        line-height: 56px;
+        font-size: 64px;
+        line-height: 64px;
     }
     #add-new.add-map aside:last-child {
         margin-right:23%;
@@ -220,7 +220,7 @@
         line-height: 72px;
     }
     .manage-menu-title>div>a:last-child {
-        margin-top: 10px!important;
+        margin-top: 5px!important;
     }
     #add-new.add-map aside:last-child {
         margin-right:16%;
@@ -305,7 +305,7 @@
         line-height: 72px;
     }
     .manage-menu-title>div>a:last-child {
-        margin-top: 15px!important;
+        margin-top: 5px!important;
     }
     #add-new.add-map aside:last-child {
         margin-right:11%;
@@ -393,7 +393,7 @@
         margin-left: 6px;
     }
     .manage-menu-title>div>a:last-child {
-        margin-top: 25px!important;
+        margin-top: 10px!important;
     }
     #add-new.add-map aside:last-child {
         margin-right:4%;

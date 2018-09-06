@@ -1,13 +1,18 @@
 <template>
   <div class="show_left toolleft manage-menu">
-      <div class="row manage-menu-title size-12 clearfix">
-        <h1 class="col-xs-8">管理</h1>
-        <div class="col-xs-3 padding-right0 text-right">
+      <div class="manage-menu-title size-12 clearfix">
+        <h1 class="pull-left">管理</h1>
+        <div class="pull-right text-right">
+          <router-link to="/ControlRoomLog">
+            <el-tooltip class="item" content="控制室日常" placement="top">
+              <i class="icon iconfont icon-jiankong"></i>
+            </el-tooltip>
+          </router-link>
           <router-link to="/operationLog">
             <el-tooltip class="item" content="操作日志" placement="top">
               <i class="icon iconfont icon-caozuorizhi-xian-"></i>
             </el-tooltip>
-          </router-link>
+          </router-link>          
           <el-tooltip class="item" content="收起导航" placement="top">
           <a class="span_show">
               <i class="el-icon-arrow-left"></i> 收起
@@ -63,7 +68,7 @@
           </router-link>
           <li class="system_title">人员管理</li>
           <router-link to="/Personnel_review">
-            <li class="p-green">
+            <li class="p-red">
               <i class="icon iconfont icon-renyuanshenhe-xian-"></i>
               <h2>人员审核</h2>
               <span>{{reviewCount==null?'0':reviewCount}}</span>
@@ -100,12 +105,12 @@
               <h2>巡检打卡</h2>
             </li>
           </router-link>
-          <router-link to="/ControlRoomLog">
+          <!-- <router-link to="/ControlRoomLog">
             <li>
               <i class="icon iconfont icon-kongzhitai_"></i>
               <h2>控制室日常</h2>
             </li>
-          </router-link>
+          </router-link> -->
         </ul>
       </div>
   </div>
