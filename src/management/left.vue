@@ -10,9 +10,9 @@
           </router-link>
           <el-tooltip class="item" content="收起导航" placement="top">
           <a class="span_show">
-              <i class="el-icon-arrow-left"></i> 收起                       
+              <i class="el-icon-arrow-left"></i> 收起
           </a>
-        </el-tooltip> 
+        </el-tooltip>
         </div>
       </div>
       <div class="main_aside">
@@ -38,7 +38,7 @@
               <h2>设备管理</h2>
               <span>2074</span>
             </li>
-          </router-link>          
+          </router-link>
           <li class="system_title">风险防控</li>
           <router-link to="/Risk_management">
             <li>
@@ -68,12 +68,12 @@
               <span>19</span>
             </li>
           </router-link>
-          <li class="system_title">人员管理</li>          
+          <li class="system_title">人员管理</li>
           <router-link to="/Personnel_review">
             <li class="p-green">
               <i class="icon iconfont icon-renyuanshenhe-xian-"></i>
               <h2>人员审核</h2>
-              <span>24</span>
+              <span>{{reviewCount==null?'0':reviewCount}}</span>
             </li>
           </router-link>
           <router-link to="/List_of_people">
@@ -127,6 +127,11 @@
 <script>
 
     export default {
+      data() {
+        return {
+          reviewCount:0,
+          }
+        },
       methods:{
 // 收起左侧列表
         moreSetupMenuRemove () {
@@ -146,14 +151,33 @@
           document.getElementsByClassName('span_show')[0].onclick = function () {
             callback();
           };
-        }
-
+        },
+        queryPagerUserList(){
+          this.$fetch(
+            "/api/user/queryPagerUserList",{
+              currentPager:1,
+              pagerSize:14,
+              unitId:null,
+              flag:1,
+              review:3,
+            }
+          )
+            .then(response => {
+              if (response) {
+                this.reviewCount =response.data.pager.totalRow
+              }
+            })
+            .then(err => {
+              // //console.log(err);
+            });
+        },
       },
       mounted(){
         this.globalClick(this.moreSetupMenuRemove);
+        this.queryPagerUserList();
       }
     }
 </script>
 
-<style lang="scss" scoped>  
+<style lang="scss" scoped>
 </style>
