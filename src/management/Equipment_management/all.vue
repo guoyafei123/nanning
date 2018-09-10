@@ -1,67 +1,11 @@
 <template>
   <section>
     <!-- 标题 -->
-    <div class="main_header clearFix">
-      <div class="main_title float-left clearFix">
-        <i class="icon iconfont icon-shebeiguanli-mian-"></i>
-        <h2>设备管理</h2>
-      </div>
-      <div class="main_nav float-right">
-        <router-link to="/Equipment_management/list"><span class="btn_add" @click="btn_add"><i class="fa fa-plus"></i>新增</span></router-link>
-      </div>
-    </div>
+    
     <!-- 主体 -->
     <div class="main_all_content">
       <!-- 筛选 -->
-      <div class="main_content_top">
-        <el-form ref="form" :model="form" class="float-left">
-          <el-select v-model="unit" placeholder="选择单位" class="select">
-            <el-option label="全部单位" value=""></el-option>
-            <el-option v-for="item in optionList" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-          <el-select
-              v-model="building"
-            placeholder="选择建筑"  class="start">
-              <el-option
-                v-for="item in buildList"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select>
-            <el-select
-              v-model="floor"
-              placeholder="选择楼层" class="start startFloor">
-              <el-option
-                v-for="item in floorList"
-                :label="item.floor+'层'"
-                :value="item.id">
-              </el-option>
-            </el-select>
-            <el-select
-              v-model="room"
-              placeholder="选择房间" class="start startRoom">
-              <el-option
-                v-for="item in roomList"
-                :label="item.roomNumber+'房间'"
-                :value="item.id">
-              </el-option>
-            </el-select>
-            <el-select
-              v-model="equipment"
-              placeholder="选择设备类型" class="start startDevice">
-              <el-option label="全部设备" value=""></el-option>
-              <el-option
-                v-for="item in equipmentList"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select>
-        </el-form>
-        <div class="main_nav_two float-right">
-          <router-link to="/Equipment_management/all"><span><i class="icon iconfont icon-liebiao-xian-"></i>列表</span></router-link>
-          <router-link to="/Equipment_management/maps"><span @click="btn_map"><i class="icon iconfont icon-liebiaoditu-xian-"></i>地图</span></router-link>
-        </div>
-      </div>
+      
       <!-- 表格 -->
       <div class="main_content_table">
         <el-table
@@ -345,571 +289,507 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-  import { realconsole } from '../../assets/js/management.js';
-  import { isvalidPhone,isName,isvalidName,isLng } from '../../assets/js/validate';
-  export default {
-    data() {
-      var validPhone=(rule, value,callback)=>{
-            if (!value){
-              callback(new Error('请输入手机号码(非必填)'))
-            }else  if (!isvalidPhone(value)){
-              callback(new Error('请输入正确的11位手机号码(非必填)'))
-            }else {
-              callback()
-            }
-        }
-        var validName=(rule, value,callback)=>{
-            if (!value){
-              callback(new Error('请输入设备名称'))
-            }else  if (!isvalidName(value)){
-              callback(new Error('请输入正确的设备名称'))
-            }else {
-              callback()
-            }
-        }
-        var linkName=(rule, value,callback)=>{
-            if (!value){
-              callback(new Error('请输入维保人员姓名(非必填)'))
-            }else  if (!isName(value)){
-              callback(new Error('请输入正确的维保人员姓名(非必填)'))
-            }else {
-              callback()
-            }
-        }
-        var Lng=(rule, value,callback)=>{
-            if (!value){
-              callback(new Error('请输入坐标'))
-            }else  if (!isLng(value)){
-              callback(new Error('请输入正确的坐标点'))
-            }else {
-              callback()
-            }
-        }
-      return {
-        labelPosition: 'top',
-        form:{
-          id:'',
-          name:'',
-          unitId:null,
-          unitName:'',
-          buildingId:'',
-          buildingName:'',
-          floorId:'',
-          floorNumber:'',
-          roomId:'',
-          roomNumber:'',
-          equipmentId:'',
-          deviceTypeName:'',
-          roomList:[],
-          floorList:[],
-          buildList:[],
-          point:[],
-          Rate:[],
-          PhysicalAddress:'',
-          startDate:'',
-          lifeMonth:'',
-          RoofHeight:'',
-          floorHeight:'',
-          Retroperiod:'',
-          Bike:'',
-          ProductionDay:'',
-          Refundable:'',
-          linkname:'',
-          phone:''
-        },
+import { mapState } from "vuex";
+import { realconsole } from "../../assets/js/management.js";
+import {
+  isvalidPhone,
+  isName,
+  isvalidName,
+  isLng
+} from "../../assets/js/validate";
+export default {
+  data() {
+    var validPhone = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请输入手机号码(非必填)"));
+      } else if (!isvalidPhone(value)) {
+        callback(new Error("请输入正确的11位手机号码(非必填)"));
+      } else {
+        callback();
+      }
+    };
+    var validName = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请输入设备名称"));
+      } else if (!isvalidName(value)) {
+        callback(new Error("请输入正确的设备名称"));
+      } else {
+        callback();
+      }
+    };
+    var linkName = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请输入维保人员姓名(非必填)"));
+      } else if (!isName(value)) {
+        callback(new Error("请输入正确的维保人员姓名(非必填)"));
+      } else {
+        callback();
+      }
+    };
+    var Lng = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请输入坐标"));
+      } else if (!isLng(value)) {
+        callback(new Error("请输入正确的坐标点"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      labelPosition: "top",
+      form: {
+        id: "",
+        name: "",
+        unitId: null,
+        unitName: "",
+        buildingId: "",
+        buildingName: "",
+        floorId: "",
+        floorNumber: "",
+        roomId: "",
+        roomNumber: "",
+        equipmentId: "",
+        deviceTypeName: "",
+        roomList: [],
+        floorList: [],
+        buildList: [],
+        point: [],
+        Rate: [],
+        PhysicalAddress: "",
+        startDate: "",
+        lifeMonth: "",
+        RoofHeight: "",
+        floorHeight: "",
+        Retroperiod: "",
+        Bike: "",
+        ProductionDay: "",
+        Refundable: "",
+        linkname: "",
+        phone: ""
+      },
 
-
-        
-        unit:null,//选择单位
-        building:'',//选择建筑
-        floor:'',
-        room:'',
-        equipment:'',
-        roomList:[],
-        floorList:[],
-        buildList:[],
-        equipmentList:[],
-        optionList:[],//全部单位列表
-        tableData: [],//设备列表
-        page:null,//总页数
-        currentPage4: 1,//当前页
-        totalList:null,//总条数
-        deviceIndex:'',
-        deviceName:'',
-        rules: {
-            name:[
-              { required: true, trigger: 'blur', validator: validName }
-            ],
-            unitId:[
-              { required: true, message: '请选择单位', trigger: 'change' }
-            ],
-            equipmentId:[
-              { required: true, message: '请选择设备类型', trigger: 'change' }
-            ],
-            buildingId: [
-              { required: true, message: '请选择设备位置', trigger: 'change' }
-            ],
-            PhysicalAddress:[
-              { required: true, message: '请填写物理地址', trigger: 'blur' }
-            ],
-            controlId:[
-              { required: true, trigger: 'blur', message: '请输入控制器ID' }
-            ],
-            RoofHeight:[
-              { required: true, trigger: 'blur', message: '相对房顶高度' },
-              { type: 'number', message: '必须为数字值'}
-            ],
-            floorHeight:[
-              { required: true, trigger: 'blur', message: '请输入相对地板高度' },
-              { type: 'number', message: '必须为数字值'}
-            ],
-            Bike:[
-              { required: true, trigger: 'blur', message: '请填写生厂商(非必填)' }
-            ],
-            ProductionDay:[
-              { required: true, trigger: 'change', message: '请选择生产日期(非必填)' }
-            ],
-            startDate:[
-              { required: true, trigger: 'change', message: '请选择投入使用日期' }
-            ],
-            Refundable:[
-              { required: true, trigger: 'blur', message: '请填写维保单位(非必填)' }
-            ],
-            linkname:[
-              { required: true, trigger: 'blur', validator: linkName }
-            ],
-            phone:[
-              { required: true, trigger: 'blur', validator: validPhone }
-            ],
-            Retroperiod:[
-              { required: true, trigger: 'blur', message: '请输入更换周期' },
-              { type:'number',message: '必须为数字值'}
-            ],
-            point:[
-              { required: true, trigger: 'blur', validator: Lng }
-            ],
-            Rate:[
-              { required: true, trigger: 'blur', message: '请填写平面图坐标' }
-            ]
+      optionList: [], //全部单位列表
+      tableData: [], //设备列表
+      page: null, //总页数
+      currentPage4: 1, //当前页
+      totalList: null, //总条数
+      deviceIndex: "",
+      deviceName: "",
+      rules: {
+        name: [{ required: true, trigger: "blur", validator: validName }],
+        unitId: [{ required: true, message: "请选择单位", trigger: "change" }],
+        equipmentId: [
+          { required: true, message: "请选择设备类型", trigger: "change" }
+        ],
+        buildingId: [
+          { required: true, message: "请选择设备位置", trigger: "change" }
+        ],
+        PhysicalAddress: [
+          { required: true, message: "请填写物理地址", trigger: "blur" }
+        ],
+        controlId: [
+          { required: true, trigger: "blur", message: "请输入控制器ID" }
+        ],
+        RoofHeight: [
+          { required: true, trigger: "blur", message: "相对房顶高度" },
+          { type: "number", message: "必须为数字值" }
+        ],
+        floorHeight: [
+          { required: true, trigger: "blur", message: "请输入相对地板高度" },
+          { type: "number", message: "必须为数字值" }
+        ],
+        Bike: [
+          { required: true, trigger: "blur", message: "请填写生厂商(非必填)" }
+        ],
+        ProductionDay: [
+          {
+            required: true,
+            trigger: "change",
+            message: "请选择生产日期(非必填)"
           }
+        ],
+        startDate: [
+          { required: true, trigger: "change", message: "请选择投入使用日期" }
+        ],
+        Refundable: [
+          { required: true, trigger: "blur", message: "请填写维保单位(非必填)" }
+        ],
+        linkname: [{ required: true, trigger: "blur", validator: linkName }],
+        phone: [{ required: true, trigger: "blur", validator: validPhone }],
+        Retroperiod: [
+          { required: true, trigger: "blur", message: "请输入更换周期" },
+          { type: "number", message: "必须为数字值" }
+        ],
+        point: [{ required: true, trigger: "blur", validator: Lng }],
+        Rate: [{ required: true, trigger: "blur", message: "请填写平面图坐标" }]
+      }
+    };
+  },
+  methods: {
+    data(row, column) {
+      return row.startDate.substr(0, 10);
+    },
+    formatter(row, column) {
+      if (row.startDate) {
+        return this.dateMinus(row.startDate);
       }
     },
-    methods: {
-      data(row, column){
-        return row.startDate.substr(0,10);
-      },
-      formatter(row, column){
-        if(row.startDate){
-          return this.dateMinus(row.startDate)
-        }
-      },
-      btn_map(){
-        $('.plan').hide();
-        $('.mapTable').show();
-        $('.total').show();
-      },
-      btn_add(){
-        $('#right').css('display','none');
-      },
-      handleCurrentChange(val) {
-        this.currentPage4 = val;
-        $('.el-pager li.active').css({'color':'#fff','background-color':'#333333'}).siblings().css({'color':'#666','background-color':'transparent'})
-      },
-      start_plan(row){//修改
-        this.deviceIndex = row.id ;
-        this.tableData.forEach((item,index)=>{
-          if(item.id == row.id){
-            this.form.id = item.id ;
-            this.form.name = item.name ;
-            this.form.unitId = item.unitId ;
-            this.form.unitName = item.unitName ;
-            
-            if(item.buildingId == 0){
-              this.form.buildingId = 0 ;
-            }else{
-              this.form.buildingId = item.buildingId ;
-            }
-            this.form.buildingName = item.buildingName ;
+    handleCurrentChange(val) {
+      this.currentPage4 = val;
+      $(".el-pager li.active")
+        .css({ color: "#fff", "background-color": "#333333" })
+        .siblings()
+        .css({ color: "#666", "background-color": "transparent" });
+    },
+    start_plan(row) {
+      //修改
+      this.deviceIndex = row.id;
+      this.tableData.forEach((item, index) => {
+        if (item.id == row.id) {
+          this.form.id = item.id;
+          this.form.name = item.name;
+          this.form.unitId = item.unitId;
+          this.form.unitName = item.unitName;
 
-            if(item.floorId == 0){
-              this.form.floorId = '' ;
-            }else{
-              this.form.floorId = item.floorId ;
-            }
-            
-            this.form.floorNumber = item.floorNumber ;
-
-            if(item.roomId == 0){
-              this.form.roomId = '' ;
-            }else{
-              this.form.roomId = item.roomId ;
-            }
-            this.form.roomNumber = item.roomNumber
-            this.form.equipmentId = item.deviceTypeId ;
-            this.form.deviceTypeName = item.deviceTypeName;
-            this.form.point[0] = item.pointX ;
-            this.form.point[1] = item.pointY ;
-            this.form.Rate[0] = item.xRate ;
-            this.form.Rate[1] = item.yRate ;
-            this.form.PhysicalAddress = item.mac ;
-            this.form.startDate = item.startDate ;
-            this.form.RoofHeight = item.height ;
-            this.form.floorHeight = item.fheight ;
-            this.form.Retroperiod = item.lifeMonth ;
-            this.form.Bike = item.firm ;
-            this.form.ProductionDay = item.productDate ;
-            this.form.Refundable = item.maintenanceUnit ;
-            this.form.linkname = item.maintenanceUser ;
-            this.form.phone = item.maintenancePhone ;
-            this.form.controlId = item.controllerId ;
-          }
-        })
-      },
-      startRow(formName){
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            console.log(valid)
-            var point = this.form.point;
-            if(typeof(point) == 'string'){
-              var pointList = point.split(",");
-            }else{
-              var pointList = this.form.point;
-            }
-            var Rate = this.form.Rate;
-            // console.log(typeof(point))
-            if(typeof(Rate) == 'string'){
-              var RateList = Rate.split(",");
-            }else{
-              var RateList = this.form.Rate;
-            }
-            this.$fetch("/api/device/updateDevice",{
-              'id':this.form.id,
-              'name':this.form.name,
-              'unitId':this.form.unitId,
-              'unitName':this.form.unitName,
-              'buildingId':this.form.buildingId,
-              'buildingName':this.form.buildingName,
-              'floorId':this.form.floorId,
-              'floorNumber':this.form.floorNumber,
-              'roomId':this.form.roomId,
-              'roomNumber':this.form.roomNumber,
-              'deviceTypeId':this.form.equipmentId,
-              'deviceTypeName':this.form.deviceTypeName,
-              'pointX':pointList[0],
-              'pointY':pointList[1],
-              'xRate':RateList[0],
-              'yRate':RateList[1],
-              'mac':this.form.PhysicalAddress,
-              'startDate':this.form.startDate,
-              'height':this.form.RoofHeight,
-              'fheight':this.form.floorHeight,
-              'lifeMonth':this.form.Retroperiod,
-              'firm':this.form.Bike,
-              'productDate':this.form.ProductionDay,
-              'maintenanceUnit':this.form.Refundable,
-              'maintenanceUser':this.form.linkname,
-              'maintenancePhone':this.form.phone,
-              'controllerId':this.form.controlId
-            }).then(response=>{
-              if(response){
-                //console.log('修改成功...'+ JSON.stringify(response));
-                this.tableList();
-              }
-            })
-            $('.primary').attr('data-dismiss','modal');
-            // 修改成功提示
-            this.$message({
-              dangerouslyUseHTMLString: true,
-              message: '<strong> 修改成功</strong>',
-              center: true,
-              showClose: true,
-              iconClass:'el-icon-circle-check',
-              customClass:'edit-ok-notification'
-            });
+          if (item.buildingId == 0) {
+            this.form.buildingId = 0;
           } else {
-            //console.log('error submit!!');
-            return false;
+            this.form.buildingId = item.buildingId;
           }
-        });
-      },
-      delete_plan(row){//删除
-        this.deviceName = row.name;
-        this.deviceIndex = row.id;
-      },
-      show3(row){//跳转
-        //console.log(row.id);
-        this.$store.commit('currentPage',this.currentPage4);
-        this.$store.commit('deviceId',row);
-        $('.plan').show();
-        $('.mapTable').hide();
-        $('.total').hide();
-      },
-      deleteRow(){
-          //console.log(this.deviceIndex);
-          this.$fetch("/api/device/deleteDevice",{
-            'deviceId':this.deviceIndex
-          }).then(response=>{
-            if(response){
-              //console.log('删除成功...'+ JSON.stringify(response));
-              this.tableData.splice(this.deviceIndex,1);
+          this.form.buildingName = item.buildingName;
+
+          if (item.floorId == 0) {
+            this.form.floorId = "";
+          } else {
+            this.form.floorId = item.floorId;
+          }
+
+          this.form.floorNumber = item.floorNumber;
+
+          if (item.roomId == 0) {
+            this.form.roomId = "";
+          } else {
+            this.form.roomId = item.roomId;
+          }
+          this.form.roomNumber = item.roomNumber;
+          this.form.equipmentId = item.deviceTypeId;
+          this.form.deviceTypeName = item.deviceTypeName;
+          this.form.point[0] = item.pointX;
+          this.form.point[1] = item.pointY;
+          this.form.Rate[0] = item.xRate;
+          this.form.Rate[1] = item.yRate;
+          this.form.PhysicalAddress = item.mac;
+          this.form.startDate = item.startDate;
+          this.form.RoofHeight = item.height;
+          this.form.floorHeight = item.fheight;
+          this.form.Retroperiod = item.lifeMonth;
+          this.form.Bike = item.firm;
+          this.form.ProductionDay = item.productDate;
+          this.form.Refundable = item.maintenanceUnit;
+          this.form.linkname = item.maintenanceUser;
+          this.form.phone = item.maintenancePhone;
+          this.form.controlId = item.controllerId;
+        }
+      });
+    },
+    startRow(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          console.log(valid);
+          var point = this.form.point;
+          if (typeof point == "string") {
+            var pointList = point.split(",");
+          } else {
+            var pointList = this.form.point;
+          }
+          var Rate = this.form.Rate;
+          // console.log(typeof(point))
+          if (typeof Rate == "string") {
+            var RateList = Rate.split(",");
+          } else {
+            var RateList = this.form.Rate;
+          }
+          this.$fetch("/api/device/updateDevice", {
+            id: this.form.id,
+            name: this.form.name,
+            unitId: this.form.unitId,
+            unitName: this.form.unitName,
+            buildingId: this.form.buildingId,
+            buildingName: this.form.buildingName,
+            floorId: this.form.floorId,
+            floorNumber: this.form.floorNumber,
+            roomId: this.form.roomId,
+            roomNumber: this.form.roomNumber,
+            deviceTypeId: this.form.equipmentId,
+            deviceTypeName: this.form.deviceTypeName,
+            pointX: pointList[0],
+            pointY: pointList[1],
+            xRate: RateList[0],
+            yRate: RateList[1],
+            mac: this.form.PhysicalAddress,
+            startDate: this.form.startDate,
+            height: this.form.RoofHeight,
+            fheight: this.form.floorHeight,
+            lifeMonth: this.form.Retroperiod,
+            firm: this.form.Bike,
+            productDate: this.form.ProductionDay,
+            maintenanceUnit: this.form.Refundable,
+            maintenanceUser: this.form.linkname,
+            maintenancePhone: this.form.phone,
+            controllerId: this.form.controlId
+          }).then(response => {
+            if (response) {
+              //console.log('修改成功...'+ JSON.stringify(response));
               this.tableList();
             }
-          }).then(err => {
-            //console.log(err);
           });
-      },
-      dateMinus(sDate){ 
-    　　var sdate = new Date(sDate.replace(/-/g, "/")); 
-    　　var now = new Date(); 
-    　　var days = now.getTime() - sdate.getTime(); 
-    　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
-    　　return day; 
-      },
-      qrcode(){
-        window.open("/api/qrcode/deviceImgs?unitId="+this.unit+'&buildingId='+this.building+'&floorId='+this.floor+'&roomId='+this.room+'&deviceTypeId='+this.equipment);
-      },
-      unitSearch(){
-        this.$fetch(
-          "/api/unit/queryUnit"
-        )
-          .then(response => {
-            if (response) {
-              //console.log(response);
-              this.optionList = response.data.unitList;
-              //console.log(this.optionList);
-              $(' .el-select-dropdown__item').mouseover(function(){
-                $(this).css({'color':'#fff','background':'#222'}).siblings().css({'color':'#999','background':'#000'})
-              });
-            }
-          })
-          .then(err => {
-            // //console.log(err);
+          $(".primary").attr("data-dismiss", "modal");
+          // 修改成功提示
+          this.$message({
+            dangerouslyUseHTMLString: true,
+            message: "<strong> 修改成功</strong>",
+            center: true,
+            showClose: true,
+            iconClass: "el-icon-circle-check",
+            customClass: "edit-ok-notification"
           });
-      },
-      tableList(){
-        this.$fetch(
-          "/api/device/deviceList",{
-            unitId:this.unit,
-            deviceTypeId:this.equipment,
-            buildingId:this.building,
-            floorId:this.floor,
-            roomId:this.room,
-            currentPage:this.currentPage4,
-            pageSize:14
+        } else {
+          //console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    delete_plan(row) {
+      //删除
+      this.deviceName = row.name;
+      this.deviceIndex = row.id;
+    },
+    show3(row) {
+      //跳转
+      //console.log(row.id);
+      this.$store.commit("currentPage", this.currentPage4);
+      this.$store.commit("deviceId", row);
+      $(".plan").show();
+      $(".mapTable").hide();
+      $(".total").hide();
+    },
+    deleteRow() {
+      //console.log(this.deviceIndex);
+      this.$fetch("/api/device/deleteDevice", {
+        deviceId: this.deviceIndex
+      })
+        .then(response => {
+          if (response) {
+            //console.log('删除成功...'+ JSON.stringify(response));
+            this.tableData.splice(this.deviceIndex, 1);
+            this.tableList();
           }
-        )
-          .then(response => {
-            //console.log('设备111111111111111111'+JSON.stringify(response));
-            if (response) {
-              // //console.log(response.data.inspectionPlanList);
-              this.totalList = response.data.pager.totalRow;
-              this.tableData = response.data.pager.result;
-              this.tableData.forEach((item,index)=>{
-                // //console.log(111)
-                if(index == this.tableData.length-1){
-                  this.$store.commit('deviceId',item);
-                }
-              })
-              if(this.totalList % 14 == 0){
-                this.page = parseInt( this.totalList / 14 )
-              }else{
-                this.page = parseInt( this.totalList / 14 ) + 1
+        })
+        .then(err => {
+          //console.log(err);
+        });
+    },
+    dateMinus(sDate) {
+      var sdate = new Date(sDate.replace(/-/g, "/"));
+      var now = new Date();
+      var days = now.getTime() - sdate.getTime();
+      var day = parseInt(days / (1000 * 60 * 60 * 24));
+      return day;
+    },
+    qrcode() {
+      window.open(
+        "/api/qrcode/deviceImgs?unitId=" +
+          this.EquipmentUnit[0] +
+          "&buildingId=" +
+          this.EquipmentBuild[0] +
+          "&floorId=" +
+          this.EquipmentFloor[0] +
+          "&roomId=" +
+          this.EquipmentRoom[0] +
+          "&deviceTypeId=" +
+          this.Equipment[0]
+      );
+    },
+    unitSearch() {
+      this.$fetch("/api/unit/queryUnit")
+        .then(response => {
+          if (response) {
+            //console.log(response);
+            this.optionList = response.data.unitList;
+            //console.log(this.optionList);
+            $(" .el-select-dropdown__item").mouseover(function() {
+              $(this)
+                .css({ color: "#fff", background: "#222" })
+                .siblings()
+                .css({ color: "#999", background: "#000" });
+            });
+          }
+        })
+        .then(err => {
+          // //console.log(err);
+        });
+    },
+    tableList() {
+      this.$fetch("/api/device/deviceList", {
+        unitId: this.EquipmentUnit[0],
+        deviceTypeId: this.Equipment[0],
+        buildingId: this.EquipmentBuild[0],
+        floorId: this.EquipmentFloor[0],
+        roomId: this.EquipmentRoom[0],
+        currentPage: this.currentPage4,
+        pageSize: 14
+      })
+        .then(response => {
+          //console.log('设备111111111111111111'+JSON.stringify(response));
+          if (response) {
+            // //console.log(response.data.inspectionPlanList);
+            this.totalList = response.data.pager.totalRow;
+            this.tableData = response.data.pager.result;
+            this.tableData.forEach((item, index) => {
+              // //console.log(111)
+              if (index == this.tableData.length - 1) {
+                this.$store.commit("deviceId", item);
               }
+            });
+            if (this.totalList % 14 == 0) {
+              this.page = parseInt(this.totalList / 14);
+            } else {
+              this.page = parseInt(this.totalList / 14) + 1;
             }
-          })
-          .then(err => {
-            // //console.log(err);
-          });
-      },
-      buildSearch(unitId){
-        this.$fetch("/api/building/selectNode",{
-          unitId:unitId
-        }).then(response=>{
-          //console.log('buildSearch:'+JSON.stringify(response));
-          if (response) {
-            this.buildList = response.data.list;
-            console.log(this.buildList);
           }
         })
-      },
-      floorSearch(buildIngId){
-        this.$fetch("/api/building/selectNode",{
-          buildIngId:buildIngId
-        }).then(response=>{
-          //console.log('floorSearch:'+response);
-          if (response) {
-            this.floorList = response.data.list;
-            //console.log(this.floorList);
-          }
-        })
-      },
-      roomSearch(floorId){
-        this.$fetch("/api/building/selectNode",{
-          floorId:floorId
-        }).then(response=>{
-          //console.log('roomSearch:'+response);
-          if (response) {
-            this.roomList = response.data.list;
-            //console.log(this.roomList);
-          }
-        })
-      },
-      equipmentSearch(){
-        this.$fetch("/api/device/deviceTypeEnumList").then(response=>{
-          //console.log('equipmentSearch:'+response);
-          if (response) {
-            this.equipmentList = response.data.deviceTypeEnum;
-            //console.log(this.equipmentList);
-          }
-        })
-      },
-      formBuildSearch(unitId){
-        this.$fetch("/api/building/selectNode",{
-          unitId:unitId
-        }).then(response=>{
-          //console.log('formBuildSearch:'+JSON.stringify(response));
-          if (response) {
-            this.form.buildList = response.data.list;
-            console.log(this.form.buildList);
-          }
-        })
-      },
-      formFloorSearch(buildIngId){
-        this.$fetch("/api/building/selectNode",{
-          buildIngId:buildIngId
-        }).then(response=>{
-          //console.log('formFloorSearch:'+response);
-          if (response) {
-            this.form.floorList = response.data.list;
-            //console.log(this.form.floorList);
-          }
-        })
-      },
-      formRoomSearch(floorId){
-        this.$fetch("/api/building/selectNode",{
-          floorId:floorId
-        }).then(response=>{
-          //console.log('formRoomSearch:'+response);
-          if (response) {
-            this.form.roomList = response.data.list;
-            //console.log(this.form.roomList);
-          }
-        })
-      }
+        .then(err => {
+          // //console.log(err);
+        });
     },
-    computed:{
-      ...mapState([
-        'Refresh'
-      ]),
-      unitId(){
-        return this.form.unitId;
-      },
-      buildingId(){
-        return this.form.buildingId;
-      },
-      floorId(){
-        return this.form.floorId;
-      },
-      roomId(){
-        return this.form.roomId;
-      },
-      equipmentId(){
-        return this.form.equipmentId;
-      }
-    },
-    watch:{
-      currentPage4(val, oldVal){
-        this.currentPage4 = val;
-        //console.log(this.currentPage4);
-        this.tableList();
-      },
-      unit(curVal,oldVal){
-        this.unit = curVal;
-        this.building = '';
-        this.floor = '';
-        this.room = '';
-        this.buildSearch(this.unit);
-        this.$store.commit('Unit',this.unit);
-        this.tableList();
-      },
-      building(curVal,oldVal){
-        this.building = curVal ;
-        //console.log(this.building);
-        this.floor = '';
-        this.room = '';
-        this.floorSearch(this.building);
-        this.tableList();
-      },
-      floor(curVal,oldVal){
-        this.floor = curVal ;
-        this.room = '';
-        //console.log(this.floor);
-        if(this.floor !== 0){
-          this.roomSearch(this.floor);
-          this.tableList();
+
+    formBuildSearch(unitId) {
+      this.$fetch("/api/building/selectNode", {
+        unitId: unitId
+      }).then(response => {
+        //console.log('formBuildSearch:'+JSON.stringify(response));
+        if (response) {
+          this.form.buildList = response.data.list;
+          console.log(this.form.buildList);
         }
-      },
-      room(curVal,oldVal){
-        this.room = curVal ;
-        //console.log(this.room);
-        this.tableList();
-      },
-      equipment(curVal,oldVal){
-        this.equipment = curVal ;
-        //console.log(this.equipment);
-        this.tableList();
-      },
-      unitId(curVal,oldVal){
-        this.form.unitId = curVal;
-        // console.log(curVal);
-        this.form.buildingId = '';
-        this.form.floorId = '';
-        this.form.roomId = '';
-        this.formBuildSearch(this.form.unitId);
-        console.log(this.form.unitId)
-      },
-      buildingId(curVal,oldVal){
-        this.form.buildingId = curVal;
-        //console.log(this.form.buildingId)
-        this.form.floorId = '';
-        this.form.roomId = '';
-        this.formFloorSearch(this.form.buildingId);
-      },
-      floorId(curVal,oldVal){
-        this.form.floorId = curVal;
-        this.form.roomId = '';
-        if(this.form.floorId !== 0){
-          this.formRoomSearch(this.form.floorId);
-        }
-      },
-      roomId(curVal,oldVal){
-        this.form.roomId = curVal ;
-      },
-      equipmentId(curVal,oldVal){
-        this.form.equipmentId = curVal;
-      },
-      Refresh(){
-        // this.floor
-      }
+      });
     },
-    mounted(){
-      realconsole();
-      this.tableList();
-      this.unitSearch();
-      this.equipmentSearch();
-      $('#right').show();
-      var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
-      if(roleId == 1 || roleId == 2){
-        $("#equipment").find("#mymodal input").removeAttr('disabled');
-        $("#equipment").find("#mymodal .el-input").removeClass('is-disabled');
-      }
-      // this.$store.commit('Unit',this.unit);
-      if(this.$route.path == '/Equipment_management/all'){
-        $('.mapTable').hide();
-        $('.total').hide();
-        $('.plan').show();
-      }
+    formFloorSearch(buildIngId) {
+      this.$fetch("/api/building/selectNode", {
+        buildIngId: buildIngId
+      }).then(response => {
+        //console.log('formFloorSearch:'+response);
+        if (response) {
+          this.form.floorList = response.data.list;
+          //console.log(this.form.floorList);
+        }
+      });
+    },
+    formRoomSearch(floorId) {
+      this.$fetch("/api/building/selectNode", {
+        floorId: floorId
+      }).then(response => {
+        //console.log('formRoomSearch:'+response);
+        if (response) {
+          this.form.roomList = response.data.list;
+          //console.log(this.form.roomList);
+        }
+      });
     }
-  };
+  },
+  computed: {
+    ...mapState([
+      "Refresh",
+      "EquipmentUnit",
+      "EquipmentBuild",
+      "EquipmentFloor",
+      "EquipmentRoom",
+      "Equipment"
+    ]),
+    unitId() {
+      return this.form.unitId;
+    },
+    buildingId() {
+      return this.form.buildingId;
+    },
+    floorId() {
+      return this.form.floorId;
+    },
+    roomId() {
+      return this.form.roomId;
+    },
+    equipmentId() {
+      return this.form.equipmentId;
+    }
+  },
+  watch: {
+    currentPage4(val, oldVal) {
+      this.currentPage4 = val;
+      //console.log(this.currentPage4);
+      this.tableList();
+    },
+    EquipmentUnit() {
+      this.tableList();
+    },
+    EquipmentBuild() {
+      this.tableList();
+    },
+    EquipmentFloor() {
+      this.tableList();
+    },
+    EquipmentRoom() {
+      this.tableList();
+    },
+    Equipment() {
+      this.tableList();
+    },
+    unitId(curVal, oldVal) {
+      this.form.unitId = curVal;
+      // console.log(curVal);
+      this.form.buildingId = "";
+      this.form.floorId = "";
+      this.form.roomId = "";
+      this.formBuildSearch(this.form.unitId);
+      console.log(this.form.unitId);
+    },
+    buildingId(curVal, oldVal) {
+      this.form.buildingId = curVal;
+      //console.log(this.form.buildingId)
+      this.form.floorId = "";
+      this.form.roomId = "";
+      this.formFloorSearch(this.form.buildingId);
+    },
+    floorId(curVal, oldVal) {
+      this.form.floorId = curVal;
+      this.form.roomId = "";
+      if (this.form.floorId !== 0) {
+        this.formRoomSearch(this.form.floorId);
+      }
+    },
+    roomId(curVal, oldVal) {
+      this.form.roomId = curVal;
+    },
+    equipmentId(curVal, oldVal) {
+      this.form.equipmentId = curVal;
+    },
+    Refresh() {
+      // this.floor
+    }
+  },
+  mounted() {
+    realconsole();
+    this.tableList();
+    this.unitSearch();
+    $("#right").show();
+    var roleId = JSON.parse(sessionStorage.getItem("roleId"));
+    // if(roleId == 1 || roleId == 2){
+    //  }
+    // this.$store.commit('Unit',this.unit);
+    if (this.$route.path == "/Equipment_management/all") {
+      $(".mapTable").hide();
+      $(".total").hide();
+      $(".plan").show();
+    }
+  }
+};
 </script>

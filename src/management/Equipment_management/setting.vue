@@ -22,7 +22,7 @@
 
 <script>
   import Set_leftVue from '../left.vue';
-  import MainVue from '../main.vue';
+  import MainVue from './main.vue';
   import Set_rightVue from './set_right.vue';
   export default {
     methods:{
@@ -42,8 +42,8 @@
     mounted(){
       var roleId = JSON.parse(sessionStorage.getItem("roleId")) ;
       if(roleId == 1 || roleId == 2){
-        $("#equipment").find("#mymodal input").removeAttr('disabled');
-        $("#equipment").find("#mymodal .el-input").removeClass('is-disabled');
+        // $("#equipment").find("#mymodal input").removeAttr('disabled');
+        // $("#equipment").find("#mymodal .el-input").removeClass('is-disabled');
       }
     }
   }

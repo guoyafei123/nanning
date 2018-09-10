@@ -26,6 +26,11 @@ var state={
   DeviceList:'',
   currentPageDevice:'',
   deviceSimple:'',
+  EquipmentUnit:'',
+  EquipmentBuild:'',
+  EquipmentFloor:'',
+  EquipmentRoom:'',
+  Equipment:'',
   //建筑
   buildUnit:'',
   buildingId:'',
@@ -166,6 +171,22 @@ var mutations={
   },
   deviceSimple(state,data){
     state.deviceSimple = data ;
+  },
+
+  EquipmentBuild(state,data){
+    state.EquipmentBuild = data ;
+  },
+  EquipmentUnit(state,data){
+    state.EquipmentUnit = data ;
+  },
+  EquipmentFloor(state,data){
+    state.EquipmentFloor = data ;
+  },
+  EquipmentRoom(state,data){
+    state.EquipmentRoom = data ;
+  },
+  Equipment(state,data){
+    state.Equipment = data ;
   },
   //建筑
   buildUnit(state,data){
